@@ -117,7 +117,7 @@ namespace AAMod.NPCs.Bosses.Retriever
         public Vector2 offsetBasePoint = new Vector2(240f, 0f);
 
         public float moveSpeed = 10f;
-        private int LaserTimer = 1200;
+        private int LaserTimer = 1000;
 
         public Projectile laser;
 
@@ -131,71 +131,108 @@ namespace AAMod.NPCs.Bosses.Retriever
                 npc.velocity.Y -= 5;
             }
 
-            LaserTimer++;
-            npc.frameCounter--;
+            LaserTimer--;
 
-            if (LaserTimer >= 300)
+            if (LaserTimer <= 300)
             {
-                npc.velocity = new Vector2(0, 0);
-                BaseAI.LookAt(targetPlayer.Center, npc, 3, 0f, 0.1f, false);
+                moveSpeed = 11f;
+                Vector2 point = targetPlayer.Center + offsetBasePoint + new Vector2(0f, -250f);
+                MoveToPoint(point);
+                BaseAI.LookAt(targetPlayer.Center, npc, 0, 0f, 0.1f, false);
                 npc.frame.Y = (62 * 4);
                 if (LaserTimer >= 293)
                 {
                     npc.frame.Y = (62 * 5);
+
+                    return;
                 }
                 else if (LaserTimer >= 286)
                 {
                     npc.frame.Y = (62 * 6);
+
+                    return;
                 }
                 else if (LaserTimer >= 279)
                 {
                     npc.frame.Y = (62 * 7);
+                    return;
                 }
                 else if (LaserTimer >= 272)
                 {
                     npc.frame.Y = (62 * 8);
+                    return;
                 }
                 else if (LaserTimer >= 265)
                 {
                     npc.frame.Y = (62 * 9);
+                    return;
                 }
                 else if (LaserTimer >= 258)
                 {
                     npc.frame.Y = (62 * 10);
+                    return;
                 }
                 else if (LaserTimer >= 251)
                 {
                     npc.frame.Y = (62 * 11);
+                    return;
                 }
                 else if (LaserTimer >= 244 && LaserTimer <= 60)
                 {
+                    npc.frameCounter++;
                     if (npc.frameCounter >= 7)
                     {
                         npc.frameCounter = 0;
                         npc.frame.Y += 62;
-                        if (npc.frame.Y > (62 * 13))
-                        {
-                            npc.frameCounter = 0;
-                            npc.frame.Y = 62 * 11;
-                        }
+                    }
+                    if (npc.frame.Y > (62 * 13))
+                    {
+                        npc.frame.Y = 62 * 11;
                     }
                     npc.defense = 999;
 
-                    laser = Main.projectile[Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, mod.ProjectileType("RetrieverLaser"), npc.damage, 3f, Main.myPlayer, npc.whoAmI, 420)];
-
+                    int num429 = 1;
+                    if (npc.position.X + (npc.width / 2) < Main.player[npc.target].position.X + Main.player[npc.target].width)
+                    {
+                        num429 = -1;
+                    }
+                    Vector2 PlayerDistance = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+                    float PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) + (num429 * 180) - PlayerDistance.X;
+                    float PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - PlayerDistance.Y;
+                    float PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX) + (PlayerPosY * PlayerPosY));
+                    float num433 = 6f;
+                    PlayerDistance = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+                    PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - PlayerDistance.X;
+                    PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - PlayerDistance.Y;
+                    PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX + PlayerPosY * PlayerPosY));
+                    PlayerPos = num433 / PlayerPos;
+                    PlayerPosX *= PlayerPos;
+                    PlayerPosY *= PlayerPos;
+                    PlayerPosY += Main.rand.Next(-40, 41) * 0.01f;
+                    PlayerPosX += Main.rand.Next(-40, 41) * 0.01f;
+                    PlayerPosY += npc.velocity.Y * 0.5f;
+                    PlayerPosX += npc.velocity.X * 0.5f;
+                    PlayerDistance.X -= PlayerPosX * 1f;
+                    PlayerDistance.Y -= PlayerPosY * 1f;
+                    Main.NewText("SHIT HAPPENED YO");
+                    Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX, PlayerPosY, mod.ProjectileType("RetrieverShot"), (int)(npc.damage * 1.4f), 0f, Main.myPlayer);
+                    return;
                 }
                 else if (LaserTimer >= 59)
                 {
                     npc.frame.Y = (38 * 10);
+                    return;
                 }
                 else if (LaserTimer == 0)
                 {
-                    LaserTimer = 1200;
+                    LaserTimer = 1000;
+                    return;
                 }
-                return;
             }
             else
             {
+
+                npc.frameCounter++;
                 npc.defense = 30;
                 if (npc.frameCounter >= 10)
                 {

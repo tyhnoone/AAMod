@@ -58,7 +58,6 @@ namespace AAMod.NPCs.Bosses.Zero
             npc.knockBackResist = -1f;
             npc.boss = true;
             npc.friendly = false;
-            animationType = NPCID.SkeletronPrime;
             npc.npcSlots = 1f;
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
@@ -100,8 +99,7 @@ namespace AAMod.NPCs.Bosses.Zero
             scale = 1.5f;
             return null;
         }
-
-        public int frameHeight = 212;
+        
 
         public override void HitEffect(int hitDirection, double damage)
         {
@@ -276,25 +274,16 @@ namespace AAMod.NPCs.Bosses.Zero
                 saythelinezero = true;
                 Main.NewText("CRITICAL ERR0R: ARM UNITS NOT FOUND. SHIELDS L0WERED. RER0UTING RES0URCES TO OFFENSIVE PR0T0C0LS", Color.Red.R, Color.Red.G, Color.Red.B);
             }
-            if (Main.player[npc.target].dead)
-            {
-                npc.TargetClosest(true);
-                if (Main.player[npc.target].dead)
-                {
-                    npc.ai[1] = 3f;
-                }
-            }
             if ( Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
             {
-                npc.TargetClosest(true);
-                if (Main.player[npc.target].dead)
-                {
-                    npc.ai[1] = 4f;
-                }
+                npc.ai[1] = 4f;
+            }
+            if (Main.player[npc.target].dead)
+            {
+                npc.ai[1] = 3f;
             }
             if (npc.ai[1] == 0f)
             {
-                npc.frame.Y = 0;
                 npc.damage = 100;
                 npc.defense = 90;
                 npc.ai[2] += 1f;
@@ -360,36 +349,23 @@ namespace AAMod.NPCs.Bosses.Zero
             {
                 if (npc.ai[1] == 1f)
                 {
-                    npc.frame.Y = frameHeight;
-                    npc.defense = 180;
-                    npc.damage = 200;
-                    npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
-                    Vector2 vector45 = new Vector2(npc.position.X + ((float)npc.width * 0.5f), npc.position.Y + ((float)npc.height * 0.5f));
-                    float num444 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector45.X;
-                    float num445 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector45.Y;
-                    float num446 = (float)Math.Sqrt((double)((num444 * num444) + (num445 * num445)));
-                    float num447 = 10f;
-                    num447 += num446 / 100f;
-                    if (num447 < 8f)
+                    npc.damage = 1000;
+                    npc.defense = 9999;
+                    ++npc.ai[2];
+                    if (npc.ai[2] == 2.0)
+                        Main.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
+                    if (npc.ai[2] >= 400.0)
                     {
-                        num447 = 8f;
+                        npc.ai[2] = 0.0f;
+                        npc.ai[1] = 0.0f;
                     }
-                    if (num447 > 32f)
-                    {
-                        num447 = 32f;
-                    }
-                    num446 = num447 / num446;
-                    npc.velocity.X = num444 * num446;
-                    npc.velocity.Y = num445 * num446;
-
-                    npc.ai[2] += 1f;
-                    if (npc.ai[2] >= 240f)
-                    {
-                        npc.ai[2] = 0f;
-                        npc.ai[1] = 0f;
-                        npc.TargetClosest(true);
-                        npc.netUpdate = true;
-                    }
+                    npc.rotation += npc.direction * 0.3f;
+                    Vector2 vector2 = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+                    float num1 = Main.player[npc.target].position.X + Main.player[npc.target].width / 2 - vector2.X;
+                    float num2 = Main.player[npc.target].position.Y + Main.player[npc.target].height / 2 - vector2.Y;
+                    float num3 = 2f / (float)Math.Sqrt(num1 * (double)num1 + num2 * (double)num2);
+                    npc.velocity.X = num1 * num3;
+                    npc.velocity.Y = num2 * num3;
                     return;
 
                 }
