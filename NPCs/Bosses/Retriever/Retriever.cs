@@ -215,17 +215,17 @@ namespace AAMod.NPCs.Bosses.Retriever
                     }
                     npc.defense = 999;
 
-                    BaseAI.ShootPeriodic(npc, npc.Center, npc.width, npc.height, mod.ProjectileType<RetrieverShot>(), ref customAI[1], 10, (int)(npc.damage * 1.6f), 10f, true);
+                    BaseAI.ShootPeriodic(npc, npc.Center, npc.width, npc.height, mod.ProjectileType<RetrieverShot>(), ref customAI[1], 40, (int)(npc.damage * 1.6f), 10f, true);
                     return;
                 }
                 else if (customAI[0] >= 59)
                 {
-                    npc.frame.Y = (38 * 10);
+                    npc.frame.Y = (62 * 10);
                     return;
                 }
                 else if (customAI[0] > 0)
                 {
-                    npc.frame.Y = (38 * 7);
+                    npc.frame.Y = (62 * 7);
                     return;
                 }
                 else if (customAI[0] <= 0)
