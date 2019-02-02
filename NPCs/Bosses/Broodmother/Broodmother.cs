@@ -210,7 +210,6 @@ namespace AAMod.NPCs.Bosses.Broodmother
                     npc.direction = -1;
                 }
                 npc.spriteDirection = npc.direction;
-                npc.rotation = ((npc.rotation * 9f) + (npc.velocity.X * 0.4f)) / 10f;
                 if (npc.collideX)
                 {
                     npc.velocity.X = npc.velocity.X * (-npc.oldVelocity.X * 0.6f);
@@ -305,7 +304,6 @@ namespace AAMod.NPCs.Bosses.Broodmother
 					npc.direction = 1;
 				}
 				npc.spriteDirection = npc.direction;
-				npc.rotation = ((npc.rotation * 9f) + (npc.velocity.X * 0.10f)) / 10f;
 				Vector2 value52 = Main.player[npc.target].Center - npc.Center;
 				if (value52.Length() < 300f && !Collision.SolidCollision(npc.position, npc.width, npc.height))
 				{
@@ -342,7 +340,6 @@ namespace AAMod.NPCs.Bosses.Broodmother
 					npc.direction = 1;
 				}
 				npc.spriteDirection = npc.direction;
-				npc.rotation = ((npc.rotation * 4f) + (npc.velocity.X * 0.1f)) / 5f;
 				if (npc.collideX)
 				{
 					npc.velocity.X = npc.velocity.X * (-npc.oldVelocity.X * 0.5f);
@@ -402,7 +399,6 @@ namespace AAMod.NPCs.Bosses.Broodmother
 					npc.direction = 1;
 				}
 				npc.spriteDirection = npc.direction;
-				npc.rotation = ((npc.rotation * 4f) + (npc.velocity.X * 0.09f)) / 5f;
 				Vector2 value54 = Main.player[npc.target].Center - npc.Center;
 				value54.Y -= 12f;
 				if (npc.Center.X > Main.player[npc.target].Center.X)
@@ -430,7 +426,6 @@ namespace AAMod.NPCs.Bosses.Broodmother
 			{
 				npc.knockBackResist = 0f;
 				npc.noTileCollide = true;
-				npc.rotation = ((npc.rotation * 4f) + (npc.velocity.X * 0.09f)) / 5f;
 				Vector2 vector206 = Main.player[npc.target].Center - npc.Center;
 				vector206.Y -= 12f;
 				float scaleFactor19 = 16f;
@@ -491,7 +486,6 @@ namespace AAMod.NPCs.Bosses.Broodmother
 						npc.ai[3] = 0f;
 					}
 				}
-				npc.rotation = ((npc.rotation * 4f) + (npc.velocity.X * 0.09f)) / 5f;
 				return;
 			}else
 			if (npc.ai[0] == AISTATE_SPAWNEGGS)
@@ -540,7 +534,6 @@ namespace AAMod.NPCs.Bosses.Broodmother
 					npc.direction = 1;
 				}
 				npc.spriteDirection = npc.direction;
-				npc.rotation = ((npc.rotation * 9f) + (npc.velocity.X * 0.1f)) / 10f;
 				npc.noTileCollide = true;
 				int num1317 = (int)npc.ai[1];
 				int num1318 = (int)npc.ai[2];
@@ -565,7 +558,6 @@ namespace AAMod.NPCs.Bosses.Broodmother
 			}else
 			if (npc.ai[0] == 4.2f) //sub spawning eggs
 			{
-				npc.rotation = ((npc.rotation * 9f) + (npc.velocity.X * 0.1f)) / 10f;
 				npc.knockBackResist = 0f;
 				npc.noTileCollide = true;
 				int num1321 = (int)npc.ai[1];
