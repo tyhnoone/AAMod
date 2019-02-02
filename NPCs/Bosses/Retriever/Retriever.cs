@@ -177,7 +177,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.frame.Y = (62 * 11);
                     return;
                 }
-                else if (LaserTimer >= 244 && LaserTimer <= 60)
+                else if (LaserTimer >= 60)
                 {
                     npc.frameCounter++;
                     if (npc.frameCounter >= 7)
