@@ -20,7 +20,8 @@ namespace AAMod.Projectiles
 			aiType = 261;
             projectile.width = 32;
             projectile.height = 32;
-            projectile.melee = true;
+            projectile.ranged = false;
+			projectile.magic = true;
             projectile.penetrate = 1;
             projectile.hostile = false;
             projectile.friendly = true;
