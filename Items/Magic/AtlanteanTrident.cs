@@ -16,7 +16,7 @@ namespace AAMod.Items.Magic
 
 		public override void SetDefaults()
 		{
-			item.damage = 32;
+			item.damage = 38;
 			item.magic = true;
 			item.mana = 8;
 			item.width = 68;
@@ -42,7 +42,7 @@ namespace AAMod.Items.Magic
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX*4, speedY*4).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f;
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage/2, knockBack, player.whoAmI);
 			}
 			return false;
 		}
