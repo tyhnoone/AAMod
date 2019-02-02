@@ -46,7 +46,6 @@ namespace AAMod.NPCs.Bosses.Retriever
         }
 
         public float[] customAI = new float[4];
-        public float[] shootAI = new float[4];
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
@@ -216,7 +215,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                     }
                     npc.defense = 999;
 
-                    BaseAI.ShootPeriodic(npc, npc.Center, npc.width, npc.height, mod.ProjectileType<RetrieverShot>(), ref shootAI, 10, (int)(npc.damage * 1.6f), 10f, true);
+                    BaseAI.ShootPeriodic(npc, npc.Center, npc.width, npc.height, mod.ProjectileType<RetrieverShot>(), ref customAI[1], 10, (int)(npc.damage * 1.6f), 10f, true);
                     return;
                 }
                 else if (customAI[0] >= 59)
