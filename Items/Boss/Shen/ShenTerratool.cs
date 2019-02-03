@@ -12,16 +12,7 @@ namespace AAMod.Items.Boss.Shen
 {
     public class ShenTerratool : ModItem
     {
-        public override void ModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Shen;
-                }
-            }
-        }
+        
         public override void SetDefaults()
         {
 
@@ -49,6 +40,17 @@ namespace AAMod.Items.Boss.Shen
             Tooltip.SetDefault("Right Click to change tool types");
         }
 
+        public override void ModifyTooltips(List<TooltipLine> list)
+        {
+            foreach (TooltipLine line2 in list)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = AAColor.Shen;
+                }
+            }
+        }
+
         public override bool CanRightClick()
         {
             return true;
@@ -57,8 +59,13 @@ namespace AAMod.Items.Boss.Shen
 
         public override void RightClick(Player player)
         {
+            byte pre = item.prefix;
             item.TurnToAir();
-            Item.NewItem(player.Center, mod.ItemType("ShenTerratool_Axe"), 1, false, item.prefix, true, false);
+            int itemID = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("ShenTerratool_Axe"), 1, false, pre, false, false);
+            if (Main.netMode == 1)
+            {
+                NetMessage.SendData(21, -1, -1, null, itemID, 1f, 0f, 0f, 0, 0, 0);
+            }
         }
     }
 }
