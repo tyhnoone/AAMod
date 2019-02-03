@@ -22,7 +22,7 @@ namespace AAMod.NPCs.Bosses.Raider
         {
             npc.width = 40;
             npc.height = 30;
-            npc.damage = 15;
+            npc.damage = 60;
             npc.defense = 16;
             npc.lifeMax = 300;
             npc.HitSound = SoundID.NPCHit42;
@@ -293,8 +293,8 @@ namespace AAMod.NPCs.Bosses.Raider
             if (npc.frameCounter >= 10)
             {
                 npc.frameCounter = 0;
-                npc.frame.Y += 16;
-                if (npc.frame.Y > (16 * 3))
+                npc.frame.Y += 28;
+                if (npc.frame.Y > (28 * 3))
                 {
                     npc.frameCounter = 0;
                     npc.frame.Y = 0;
