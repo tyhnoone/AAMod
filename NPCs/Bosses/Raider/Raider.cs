@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using BaseMod;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -14,7 +17,7 @@ namespace AAMod.NPCs.Bosses.Raider
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Raider Ultima");
-            Main.npcFrameCount[npc.type] = 6;
+            Main.npcFrameCount[npc.type] = 4;
 
         }
 
@@ -31,7 +34,6 @@ namespace AAMod.NPCs.Bosses.Raider
             npc.defense = 30;
             npc.lavaImmune = true;
             npc.boss = true;
-            animationType = NPCID.Mothron;
             npc.netAlways = true;
             npc.friendly = false;
             npc.lifeMax = 30000;
@@ -39,6 +41,33 @@ namespace AAMod.NPCs.Bosses.Raider
             npc.HitSound = new LegacySoundStyle(3, 4, Terraria.Audio.SoundType.Sound);
             npc.DeathSound = new LegacySoundStyle(4, 14, Terraria.Audio.SoundType.Sound);
             bossBag = mod.ItemType("RaiderBag");
+        }
+
+
+
+        public float[] customAI = new float[4];
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            if ((Main.netMode == 2 || Main.dedServ))
+            {
+                writer.Write((short)customAI[0]);
+                writer.Write((short)customAI[1]);
+                writer.Write((short)customAI[2]);
+                writer.Write((short)customAI[3]);
+            }
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            if (Main.netMode == 1)
+            {
+                customAI[0] = reader.ReadFloat();
+                customAI[1] = reader.ReadFloat();
+                customAI[2] = reader.ReadFloat();
+                customAI[3] = reader.ReadFloat();
+            }
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
@@ -75,19 +104,23 @@ namespace AAMod.NPCs.Bosses.Raider
             }
         }
 
-        /*public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+        public static Texture2D glowTex = null;
+        public static Texture2D glowTex1 = null;
+        public Color color;
+
+        public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
         {
+            if (glowTex == null)
             {
-                SpriteEffects spriteEffects = SpriteEffects.None;
-                if (npc.spriteDirection == 1)
-                {
-                    spriteEffects = SpriteEffects.FlipHorizontally;
-                }
-                spriteBatch.Draw(mod.GetTexture("NPCs/Bosses/Broodmother/Broodmother_Glow"), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
-                npc.frame, Color.White, npc.rotation,
-                new Vector2(npc.width * 0.5f, npc.height * 0.5f), 1f, spriteEffects, 0f);
+                glowTex = mod.GetTexture("Glowmasks/Raider_Glow1");
+                glowTex1 = mod.GetTexture("Glowmasks/Raider_Glow2");
             }
-        }*/
+            color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
+            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
+            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, color);
+            BaseDrawing.DrawTexture(spritebatch, glowTex1, 0, npc, Color.White);
+            return false;
+        }
 
         public override void BossLoot(ref string name, ref int potionType)
         {
@@ -127,27 +160,44 @@ namespace AAMod.NPCs.Bosses.Raider
                 target.AddBuff(BuffID.Electrified, Main.rand.Next(100, 180));       //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
             }
         }
-
-        private int ProjectileTimer = 0;
+        
         public override void AI()
         {
-            ProjectileTimer++;
-            if (ProjectileTimer == 300)
+            npc.frameCounter++;
+            if (npc.frameCounter >= 4)
             {
-                ProjectileTimer = 0;
-                if (Main.rand.Next(2) == 0)
-                {
-                    Projectile.NewProjectile(new Vector2(npc.Center.X - 101, npc.Center.Y), new Vector2(npc.velocity.X + 5, npc.velocity.Y), mod.ProjectileType("RaidSphere"), npc.damage, 1, 255);
-                }
+                npc.frameCounter = 0;
+                npc.frame.Y += 192;
+            }
+            if (npc.frame.Y > (192 * 3))
+            {
+                npc.frame.Y = 0;
+            }
+            customAI[0]++;
+            if (customAI[0] == 300)
+            {
+                customAI[0] = 0;
                 int RocketNumber = 5;
-                 
                 if (Main.expertMode)
                 {
                     RocketNumber = 7;
                 }
-                for (int Rockets = 0; Rockets < RocketNumber; Rockets++)
+                if (customAI[1] == 0 || customAI[1] == 3 || customAI[1] == 4)
                 {
-                    NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<RaidRocket>());
+                    Projectile.NewProjectile(new Vector2(npc.Center.X - 101, npc.Center.Y), new Vector2(npc.velocity.X + 5, npc.velocity.Y), mod.ProjectileType("RaidSphere"), npc.damage, 1, 255);
+                }
+                else
+                {
+                    for (int Rockets = 0; Rockets < RocketNumber; Rockets++)
+                    {
+                        NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<RaidRocket>());
+                    }
+                }
+                 
+                customAI[1] += 1;
+                if (customAI[1] > 6)
+                {
+                    customAI[1] = 0;
                 }
             }
 
@@ -197,7 +247,6 @@ namespace AAMod.NPCs.Bosses.Raider
                     npc.direction = -1;
                 }
                 npc.spriteDirection = npc.direction;
-                npc.rotation = ((npc.rotation * 9f) + (npc.velocity.X * 0.1f)) / 10f;
                 if (npc.collideX)
                 {
                     npc.velocity.X = npc.velocity.X * (-npc.oldVelocity.X * 0.5f);
@@ -294,7 +343,6 @@ namespace AAMod.NPCs.Bosses.Raider
                         npc.direction = 1;
                     }
                     npc.spriteDirection = npc.direction;
-                    npc.rotation = ((npc.rotation * 9f) + (npc.velocity.X * 0.08f)) / 10f;
                     Vector2 value52 = Main.player[npc.target].Center - npc.Center;
                     if (value52.Length() < 300f && !Collision.SolidCollision(npc.position, npc.width, npc.height))
                     {
@@ -331,7 +379,6 @@ namespace AAMod.NPCs.Bosses.Raider
                         npc.direction = 1;
                     }
                     npc.spriteDirection = npc.direction;
-                    npc.rotation = ((npc.rotation * 4f) + (npc.velocity.X * 0.1f)) / 5f;
                     if (npc.collideX)
                     {
                         npc.velocity.X = npc.velocity.X * (-npc.oldVelocity.X * 0.5f);
@@ -393,7 +440,6 @@ namespace AAMod.NPCs.Bosses.Raider
                             npc.direction = 1;
                         }
                         npc.spriteDirection = npc.direction;
-                        npc.rotation = ((npc.rotation * 4f) + (npc.velocity.X * 0.07f)) / 5f;
                         Vector2 value54 = Main.player[npc.target].Center - npc.Center;
                         value54.Y -= 12f;
                         if (npc.Center.X > Main.player[npc.target].Center.X)
@@ -421,7 +467,6 @@ namespace AAMod.NPCs.Bosses.Raider
                     {
                         npc.knockBackResist = 0f;
                         npc.noTileCollide = true;
-                        npc.rotation = ((npc.rotation * 4f) + (npc.velocity.X * 0.07f)) / 5f;
                         Vector2 vector206 = Main.player[npc.target].Center - npc.Center;
                         vector206.Y -= 12f;
                         float scaleFactor19 = 16f;
@@ -484,7 +529,6 @@ namespace AAMod.NPCs.Bosses.Raider
                                     npc.ai[3] = 0f;
                                 }
                             }
-                            npc.rotation = ((npc.rotation * 4f) + (npc.velocity.X * 0.07f)) / 5f;
                             return;
                         }
                         if (npc.ai[0] == 4f)
@@ -533,7 +577,6 @@ namespace AAMod.NPCs.Bosses.Raider
                                 npc.direction = 1;
                             }
                             npc.spriteDirection = npc.direction;
-                            npc.rotation = ((npc.rotation * 9f) + (npc.velocity.X * 0.1f)) / 10f;
                             npc.noTileCollide = true;
                             int num1317 = (int)npc.ai[1];
                             int num1318 = (int)npc.ai[2];
@@ -558,7 +601,6 @@ namespace AAMod.NPCs.Bosses.Raider
                         }
                         if (npc.ai[0] == 4.2f)
                         {
-                            npc.rotation = ((npc.rotation * 9f) + (npc.velocity.X * 0.1f)) / 10f;
                             npc.knockBackResist = 0f;
                             npc.noTileCollide = true;
                             int num1321 = (int)npc.ai[1];
