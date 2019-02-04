@@ -74,15 +74,12 @@ namespace AAMod.NPCs.Bosses.SoC
 
         public void SummonEnemy()
         {
-            int Enemy = Main.rand.Next(3);
+            int Enemy = Main.rand.Next(2);
 
             switch (Enemy)
             {
                 case 0:
                     Enemy = mod.NPCType("DeityDragon");
-                    break;
-                case 1:
-                    Enemy = mod.NPCType("EoA");
                     break;
                 default:
                     Enemy = mod.NPCType("RiftVision");

@@ -37,6 +37,7 @@ namespace AAMod
         public bool DiscordInferno = false;
         public static int Toad = -1;
         public static int Rose = -1;
+        public static int Brain = -1;
 
 
 
