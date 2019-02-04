@@ -1222,9 +1222,12 @@ namespace AAMod
                         player.QuickSpawnItem(mod.ItemType("FishDiverMask" + addonA));
                         player.QuickSpawnItem(mod.ItemType("FishDiverJacket" + addonA));
                         player.QuickSpawnItem(mod.ItemType("FishDiverBoots" + addonA));
-                        if (dropType >= 2)
+                        if (dropType >= 1)
                         {
                             player.QuickSpawnItem(mod.ItemType("KipronWings"));
+                        }
+                        if (dropType >= 2)
+                        {
                             player.QuickSpawnItem(mod.ItemType("AmphibianLongsword" + addonEX));
                         }
                         spawnedDevItems = true;
@@ -1332,6 +1335,7 @@ namespace AAMod
                         player.QuickSpawnItem(mod.ItemType("FazerHood"));
                         player.QuickSpawnItem(mod.ItemType("FazerShirt"));
                         player.QuickSpawnItem(mod.ItemType("FazerPants"));
+
                         if (dropType >= 2)
                         {
                             player.QuickSpawnItem(mod.ItemType("Fluff" + addonEX));
