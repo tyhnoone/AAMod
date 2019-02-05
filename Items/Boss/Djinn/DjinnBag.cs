@@ -54,6 +54,7 @@ namespace AAMod.Items.Boss.Djinn
             {
                 player.QuickSpawnItem(mod.ItemType(lootTable[loot]));
             }
+			player.QuickSpawnItem(mod.ItemType("SandstormMedallion"));		
         }
     }
 }

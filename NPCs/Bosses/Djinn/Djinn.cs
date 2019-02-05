@@ -102,7 +102,7 @@ namespace AAMod.NPCs.Bosses.Djinn
                 {
                     npc.frame.Y = 0;
                 }
-                BaseAI.AIFloater(npc, ref npc.ai, true, 0.2f, 2f, 1.5f, 0.04f, 1.5f, 3);
+                BaseAI.AIFloater(npc, ref npc.ai, true, 0.5f, 2.5f, 2.5f, 0.06f, 1.5f, 3);
             }
             else
             {
@@ -112,51 +112,51 @@ namespace AAMod.NPCs.Bosses.Djinn
                 {
                     npc.frame.Y = FrameHeight * 6;
                 }
-                if (npc.ai[3] > 307)
+                if (npc.ai[3] > 309)
                 {
                     npc.frame.Y = FrameHeight * 7;
                 }
-                if (npc.ai[3] == 307)
+                if (npc.ai[3] == 309)
                 {
                     fireProjectile();
                 }
-                if (npc.ai[3] > 314)
+                if (npc.ai[3] > 318)
                 {
                     npc.frame.Y = FrameHeight * 8;
                 }
-                if (npc.ai[3] > 321)
+                if (npc.ai[3] > 327)
                 {
                     npc.frame.Y = FrameHeight * 9;
                 }
-                if (npc.ai[3] > 328)
+                if (npc.ai[3] > 336)
                 {
                     npc.frame.Y = FrameHeight * 10;
                 }
-                if (npc.ai[3] == 335)
+                if (npc.ai[3] == 336)
                 {
                     fireProjectile();
                 }
-                if (npc.ai[3] > 342)
+                if (npc.ai[3] > 345)
                 {
                     npc.frame.Y = FrameHeight * 11;
                 }
-                if (npc.ai[3] > 349)
+                if (npc.ai[3] > 354)
                 {
                     npc.frame.Y = FrameHeight * 12;
                 }
-                if (npc.ai[3] > 356)
+                if (npc.ai[3] > 363)
                 {
                     npc.frame.Y = FrameHeight * 13;
                 }
-                if (npc.ai[3] == 363)
+                if (npc.ai[3] == 372)
                 {
                     fireProjectile();
                 }
-                if (npc.ai[3] > 370)
+                if (npc.ai[3] > 372)
                 {
                     npc.frame.Y = FrameHeight * 14;
                 }
-                if (npc.ai[3] > 377)
+                if (npc.ai[3] > 381)
                 {
                     npc.ai[3] = 0;
                 }
