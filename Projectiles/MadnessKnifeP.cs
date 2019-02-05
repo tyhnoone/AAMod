@@ -27,7 +27,7 @@ namespace AAMod.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lead Kunai");
+			DisplayName.SetDefault("Madness Knife");
 		}
 
 		public override void Kill(int timeLeft)
