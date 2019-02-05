@@ -33,7 +33,7 @@ namespace AAMod.Items.Throwing
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("RadiantIncenerite"), 15);
+			recipe.AddIngredient(mod.ItemType("RadiantIncinerite"), 15);
 			recipe.AddIngredient(ItemID.LivingFireBlock, 50);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
