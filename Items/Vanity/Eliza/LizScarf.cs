@@ -35,6 +35,7 @@ namespace AAMod.Items.Vanity.Eliza
             item.height = 18;
             item.rare = 11;
             item.vanity = true;
+            item.accessory = true;
         }
     }
 }

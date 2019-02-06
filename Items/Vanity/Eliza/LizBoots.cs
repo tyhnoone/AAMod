@@ -33,5 +33,10 @@ namespace AAMod.Items.Vanity.Eliza
             item.rare = 11;
             item.vanity = true;
         }
+
+        public override bool DrawLegs()
+        {
+            return false;
+        }
     }
 }
