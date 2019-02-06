@@ -298,6 +298,13 @@ namespace AAMod
             }
         }
 
+        public static Color Jevil
+        {
+            get
+            {
+                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Violet, Color.ForestGreen, Color.ForestGreen, Color.Violet);
+            }
+        }
 
         public static Color CthulhuItemRarity
         {

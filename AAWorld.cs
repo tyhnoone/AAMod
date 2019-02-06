@@ -1156,7 +1156,7 @@ namespace AAMod
             mushTiles = tileCounts[mod.TileType<Mycelium>() ];
             pagodaTiles = tileCounts[mod.TileType<DracoAltarS>()] + tileCounts[mod.TileType<ScorchedDynastyWoodS>()] + tileCounts[mod.TileType<ScorchedShinglesS>()];
             lakeTiles = tileCounts[mod.TileType<DreadAltarS>()] + tileCounts[mod.TileType<Darkmud>()] + tileCounts[mod.TileType<AbyssGrass>()] + tileCounts[mod.TileType<AbyssWood>()] + tileCounts[mod.TileType<AbyssWoodSolid>()];
-            shipTiles = tileCounts[mod.TileType<CthulhuPortal>()];
+            shipTiles = tileCounts[mod.TileType<CthulhuPortal>()] + tileCounts[mod.TileType<RottedDynastyWoodS>()] + tileCounts[mod.WallType<Walls.RottedWall>()] + tileCounts[mod.WallType<Walls.RottedFence>()];
             terraTiles = tileCounts[mod.TileType<TerraCrystal>()] + tileCounts[mod.TileType<TerraWood>()] + tileCounts[mod.TileType<TerraLeaves>()];
         }
 
@@ -1238,7 +1238,7 @@ namespace AAMod
         private void Ship(GenerationProgress progress)
         {
             shipSide = ((Main.dungeonX > Main.maxTilesX / 2) ? (-1) : (1));
-            shipPos.X = (shipSide == 1 ? (Main.maxTilesX - 90) : 90);
+            shipPos.X = (shipSide == 1 ? (Main.maxTilesX - 90) : 50);
             progress.Message = "Sinking the ship";
             SunkenShip();
         }

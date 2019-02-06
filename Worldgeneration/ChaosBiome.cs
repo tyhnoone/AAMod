@@ -578,14 +578,21 @@ namespace AAMod.Worldgeneration
             colorToTile[Color.Black] = -1; //don't touch when genning		
 
             Dictionary<Color, int> colorToWall = new Dictionary<Color, int>();
-            colorToWall[new Color(255, 0, 0)] = mod.WallType("RottedWall");
+            colorToWall[new Color(255, 0, 0)] = mod.WallType("RottedFence");
+            colorToWall[new Color(255, 255, 0)] = mod.WallType("RottedWall");
+            colorToWall[new Color(255, 255, 255)] = mod.WallType("RottedWall");
+            colorToWall[new Color(0, 255, 255)] = mod.WallType("RottedWall");
+            colorToWall[new Color(255, 0, 255)] = mod.WallType("RottedWall");
+            colorToWall[new Color(0, 255, 0)] = mod.WallType("RottedWall");
+            colorToWall[new Color(0, 0, 255)] = WallID.Sail;
+            colorToTile[new Color(150, 150, 150)] = -2;
             colorToWall[Color.Black] = -1; //don't touch when genning				
 
-            TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Ship"), colorToTile, mod.GetTexture("Worldgeneration/ShipWalls"), colorToWall, mod.GetTexture("Worldgeneration/ShipWater"));
+            TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/BOTE"), colorToTile, mod.GetTexture("Worldgeneration/BOTEWalls"), colorToWall);
             
-            gen.Generate(origin.X, origin.Y - 28, true, true);
+            gen.Generate(origin.X, origin.Y - 111, true, true);
             
-            WorldGen.PlaceChest((origin.X) + 13, (origin.Y - 28) + 26, (ushort)mod.TileType("SunkenChest"), true);
+            WorldGen.PlaceChest((origin.X) + 124, (origin.Y - 111) + 11, (ushort)mod.TileType("SunkenChest"), true);
             return true;
         }
     }

@@ -108,7 +108,7 @@ namespace AAMod
                     Color.Firebrick,
                     Color.Firebrick,
                     Color.Firebrick);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("MushroomMonarch")));
@@ -123,7 +123,7 @@ namespace AAMod
                     Color.DarkOrange,
                     Color.DarkOrange,
                     Color.DarkOrange);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("GripOfChaosRed")));
@@ -138,7 +138,7 @@ namespace AAMod
                     Color.Indigo,
                     Color.Indigo,
                     Color.Indigo);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("GripOfChaosBlue")));
@@ -153,7 +153,7 @@ namespace AAMod
                     Color.DarkOrange,
                     Color.DarkOrange,
                     Color.DarkOrange);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("Broodmother")));
@@ -168,7 +168,7 @@ namespace AAMod
                     Color.Indigo,
                     Color.Indigo,
                     Color.Indigo);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("Hydra")));
@@ -183,7 +183,7 @@ namespace AAMod
                     Color.Cyan,
                     Color.Cyan,
                     Color.Cyan);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("SerpentHead")));
@@ -198,7 +198,7 @@ namespace AAMod
                     Color.IndianRed,
                     Color.IndianRed,
                     Color.IndianRed);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("Djinn")));
@@ -213,7 +213,7 @@ namespace AAMod
                     Color.Violet,
                     Color.Violet,
                     Color.Violet);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("Retriever")));
@@ -228,7 +228,7 @@ namespace AAMod
                     Color.Violet,
                     Color.Violet,
                     Color.Violet);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("Raider")));
@@ -243,7 +243,7 @@ namespace AAMod
                     Color.Violet,
                     Color.Violet,
                     Color.Violet);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("Orthrus")));
@@ -258,7 +258,7 @@ namespace AAMod
                     Color.Cyan,
                     Color.Cyan,
                     Color.Cyan);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("DaybringerHead")));
@@ -273,7 +273,7 @@ namespace AAMod
                     Color.MediumBlue,
                     Color.MediumBlue,
                     Color.MediumBlue);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("NightcrawlerHead")));
@@ -289,7 +289,7 @@ namespace AAMod
                     Color.OrangeRed,
                     Color.OrangeRed,
                     Color.OrangeRed);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("BlazeGrip")));
@@ -305,7 +305,7 @@ namespace AAMod
                     Color.Navy,
                     Color.Navy,
                     Color.Navy);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("AbyssGrip")));
@@ -320,7 +320,7 @@ namespace AAMod
                     Color.Navy,
                     Color.Navy,
                     Color.Navy);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("Yamata")));
@@ -335,7 +335,7 @@ namespace AAMod
                     Color.MediumVioletRed,
                     Color.MediumVioletRed,
                     Color.MediumVioletRed);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("YamataA")));
@@ -350,7 +350,7 @@ namespace AAMod
                     Color.Red,
                     Color.Red,
                     Color.Red);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("ZeroAwakened")));
@@ -362,10 +362,10 @@ namespace AAMod
                     GetTexture("Healthbars/ZeroABarTail"),
                     GetTexture("Healthbars/BarFill"));
                 yabhb.Call("hbSetColours",
-                    Color.Black,
-                    Color.Black,
-                    Color.Black);
-                yabhb.Call("hbSetMidBarOffset", 30, 10);
+                    Color.Red,
+                    Color.Red,
+                    Color.Red);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", (instance.NPCType("ZeroAwakened")));
@@ -492,6 +492,11 @@ namespace AAMod
                 AddEquipTexture(new Items.Vanity.Pepsi.PepsimanBody(), null, EquipType.Body, "PepsimanBody", "AAMod/Items/Vanity/Pepsi/PepsimanBody", "AAMod/Items/Vanity/Pepsi/PepsimanBody_Arms");
                 AddEquipTexture(new Items.Vanity.Pepsi.PepsimanLegs(), null, EquipType.Legs, "PepsimanLegs", "AAMod/Items/Vanity/Pepsi/PepsimanLegs");
 
+
+                AddEquipTexture(new Items.Vanity.Beg.Pony_Head(), null, EquipType.Head, "Pony_Head", "AAMod/Items/Vanity/Beg/Pony_Head");
+                AddEquipTexture(new Items.Vanity.Beg.Pony_Body(), null, EquipType.Body, "Pony_Body", "AAMod/Items/Vanity/Beg/Pony_Body", "AAMod/Items/Vanity/Beg/Pony_Arms");
+                AddEquipTexture(new Items.Vanity.Beg.Pony_Legs(), null, EquipType.Legs, "Pony_Legs", "AAMod/Items/Vanity/Beg/Pony_Legs");
+
                 if (GetSoundSlot(SoundType.Music, "Sounds/Music/Monarch") != 0) //ensure music was loaded!
                 {
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Monarch"), ItemType("MonarchBox"), TileType("MonarchBox"));
@@ -503,7 +508,6 @@ namespace AAMod
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MireSurface"), ItemType("MireBox"), TileType("MireBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/InfernoUnderground"), ItemType("InfernoUBox"), TileType("InfernoUBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MireUnderground"), ItemType("MireUBox"), TileType("MireUBox"));
-                    //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TODE"), ItemType("TodeBox"), TileType("TodeBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Boss6"), ItemType("SerpentBox"), TileType("SerpentBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Siege"), ItemType("SiegeBox"), TileType("SiegeBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Equinox"), ItemType("Equibox"), TileType("Equibox"));

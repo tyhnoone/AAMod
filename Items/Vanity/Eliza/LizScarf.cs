@@ -1,36 +1,39 @@
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 using System.Collections.Generic;
+using Terraria.ModLoader;
 
-namespace AAMod.Items.Vanity.Tied
+namespace AAMod.Items.Vanity.Eliza
 {
-    [AutoloadEquip(EquipType.Legs)]
-	public class TiedTrousers : ModItem
+    [AutoloadEquip(EquipType.Neck)]
+	public class LizScarf : ModItem
 	{
 		public override void SetStaticDefaults()
        
 		{
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Tied's Fashionable Trousers");
-            Tooltip.SetDefault(
-@"These pants cost way more than your soul does
-'Great for impersonating Ancients Awakened Devs!'");
+            DisplayName.SetDefault("Midnight Scarft");
+            Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Devs!'");
 		}
+
+
+
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = new Color(255, 8, 251);
+                    line2.overrideColor = new Color(121, 21, 214);
                 }
             }
         }
+
+
         public override void SetDefaults()
         {
             item.width = 22;
             item.height = 18;
-            item.rare = 9;
+            item.rare = 11;
             item.vanity = true;
         }
     }
