@@ -22,7 +22,7 @@ namespace AAMod.Items.Vanity.Tied
 		}
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
 		{
-			drawHands = true;
+			drawHands = false;
 		}
 
         public override void ModifyTooltips(List<TooltipLine> list)

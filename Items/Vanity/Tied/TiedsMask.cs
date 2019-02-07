@@ -26,7 +26,7 @@ namespace AAMod.Items.Vanity.Tied   //We need this to basically indicate the fol
 
         public override bool DrawHead()
         {
-            return true;     //this make so the player head does not disappear when the vanity mask is equipped.  return false if you want to not show the player head.
+            return false;     //this make so the player head does not disappear when the vanity mask is equipped.  return false if you want to not show the player head.
         }
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {

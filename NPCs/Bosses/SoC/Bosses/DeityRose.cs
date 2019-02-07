@@ -35,6 +35,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.boss = true;
             npc.npcSlots = 16f;
             npc.buffImmune[20] = true;
+            npc.alpha = 255;
         }
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
@@ -87,10 +88,38 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             bool flag45 = false;
             bool flag46 = false;
             npc.TargetClosest(true);
-            if (Main.player[npc.target].dead)
+            
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<SoC>()) || NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+
+            if (Main.player[npc.target].dead || Vector2.Distance(Main.player[npc.target].Center, npc.Center) > 5600f || !BossAlive)
             {
-                flag46 = true;
-                flag45 = true;
+                npc.velocity *= .8f;
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("CthulhuDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+                npc.alpha += 12;
+                if (npc.alpha > 255)
+                {
+                    npc.active = false;
+                }
+                return;
+            }
+            if (npc.alpha != 0)
+            {
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("CthulhuDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+            }
+            npc.alpha -= 12;
+            if (npc.alpha < 0)
+            {
+                npc.alpha = 0;
             }
             if (Main.netMode != 1)
             {

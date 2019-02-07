@@ -638,15 +638,11 @@ namespace AAMod.NPCs.Bosses.Shen
 			if(isAwakened)
 			{
 				if (Main.expertMode)
-				{
-					BaseAI.DropItem(npc, mod.ItemType("ShenTrophy"), 1, 1, 15, true);
-					
-					npc.DropBossBags();
-					AAWorld.downedYamata = true;
-					if (Main.rand.NextFloat() < 0.1f)
-					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EXSoul"));
-					}
+                {
+                    BaseAI.DropItem(npc, mod.ItemType("ShenTrophy"), 1, 1, 15, true);
+                    NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<ShenDeath>());
+                    npc.DropBossBags();
+					AAWorld.downedShen = true;
 				}
 			}else
 			{
@@ -657,9 +653,9 @@ namespace AAMod.NPCs.Bosses.Shen
 					string[] lootTable = { "ChaosSlayer", "MeteorStrike", "Skyfall" };
 					int loot = Main.rand.Next(lootTable.Length);
 					npc.DropLoot(mod.ItemType(lootTable[loot]));
-					//npc.DropLoot(Items.Vanity.Mask.AkumaMask.type, 1f / 7);
-					//npc.DropLoot(Items.Boss.Yamata.YamataTrophy.type, 1f / 10);
-					Main.NewText("Heh, alright. I’ll leave you alone I guess. But if you come back stronger, I’ll show you the power of true unyielding chaos…", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B);
+                    //npc.DropLoot(Items.Vanity.Mask.AkumaMask.type, 1f / 7);
+                    BaseAI.DropItem(npc, mod.ItemType("ShenTrophy"), 1, 1, 15, true);
+                    Main.NewText("Heh, alright. I’ll leave you alone I guess. But if you come back stronger, I’ll show you the power of true unyielding chaos…", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B);
 				}
 				if (Main.expertMode)
 				{

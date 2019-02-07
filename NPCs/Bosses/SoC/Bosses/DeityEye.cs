@@ -27,7 +27,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.width = 100;
             npc.height = 110;
             npc.aiStyle = -1;
-            npc.defense = 100;
+            npc.defense = 140;
             npc.damage = 60;
             npc.lifeMax = 150000;
             npc.HitSound = SoundID.NPCHit1;
@@ -118,6 +118,37 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             float num406 = npc.position.X + (float)(npc.width / 2) - Main.player[npc.target].position.X - (float)(Main.player[npc.target].width / 2);
             float num407 = npc.position.Y + (float)npc.height - 59f - Main.player[npc.target].position.Y - (float)(Main.player[npc.target].height / 2);
             float num408 = (float)Math.Atan2((double)num407, (double)num406) + 1.57f;
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<SoC>()) || NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+            if (Main.player[npc.target].dead || Vector2.Distance(Main.player[npc.target].Center, npc.Center) > 5600f || !BossAlive)
+            {
+                npc.velocity *= .8f;
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("CthulhuDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+                npc.alpha += 12;
+                if (npc.alpha > 255)
+                {
+                    npc.active = false;
+                }
+                return;
+            }
+            if (npc.alpha != 0)
+            {
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("CthulhuDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+            }
+            npc.alpha -= 12;
+            if (npc.alpha < 0)
+            {
+                npc.alpha = 0;
+            }
             if (num408 < 0f)
             {
                 num408 += 6.283f;

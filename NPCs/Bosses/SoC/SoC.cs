@@ -41,8 +41,10 @@ namespace AAMod.NPCs.Bosses.SoC
 
         public bool LeaveLine = false;
         public bool Pinch = false;
+
         public bool Eye = false;
         public bool Eater = false;
+        public bool Brain = false;
         public bool Skull = false;
         public bool Rose = false;
         public bool Leviathan = false;
@@ -51,6 +53,8 @@ namespace AAMod.NPCs.Bosses.SoC
         public bool Boss2 = false;
         public bool Boss3 = false;
         public bool Boss4 = false;
+        public bool Boss5 = false;
+        public bool Boss6 = false;
 
         public float Rotation = 0;
         public float AlphaTimer = 0;
@@ -83,10 +87,12 @@ namespace AAMod.NPCs.Bosses.SoC
             modPlayer.Leave = false;
             npc.rotation = npc.velocity.X / 15f;
             Vector2 spawnAt = npc.Center + new Vector2(0f, npc.height / 2f);
-            float EyeSummon = npc.lifeMax * .8f;
-            float EaterSummon = npc.lifeMax * .6f;
-            float SkullSummon = npc.lifeMax * .4f;
-            float LeviathanSummon = npc.lifeMax * .2f;
+            float EyeSummon = npc.lifeMax * .85f;
+            float BrainSummon = npc.lifeMax * .70f;
+            float EaterSummon = npc.lifeMax * .55f;
+            float SkullSummon = npc.lifeMax * .40f;
+            float RoseSummon = npc.lifeMax * .25f;
+            float LeviathanSummon = npc.lifeMax * .10f;
             bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
             EnemyTimer++;
 
@@ -160,32 +166,35 @@ namespace AAMod.NPCs.Bosses.SoC
                 npc.dontTakeDamage = true;
                 morphTimer = 0;
             }
-            else if (npc.life < SkullSummon && !Boss3)
+            else if (npc.life < BrainSummon && !Boss3)
             {
                 Boss3 = true;
                 npc.ai[1] = 4f;
                 npc.dontTakeDamage = true;
                 morphTimer = 0;
             }
-            else if (npc.life < LeviathanSummon && !Boss4)
+            else if (npc.life < SkullSummon && !Boss4)
             {
                 Boss4 = true;
+                npc.ai[1] = 5f;
+                npc.dontTakeDamage = true;
+                morphTimer = 0;
+            }
+            else if (npc.life < RoseSummon && !Boss5)
+            {
+                Boss5 = true;
+                npc.ai[1] = 6f;
+                npc.dontTakeDamage = true;
+                morphTimer = 0;
+            }
+            else if (npc.life < LeviathanSummon && !Boss6)
+            {
+                Boss6 = true;
                 npc.ai[1] = 7f;
                 npc.dontTakeDamage = true;
                 morphTimer = 0;
             }
-
-            if (npc.life <= npc.lifeMax / 10)
-            {
-                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/LastStand");
-                if (!Pinch)
-                {
-                    Pinch = true;
-                    Main.NewText("YOU", Color.DarkCyan);
-                    Main.NewText("WILL", Color.DarkCyan);
-                    Main.NewText("PERISH", Color.DarkCyan);
-                }
-            }
+            
             if (Main.player[npc.target].dead)
             {
                 npc.TargetClosest(true);
@@ -372,6 +381,39 @@ namespace AAMod.NPCs.Bosses.SoC
                     return;
                 }
                 if (npc.ai[1] == 4f)
+                {
+                    Summon = true;
+                    npc.velocity *= .8f;
+                    if (npc.velocity.X < .5f || npc.velocity.X > -.5f)
+                    {
+                        npc.velocity.X = 0;
+                    }
+                    if (npc.velocity.Y < .5f || npc.velocity.Y > -.5f)
+                    {
+                        npc.velocity.Y = 0;
+                    }
+
+                    if (npc.velocity.X == 0 && npc.velocity.Y == 0)
+                    {
+                        Rotation += .2f;
+                        RiftSpin -= .2f;
+                        morphTimer++;
+                        if (morphTimer > 300)
+                        {
+                            if (Eater == false)
+                            {
+                                Eater = true;
+                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityBrain"));
+                                npc.ai[2] = 0f;
+                                npc.ai[1] = 0f;
+                            }
+                        }
+
+                    }
+
+                    return;
+                }
+                if (npc.ai[1] == 5f)
                 {
                     Summon = true;
                     npc.velocity *= .8f;

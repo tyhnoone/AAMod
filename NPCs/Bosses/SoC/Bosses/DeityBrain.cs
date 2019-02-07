@@ -58,9 +58,30 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
 
         public int EyeCount = 15;
         public int[] totalEyes = null;
+        public bool spawnAlpha = false;
 
         public override void AI()
         {
+
+            if (npc.alpha != 0)
+            {
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("CthulhuDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+            }
+            if (spawnAlpha == false)
+            {
+                npc.alpha -= 12;
+            }
+            if (npc.alpha < 0 && spawnAlpha == false)
+            {
+                npc.alpha = 0;
+                spawnAlpha = true;
+            }
+
             AAModGlobalNPC.Brain = npc.whoAmI;
             EyeCount = (Main.expertMode ? 20 : 15);
             totalEyes = BaseAI.GetNPCs(npc.Center, mod.NPCType("EoA"), 1500f);

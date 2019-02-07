@@ -58,7 +58,7 @@ namespace AAMod.NPCs.Bosses.SoC
 
             if (Speechtimer >= 360)
             {
-                if (Speechtimer < 1440)
+                if (!Spawned)
                 {
                     npc.alpha -= 3;
 
@@ -111,6 +111,7 @@ namespace AAMod.NPCs.Bosses.SoC
             {
                 Main.NewText("PREPARE FOR YOU AND YOUR WORLD’S CATASTROPHIC DEMISE!", Color.DarkCyan);
                 SummonSoul();
+                Spawned = true;
             }
 
         }
@@ -119,7 +120,7 @@ namespace AAMod.NPCs.Bosses.SoC
         {
             if (Main.netMode != 1)
             {
-                Main.NewText("The Soul of Cthulhu shreds through reality into this world", Color.DarkCyan);
+                Main.NewText("Cthulhu has been Awakened", Color.DarkCyan);
                 int npcID = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Cthulhu"));
                 Main.npc[npcID].Center = npc.Center;
                 Main.npc[npcID].netUpdate = true;

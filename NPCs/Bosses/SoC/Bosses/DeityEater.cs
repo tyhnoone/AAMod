@@ -21,7 +21,6 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
         {
             DisplayName.SetDefault("Crom Cruach");
             NPCID.Sets.TechnicallyABoss[npc.type] = true;
-            Main.npcFrameCount[npc.type] = 3;
         }
 
         public override void SetDefaults()

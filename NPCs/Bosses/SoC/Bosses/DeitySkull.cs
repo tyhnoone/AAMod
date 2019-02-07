@@ -39,6 +39,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/SoC");
             for (int m = 0; m < npc.buffImmune.Length; m++) npc.buffImmune[m] = true;
             npc.lavaImmune = true;
+            npc.alpha = 255;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -88,6 +89,39 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.defense = npc.defDefense;
             bool expert = Main.expertMode;
             HandTimer--;
+
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<SoC>()) || NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+
+            if (!BossAlive)
+            {
+                npc.velocity *= .8f;
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("CthulhuDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+                npc.alpha += 12;
+                if (npc.alpha > 255)
+                {
+                    npc.active = false;
+                }
+            }
+
+            if (npc.alpha != 0)
+            {
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("CthulhuDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+            }
+            npc.alpha -= 12;
+            if (npc.alpha < 0)
+            {
+                npc.alpha = 0;
+            }
 
             if ((npc.type == mod.NPCType<DeitySkull>() && (!NPC.AnyNPCs(mod.NPCType<DeitySkull_Hand>()) && !NPC.AnyNPCs(mod.NPCType<DeitySkull_Hand1>()) && !NPC.AnyNPCs(mod.NPCType<DeitySkull_Hand2>()) && !NPC.AnyNPCs(mod.NPCType<DeitySkull_Hand3>()) || !NPC.AnyNPCs(mod.NPCType<DeitySkull_Hand4>()) && !NPC.AnyNPCs(mod.NPCType<DeitySkull_Hand5>()))) && HandTimer <= 0)
             {

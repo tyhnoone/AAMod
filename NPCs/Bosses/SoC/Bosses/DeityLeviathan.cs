@@ -254,22 +254,32 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
                 player = Main.player[npc.target];
                 npc.netUpdate = true;
             }
-            if (player.dead || Vector2.Distance(player.Center, vector) > 5600f)
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<SoC>()) || NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+            
+            if (player.dead || Vector2.Distance(player.Center, npc.Center) > 5600f || !BossAlive)
             {
-                npc.velocity.Y = npc.velocity.Y - 0.4f;
-                if (npc.timeLeft > 10)
+                npc.velocity *= .8f;
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                 {
-                    npc.timeLeft = 10;
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("CthulhuDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
                 }
-                if (npc.ai[0] > 4f)
+                npc.alpha += 12;
+                if (npc.alpha > 255)
                 {
-                    npc.ai[0] = 5f;
+                    npc.active = false;
                 }
-                else
+                return;
+            }
+            if (npc.alpha != 0)
+            {
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                 {
-                    npc.ai[0] = 0f;
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("CthulhuDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
                 }
-                npc.ai[2] = 0f;
             }
             bool flag6 = player.position.Y < 800f || (double)player.position.Y > Main.worldSurface * 16.0 || (player.position.X > 6400f && player.position.X < (float)(Main.maxTilesX * 16 - 6400));
             if (flag6)

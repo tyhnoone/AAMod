@@ -67,8 +67,7 @@ namespace AAMod.NPCs.Bosses.SoC
                 Main.npc[npcID].Center = npc.Center;
                 Main.npc[npcID].netUpdate = true;
             }
-
-            npc.active = false;
+            
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
 
         public override void SetStaticDefaults()
         {
-
+            DisplayName.SetDefault("Tegoth's Claw");
             Main.npcFrameCount[npc.type] = 4;
         }
         public override string Texture
@@ -41,7 +41,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.buffImmune[39] = true;
             npc.lavaImmune = true;
             npc.netAlways = true;
-
+            npc.alpha = 255;
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -56,14 +56,25 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
 
         public override void AI()
         {
-
-
-
             Vector2 vector2_1 = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
             float num1 = (float)(Main.npc[(int)npc.ai[1]].position.X + (double)(Main.npc[(int)npc.ai[1]].width / 2) - 200.0 * npc.ai[0]) - vector2_1.X;
             float num2 = Main.npc[(int)npc.ai[1]].position.Y + 230f - vector2_1.Y;
             float num3 = (float)Math.Sqrt(num1 * (double)num1 + num2 * (double)num2);
 
+            if (npc.alpha != 0)
+            {
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("CthulhuDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+            }
+            npc.alpha -= 6;
+            if (npc.alpha < 0)
+            {
+                npc.alpha = 0;
+            }
 
             if (npc.ai[2] != 99.0)
             {
