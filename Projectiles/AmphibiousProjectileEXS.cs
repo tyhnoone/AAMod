@@ -124,7 +124,10 @@ namespace AAMod.Projectiles
 
         public override void Kill(int timeleft)
         {
-            Projectile.NewProjectile(projectile.Center, projectile.velocity, mod.ProjectileType<AmphibiousProjectileEXSplit>(), projectile.damage, projectile.knockBack, 0, mod.DustType<Dusts.InfinityOverloadP>(), 0);
+            for (int i = 0; i < 3; i++)
+            {
+                Projectile.NewProjectile(projectile.Center, projectile.velocity, mod.ProjectileType<AmphibiousProjectileEXSplit>(), projectile.damage, projectile.knockBack, 0, mod.DustType<Dusts.InfinityOverloadP>(), 0);
+            }
             int pieCut = 20;
             for (int m = 0; m < pieCut; m++)
             {
