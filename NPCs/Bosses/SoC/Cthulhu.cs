@@ -29,6 +29,7 @@ namespace AAMod.NPCs.Bosses.SoC
             npc.boss = true;
             npc.chaseable = false;
             npc.scale *= 1.2f;
+            bossBag = mod.ItemType("SoCCache");
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
                 npc.buffImmune[k] = true;
@@ -234,6 +235,19 @@ namespace AAMod.NPCs.Bosses.SoC
             }
         }
 
+        public override void NPCLoot()
+        {
+            AAWorld.downedSoC = true;
+            if (Main.expertMode)
+            {
+                npc.DropBossBags();
+            }
+            else
+            {
+                Main.NewText("Cheaters do not deserve the spoils of battle", Color.DarkCyan);
+            }
+        }
+
         int ShootThis;
         int Loop;
         
@@ -312,7 +326,7 @@ namespace AAMod.NPCs.Bosses.SoC
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            if (npc.life <= 0 && npc.ai[1] != 1)
+            if (npc.life <= 0 && npc.ai[1] != 1 && Main.expertMode)
             {
                 npc.ai[1] = 1f;
                 npc.life = npc.lifeMax;

@@ -74,7 +74,28 @@ namespace AAMod.NPCs.Bosses.SoC
             scale = 1.5f;
             return null;
         }
-        
+
+        public override void NPCLoot()
+        {
+            if (Main.expertMode)
+            {
+                NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<CthulhuPortal>(), 0, 0);
+            }
+            else
+            {
+                npc.DropLoot(mod.ItemType("RealityBar"), 25, 35);
+                string[] lootTable =
+                {
+                    "RealityAnchor",
+                    "SquidStorm",
+                    "CthulhuCannon",
+                    "GalacticStormspike",
+                };
+                AAWorld.downedSoC = true;
+                int loot = Main.rand.Next(lootTable.Length);
+                npc.DropLoot(mod.ItemType(lootTable[loot]));
+            }
+        }
 
         int oneTime = 0;
 
@@ -94,12 +115,12 @@ namespace AAMod.NPCs.Bosses.SoC
             float RoseSummon = npc.lifeMax * .25f;
             float LeviathanSummon = npc.lifeMax * .10f;
             bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
-            EnemyTimer++;
+            npc.ai[3]++;
 
-            if (EnemyTimer >= 600)
+            if (npc.ai[3] >= 600)
             {
                 NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("Portal"), 0, -npc.velocity.X, -npc.velocity.Y);
-                EnemyTimer = 0;
+                npc.ai[3] = 0;
             }
 
 
