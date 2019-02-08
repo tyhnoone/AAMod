@@ -16,7 +16,6 @@ namespace AAMod.NPCs.Bosses.SoC
             projectile.hostile = true;
             projectile.penetrate = -1;
             projectile.aiStyle = -1;
-            projectile.alpha = 255;
             projectile.timeLeft = 300;
         }
 

@@ -55,6 +55,35 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.lifeMax = npc.lifeMax;
         }
 
+        public override void FindFrame(int frameHeight)
+        {
+            int num = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type];
+            npc.frameCounter += 1.0;
+            if (npc.frameCounter > 6.0)
+            {
+                npc.frameCounter = 0.0;
+                npc.frame.Y = npc.frame.Y + num;
+            }
+            if (npc.ai[0] >= 0f)
+            {
+                if (npc.frame.Y > num * 3)
+                {
+                    npc.frame.Y = 0;
+                }
+            }
+            else
+            {
+                if (npc.frame.Y < num * 4)
+                {
+                    npc.frame.Y = num * 4;
+                }
+                if (npc.frame.Y > num * 7)
+                {
+                    npc.frame.Y = num * 4;
+                }
+            }
+        }
+
 
         public int EyeCount = 15;
         public int[] totalEyes = null;
@@ -402,6 +431,8 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
                 }
             }
         }
+
+        
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {

@@ -324,7 +324,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
                             num717 *= num719;
                             num718 *= num719;
                             int num720 = 22;
-                            int num721 = 275;
+                            int num721 = mod.ProjectileType<DeityRoseSplinter>();
                             int maxValue2 = 4;
                             int maxValue3 = 8;
                             if (Main.expertMode)
@@ -336,7 +336,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
                             {
                                 num720 = 27;
                                 npc.localAI[1] = -30f;
-                                num721 = 276;
+                                num721 = mod.NPCType<DeityRoseUrchin>();
                             }
                             else if ((double)npc.life < (double)npc.lifeMax * 0.8 && Main.rand.Next(maxValue3) == 0)
                             {
@@ -354,11 +354,18 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
                             }
                             vector89.X += num717 * 3f;
                             vector89.Y += num718 * 3f;
-                            int num722 = Projectile.NewProjectile(vector89.X, vector89.Y, num717, num718, num721, num720, 0f, Main.myPlayer, 0f, 0f);
-                            if (num721 != 277)
+                            if (num721 ==  mod.NPCType<DeityRoseUrchin>())
                             {
-                                Main.projectile[num722].timeLeft = 300;
-                                return;
+                                int num722 = NPC.NewNPC((int)vector89.X, (int)vector89.Y, num721);
+                            }
+                            else
+                            {
+                                int num722 = Projectile.NewProjectile(vector89.X, vector89.Y, num717, num718, num721, num720, 0f, Main.myPlayer, 0f, 0f);
+                                if (num721 != 277)
+                                {
+                                    Main.projectile[num722].timeLeft = 300;
+                                    return;
+                                }
                             }
                         }
                     }

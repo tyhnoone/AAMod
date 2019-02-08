@@ -48,7 +48,7 @@ namespace AAMod
         private int shipSide = 0;
         private Vector2 infernoPos = new Vector2(0, 0);
         private Vector2 mirePos = new Vector2(0, 0);
-        private Vector2 shipPos = new Vector2(0, 0);
+        public static Vector2 shipPos = new Vector2(0, 0);
         private Vector2 TerraPos = new Vector2(0, 0);
         public string nums = "1234567890";
         //Messages
@@ -433,7 +433,7 @@ namespace AAMod
                 Altars(progress);
             }));
 
-            tasks.Insert(shiniesIndex2 + 5, new PassLegacy("Ship", delegate (GenerationProgress progress)
+            tasks.Insert(shiniesIndex2 + 50, new PassLegacy("Ship", delegate (GenerationProgress progress)
             {
                 Ship(progress);
             }));
@@ -1189,7 +1189,7 @@ namespace AAMod
                 }
             }
             infernoPos.Y = j;
-            int q = (int)WorldGen.worldSurfaceLow - 10;
+            int q = (int)WorldGen.worldSurfaceLow - 30;
             while (Main.tile[(int)(mirePos.X), q] != null && !Main.tile[(int)(mirePos.X), q].active())
             {
                 q++;
@@ -1237,8 +1237,9 @@ namespace AAMod
 
         private void Ship(GenerationProgress progress)
         {
-            shipSide = ((Main.dungeonX > Main.maxTilesX / 2) ? (-1) : (1));
-            shipPos.X = (shipSide == 1 ? (Main.maxTilesX - 90) : 50);
+            shipSide = (Main.dungeonX > Main.maxTilesX / 2 ? -1 : 1);
+            shipPos.X = (shipSide == 1 ? Main.maxTilesX - 140 : 140);
+			shipPos.Y = BaseWorldGen.GetFirstTileFloor((int)shipPos.X, 10, true);
             progress.Message = "Sinking the ship";
             SunkenShip();
         }
@@ -1287,7 +1288,7 @@ namespace AAMod
 
         public void SunkenShip()
         {
-            Point origin = new Point((int)shipPos.X, (int)WorldGen.worldSurfaceLow - 200);
+            Point origin = new Point((int)shipPos.X, (int)shipPos.Y);
             origin.Y = BaseWorldGen.GetFirstTileFloor(origin.X, origin.Y, true);
             BOTE biome = new BOTE();
             biome.Place(origin, WorldGen.structures);

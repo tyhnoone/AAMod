@@ -5,6 +5,9 @@ using System;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
+using AAMod.NPCs.Bosses.SoC.Bosses;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
 
 namespace AAMod.NPCs.Bosses.SoC
 {
@@ -17,8 +20,8 @@ namespace AAMod.NPCs.Bosses.SoC
         }
         public override void SetDefaults()
         {
-            npc.width = 138;
-            npc.height = 110;
+            npc.width = 222;
+            npc.height = 228;
             npc.alpha = 255;
             npc.damage = 0;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Cthulhu");
@@ -34,6 +37,7 @@ namespace AAMod.NPCs.Bosses.SoC
             {
                 npc.buffImmune[k] = true;
             }
+            npc.knockBackResist = 0f;
         }
 
 
@@ -81,6 +85,9 @@ namespace AAMod.NPCs.Bosses.SoC
         public int BoomTimer = 0;
         public int Speechtimer = 0;
 
+        public float ShieldScale = 0;
+        public float ShieldRotation = 0;
+
         public override void AI()
         {
             Player player = Main.player[npc.target];
@@ -91,17 +98,45 @@ namespace AAMod.NPCs.Bosses.SoC
             float RoseSummon = npc.lifeMax * .25f;
             float LeviathanSummon = npc.lifeMax * .15f;
 
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
+
             Vector2 Explosion = new Vector2(Main.rand.Next((int)npc.position.X + npc.width), Main.rand.Next((int)npc.position.Y - npc.height));
+
+            ShieldRotation += .05f;
+
+            if (BossAlive)
+            {
+                npc.dontTakeDamage = true;
+                if (ShieldScale < .75f)
+                {
+                    ShieldScale += .05f;
+                }
+                if (ShieldScale >= .75f)
+                {
+                    ShieldScale = .75f;
+                }
+            }
+            else
+            {
+                if (ShieldScale > 0)
+                {
+                    ShieldScale -= .05f;
+                }
+                if (ShieldScale <= 0)
+                {
+                    npc.dontTakeDamage = false;
+                    ShieldScale = 0;
+                }
+            }
 
             if (npc.ai[1] == 1f)
             {
                 BoomTimer++;
                 Speechtimer++;
-                npc.width = 222;
-                npc.height = 228;
                 if (BoomTimer == 60)
                 {
                     Projectile.NewProjectile(Explosion, new Vector2(0, 0), mod.ProjectileType<CthulhuDeathBoom>(), 0, 0, Main.myPlayer);
+                    BoomTimer = 0;
                 }
                 if (Speechtimer == 40)
                 {
@@ -145,93 +180,81 @@ namespace AAMod.NPCs.Bosses.SoC
 
                 if (Speechtimer == 520)
                 {
-                    Main.NewText("PREPARE FOR YOU AND YOUR WORLD’S CATASTROPHIC DEMISE!", Color.DarkCyan);
                     Projectile.NewProjectile(npc.Center, new Vector2(0, 0), mod.ProjectileType<CthulhuDeath>(), 0, 0, Main.myPlayer);
-                    Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/IZGore1"), 1.2f);
+                    Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/CthulhuGore"), 1.2f);
                     npc.life = 0;
                 }
+                    return;
             }
 
-            BaseAI.AISpaceOctopus(npc, ref customAI, .02f, 1, 0f, 120f, FireMagic);
+            BaseAI.AISpaceOctopus(npc, ref customAI, .1f, 1, 0f, 120f, FireMagic);
 
             if (npc.life < EyeSummon && !Eye)
             {
                 Eye = true;
+                Main.NewText("Cyaegha! Scorch this insignificant mortal with your flames of agony!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
-                    Main.NewText("Cyaegha! Scorch this insignificant mortal with your flames of agony!", Color.DarkCyan);
+                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityEye"));
                 }
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityEye"));
             }
 
             if (npc.life < EaterSummon && !Eater)
             {
-                Eye = true;
-                if (Main.netMode != 1)
-                {
-                    Main.NewText("Crom Cruach! Constrict the child so I can destroy them!", Color.DarkCyan);
-                }
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityEye"));
-            }
-
-            if (npc.life < EyeSummon && !Eye)
-            {
                 Eater = true;
+                Main.NewText("Cyaegha! Scorch this insignificant mortal with your flames of agony!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
-                    Main.NewText("Cyaegha! Scorch this insignificant mortal with your flames of agony!", Color.DarkCyan);
+                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityEater"));
                 }
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityEater"));
             }
 
             if (npc.life < BrainSummon && !Brain)
             {
                 Brain = true;
+                Main.NewText("Lu'Kthu! Send your minions upon this pest to distract them!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
-                    Main.NewText("Lu'Kthu! Send your minions upon this pest to distract them!", Color.DarkCyan);
+                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityBrain"));
                 }
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityBrain"));
             }
 
             if (npc.life < SkullSummon && !Skull)
             {
                 Skull = true;
+                Main.NewText("Rhan-Tegoth! Crush this annoyance with your claws of pain!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
-                    Main.NewText("Rhan-Tegoth! Crush this annoyance with your claws of pain!", Color.DarkCyan);
+                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeitySkull"));
                 }
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeitySkull"));
             }
 
             if (npc.life < RoseSummon && !Rose)
             {
                 Rose = true;
+                Main.NewText("Ei'Lor! Devour my foe for me so I may destroy this world!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
-                    Main.NewText("Ei'Lor! Devour my foe for me so I may destroy this world!", Color.DarkCyan);
+                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityRose"));
                 }
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityRose"));
             }
 
             if (npc.life < LeviathanSummon && !Leviathan)
             {
                 Leviathan = true;
+                Main.NewText("THAT TEARS IT! VILE-OCT! DESTROY THIS INSIGNIFICANT PEST!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
-                    Main.NewText("THAT TEARS IT! VILE-OCT! DESTROY THIS INSIGNIFICANT PEST!", Color.DarkCyan);
+                    NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityLeviathan"));
                 }
-                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityLeviathan"));
             }
 
             if (npc.life <= npc.lifeMax / 10)
             {
                 music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/LastStand");
-                if (!Pinch && Main.netMode != 1)
-                {
-                    Pinch = true;
-                    Main.NewText("I SHALL NOT LOSE TO A MORTAL AGAIN. YOU WILL FEEL MY WRATH UPON YOUR WORLD!", Color.DarkCyan);
-                }
+
+                Pinch = true;
+                Main.NewText("I SHALL NOT LOSE TO A MORTAL AGAIN. YOU WILL FEEL MY WRATH UPON YOUR WORLD!", Color.DarkCyan);
             }
         }
 
@@ -280,7 +303,7 @@ namespace AAMod.NPCs.Bosses.SoC
             npc.ai[0] += 1;
             if (npc.ai[0] == 1 || npc.ai[0] == 4 || npc.ai[0] == 6 || npc.ai[0] == 15 || npc.ai[0] == 20)
             {
-                ShootThis = mod.ProjectileType<CthulhuBomb>();
+                ShootThis = mod.ProjectileType<CthulhuNuke>();
             }
             if (npc.ai[0] == 2 || npc.ai[0] == 3 || npc.ai[0] == 9 || npc.ai[0] == 17 || npc.ai[0] == 22)
             {
@@ -316,7 +339,7 @@ namespace AAMod.NPCs.Bosses.SoC
             }
             else
             {
-                Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX, PlayerPosY, mod.ProjectileType("YamataBreath"), (int)(npc.damage * .8f), 0f, Main.myPlayer);
+                Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX * 2, PlayerPosY * 2, mod.ProjectileType("YamataBreath"), (int)(npc.damage * .8f), 0f, Main.myPlayer);
             }
             if (npc.ai[0] > 25)
             {
@@ -337,18 +360,24 @@ namespace AAMod.NPCs.Bosses.SoC
 
         public override bool PreDraw(SpriteBatch sb, Color drawColor)
         {
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
             Texture2D currentTex = Main.npcTexture[npc.type];
             Texture2D GlowTex = mod.GetTexture("Glowmasks/Cthulhu_Glow");
-            Vector2 drawCenter = new Vector2(npc.Center.X, npc.Center.Y + 138);
-            if (npc.ai[1] == 1f)
-            {
-                drawCenter = new Vector2(npc.Center.X, npc.Center.Y);
-            }
+            Texture2D Barrier = mod.GetTexture("NPCs/Bosses/SoC/CthulhuBarrier");
+            Texture2D Shield = mod.GetTexture("NPCs/Bosses/SoC/CthulhuShield");
+            Vector2 drawCenter = new Vector2(npc.Center.X, npc.Center.Y);
+
             Main.spriteBatch.Draw(currentTex, (drawCenter - Main.screenPosition), new Rectangle?(new Rectangle(0, 0, currentTex.Width, currentTex.Height)), drawColor, npc.rotation, new Vector2(currentTex.Width / 2f, currentTex.Height / 2f), npc.scale, SpriteEffects.None, 0f);
 
             //draw glow/glow afterimage
             BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, AAColor.Cthulhu2);
             BaseDrawing.DrawAfterimage(sb, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
+
+            //Draw Shield
+            byte shader = (byte)GameShaders.Armor.GetShaderIdFromItemId(ItemID.BlueAcidDye);
+
+            BaseDrawing.DrawTexture(sb, Shield, shader, npc.Center, Shield.Width, Shield.Height, ShieldScale, ShieldRotation, 0, 0, new Rectangle(0, 0, Shield.Width, Shield.Height));
+            BaseDrawing.DrawTexture(sb, Barrier, 0, npc.Center, Barrier.Width, Barrier.Height, ShieldScale, ShieldRotation, 0, 0, new Rectangle(0, 0, Barrier.Width, Barrier.Height), Color.White);
 
             return false;
         }

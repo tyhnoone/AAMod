@@ -342,6 +342,36 @@ namespace AAMod
 
                 yabhb.Call("hbStart");
                 yabhb.Call("hbSetTexture",
+                    GetTexture("Healthbars/AkumaBarHead"),
+                    GetTexture("Healthbars/AkumaBarBody"),
+                    GetTexture("Healthbars/AkumaBarTail"),
+                    GetTexture("Healthbars/BarFill"));
+                yabhb.Call("hbSetColours",
+                    Color.OrangeRed,
+                    Color.OrangeRed,
+                    Color.OrangeRed);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
+                yabhb.Call("hbSetBossHeadCentre", 50, 32);
+                yabhb.Call("hbSetFillDecoOffsetSmall", 16);
+                yabhb.Call("hbFinishSingle", (instance.NPCType("Akuma")));
+
+                yabhb.Call("hbStart");
+                yabhb.Call("hbSetTexture",
+                    GetTexture("Healthbars/AkumaABarHead"),
+                    GetTexture("Healthbars/AkumaBarBody"),
+                    GetTexture("Healthbars/AkumaABarTail"),
+                    GetTexture("Healthbars/BarFill"));
+                yabhb.Call("hbSetColours",
+                    Color.DeepSkyBlue,
+                    Color.DeepSkyBlue,
+                    Color.DeepSkyBlue);
+                yabhb.Call("hbSetMidBarOffset", -30, 10);
+                yabhb.Call("hbSetBossHeadCentre", 50, 32);
+                yabhb.Call("hbSetFillDecoOffsetSmall", 16);
+                yabhb.Call("hbFinishSingle", (instance.NPCType("AkumaA")));
+
+                yabhb.Call("hbStart");
+                yabhb.Call("hbSetTexture",
                     GetTexture("Healthbars/ZeroBarHead"),
                     GetTexture("Healthbars/ZeroBarBody"),
                     GetTexture("Healthbars/ZeroBarTail"),
@@ -551,6 +581,11 @@ namespace AAMod
                 SkyManager.Instance["AAMod:IZSky"] = new IZSky();
                 IZSky.boltTexture = GetTexture("Backgrounds/VoidBolt");
                 IZSky.flashTexture = GetTexture("Backgrounds/VoidFlash");
+
+                Filters.Scene["AAMod:CthulhuStars"] = new Filter(new CthulhuStarData("FilterMiniTower").UseColor(0.0f, 0.3f, 0.1f).UseOpacity(0.3f), EffectPriority.High);
+                SkyManager.Instance["AAMod:CthulhuStars"] = new CthulhuStars();
+                CthulhuStars.boltTexture = GetTexture("Backgrounds/CthulhuBolt");
+                CthulhuStars.flashTexture = GetTexture("Backgrounds/CthulhuFlash");
 
                 Filters.Scene["AAMod:InfernoSky"] = new Filter(new InfernoSkyData("FilterMiniTower").UseColor(1f, 0.20f, 0f).UseOpacity(0.3f), EffectPriority.High);
                 SkyManager.Instance["AAMod:InfernoSky"] = new InfernoSky();

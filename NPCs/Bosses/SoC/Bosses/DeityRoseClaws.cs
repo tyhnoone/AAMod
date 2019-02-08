@@ -22,7 +22,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
         {
             npc.width = 24;
             npc.height = 24;
-            npc.aiStyle = 53;
+            npc.aiStyle = -1;
             npc.damage = 60;
             npc.defense = 20;
             npc.lifeMax = 1000;

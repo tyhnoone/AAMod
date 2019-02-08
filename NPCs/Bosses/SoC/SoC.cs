@@ -109,12 +109,12 @@ namespace AAMod.NPCs.Bosses.SoC
             npc.rotation = npc.velocity.X / 15f;
             Vector2 spawnAt = npc.Center + new Vector2(0f, npc.height / 2f);
             float EyeSummon = npc.lifeMax * .85f;
-            float BrainSummon = npc.lifeMax * .70f;
-            float EaterSummon = npc.lifeMax * .55f;
+            float EaterSummon = npc.lifeMax * .70f;
+            float BrainSummon = npc.lifeMax * .55f;
             float SkullSummon = npc.lifeMax * .40f;
             float RoseSummon = npc.lifeMax * .25f;
             float LeviathanSummon = npc.lifeMax * .10f;
-            bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
             npc.ai[3]++;
 
             if (npc.ai[3] >= 600)
@@ -421,7 +421,7 @@ namespace AAMod.NPCs.Bosses.SoC
                         morphTimer++;
                         if (morphTimer > 300)
                         {
-                            if (Eater == false)
+                            if (Brain == false)
                             {
                                 Eater = true;
                                 NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityBrain"));
@@ -592,6 +592,7 @@ namespace AAMod.NPCs.Bosses.SoC
             Color? alpha4 = GetAlpha(color25);
             Color color;
             Vector2 drawCenter = new Vector2(npc.Center.X, npc.Center.Y);
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
             if (Summon)
             {
                 Rotation += .2f;
@@ -626,9 +627,13 @@ namespace AAMod.NPCs.Bosses.SoC
             {
                 color = drawColor;
             }
-            Main.spriteBatch.Draw(Rift, drawCenter - Main.screenPosition, new Rectangle?(new Rectangle(0, y6, Rift.Width, Rift.Height)), AAColor.Cthulhu, RiftSpin, new Vector2(Rift.Width / 2f, Rift.Height / 2f), 1.5f, SpriteEffects.None, 0f);
-            Main.spriteBatch.Draw(WheelTex, drawCenter - Main.screenPosition, new Rectangle?(new Rectangle(0, y6, WheelTex.Width, WheelTex.Height)), color, Rotation, new Vector2(texture2D13.Width / 2f, texture2D13.Height / 2f), npc.scale, SpriteEffects.None, 0f);
-            Main.spriteBatch.Draw(texture2D13, drawCenter - Main.screenPosition, new Rectangle?(new Rectangle(0, y6, texture2D13.Width, texture2D13.Height)), color, npc.rotation, new Vector2(texture2D13.Width / 2f, texture2D13.Height / 2f), npc.scale, SpriteEffects.None, 0f);
+            if (!BossAlive)
+            {
+                Main.spriteBatch.Draw(Rift, drawCenter - Main.screenPosition, new Rectangle?(new Rectangle(0, y6, Rift.Width, Rift.Height)), AAColor.Cthulhu, RiftSpin, new Vector2(Rift.Width / 2f, Rift.Height / 2f), 1.5f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(WheelTex, drawCenter - Main.screenPosition, new Rectangle?(new Rectangle(0, y6, WheelTex.Width, WheelTex.Height)), color, Rotation, new Vector2(texture2D13.Width / 2f, texture2D13.Height / 2f), npc.scale, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(texture2D13, drawCenter - Main.screenPosition, new Rectangle?(new Rectangle(0, y6, texture2D13.Width, texture2D13.Height)), color, npc.rotation, new Vector2(texture2D13.Width / 2f, texture2D13.Height / 2f), npc.scale, SpriteEffects.None, 0f);
+            }
+            
             return false;
         }
 

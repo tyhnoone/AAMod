@@ -118,7 +118,7 @@ namespace AAMod.Backgrounds
             Intensity = 0.002f;
             Active = true;
 
-            bolts = new IZSky.Bolt[500];
+            bolts = new Bolt[500];
             for (int i = 0; i < bolts.Length; i++)
             {
                 bolts[i].IsAlive = false;
