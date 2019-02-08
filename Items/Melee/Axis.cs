@@ -10,7 +10,7 @@ namespace AAMod.Items.Melee
         public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Axis");
-			Tooltip.SetDefault("Enemy hit by this would be surrounded by snowflakes");
+			Tooltip.SetDefault("Enemies struck by this spear will be surrounded by snowflakes");
 		}
 		
         public override void SetDefaults()

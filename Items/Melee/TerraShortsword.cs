@@ -8,8 +8,7 @@ namespace AAMod.Items.Melee
     {
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Terra Shortsword");
-			Tooltip.SetDefault("Who may thought that shortswords may be any good?");
+			DisplayName.SetDefault("Terra Broadsword");
         }
 		public override void SetDefaults()
 		{
@@ -20,18 +19,28 @@ namespace AAMod.Items.Melee
 			item.height = 46;
 			item.useTime = 15;
 			item.useAnimation = 15;
-			item.useStyle = 3;
+			item.useStyle = 1;
 			item.knockBack = 4;
-			item.value = 100000;
+			item.value = 10000;
 			item.rare = 4;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
         }
 
+        public override void MeleeEffects(Player player, Rectangle hitbox)
+        {
+            if (Main.rand.NextFloat() < 1f)
+            {
+                Dust dust;
+                dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 107, 0f, 0f, 46, default(Color), .5f)];
+                dust.noGravity = true;
+            }
+        }
+
         public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GoldBar, 10);
+			recipe.AddIngredient(ItemID.Bone, 10);
 			recipe.AddIngredient(ItemID.Stinger, 8);
 			recipe.AddIngredient(ItemID.JungleSpores, 6);
 			recipe.AddIngredient(ItemID.CrimtaneBar, 10);
