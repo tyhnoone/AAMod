@@ -41,7 +41,6 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.buffImmune[24] = true;
             npc.buffImmune[31] = true;
             npc.buffImmune[44] = true;
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
             for (int m = 0; m < npc.buffImmune.Length; m++) npc.buffImmune[m] = true;
         }
 

@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Terraria.ModLoader;
 using BaseMod;
 using AAMod.NPCs.Bosses.SoC.Bosses;
+using Terraria.Graphics.Shaders;
 
 namespace AAMod.NPCs.Bosses.SoC
 {
@@ -117,7 +118,7 @@ namespace AAMod.NPCs.Bosses.SoC
             bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
             npc.ai[3]++;
 
-            if (npc.ai[3] >= 600)
+            if (npc.ai[3] >= 600 && !BossAlive)
             {
                 NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("Portal"), 0, -npc.velocity.X, -npc.velocity.Y);
                 npc.ai[3] = 0;
@@ -130,15 +131,7 @@ namespace AAMod.NPCs.Bosses.SoC
                 oneTime++;
             }
 
-            if (BossAlive)
-            {
-                Morphed = true;
-                return;
-            }
-            else
-            {
-                Morphed = false;
-            }
+            
 
             if (Morphed)
             {
@@ -171,6 +164,17 @@ namespace AAMod.NPCs.Bosses.SoC
             else
             {
                 npc.dontTakeDamage = true;
+            }
+
+            if (BossAlive)
+            {
+                Morphed = true;
+                npc.Center = new Vector2(player.Center.X, player.Center.Y - 60);
+                return;
+            }
+            else
+            {
+                Morphed = false;
             }
 
             if (npc.life < EyeSummon && !Boss1) //Spawn Eye boi
@@ -584,6 +588,7 @@ namespace AAMod.NPCs.Bosses.SoC
             Texture2D RingTex = mod.GetTexture("NPCs/Bosses/SoC/DeityCircle");
             Texture2D RitualTex = mod.GetTexture("NPCs/Bosses/SoC/DeityRitual");
             Texture2D Rift = mod.GetTexture("NPCs/Bosses/SoC/Rift");
+            Texture2D GlowTex = mod.GetTexture("Glowmasks/SoC_Glow");
             Vector2 vector38 = npc.position + new Vector2(npc.width, npc.height) / 2f + Vector2.UnitY * npc.gfxOffY - Main.screenPosition;
             Vector2 origin8 = new Vector2((float)RitualTex.Width, (float)RitualTex.Height) / 2f;
             int num214 = Main.npcTexture[npc.type].Height;
@@ -627,13 +632,30 @@ namespace AAMod.NPCs.Bosses.SoC
             {
                 color = drawColor;
             }
-            if (!BossAlive)
+
+            byte shader = 0;
+
+            if (BossAlive)
             {
-                Main.spriteBatch.Draw(Rift, drawCenter - Main.screenPosition, new Rectangle?(new Rectangle(0, y6, Rift.Width, Rift.Height)), AAColor.Cthulhu, RiftSpin, new Vector2(Rift.Width / 2f, Rift.Height / 2f), 1.5f, SpriteEffects.None, 0f);
-                Main.spriteBatch.Draw(WheelTex, drawCenter - Main.screenPosition, new Rectangle?(new Rectangle(0, y6, WheelTex.Width, WheelTex.Height)), color, Rotation, new Vector2(texture2D13.Width / 2f, texture2D13.Height / 2f), npc.scale, SpriteEffects.None, 0f);
-                Main.spriteBatch.Draw(texture2D13, drawCenter - Main.screenPosition, new Rectangle?(new Rectangle(0, y6, texture2D13.Width, texture2D13.Height)), color, npc.rotation, new Vector2(texture2D13.Width / 2f, texture2D13.Height / 2f), npc.scale, SpriteEffects.None, 0f);
+                shader = (byte)GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
             }
-            
+            else
+            {
+                shader = 0;
+            }
+            BaseDrawing.DrawTexture(spriteBatch, Rift, 0, npc.Center, Rift.Width, Rift.Height, 1.8f, RiftSpin, 0, 0, new Rectangle(0, y6, Rift.Width, Rift.Height), AAColor.Cthulhu);
+
+            BaseDrawing.DrawTexture(spriteBatch, WheelTex, shader, npc.Center, WheelTex.Width, WheelTex.Height, npc.scale, Rotation, 0, 0, new Rectangle(0, 0, WheelTex.Width, WheelTex.Height), color);
+
+            BaseDrawing.DrawTexture(spriteBatch, texture2D13, shader, npc.Center, texture2D13.Width, texture2D13.Height, npc.scale, npc.rotation, 0, 0, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), color);
+
+            if (BossAlive || Summon)
+            {
+                BaseDrawing.DrawTexture(spriteBatch, GlowTex, 0, npc.Center, GlowTex.Width, GlowTex.Height, npc.scale, npc.rotation, 0, 0, new Rectangle(0, 0, GlowTex.Width, GlowTex.Height), Color.White);
+
+                BaseDrawing.DrawAfterimage(spriteBatch, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
+            }
+
             return false;
         }
 

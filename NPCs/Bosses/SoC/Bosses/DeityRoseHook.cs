@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.SoC.Bosses
 {
-    public class DeityRoseHook: ModNPC
+    /*public class DeityRoseHook: ModNPC
 	{
 
         public override void SetStaticDefaults()
@@ -211,5 +211,57 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
                 
             }
         }
-    }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle((int)Main.screenPosition.X - 800, (int)Main.screenPosition.Y - 800, Main.screenWidth + 1600, Main.screenHeight + 1600);
+            for (int i = 199; i >= 0; i--)
+            {
+                try
+                {
+                    if (Main.npc[i].active && Main.npc[i].type > 0 && Main.npc[i].type < 580 && !Main.npc[i].hide)
+                    {
+                        Main.npc[i].visualOffset *= 0.95f;
+                        Main.npc[i].position += Main.npc[i].visualOffset;
+                        if (Main.npc[i].behindTiles == npc.behindTiles)
+                        {
+                            if (AAModGlobalNPC.Rose >= 0)
+                            {
+                                Vector2 vector2 = new Vector2(Main.npc[i].position.X + (float)(Main.npc[i].width / 2), Main.npc[i].position.Y + (float)(Main.npc[i].height / 2));
+                                float num6 = Main.npc[NPC.plantBoss].Center.X - vector2.X;
+                                float num7 = Main.npc[NPC.plantBoss].Center.Y - vector2.Y;
+                                float rotation2 = (float)Math.Atan2((double)num7, (double)num6) - 1.57f;
+                                bool flag3 = true;
+                                while (flag3)
+                                {
+                                    int num8 = 16;
+                                    int num9 = 32;
+                                    float num10 = (float)Math.Sqrt((double)(num6 * num6 + num7 * num7));
+                                    if (num10 < (float)num9)
+                                    {
+                                        num8 = (int)num10 - num9 + num8;
+                                        flag3 = false;
+                                    }
+                                    num10 = (float)num8 / num10;
+                                    num6 *= num10;
+                                    num7 *= num10;
+                                    vector2.X += num6;
+                                    vector2.Y += num7;
+                                    num6 = Main.npc[NPC.plantBoss].Center.X - vector2.X;
+                                    num7 = Main.npc[NPC.plantBoss].Center.Y - vector2.Y;
+                                    Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int)vector2.X / 16, (int)(vector2.Y / 16f));
+                                    Main.spriteBatch.Draw(mod.GetTexture("NPCs/Bosses/SoC/Bosses/DeityRoseHook_Chain"), new Vector2(vector2.X - Main.screenPosition.X, vector2.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, Main.chain26Texture.Width, num8)), color2, rotation2, new Vector2((float)Main.chain26Texture.Width * 0.5f, (float)Main.chain26Texture.Height * 0.5f), 1f, SpriteEffects.None, 0f);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                    Main.npc[i].active = false;
+                }
+            }
+            return true;
+        }
+    }*/
 }

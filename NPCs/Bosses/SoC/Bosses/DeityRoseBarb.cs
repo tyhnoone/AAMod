@@ -15,12 +15,12 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ei'Lor Barb");
-            Main.npcFrameCount[projectile.type] = 2;
+            Main.projFrames[projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(276);
+            projectile.CloneDefaults(ProjectileID.PoisonSeedPlantera);
         }
     }
 }

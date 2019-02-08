@@ -21,6 +21,26 @@ namespace AAMod.NPCs.Bosses.SoC
 
         public override void AI()
         {
+            projectile.frameCounter++;
+            if (projectile.frameCounter > 5)
+            {
+                projectile.frame++;
+                projectile.frameCounter = 0;
+                if (projectile.frame > 3)
+                {
+                    projectile.frame = 0;
+                }
+            }
+            if (projectile.velocity.X < 0f)
+            {
+                projectile.spriteDirection = -1;
+                projectile.rotation = (float)Math.Atan2((double)(-(double)projectile.velocity.Y), (double)(-(double)projectile.velocity.X));
+            }
+            else
+            {
+                projectile.spriteDirection = 1;
+                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);
+            }
             if (projectile.ai[1] > 0f)
             {
                 int num611 = (int)projectile.ai[1] - 1;

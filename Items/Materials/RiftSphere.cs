@@ -15,7 +15,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Reality Sphere");
             Tooltip.SetDefault("It's not of this world...");
             // ticksperframe, frameCount
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 6));
+            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 4));
             ItemID.Sets.ItemNoGravity[item.type] = true;
 
         }
@@ -36,7 +36,7 @@ namespace AAMod.Items.Materials
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.White; //GConstants.COLOR_RARITYN1;
+            return AAColor.Cthulhu;
         }
 
 

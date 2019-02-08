@@ -134,9 +134,9 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             if (npc.localAI[0] == 0f && Main.netMode != 1)
             {
                 npc.localAI[0] = 1f;
+                /*NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<DeityRoseHook>(), npc.whoAmI, 0f, 0f, 0f, 0f, 255);
                 NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<DeityRoseHook>(), npc.whoAmI, 0f, 0f, 0f, 0f, 255);
-                NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<DeityRoseHook>(), npc.whoAmI, 0f, 0f, 0f, 0f, 255);
-                NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<DeityRoseHook>(), npc.whoAmI, 0f, 0f, 0f, 0f, 255);
+                NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<DeityRoseHook>(), npc.whoAmI, 0f, 0f, 0f, 0f, 255);*/
             }
             int[] array2 = new int[3];
             float num704 = 0f;
@@ -169,7 +169,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             {
                 num708 = 7f;
             }
-            if (!Main.player[npc.target].ZoneBeach || (double)Main.player[npc.target].position.Y < Main.worldSurface * 16.0 || Main.player[npc.target].position.Y > (float)((Main.maxTilesY - 200) * 16))
+            if (!Main.player[npc.target].ZoneBeach)
             {
                 flag45 = true;
                 num708 += 8f;

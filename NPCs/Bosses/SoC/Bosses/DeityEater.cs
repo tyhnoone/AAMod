@@ -42,7 +42,6 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.buffImmune[20] = true;
             npc.buffImmune[24] = true;
             npc.buffImmune[39] = true;
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
             for (int m = 0; m < npc.buffImmune.Length; m++) npc.buffImmune[m] = true;
             npc.alpha = 255;
         }
@@ -58,6 +57,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             Player player = Main.player[npc.target];
             float dist = npc.Distance(player.Center);
             fireTimer++;
+
             if (fireTimer >= 240 && fireAttack == false)
             {
                 fireAttack = true;
@@ -67,7 +67,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             if (fireAttack == true)
             {
                 Main.PlaySound(SoundID.Item34, npc.position);
-                int proj2 = Projectile.NewProjectile(npc.Center.X + Main.rand.Next(-20, 20), npc.Center.Y + Main.rand.Next(-20, 20), npc.velocity.X * 1.6f, npc.velocity.Y * 1.6f, mod.ProjectileType("AFireProjHostile"), 20, 0, Main.myPlayer);
+                int proj2 = Projectile.NewProjectile(npc.Center.X + Main.rand.Next(-20, 20), npc.Center.Y + Main.rand.Next(-20, 20), npc.velocity.X * 1.6f, npc.velocity.Y * 1.6f, mod.ProjectileType("DeityFlames"), 20, 0, Main.myPlayer);
                 Main.projectile[proj2].damage = npc.damage / 3;
                 fireAttack = false;
 

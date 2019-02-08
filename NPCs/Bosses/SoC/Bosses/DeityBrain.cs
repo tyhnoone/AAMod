@@ -43,7 +43,6 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.buffImmune[20] = true;
             npc.buffImmune[24] = true;
             npc.buffImmune[39] = true;
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
             for (int m = 0; m < npc.buffImmune.Length; m++) npc.buffImmune[m] = true;
             npc.dontTakeDamage = true;
             npc.alpha = 255;
@@ -112,6 +111,13 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             }
 
             AAModGlobalNPC.Brain = npc.whoAmI;
+
+            bool Cthulhu = NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+
+            if (Cthulhu)
+            {
+                music = 0;
+            }
             EyeCount = (Main.expertMode ? 20 : 15);
             totalEyes = BaseAI.GetNPCs(npc.Center, mod.NPCType("EoA"), 1500f);
             if (Main.netMode != 1 && npc.localAI[0] == 0f)

@@ -38,7 +38,6 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.timeLeft = NPC.activeTime * 30;
             npc.boss = true;
             npc.npcSlots = 5f;
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
             for (int m = 0; m < npc.buffImmune.Length; m++) npc.buffImmune[m] = true;
         }
 

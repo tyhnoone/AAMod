@@ -16,6 +16,10 @@ using AAMod.NPCs.Bosses.Yamata.Awakened;
 using AAMod.NPCs.Bosses.Zero;
 using AAMod.NPCs.Bosses.MushroomMonarch;
 using AAMod.NPCs.Bosses.Shen;
+using AAMod.NPCs.Bosses.Djinn;
+using AAMod.NPCs.Bosses.Serpent;
+using AAMod.NPCs.Bosses.SoC;
+using AAMod.NPCs.Bosses.SoC.Bosses;
 using System;
 using BaseMod;
 using AAMod.NPCs.Bosses.Yamata;
@@ -636,6 +640,8 @@ namespace AAMod
                 NPC.AnyNPCs(mod.NPCType<MushroomMonarch>()) ||
                 NPC.AnyNPCs(mod.NPCType<Broodmother>()) ||
                 NPC.AnyNPCs(mod.NPCType<Hydra>()) ||
+                NPC.AnyNPCs(mod.NPCType<Djinn>()) ||
+                NPC.AnyNPCs(mod.NPCType<SerpentHead>()) ||
                 NPC.AnyNPCs(mod.NPCType<Raider>()) ||
                 NPC.AnyNPCs(mod.NPCType<Retriever>()) ||
                 NPC.AnyNPCs(mod.NPCType<Orthrus>()) ||
@@ -649,7 +655,9 @@ namespace AAMod
                 NPC.AnyNPCs(mod.NPCType<ShenA>()) ||
                 NPC.AnyNPCs(mod.NPCType<Zero>()) ||
                 NPC.AnyNPCs(mod.NPCType<ZeroAwakened>())||
-                NPC.AnyNPCs(mod.NPCType<Infinity>()))
+                NPC.AnyNPCs(mod.NPCType<Infinity>()) ||
+                NPC.AnyNPCs(mod.NPCType<SoC>()) ||
+                NPC.AnyNPCs(mod.NPCType<Cthulhu>()))
             {
                 spawnRate = 0;
                 maxSpawns = 0;
@@ -658,6 +666,8 @@ namespace AAMod
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
+            Player player = Main.player[Main.myPlayer];
+
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneVoid)
             {
                 pool.Clear();
@@ -674,8 +684,12 @@ namespace AAMod
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneShip)
             {
                 pool.Clear();
+
+
                 if (AAWorld.downedEquinox)
                 {
+                    pool.Add(mod.NPCType("RiftShark"), .6f);
+
                     pool.Add(mod.NPCType("DimensionDiver"), .5f);
 
                     pool.Add(mod.NPCType("Squid"), .7f);

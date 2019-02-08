@@ -42,7 +42,7 @@ namespace AAMod.Items.Boss.SoC
             item.knockBack = 7.5F;
             item.damage = 300;
             item.noUseGraphic = true;
-            item.shoot = mod.ProjectileType("RealityAnchor");
+            item.shoot = mod.ProjectileType("Anchor");
             item.shootSpeed = 14f;
             item.UseSound = SoundID.Item1;
             item.melee = true;
@@ -51,7 +51,7 @@ namespace AAMod.Items.Boss.SoC
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Riftstone", 5);
+            recipe.AddIngredient(null, "RealityBar", 5);
             recipe.AddIngredient(ItemID.Anchor, 1);
             recipe.AddTile(null, "ACS");
             recipe.SetResult(this, 1);

@@ -46,5 +46,15 @@ namespace AAMod.Items.Boss.SoC
 			int pID = Projectile.NewProjectile(shootPos.X, shootPos.Y, velocity.X, velocity.Y, mod.ProjType("Stormray"), damage, knockback, p.whoAmI);
 			return false;
 		}
-	}
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "RealityBar", 5);
+            recipe.AddIngredient(ItemID.ShadowbeamStaff, 1);
+            recipe.AddTile(null, "ACS");
+            recipe.SetResult(this, 1);
+            recipe.AddRecipe();
+        }
+    }
 }

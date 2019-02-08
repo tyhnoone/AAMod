@@ -251,8 +251,8 @@ namespace AAMod.NPCs.Bosses.SoC
 
             if (npc.life <= npc.lifeMax / 10)
             {
+                
                 music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/LastStand");
-
                 Pinch = true;
                 Main.NewText("I SHALL NOT LOSE TO A MORTAL AGAIN. YOU WILL FEEL MY WRATH UPON YOUR WORLD!", Color.DarkCyan);
             }
@@ -260,10 +260,10 @@ namespace AAMod.NPCs.Bosses.SoC
 
         public override void NPCLoot()
         {
-            AAWorld.downedSoC = true;
             if (Main.expertMode)
             {
                 npc.DropBossBags();
+                AAWorld.downedSoC = true;
             }
             else
             {
@@ -339,7 +339,7 @@ namespace AAMod.NPCs.Bosses.SoC
             }
             else
             {
-                Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX * 2, PlayerPosY * 2, mod.ProjectileType("YamataBreath"), (int)(npc.damage * .8f), 0f, Main.myPlayer);
+                Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX * 2, PlayerPosY * 2, ShootThis, (int)(npc.damage * .8f), 0f, Main.myPlayer);
             }
             if (npc.ai[0] > 25)
             {
@@ -374,7 +374,7 @@ namespace AAMod.NPCs.Bosses.SoC
             BaseDrawing.DrawAfterimage(sb, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
 
             //Draw Shield
-            byte shader = (byte)GameShaders.Armor.GetShaderIdFromItemId(ItemID.BlueAcidDye);
+            byte shader = (byte)GameShaders.Armor.GetShaderIdFromItemId(ItemID.AcidDye);
 
             BaseDrawing.DrawTexture(sb, Shield, shader, npc.Center, Shield.Width, Shield.Height, ShieldScale, ShieldRotation, 0, 0, new Rectangle(0, 0, Shield.Width, Shield.Height));
             BaseDrawing.DrawTexture(sb, Barrier, 0, npc.Center, Barrier.Width, Barrier.Height, ShieldScale, ShieldRotation, 0, 0, new Rectangle(0, 0, Barrier.Width, Barrier.Height), Color.White);

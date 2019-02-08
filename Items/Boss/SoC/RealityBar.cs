@@ -16,7 +16,7 @@ namespace AAMod.Items.Boss.SoC
             DisplayName.SetDefault("Reality Bar");
             Tooltip.SetDefault("Raw, interdimensional energy");
             // ticksperframe, frameCount
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 10));
+            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 6));
             if (Main.netMode != 2)
             {
                 Texture2D[] glowMasks = new Texture2D[Main.glowMaskTexture.Length + 1];
@@ -45,7 +45,7 @@ namespace AAMod.Items.Boss.SoC
         {
             item.glowMask = customGlowMask;
             item.width = 30;
-            item.height = 52;
+            item.height = 26;
             item.maxStack = 999;
             item.value = Item.buyPrice(1, 0, 0, 0);
         }

@@ -168,5 +168,63 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
                 
             }
         }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            Rectangle rectangle = new Rectangle((int)Main.screenPosition.X - 800, (int)Main.screenPosition.Y - 800, Main.screenWidth + 1600, Main.screenHeight + 1600);
+            for (int i = 199; i >= 0; i--)
+            {
+                try
+                {
+                    if (Main.npc[i].active && Main.npc[i].type > 0 && Main.npc[i].type < 580 && !Main.npc[i].hide)
+                    {
+                        Main.npc[i].visualOffset *= 0.95f;
+                        Main.npc[i].position += Main.npc[i].visualOffset;
+                        if (Main.npc[i].behindTiles == npc.behindTiles)
+                        {
+                            if (AAModGlobalNPC.Rose >= 0)
+                            {
+                                int num11 = AAModGlobalNPC.Rose;
+                                if (Main.npc[i].ai[3] > 0f)
+                                {
+                                    num11 = (int)Main.npc[i].ai[3] - 1;
+                                }
+                                Vector2 vector3 = new Vector2(Main.npc[i].position.X + (float)(Main.npc[i].width / 2), Main.npc[i].position.Y + (float)(Main.npc[i].height / 2));
+                                float num12 = Main.npc[num11].Center.X - vector3.X;
+                                float num13 = Main.npc[num11].Center.Y - vector3.Y;
+                                float rotation3 = (float)Math.Atan2((double)num13, (double)num12) - 1.57f;
+                                bool flag4 = true;
+                                while (flag4)
+                                {
+                                    int num14 = 16;
+                                    int num15 = 32;
+                                    float num16 = (float)Math.Sqrt((double)(num12 * num12 + num13 * num13));
+                                    if (num16 < (float)num15)
+                                    {
+                                        num14 = (int)num16 - num15 + num14;
+                                        flag4 = false;
+                                    }
+                                    num16 = (float)num14 / num16;
+                                    num12 *= num16;
+                                    num13 *= num16;
+                                    vector3.X += num12;
+                                    vector3.Y += num13;
+                                    num12 = Main.npc[num11].Center.X - vector3.X;
+                                    num13 = Main.npc[num11].Center.Y - vector3.Y;
+                                    Microsoft.Xna.Framework.Color color3 = Lighting.GetColor((int)vector3.X / 16, (int)(vector3.Y / 16f));
+                                    Main.spriteBatch.Draw(mod.GetTexture("NPCs/Bosses/SoC/Bosses/DeityRoseClaws_Chain"), new Vector2(vector3.X - Main.screenPosition.X, vector3.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, Main.chain27Texture.Width, num14)), color3, rotation3, new Vector2((float)Main.chain27Texture.Width * 0.5f, (float)Main.chain27Texture.Height * 0.5f), 1f, SpriteEffects.None, 0f);
+                                }
+                            }
+                        } 
+                        Main.npc[i].position -= Main.npc[i].visualOffset;
+                    }
+                }
+                catch
+                {
+                    Main.npc[i].active = false;
+                }
+            }
+            return true;
+        }
     }
 }
