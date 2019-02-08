@@ -21,7 +21,7 @@ namespace AAMod.Items.Boss.Shen
             item.height = 60;
             item.useStyle = 1;
             item.useTime = 4;
-            item.useAnimation = 150;
+            item.useAnimation = 8;
             item.tileBoost += 25;
             item.knockBack = 3;
             item.value = 1000000;

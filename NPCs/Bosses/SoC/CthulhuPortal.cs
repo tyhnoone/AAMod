@@ -43,7 +43,7 @@ namespace AAMod.NPCs.Bosses.SoC
             }
             Speechtimer++;
 
-            npc.scale = 1f - npc.alpha / 255f;
+            npc.scale = 1.2f - npc.alpha / 255f;
             npc.rotation += .15f;
 
             if (Speechtimer == 180)
