@@ -633,17 +633,17 @@ namespace AAMod.NPCs.Bosses.SoC
                 color = drawColor;
             }
 
-            byte shader = 0;
+            int shader = 0;
 
-            if (BossAlive)
+            /*if (BossAlive)
             {
-                shader = (byte)GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
+                shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
             }
             else
             {
                 shader = 0;
-            }
-            BaseDrawing.DrawTexture(spriteBatch, Rift, 0, npc.Center, Rift.Width, Rift.Height, 1.8f, RiftSpin, 0, 0, new Rectangle(0, y6, Rift.Width, Rift.Height), AAColor.Cthulhu);
+            }*/
+            BaseDrawing.DrawTexture(spriteBatch, Rift, 0, npc.Center, Rift.Width, Rift.Height, 1.8f, RiftSpin, 0, 0, new Rectangle(0, 0, Rift.Width, Rift.Height), AAColor.Cthulhu);
 
             BaseDrawing.DrawTexture(spriteBatch, WheelTex, shader, npc.Center, WheelTex.Width, WheelTex.Height, npc.scale, Rotation, 0, 0, new Rectangle(0, 0, WheelTex.Width, WheelTex.Height), color);
 

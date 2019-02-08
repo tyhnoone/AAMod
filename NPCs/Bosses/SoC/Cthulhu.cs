@@ -374,11 +374,13 @@ namespace AAMod.NPCs.Bosses.SoC
             BaseDrawing.DrawAfterimage(sb, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
 
             //Draw Shield
-            byte shader = (byte)GameShaders.Armor.GetShaderIdFromItemId(ItemID.AcidDye);
+            int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.AcidDye);
 
-            BaseDrawing.DrawTexture(sb, Shield, shader, npc.Center, Shield.Width, Shield.Height, ShieldScale, ShieldRotation, 0, 0, new Rectangle(0, 0, Shield.Width, Shield.Height));
-            BaseDrawing.DrawTexture(sb, Barrier, 0, npc.Center, Barrier.Width, Barrier.Height, ShieldScale, ShieldRotation, 0, 0, new Rectangle(0, 0, Barrier.Width, Barrier.Height), Color.White);
-
+            if (BossAlive)
+            {
+                BaseDrawing.DrawTexture(sb, Shield, 0, npc.Center, Shield.Width, Shield.Height, ShieldScale, ShieldRotation, 0, 0, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.Cthulhu);
+                BaseDrawing.DrawTexture(sb, Barrier, 0, npc.Center, Barrier.Width, Barrier.Height, ShieldScale, ShieldRotation, 0, 0, new Rectangle(0, 0, Barrier.Width, Barrier.Height), Color.White);
+            }
             return false;
         }
     }
