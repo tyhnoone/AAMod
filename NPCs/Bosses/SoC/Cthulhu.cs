@@ -67,21 +67,7 @@ namespace AAMod.NPCs.Bosses.SoC
                 customAI[3] = reader.ReadFloat();
             }
         }
-
-        private bool Pinch = false;
-        public bool Eye = false;
-        public bool Eater = false;
-        public bool Brain = false;
-        public bool Skull = false;
-        public bool Rose = false;
-        public bool Leviathan = false;
-        public bool Summon = false;
-        public bool Boss1 = false;
-        public bool Boss2 = false;
-        public bool Boss3 = false;
-        public bool Boss4 = false;
-        public bool Boss5 = false;
-        public bool Boss6 = false;
+        
         public int BoomTimer = 0;
         public int Speechtimer = 0;
 
@@ -189,9 +175,9 @@ namespace AAMod.NPCs.Bosses.SoC
 
             BaseAI.AISpaceOctopus(npc, ref customAI, .1f, 1, 0f, 120f, FireMagic);
 
-            if (npc.life < EyeSummon && !Eye)
+            if (npc.life < EyeSummon && npc.ai[2] == 0)
             {
-                Eye = true;
+                npc.ai[2] = 1;
                 Main.NewText("Cyaegha! Scorch this insignificant mortal with your flames of agony!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
@@ -199,9 +185,9 @@ namespace AAMod.NPCs.Bosses.SoC
                 }
             }
 
-            if (npc.life < EaterSummon && !Eater)
+            if (npc.life < EaterSummon && npc.ai[2] == 1)
             {
-                Eater = true;
+                npc.ai[2] = 2;
                 Main.NewText("Cyaegha! Scorch this insignificant mortal with your flames of agony!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
@@ -209,9 +195,9 @@ namespace AAMod.NPCs.Bosses.SoC
                 }
             }
 
-            if (npc.life < BrainSummon && !Brain)
+            if (npc.life < BrainSummon && npc.ai[2] == 2)
             {
-                Brain = true;
+                npc.ai[2] = 3;
                 Main.NewText("Lu'Kthu! Send your minions upon this pest to distract them!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
@@ -219,9 +205,9 @@ namespace AAMod.NPCs.Bosses.SoC
                 }
             }
 
-            if (npc.life < SkullSummon && !Skull)
+            if (npc.life < SkullSummon && npc.ai[2] == 3)
             {
-                Skull = true;
+                npc.ai[2] = 4;
                 Main.NewText("Rhan-Tegoth! Crush this annoyance with your claws of pain!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
@@ -229,9 +215,9 @@ namespace AAMod.NPCs.Bosses.SoC
                 }
             }
 
-            if (npc.life < RoseSummon && !Rose)
+            if (npc.life < RoseSummon && npc.ai[2] == 4)
             {
-                Rose = true;
+                npc.ai[2] = 5;
                 Main.NewText("Ei'Lor! Devour my foe for me so I may destroy this world!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
@@ -239,9 +225,9 @@ namespace AAMod.NPCs.Bosses.SoC
                 }
             }
 
-            if (npc.life < LeviathanSummon && !Leviathan)
+            if (npc.life < LeviathanSummon && npc.ai[2] == 5)
             {
-                Leviathan = true;
+                npc.ai[2] = 6;
                 Main.NewText("THAT TEARS IT! VILE-OCT! DESTROY THIS INSIGNIFICANT PEST!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
@@ -249,12 +235,15 @@ namespace AAMod.NPCs.Bosses.SoC
                 }
             }
 
-            if (npc.life <= npc.lifeMax / 10)
+            if (npc.life <= npc.lifeMax / 10 )
             {
                 
                 music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/LastStand");
-                Pinch = true;
-                Main.NewText("I SHALL NOT LOSE TO A MORTAL AGAIN. YOU WILL FEEL MY WRATH UPON YOUR WORLD!", Color.DarkCyan);
+                if (npc.ai[2] == 6)
+                {
+                    npc.ai[2] = 7;
+                    Main.NewText("I SHALL NOT LOSE TO A MORTAL AGAIN. YOU WILL FEEL MY WRATH UPON YOUR WORLD!", Color.DarkCyan);
+                }
             }
         }
 
