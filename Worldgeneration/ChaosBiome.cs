@@ -25,7 +25,7 @@ namespace AAMod.Worldgeneration
 			tileIce = (ushort)mod.TileType("Depthice"), tileSand = (ushort)mod.TileType("Depthsand"), tileSandHardened = (ushort)mod.TileType("DepthsandHardened"), tileSandstone = (ushort)mod.TileType("Depthsandstone");
 
 			int worldSize = GetWorldSize();
-			int biomeRadius = (worldSize == 3 ? 180 : worldSize == 2 ? 150 : 120), biomeRadiusHalf = biomeRadius / 2; //how deep the biome is (scaled by world size)	
+			int biomeRadius = (worldSize == 3 ? 220 : worldSize == 2 ? 180 : 150), biomeRadiusHalf = biomeRadius / 2; //how deep the biome is (scaled by world size)	
 			
             Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
             colorToTile[new Color(0, 0, 255)] = mod.TileType("Depthstone");
@@ -565,15 +565,14 @@ namespace AAMod.Worldgeneration
         public override bool Place(Point origin, StructureMap structures)
         {
             //this handles generating the actual tiles, but you still need to add things like treegen etc. I know next to nothing about treegen so you're on your own there, lol.
-
             Mod mod = AAMod.instance;
-
 
             Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
             colorToTile[new Color(255, 0, 0)] = mod.TileType("RottedDynastyWoodS");
             colorToTile[new Color(0, 255, 0)] = mod.TileType("RottedPlatform");
             colorToTile[new Color(0, 0, 255)] = TileID.Rope;
             colorToTile[new Color(0, 255, 255)] = mod.TileType("CthulhuPortal");
+            colorToTile[new Color(255, 255, 0)] = TileID.Sand;			
             colorToTile[new Color(150, 150, 150)] = -2;
             colorToTile[Color.Black] = -1; //don't touch when genning		
 
@@ -585,14 +584,16 @@ namespace AAMod.Worldgeneration
             colorToWall[new Color(255, 0, 255)] = mod.WallType("RottedWall");
             colorToWall[new Color(0, 255, 0)] = mod.WallType("RottedWall");
             colorToWall[new Color(0, 0, 255)] = WallID.Sail;
-            colorToTile[new Color(150, 150, 150)] = -2;
+            colorToWall[new Color(150, 150, 150)] = -2;
             colorToWall[Color.Black] = -1; //don't touch when genning				
 
-            TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/BOTE"), colorToTile, mod.GetTexture("Worldgeneration/BOTEWalls"), colorToWall);
+            TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/BOTE"), colorToTile, mod.GetTexture("Worldgeneration/BOTEWalls"), colorToWall, mod.GetTexture("Worldgeneration/BOTEWater"));
+
+			int newOriginX = origin.X - (gen.width / 2);
+			int newOriginY = origin.Y - (gen.height / 2) + 10;
+            gen.Generate(newOriginX, newOriginY, true, true);
             
-            gen.Generate(origin.X, origin.Y - 111, true, true);
-            
-            WorldGen.PlaceChest((origin.X) + 124, (origin.Y - 111) + 11, (ushort)mod.TileType("SunkenChest"), true);
+            WorldGen.PlaceChest(newOriginX + 66, newOriginY + 53, (ushort)mod.TileType("SunkenChest"), true);
             return true;
         }
     }

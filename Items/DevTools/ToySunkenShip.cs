@@ -10,13 +10,13 @@ using AAMod.Worldgeneration;
 
 namespace AAMod.Items.DevTools
 {
-	public class Minilake : ModItem
+	public class ToySunkenShip : ModItem
 	{
 		public override void SetStaticDefaults()
 		{	
-			DisplayName.SetDefault("[DEV] Minilake");
-            BaseMod.BaseUtility.AddTooltips(item, new string[] { "Generates a Mire Biome below you", "'Careful not to use it near your house!'" });					
-		}		
+			DisplayName.SetDefault("[DEV] Toy Sunken Ship");
+            BaseMod.BaseUtility.AddTooltips(item, new string[] { "Generates a Sunken Ship below you", "'Careful not to use it near your house!'" });					
+		}
 		
         public override void SetDefaults()
         {
@@ -35,9 +35,9 @@ namespace AAMod.Items.DevTools
 
 		public override bool UseItem(Player player)
 		{
-            Point origin = new Point((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f));
+            Point origin = new Point((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f));	
             origin.Y = BaseWorldGen.GetFirstTileFloor(origin.X, origin.Y, true);
-            MireBiome biome = new MireBiome();
+            BOTE biome = new BOTE();
             biome.Place(origin, WorldGen.structures);
             return true;
 		}
