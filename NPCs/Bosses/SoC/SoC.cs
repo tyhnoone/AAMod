@@ -494,15 +494,15 @@ namespace AAMod.NPCs.Bosses.SoC
             {
                 shader = 0;
             }
-            BaseDrawing.DrawTexture(spriteBatch, Rift, 0, npc.position, npc.width, npc.height, 1.5f, RiftSpin, 0, 1, new Rectangle(0, 0, Rift.Width, Rift.Height), AAColor.Cthulhu);
+            BaseDrawing.DrawTexture(spriteBatch, Rift, 0, npc.position, npc.width, npc.height, 1.5f, RiftSpin, 0, 1, new Rectangle(0, 0, Rift.Width, Rift.Height), AAColor.Cthulhu, true);
 
-            BaseDrawing.DrawTexture(spriteBatch, WheelTex, shader, npc.position, npc.width, npc.height, npc.scale, Rotation, 0, 1, new Rectangle(0, 0, WheelTex.Width, WheelTex.Height), drawColor);
+            BaseDrawing.DrawTexture(spriteBatch, WheelTex, shader, npc.position, npc.width, npc.height, npc.scale, Rotation, 0, 1, new Rectangle(0, 0, WheelTex.Width, WheelTex.Height), drawColor, true);
 
-            BaseDrawing.DrawTexture(spriteBatch, texture2D13, shader, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), drawColor);
+            BaseDrawing.DrawTexture(spriteBatch, texture2D13, shader, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), drawColor, true);
 
             if (BossAlive || Summon)
             {
-                BaseDrawing.DrawTexture(spriteBatch, GlowTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, GlowTex.Width, GlowTex.Height), Color.White);
+                BaseDrawing.DrawTexture(spriteBatch, GlowTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, GlowTex.Width, GlowTex.Height), Color.White, true);
 
                 BaseDrawing.DrawAfterimage(spriteBatch, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
             }

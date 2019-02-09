@@ -435,7 +435,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
 
             BaseDrawing.DrawTexture(sb, currentTex, 0, npc, drawColor);
             
-            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, AAColor.Cthulhu2);
+            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, Color.White);
             BaseDrawing.DrawAfterimage(sb, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
 
             return false;

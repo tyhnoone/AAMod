@@ -93,13 +93,13 @@ namespace AAMod.NPCs.Bosses.SoC
             if (BossAlive)
             {
                 npc.dontTakeDamage = true;
-                if (ShieldScale < .75f)
+                if (ShieldScale < 1f)
                 {
                     ShieldScale += .05f;
                 }
-                if (ShieldScale >= .75f)
+                if (ShieldScale >= 1f)
                 {
-                    ShieldScale = .75f;
+                    ShieldScale = 1f;
                 }
             }
             else
@@ -363,12 +363,12 @@ namespace AAMod.NPCs.Bosses.SoC
             BaseDrawing.DrawAfterimage(sb, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
 
             //Draw Shield
-            int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.AcidDye);
+            int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
 
             if (BossAlive)
             {
-                BaseDrawing.DrawTexture(sb, Shield, shader, npc.position, Shield.Width, Shield.Height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.Cthulhu);
-                BaseDrawing.DrawTexture(sb, Barrier, 0, npc.position, Barrier.Width, Barrier.Height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Barrier.Width, Barrier.Height), Color.White);
+                BaseDrawing.DrawTexture(sb, Shield, shader, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.Cthulhu, true);
+                BaseDrawing.DrawTexture(sb, Barrier, 0, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Barrier.Width, Barrier.Height), Color.White, true);
             }
             return false;
         }
