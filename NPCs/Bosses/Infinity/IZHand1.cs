@@ -116,6 +116,7 @@ namespace AAMod.NPCs.Bosses.Infinity
         
         public override void AI()
 		{
+            
 
             int num429 = 1;
             if (npc.position.X + (npc.width / 2) < Main.player[npc.target].position.X + Main.player[npc.target].width)
@@ -159,12 +160,15 @@ namespace AAMod.NPCs.Bosses.Infinity
 
             if (RepairMode)
             {
+                npc.rotation = 0;
                 npc.dontTakeDamage = true;
             }
             else
             {
                 npc.dontTakeDamage = false;
             }
+
+
             if (Body != null && Body.Reseting)
             {
                 if (Main.netMode != 1)
@@ -219,7 +223,14 @@ namespace AAMod.NPCs.Bosses.Infinity
 
 			if(Main.netMode != 1)
 			{
-				customAI[0]++;
+                if (!RepairMode)
+                {
+                    customAI[0]++;
+                }
+                else
+                {
+                    customAI[0] = 0;
+                }
 				int aiTimerFire = (npc.whoAmI % 3 == 0 ? 250 : npc.whoAmI % 2 == 0 ? 250 : 200); //aiTimerFire is different per head by using whoAmI (which is usually different) 
 				if(leftHand) aiTimerFire += 60;
 
@@ -259,7 +270,7 @@ namespace AAMod.NPCs.Bosses.Infinity
             }
 
 			//random rotation code
-			if(npc.frame.Y == 0 && !ChargeAttack && !Charging)
+			if(npc.frame.Y == 0 && !ChargeAttack && !Charging && !RepairMode)
 			{
 				npc.localAI[3] += Main.rand.Next(3);
 				if(npc.localAI[3] > 150)

@@ -70,7 +70,6 @@ namespace AAMod.NPCs.Bosses.Infinity
             music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/IZ");
             npc.HitSound = SoundID.NPCHit44;
             npc.DeathSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/IZRoar");
-            npc.scale *= 1.4f;
             bossBag = mod.ItemType("IZCache");
         }
 
@@ -245,10 +244,6 @@ namespace AAMod.NPCs.Bosses.Infinity
                     Main.npc[latestNPC].ai[0] = npc.whoAmI;
                     Main.npc[latestNPC].ai[1] = handType;
                     Zero6 = Main.npc[latestNPC];
-                    latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("InfinityCore"), 0, npc.whoAmI);
-                    Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                    Main.npc[latestNPC].ai[0] = npc.whoAmI;
-                    Core = Main.npc[latestNPC];
                 }
                 ZerosSpawned = true;
             }
@@ -271,6 +266,7 @@ namespace AAMod.NPCs.Bosses.Infinity
             {
                 npc.ai[0]--;
                 npc.ai[2] = 1;
+                npc.dontTakeDamage = true;
                 if (!FirstCoreLine)
                 {
                     FirstCoreLine = true;
@@ -284,7 +280,10 @@ namespace AAMod.NPCs.Bosses.Infinity
                     npc.ai[0] = 600;
                     IZHand1.RepairMode = false;
                 }
-
+            }
+            else
+            {
+                npc.dontTakeDamage = false;
             }
         }
 
@@ -520,13 +519,14 @@ namespace AAMod.NPCs.Bosses.Infinity
             BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, AAColor.Oblivion);
             if (fifthHealth)
             {
-                Main.spriteBatch.Draw(BodyTex, drawCenter - Main.screenPosition, IZFrame, dColor, npc.rotation, new Vector2(npc.width / 2f, npc.height / 2f), npc.scale, SpriteEffects.None, 0f);
+
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 4, IZFrame, dColor);
                 BaseDrawing.DrawAura(sb, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, GetRedAlpha());
                 BaseDrawing.DrawTexture(sb, glowTex, 0, npc, GetRedAlpha());
             }
             else
             {
-                Main.spriteBatch.Draw(BodyTex, drawCenter - Main.screenPosition, IZFrame, BaseUtility.ColorClamp(BaseDrawing.GetNPCColor(npc, npc.Center + new Vector2(0, -30), true, 0f), GetGlowAlpha(true)), npc.rotation, new Vector2(npc.width / 2f, npc.height / 2f), npc.scale, SpriteEffects.None, 0f);
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 4, IZFrame, BaseUtility.ColorClamp(BaseDrawing.GetNPCColor(npc, npc.Center + new Vector2(0, -30), true, 0f), GetGlowAlpha(true)));
                 BaseDrawing.DrawAura(sb, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, GetGlowAlpha(true));
                 BaseDrawing.DrawTexture(sb, glowTex, 0, npc, GetGlowAlpha(false));
             }
