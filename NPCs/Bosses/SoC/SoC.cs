@@ -41,21 +41,8 @@ namespace AAMod.NPCs.Bosses.SoC
         }
 
         public bool LeaveLine = false;
-        public bool Pinch = false;
-
-        public bool Eye = false;
-        public bool Eater = false;
-        public bool Brain = false;
-        public bool Skull = false;
-        public bool Rose = false;
         public bool Leviathan = false;
         public bool Summon = false;
-        public bool Boss1 = false;
-        public bool Boss2 = false;
-        public bool Boss3 = false;
-        public bool Boss4 = false;
-        public bool Boss5 = false;
-        public bool Boss6 = false;
 
         public float Rotation = 0;
         public float AlphaTimer = 0;
@@ -63,12 +50,35 @@ namespace AAMod.NPCs.Bosses.SoC
         public float scale = 0;
         public float RingRotation = 0;
         public float morphTimer = 0;
-        public bool Morph = false;
         public float RiftSpin = 0;
         public bool Morphed = false;
         public static bool ComeBack = false;
         public int ReturnTimer = 100;
 
+        public float[] customAI = new float[4];
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            if ((Main.netMode == 2 || Main.dedServ))
+            {
+                writer.Write((short)customAI[0]);
+                writer.Write((short)customAI[1]);
+                writer.Write((short)customAI[2]);
+                writer.Write((short)customAI[3]);
+            }
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            if (Main.netMode == 1)
+            {
+                customAI[0] = reader.ReadFloat();
+                customAI[1] = reader.ReadFloat();
+                customAI[2] = reader.ReadFloat();
+                customAI[3] = reader.ReadFloat();
+            }
+        }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
@@ -117,7 +127,7 @@ namespace AAMod.NPCs.Bosses.SoC
             float LeviathanSummon = npc.lifeMax * .10f;
             bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
             npc.ai[3]++;
-
+            customAI[3]++;
             if (npc.ai[3] >= 600 && !BossAlive)
             {
                 NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("Portal"), 0, -npc.velocity.X, -npc.velocity.Y);
@@ -131,9 +141,7 @@ namespace AAMod.NPCs.Bosses.SoC
                 oneTime++;
             }
 
-            
-
-            if (Morphed)
+            if (BossAlive)
             {
                 npc.alpha += 12;
                 if (npc.alpha >= 140)
@@ -141,8 +149,7 @@ namespace AAMod.NPCs.Bosses.SoC
                     npc.alpha = 140;
                 }
                 npc.dontTakeDamage = true;
-
-                npc.netUpdate = true;
+                npc.Center = new Vector2(player.Center.X, player.Center.Y - 60);
                 return;
             }
             else
@@ -153,71 +160,49 @@ namespace AAMod.NPCs.Bosses.SoC
                     npc.alpha = 0;
                 }
                 npc.dontTakeDamage = false;
-
-                npc.netUpdate = true;
             }
 
-            if (npc.ai[1] == 1f || npc.ai[1] == 0f)
+            if (npc.life < EyeSummon && customAI[2] == 0) //Spawn Eye boi
             {
-                npc.dontTakeDamage = false;
-            }
-            else
-            {
-                npc.dontTakeDamage = true;
-            }
-
-            if (BossAlive)
-            {
-                Morphed = true;
-                npc.Center = new Vector2(player.Center.X, player.Center.Y - 60);
-                return;
-            }
-            else
-            {
-                Morphed = false;
-            }
-
-            if (npc.life < EyeSummon && !Boss1) //Spawn Eye boi
-            {
-                Boss1 = true;
+                customAI[2] = 1;
                 npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
-                morphTimer = 0;
+                customAI[3] = 0;
             }
-            else if (npc.life < EaterSummon && !Boss2)
+            else if (npc.life < EaterSummon && customAI[2] == 1)
             {
-                Boss2 = true;
+                customAI[2] = 2;
                 npc.ai[1] = 3f;
                 npc.dontTakeDamage = true;
-                morphTimer = 0;
+                customAI[3] = 0;
             }
-            else if (npc.life < BrainSummon && !Boss3)
+            else if (npc.life < BrainSummon && customAI[2] == 2)
             {
-                Boss3 = true;
+                customAI[2] = 3;
                 npc.ai[1] = 4f;
                 npc.dontTakeDamage = true;
-                morphTimer = 0;
+                customAI[3] = 0;
             }
-            else if (npc.life < SkullSummon && !Boss4)
+            else if (npc.life < SkullSummon && customAI[2] == 3)
             {
-                Boss4 = true;
+                customAI[2] = 4;
                 npc.ai[1] = 5f;
                 npc.dontTakeDamage = true;
-                morphTimer = 0;
+                customAI[3] = 0;
             }
-            else if (npc.life < RoseSummon && !Boss5)
+            else if (npc.life < RoseSummon && customAI[2] == 4)
             {
-                Boss5 = true;
+                customAI[2] = 5;
                 npc.ai[1] = 6f;
                 npc.dontTakeDamage = true;
-                morphTimer = 0;
+                customAI[3] = 0;
             }
-            else if (npc.life < LeviathanSummon && !Boss6)
+            else if (npc.life < LeviathanSummon && customAI[2] == 5)
             {
-                Boss6 = true;
+                customAI[2] = 6;
                 npc.ai[1] = 7f;
                 npc.dontTakeDamage = true;
-                morphTimer = 0;
+                customAI[3] = 0;
             }
             
             if (Main.player[npc.target].dead)
@@ -355,203 +340,79 @@ namespace AAMod.NPCs.Bosses.SoC
 
                         Rotation += .2f;
                         RiftSpin -= .2f;
-                        morphTimer++;
+                        customAI[1]++;
 
-                        if (morphTimer > 300)
+                        if (customAI[1] > 300)
                         {
-
-                            if (Eye == false)
+                            if (customAI[0] == 0)
                             {
-                                Eye = true;
+                                Summon = true;
+                                customAI[0] = 1;
                                 NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityEye"));
                                 npc.ai[2] = 0f;
                                 npc.ai[1] = 0f;
+                                return;
                             }
-                            
+                            if (customAI[0] == 1)
+                            {
+                                Summon = true;
+                                customAI[0] = 2;
+                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityEater"));
+                                npc.ai[2] = 0f;
+                                npc.ai[1] = 0f;
+                                return;
+                            }
+                            if (customAI[0] == 2)
+                            {
+                                Summon = true;
+                                customAI[0] = 3;
+                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityBrain"));
+                                npc.ai[2] = 0f;
+                                npc.ai[1] = 0f;
+                                return;
+                            }
+                            if (customAI[0] == 3)
+                            {
+                                Summon = true;
+                                customAI[0] = 4;
+                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeitySkull"), 0, 0, 1);
+                                npc.ai[2] = 0f;
+                                npc.ai[1] = 0f;
+                                return;
+                            }
+                            if (customAI[0] == 4)
+                            {
+                                Summon = true;
+                                customAI[0] = 5;
+                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityRose"));
+                                npc.ai[2] = 0f;
+                                npc.ai[1] = 0f;
+                                return;
+                            }
+                            if (customAI[0] == 5)
+                            {
+                                Summon = true;
+                                customAI[0] = 6;
+                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityLeviathan"));
+                                npc.ai[2] = 0f;
+                                npc.ai[1] = 0f;
+                                return;
+                            }
                         }
                     }
                     return;
                 }
                 if (npc.ai[1] == 3f)
                 {
-                    Summon = true;
-                    npc.velocity *= .8f;
-                    if (npc.velocity.X < .5f || npc.velocity.X > -.5f)
-                    {
-                        npc.velocity.X = 0;
-                    }
-                    if (npc.velocity.Y < .5f || npc.velocity.Y > -.5f)
-                    {
-                        npc.velocity.Y = 0;
-                    }
-
-                    if (npc.velocity.X == 0 && npc.velocity.Y == 0)
-                    {
-                        Rotation += .2f;
-                        RiftSpin -= .2f;
-                        morphTimer++;
-                        if (morphTimer > 300)
-                        {
-                            if (Eater == false)
-                            {
-                                Eater = true;
-                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityEater"));
-                                npc.ai[2] = 0f;
-                                npc.ai[1] = 0f;
-                            }
-                        }
-
-                    }
-
-                    return;
+                    Main.NewText("...good riddance...", Color.DarkCyan);
+                    npc.ai[1] = 5f;
                 }
                 if (npc.ai[1] == 4f)
                 {
-                    Summon = true;
-                    npc.velocity *= .8f;
-                    if (npc.velocity.X < .5f || npc.velocity.X > -.5f)
-                    {
-                        npc.velocity.X = 0;
-                    }
-                    if (npc.velocity.Y < .5f || npc.velocity.Y > -.5f)
-                    {
-                        npc.velocity.Y = 0;
-                    }
-
-                    if (npc.velocity.X == 0 && npc.velocity.Y == 0)
-                    {
-                        Rotation += .2f;
-                        RiftSpin -= .2f;
-                        morphTimer++;
-                        if (morphTimer > 300)
-                        {
-                            if (Brain == false)
-                            {
-                                Eater = true;
-                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityBrain"));
-                                npc.ai[2] = 0f;
-                                npc.ai[1] = 0f;
-                            }
-                        }
-
-                    }
-
-                    return;
+                    Main.NewText("...do not return...", Color.DarkCyan);
+                    npc.ai[1] = 5f;
                 }
                 if (npc.ai[1] == 5f)
-                {
-                    Summon = true;
-                    npc.velocity *= .8f;
-                    if (npc.velocity.X < .5f || npc.velocity.X > -.5f)
-                    {
-                        npc.velocity.X = 0;
-                    }
-                    if (npc.velocity.Y < .5f || npc.velocity.Y > -.5f)
-                    {
-                        npc.velocity.Y = 0;
-                    }
-
-                    if (npc.velocity.X == 0 && npc.velocity.Y == 0)
-                    {
-
-                        Rotation += .2f;
-                        RiftSpin -= .2f;
-                        morphTimer++;
-                        if (morphTimer > 300)
-                        {
-                            if (Skull == false)
-                            {
-                                Skull = true;
-                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeitySkull"), 0, 0, 1);
-                                npc.ai[2] = 0f;
-                                npc.ai[1] = 0f;
-                            }
-                        }
-
-                    }
-
-
-                    return;
-                }
-
-                if (npc.ai[1] == 6f)
-                {
-                    Summon = true;
-                    npc.velocity *= .8f;
-                    if (npc.velocity.X < .5f || npc.velocity.X > -.5f)
-                    {
-                        npc.velocity.X = 0;
-                    }
-                    if (npc.velocity.Y < .5f || npc.velocity.Y > -.5f)
-                    {
-                        npc.velocity.Y = 0;
-                    }
-
-                    if (npc.velocity.X == 0 && npc.velocity.Y == 0)
-                    {
-                        Rotation += .2f;
-                        RiftSpin -= .2f;
-                        morphTimer++;
-                        if (morphTimer > 300)
-                        {
-                            if (Rose == false)
-                            {
-                                Rose = true;
-                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityRose"));
-                                npc.ai[2] = 0f;
-                                npc.ai[1] = 0f;
-                            }
-                        }
-                    }
-
-
-                    return;
-                }
-
-                if (npc.ai[1] == 7f)
-                {
-                    Summon = true;
-                    npc.velocity *= .8f;
-                    if (npc.velocity.X < .5f || npc.velocity.X > -.5f)
-                    {
-                        npc.velocity.X = 0;
-                    }
-                    if (npc.velocity.Y < .5f || npc.velocity.Y > -.5f)
-                    {
-                        npc.velocity.Y = 0;
-                    }
-
-                    if (npc.velocity.X == 0 && npc.velocity.Y == 0)
-                    {
-                        Rotation += .2f;
-                        RiftSpin -= .2f;
-                        morphTimer++;
-                        if (morphTimer > 300)
-                        {
-                            if (Leviathan == false)
-                            {
-                                Leviathan = true;
-                                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("DeityLeviathan"));
-                                npc.ai[2] = 0f;
-                                npc.ai[1] = 0f;
-                            }
-                        }
-                    }
-
-
-                    return;
-                }
-                if (npc.ai[1] == 8f)
-                {
-                    Main.NewText("...good riddance...", Color.DarkCyan);
-                    npc.ai[1] = 9f;
-                }
-                if (npc.ai[1] == 9f)
-                {
-                    Main.NewText("...do not return...", Color.DarkCyan);
-                    npc.ai[1] = 9F;
-                }
-                if (npc.ai[1] == 10f)
                 {
                     npc.alpha += 5;
                     {
@@ -592,17 +453,15 @@ namespace AAMod.NPCs.Bosses.SoC
             Vector2 vector38 = npc.position + new Vector2(npc.width, npc.height) / 2f + Vector2.UnitY * npc.gfxOffY - Main.screenPosition;
             Vector2 origin8 = new Vector2((float)RitualTex.Width, (float)RitualTex.Height) / 2f;
             int num214 = Main.npcTexture[npc.type].Height;
-            int y6 = 0;
             Color color25 = Lighting.GetColor((int)(npc.position.X + npc.width * 0.5) / 16, (int)((npc.position.Y + npc.height * 0.5) / 16.0));
             Color? alpha4 = GetAlpha(color25);
-            Color color;
             Vector2 drawCenter = new Vector2(npc.Center.X, npc.Center.Y);
             bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
             if (Summon)
             {
                 Rotation += .2f;
                 RiftSpin -= .2f;
-                if (morphTimer < 300f)
+                if (customAI[3] < 300f)
                 {
                     alpha -= 5;
                 }
@@ -621,37 +480,29 @@ namespace AAMod.NPCs.Bosses.SoC
                 scale = 1f - alpha / 255f;
                 RingRotation += 0.0149599658f;
                 Main.spriteBatch.Draw(RingTex, vector38, null, AAColor.Cthulhu, -RingRotation, RingTex.Size() / 2f, scale, SpriteEffects.None, 0f);
-                Main.spriteBatch.Draw(RitualTex, vector38, null, AAColor.Cthulhu, RingRotation, origin8, scale * 0.42f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(RitualTex, vector38, null, AAColor.Cthulhu, RingRotation, origin8, scale, SpriteEffects.None, 0f);
                 Main.spriteBatch.Draw(RingTex, vector38, null, AAColor.Cthulhu, -RingRotation, RingTex.Size() / 2f, scale * 0.42f, SpriteEffects.None, 0f);
-            }
-            if (npc.alpha > 0)
-            {
-                color = AAColor.Cthulhu;
-            }
-            else
-            {
-                color = drawColor;
             }
 
             int shader = 0;
 
-            /*if (BossAlive)
+            if (BossAlive)
             {
                 shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
             }
             else
             {
                 shader = 0;
-            }*/
-            BaseDrawing.DrawTexture(spriteBatch, Rift, 0, npc.Center, Rift.Width, Rift.Height, 1.8f, RiftSpin, 0, 0, new Rectangle(0, 0, Rift.Width, Rift.Height), AAColor.Cthulhu);
+            }
+            BaseDrawing.DrawTexture(spriteBatch, Rift, 0, npc.position, npc.width, npc.height, 1.5f, RiftSpin, 0, 1, new Rectangle(0, 0, Rift.Width, Rift.Height), AAColor.Cthulhu, true);
 
-            BaseDrawing.DrawTexture(spriteBatch, WheelTex, shader, npc.Center, WheelTex.Width, WheelTex.Height, npc.scale, Rotation, 0, 0, new Rectangle(0, 0, WheelTex.Width, WheelTex.Height), color);
+            BaseDrawing.DrawTexture(spriteBatch, WheelTex, shader, npc.position, npc.width, npc.height, npc.scale, Rotation, 0, 1, new Rectangle(0, 0, WheelTex.Width, WheelTex.Height), drawColor, true);
 
-            BaseDrawing.DrawTexture(spriteBatch, texture2D13, shader, npc.Center, texture2D13.Width, texture2D13.Height, npc.scale, npc.rotation, 0, 0, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), color);
+            BaseDrawing.DrawTexture(spriteBatch, texture2D13, shader, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), drawColor, true);
 
             if (BossAlive || Summon)
             {
-                BaseDrawing.DrawTexture(spriteBatch, GlowTex, 0, npc.Center, GlowTex.Width, GlowTex.Height, npc.scale, npc.rotation, 0, 0, new Rectangle(0, 0, GlowTex.Width, GlowTex.Height), Color.White);
+                BaseDrawing.DrawTexture(spriteBatch, GlowTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, GlowTex.Width, GlowTex.Height), Color.White, true);
 
                 BaseDrawing.DrawAfterimage(spriteBatch, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
             }

@@ -93,13 +93,13 @@ namespace AAMod.NPCs.Bosses.SoC
             if (BossAlive)
             {
                 npc.dontTakeDamage = true;
-                if (ShieldScale < .75f)
+                if (ShieldScale < 1f)
                 {
                     ShieldScale += .05f;
                 }
-                if (ShieldScale >= .75f)
+                if (ShieldScale >= 1f)
                 {
-                    ShieldScale = .75f;
+                    ShieldScale = 1f;
                 }
             }
             else
@@ -118,53 +118,53 @@ namespace AAMod.NPCs.Bosses.SoC
             if (npc.ai[1] == 1f)
             {
                 BoomTimer++;
-                Speechtimer++;
+                npc.ai[3]++;
                 if (BoomTimer == 60)
                 {
                     Projectile.NewProjectile(Explosion, new Vector2(0, 0), mod.ProjectileType<CthulhuDeathBoom>(), 0, 0, Main.myPlayer);
                     BoomTimer = 0;
                 }
-                if (Speechtimer == 40)
+                if (npc.ai[3] == 40)
                 {
                     Main.NewText("AAAAAAAAAGGHHH….!!", Color.DarkCyan);
                 }
-
-                if (Speechtimer == 100)
+                
+                if (npc.ai[3] == 100)
                 {
                     Main.NewText("NO!", Color.DarkCyan);
                 }
 
-                if (Speechtimer == 160)
+                if (npc.ai[3] == 160)
                 {
                     Main.NewText("NO!!!", Color.DarkCyan);
                 }
 
-                if (Speechtimer == 220)
+                if (npc.ai[3] == 220)
                 {
                     Main.NewText("IMPOSSIBLE", Color.DarkCyan);
                 }
 
-                if (Speechtimer == 280)
+                if (npc.ai[3] == 280)
                 {
                     Main.NewText("BY THE NAME OF AZATHOTH!", Color.DarkCyan);
                 }
 
-                if (Speechtimer == 340)
+                if (npc.ai[3] == 340)
                 {
                     Main.NewText("I CURSE YOU AND YOUR WORLD!", Color.DarkCyan);
                 }
 
-                if (Speechtimer == 400)
+                if (npc.ai[3] == 400)
                 {
                     Main.NewText("MAY YOU AND YOUR KIND ROT IN THE DEPTHS OF THE OCEAN!", Color.DarkCyan);
                 }
 
-                if (Speechtimer == 460)
+                if (npc.ai[3] == 460)
                 {
                     Main.NewText("GRAAAAAAAAAAAHHH…!", Color.DarkCyan);
                 }
 
-                if (Speechtimer == 520)
+                if (npc.ai[3] == 520)
                 {
                     Projectile.NewProjectile(npc.Center, new Vector2(0, 0), mod.ProjectileType<CthulhuDeath>(), 0, 0, Main.myPlayer);
                     Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/CthulhuGore"), 1.2f);
@@ -363,12 +363,12 @@ namespace AAMod.NPCs.Bosses.SoC
             BaseDrawing.DrawAfterimage(sb, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
 
             //Draw Shield
-            int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.AcidDye);
+            int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
 
             if (BossAlive)
             {
-                BaseDrawing.DrawTexture(sb, Shield, 0, npc.Center, Shield.Width, Shield.Height, ShieldScale, ShieldRotation, 0, 0, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.Cthulhu);
-                BaseDrawing.DrawTexture(sb, Barrier, 0, npc.Center, Barrier.Width, Barrier.Height, ShieldScale, ShieldRotation, 0, 0, new Rectangle(0, 0, Barrier.Width, Barrier.Height), Color.White);
+                BaseDrawing.DrawTexture(sb, Shield, shader, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.Cthulhu, true);
+                BaseDrawing.DrawTexture(sb, Barrier, 0, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Barrier.Width, Barrier.Height), Color.White, true);
             }
             return false;
         }
