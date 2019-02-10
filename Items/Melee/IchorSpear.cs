@@ -28,6 +28,7 @@ namespace AAMod.Items.Melee
             item.noUseGraphic = true;
             item.useStyle = 5;
             item.value = Item.sellPrice(0, 5, 0, 0);
+			item.autoReuse = true;
             item.rare = 3;
             item.shootSpeed = 5f;
             item.shoot = mod.ProjectileType("IchorSpear");  //put your Spear projectile name
