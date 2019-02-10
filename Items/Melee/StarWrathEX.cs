@@ -10,7 +10,8 @@ namespace AAMod.Items.Melee
     {
         public override void SetDefaults()
         {
-			item.CloneDefaults(ItemID.Starfury);
+			item.CloneDefaults(ItemID.StarWrath);
+			item.autoReuse = true;
 			item.rare = 10;
 			item.width = 48;
 			item.height = 56;
