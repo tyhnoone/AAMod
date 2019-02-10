@@ -109,7 +109,7 @@ namespace AAMod.NPCs.Bosses.SoC
         }
 
         int oneTime = 0;
-
+        public float moveSpeed = 6f;
         public int EnemyTimer = 0;
 
         public override void AI()
@@ -149,7 +149,8 @@ namespace AAMod.NPCs.Bosses.SoC
                     npc.alpha = 140;
                 }
                 npc.dontTakeDamage = true;
-                npc.Center = new Vector2(player.Center.X, player.Center.Y - 60);
+                npc.damage = 0;
+                MoveToPoint(new Vector2(player.Center.X, player.Center.Y - 60));
                 return;
             }
             else
@@ -159,6 +160,7 @@ namespace AAMod.NPCs.Bosses.SoC
                 {
                     npc.alpha = 0;
                 }
+                npc.damage = 100;
                 npc.dontTakeDamage = false;
             }
 
@@ -508,6 +510,33 @@ namespace AAMod.NPCs.Bosses.SoC
             }
 
             return false;
+        }
+
+        public void MoveToPoint(Vector2 point, bool goUpFirst = false)
+        {
+            if (moveSpeed == 0f || npc.Center == point) return; //don't move if you have no move speed
+            float velMultiplier = 1f;
+            Vector2 dist = point - npc.Center;
+            float length = (dist == Vector2.Zero ? 0f : dist.Length());
+            if (length < moveSpeed)
+            {
+                velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
+            }
+            if (length < 200f)
+            {
+                moveSpeed *= 0.5f;
+            }
+            if (length < 100f)
+            {
+                moveSpeed *= 0.5f;
+            }
+            if (length < 50f)
+            {
+                moveSpeed *= 0.5f;
+            }
+            npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
+            npc.velocity *= moveSpeed;
+            npc.velocity *= velMultiplier;
         }
 
         private void RainStart()
