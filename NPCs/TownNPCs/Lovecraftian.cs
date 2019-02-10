@@ -111,8 +111,8 @@ namespace AAMod.NPCs.TownNPCs
 
 
             int Pirate = NPC.FindFirstNPC(NPCID.Pirate);
-            int Mutant = NPC.FindFirstNPC(Fargos.NPCType("Mutant"));
-            int HordeZombie = NPC.FindFirstNPC(GRealm.NPCType("HordeZombie"));
+            int Mutant = (Fargos == null ? -1 : NPC.FindFirstNPC(Fargos.NPCType("Mutant")));
+            int HordeZombie = (Grealm == null ? -1 : NPC.FindFirstNPC(GRealm.NPCType("HordeZombie")));
 
             chat.Add("You know, where I’m from, I’m what your world would call ‘hot stuff.’");
 
