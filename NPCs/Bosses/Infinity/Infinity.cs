@@ -512,7 +512,7 @@ namespace AAMod.NPCs.Bosses.Infinity
             }
 
             Texture2D BodyTex = mod.GetTexture("NPCs/Bosses/Infinity/InfinityBody");
-            Texture2D glowTex1 = mod.GetTexture("NPCs/Bosses/Infinity/InfinityCore_Glow");
+            Texture2D glowTex1 = mod.GetTexture("Glowmasks/InfinityCore_Glow");
             Vector2 drawCenter = new Vector2(npc.Center.X, npc.Center.Y);
             if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
             else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
