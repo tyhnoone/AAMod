@@ -40,6 +40,8 @@ namespace AAMod.NPCs.Bosses.Infinity
         public float TargetDirection = (float)Math.PI / 2;
         public float s = 1;
 
+        private bool OpeningLine = false;
+
         private int CoreFrame;
         private int CoreCounter;
         private int BodyFrame;
@@ -120,6 +122,19 @@ namespace AAMod.NPCs.Bosses.Infinity
             if (testime > 0)
             {
                 testime--;
+            }
+
+            if (!OpeningLine)
+            {
+                if (!AAWorld.downedIZ)
+                {
+                    Main.NewText("Initiating Infinity Protocol. Engaging target.", new Color(158, 3, 32));
+                }
+                else
+                {
+                    Main.NewText("Initiating Infinity Protocol. Engaging known threat.", new Color(158, 3, 32));
+                }
+                OpeningLine = true;
             }
 
             StormTimer++;
@@ -520,14 +535,13 @@ namespace AAMod.NPCs.Bosses.Infinity
             BaseDrawing.DrawTexture(sb, glowTex1, 0, npc, AAColor.Oblivion);
             if (fifthHealth)
             {
-
                 BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 4, IZFrame, dColor);
                 BaseDrawing.DrawAura(sb, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, GetRedAlpha());
                 BaseDrawing.DrawTexture(sb, glowTex, 0, npc, GetRedAlpha());
             }
             else
             {
-                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 4, IZFrame, BaseUtility.ColorClamp(BaseDrawing.GetNPCColor(npc, npc.Center + new Vector2(0, -30), true, 0f), GetGlowAlpha(true)));
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 236, npc.scale, npc.rotation, 0, 4, IZFrame, BaseUtility.ColorClamp(BaseDrawing.GetNPCColor(npc, npc.Center + new Vector2(0, -30), true, 0f), GetGlowAlpha(true)));
                 BaseDrawing.DrawAura(sb, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, GetGlowAlpha(true));
                 BaseDrawing.DrawTexture(sb, glowTex, 0, npc, GetGlowAlpha(false));
             }

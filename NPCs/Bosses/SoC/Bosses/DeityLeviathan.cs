@@ -262,6 +262,21 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             int num16 = 75;
             Vector2 vector = npc.Center;
             Player player = Main.player[npc.target];
+
+            bool Cthulhu = NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+
+            bool SoC = NPC.AnyNPCs(mod.NPCType<SoC>());
+
+
+            if (SoC)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
+            }
+            else if (Cthulhu)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Cthulhu");
+            }
+
             if (npc.target < 0 || npc.target == 255 || player.dead || !player.active)
             {
                 npc.TargetClosest(true);

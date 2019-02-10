@@ -97,7 +97,7 @@ namespace AAMod.Items.BossSummons
 
         public override bool UseItem(Player player)
 		{
-            Main.NewText("...Target Identified.", new Color(158, 3, 32));
+            Main.NewText("The beacon sends a signal into the void", new Color(158, 3, 32));
             for (int i = 0; i < Main.player.Length; i++)
             {
                 Player player2 = Main.player[i];

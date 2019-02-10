@@ -114,9 +114,15 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
 
             bool Cthulhu = NPC.AnyNPCs(mod.NPCType<Cthulhu>());
 
-            if (Cthulhu)
+            bool SoC = NPC.AnyNPCs(mod.NPCType<SoC>());
+
+            if (SoC)
             {
-                music = 0;
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
+            }
+            else if (Cthulhu)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Cthulhu");
             }
             EyeCount = (Main.expertMode ? 20 : 15);
             totalEyes = BaseAI.GetNPCs(npc.Center, mod.NPCType("EoA"), 1500f);

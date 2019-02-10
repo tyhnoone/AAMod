@@ -91,6 +91,20 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
 
             bool BossAlive = NPC.AnyNPCs(mod.NPCType<SoC>()) || NPC.AnyNPCs(mod.NPCType<Cthulhu>());
 
+            bool Cthulhu = NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+
+            bool SoC = NPC.AnyNPCs(mod.NPCType<SoC>());
+
+
+            if (SoC)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
+            }
+            else if (Cthulhu)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Cthulhu");
+            }
+
             if (!BossAlive)
             {
                 npc.velocity *= .8f;

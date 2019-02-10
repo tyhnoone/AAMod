@@ -58,6 +58,20 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             float dist = npc.Distance(player.Center);
             fireTimer++;
 
+            bool Cthulhu = NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+
+            bool SoC = NPC.AnyNPCs(mod.NPCType<SoC>());
+
+
+            if (SoC)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
+            }
+            else if (Cthulhu)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Cthulhu");
+            }
+
             if (fireTimer >= 240 && fireAttack == false)
             {
                 fireAttack = true;

@@ -112,7 +112,21 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             {
                 npc.TargetClosest(true);
             }
-            
+
+            bool Cthulhu = NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+
+            bool SoC = NPC.AnyNPCs(mod.NPCType<SoC>());
+
+
+            if (SoC)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
+            }
+            else if (Cthulhu)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Cthulhu");
+            }
+
             bool dead3 = Main.player[npc.target].dead;
             float num406 = npc.position.X + (float)(npc.width / 2) - Main.player[npc.target].position.X - (float)(Main.player[npc.target].width / 2);
             float num407 = npc.position.Y + (float)npc.height - 59f - Main.player[npc.target].position.Y - (float)(Main.player[npc.target].height / 2);

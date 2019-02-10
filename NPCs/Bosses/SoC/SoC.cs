@@ -177,35 +177,35 @@ namespace AAMod.NPCs.Bosses.SoC
             else if (npc.life < EaterSummon && customAI[2] == 1)
             {
                 customAI[2] = 2;
-                npc.ai[1] = 3f;
+                npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
                 customAI[3] = 0;
             }
             else if (npc.life < BrainSummon && customAI[2] == 2)
             {
                 customAI[2] = 3;
-                npc.ai[1] = 4f;
+                npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
                 customAI[3] = 0;
             }
             else if (npc.life < SkullSummon && customAI[2] == 3)
             {
                 customAI[2] = 4;
-                npc.ai[1] = 5f;
+                npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
                 customAI[3] = 0;
             }
             else if (npc.life < RoseSummon && customAI[2] == 4)
             {
                 customAI[2] = 5;
-                npc.ai[1] = 6f;
+                npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
                 customAI[3] = 0;
             }
             else if (npc.life < LeviathanSummon && customAI[2] == 5)
             {
                 customAI[2] = 6;
-                npc.ai[1] = 7f;
+                npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
                 customAI[3] = 0;
             }
@@ -515,31 +515,37 @@ namespace AAMod.NPCs.Bosses.SoC
             return false;
         }
 
-        public void MoveToPoint(Vector2 point, bool goUpFirst = false)
+        public void MoveToPoint(Vector2 point)
         {
-            if (moveSpeed == 0f || npc.Center == point) return; //don't move if you have no move speed
             float velMultiplier = 1f;
             Vector2 dist = point - npc.Center;
-            float length = (dist == Vector2.Zero ? 0f : dist.Length());
+            float length = dist.Length();
             if (length < moveSpeed)
             {
-                velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
+                velMultiplier = MathHelper.Lerp(0f, 1f, dist.Length() / moveSpeed);
             }
-            if (length < 200f)
-            {
-                moveSpeed *= 0.5f;
-            }
-            if (length < 100f)
-            {
-                moveSpeed *= 0.5f;
-            }
-            if (length < 50f)
-            {
-                moveSpeed *= 0.5f;
-            }
-            npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
+            npc.velocity = Vector2.Normalize(point - npc.Center);
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
+            if (!Charging)
+            {
+                if (length < 200f)
+                {
+                    npc.velocity *= 0.9f;
+                }
+                if (length < 150f)
+                {
+                    npc.velocity *= 0.9f;
+                }
+                if (length < 100f)
+                {
+                    npc.velocity *= 0.8f;
+                }
+                if (length < 50f)
+                {
+                    npc.velocity *= 0.8f;
+                }
+            }
         }
 
         private void RainStart()
