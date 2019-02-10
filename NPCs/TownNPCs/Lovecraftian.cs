@@ -11,8 +11,7 @@ namespace AAMod.NPCs.TownNPCs
 	public class Lovecraftian : ModNPC
 	{
 
-        Mod Fargos = ModLoader.GetMod("FargoMod");
-        Mod GRealm = ModLoader.GetMod("Grealm");
+        
         private bool Purity = false;
         private bool Snow = false;
         private bool Desert = false;
@@ -104,7 +103,9 @@ namespace AAMod.NPCs.TownNPCs
 		}
         
         public override string GetChat()
-        {
+        {   
+			Mod Fargos = ModLoader.GetMod("FargoMod");
+			Mod GRealm = ModLoader.GetMod("Grealm");
 
             WeightedRandom<string> chat = new WeightedRandom<string>();
 
@@ -113,17 +114,17 @@ namespace AAMod.NPCs.TownNPCs
             int Mutant = NPC.FindFirstNPC(Fargos.NPCType("Mutant"));
             int HordeZombie = NPC.FindFirstNPC(GRealm.NPCType("HordeZombie"));
 
-            chat.Add("You know, where I’m from, I’m what you would call in your world ‘hot stuff.’");
+            chat.Add("You know, where I’m from, I’m what your world would call ‘hot stuff.’");
 
-            chat.Add("I wasn’t the only thing that came here when I did. A whole bunch of other stuff came through with me when a spacial rift opened up in my world. Stuff like the Eye of Cthulhu and the Brain of Cthulhu were already here though. No clue where those two came from.");
+            chat.Add("I wasn’t the only thing that came here. A whole bunch of other stuff came through with me when a spacial rift opened up in my world. Stuff like the Eye of Cthulhu and the Brain of Cthulhu were already here though. No clue where those two came from.");
 
-            chat.Add("...what are you looking at? Ever seen a squid-person before?");
+            chat.Add("...What are you looking at? You act like you've never seen a squid-person before.");
 
             chat.Add("Yes I’m a woman. What about it? Is it the tentacle beard that threw you off?");
 
-            chat.Add("If you have any sense of self preservation, I’d avoid that sunken ship in the ocean just off the coast. Scary things from my neck of the woods hang out there, especially...nevermind.");
+            chat.Add("If you have any sense of self preservation, I’d avoid that sunken ship in the ocean just off the coast. Scary things from my neck of the woods hang out there, especially... nevermind.");
 
-            chat.Add("Ever just find things in your tentacles that you don’t know how they got there ? No ? Just me ?");
+            chat.Add("Ever just find things in your tentacles that you don’t know how they got there? No? Just me?");
 
             chat.Add("Hey, your world is pretty interesting. Could you bring me some samples from different biomes for me to study ? If you do, I can make some neat stuff to trade with you.");
 
@@ -133,7 +134,7 @@ namespace AAMod.NPCs.TownNPCs
             //If Pirate is present
             if (Pirate >= 0 && Main.rand.Next(10) == 0)
             {
-                chat.Add("Oh.This is awkward. Poor " + Main.npc[Pirate].GivenName + ". His ship was the one that got destroyed when I got ripped here unwillingly.");
+                chat.Add("Oh. This is awkward. Poor " + Main.npc[Pirate].GivenName + ". His ship was the one that got destroyed when I fell out of that rift.");
             }
 
             //If mutant is present
@@ -159,7 +160,7 @@ namespace AAMod.NPCs.TownNPCs
             //Providing materials
 
             //Purity
-            //chat.Add("Thanks. These forests are so green, reminds me of home...except where I'm from, it's green everywhere.");
+            //chat.Add("Thanks. These forests are so green, reminds me of home... Except where I'm from, it's green everywhere.");
 
             return chat; // chat is implicitly cast to a string. You can also do "return chat.Get();" if that makes you feel better
         }

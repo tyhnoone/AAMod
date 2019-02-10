@@ -97,7 +97,7 @@ namespace AAMod.NPCs.TownNPCs
             int Clothier = NPC.FindFirstNPC(NPCID.Clothier);
             if (WitchDoctor >= 0 && Main.rand.Next(4) == 0)
             {
-                return Main.npc[WitchDoctor].GivenName + "Asked me one time if red truffles tasted as good as blue ones. Obviously not. Blue truffles are way saltier.";
+                return Main.npc[WitchDoctor].GivenName + "asked me one time if red truffles tasted as good as blue ones. Obviously not. Blue truffles are way saltier.";
             }
             return chat; // chat is implicitly cast to a string. You can also do "return chat.Get();" if that makes you feel better
         }

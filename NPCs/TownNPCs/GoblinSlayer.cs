@@ -84,7 +84,7 @@ namespace AAMod.NPCs.TownNPCs
             int Goblin = NPC.FindFirstNPC(NPCID.GoblinTinkerer);
 			if (Goblin >= 0 && Main.rand.Next(4) == 0)
 			{
-                chat.Add("I don't trust " + Main.npc[Goblin].GivenName + ". He's a goblin.");
+                chat.Add("I don't trust " + Main.npc[Goblin].GivenName + ". There's just something about him that I don't like...");
             }
             int DD2Bartender = NPC.FindFirstNPC(NPCID.DD2Bartender);
             if (DD2Bartender >= 0 && Main.rand.Next(4) == 0)
