@@ -144,10 +144,9 @@ namespace AAMod.Worldgeneration
             colorToTile[Color.Black] = -1;
 
             TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Lake"), colorToTile);
-            Point newOrigin = new Point(origin.X, origin.Y - 10);
-            int genX = origin.X - (gen.width / 2);
-            int genY = origin.Y - 40;
-            gen.Generate(origin.X - (gen.width / 2), origin.Y, true, true);
+			int genX = origin.X - (gen.width / 2);
+			int genY = origin.Y - 40;			
+            gen.Generate(genX, genY, true, true);
 
             return true;
         }
@@ -297,8 +296,8 @@ namespace AAMod.Worldgeneration
             TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Volcano"), colorToTile);
             Point newOrigin = new Point(origin.X, origin.Y - 30);
             int genX = origin.X - (gen.width / 2);
-            int genY = origin.Y - 80;
-            gen.Generate(origin.X - (gen.width / 2), origin.Y, true, true);
+            int genY = origin.Y - 80;		
+            gen.Generate(genX, genY, true, true);						
 
             return true;
         }
@@ -526,7 +525,6 @@ namespace AAMod.Worldgeneration
             return 2; //unknown size, assume small
         }
     }
-
 
     public class Parthenan : MicroBiome
     {
