@@ -54,7 +54,7 @@ namespace AAMod.Items.BossSummons
         {
             if (NPC.AnyNPCs(mod.NPCType<SoC>()))
             {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The wheel doesn't do anything", Color.DarkCyan, false);
+                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The compass doesn't do anything", Color.DarkCyan, false);
                 return false;
             }
             return true;

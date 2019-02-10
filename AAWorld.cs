@@ -43,7 +43,8 @@ namespace AAMod
         public static int ChaosAltarsSmashed;
         public static int OreCount;
         public static bool DiscordOres;
-        public static bool ChaosStripes;
+        public static bool InfernoStripe;
+        public static bool MireStripe;
         private int infernoSide = 0;
         private int shipSide = 0;
         private Vector2 infernoPos = new Vector2(0, 0);
@@ -138,7 +139,8 @@ namespace AAMod
             DarkMatter = downedNC;
             RadiumOre = downedDB;
             DiscordOres = downedGripsS;
-            ChaosStripes = Main.hardMode;
+            InfernoStripe = Main.hardMode;
+            MireStripe = Main.hardMode;
             LuminiteMeteorBool = false;
             Anticheat = true;
             Compass = false;
@@ -1132,16 +1134,23 @@ namespace AAMod
             }
             if (Main.hardMode == true)
             {
-                if (ChaosStripes == false)
+                if (InfernoStripe == false)
                 {
-                    ChaosStripes = true;
+                    InfernoStripe = true;
+                    infernoSide = ((Main.dungeonX > Main.maxTilesX / 2) ? (-1) : (1));
+                    infernoPos.X = ((Main.maxTilesX >= 8000) ? (infernoSide == 1 ? 2000 : (Main.maxTilesX - WorldGen.genRand.Next(2000, 2300))) : (infernoSide == 1 ? WorldGen.genRand.Next(1500, 1700) : (Main.maxTilesX - WorldGen.genRand.Next(1500, 1700))));
+
+                    Main.NewText("The Souls of Fury and Wrath are unleashed upon the world", Color.Magenta.R, Color.Magenta.G, Color.Magenta.B);
+                    ConversionHandler.ConvertDown((int)infernoPos.X, 0, 120, ConversionHandler.CONVERTID_INFERNO);
+
+                }
+                if (MireStripe == false)
+                {
+                    InfernoStripe = true;
                     infernoSide = ((Main.dungeonX > Main.maxTilesX / 2) ? (-1) : (1));
                     infernoPos.X = ((Main.maxTilesX >= 8000) ? (infernoSide == 1 ? 2000 : (Main.maxTilesX - WorldGen.genRand.Next(2000, 2300))) : (infernoSide == 1 ? WorldGen.genRand.Next(1500, 1700) : (Main.maxTilesX - WorldGen.genRand.Next(1500, 1700))));
                     mirePos.X = ((Main.maxTilesX >= 8000) ? (infernoSide != 1 ? WorldGen.genRand.Next(2000, 2300) : (Main.maxTilesX - WorldGen.genRand.Next(2000, 2300))) : (infernoSide != 1 ? WorldGen.genRand.Next(1500, 1700) : (Main.maxTilesX - WorldGen.genRand.Next(1500, 1700))));
-
-                    Main.NewText("The Souls of Fury and Wrath are unleashed upon the world", Color.Magenta.R, Color.Magenta.G, Color.Magenta.B);
-                    ConversionHandler.ConvertDown((int)infernoPos.X, 0, 220, ConversionHandler.CONVERTID_INFERNO);
-                    ConversionHandler.ConvertDown((int)mirePos.X, 0, 220, ConversionHandler.CONVERTID_MIRE);
+                    ConversionHandler.ConvertDown((int)mirePos.X, 0, 120, ConversionHandler.CONVERTID_MIRE);
 
                 }
             }

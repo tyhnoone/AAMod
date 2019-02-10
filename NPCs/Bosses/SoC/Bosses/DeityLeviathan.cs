@@ -173,6 +173,21 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             potionType = 0;   //boss drops
         }
 
+        public override bool PreDraw(SpriteBatch sb, Color drawColor)
+        {
+            Texture2D currentTex = Main.npcTexture[npc.type];
+            Texture2D GlowTex = mod.GetTexture("Glowmasks/DeityLeviathan_Glow");
+            Texture2D GlowTex1 = mod.GetTexture("Glowmasks/DeityLeviathan_Glow1");
+
+            BaseDrawing.DrawTexture(sb, currentTex, 0, npc, drawColor);
+
+            //draw glow/glow afterimage
+            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, AAColor.Cthulhu);
+            BaseDrawing.DrawAfterimage(sb, GlowTex1, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu);
+
+            return false;
+        }
+
         public override void AI()
         {
             bool expertMode = Main.expertMode;

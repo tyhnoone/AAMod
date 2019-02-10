@@ -26,7 +26,7 @@ namespace AAMod.NPCs.Bosses.Infinity
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Infinity Zero");
-            Main.npcFrameCount[npc.type] = 5;
+            Main.npcFrameCount[npc.type] = 7;
         }
 
         public int varTime = 0;
@@ -327,7 +327,7 @@ namespace AAMod.NPCs.Bosses.Infinity
                 npc.frameCounter = 0;
                 CoreCounter += 1;
             }
-            if (CoreCounter > 4)
+            if (CoreCounter > 6)
             {
                 CoreCounter = 0;
             }
@@ -501,7 +501,6 @@ namespace AAMod.NPCs.Bosses.Infinity
                 default: break;
             }
             offsetX *= 2f;
-            offsetY *= 2f;
             return new Vector2(offsetX, offsetY);
         }
 
@@ -513,10 +512,12 @@ namespace AAMod.NPCs.Bosses.Infinity
             }
 
             Texture2D BodyTex = mod.GetTexture("NPCs/Bosses/Infinity/InfinityBody");
+            Texture2D glowTex1 = mod.GetTexture("NPCs/Bosses/Infinity/InfinityCore_Glow");
             Vector2 drawCenter = new Vector2(npc.Center.X, npc.Center.Y);
             if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
             else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
-            BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, AAColor.Oblivion);
+            BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, dColor);
+            BaseDrawing.DrawTexture(sb, glowTex1, 0, npc, AAColor.Oblivion);
             if (fifthHealth)
             {
 

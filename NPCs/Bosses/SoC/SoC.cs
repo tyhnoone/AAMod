@@ -141,7 +141,7 @@ namespace AAMod.NPCs.Bosses.SoC
                 oneTime++;
             }
 
-            if (BossAlive)
+            if (BossAlive || npc.ai[1] == 2)
             {
                 npc.alpha += 12;
                 if (npc.alpha >= 140)
@@ -150,8 +150,11 @@ namespace AAMod.NPCs.Bosses.SoC
                 }
                 npc.dontTakeDamage = true;
                 npc.damage = 0;
-                MoveToPoint(new Vector2(player.Center.X, player.Center.Y - 60));
-                return;
+                if (BossAlive)
+                {
+                    MoveToPoint(new Vector2(player.Center.X, player.Center.Y - 60));
+                    return;
+                }
             }
             else
             {
@@ -504,9 +507,9 @@ namespace AAMod.NPCs.Bosses.SoC
 
             if (BossAlive || Summon)
             {
-                BaseDrawing.DrawTexture(spriteBatch, GlowTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, GlowTex.Width, GlowTex.Height), Color.White, true);
+                BaseDrawing.DrawTexture(spriteBatch, GlowTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, GlowTex.Width, GlowTex.Height), AAColor.Cthulhu, true);
 
-                BaseDrawing.DrawAfterimage(spriteBatch, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
+                BaseDrawing.DrawAfterimage(spriteBatch, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu);
             }
 
             return false;

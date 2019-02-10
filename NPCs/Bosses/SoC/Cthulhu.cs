@@ -359,8 +359,8 @@ namespace AAMod.NPCs.Bosses.SoC
             Main.spriteBatch.Draw(currentTex, (drawCenter - Main.screenPosition), new Rectangle?(new Rectangle(0, 0, currentTex.Width, currentTex.Height)), drawColor, npc.rotation, new Vector2(currentTex.Width / 2f, currentTex.Height / 2f), npc.scale, SpriteEffects.None, 0f);
 
             //draw glow/glow afterimage
-            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, AAColor.Cthulhu2);
-            BaseDrawing.DrawAfterimage(sb, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu2);
+            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, AAColor.Cthulhu);
+            BaseDrawing.DrawAfterimage(sb, GlowTex, 0, npc, 0.8f, 1f, 6, false, 0f, 0f, AAColor.Cthulhu);
 
             //Draw Shield
             int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);

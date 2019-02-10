@@ -149,7 +149,7 @@ namespace AAMod.NPCs.Bosses.EmperorFishron
 
         public override void BossLoot(ref string name, ref int potionType)
         {
-            potionType = 0;   //boss drops
+            potionType = ItemID.SuperHealingPotion;   //boss drops
         }
 
         public override void AI()
