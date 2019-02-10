@@ -527,24 +527,21 @@ namespace AAMod.NPCs.Bosses.SoC
             npc.velocity = Vector2.Normalize(point - npc.Center);
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
-            if (!Charging)
+            if (length < 200f)
             {
-                if (length < 200f)
-                {
-                    npc.velocity *= 0.9f;
-                }
-                if (length < 150f)
-                {
-                    npc.velocity *= 0.9f;
-                }
-                if (length < 100f)
-                {
-                    npc.velocity *= 0.8f;
-                }
-                if (length < 50f)
-                {
-                    npc.velocity *= 0.8f;
-                }
+                npc.velocity *= 0.9f;
+            }
+            if (length < 150f)
+            {
+                npc.velocity *= 0.9f;
+            }
+            if (length < 100f)
+            {
+                npc.velocity *= 0.8f;
+            }
+            if (length < 50f)
+            {
+                npc.velocity *= 0.8f;
             }
         }
 
