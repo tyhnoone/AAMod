@@ -157,7 +157,7 @@ namespace AAMod.Projectiles.SoC
 				}), out point))
 				{
 					Projectile.NewProjectile(vector + new Vector2((float)(num5 * 20), -60f), Vector2.Zero, 698, num4, 0f, projectile.owner, 0f, 0f);
-                    Projectile.NewProjectile(vector + new Vector2((float)(num5 * 20), -60f), Vector2.Zero, mod.ProjectileType<SquidSlam>(), num4, 0f, projectile.owner, 0f, 0f);
+                    Projectile.NewProjectile(vector + new Vector2((float)(num5 * 20), -60f), Vector2.Zero, mod.ProjectileType<SquidSlammer>(), num4, 0f, projectile.owner, 0f, 0f);
                     Main.PlayTrackedSound(SoundID.DD2_MonkStaffGroundImpact, projectile.Center);
 				}
 				else

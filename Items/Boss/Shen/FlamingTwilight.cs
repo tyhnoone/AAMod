@@ -31,7 +31,7 @@ namespace AAMod.Items.Boss.Shen
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Flaming Twilight");
-			Tooltip.SetDefault("Releases wide arc of blue or red flames"
+			Tooltip.SetDefault("Releases a wide arc of blue and red flames"
 			+"\nConsumes gel as ammo"
 			+"\n33% chance not to consume gel");
         }
