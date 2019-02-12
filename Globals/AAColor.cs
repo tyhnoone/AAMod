@@ -314,6 +314,22 @@ namespace AAMod
             }
         }
 
+        public static Color CursedInferno
+        {
+            get
+            {
+                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Lime, Color.LimeGreen, Color.Lime);
+            }
+        }
+
+        public static Color Ichor
+        {
+            get
+            {
+                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Gold, Color.DarkGoldenrod, Color.Gold);
+            }
+        }
+
         public static Color COLOR_WHITEFADE1
 		{
 			get

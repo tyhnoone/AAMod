@@ -56,7 +56,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
 
         public override void FindFrame(int frameHeight)
         {
-            int num = Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type];
+            int num = 180;
             npc.frameCounter += 1.0;
             if (npc.frameCounter > 6.0)
             {

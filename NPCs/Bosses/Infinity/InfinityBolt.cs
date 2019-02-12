@@ -27,11 +27,8 @@ namespace AAMod.NPCs.Bosses.Infinity
             projectile.timeLeft = 120 * (projectile.extraUpdates + 1);
         }
 
-        
-
         public override void AI()
         {
-
             projectile.frameCounter++;
             Vector2 vector14 = projectile.Center + projectile.velocity * 3f;
             Lighting.AddLight(vector14, AAColor.Oblivion.ToVector3() * .3f);

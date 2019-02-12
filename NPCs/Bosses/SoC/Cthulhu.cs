@@ -23,7 +23,8 @@ namespace AAMod.NPCs.Bosses.SoC
             npc.width = 222;
             npc.height = 228;
             npc.alpha = 255;
-            npc.damage = 0;
+            npc.damage = 200;
+            npc.defense = 350;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Cthulhu");
             npc.lifeMax = 1500000;
             npc.dontTakeDamage = false;
@@ -74,6 +75,23 @@ namespace AAMod.NPCs.Bosses.SoC
         public float ShieldScale = 0;
         public float ShieldRotation = 0;
 
+
+        Rectangle CthulhuDoom1 = new Rectangle(0, 0, 222, 248);
+        Rectangle CthulhuDoom2 = new Rectangle(0, 0, 222, 248);
+        Rectangle CthulhuDoom3 = new Rectangle(0, 0, 222, 248);
+        Rectangle CthulhuDoom4 = new Rectangle(0, 0, 222, 248);
+        Rectangle CthulhuDoom5 = new Rectangle(0, 0, 222, 248);
+        Rectangle CthulhuDoom6 = new Rectangle(0, 0, 222, 248);
+
+        private int DoomStart = 0;
+        private int DoomCounter1 = 0;
+        private int DoomCounter2 = 0;
+        private int DoomCounter3 = 0;
+        private int DoomCounter4 = 0;
+        private int DoomCounter5 = 0;
+        private int DoomCounter6 = 0;
+
+
         public override void AI()
         {
             Player player = Main.player[npc.target];
@@ -85,8 +103,7 @@ namespace AAMod.NPCs.Bosses.SoC
             float LeviathanSummon = npc.lifeMax * .15f;
 
             bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
-
-            Vector2 Explosion = new Vector2(Main.rand.Next((int)npc.position.X + npc.width), Main.rand.Next((int)npc.position.Y - npc.height));
+            
 
             ShieldRotation += .05f;
 
@@ -117,13 +134,26 @@ namespace AAMod.NPCs.Bosses.SoC
 
             if (npc.ai[1] == 1f)
             {
-                BoomTimer++;
+                DoomStart++;
                 npc.ai[3]++;
-                if (BoomTimer == 60)
-                {
-                    Projectile.NewProjectile(Explosion, new Vector2(0, 0), mod.ProjectileType<CthulhuDeathBoom>(), 0, 0, Main.myPlayer);
-                    BoomTimer = 0;
-                }
+                if (DoomStart > 0) DoomCounter1++;
+                if (DoomStart > 40) DoomCounter2++;
+                if (DoomStart > 80) DoomCounter3++;
+                if (DoomStart > 120) DoomCounter4++;
+                if (DoomStart > 160) DoomCounter5++;
+                if (DoomStart > 200) DoomCounter6++;
+                if (DoomCounter1 > 8) DoomCounter1 = 0; CthulhuDoom1.Y += 248;
+                if (CthulhuDoom1.Y > 1736) CthulhuDoom1.Y = 0;
+                if (DoomCounter2 > 8) DoomCounter2 = 0; CthulhuDoom2.Y += 248;
+                if (CthulhuDoom2.Y > 1736) CthulhuDoom2.Y = 0;
+                if (DoomCounter3 > 8) DoomCounter3 = 0; CthulhuDoom3.Y += 248;
+                if (CthulhuDoom3.Y > 1736) CthulhuDoom3.Y = 0;
+                if (DoomCounter4 > 8) DoomCounter4 = 0; CthulhuDoom4.Y += 248;
+                if (CthulhuDoom4.Y > 1736) CthulhuDoom4.Y = 0;
+                if (DoomCounter5 > 8) DoomCounter5 = 0; CthulhuDoom5.Y += 248;
+                if (CthulhuDoom5.Y > 1736) CthulhuDoom5.Y = 0;
+                if (DoomCounter6 > 8) DoomCounter6 = 0; CthulhuDoom6.Y += 248;
+                if (CthulhuDoom6.Y > 1736) CthulhuDoom6.Y = 0;
                 if (npc.ai[3] == 40)
                 {
                     Main.NewText("AAAAAAAAAGGHHH….!!", Color.DarkCyan);
@@ -188,7 +218,7 @@ namespace AAMod.NPCs.Bosses.SoC
             if (npc.life < EaterSummon && npc.ai[2] == 1)
             {
                 npc.ai[2] = 2;
-                Main.NewText("Cyaegha! Scorch this insignificant mortal with your flames of agony!", Color.DarkCyan);
+                Main.NewText("Crom Cruach! Constrict this fool so I can properly destroy them!", Color.DarkCyan);
                 if (Main.netMode != 1)
                 {
                     NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("DeityEater"));
@@ -364,11 +394,12 @@ namespace AAMod.NPCs.Bosses.SoC
 
             //Draw Shield
             int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
-
-            if (BossAlive)
+            BaseDrawing.DrawTexture(sb, Shield, shader, npc.position, npc.width, npc.height, ShieldScale, 0, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.Cthulhu, true);
+            BaseDrawing.DrawTexture(sb, Barrier, 0, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Barrier.Width, Barrier.Height), AAColor.Cthulhu2, true);
+            if (npc.ai[1] == 1f)
             {
-                BaseDrawing.DrawTexture(sb, Shield, shader, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.Cthulhu, true);
-                BaseDrawing.DrawTexture(sb, Barrier, 0, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Barrier.Width, Barrier.Height), Color.White, true);
+                BaseDrawing.DrawTexture(sb, Shield, shader, npc.position, npc.width, npc.height, ShieldScale, 0, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.Cthulhu, true);
+                BaseDrawing.DrawTexture(sb, Barrier, 0, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Barrier.Width, Barrier.Height), AAColor.Cthulhu2, true);
             }
             return false;
         }

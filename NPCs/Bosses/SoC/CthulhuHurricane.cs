@@ -80,9 +80,9 @@ namespace AAMod.NPCs.Bosses.SoC
 			else
 			{
 				projectile.alpha += 30;
-				if (projectile.alpha > 150)
+				if (projectile.alpha > 100)
 				{
-					projectile.alpha = 150;
+					projectile.alpha = 100;
 				}
 			}
 			if (projectile.ai[0] > 0f)
@@ -114,7 +114,7 @@ namespace AAMod.NPCs.Bosses.SoC
         
         public override Color? GetAlpha(Color lightColor)
         {
-        	return new Color(23, 26, 49, projectile.alpha);
+        	return AAColor.Cthulhu;
         }
         
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

@@ -41,6 +41,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.buffImmune[39] = true;
             npc.lavaImmune = true;
             npc.netAlways = true;
+            for (int m = 0; m < npc.buffImmune.Length; m++) npc.buffImmune[m] = true;
             npc.alpha = 255;
 
         }

@@ -42,7 +42,7 @@ namespace AAMod.NPCs.Bosses.Infinity
 		public Infinity Body = null;
 		public int handType = 0; //0 == left top, 1 == left middle, 2 == left bottom, 3 == right top, 4 == right middle, 5 == right bottom
 		public bool leftHand= true;
-        public static bool RepairMode = false;
+        public bool RepairMode = false;
 
         public static int damageIdle = 200;
 		public static int damageCharging = 300;
@@ -77,10 +77,8 @@ namespace AAMod.NPCs.Bosses.Infinity
 			}
 		}		
 		public int chargeTimer = 0;
-		
-		
-		
-		public int distFromBodyX = 200; 
+
+        public int distFromBodyX = 200; 
 		public int distFromBodyY = 150;
 		public int movementVariance = 60;
         public int movementtimer = 0;
@@ -113,10 +111,9 @@ namespace AAMod.NPCs.Bosses.Infinity
         }
 
         private int ZeroShot = 0;
-        
+
         public override void AI()
-		{
-            
+        {
 
             int num429 = 1;
             if (npc.position.X + (npc.width / 2) < Main.player[npc.target].position.X + Main.player[npc.target].width)
@@ -142,7 +139,7 @@ namespace AAMod.NPCs.Bosses.Infinity
             PlayerDistance.Y -= PlayerPosY * 1f;
 
             ZeroShot++;
-            
+
             int aiTimerShoot = (npc.whoAmI % 3 == 0 ? 50 : npc.whoAmI % 2 == 0 ? 150 : 100); //aiTimerFire is different per head by using whoAmI (which is usually different) 
             if (leftHand) aiTimerShoot += 30;
             if (ZeroShot >= aiTimerShoot)
@@ -183,19 +180,23 @@ namespace AAMod.NPCs.Bosses.Infinity
             }
             Vector2 vectorCenter = npc.Center;
             if (Body == null)
-			{
-				NPC npcBody = Main.npc[(int)npc.ai[0]];
-				if(npcBody.type == mod.NPCType("Infinity"))
-				{
-					Body = (Infinity)npcBody.modNPC;
-				}
-				handType = (int)npc.ai[1];
-				npc.localAI[3] = 30 * handType; //so they start at different rotation points
-				Vector2 point = GetVariance(false);
-				customAI[1] = point.X;
-				customAI[2] = point.Y;
-				npc.netUpdate = true;
-			}
+            {
+                NPC npcBody = Main.npc[(int)npc.ai[0]];
+                if (npcBody.type == mod.NPCType("Infinity"))
+                {
+                    Body = (Infinity)npcBody.modNPC;
+                }
+                handType = (int)npc.ai[1];
+                npc.localAI[3] = 30 * handType; //so they start at different rotation points
+                Vector2 point = GetVariance(false);
+                customAI[1] = point.X;
+                customAI[2] = point.Y;
+                if (Body.customAI[4] == 0)
+                {
+                    RepairMode = false;
+                }
+                npc.netUpdate = true;
+            }
             if (Body.npc.active && npc.timeLeft < 10)
             {
                 npc.timeLeft = 10;
@@ -213,13 +214,15 @@ namespace AAMod.NPCs.Bosses.Infinity
             }
             if (!Body.npc.active)
             {
-				if(npc.timeLeft > 10) npc.timeLeft = 10;
+                if (npc.timeLeft > 10) npc.timeLeft = 10;
                 killedbyplayer = false;
                 return;
             }
-			npc.TargetClosest();
-			Player targetPlayer = Main.player[npc.target];
-			if(targetPlayer == null || !targetPlayer.active || targetPlayer.dead) targetPlayer = null; //deliberately set to null
+            npc.TargetClosest();
+            Player targetPlayer = Main.player[npc.target];
+            if (targetPlayer == null || !targetPlayer.active || targetPlayer.dead) targetPlayer = null; //deliberately set to null
+
+            
 
 			if(Main.netMode != 1)
 			{
@@ -351,6 +354,10 @@ namespace AAMod.NPCs.Bosses.Infinity
                 npc.life = npc.lifeMax;
                 RepairMode = true;
                 Body.npc.ai[3] += 1;
+            }
+            if (RepairMode)
+            {
+                return;
             }
         }
 

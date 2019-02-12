@@ -13,7 +13,7 @@ namespace AAMod.Items.Boss.Shen
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Timesplitter");
-            Tooltip.SetDefault(@"Legendary spears used to divide time into day and night
+            Tooltip.SetDefault(@"It has been said that this spear was used to divide time into day and night
 Inflicts Daybroken and Moonraze");
         }
 

@@ -18,7 +18,7 @@ namespace AAMod.NPCs.Bosses.Infinity
         public NPC Zero4;
         public NPC Zero5;
         public NPC Zero6;
-        public NPC Core;
+
         public bool ZerosSpawned = false;
         public bool Reseting = false;
         public Vector2 topVisualOffset = default(Vector2);
@@ -55,6 +55,7 @@ namespace AAMod.NPCs.Bosses.Infinity
             npc.height = 44;
             npc.npcSlots = 100;
             npc.scale = 1f;
+            npc.defense = 300;
             npc.dontTakeDamage = true;
             npc.lifeMax = 2500000;
             npc.knockBackResist = 0f;
@@ -81,16 +82,18 @@ namespace AAMod.NPCs.Bosses.Infinity
             npc.damage = (int)(npc.damage * 1.1f);
         }
 
-        public float[] customAI = new float[4];
+        public float[] customAI = new float[6];
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((short)customAI[0]);
-                writer.Write((short)customAI[1]);
-                writer.Write((short)customAI[2]);
-                writer.Write((short)customAI[3]);
+                writer.Write(customAI[0]);
+                writer.Write(customAI[1]);
+                writer.Write(customAI[2]);
+                writer.Write(customAI[3]);
+                writer.Write(customAI[4]);
+                writer.Write(customAI[5]);
             }
         }
 
@@ -103,6 +106,8 @@ namespace AAMod.NPCs.Bosses.Infinity
                 customAI[1] = reader.ReadFloat();
                 customAI[2] = reader.ReadFloat();
                 customAI[3] = reader.ReadFloat();
+                customAI[4] = reader.ReadFloat();
+                customAI[5] = reader.ReadFloat();
             }
         }
         public int roarTimer = 200;
@@ -201,6 +206,10 @@ namespace AAMod.NPCs.Bosses.Infinity
             }
 
             float movementMax = 1.5f;
+            if (fifthHealth)
+            {
+                movementMax = 3f;
+            }
             if (npc.target > -1)
             {
                 Player targetPlayer = Main.player[npc.target];
@@ -279,8 +288,10 @@ namespace AAMod.NPCs.Bosses.Infinity
 
             if (npc.ai[3] == 6)
             {
+                customAI[4] = 1;
                 npc.ai[0]--;
                 npc.ai[2] = 1;
+                customAI[5] = 60;
                 npc.dontTakeDamage = true;
                 if (!FirstCoreLine)
                 {
@@ -293,11 +304,15 @@ namespace AAMod.NPCs.Bosses.Infinity
                     npc.ai[3] = 0;
                     npc.ai[2] = 0;
                     npc.ai[0] = 600;
-                    IZHand1.RepairMode = false;
                 }
             }
             else
             {
+                customAI[5]--;
+                if (customAI[5] <= 0)
+                {
+                    customAI[4] = 0;
+                }
                 npc.dontTakeDamage = false;
             }
         }
@@ -426,7 +441,7 @@ namespace AAMod.NPCs.Bosses.Infinity
             {
                 if (Main.netMode != 1) BaseUtility.Chat("Redirecting resources to offensive systems.", new Color(158, 3, 32));
                 HalfHealth = true;
-                npc.defense = 225;
+                npc.defense = 250;
                 IZHand1.damageIdle = 250;
                 IZHand1.damageCharging = 350;
                 roarTimer = 200;
@@ -441,7 +456,7 @@ namespace AAMod.NPCs.Bosses.Infinity
             {
                 fifthHealth = true;
                 if (Main.netMode != 1) BaseUtility.Chat("Terrarian, you will not win this. Rerouting all resources to offensive systems.", new Color(158, 3, 32));
-                npc.defense = 175;
+                npc.defense = 200;
                 IZHand1.damageIdle = 350;
                 IZHand1.damageCharging = 500;
                 roarTimer = 200;
@@ -535,15 +550,15 @@ namespace AAMod.NPCs.Bosses.Infinity
             BaseDrawing.DrawTexture(sb, glowTex1, 0, npc, AAColor.Oblivion);
             if (fifthHealth)
             {
-                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 4, IZFrame, dColor);
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, dColor);
                 BaseDrawing.DrawAura(sb, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, GetRedAlpha());
-                BaseDrawing.DrawTexture(sb, glowTex, 0, npc, GetRedAlpha());
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, GetRedAlpha());
             }
             else
             {
-                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 236, npc.scale, npc.rotation, 0, 4, IZFrame, BaseUtility.ColorClamp(BaseDrawing.GetNPCColor(npc, npc.Center + new Vector2(0, -30), true, 0f), GetGlowAlpha(true)));
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, BaseUtility.ColorClamp(BaseDrawing.GetNPCColor(npc, npc.Center + new Vector2(0, -30), true, 0f), GetGlowAlpha(true)));
                 BaseDrawing.DrawAura(sb, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, GetGlowAlpha(true));
-                BaseDrawing.DrawTexture(sb, glowTex, 0, npc, GetGlowAlpha(false));
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, GetGlowAlpha(false));
             }
 
 

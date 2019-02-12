@@ -187,15 +187,18 @@ namespace AAMod
             {
                 npc.damage -= 10;
             }
-            if (Hydratoxin)
+            if (Hydratoxin && !npc.boss)
             {
-                if (npc.velocity.X < -2f || npc.velocity.X > 2f)
+                if (npc.velocity.Y == 0)
                 {
-                    npc.velocity.X *= 0.8f;
-                }
-                if (npc.velocity.Y < -2f || npc.velocity.Y > 2f)
-                {
-                    npc.velocity.Y *= 0.8f;
+                    if (npc.velocity.X < -2f || npc.velocity.X > 2f)
+                    {
+                        npc.velocity.X *= 0.8f;
+                    }
+                    if (npc.velocity.Y < -2f || npc.velocity.Y > 2f)
+                    {
+                        npc.velocity.Y *= 0.8f;
+                    }
                 }
             }
 

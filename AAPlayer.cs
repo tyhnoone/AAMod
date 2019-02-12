@@ -2493,6 +2493,9 @@ namespace AAMod
             BaseDrawing.AddPlayerLayer(list, glAfterHead, PlayerLayer.Head, false);
             BaseDrawing.AddPlayerLayer(list, glAfterBody, PlayerLayer.Body, false);
             BaseDrawing.AddPlayerLayer(list, glAfterArm, PlayerLayer.Arms, false);
+            BaseDrawing.AddPlayerLayer(list, glAfterHandOn, PlayerLayer.HandOnAcc, false);
+            BaseDrawing.AddPlayerLayer(list, glAfterHandOff, PlayerLayer.HandOffAcc, false);
+            BaseDrawing.AddPlayerLayer(list, glAfterArm, PlayerLayer.Arms, false);
             BaseDrawing.AddPlayerLayer(list, glAfterWep, PlayerLayer.HeldItem, false);
             BaseDrawing.AddPlayerLayer(list, glAfterLegs, PlayerLayer.Legs, false);
             BaseDrawing.AddPlayerLayer(list, glAfterWings, PlayerLayer.Wings, false);
@@ -2612,6 +2615,38 @@ namespace AAMod
                 {
                     BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/NaitokurosuA_Neck_Glow"), edi.shieldShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
                 }
+            }
+        });
+
+        public PlayerLayer glAfterHandOn = new PlayerLayer("AAMod", "glAfterHandOn", PlayerLayer.HandOnAcc, delegate (PlayerDrawInfo edi)
+        {
+            Mod mod = AAMod.instance;
+            Player drawPlayer = edi.drawPlayer;
+            if (HasAndCanDraw(drawPlayer, mod.ItemType("DemonGauntlet")))
+            {
+                Texture2D Glow = mod.GetTexture("Glowmasks/DemonGauntlet_HandsOn_Glow");
+                Color GlowColor = AAColor.CursedInferno;
+                if (WorldGen.crimson)
+                {
+                    GlowColor = AAColor.Ichor;
+                }
+                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, Glow, edi.handOnShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(GlowColor, edi.shadow), drawPlayer.bodyFrame);
+            }
+        });
+
+        public PlayerLayer glAfterHandOff = new PlayerLayer("AAMod", "glAfterHandOff", PlayerLayer.HandOffAcc, delegate (PlayerDrawInfo edi)
+        {
+            Mod mod = AAMod.instance;
+            Player drawPlayer = edi.drawPlayer;
+            if (HasAndCanDraw(drawPlayer, mod.ItemType("DemonGauntlet")))
+            {
+                Texture2D Glow = mod.GetTexture("Glowmasks/DemonGauntlet_HandsOff_Glow");
+                Color GlowColor = AAColor.CursedInferno;
+                if (WorldGen.crimson)
+                {
+                    GlowColor = AAColor.Ichor;
+                }
+                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, Glow, edi.handOffShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(GlowColor, edi.shadow), drawPlayer.bodyFrame);
             }
         });
 

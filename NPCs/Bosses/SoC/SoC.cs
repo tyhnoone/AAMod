@@ -109,7 +109,7 @@ namespace AAMod.NPCs.Bosses.SoC
         }
 
         int oneTime = 0;
-        public float moveSpeed = 6f;
+        public float moveSpeed = 16f;
         public int EnemyTimer = 0;
 
         public override void AI()
@@ -169,6 +169,7 @@ namespace AAMod.NPCs.Bosses.SoC
 
             if (npc.life < EyeSummon && customAI[2] == 0) //Spawn Eye boi
             {
+                customAI[1] = 0;
                 customAI[2] = 1;
                 npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
@@ -176,6 +177,7 @@ namespace AAMod.NPCs.Bosses.SoC
             }
             else if (npc.life < EaterSummon && customAI[2] == 1)
             {
+                customAI[1] = 0;
                 customAI[2] = 2;
                 npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
@@ -183,6 +185,7 @@ namespace AAMod.NPCs.Bosses.SoC
             }
             else if (npc.life < BrainSummon && customAI[2] == 2)
             {
+                customAI[1] = 0;
                 customAI[2] = 3;
                 npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
@@ -190,6 +193,7 @@ namespace AAMod.NPCs.Bosses.SoC
             }
             else if (npc.life < SkullSummon && customAI[2] == 3)
             {
+                customAI[1] = 0;
                 customAI[2] = 4;
                 npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
@@ -197,6 +201,7 @@ namespace AAMod.NPCs.Bosses.SoC
             }
             else if (npc.life < RoseSummon && customAI[2] == 4)
             {
+                customAI[1] = 0;
                 customAI[2] = 5;
                 npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;
@@ -204,6 +209,7 @@ namespace AAMod.NPCs.Bosses.SoC
             }
             else if (npc.life < LeviathanSummon && customAI[2] == 5)
             {
+                customAI[1] = 0;
                 customAI[2] = 6;
                 npc.ai[1] = 2f;
                 npc.dontTakeDamage = true;

@@ -49,7 +49,7 @@ namespace AAMod.Projectiles.Shen
 					num296 = 0.75f;
 				}
 				projectile.ai[0] += 1f;
-				int num297 = 6;
+				int num297 = mod.DustType<Dusts.YamataADust>();
 				if (Main.rand.NextBool(2))
 				{
 					for (int num298 = 0; num298 < 1; num298++)

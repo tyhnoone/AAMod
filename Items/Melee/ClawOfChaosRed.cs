@@ -8,7 +8,7 @@ namespace AAMod.Items.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Draconic Baghnakhs");
+            DisplayName.SetDefault("Infernal Baghnakhs");
         }
 
         public override void SetDefaults()
@@ -20,7 +20,7 @@ namespace AAMod.Items.Melee
             item.useTime = 6;
             item.useAnimation = 6;
             item.useStyle = 1;
-            item.knockBack = 7;
+            item.knockBack = 4;
             item.value = 80000;
             item.rare = 7;
             item.UseSound = SoundID.Item1;

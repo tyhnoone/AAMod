@@ -18,7 +18,7 @@ namespace AAMod.Projectiles.SoC
 		public override void SetDefaults()
 		{
 			projectile.CloneDefaults(ProjectileID.Bullet);
-			projectile.width = 18;
+			projectile.width = 14;
 			projectile.height = 18;
 			projectile.penetrate = 1;
 			projectile.timeLeft = 600;

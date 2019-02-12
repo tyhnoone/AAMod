@@ -36,6 +36,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.npcSlots = 16f;
             npc.buffImmune[20] = true;
             npc.alpha = 255;
+            for (int m = 0; m < npc.buffImmune.Length; m++) npc.buffImmune[m] = true;
         }
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
@@ -399,9 +400,9 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
                     if (npc.localAI[0] == 1f)
                     {
                         npc.localAI[0] = 2f;
-                        for (int num723 = 0; num723 < 8; num723++)
+                        /*for (int num723 = 0; num723 < 8; num723++)
                         {
-                            NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<DeityRoseClaws>(), npc.whoAmI, 0f, 0f, 0f, 0f, 255);
+                            //NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<DeityRoseClaws>(), npc.whoAmI, 0f, 0f, 0f, 0f, 255);
                         }
                         if (Main.expertMode)
                         {
@@ -411,19 +412,19 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
                                 {
                                     for (int num725 = 0; num725 < 3; num725++)
                                     {
-                                        int num726 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<DeityRoseClaws>(), npc.whoAmI, 0f, 0f, 0f, 0f, 255);
+                                        int num726 =NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<DeityRoseClaws>(), npc.whoAmI, 0f, 0f, 0f, 0f, 255);
                                         Main.npc[num726].ai[3] = (float)(num724 + 1);
                                     }
                                 }
                             }
-                        }
+                        }*/
                     }
                     else if (Main.expertMode && Main.rand.Next(60) == 0)
                     {
                         int num727 = 0;
                         for (int num728 = 0; num728 < 200; num728++)
                         {
-                            if (Main.npc[num728].active && Main.npc[num728].type == 264 && Main.npc[num728].ai[3] == 0f)
+                            if (Main.npc[num728].active && Main.npc[num728].type == mod.NPCType<DeityRoseClaws>() && Main.npc[num728].ai[3] == 0f)
                             {
                                 num727++;
                             }

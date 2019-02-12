@@ -28,7 +28,7 @@ namespace AAMod.NPCs.Bosses.Infinity
             npc.noTileCollide = true;
             npc.boss = false;
             npc.noGravity = true;
-            //npc.behindTiles = true;
+            npc.behindTiles = true;
             npc.aiStyle = -1;
             npc.behindTiles = true;
             music = mod.GetSoundSlot(SoundType.Music, "Lulspooky");
@@ -106,7 +106,7 @@ namespace AAMod.NPCs.Bosses.Infinity
                         Main.npc[npcID].life = player2.GetModPlayer<AAPlayer>(mod).GetIZHealth;
                     }
                 }
-                Main.npc[npcID].Center = npc.Center;
+                Main.npc[npcID].Center = new Vector2(npc.Center.X, npc.Center.Y - 246);
 				Main.npc[npcID].netUpdate = true;
 			}
 		}
@@ -128,8 +128,8 @@ namespace AAMod.NPCs.Bosses.Infinity
 			npc.position.Y += 72;
             if (StartTimer <= 0)
             {
-                BaseDrawing.DrawTexture(spriteBatch, infinityTex, 0, npc.position + new Vector2(0f, npc.gfxOffY), npc.width, npc.height, 3f, npc.rotation, npc.spriteDirection, 7, darkFrame, Color.Black);
-                BaseDrawing.DrawTexture(spriteBatch, drawTexture, 0, npc.position + new Vector2(0f, npc.gfxOffY), npc.width, npc.height, 3f, npc.rotation, npc.spriteDirection, 7, npc.frame, Infinity.GetGlowAlpha(true));
+                BaseDrawing.DrawTexture(spriteBatch, infinityTex, 0, npc.position + new Vector2(0f, npc.gfxOffY), npc.width, npc.height, 2f, npc.rotation, npc.spriteDirection, 7, darkFrame, Color.Black);
+                BaseDrawing.DrawTexture(spriteBatch, drawTexture, 0, npc.position + new Vector2(0f, npc.gfxOffY), npc.width, npc.height, 2f, npc.rotation, npc.spriteDirection, 7, npc.frame, Infinity.GetGlowAlpha(true));
             }
             npc.position.Y -= 72;
 			return false;

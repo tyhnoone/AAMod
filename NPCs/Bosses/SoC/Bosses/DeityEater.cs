@@ -540,7 +540,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
         {
             Texture2D currentTex = Main.npcTexture[npc.type];
             Texture2D GlowTex = mod.GetTexture("Glowmasks/DeityEaterTail_Glow");
-            Texture2D GlowTex1 = mod.GetTexture("Glowmasks/DeityEaterTail1_Glow1");
+            Texture2D GlowTex1 = mod.GetTexture("Glowmasks/DeityEaterTail_Glow1");
 
             BaseDrawing.DrawTexture(sb, currentTex, 0, npc, drawColor);
 

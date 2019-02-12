@@ -27,10 +27,10 @@ namespace AAMod.Projectiles.SoC
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 8;
         }
-
+        
         public override Color? GetAlpha(Color lightColor)
         {
-            return new Color(255, 255, 255, 150);
+            return AAColor.Cthulhu2;
         }
 
         public override void AI()
