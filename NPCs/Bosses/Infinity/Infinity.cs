@@ -534,8 +534,22 @@ namespace AAMod.NPCs.Bosses.Infinity
             return new Vector2(offsetX, offsetY);
         }
 
+        public Color GetAlpha(Color newColor, float alph)
+        {
+            int alpha = 255 - (int)(255 * alph);
+            float alphaDiff = (float)(255 - alpha) / 255f;
+            int newR = (int)((float)newColor.R * alphaDiff);
+            int newG = (int)((float)newColor.G * alphaDiff);
+            int newB = (int)((float)newColor.B * alphaDiff);
+            int newA = (int)newColor.A - alpha;
+            if (newA < 0) newA = 0;
+            if (newA > 255) newA = 255;
+            return new Color(newR, newG, newB, newA);
+        }
+
         public override bool PreDraw(SpriteBatch sb, Color dColor)
         {
+            Color AlphaColor = GetAlpha(dColor, npc.alpha);
             if (glowTex == null)
             {
                 glowTex = mod.GetTexture("NPCs/Bosses/Infinity/Infinity_Glow");
@@ -546,17 +560,17 @@ namespace AAMod.NPCs.Bosses.Infinity
             Vector2 drawCenter = new Vector2(npc.Center.X, npc.Center.Y);
             if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
             else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
-            BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, dColor);
+            BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, AlphaColor);
             BaseDrawing.DrawTexture(sb, glowTex1, 0, npc, AAColor.Oblivion);
             if (fifthHealth)
             {
-                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, dColor);
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, AlphaColor);
                 BaseDrawing.DrawAura(sb, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, GetRedAlpha());
                 BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, GetRedAlpha());
             }
             else
             {
-                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, BaseUtility.ColorClamp(BaseDrawing.GetNPCColor(npc, npc.Center + new Vector2(0, -30), true, 0f), GetGlowAlpha(true)));
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, AlphaColor);
                 BaseDrawing.DrawAura(sb, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, GetGlowAlpha(true));
                 BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, GetGlowAlpha(false));
             }
@@ -565,14 +579,14 @@ namespace AAMod.NPCs.Bosses.Infinity
             string ZeroTex = ("NPCs/Bosses/Infinity/IZHand1");
 
             //bottom arms
-            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero6, dColor);
-            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero3, dColor);
+            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero6, AlphaColor);
+            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero3, AlphaColor);
             //middle arms
-            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero5, dColor);
-            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero2, dColor);
+            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero5, AlphaColor);
+            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero2, AlphaColor);
             //top arms
-            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero4, dColor);
-            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero1, dColor);
+            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero4, AlphaColor);
+            DrawZero(sb, ZeroTex, ZeroTex + "_Glow", Zero1, AlphaColor);
 
 
             return false;
