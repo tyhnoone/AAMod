@@ -72,7 +72,6 @@ namespace AAMod.Items.Melee
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
         }
     }
 }
