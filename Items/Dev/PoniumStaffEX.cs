@@ -57,14 +57,6 @@ namespace AAMod.Items.Dev
             );
         }
 
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-        {
-            Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-            spriteBatch.Draw(texture, position, null, Main.DiscoColor, 0, origin, scale, SpriteEffects.None, 0f);
-        }
-
-
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
