@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using BaseMod;
 using System.Reflection;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections;
 
 namespace AAMod
 {
@@ -54,7 +55,7 @@ namespace AAMod
 
     public abstract class CrossoverItem : ModItem
     {
-        public string crossoverModName = "(N/A)";
+        public string crossoverModName = "THORIUM";
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
@@ -129,4 +130,34 @@ namespace AAMod
         }
         #endregion
     }
+
+    /*public class ThoriumItem : ModItem
+    {
+        public bool radiant = false;
+
+        public void RadiantDamage(Item item)
+        {
+            if (item.modItem is ThoriumItem && ((ThoriumItem)item.modItem).radiant)
+            {
+                int index = -1;
+                for (int m = 0; m < list.Count; m++)
+                {
+                    if (list[m].Name.Equals("Damage")) { index = m; break; }
+                }
+                string oldTooltip = list[index].text;
+                string[] split = oldTooltip.Split(' ');
+                list.RemoveAt(index);
+                list.Insert(index, new TooltipLine(mod, "Damage", split[0] + " radiant damage"));
+
+                int index2 = -1;
+                for (int m = 0; m < list.Count; m++)
+                {
+                    if (list[m].Name.Equals("CritChance")) { index2 = m; break; }
+                }
+
+                list.RemoveAt(index2);
+                list.Insert(index2, new TooltipLine(mod, "CritChance", player.GetThoriumPlayer().radiantCrit + item.crit + "% critical strike chance"));
+            }
+        }
+    }*/
 }
