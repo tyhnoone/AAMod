@@ -198,11 +198,6 @@ namespace AAMod.NPCs.TownNPCs
                 shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Usable.VoidBomb>());
                 nextSlot++;
             }
-            if (NPC.downedMechBossAny)
-            {
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Usable.VoidBomb>());
-                nextSlot++;
-            }
 
         }
 

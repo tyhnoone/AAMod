@@ -31,7 +31,7 @@ namespace AAMod.Items.Melee
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod, "ClawOfChaosRed", 1);
-            recipe.AddIngredient(mod, "DaybreakIncineriteBar", 10);
+            recipe.AddIngredient(mod, "DaybreakIncinerite", 10);
             recipe.AddTile(null, "QuantumFusionAccelerator");
             recipe.SetResult(this);
             recipe.AddRecipe();

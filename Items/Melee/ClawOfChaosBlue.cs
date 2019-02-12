@@ -31,8 +31,8 @@ namespace AAMod.Items.Melee
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(mod, "DeepAbyssium", 20);
-			recipe.AddIngredient(mod, "HydraClaw", 5);
-			recipe.AddIngredient(ItemID.FetidBaghnakhs, 1);
+            recipe.AddIngredient(mod, "HydraGlove", 1);
+            recipe.AddIngredient(ItemID.FetidBaghnakhs, 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

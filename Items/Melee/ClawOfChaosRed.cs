@@ -31,7 +31,7 @@ namespace AAMod.Items.Melee
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod, "RadiantIncinerite", 20);
-            recipe.AddIngredient(mod, "DragonClaw", 5);
+            recipe.AddIngredient(mod, "DragonGlove", 1);
             recipe.AddIngredient(ItemID.FetidBaghnakhs, 1);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);

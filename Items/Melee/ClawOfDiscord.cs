@@ -34,7 +34,7 @@ namespace AAMod.Items.Melee
             recipe.AddIngredient(mod, "ClawOfChaosAbyss", 1);
             recipe.AddIngredient(mod, "CrucibleScale", 3);
             recipe.AddIngredient(mod, "DreadScale", 3);
-            recipe.AddIngredient(mod, "DiscordiumBar", 5);
+            recipe.AddIngredient(mod, "Discordium", 5);
             recipe.AddTile(null, "AncientForge");
 			recipe.SetResult(this);
 			recipe.AddRecipe();

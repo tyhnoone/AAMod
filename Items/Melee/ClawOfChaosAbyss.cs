@@ -31,7 +31,7 @@ namespace AAMod.Items.Melee
 		{
 			ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod, "ClawOfChaosBlue", 1);
-            recipe.AddIngredient(mod, "EventideAbyssiumBar", 10);
+            recipe.AddIngredient(mod, "EventideAbyssium", 10);
 			recipe.AddTile(null, "QuantumFusionAccelerator");
 			recipe.SetResult(this);
 			recipe.AddRecipe();

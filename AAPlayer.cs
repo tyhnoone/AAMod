@@ -752,7 +752,9 @@ namespace AAMod
             player.ManageSpecialBiomeVisuals("HeatDistortion", useShenA);
             bool useIZ = NPC.AnyNPCs(mod.NPCType<Infinity>()) || NPC.AnyNPCs(mod.NPCType<IZSpawn1>());
             player.ManageSpecialBiomeVisuals("AAMod:IZSky", useIZ);
-            bool useCthulhu = (NPC.AnyNPCs(mod.NPCType<SoC>()) ||
+            bool useCthulhu = NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+            player.ManageSpecialBiomeVisuals("AAMod:CthulhuStars", useCthulhu);
+            bool useSoC = (NPC.AnyNPCs(mod.NPCType<SoC>()) ||
                 NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || 
                 NPC.AnyNPCs(mod.NPCType<DeityEater>()) || 
                 NPC.AnyNPCs(mod.NPCType<DeityEater>()) ||
@@ -761,7 +763,7 @@ namespace AAMod
                 NPC.AnyNPCs(mod.NPCType<DeityEye>())) ||
                 ZoneShip ||
                 (player.InZone("Ocean") && AAWorld.downedAllAncients && !AAWorld.downedSoC);
-            player.ManageSpecialBiomeVisuals("AAMod:CthulhuSky", useCthulhu);
+            player.ManageSpecialBiomeVisuals("AAMod:CthulhuSky", useSoC);
             bool useShen = NPC.AnyNPCs(mod.NPCType<ShenDoragon>());
             player.ManageSpecialBiomeVisuals("AAMod:ShenSky", useShen);
             bool useAkuma = (NPC.AnyNPCs(mod.NPCType<AkumaA>()) || AkumaAltar) && !useShen && !useShenA && !useIZ;
