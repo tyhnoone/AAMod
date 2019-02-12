@@ -9,11 +9,12 @@ namespace AAMod.Items.Melee
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Draconian Baghnakhs");
+            Tooltip.SetDefault("Strike your foes with the force of a draconian strike");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 130;
+            item.damage = 100;
             item.melee = true;
             item.width = 28;
             item.height = 22;

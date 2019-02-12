@@ -9,16 +9,17 @@ namespace AAMod.Items.Melee
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Infernal Baghnakhs");
+            Tooltip.SetDefault("Strike your foes with the power of an infernal strike");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 95;
+            item.damage = 85;
             item.melee = true;
             item.width = 28;
             item.height = 22;
-            item.useTime = 6;
-            item.useAnimation = 6;
+            item.useTime = 7;
+            item.useAnimation = 7;
             item.useStyle = 1;
             item.knockBack = 4;
             item.value = 80000;

@@ -9,11 +9,12 @@ namespace AAMod.Items.Melee
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Abyssal Baghnakhs");
-		}
+            Tooltip.SetDefault("Strike your foes with the speed of a shadowy slash");
+        }
 
 		public override void SetDefaults()
 		{
-			item.damage = 80;
+			item.damage = 75;
 			item.melee = true;
 			item.width = 28;
 			item.height = 22;
