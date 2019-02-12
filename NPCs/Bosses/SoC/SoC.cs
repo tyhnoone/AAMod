@@ -453,8 +453,22 @@ namespace AAMod.NPCs.Bosses.SoC
         }
 
 
+        public Color GetAlpha(Color newColor, float alph)
+        {
+            int alpha = 255 - (int)(255 * alph);
+            float alphaDiff = (float)(255 - alpha) / 255f;
+            int newR = (int)((float)newColor.R * alphaDiff);
+            int newG = (int)((float)newColor.G * alphaDiff);
+            int newB = (int)((float)newColor.B * alphaDiff);
+            int newA = (int)newColor.A - alpha;
+            if (newA < 0) newA = 0;
+            if (newA > 255) newA = 255;
+            return new Color(newR, newG, newB, newA);
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
+            Color AlphaColor = GetAlpha(drawColor, npc.alpha);
             Texture2D texture2D13 = Main.npcTexture[npc.type];
             Texture2D WheelTex = mod.GetTexture("NPCs/Bosses/SoC/SoC_Wheel");
             Texture2D RingTex = mod.GetTexture("NPCs/Bosses/SoC/DeityCircle");
@@ -507,9 +521,9 @@ namespace AAMod.NPCs.Bosses.SoC
             }
             BaseDrawing.DrawTexture(spriteBatch, Rift, 0, npc.position, npc.width, npc.height, 1.5f, RiftSpin, 0, 1, new Rectangle(0, 0, Rift.Width, Rift.Height), AAColor.Cthulhu, true);
 
-            BaseDrawing.DrawTexture(spriteBatch, WheelTex, shader, npc.position, npc.width, npc.height, npc.scale, Rotation, 0, 1, new Rectangle(0, 0, WheelTex.Width, WheelTex.Height), drawColor, true);
+            BaseDrawing.DrawTexture(spriteBatch, WheelTex, shader, npc.position, npc.width, npc.height, npc.scale, Rotation, 0, 1, new Rectangle(0, 0, WheelTex.Width, WheelTex.Height), AlphaColor, true);
 
-            BaseDrawing.DrawTexture(spriteBatch, texture2D13, shader, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), drawColor, true);
+            BaseDrawing.DrawTexture(spriteBatch, texture2D13, shader, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), AlphaColor, true);
 
             if (BossAlive || Summon)
             {

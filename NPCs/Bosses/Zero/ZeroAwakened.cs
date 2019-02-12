@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +7,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Terraria.DataStructures;
 using BaseMod;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.NPCs.Bosses.Zero
 {
@@ -140,20 +140,81 @@ namespace AAMod.NPCs.Bosses.Zero
             {
                 glowTex = mod.GetTexture("Glowmasks/ZeroAwakened_Glow");
             }
-
-            Texture2D ZeroTrail = mod.GetTexture("NPCs/Bosses/Zero/ZeroTrail");
+            Vector2 vector10 = new Vector2((Main.npcTexture[type].Width / 2), (Main.npcTexture[type].Height / Main.npcFrameCount[type] / 2));
+            Texture2D ZeroTrail = mod.GetTexture("npcs/Bosses/Zero/ZeroTrail");
             float Eggroll = Math.Abs(Main.GameUpdateCount) / 0.5f;
             float Pie = 1f * (float)Math.Sin(Eggroll);
             Color color1 = Color.Lerp(Color.Red, Color.Black, Pie);
             Vector2 drawOrigin = new Vector2(Main.npcTexture[npc.type].Width * 0.5f, npc.height * 0.5f);
-            BaseDrawing.DrawAfterimage(spritebatch, ZeroTrail, 0, npc, 0.8f, 1f, 4, false, 0f, 0f, Color.White);
             if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
             else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
-            BaseMod.BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
-            BaseMod.BaseDrawing.DrawAura(spritebatch, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, color1);
-            BaseMod.BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, color1);
+            Color color9 = Lighting.GetColor((int)((double)npc.position.X + (double)npc.width * 0.5) / 16, (int)(((double)npc.position.Y + (double)npc.height * 0.5) / 16.0));
+            float num66 = 0f;
+            Vector2 vector11 = new Vector2((Main.npcTexture[npc.type].Width / 2), (Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type] / 2));
+            SpriteEffects spriteEffects = SpriteEffects.None;
+            if (npc.spriteDirection == 1)
+            {
+                spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+            Rectangle frame6 = npc.frame;
+            Color alpha15 = npc.GetAlpha(color9);
+            float num212 = 1f - npc.life / npc.lifeMax;
+            num212 *= num212;
+            alpha15.R = (byte)(alpha15.R * num212);
+            alpha15.G = (byte)(alpha15.G * num212);
+            alpha15.B = (byte)(alpha15.B * num212);
+            alpha15.A = (byte)(alpha15.A * num212);
+
+            Color CloneColor1 = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, color9, color9, color9, AAColor.Oblivion, AAColor.Oblivion, color9);
+            Color CloneColor2 = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, color9, AAColor.Oblivion, AAColor.Oblivion, color9, color9, color9);
+            Color CloneColor3 = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, color9, color9, AAColor.Oblivion, AAColor.Oblivion, color9, color9);
+
+            for (int num213 = 0; num213 < 4; num213++)
+            {
+                Vector2 position9 = npc.position;
+                float num214 = Math.Abs(npc.Center.X - Main.player[Main.myPlayer].Center.X);
+                float num215 = Math.Abs(npc.Center.Y - Main.player[Main.myPlayer].Center.Y);
+                if (num213 == 0 || num213 == 2)
+                {
+                    position9.X = Main.player[Main.myPlayer].Center.X + num214;
+                }
+                else
+                {
+                    position9.X = Main.player[Main.myPlayer].Center.X - num214;
+                }
+                position9.X -= (npc.width / 2);
+                if (num213 == 0 || num213 == 1)
+                {
+                    position9.Y = Main.player[Main.myPlayer].Center.Y + num215;
+                }
+                else
+                {
+                    position9.Y = Main.player[Main.myPlayer].Center.Y - num215;
+                }
+                position9.Y -= (npc.height / 2);
+                Color CloneColor = CloneColor1;
+                if (num213 == 2)
+                {
+                    CloneColor = CloneColor2;
+                }
+                if (num213 == 3)
+                {
+                    CloneColor = CloneColor3;
+                }
+                Vector2[] velocities = new Vector2[] { npc.velocity };
+                velocities = npc.oldPos;
+                float offsetY2 = npc.gfxOffY;
+                Vector2 ClonePosition = new Vector2(position9.X - Main.screenPosition.X + (npc.width / 2) - Main.npcTexture[npc.type].Width * npc.scale / 2f + vector11.X * npc.scale, position9.Y - Main.screenPosition.Y + npc.height - Main.npcTexture[npc.type].Height * npc.scale / Main.npcFrameCount[npc.type] + 4f + vector11.Y * npc.scale + num66 + npc.gfxOffY);
+                BaseDrawing.DrawAfterimage(spritebatch, ZeroTrail, 0, ClonePosition, npc.width, npc.height, velocities, 1f, npc.rotation, npc.direction, 1, frame6, 0.8f, 1f, 4, true, 0f, 0f, Color.White);
+                Main.spriteBatch.Draw(Main.npcTexture[npc.type], ClonePosition, new Rectangle?(frame6), CloneColor, npc.rotation, vector11, npc.scale, spriteEffects, 0f);
+            }
+            BaseDrawing.DrawAfterimage(spritebatch, ZeroTrail, 0, npc, 0.8f, 1f, 4, false, 0f, 0f, Color.White);
+            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
+            BaseDrawing.DrawAura(spritebatch, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, color1);
+            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, color1);
             return false;
         }
+
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
             if (AAWorld.Anticheat == true)
