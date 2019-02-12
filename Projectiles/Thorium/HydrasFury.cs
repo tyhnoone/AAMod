@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using BaseMod;
 
-namespace AAMod.Thorium.Projectiles
+namespace AAMod.Projectiles.Thorium
 {
 	public class HydrasFury : ModProjectile
 	{	

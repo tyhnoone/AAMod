@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 using BaseMod;
 using AAMod;
 
-namespace AAMod.Thorium.Projectiles
+namespace AAMod.Projectiles.Thorium
 {
     public class HydrasFuryDamage2 : ModProjectile
     {
