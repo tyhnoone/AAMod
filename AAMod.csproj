@@ -1561,7 +1561,6 @@
     <Compile Include="Projectiles\SoC\RealityBurst.cs" />
     <Compile Include="Projectiles\SoC\SquidSlammer.cs" />
     <Compile Include="Projectiles\SoC\StarOfCthulhuP.cs" />
-    <Compile Include="Projectiles\SoC\Stormray.cs" />
     <Compile Include="Projectiles\Spectrum.cs" />
     <Compile Include="Projectiles\SpectrumBeam.cs" />
     <Compile Include="Projectiles\SpookyKnife.cs" />
@@ -4704,10 +4703,15 @@
     <Content Include="NPCs\Enemies\Ship\DiverShot.png" />
     <Content Include="NPCs\Enemies\Ship\RiftShark.png" />
     <Content Include="NPCs\Enemies\Ship\Squid.png" />
+    <Content Include="NPCs\Enemies\Snow\Serpent.png" />
+    <Content Include="NPCs\Enemies\Snow\SerpentBody1.png" />
+    <Content Include="NPCs\Enemies\Snow\SerpentBody2.png" />
+    <Content Include="NPCs\Enemies\Snow\SnakeBody.png" />
     <Content Include="NPCs\Enemies\Snow\SnakeHead.png" />
     <Content Include="NPCs\Enemies\Snow\SnakeBody1.png" />
     <Content Include="NPCs\Enemies\Snow\SnakeBody2.png" />
     <Content Include="NPCs\Enemies\Snow\SerpentTail.png" />
+    <Content Include="NPCs\Enemies\Snow\SnakeTail.png" />
     <Content Include="NPCs\Enemies\Terrarium\Bladon.png" />
     <Content Include="NPCs\Enemies\Terrarium\MagicBlast.png" />
     <Content Include="NPCs\Enemies\Terrarium\Minion1.png" />

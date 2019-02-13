@@ -58,76 +58,10 @@ namespace AAMod
                 Autoload = true,
                 AutoloadGores = true,
                 AutoloadBackgrounds = true,
-                AutoloadSounds = false
+                AutoloadSounds = true
             };
             instance = this;
 
-            AddSound(SoundType.Item, "Sounds/Sounds/FerretNote");
-            AddSound(SoundType.Item, "Sounds/Sounds/Glitch");
-            AddSound(SoundType.Item, "Sounds/Sounds/GONG");
-            AddSound(SoundType.Custom, "Sounds/Sounds/IZRoar");
-            AddSound(SoundType.Item, "Sounds/Sounds/MOARGONG");
-            AddSound(SoundType.Item, "Sounds/Sounds/QUAK");
-            AddSound(SoundType.NPCKilled, "Sounds/Sounds/ZeroDeath");
-            AddSound(SoundType.NPCHit, "Sounds/Sounds/ZeroHit");
-            AddSound(SoundType.NPCHit, "Sounds/Sounds/ZeroHit2");
-
-            if (Config.ShrinesMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/Shrines");
-                AddSound(SoundType.Music, "Sounds/Music/AkumaShrine");
-            }
-            if (Config.MonarchMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/Monarch");
-            }
-            if (Config.GripsMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/GripsTheme");
-            }
-            if (Config.BroodMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/BroodTheme");
-            }
-            if (Config.HydraMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/HydraTheme");
-            }
-            if (Config.SerpentMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/Boss6");
-            }
-            if (Config.StormMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/Siege");
-            }
-            if (Config.EquinoxMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/Equinox");
-            }
-            if (Config.KrakenMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/Kraken");
-            }
-            if (Config.SoCMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/SoC");
-            }
-            if (Config.CthulhuMusic)
-            {
-                AddSound(SoundType.Music, "Sounds/Music/Cthulhu");
-            }
-            AddSound(SoundType.Music, "Sounds/Music/Akuma");
-            AddSound(SoundType.Music, "Sounds/Music/Akuma2");
-            AddSound(SoundType.Music, "Sounds/Music/Yamata");
-            AddSound(SoundType.Music, "Sounds/Music/Yamata2");
-            AddSound(SoundType.Music, "Sounds/Music/Zero");
-            AddSound(SoundType.Music, "Sounds/Music/Zero2");
-            AddSound(SoundType.Music, "Sounds/Music/Shen");
-            AddSound(SoundType.Music, "Sounds/Music/ShenA");
-            AddSound(SoundType.Music, "Sounds/Music/IZ");
-            AddSound(SoundType.Music, "Sounds/Music/RayOfHope");
-            AddSound(SoundType.Music, "Sounds/Music/LastStand");
         }
 
         public override void PostSetupContent()
@@ -675,6 +609,80 @@ namespace AAMod
                 ShenASky.PlanetTexture = GetTexture("Backgrounds/ShenEclipse");
 
                 UserInterface = new UserInterface();
+
+
+                /*AddSound(SoundType.Item, "Sounds/Sounds/FerretNote");
+                AddSound(SoundType.Item, "Sounds/Sounds/Glitch");
+                AddSound(SoundType.Item, "Sounds/Sounds/GONG");
+                AddSound(SoundType.Custom, "Sounds/Sounds/IZRoar");
+                AddSound(SoundType.Item, "Sounds/Sounds/MOARGONG");
+                AddSound(SoundType.Item, "Sounds/Sounds/QUAK");
+                AddSound(SoundType.NPCKilled, "Sounds/Sounds/ZeroDeath");
+                AddSound(SoundType.NPCHit, "Sounds/Sounds/ZeroHit");
+                AddSound(SoundType.NPCHit, "Sounds/Sounds/ZeroHit2");
+
+
+                AddSound(SoundType.Music, "Sounds/Music/Akuma");
+                AddSound(SoundType.Music, "Sounds/Music/Akuma2");
+                if (Config.BroodMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/BroodTheme");
+                }
+                if (Config.SerpentMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/Boss6");
+                }
+                if (Config.SoCMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/SoC");
+                }
+                if (Config.CthulhuMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/Cthulhu");
+                }
+
+                if (Config.EquinoxMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/Equinox");
+                }
+                if (Config.GripsMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/GripsTheme");
+                }
+                if (Config.HydraMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/HydraTheme");
+                }
+                if (Config.KrakenMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/Kraken");
+                }
+                if (Config.MonarchMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/Monarch");
+                }
+                if (Config.ShrinesMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/Shrines");
+                    AddSound(SoundType.Music, "Sounds/Music/AkumaShrine");
+                }
+                if (Config.StormMusic)
+                {
+                    AddSound(SoundType.Music, "Sounds/Music/Siege");
+                }
+                AddSound(SoundType.Music, "Sounds/Music/IZ");
+                AddSound(SoundType.Music, "Sounds/Music/InfernoSurface");
+                AddSound(SoundType.Music, "Sounds/Music/InfernoUnderground");
+                AddSound(SoundType.Music, "Sounds/Music/LastStand");
+                AddSound(SoundType.Music, "Sounds/Music/LastStand");
+                AddSound(SoundType.Music, "Sounds/Music/RayOfHope");
+                AddSound(SoundType.Music, "Sounds/Music/Shen");
+                AddSound(SoundType.Music, "Sounds/Music/ShenA");
+                AddSound(SoundType.Music, "Sounds/Music/Yamata");
+                AddSound(SoundType.Music, "Sounds/Music/Yamata2");
+                AddSound(SoundType.Music, "Sounds/Music/Zero");
+                AddSound(SoundType.Music, "Sounds/Music/Zero2");*/
+
                 Main.itemTexture[1291] = GetTexture("Resprites/LifeFruit");
                 Main.itemTexture[1327] = GetTexture("Resprites/DeathSickle");
                 Main.itemTexture[3460] = GetTexture("Resprites/Luminite");
@@ -689,11 +697,87 @@ namespace AAMod
         }
         public override void Unload()
         {
-            AAMod.instance = null;
-            ModSupport.UnloadSupport();
+            CleanupStaticArrays();
+            instance = null;
             InfinityHotKey = null;
             AbilityKey = null;
         }
+
+        public void CleanupStaticArrays()
+        {
+            if (Main.netMode != 2) //handle clearing all static texture arrays
+            {
+                precachedTextures.Clear();
+                NPCs.Bosses.Yamata.Yamata.glowTex = null;
+                NPCs.Bosses.Yamata.Yamata.glowTex2 = null;
+                NPCs.Bosses.Yamata.Yamata.glowTex3 = null;
+                NPCs.Bosses.Yamata.Yamata.glowTexBody = null;
+                NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex = null;
+                NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex2 = null;
+                AkumaSky.PlanetTexture = null;
+                AkumaSky.BGTexture = null;
+                CthulhuStars.boltTexture = null;
+                CthulhuStars.flashTexture = null;
+                InfernoSky.PlanetTexture = null;
+                InfernoSky.BGTexture = null;
+                IZSky.boltTexture = null;
+                IZSky.flashTexture = null;
+                MireSky.PlanetTexture = null;
+                MireSky.SkyTexture = null;
+                MireSky.BGTexture = null;
+                ShenSky.Sun = null;
+                ShenSky.Moon = null;
+                ShenSky.BGTexture = null;
+                ShenASky.PlanetTexture = null;
+                ShenASky.BGTexture = null;
+                StormSky.boltTexture = null;
+                StormSky.flashTexture = null;
+                VoidSky.PlanetTexture = null;
+                VoidSky.BGTexture = null;
+                VoidSky.Echo = null;
+                VoidSky.Asteroids1 = null;
+                VoidSky.Asteroids2 = null;
+                VoidSky.Asteroids3 = null;
+                VoidSky.LB = null;
+                VoidSky.boltTexture = null;
+                VoidSky.flashTexture = null;
+                YamataSky.PlanetTexture = null;
+                YamataSky.BGTexture = null;
+                Items.Accessories.SoulStone._glow = null;
+                Items.Pets.Mudkip.glowTex = null;
+                Items.Pets.MudkipS.glowTex = null;
+                NPCs.Bosses.Broodmother.Broodmother.glowTex = null;
+                NPCs.Bosses.Grips.GripOfChaosRed.glowTex = null;
+                NPCs.Bosses.GripsShen.AbyssGrip.glowTex = null;
+                NPCs.Bosses.GripsShen.BlazeGrip.glowTex = null;
+                NPCs.Bosses.Infinity.Infinity.glowTex = null;
+                NPCs.Bosses.Infinity.InfinityStorm.glowTex = null;
+                NPCs.Bosses.Infinity.InfinityStorm.tex = null;
+                NPCs.Bosses.Infinity.Oblivion.glowTex = null;
+                NPCs.Bosses.Infinity.Oblivion.glitchTex = null;
+                NPCs.Bosses.Raider.Raider.glowTex = null;
+                NPCs.Bosses.Raider.Raider.glowTex1 = null;
+                NPCs.Bosses.Raider.RaidEgg.glowTex = null;
+                NPCs.Bosses.Raider.Raidmini.glowTex = null;
+                NPCs.Bosses.Raider.Raidmini.glowTex1 = null;
+                NPCs.Bosses.Retriever.Retriever.glowTex = null;
+                NPCs.Bosses.Retriever.Retriever.glowTex = null;
+                NPCs.Bosses.Shadow.Yamata.ShadowYamata.glowTex = null;
+                NPCs.Bosses.Shadow.Yamata.ShadowYamata.glowTex2 = null;
+                NPCs.Bosses.Shadow.Yamata.ShadowYamata.glowTex3 = null;
+                NPCs.Bosses.Shadow.Yamata.ShadowYamata.glowTexBody = null;
+                NPCs.Bosses.Zero.Zero.glowTex = null;
+                NPCs.Bosses.Zero.VoidStar.glowTex = null;
+                NPCs.Bosses.Zero.RealityCannon.glowTex = null;
+                NPCs.Bosses.Zero.RiftShredder.glowTex = null;
+                NPCs.Bosses.Zero.Taser.glowTex = null;
+                NPCs.Bosses.Zero.TeslaHand.glowTex = null;
+                NPCs.Bosses.Zero.ZeroAwakened.glowTex = null;
+                NPCs.Bosses.Zero.SearcherZero.glowTex = null;
+                NPCs.Enemies.Void.Searcher.glowTex = null;
+            }
+        }
+
         public override void AddRecipeGroups()
         {
             // Registers the new recipe group with the specified name

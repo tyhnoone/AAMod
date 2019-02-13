@@ -34,16 +34,6 @@ namespace AAMod
             return (forceBlackMapBG ? Main.mapTexture : (Texture2D)null);
         }
 
-        public static void UnloadSupport()
-        {
-            if (forceBlackMapBG)
-            {
-                forceBlackMapBG = false;
-                Main.mapTexture = forceBlackMapTexture;
-                forceBlackMapTexture = null;
-            }
-        }
-
         public static void SetupSupport()
         {
             Mod mod = AAMod.instance;

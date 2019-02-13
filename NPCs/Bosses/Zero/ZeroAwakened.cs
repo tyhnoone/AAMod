@@ -248,7 +248,7 @@ namespace AAMod.NPCs.Bosses.Zero
             TrailColor(Color.White, TrailAlpha);
             if (TrailAlpha < 255)
             {
-                BaseDrawing.DrawAfterimage(spritebatch, ZeroTrail, 0, npc, 0.8f, 1f, 3, false, 0f, 0f, TrailColor);
+                BaseDrawing.DrawAfterimage(spritebatch, ZeroTrail, 0, npc, 0.8f, 1f, 3, false, 0f, 0f, Color.White);
             }
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
             BaseDrawing.DrawAura(spritebatch, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, color1);
