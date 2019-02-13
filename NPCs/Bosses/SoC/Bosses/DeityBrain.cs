@@ -47,6 +47,7 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             npc.dontTakeDamage = true;
             npc.alpha = 255;
             npc.timeLeft = NPC.activeTime * 30;
+            musicPriority = MusicPriority.BossHigh;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -115,14 +116,24 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             bool Cthulhu = NPC.AnyNPCs(mod.NPCType<Cthulhu>());
 
             bool SoC = NPC.AnyNPCs(mod.NPCType<SoC>());
+            
+            musicPriority = MusicPriority.BossHigh;
 
-            if (SoC)
+            if (SoC && Config.SoCMusic)
             {
                 music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
             }
-            else if (Cthulhu)
+            else if (Cthulhu && Config.CthulhuMusic)
             {
                 music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Cthulhu");
+            }
+            else if (SoC && !Config.SoCMusic)
+            {
+                music = MusicID.Boss2;
+            }
+            else if (Cthulhu && !Config.CthulhuMusic)
+            {
+                music = MusicID.LunarBoss;
             }
             EyeCount = (Main.expertMode ? 20 : 15);
             totalEyes = BaseAI.GetNPCs(npc.Center, mod.NPCType("EoA"), 1500f);

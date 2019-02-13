@@ -59,14 +59,13 @@ namespace AAMod.NPCs.Bosses.Akuma
             npc.noTileCollide = true;
             npc.behindTiles = true;
             npc.DeathSound = new LegacySoundStyle(2, 124, Terraria.Audio.SoundType.Sound);
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Akuma");
-            musicPriority = MusicPriority.BossHigh;
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
                 npc.buffImmune[k] = true;
             }
             npc.buffImmune[103] = false;
             npc.alpha = 255;
+            musicPriority = MusicPriority.BossHigh;
         }
         private bool fireAttack;
         private int attackFrame;

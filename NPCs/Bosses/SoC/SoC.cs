@@ -34,10 +34,10 @@ namespace AAMod.NPCs.Bosses.SoC
             npc.DeathSound = new LegacySoundStyle(2, 88, Terraria.Audio.SoundType.Sound);
             npc.knockBackResist = 0f;
             npc.boss = true;
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
             npc.noGravity = true;
             npc.netAlways = true;
             for (int m = 0; m < npc.buffImmune.Length; m++) npc.buffImmune[m] = true;
+            musicPriority = MusicPriority.BossMedium;
         }
 
         public bool LeaveLine = false;
@@ -49,6 +49,7 @@ namespace AAMod.NPCs.Bosses.SoC
         public float alpha = 255;
         public float scale = 0;
         public float RingRotation = 0;
+        public float RingAlpha = 255;
         public float morphTimer = 0;
         public float RiftSpin = 0;
         public bool Morphed = false;
@@ -126,6 +127,18 @@ namespace AAMod.NPCs.Bosses.SoC
             float RoseSummon = npc.lifeMax * .25f;
             float LeviathanSummon = npc.lifeMax * .10f;
             bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
+
+            if (Config.SoCMusic)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
+            }
+            else
+            {
+                music = MusicID.Boss2;
+            }
+
+            RingVisuals();
+
             npc.ai[3]++;
             customAI[3]++;
             if (npc.ai[3] >= 600 && !BossAlive)
@@ -452,6 +465,48 @@ namespace AAMod.NPCs.Bosses.SoC
             return true;
         }
 
+        public void RingVisuals()
+        {
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
+
+            RingRotation += 0.0149599658f;
+
+            if (customAI[3] < 300f)
+            {
+                npc.dontTakeDamage = true;
+                if (RingAlpha > 0)
+                {
+                    RingAlpha -= 8;
+                }
+                if (RingAlpha <= 0)
+                {
+                    RingAlpha = 0;
+                }
+                if (scale < 1f)
+                {
+                    scale += .05f;
+                }
+                if (scale >= 1f)
+                {
+                    scale = 1f;
+                }
+            }
+            else
+            {
+                npc.dontTakeDamage = true;
+                if (RingAlpha >= 255)
+                {
+                    scale = 0;
+                    return;
+                }
+                if (RingAlpha < 255)
+                {
+                    scale += .05f;
+                    RingAlpha += 8;
+                }
+            }
+        }
+
 
         public Color GetAlpha(Color newColor, float alph)
         {
@@ -486,24 +541,6 @@ namespace AAMod.NPCs.Bosses.SoC
             {
                 Rotation += .2f;
                 RiftSpin -= .2f;
-                if (customAI[3] < 300f)
-                {
-                    alpha -= 5;
-                }
-                else
-                {
-                    alpha += 12;
-                }
-                if (alpha < 0)
-                {
-                    alpha = 0;
-                }
-                if (alpha > 255)
-                {
-                    alpha = 255;
-                }
-                scale = 1f - alpha / 255f;
-                RingRotation += 0.0149599658f;
                 Main.spriteBatch.Draw(RingTex, vector38, null, AAColor.Cthulhu, -RingRotation, RingTex.Size() / 2f, scale, SpriteEffects.None, 0f);
                 Main.spriteBatch.Draw(RitualTex, vector38, null, AAColor.Cthulhu, RingRotation, origin8, scale, SpriteEffects.None, 0f);
                 Main.spriteBatch.Draw(RingTex, vector38, null, AAColor.Cthulhu, -RingRotation, RingTex.Size() / 2f, scale * 0.42f, SpriteEffects.None, 0f);

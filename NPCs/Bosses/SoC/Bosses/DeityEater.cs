@@ -63,13 +63,23 @@ namespace AAMod.NPCs.Bosses.SoC.Bosses
             bool SoC = NPC.AnyNPCs(mod.NPCType<SoC>());
 
 
-            if (SoC)
+            musicPriority = MusicPriority.BossHigh;
+
+            if (SoC && Config.SoCMusic)
             {
                 music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/SoC");
             }
-            else if (Cthulhu)
+            else if (Cthulhu && Config.CthulhuMusic)
             {
                 music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Cthulhu");
+            }
+            else if (SoC && !Config.SoCMusic)
+            {
+                music = MusicID.Boss1;
+            }
+            else if (Cthulhu && !Config.CthulhuMusic)
+            {
+                music = MusicID.LunarBoss;
             }
 
             if (fireTimer >= 240 && fireAttack == false)

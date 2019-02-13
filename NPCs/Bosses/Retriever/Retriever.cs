@@ -39,7 +39,6 @@ namespace AAMod.NPCs.Bosses.Retriever
             npc.noTileCollide = true;
             npc.HitSound = new LegacySoundStyle(3, 4, Terraria.Audio.SoundType.Sound);
             npc.DeathSound = new LegacySoundStyle(4, 14, Terraria.Audio.SoundType.Sound);
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Siege");
             npc.buffImmune[BuffID.Ichor] = true;
             npc.netAlways = true;
             bossBag = mod.ItemType("RetrieverBag");
@@ -153,6 +152,15 @@ namespace AAMod.NPCs.Bosses.Retriever
             if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
             {
                 npc.velocity.Y -= 5;
+            }
+
+            if (Config.StormMusic)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Siege");
+            }
+            else
+            {
+                music = MusicID.Boss4;
             }
 
             customAI[0]--;

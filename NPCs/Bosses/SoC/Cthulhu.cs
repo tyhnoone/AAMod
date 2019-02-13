@@ -25,7 +25,6 @@ namespace AAMod.NPCs.Bosses.SoC
             npc.alpha = 255;
             npc.damage = 200;
             npc.defense = 350;
-            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Cthulhu");
             npc.lifeMax = 1500000;
             npc.dontTakeDamage = false;
             npc.noGravity = true;
@@ -39,6 +38,7 @@ namespace AAMod.NPCs.Bosses.SoC
                 npc.buffImmune[k] = true;
             }
             npc.knockBackResist = 0f;
+            musicPriority = MusicPriority.BossHigh;
         }
 
 
@@ -74,6 +74,8 @@ namespace AAMod.NPCs.Bosses.SoC
 
         public float ShieldScale = 0;
         public float ShieldRotation = 0;
+        public int ShieldAlpha = 255;
+        public bool ShieldDown = false;
 
 
         Rectangle CthulhuDoom1 = new Rectangle(0, 0, 222, 248);
@@ -103,37 +105,22 @@ namespace AAMod.NPCs.Bosses.SoC
             float LeviathanSummon = npc.lifeMax * .15f;
 
             bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
-            
 
-            ShieldRotation += .05f;
+            ShieldVisuals();
 
-            if (BossAlive)
+            if (Config.CthulhuMusic)
             {
-                npc.dontTakeDamage = true;
-                if (ShieldScale < 1f)
-                {
-                    ShieldScale += .05f;
-                }
-                if (ShieldScale >= 1f)
-                {
-                    ShieldScale = 1f;
-                }
+                music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Cthulhu");
             }
             else
             {
-                if (ShieldScale > 0)
-                {
-                    ShieldScale -= .05f;
-                }
-                if (ShieldScale <= 0)
-                {
-                    npc.dontTakeDamage = false;
-                    ShieldScale = 0;
-                }
+                music = MusicID.LunarBoss;
             }
 
             if (npc.ai[1] == 1f)
             {
+                npc.velocity.Y = 0;
+                npc.velocity.X = 0;
                 DoomStart++;
                 npc.ai[3]++;
                 if (DoomStart > 0) DoomCounter1++;
@@ -203,7 +190,7 @@ namespace AAMod.NPCs.Bosses.SoC
                     return;
             }
 
-            BaseAI.AISpaceOctopus(npc, ref customAI, .1f, 1, 0f, 120f, FireMagic);
+            BaseAI.AISpaceOctopus(npc, ref customAI, .5f, 1, 0f, 120f, FireMagic);
 
             if (npc.life < EyeSummon && npc.ai[2] == 0)
             {
@@ -265,7 +252,7 @@ namespace AAMod.NPCs.Bosses.SoC
                 }
             }
 
-            if (npc.life <= npc.lifeMax / 10 )
+            if (npc.life <= npc.lifeMax * .149999999f)
             {
                 
                 music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/LastStand");
@@ -319,12 +306,13 @@ namespace AAMod.NPCs.Bosses.SoC
             PlayerDistance.X -= PlayerPosX * 1f;
             PlayerDistance.Y -= PlayerPosY * 1f;
             Vector2 spawnAt = npc.Center + new Vector2(0f, npc.height / 2f);
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
             npc.ai[0] += 1;
             if (npc.ai[0] == 1 || npc.ai[0] == 4 || npc.ai[0] == 6 || npc.ai[0] == 15 || npc.ai[0] == 20)
             {
                 ShootThis = mod.ProjectileType<CthulhuNuke>();
             }
-            if (npc.ai[0] == 2 || npc.ai[0] == 3 || npc.ai[0] == 9 || npc.ai[0] == 17 || npc.ai[0] == 22)
+            if ((npc.ai[0] == 2 || npc.ai[0] == 3 || npc.ai[0] == 9 || npc.ai[0] == 17 || npc.ai[0] == 22) && !BossAlive)
             {
                 NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("Portal"), 0, -npc.velocity.X * 1.2f, -npc.velocity.Y * 1.2f);
                 return;
@@ -366,6 +354,49 @@ namespace AAMod.NPCs.Bosses.SoC
             }
         }
 
+        public void ShieldVisuals()
+        {
+            bool BossAlive = NPC.AnyNPCs(mod.NPCType<DeityEye>()) || NPC.AnyNPCs(mod.NPCType<DeityEater>()) || NPC.AnyNPCs(mod.NPCType<DeityBrain>()) || NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) || NPC.AnyNPCs(mod.NPCType<DeityRose>());
+
+
+            ShieldRotation += .05f;
+
+            if (BossAlive)
+            {
+                npc.dontTakeDamage = true;
+                if (ShieldAlpha > 0)
+                {
+                    ShieldAlpha -= 8;
+                }
+                if (ShieldAlpha <= 0)
+                {
+                    ShieldAlpha = 0;
+                }
+                if (ShieldScale < 1f)
+                {
+                    ShieldScale += .05f;
+                }
+                if (ShieldScale >= 1f)
+                {
+                    ShieldScale = 1f;
+                }
+            }
+            else
+            {
+                npc.dontTakeDamage = true;
+                if (ShieldAlpha >= 255)
+                {
+                    ShieldScale = 0;
+                    return;
+                }
+                if (ShieldAlpha < 255)
+                {
+                    ShieldScale += .05f;
+                    ShieldAlpha += 8;
+                }
+            }
+        }
+
         public override void HitEffect(int hitDirection, double damage)
         {
             if (npc.life <= 0 && npc.ai[1] != 1 && Main.expertMode)
@@ -375,6 +406,19 @@ namespace AAMod.NPCs.Bosses.SoC
                 npc.netUpdate = true;
                 npc.dontTakeDamage = true;
             }
+        }
+
+        public Color GetAlpha(Color newColor, float alph)
+        {
+            int alpha = 255 - (int)(255 * alph);
+            float alphaDiff = (float)(255 - alpha) / 255f;
+            int newR = (int)((float)newColor.R * alphaDiff);
+            int newG = (int)((float)newColor.G * alphaDiff);
+            int newB = (int)((float)newColor.B * alphaDiff);
+            int newA = (int)newColor.A - alpha;
+            if (newA < 0) newA = 0;
+            if (newA > 255) newA = 255;
+            return new Color(newR, newG, newB, newA);
         }
 
         public override bool PreDraw(SpriteBatch sb, Color drawColor)
@@ -398,8 +442,8 @@ namespace AAMod.NPCs.Bosses.SoC
             BaseDrawing.DrawTexture(sb, Barrier, 0, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Barrier.Width, Barrier.Height), AAColor.Cthulhu2, true);
             if (npc.ai[1] == 1f)
             {
-                BaseDrawing.DrawTexture(sb, Shield, shader, npc.position, npc.width, npc.height, ShieldScale, 0, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.Cthulhu, true);
-                BaseDrawing.DrawTexture(sb, Barrier, 0, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Barrier.Width, Barrier.Height), AAColor.Cthulhu2, true);
+                BaseDrawing.DrawTexture(sb, Shield, shader, npc.position, npc.width, npc.height, ShieldScale, 0, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), GetAlpha(AAColor.Cthulhu, ShieldAlpha), true);
+                BaseDrawing.DrawTexture(sb, Barrier, 0, npc.position, npc.width, npc.height, ShieldScale, ShieldRotation, 0, 1, new Rectangle(0, 0, Barrier.Width, Barrier.Height), GetAlpha(AAColor.Cthulhu2, ShieldAlpha), true);
             }
             return false;
         }

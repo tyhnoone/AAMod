@@ -36,14 +36,12 @@ namespace AAMod
 
         public static void UnloadSupport()
         {
-            #region jopo's large world enabler
             if (forceBlackMapBG)
             {
                 forceBlackMapBG = false;
                 Main.mapTexture = forceBlackMapTexture;
                 forceBlackMapTexture = null;
             }
-            #endregion
         }
 
         public static void SetupSupport()
@@ -61,7 +59,7 @@ namespace AAMod
         {
             if (!ModSupport.ModInstalled(crossoverModName)) //this is to give a warning if they have the item and the mod is not enabled
             {
-                TooltipLine error = new TooltipLine(mod, "Error", "WARNING: ITEM MAY NOT FUNCTION CORRECTLY WITHOUT " + crossoverModName.ToUpper() + " ENABLED!");
+                TooltipLine error = new TooltipLine(mod, "Error", "WARNING: ITEM WILL NOT FUNCTION WITHOUT " + crossoverModName.ToUpper() + " ENABLED!");
                 error.overrideColor = new Color(255, 50, 50);
                 list.Add(error);
             }
@@ -130,34 +128,4 @@ namespace AAMod
         }
         #endregion
     }
-
-    /*public class ThoriumItem : ModItem
-    {
-        public bool radiant = false;
-
-        public void RadiantDamage(Item item)
-        {
-            if (item.modItem is ThoriumItem && ((ThoriumItem)item.modItem).radiant)
-            {
-                int index = -1;
-                for (int m = 0; m < list.Count; m++)
-                {
-                    if (list[m].Name.Equals("Damage")) { index = m; break; }
-                }
-                string oldTooltip = list[index].text;
-                string[] split = oldTooltip.Split(' ');
-                list.RemoveAt(index);
-                list.Insert(index, new TooltipLine(mod, "Damage", split[0] + " radiant damage"));
-
-                int index2 = -1;
-                for (int m = 0; m < list.Count; m++)
-                {
-                    if (list[m].Name.Equals("CritChance")) { index2 = m; break; }
-                }
-
-                list.RemoveAt(index2);
-                list.Insert(index2, new TooltipLine(mod, "CritChance", player.GetThoriumPlayer().radiantCrit + item.crit + "% critical strike chance"));
-            }
-        }
-    }*/
 }

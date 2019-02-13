@@ -21,7 +21,6 @@ using AAMod.NPCs.Bosses.SoC.Bosses;
 using System.Collections.Generic;
 using BaseMod;
 using Terraria.ModLoader.IO;
-using ReLogic.Graphics;
 using Terraria.Localization;
 using Terraria.Graphics.Shaders;
 using Terraria.Graphics.Effects;
@@ -1182,9 +1181,13 @@ namespace AAMod
                     }
                 }
             }
-            if (!ZoneShip || NPC.AnyNPCs(mod.NPCType<UDUNFUKED>()))
+            for (int i = 0; i < Main.maxNPCs; i++)
             {
-                CthulhuCountdown = 10800;
+                NPC target = Main.npc[i];
+                if (target.boss)
+                {
+                    CthulhuCountdown = 10800;
+                }
             }
             if (!ZoneShip && Leave == true)
             {

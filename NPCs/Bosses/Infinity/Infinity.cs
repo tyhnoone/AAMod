@@ -531,6 +531,7 @@ namespace AAMod.NPCs.Bosses.Infinity
                 default: break;
             }
             offsetX *= 2f;
+            offsetY *= 2f;
             return new Vector2(offsetX, offsetY);
         }
 

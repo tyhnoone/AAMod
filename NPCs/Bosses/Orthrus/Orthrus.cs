@@ -57,7 +57,6 @@ namespace AAMod.NPCs.Bosses.Orthrus
             npc.DeathSound = new LegacySoundStyle(2, 88, Terraria.Audio.SoundType.Sound);
             npc.knockBackResist = 0f;
             npc.boss = true;
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Siege");
             npc.netAlways = true;
             npc.frame = BaseDrawing.GetFrame(frameCount, frameWidth, frameHeight, 0, 2);
             bossBag = mod.ItemType("OrthrusBag");
@@ -199,6 +198,15 @@ namespace AAMod.NPCs.Bosses.Orthrus
 						}				
 					}
 				}
+            }
+
+            if (Config.StormMusic)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Siege");
+            }
+            else
+            {
+                music = MusicID.Boss3;
             }
 
             if (internalAI[1] == AISTATE_TURRET) //Standing

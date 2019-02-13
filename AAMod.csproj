@@ -1101,6 +1101,7 @@
     <Compile Include="Items\Usable\MireKey.cs" />
     <Compile Include="Items\Usable\OrangeSolution.cs" />
     <Compile Include="Items\Usable\OrderSolution.cs" />
+    <Compile Include="Items\Usable\UmbraHeart.cs" />
     <Compile Include="Items\Usable\VoidBomb.cs" />
     <Compile Include="Items\Vanity\Alphakip\FishDiverBoots.cs" />
     <Compile Include="Items\Vanity\Alphakip\FishDiverJacket.cs" />
@@ -4098,9 +4099,15 @@
     <Content Include="Items\Usable\OrangeSolution.png" />
     <Content Include="Items\Usable\OrderBottle.png" />
     <Content Include="Items\Usable\OrderSolution.png" />
+    <Content Include="Items\Usable\PirateKey.png" />
+    <Content Include="Items\Usable\SkeletonKey.png" />
     <Content Include="Items\Usable\SporeSac.png" />
     <Content Include="Items\Usable\StoneOrb.png" />
     <Content Include="Items\Usable\StoneTesseract.png" />
+    <Content Include="Items\Usable\UmbraHeart.png" />
+    <Content Include="Items\Usable\VaultKey1.png" />
+    <Content Include="Items\Usable\VaultKey2.png" />
+    <Content Include="Items\Usable\VaultKey3.png" />
     <Content Include="Items\Usable\VoidBomb.png" />
     <Content Include="Items\Vanity\Alphakip\FishDiverBoots.png" />
     <Content Include="Items\Vanity\Alphakip\FishDiverBoots_Legs.png" />
@@ -4400,7 +4407,6 @@
     <Content Include="NPCs\Bosses\Orthrus\OrthrusSpark.png" />
     <Content Include="NPCs\Bosses\Orthrus\Orthrus_Head_Boss.png" />
     <Content Include="NPCs\Bosses\Orthrus\Shocking.png" />
-    <Content Include="NPCs\Bosses\Raider\newraider.png" />
     <Content Include="NPCs\Bosses\Raider\RaidBoom.png" />
     <Content Include="NPCs\Bosses\Raider\RaidEgg.png" />
     <Content Include="NPCs\Bosses\Raider\RaidEgg_Head_Boss.png" />
@@ -4618,9 +4624,7 @@
     <Content Include="NPCs\Bosses\Zero\Zero1.png" />
     <Content Include="NPCs\Bosses\Zero\ZeroArm.png" />
     <Content Include="NPCs\Bosses\Zero\ZeroAwakened.png" />
-    <Content Include="NPCs\Bosses\Zero\ZeroAwakened1.png" />
     <Content Include="NPCs\Bosses\Zero\ZeroAwakened_Head_Boss.png" />
-    <Content Include="NPCs\Bosses\Zero\ZeroBody.png" />
     <Content Include="NPCs\Bosses\Zero\ZeroDeactivated.png" />
     <Content Include="NPCs\Bosses\Zero\ZeroDeath.png" />
     <Content Include="NPCs\Bosses\Zero\ZeroDeath1.png" />

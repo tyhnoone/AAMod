@@ -18,6 +18,8 @@ using AAMod.Items.Armor.Darkmatter;
 using AAMod.Items.Armor.Radium;
 using AAMod.Items.Blocks;
 using AAMod;
+using Terraria.IO;
+using System.IO;
 
 namespace AAMod
 {
@@ -35,9 +37,6 @@ namespace AAMod
         public static IDictionary<string, Texture2D> Textures = null;
         public static Dictionary<string, Texture2D> precachedTextures = new Dictionary<string, Texture2D>();
         public static string BLANK_TEX = "AAMod/BlankTex";
-
-        public static int[] SNAKETYPES = new int[0];
-        public static int[] SERPENTTYPES = new int[0];
 
         #region mod loaded bools
         public static bool fargoLoaded = false;
@@ -58,10 +57,77 @@ namespace AAMod
             {
                 Autoload = true,
                 AutoloadGores = true,
-                AutoloadSounds = true,
-                AutoloadBackgrounds = true
+                AutoloadBackgrounds = true,
+                AutoloadSounds = false
             };
             instance = this;
+
+            AddSound(SoundType.Item, "Sounds/Sounds/FerretNote");
+            AddSound(SoundType.Item, "Sounds/Sounds/Glitch");
+            AddSound(SoundType.Item, "Sounds/Sounds/GONG");
+            AddSound(SoundType.Custom, "Sounds/Sounds/IZRoar");
+            AddSound(SoundType.Item, "Sounds/Sounds/MOARGONG");
+            AddSound(SoundType.Item, "Sounds/Sounds/QUAK");
+            AddSound(SoundType.NPCKilled, "Sounds/Sounds/ZeroDeath");
+            AddSound(SoundType.NPCHit, "Sounds/Sounds/ZeroHit");
+            AddSound(SoundType.NPCHit, "Sounds/Sounds/ZeroHit2");
+
+            if (Config.ShrinesMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/Shrines");
+                AddSound(SoundType.Music, "Sounds/Music/AkumaShrine");
+            }
+            if (Config.MonarchMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/Monarch");
+            }
+            if (Config.GripsMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/GripsTheme");
+            }
+            if (Config.BroodMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/BroodTheme");
+            }
+            if (Config.HydraMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/HydraTheme");
+            }
+            if (Config.SerpentMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/Boss6");
+            }
+            if (Config.StormMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/Siege");
+            }
+            if (Config.EquinoxMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/Equinox");
+            }
+            if (Config.KrakenMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/Kraken");
+            }
+            if (Config.SoCMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/SoC");
+            }
+            if (Config.CthulhuMusic)
+            {
+                AddSound(SoundType.Music, "Sounds/Music/Cthulhu");
+            }
+            AddSound(SoundType.Music, "Sounds/Music/Akuma");
+            AddSound(SoundType.Music, "Sounds/Music/Akuma2");
+            AddSound(SoundType.Music, "Sounds/Music/Yamata");
+            AddSound(SoundType.Music, "Sounds/Music/Yamata2");
+            AddSound(SoundType.Music, "Sounds/Music/Zero");
+            AddSound(SoundType.Music, "Sounds/Music/Zero2");
+            AddSound(SoundType.Music, "Sounds/Music/Shen");
+            AddSound(SoundType.Music, "Sounds/Music/ShenA");
+            AddSound(SoundType.Music, "Sounds/Music/IZ");
+            AddSound(SoundType.Music, "Sounds/Music/RayOfHope");
+            AddSound(SoundType.Music, "Sounds/Music/LastStand");
         }
 
         public override void PostSetupContent()
@@ -89,6 +155,9 @@ namespace AAMod
             if (Redemption != null) redemptionLoaded = true;
             if (CheatSheet != null) cheatsheetLoaded = true;
             if (HEROsMod != null) herosLoaded = true;
+
+            ModSupport.SetupSupport();
+
             if (yabhb != null)
             {
                 Call("RegisterHealthBarMini", instance.NPCType("YamataHeadF1"));
@@ -515,9 +584,6 @@ namespace AAMod
 
                 AddEquipTexture(null, EquipType.Legs, "N1_Legs", "AAMod/Items/Vanity/N1/N1_Legs");
 
-                SNAKETYPES = GetWormTypes("MiniSerpent");
-                SERPENTTYPES = GetWormTypes("Serpent");
-
                 AddEquipTexture(new Items.Vanity.Pepsi.PepsimanHead(), null, EquipType.Head, "PepsimanHead", "AAMod/Items/Vanity/Pepsi/PepsimanHead");
                 AddEquipTexture(new Items.Vanity.Pepsi.PepsimanBody(), null, EquipType.Body, "PepsimanBody", "AAMod/Items/Vanity/Pepsi/PepsimanBody", "AAMod/Items/Vanity/Pepsi/PepsimanBody_Arms");
                 AddEquipTexture(new Items.Vanity.Pepsi.PepsimanLegs(), null, EquipType.Legs, "PepsimanLegs", "AAMod/Items/Vanity/Pepsi/PepsimanLegs");
@@ -621,9 +687,10 @@ namespace AAMod
         {
             return new int[] { NPCType(s + "Head"), NPCType(s + "Body"), NPCType(s + "Tail") };
         }
-
         public override void Unload()
         {
+            AAMod.instance = null;
+            ModSupport.UnloadSupport();
             InfinityHotKey = null;
             AbilityKey = null;
         }
@@ -767,6 +834,7 @@ namespace AAMod
                 RecipeGroup.recipeGroups[index].ValidItems.Add(ItemType<OroborosWood>());
             }
         }
+
         public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
             if (Main.gameMenu)
@@ -831,7 +899,7 @@ namespace AAMod
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/Ship");
                 return;
             }
-            
+
             if (Ancients.ZoneStorm)
             {
                 priority = MusicPriority.Event;
@@ -840,7 +908,7 @@ namespace AAMod
             }
             if (Ancients.ZoneInferno)
             {
-                if (Ancients.ZoneRisingSunPagoda && AAWorld.downedEquinox && !AAWorld.downedAkuma)
+                if (Ancients.ZoneRisingSunPagoda && AAWorld.downedEquinox && !AAWorld.downedAkuma && Config.ShrinesMusic)
                 {
                     priority = MusicPriority.BiomeHigh;
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/AkumaShrine");
@@ -861,7 +929,7 @@ namespace AAMod
             }
             if (Ancients.ZoneMire)
             {
-                if (Ancients.ZoneRisingMoonLake && AAWorld.downedEquinox && !AAWorld.downedYamata)
+                if (Ancients.ZoneRisingMoonLake && AAWorld.downedEquinox && !AAWorld.downedYamata && Config.ShrinesMusic)
                 {
                     priority = MusicPriority.BiomeHigh;
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/Shrines");
@@ -896,10 +964,9 @@ namespace AAMod
 
                 return;
             }
-            
-        }
 
-        #region recipes
+        }
+        
         public override void AddRecipes()
         {
             RecipeFinder finder = new RecipeFinder();
@@ -1481,8 +1548,7 @@ namespace AAMod
                 recipe.SetResult(ItemID.IceBlade);
                 recipe.AddRecipe();
             }
-    }
-        #endregion
+        }
 
         //Stuff 4 Grox
 
@@ -1556,6 +1622,171 @@ namespace AAMod
                 return inZone;
             }
             return new Exception("ANCIENTS AWAKENED CALL ERROR: NO METHOD FOUND: " + methodName);
+        }
+    }
+
+    public static class Config
+    {
+        public static bool ShrinesMusic = true;
+        public static bool PreAncientsMusic = true;
+        public static bool AncientMusic = true;
+        public static bool PinchMusic = true;
+        public static bool SAPinchMusic = true;
+        public static bool MonarchMusic = true;
+        public static bool GripsMusic = true;
+        public static bool BroodMusic = true;
+        public static bool HydraMusic = true;
+        public static bool SerpentMusic = true;
+        public static bool StormMusic = true;
+        public static bool EquinoxMusic = true;
+        public static bool GripsSMusic = true;
+        public static bool KrakenMusic = true;
+        public static bool SoCMusic = true;
+        public static bool CthulhuMusic = true;
+        static string ConfigPath = Path.Combine(Main.SavePath, "Mod Configs", "AAConfig.json");
+        static Preferences Configuration = new Preferences(ConfigPath);
+
+        public static void Load()
+        {
+            bool success = ReadConfig();
+            if (!success)
+            {
+                ErrorLogger.Log("Failed to read AAMod's config file! Recreating config...");
+                CreateConfig();
+            }
+        }
+
+        static bool ReadConfig()
+        {
+            if (Configuration.Load())
+            {
+                Configuration.Get("ShrinesMusic", ref ShrinesMusic);
+                Configuration.Get("PreAncientsMusic", ref PreAncientsMusic);
+                Configuration.Get("MonarchMusic", ref MonarchMusic);
+                Configuration.Get("GripsMusic", ref GripsMusic);
+                Configuration.Get("BroodMusic", ref BroodMusic);
+                Configuration.Get("HydraMusic", ref HydraMusic);
+                Configuration.Get("SerpentMusic", ref SerpentMusic);
+                Configuration.Get("StormMusic", ref StormMusic);
+                Configuration.Get("EquinoxMusic", ref EquinoxMusic);
+                Configuration.Get("GripsSMusic", ref GripsSMusic);
+                Configuration.Get("KrakenMusic", ref KrakenMusic);
+                Configuration.Get("SoCMusic", ref SoCMusic);
+                Configuration.Get("CthulhuMusic", ref CthulhuMusic);
+
+
+                if (PreAncientsMusic != true && PreAncientsMusic != false)
+                {
+                    PreAncientsMusic = true;
+                }
+
+                if (ShrinesMusic != true && ShrinesMusic != false)
+                {
+                    ShrinesMusic = true;
+                }
+
+                if (PinchMusic != true && PinchMusic != false)
+                {
+                    PinchMusic = true;
+                }
+
+                if (SAPinchMusic != true && SAPinchMusic != false)
+                {
+                    SAPinchMusic = true;
+                }
+
+                if (MonarchMusic != true && MonarchMusic != false)
+                {
+                    MonarchMusic = true;
+                }
+
+                if (GripsMusic != true && GripsMusic != false)
+                {
+                    GripsMusic = true;
+                }
+
+                if (BroodMusic != true && BroodMusic != false)
+                {
+                    BroodMusic = true;
+                }
+                
+                if (HydraMusic != true && HydraMusic != false)
+                {
+                    HydraMusic = true;
+                }
+
+                if (SerpentMusic != true && SerpentMusic != false)
+                {
+                    SerpentMusic = true;
+                }
+
+                if (StormMusic != true && StormMusic != false)
+                {
+                    StormMusic = true;
+                }
+                
+                if (EquinoxMusic != true && EquinoxMusic != false)
+                {
+                    EquinoxMusic = true;
+                }
+
+                if (GripsSMusic != true && GripsSMusic != false)
+                {
+                    GripsSMusic = true;
+                }
+
+                if (KrakenMusic != true && KrakenMusic != false)
+                {
+                    KrakenMusic = true;
+                }
+
+                if (KrakenMusic != true && KrakenMusic != false)
+                {
+                    KrakenMusic = true;
+                }
+
+                if (SoCMusic != true && SoCMusic != false)
+                {
+                    SoCMusic = true;
+                }
+
+                if (CthulhuMusic != true && CthulhuMusic != false)
+                {
+                    CthulhuMusic = true;
+                }
+
+                if (!PreAncientsMusic)
+                {
+                    MonarchMusic = false;
+                    GripsMusic = false;
+                    BroodMusic = false;
+                    HydraMusic = false;
+                    SerpentMusic = false;
+                    StormMusic = false;
+                    EquinoxMusic = false;
+                    GripsSMusic = false;
+                }
+            }
+            return true;
+        }
+
+        static void CreateConfig()
+        {
+            Configuration.Clear();
+            Configuration.Put("ShrinesMusic", ShrinesMusic);
+            Configuration.Put("MonarchMusic", MonarchMusic);
+            Configuration.Put("GripsMusic", GripsMusic);
+            Configuration.Put("BroodMusic", BroodMusic);
+            Configuration.Put("HydraMusic", HydraMusic);
+            Configuration.Put("SerpentMusic", SerpentMusic);
+            Configuration.Put("StormMusic", StormMusic);
+            Configuration.Put("EquinoxMusic", EquinoxMusic);
+            Configuration.Put("GripsSMusic", GripsSMusic);
+            Configuration.Put("KrakenMusic", KrakenMusic);
+            Configuration.Put("SoCMusic", SoCMusic);
+            Configuration.Put("CthulhuMusic", CthulhuMusic);
+            Configuration.Put("PreAncientsMusic", PreAncientsMusic);
+            Configuration.Save(true);
         }
     }
 }

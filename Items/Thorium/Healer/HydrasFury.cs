@@ -16,7 +16,9 @@ namespace AAMod.Items.Thorium.Healer
 		{
 			crossoverModName = "Thorium";
             DisplayName.SetDefault("Hydra's Fury");
-            BaseUtility.AddTooltips(item, new string[] { "Spins an abyssal scythe around you that shreds through enemies", "Scythes inflict poison on contact", "Grants 1 soul essence on direct hit" });			
+            Tooltip.SetDefault(@"Spins an abyssal scythe around you that shreds through enemies
+Scythes inflict poison on contact
+Grants 1 soul essence on direct hit");			
 		}
 
 		public override void SetDefaults()

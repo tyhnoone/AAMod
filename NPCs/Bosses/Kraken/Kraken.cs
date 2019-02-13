@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Kraken
@@ -55,7 +56,6 @@ namespace AAMod.NPCs.Bosses.Kraken
             //npc.alpha = 255;
             npc.damage = 80;
             npc.defense = 40;
-            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Kraken");
             npc.lifeMax = 120000;
             npc.dontTakeDamage = false;
             npc.noGravity = true;
@@ -78,6 +78,15 @@ namespace AAMod.NPCs.Bosses.Kraken
             npc.ai[1]++;
             npc.frameCounter++;
 
+            if (Config.KrakenMusic)
+            {
+                music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Kraken");
+            }
+            else
+            {
+                music = MusicID.Boss5;
+
+            }
 
             if (npc.ai[1] < 400)
             {
