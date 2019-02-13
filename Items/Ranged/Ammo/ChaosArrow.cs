@@ -9,7 +9,7 @@ namespace AAMod.Items.Ranged.Ammo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chaos Arrow");
-            DisplayName.SetDefault("Inflicts randomly selected debuff on hit");
+            Tooltip.SetDefault("Inflicts randomly selected debuff on hit");
 		}
 
 		public override void SetDefaults()
