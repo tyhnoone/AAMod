@@ -32,7 +32,8 @@ namespace AAMod.Items.Ranged.Ammo
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.WoodenArrow, 150);
-            recipe.AddIngredient(mod, "ChaosCrystal", 1);
+            recipe.AddIngredient(mod, "RadiantIncinerite", 1);
+			recipe.AddIngredient(mod, "DeepAbyssium", 1);
             recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this, 150);
 			recipe.AddRecipe();
