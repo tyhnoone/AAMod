@@ -106,7 +106,7 @@ namespace AAMod.NPCs.Bosses.Infinity
                         Main.npc[npcID].life = player2.GetModPlayer<AAPlayer>(mod).GetIZHealth;
                     }
                 }
-                Main.npc[npcID].Center = new Vector2(npc.Center.X, npc.Center.Y - 246);
+                Main.npc[npcID].Center = new Vector2(npc.Center.X, npc.Center.Y);
 				Main.npc[npcID].netUpdate = true;
 			}
 		}

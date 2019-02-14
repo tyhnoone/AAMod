@@ -19,8 +19,7 @@ Infinity Zero: " + IZHP;
         }
 
     	public bool IZ = false;
-    	public int IZHP = 2000000;
-    	public int ShenHP = 1600000;
+    	public int IZHP = 2500000;
         public Infinity Inf = null;
 
         public override void SetDefaults()

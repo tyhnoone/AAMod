@@ -121,7 +121,6 @@ namespace AAMod
         public bool Space;
         public int SnapCD = 0;
         public int AbilityCD = 180;
-        public bool death;
         public bool AshRemover;
         public bool FogRemover;
         public bool Baolei;
@@ -1452,6 +1451,10 @@ namespace AAMod
         public override void PreUpdate()
         {
             groviteGlow[player.whoAmI] = false;
+            if (SnapCD != 0)
+            {
+                SnapCD--;
+            }
             if ((Mind || Power || Reality || Soul || Space || Time) && !(dwarvenGauntlet || InfinityGauntlet || TrueInfinityGauntlet))
             {
                 player.AddBuff(mod.BuffType<InfinityOverload>(), 180);
@@ -1687,19 +1690,10 @@ namespace AAMod
                 if (AAMod.InfinityHotKey.JustPressed && SnapCD == 0)
                 {
                     SnapCD = 18000;
-                    Main.npc.Where(x => x.active && !x.townNPC && x.type != NPCID.TargetDummy && x.type != mod.NPCType<CrabGuardian>() && x.type != mod.NPCType<RiftShredder>() && x.type != mod.NPCType<Taser>() && x.type != mod.NPCType<RealityCannon>() && x.type != mod.NPCType<VoidStar>() && x.type != mod.NPCType<TeslaHand>() && !x.boss).ToList().ForEach(x =>
+                    Main.npc.Where(x => x.active && !x.townNPC && x.type != NPCID.TargetDummy && x.type != mod.NPCType<CrabGuardian>() && x.type != mod.NPCType<IZHand1>() && x.type != mod.NPCType<IZHand2>() && x.type != mod.NPCType<RiftShredder>() && x.type != mod.NPCType<Taser>() && x.type != mod.NPCType<RealityCannon>() && x.type != mod.NPCType<VoidStar>() && x.type != mod.NPCType<TeslaHand>() && !x.boss).ToList().ForEach(x =>
                     {
-
                         Main.NewText("Perfectly Balanced, as all things should be", Color.Purple);
-                        if (death || TrueInfinityGauntlet)
-                        {
-                            player.ApplyDamageToNPC(x, damage: x.lifeMax, knockback: 0f, direction: 0, crit: true);
-                            death = false;
-                        }
-                        else
-                        {
-                            death = true;
-                        }
+                        player.ApplyDamageToNPC(x, damage: x.lifeMax, knockback: 0f, direction: 0, crit: true);
                     });
                 }
             }
@@ -1738,10 +1732,6 @@ namespace AAMod
             if (AbilityCD != 0)
             {
                 AbilityCD--;
-            }
-            if (SnapCD != 0)
-            {
-                SnapCD--;
             }
         }
 
@@ -1882,7 +1872,7 @@ namespace AAMod
 
         public int IZHoldTimer = 180;
         public bool InfZ = false;
-        public int GetIZHealth = 2000000;
+        public int GetIZHealth = 2500000;
         public int RiftTimer;
         public int EscapeLine = 180;
 

@@ -212,17 +212,9 @@ namespace AAMod.NPCs.Bosses.Infinity
                 }
                 return;
             }
-            if (!Body.npc.active)
-            {
-                if (npc.timeLeft > 10) npc.timeLeft = 10;
-                killedbyplayer = false;
-                return;
-            }
             npc.TargetClosest();
             Player targetPlayer = Main.player[npc.target];
             if (targetPlayer == null || !targetPlayer.active || targetPlayer.dead) targetPlayer = null; //deliberately set to null
-
-            
 
 			if(Main.netMode != 1)
 			{
@@ -372,8 +364,8 @@ namespace AAMod.NPCs.Bosses.Infinity
             if (ChargeAttack || Charging)
             {
                 npc.frame.Y = 1 * frameHeight;
-            }else
-            if (RepairMode)
+            }
+            else if (RepairMode)
             {
                 npc.frame.Y = 2 * frameHeight;
             }
