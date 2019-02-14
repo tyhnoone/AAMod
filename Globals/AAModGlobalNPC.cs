@@ -413,6 +413,13 @@ namespace AAMod
                     Item.NewItem(npc.getRect(), mod.ItemType("Bloody_Mary"));
                 }
             }
+			if (npc.type == NPCID.AngryBones || npc.type == NPCID.DarkCaster)
+            {
+                if (Main.rand.Next(200) == 0)
+                {
+                    Item.NewItem(npc.getRect(), mod.ItemType("M79Parts"));
+                }
+            }
             if (npc.type == NPCID.QueenBee)
             {
                 if (Main.rand.NextFloat() < .01f)
@@ -717,6 +724,11 @@ namespace AAMod
             if (type == NPCID.Clothier)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Vanity.Pepsi.PepsimanCan>());
+                nextSlot++;
+            }
+			if (type == NPCID.Demolitionist)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("M79Round"));
                 nextSlot++;
             }
         }
