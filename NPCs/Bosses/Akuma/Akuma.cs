@@ -58,6 +58,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             npc.noGravity = true;
             npc.noTileCollide = true;
             npc.behindTiles = true;
+            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Akuma2");
             npc.DeathSound = new LegacySoundStyle(2, 124, Terraria.Audio.SoundType.Sound);
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {

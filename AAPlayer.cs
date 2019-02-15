@@ -49,6 +49,7 @@ namespace AAMod
         public bool TrueHallowedPrism = false;
         public bool SnakeMinion = false;
         public bool dustDevil = false;
+        public bool KrakenMinion = false;
         // Biome bools.
         public bool ZoneMire = false;
         public bool ZoneInferno = false;
@@ -223,6 +224,7 @@ namespace AAMod
             TerraMinion = false;
             SnakeMinion = false;
             dustDevil = false;
+            KrakenMinion = false;
             //Armor
             valkyrieSet = false;
             kindledSet = false;
@@ -1884,6 +1886,7 @@ namespace AAMod
         public bool InfZ = false;
         public int GetIZHealth = 2000000;
         public int RiftTimer;
+        public int RiftDamage = 10;
         public int EscapeLine = 180;
 
         public override void UpdateLifeRegen()
@@ -1947,7 +1950,7 @@ namespace AAMod
                     player.lifeRegen = 0;
                 }
                 player.lifeRegenTime = 0;
-                player.lifeRegen -= 80;
+                player.lifeRegen -= 50;
             }
             if (drain && before > 0)
             {
@@ -1987,48 +1990,25 @@ namespace AAMod
             if (riftbent)
             {
                 RiftTimer++;
-                float speedMod = 1;
-
-                if (RiftTimer >= 60)
+                if (player.lifeRegen > 0)
                 {
-                    speedMod = .01f;
-                    player.velocity = player.velocity * speedMod;
-                    return;
+                    player.lifeRegen = 0;
                 }
+                player.lifeRegenTime = 0;
                 if (RiftTimer >= 120)
                 {
-                    speedMod = .2f;
-                    player.velocity = player.velocity * speedMod;
-                    return;
-                }
-                if (RiftTimer >= 180)
-                {
-                    speedMod = .5f;
-                    player.velocity = player.velocity * speedMod;
-                    return;
-                }
-                if (RiftTimer >= 240)
-                {
-                    speedMod = .91f;
-                    player.velocity = player.velocity * speedMod;
-                    return;
-                }
-                if (RiftTimer >= 300)
-                {
-                    speedMod = 4f;
-                    player.velocity = player.velocity * speedMod;
-                    return;
-                }
-                if (RiftTimer >= 360)
-                {
-                    speedMod = .6f;
-                    player.velocity = player.velocity * speedMod;
+                    RiftDamage += 10;
                     RiftTimer = 0;
-                    return;
                 }
+                if (RiftDamage >= 80)
+                {
+                    RiftDamage = 80;
+                }
+                player.lifeRegen -= RiftDamage;
             }
             else
             {
+                RiftDamage = 10;
                 RiftTimer = 0;
             }
         }
@@ -2194,6 +2174,18 @@ namespace AAMod
                 for (int i = 0; i < 3; i++)
                 {
                     int num4 = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, mod.DustType<Dusts.ShroomDust>(), 0f, -2.5f, 0, default(Color), 1f);
+                    Main.dust[num4].alpha = 100;
+                    Main.dust[num4].noGravity = true;
+                    Main.dust[num4].scale += Main.rand.NextFloat();
+                }
+                Lighting.AddLight((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f), 0f, 0f, 0.45f);
+            }
+            if (riftbent)
+            {
+                int Loops = RiftDamage / 10;
+                for (int i = 0; i < Loops; i++)
+                {
+                    int num4 = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, mod.DustType<Dusts.CthulhuAuraDust>(), 0f, -2.5f, 0, default(Color), 1f);
                     Main.dust[num4].alpha = 100;
                     Main.dust[num4].noGravity = true;
                     Main.dust[num4].scale += Main.rand.NextFloat();

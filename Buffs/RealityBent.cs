@@ -19,5 +19,10 @@ namespace AAMod.Buffs
 		{
             player.GetModPlayer<AAPlayer>(mod).riftbent = true;
 		}
-	}
+
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<AAModGlobalNPC>(mod).riftBent = true;
+        }
+    }
 }

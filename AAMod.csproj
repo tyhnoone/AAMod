@@ -369,6 +369,9 @@
     <Compile Include="Items\Armor\Radium\RadiumHelmet.cs" />
     <Compile Include="Items\Armor\Radium\RadiumMask.cs" />
     <Compile Include="Items\Armor\Radium\RadiumPlatemail.cs" />
+    <Compile Include="Items\Armor\RiftLord\RiftLordGreaves.cs" />
+    <Compile Include="Items\Armor\RiftLord\RiftLordPlate.cs" />
+    <Compile Include="Items\Armor\RiftLord\RiftLordMask.cs" />
     <Compile Include="Items\Armor\Starcloud\StarcloudChainmail.cs" />
     <Compile Include="Items\Armor\Starcloud\StarcloudHeadgear.cs" />
     <Compile Include="Items\Armor\Starcloud\StarcloudLeggings.cs" />
@@ -3163,6 +3166,14 @@
     <Content Include="Items\Armor\Radium\RadiumPlatemail_Arms.png" />
     <Content Include="Items\Armor\Radium\RadiumPlatemail_Body.png" />
     <Content Include="Items\Armor\Radium\RadiumPlatemail_Female.png" />
+    <Content Include="Items\Armor\RiftLord\RiftLordGreaves.png" />
+    <Content Include="Items\Armor\RiftLord\RiftLordMask.png" />
+    <Content Include="Items\Armor\RiftLord\RiftLordPlate.png" />
+    <Content Include="Items\Armor\RiftLord\RiftLordPlate_Arms.png" />
+    <Content Include="Items\Armor\RiftLord\RiftLordPlate_Body.png" />
+    <Content Include="Items\Armor\RiftLord\RiftLordPlate_Female.png" />
+    <Content Include="Items\Armor\RiftLord\RiftLordMask_Head.png" />
+    <Content Include="Items\Armor\RiftLord\RiftLordGreaves_Legs.png" />
     <Content Include="Items\Armor\Starcloud\StarcloudChainmail.png" />
     <Content Include="Items\Armor\Starcloud\StarcloudChainmail_Arms.png" />
     <Content Include="Items\Armor\Starcloud\StarcloudChainmail_Body.png" />

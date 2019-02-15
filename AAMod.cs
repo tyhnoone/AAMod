@@ -946,6 +946,10 @@ namespace AAMod
                 priority = MusicPriority.BossHigh;
                 return;
             }
+            if (NPC.AnyNPCs(NPCID.EyeofCthulhu))
+            {
+                music = MusicID.Boss4;
+            }
             if (AAWorld.downedAllAncients && (zoneIZ || zoneShen || zoneSoC))
             {
                 priority = MusicPriority.Event;
