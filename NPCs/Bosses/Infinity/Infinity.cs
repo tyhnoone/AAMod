@@ -18,6 +18,12 @@ namespace AAMod.NPCs.Bosses.Infinity
         public NPC Zero4;
         public NPC Zero5;
         public NPC Zero6;
+        public IZHand1 Hand1;
+        public IZHand1 Hand2;
+        public IZHand1 Hand3;
+        public IZHand2 Hand4;
+        public IZHand2 Hand5;
+        public IZHand2 Hand6;
 
         public bool ZerosSpawned = false;
         public bool Reseting = false;
@@ -178,7 +184,7 @@ namespace AAMod.NPCs.Bosses.Infinity
             }
 
             Player player = Main.player[npc.target];
-            if (player != null)
+            /*if (player != null)
             {
                 float dist = npc.Distance(player.Center);
                 if (dist > 1200) //trigger teleporting stuff
@@ -203,7 +209,9 @@ namespace AAMod.NPCs.Bosses.Infinity
                         npc.alpha = 0;
                     }
                 }
-            }
+            }*/
+
+            //commented out since code won't teleport and allows body to be damaged...
 
             float movementMax = 1.5f;
             if (fifthHealth)
@@ -244,30 +252,56 @@ namespace AAMod.NPCs.Bosses.Infinity
                     Main.npc[latestNPC].ai[1] = handType;
                     handType++;
                     Zero1 = Main.npc[latestNPC];
+                    if (Zero1.type == mod.NPCType("IZHand1"))
+                    {
+                        Hand1 = (IZHand1)Zero1.modNPC;
+                    }
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("IZHand1"), 0, npc.whoAmI);
                     Main.npc[latestNPC].ai[0] = npc.whoAmI;
                     Main.npc[latestNPC].ai[1] = handType;
                     handType++;
                     Zero2 = Main.npc[latestNPC];
+                    if (Zero2.type == mod.NPCType("IZHand1"))
+                    {
+                        Hand2 = (IZHand1)Zero2.modNPC;
+                    }
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("IZHand1"), 0, npc.whoAmI);
                     Main.npc[latestNPC].ai[0] = npc.whoAmI;
                     Main.npc[latestNPC].ai[1] = handType;
                     handType++;
                     Zero3 = Main.npc[latestNPC];
+                    if (Zero3.type == mod.NPCType("IZHand1"))
+                    {
+                        Hand3 = (IZHand1)Zero3.modNPC;
+                    }
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("IZHand2"), 0, npc.whoAmI);
                     Main.npc[latestNPC].ai[0] = npc.whoAmI;
                     Main.npc[latestNPC].ai[1] = handType;
                     handType++;
                     Zero4 = Main.npc[latestNPC];
+                    if (Zero4.type == mod.NPCType("IZHand2"))
+                    {
+                        Hand4 = (IZHand2)Zero4.modNPC;
+                    }
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("IZHand2"), 0, npc.whoAmI);
                     Main.npc[latestNPC].ai[0] = npc.whoAmI;
                     Main.npc[latestNPC].ai[1] = handType;
                     handType++;
                     Zero5 = Main.npc[latestNPC];
+                    if (Zero5.type == mod.NPCType("IZHand2"))
+                    {
+                        Hand5 = (IZHand2)Zero5.modNPC;
+                    }
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("IZHand2"), 0, npc.whoAmI);
                     Main.npc[latestNPC].ai[0] = npc.whoAmI;
                     Main.npc[latestNPC].ai[1] = handType;
                     Zero6 = Main.npc[latestNPC];
+                    if (Zero6.type == mod.NPCType("IZHand2"))
+                    {
+                        Hand6 = (IZHand2)Zero6.modNPC;
+                    }
+                    npc.ai[0] = 600;
+                    npc.netUpdate = true;
                 }
                 ZerosSpawned = true;
             }
@@ -292,7 +326,7 @@ namespace AAMod.NPCs.Bosses.Infinity
                 npc.ai[0]--;
                 npc.ai[2] = 1;
                 customAI[5] = 60;
-                npc.dontTakeDamage = true;
+                npc.dontTakeDamage = false;
                 if (!FirstCoreLine)
                 {
                     FirstCoreLine = true;
@@ -301,9 +335,19 @@ namespace AAMod.NPCs.Bosses.Infinity
                 if (npc.ai[0] <= 0)
                 {
                     BaseUtility.Chat("Zero Units sufficiently repaired. Reengaging Core defense system.", new Color(158, 3, 32));
+                    if (Hand1 != null && Hand2 != null && Hand3 != null && Hand4 != null && Hand5 != null && Hand6 != null && Hand1.npc.active && Hand2.npc.active && Hand3.npc.active && Hand4.npc.active && Hand5.npc.active && Hand6.npc.active)
+                    {
+                        Hand1.RepairMode = false;
+                        Hand2.RepairMode = false;
+                        Hand3.RepairMode = false;
+                        Hand4.RepairMode = false;
+                        Hand5.RepairMode = false;
+                        Hand6.RepairMode = false;
+                    }
                     npc.ai[3] = 0;
                     npc.ai[2] = 0;
                     npc.ai[0] = 600;
+                    npc.dontTakeDamage = true;
                 }
             }
             else
@@ -313,7 +357,6 @@ namespace AAMod.NPCs.Bosses.Infinity
                 {
                     customAI[4] = 0;
                 }
-                npc.dontTakeDamage = false;
             }
         }
 
@@ -346,8 +389,6 @@ namespace AAMod.NPCs.Bosses.Infinity
                 npc.DropLoot(Items.Boss.EXSoul.type);
             }
         }
-
-
 
         public override void FindFrame(int frameHeight)
         {
@@ -469,11 +510,11 @@ namespace AAMod.NPCs.Bosses.Infinity
             if (npc.life <= 0)
             {
                 float randomSpread = (Main.rand.Next(-50, 50) / 100);
-                Gore.NewGore(npc.Center, npc.velocity * randomSpread * Main.rand.NextFloat(), mod.GetGoreSlot("Gores/IZGore1"), 1.4f);
-                Gore.NewGore(npc.Center, npc.velocity * randomSpread * Main.rand.NextFloat(), mod.GetGoreSlot("Gores/IZGore2"), 1.4f);
-                Gore.NewGore(npc.Center, npc.velocity * randomSpread * Main.rand.NextFloat(), mod.GetGoreSlot("Gores/IZGore3"), 1.4f);
-                Gore.NewGore(npc.Center, npc.velocity * randomSpread * Main.rand.NextFloat(), mod.GetGoreSlot("Gores/IZGore4"), 1.4f);
-                Gore.NewGore(npc.Center, npc.velocity * randomSpread * Main.rand.NextFloat(), mod.GetGoreSlot("Gores/IZGore5"), 1.4f);
+                Gore.NewGore(npc.Center, npc.velocity * randomSpread * Main.rand.NextFloat(), mod.GetGoreSlot("Gores/IZGore1"), 1f);
+                Gore.NewGore(npc.Center, npc.velocity * randomSpread * Main.rand.NextFloat(), mod.GetGoreSlot("Gores/IZGore2"), 1f);
+                Gore.NewGore(npc.Center, npc.velocity * randomSpread * Main.rand.NextFloat(), mod.GetGoreSlot("Gores/IZGore3"), 1f);
+                Gore.NewGore(npc.Center, npc.velocity * randomSpread * Main.rand.NextFloat(), mod.GetGoreSlot("Gores/IZGore4"), 1f);
+                Gore.NewGore(npc.Center, npc.velocity * randomSpread * Main.rand.NextFloat(), mod.GetGoreSlot("Gores/IZGore5"), 1f);
                 npc.position.X = npc.position.X + (npc.width / 2);
                 npc.position.Y = npc.position.Y + (npc.height / 2);
                 npc.width = 400;
@@ -565,15 +606,15 @@ namespace AAMod.NPCs.Bosses.Infinity
             BaseDrawing.DrawTexture(sb, glowTex1, 0, npc, AAColor.Oblivion);
             if (fifthHealth)
             {
-                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, AlphaColor);
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 225, npc.scale, npc.rotation, 0, 4, IZFrame, AlphaColor);
                 BaseDrawing.DrawAura(sb, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, GetRedAlpha());
-                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, GetRedAlpha());
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 225, npc.scale, npc.rotation, 0, 4, IZFrame, GetRedAlpha());
             }
             else
             {
-                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, AlphaColor);
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 225, npc.scale, npc.rotation, 0, 4, IZFrame, AlphaColor);
                 BaseDrawing.DrawAura(sb, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, GetGlowAlpha(true));
-                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 246, npc.scale, npc.rotation, 0, 4, IZFrame, GetGlowAlpha(false));
+                BaseDrawing.DrawTexture(sb, BodyTex, 0, npc.position, npc.width, npc.height + 225, npc.scale, npc.rotation, 0, 4, IZFrame, GetGlowAlpha(false));
             }
 
 

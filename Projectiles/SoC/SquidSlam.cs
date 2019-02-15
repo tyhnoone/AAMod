@@ -19,6 +19,7 @@ namespace AAMod.Projectiles.SoC
             projectile.width = 176;
             projectile.height = 176;
             projectile.penetrate = -1;
+			projectile.melee = true;
             projectile.friendly = true;
             projectile.hostile = false;
             projectile.tileCollide = false;

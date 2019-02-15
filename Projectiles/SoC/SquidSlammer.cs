@@ -36,7 +36,7 @@ namespace AAMod.Projectiles.SoC
 			projectile.tileCollide = false;
 			projectile.ignoreWater = true;
 			projectile.usesLocalNPCImmunity = true;
-			projectile.localNPCHitCooldown = 3;
+			projectile.localNPCHitCooldown = 6;
 			projectile.ownerHitCheck = true;
         }
 
@@ -149,7 +149,9 @@ namespace AAMod.Projectiles.SoC
 				float num83 = vector13.Y;
 				float speedX5 = num82;
 				float speedY6 = num83 + (float)Main.rand.Next(-40, 41) * 0.02f;
-				Projectile.NewProjectile(vector2.X, vector2.Y, speedX5, speedY6, mod.ProjectileType("CthulhuBomb"), projectile.damage*4, projectile.knockBack, projectile.owner);
+				int CB = Projectile.NewProjectile(vector2.X, vector2.Y, speedX5, speedY6, mod.ProjectileType("CthulhuBomb"), projectile.damage*3, projectile.knockBack, projectile.owner);
+				Main.projectile[CB].ranged = false;
+				Main.projectile[CB].melee = true;
 				}
 				if (projectile.localAI[1] == 1f || WorldUtils.Find(vector.ToTileCoordinates(), Searches.Chain(new Searches.Down(4), new GenCondition[]
 				{
@@ -157,7 +159,7 @@ namespace AAMod.Projectiles.SoC
 				}), out point))
 				{
 					Projectile.NewProjectile(vector + new Vector2((float)(num5 * 20), -60f), Vector2.Zero, 698, num4, 0f, projectile.owner, 0f, 0f);
-                    Projectile.NewProjectile(vector + new Vector2((float)(num5 * 20), -60f), Vector2.Zero, mod.ProjectileType<SquidSlammer>(), num4, 0f, projectile.owner, 0f, 0f);
+                    Projectile.NewProjectile(vector + new Vector2((float)(num5 * 20), -12f), Vector2.Zero, mod.ProjectileType<SquidSlam>(), num4*2, 0f, projectile.owner, 0f, 0f);
                     Main.PlayTrackedSound(SoundID.DD2_MonkStaffGroundImpact, projectile.Center);
 				}
 				else
