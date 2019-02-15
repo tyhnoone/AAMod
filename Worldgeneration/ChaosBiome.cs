@@ -591,7 +591,7 @@ namespace AAMod.Worldgeneration
 			int newOriginY = origin.Y - (gen.height / 2) + 10;
             gen.Generate(newOriginX, newOriginY, true, true);
             
-            WorldGen.PlaceChest(newOriginX + 66, newOriginY + 53, (ushort)mod.TileType("SunkenChest"), true);
+            WorldGen.PlaceChest(newOriginX + 130, newOriginY + 102, (ushort)mod.TileType("SunkenChest"), true);
             return true;
         }
     }

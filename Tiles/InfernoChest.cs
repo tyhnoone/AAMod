@@ -98,17 +98,12 @@ namespace AAMod.Tiles
 			{
 				if (player.inventory[num66].type == mod.ItemType("InfernoKey") && player.inventory[num66].stack > 0)
 				{
-					player.inventory[num66].stack--;
-					Chest.Unlock(i, j);
-					Chest.Unlock(i - 1, j - 1);
-					Chest.Unlock(i, j - 1);
-					Chest.Unlock(i - 1, j);
-					/*     if (player.inventory[num66].stack <= 0)
-						 {
-							 player.inventory[num66] = new Item();
-						 } */
-
-				}
+                    player.inventory[num66].stack--;
+                    Chest.Unlock(i, j);
+                    Chest.Unlock(i - 1, j - 1);
+                    Chest.Unlock(i, j - 1);
+                    Chest.Unlock(i - 1, j);
+                }
 			}
 
 			Tile tile = Main.tile[i, j];

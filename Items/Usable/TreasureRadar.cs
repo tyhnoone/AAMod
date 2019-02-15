@@ -9,7 +9,7 @@ using BaseMod;
 
 namespace AAMod.Items.Usable
 {
-	public class HeartRadar : ModItem
+	public class TreasureRadar : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

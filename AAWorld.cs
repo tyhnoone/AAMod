@@ -454,7 +454,7 @@ namespace AAMod
                         Minimum = Maximum;
                         Maximum = Main.maxTilesX - 50;
                     }
-                    while (Loops < 2000)
+                    while (Loops < 1000)
                     {
                         int PlaceHere = WorldGen.genRand.Next(Minimum, Maximum);
                         int PlacementHeight = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY - 200);
@@ -471,40 +471,26 @@ namespace AAMod
                                         Chest chest = Main.chest[PlacementSuccess];
                                         chest.item[0].SetDefaults(mod.ItemType("DragonriderStaff"), false);
                                         chest.item[1].SetDefaults(Utils.Next(WorldGen.genRand, new int[]
-                                        {
-                                            mod.ItemType("RadiantIncinerite")
-                                        }), false);
+                                        { mod.ItemType("RadiantIncinerite") }), false);
                                         chest.item[1].stack = WorldGen.genRand.Next(11, 20);
                                         Item item = chest.item[2];
                                         UnifiedRandom genRand = WorldGen.genRand;
                                         int[] array = new int[]
-                                        {
-                                            0
-                                        };
-                                        array[0] = mod.ItemType("DragonfireFlask");
+                                        { mod.ItemType("DragonfireFlask") };
                                         item.SetDefaults(Utils.Next<int>(genRand, array), false);
                                         chest.item[2].stack = WorldGen.genRand.Next(1, 4);
                                         Item item2 = chest.item[3];
                                         UnifiedRandom genRand2 = WorldGen.genRand;
                                         int[] array2 = new int[]
-                                        {
-                                            302,
-                                            2327,
-                                            2351,
-                                            304,
-                                            2329
-                                        };
+                                        { 302, 2327, 2351, 304, 2329 };
                                         item2.SetDefaults(Utils.Next(genRand2, array2), false);
                                         chest.item[3].stack = WorldGen.genRand.Next(1, 3);
                                         chest.item[4].SetDefaults(Utils.Next(WorldGen.genRand, new int[]
-                                        {
-                                            282,
-                                            286
-                                        }), false);
+                                        { 282, 286 }), false);
                                         chest.item[4].stack = WorldGen.genRand.Next(15, 31);
                                         chest.item[5].SetDefaults(73, false);
                                         chest.item[5].stack = WorldGen.genRand.Next(1, 3);
-                                        Loops += 2000;
+                                        Loops += 1000;
                                         break;
                                     }
                                     break;
@@ -525,7 +511,7 @@ namespace AAMod
                         Minimum = Maximum;
                         Maximum = Main.maxTilesX - 50;
                     }
-                    while (Loops < 2000)
+                    while (Loops < 1000)
                     {
                         int PlaceHere = WorldGen.genRand.Next(Minimum, Maximum);
                         int PlacementHeight = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY - 200);
@@ -542,40 +528,26 @@ namespace AAMod
                                         Chest chest = Main.chest[PlacementSuccess];
                                         chest.item[0].SetDefaults(mod.ItemType("BogBomb"), false);
                                         chest.item[1].SetDefaults(Utils.Next(WorldGen.genRand, new int[]
-                                        {
-                                            mod.ItemType("DeepAbyssium")
-                                        }), false);
+                                        { mod.ItemType("DeepAbyssium") }), false);
                                         chest.item[1].stack = WorldGen.genRand.Next(11, 20);
                                         Item item = chest.item[2];
                                         UnifiedRandom genRand = WorldGen.genRand;
                                         int[] array = new int[]
-                                        {
-                                            0
-                                        };
-                                        array[0] = mod.ItemType("HydratoxinFlask");
+                                        { mod.ItemType("HydratoxinFlask") };
                                         item.SetDefaults(Utils.Next(genRand, array), false);
                                         chest.item[2].stack = WorldGen.genRand.Next(1, 4);
                                         Item item2 = chest.item[3];
                                         UnifiedRandom genRand2 = WorldGen.genRand;
                                         int[] array2 = new int[]
-                                        {
-                                            302,
-                                            2327,
-                                            2351,
-                                            304,
-                                            2329
-                                        };
+                                        { 302, 2327, 2351, 304, 2329 };
                                         item2.SetDefaults(Utils.Next(genRand2, array2), false);
                                         chest.item[3].stack = WorldGen.genRand.Next(1, 3);
                                         chest.item[4].SetDefaults(Utils.Next(WorldGen.genRand, new int[]
-                                        {
-                                            282,
-                                            286
-                                        }), false);
+                                        { 282, 286 }), false);
                                         chest.item[4].stack = WorldGen.genRand.Next(15, 31);
                                         chest.item[5].SetDefaults(73, false);
                                         chest.item[5].stack = WorldGen.genRand.Next(1, 3);
-                                        Loops += 2000;
+                                        Loops += 1000;
                                         break;
                                     }
                                     break;

@@ -77,7 +77,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             if (damage > npc.lifeMax / 2)
             {
                 cheated = true;
-                Main.NewText("CHEATER CHEATER PUMPKIN EATER! THAT HURT YOU KNOW!!!", new Color(146, 30, 68));
+                Main.NewText("REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", new Color(146, 30, 68));
             }
             return false;
         }
@@ -92,6 +92,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             if (!AAWorld.downedYamata && !cheated)
             {
                 Main.NewText("NO…! IMPOSSIBLE! EVEN IN MY AWAKENED FORM?! YOU MUST HAVE CHEATED! GYAAAAAAH..! FINE! TAKE YOUR LOOT AND GO AWAY!", new Color(146, 30, 68));
+                Main.NewText("The defeat of Yamata causes the fog in the mire to lift.", Color.Indigo);
             }
             if (AAWorld.downedYamata && !cheated)
             {

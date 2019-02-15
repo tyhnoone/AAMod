@@ -702,6 +702,7 @@
     <Compile Include="Items\DevTools\NoodleSword.cs" />
     <Compile Include="Items\DevTools\Smallcano.cs" />
     <Compile Include="Items\DevTools\DevRadar.cs" />
+    <Compile Include="Items\DevTools\ToySunkenShip.cs" />
     <Compile Include="Items\Dev\AmphibianLongsword.cs" />
     <Compile Include="Items\Dev\AmphibianLongswordEX.cs" />
     <Compile Include="Items\Dev\AmphibianLongswordEXS.cs" />
@@ -1690,6 +1691,7 @@
     <Compile Include="Tiles\AbyssiumOre.cs" />
     <Compile Include="Tiles\AbyssWoodSolid.cs" />
     <Compile Include="Tiles\ACS.cs" />
+    <Compile Include="Tiles\InfernoChest.cs" />
     <Compile Include="Tiles\Riftstone.cs" />
     <Compile Include="Tiles\AvesInABox.cs" />
     <Compile Include="Tiles\SunkenChest.cs" />
@@ -1796,7 +1798,6 @@
     <Compile Include="Tiles\IncineriteBar.cs" />
     <Compile Include="Tiles\IncineriteOre.cs" />
     <Compile Include="Tiles\InfernoBox.cs" />
-    <Compile Include="Tiles\InfernoChest.cs" />
     <Compile Include="Tiles\InfernoGrass.cs" />
     <Compile Include="Tiles\InfernoUBox.cs" />
     <Compile Include="Tiles\LivingBogleaves.cs" />
@@ -3638,11 +3639,13 @@
     <Content Include="Items\DevTools\AncientOreGenner.png" />
     <Content Include="Items\DevTools\Anticheat.png" />
     <Content Include="Items\DevTools\ChaosConverter.png" />
+    <Content Include="Items\DevTools\DevRadar.png" />
     <Content Include="Items\DevTools\DevSolution.png" />
     <Content Include="Items\DevTools\Minilake.png" />
     <Content Include="Items\DevTools\Noodle.png" />
     <Content Include="Items\DevTools\NoodleSword.png" />
     <Content Include="Items\DevTools\Smallcano.png" />
+    <Content Include="Items\DevTools\ToySunkenShip.png" />
     <Content Include="Items\Dev\AmphibianLongsword.png" />
     <Content Include="Items\Dev\AmphibianLongswordEX.png" />
     <Content Include="Items\Dev\AmphibianLongswordEXS.png" />
@@ -5215,6 +5218,7 @@
     <Content Include="Tiles\Hotshroom.png" />
     <Content Include="Tiles\Hydrablossom.png" />
     <Content Include="Tiles\HydratoxinTorch.png" />
+    <Content Include="Tiles\InfernoChest_Highlight.png" />
     <Content Include="Tiles\IZBox.png" />
     <Content Include="Tiles\MonarchBox.png" />
     <Content Include="Tiles\MoonAltarA.png" />
@@ -5229,6 +5233,8 @@
     <Content Include="Tiles\OroborosChestC4.png" />
     <Content Include="Tiles\OroborosChestC4_Highlight.png" />
     <Content Include="Tiles\Razetus.png" />
+    <Content Include="Tiles\Riftstone.png" />
+    <Content Include="Tiles\Riftstone_Glow.png" />
     <Content Include="Tiles\RottedDynastyWoodS.png" />
     <Content Include="Tiles\RottedPlatform.png" />
     <Content Include="Tiles\SABox.png" />
@@ -5362,6 +5368,8 @@
     <Content Include="Tiles\RRBox.png" />
     <Content Include="Tiles\ScorchedDynastyWood.png" />
     <Content Include="Tiles\ScorchedShingles.png" />
+    <Content Include="Tiles\ShipChest.png" />
+    <Content Include="Tiles\ShipChestLocked.png" />
     <Content Include="Tiles\SiegeBox.png" />
     <Content Include="Tiles\SoCBox.png" />
     <Content Include="Tiles\Soul_Forge_Placed.png" />
@@ -5374,6 +5382,8 @@
     <Content Include="Tiles\StormCloud.png" />
     <Content Include="Tiles\SunAltar.png" />
     <Content Include="Tiles\SunAltarA.png" />
+    <Content Include="Tiles\SunkenChest.png" />
+    <Content Include="Tiles\SunkenChest_Highlight.png" />
     <Content Include="Tiles\TechneciumOre.png" />
     <Content Include="Tiles\Templates\Tiles_334.png" />
     <Content Include="Tiles\TerraCore.png" />
@@ -5405,6 +5415,12 @@
     <Content Include="Tiles\Trophy\ZeroTrophy.png" />
     <Content Include="Tiles\TruePaladinsSmeltery.png" />
     <Content Include="Tiles\Uranium.png" />
+    <Content Include="Tiles\UraniumAnvil.png" />
+    <Content Include="Tiles\VaultDoor.png" />
+    <Content Include="Tiles\VaultDoor_LockBlack.png" />
+    <Content Include="Tiles\VaultDoor_LockBlue.png" />
+    <Content Include="Tiles\VaultDoor_LockGreen.png" />
+    <Content Include="Tiles\VaultDoor_Open.png" />
     <Content Include="Tiles\VoidBox.png" />
     <Content Include="Tiles\VoidUnit.png" />
     <Content Include="Tiles\WallTied.png" />

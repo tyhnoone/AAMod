@@ -56,6 +56,11 @@ Summons the chaos emperor");
                 if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("HAH! I WISH there were two of me to smash you into the ground!", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B, false);
                 return false;
             }
+            if (!AAWorld.downedShen)
+            {
+                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The Chaos Sigil glows, and imagery of the chaos pedestals flash through your mind", Color.DarkMagenta, false);
+                return false;
+            }
             for (int m = 0; m < Main.maxProjectiles; m++)
             {
                 Projectile p = Main.projectile[m];
