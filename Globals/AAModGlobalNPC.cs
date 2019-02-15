@@ -773,11 +773,6 @@ namespace AAMod
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
 		{
-            if (type == NPCID.Clothier)
-            {
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Vanity.Pepsi.PepsimanCan>());
-                nextSlot++;
-            }
 			if (type == NPCID.Demolitionist)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("M79Round"));

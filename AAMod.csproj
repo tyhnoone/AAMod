@@ -133,7 +133,6 @@
     <Compile Include="Buffs\HallowedPrism.cs" />
     <Compile Include="Buffs\InfinityScorch.cs" />
     <Compile Include="Buffs\MudkipS.cs" />
-    <Compile Include="Buffs\Pepsi.cs" />
     <Compile Include="Buffs\ProbeMinion.cs" />
     <Compile Include="Buffs\Mudkip.cs" />
     <Compile Include="Buffs\RoyalKitten.cs" />
@@ -197,7 +196,6 @@
     <Compile Include="Dusts\HydratoxinDust.cs" />
     <Compile Include="Dusts\MeleeDust.cs" />
     <Compile Include="Dusts\MindDust.cs" />
-    <Compile Include="Dusts\PepsiDust.cs" />
     <Compile Include="Dusts\PowerDust.cs" />
     <Compile Include="Dusts\RadiumDust.cs" />
     <Compile Include="Dusts\DarkmatterDust.cs" />
@@ -2048,7 +2046,6 @@
     <Content Include="Buffs\Moonraze.png" />
     <Content Include="Buffs\Mudkip.png" />
     <Content Include="Buffs\MudkipS.png" />
-    <Content Include="Buffs\Pepsi.png" />
     <Content Include="Buffs\ProbeMinion.png" />
     <Content Include="Buffs\Raidmini.png" />
     <Content Include="Buffs\RealityBent.png" />
@@ -2121,7 +2118,6 @@
     <Content Include="Dusts\OmegaDust.png" />
     <Content Include="Dusts\OrangeSolution.png" />
     <Content Include="Dusts\OrderSolution.png" />
-    <Content Include="Dusts\PepsiDust.png" />
     <Content Include="Dusts\PowerDust.png" />
     <Content Include="Dusts\RadiantIncineriteDust.png" />
     <Content Include="Dusts\RadiumDust.png" />
