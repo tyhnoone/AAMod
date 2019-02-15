@@ -487,7 +487,7 @@ namespace AAMod
 
         public override void Load()
         {
-            Textures = (IDictionary<string, Texture2D>)typeof(Mod).GetField("textures", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(this);
+            //Textures = (IDictionary<string, Texture2D>)typeof(Mod).GetField("textures", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(this);
             instance = this;
             GoblinSoul = CustomCurrencyManager.RegisterCurrency(new CustomCurrency(ItemType<Items.Currency.GoblinSoul>(), 999L));
             if (Main.rand == null)
@@ -516,12 +516,6 @@ namespace AAMod
                 PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/CthulhuSpawn"));
                 PremultiplyTexture(GetTexture("Projectiles/SoC/CthulhuBoom"));
 
-                AddEquipTexture(null, EquipType.Legs, "N1_Legs", "AAMod/Items/Vanity/N1/N1_Legs");
-
-                AddEquipTexture(new Items.Vanity.Pepsi.PepsimanHead(), null, EquipType.Head, "PepsimanHead", "AAMod/Items/Vanity/Pepsi/PepsimanHead");
-                AddEquipTexture(new Items.Vanity.Pepsi.PepsimanBody(), null, EquipType.Body, "PepsimanBody", "AAMod/Items/Vanity/Pepsi/PepsimanBody", "AAMod/Items/Vanity/Pepsi/PepsimanBody_Arms");
-                AddEquipTexture(new Items.Vanity.Pepsi.PepsimanLegs(), null, EquipType.Legs, "PepsimanLegs", "AAMod/Items/Vanity/Pepsi/PepsimanLegs");
-
 
                 AddEquipTexture(new Items.Vanity.Beg.Pony_Head(), null, EquipType.Head, "Pony_Head", "AAMod/Items/Vanity/Beg/Pony_Head");
                 AddEquipTexture(new Items.Vanity.Beg.Pony_Body(), null, EquipType.Body, "Pony_Body", "AAMod/Items/Vanity/Beg/Pony_Body", "AAMod/Items/Vanity/Beg/Pony_Arms");
@@ -531,7 +525,6 @@ namespace AAMod
                 {
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Monarch"), ItemType("MonarchBox"), TileType("MonarchBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/GripsTheme"), ItemType("GripsBox"), TileType("GripsBox"));
-                    AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/WeAreNumberOne"), ItemType("N1Box"), TileType("N1Box"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/HydraTheme"), ItemType("HydraBox"), TileType("HydraBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/BroodTheme"), ItemType("BroodBox"), TileType("BroodBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/InfernoSurface"), ItemType("InfernoBox"), TileType("InfernoBox"));
@@ -955,18 +948,6 @@ namespace AAMod
                 priority = MusicPriority.Event;
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingGiant");
                 return;
-            }
-            if (Main.myPlayer != -1 && !Main.gameMenu && Main.LocalPlayer.active)
-            {
-                if (player.HeldItem.type == ItemType("Sax"))
-                {
-
-                    music = GetSoundSlot(SoundType.Music, "Sounds/Music/WeAreNumberOne");
-
-                    priority = MusicPriority.BossHigh;
-
-                    return;
-                }
             }
             if (Slayer == true)
             {

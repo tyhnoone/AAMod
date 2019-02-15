@@ -140,12 +140,6 @@ namespace AAMod
         public bool BegAccessory;
         public bool BegHideVanity;
         public bool BegForceVanity;
-
-        public bool PepsiAccessoryPrevious;
-        public bool PepsiAccessory;
-        public bool PepsiHideVanity;
-        public bool PepsiForceVanity;
-        public bool PepsiPower;
         public bool nullified = false;
         //debuffs
         public bool infinityOverload = false;
@@ -279,9 +273,6 @@ namespace AAMod
 
             BegAccessoryPrevious = BegAccessory;
             BegAccessory = BegHideVanity = BegForceVanity = false;
-
-            PepsiAccessoryPrevious = PepsiAccessory;
-            PepsiAccessory = PepsiHideVanity = PepsiForceVanity = PepsiPower = false;
             nullified = false;
             //Debuffs
             infinityOverload = false;
@@ -357,11 +348,6 @@ namespace AAMod
             for (int n = 13; n < 18 + player.extraAccessorySlots; n++)
             {
                 Item item = player.armor[n];
-                if (item.type == mod.ItemType<Items.Vanity.Pepsi.PepsimanCan>())
-                {
-                    PepsiHideVanity = false;
-                    PepsiForceVanity = true;
-                }
                 if (item.type == mod.ItemType<Items.Vanity.Beg.Pony>())
                 {
                     BegHideVanity = false;
@@ -439,25 +425,8 @@ namespace AAMod
             }
         }*/
 
-
-
-        public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
-        {
-            // Make sure this condition is the same as the condition in the Buff to remove itself. We do this here instead of in ModItem.UpdateAccessory in case we want future upgraded items to set PepsiAccessory
-            if (player.townNPCs >= 1 && PepsiAccessory)
-            {
-                player.AddBuff(mod.BuffType<Pepsi>(), 60, true);
-            }
-        }
-
         public override void FrameEffects()
         {
-            if ((PepsiPower || PepsiForceVanity) && !PepsiHideVanity)
-            {
-                player.legs = mod.GetEquipSlot("PepsimanLegs", EquipType.Legs);
-                player.body = mod.GetEquipSlot("PepsimanBody", EquipType.Body);
-                player.head = mod.GetEquipSlot("PepsimanHead", EquipType.Head);
-            }
             if ((BegForceVanity) && !BegHideVanity)
             {
                 player.legs = mod.GetEquipSlot("Pony_Legs", EquipType.Legs);
@@ -1296,8 +1265,11 @@ namespace AAMod
                         spawnedDevItems = true;
                         break;
                     case 2:
-                        player.QuickSpawnItem(mod.ItemType("N1"));
-                        if (dropType >= 2) player.QuickSpawnItem(mod.ItemType("Sax"));
+                        player.QuickSpawnItem(mod.ItemType("Pony"));
+                        if (dropType >= 2)
+                        {
+                            player.QuickSpawnItem(mod.ItemType("PoniumStaff" + addonEX));
+                        }
                         spawnedDevItems = true;
                         break;
                     case 3:
@@ -1419,12 +1391,7 @@ namespace AAMod
                         }
                         break;
                     case 17:
-                        player.QuickSpawnItem(mod.ItemType("Pony"));
-                        if (dropType >= 2)
-                        {
-                            player.QuickSpawnItem(mod.ItemType("PoniumStaff" + addonEX));
-                        }
-                        spawnedDevItems = true;
+                        
                         break;
                 }
             }
