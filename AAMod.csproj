@@ -701,6 +701,7 @@
     <Compile Include="Items\DevTools\Noodle.cs" />
     <Compile Include="Items\DevTools\NoodleSword.cs" />
     <Compile Include="Items\DevTools\Smallcano.cs" />
+    <Compile Include="Items\DevTools\DevRadar.cs" />
     <Compile Include="Items\Dev\AmphibianLongsword.cs" />
     <Compile Include="Items\Dev\AmphibianLongswordEX.cs" />
     <Compile Include="Items\Dev\AmphibianLongswordEXS.cs" />
@@ -772,6 +773,7 @@
     <Compile Include="Items\Materials\ApocalyptitePlate.cs" />
     <Compile Include="Items\Materials\Crystal.cs" />
     <Compile Include="Items\Materials\DarkEnergy.cs" />
+    <Compile Include="Items\Materials\M79Parts.cs" />
     <Compile Include="Items\Materials\MadnessFragment.cs" />
     <Compile Include="Items\Materials\OrderBar.cs" />
     <Compile Include="Items\Materials\UraniumBar.cs" />
@@ -1104,6 +1106,7 @@
     <Compile Include="Items\Usable\MireKey.cs" />
     <Compile Include="Items\Usable\OrangeSolution.cs" />
     <Compile Include="Items\Usable\OrderSolution.cs" />
+    <Compile Include="Items\Usable\TreasureRadar.cs" />
     <Compile Include="Items\Usable\UmbraHeart.cs" />
     <Compile Include="Items\Usable\VoidBomb.cs" />
     <Compile Include="Items\Vanity\Alphakip\FishDiverBoots.cs" />
@@ -3752,6 +3755,7 @@
     <Content Include="Items\Materials\HydraToxin.png" />
     <Content Include="Items\Materials\IncineriteBar.png" />
     <Content Include="Items\Materials\Jaw.png" />
+    <Content Include="Items\Materials\M79Parts.png" />
     <Content Include="Items\Materials\MadnessFragment.png" />
     <Content Include="Items\Materials\MirePod.png" />
     <Content Include="Items\Materials\Nightmare_Bar.png" />
@@ -4114,6 +4118,7 @@
     <Content Include="Items\Usable\SporeSac.png" />
     <Content Include="Items\Usable\StoneOrb.png" />
     <Content Include="Items\Usable\StoneTesseract.png" />
+    <Content Include="Items\Usable\TreasureRadar.png" />
     <Content Include="Items\Usable\UmbraHeart.png" />
     <Content Include="Items\Usable\VaultKey1.png" />
     <Content Include="Items\Usable\VaultKey2.png" />
@@ -5460,6 +5465,7 @@
     <Content Include="Water\VoidWaterSplash.png" />
     <Content Include="Water\VoidWaterStyle.png" />
     <Content Include="Water\VoidWaterStyle_Block.png" />
+    <Content Include="Worldgeneration\BOTE Hole.png" />
     <Content Include="Worldgeneration\BOTE.png" />
     <Content Include="Worldgeneration\BOTEWalls.png" />
     <Content Include="Worldgeneration\BOTEWater.png" />

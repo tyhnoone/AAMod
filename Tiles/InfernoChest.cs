@@ -98,7 +98,7 @@ namespace AAMod.Tiles
 			{
 				if (player.inventory[num66].type == mod.ItemType("InfernoKey") && player.inventory[num66].stack > 0)
 				{
-					/* player.inventory[num66].stack--; */
+					player.inventory[num66].stack--;
 					Chest.Unlock(i, j);
 					Chest.Unlock(i - 1, j - 1);
 					Chest.Unlock(i, j - 1);
@@ -213,10 +213,6 @@ namespace AAMod.Tiles
 						player.showItemIcon2 = mod.ItemType("InfernoKey");
 						player.showItemIconText = "";
 					}
-					//else
-					//{
-					//player.showItemIcon2 = mod.ItemType("CrystalChest");
-					//}
 				}
 			}
 			player.noThrow = 2;
