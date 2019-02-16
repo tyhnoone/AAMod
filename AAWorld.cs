@@ -421,10 +421,10 @@ namespace AAMod
             {
                 VoidIslands(progress);
             }));
-            tasks.Insert(shiniesIndex2 + 2, new PassLegacy("Parthenan", delegate (GenerationProgress progress)
+            /*tasks.Insert(shiniesIndex2 + 2, new PassLegacy("Parthenan", delegate (GenerationProgress progress)
             {
                 ParthenanIsland(progress);
-            }));
+            }));*/
 
             tasks.Insert(shiniesIndex2 + 3, new PassLegacy("Mush", delegate (GenerationProgress progress)
             {
@@ -436,10 +436,10 @@ namespace AAMod
                 Altars(progress);
             }));
 
-            tasks.Insert(shiniesIndex2 + 5, new PassLegacy("Ship", delegate (GenerationProgress progress)
+            /*tasks.Insert(shiniesIndex2 + 5, new PassLegacy("Ship", delegate (GenerationProgress progress)
             {
                 Ship(progress);
-            }));
+            }));*/
 
             int DungeonChests = tasks.FindIndex((GenPass genpass) => genpass.Name.Equals("Dungeon"));
             if (DungeonChests >= 0)
@@ -738,94 +738,7 @@ namespace AAMod
                 }
             }
         }
-
         
-        /*public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
-        {
-            int num3 = tasks.FindIndex((GenPass genpass) => genpass.Name.Equals("Dungeon"));
-            if (num3 >= 0)
-            {
-                tasks.Insert(num3 + 1, new PassLegacy("Aquatic Depths Biome Chest", delegate (GenerationProgress progress)
-                {
-                    int i = 0;
-                    int num7 = 50;
-                    int num8 = Main.maxTilesX / 2;
-                    if (Main.dungeonX > num8)
-                    {
-                        num7 = num8;
-                        num8 = Main.maxTilesX - 50;
-                    }
-                    while (i < 2000)
-                    {
-                        int num9 = WorldGen.genRand.Next(num7, num8);
-                        int j = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY - 200);
-                        if (Main.wallDungeon[(int)Main.tile[num9, j].wall] && !Main.tile[num9, j].active())
-                        {
-                            while (j < Main.maxTilesY - 200)
-                            {
-                                j++;
-                                if (WorldGen.SolidTile(num9, j))
-                                {
-                                    int num10 = WorldGen.PlaceChest(num9, j - 1, (ushort)base.mod.TileType("AquaticDepthsBiomeChest"), false, 2);
-                                    if (num10 >= 0)
-                                    {
-                                        Chest chest = Main.chest[num10];
-                                        chest.item[0].SetDefaults(base.mod.ItemType("Fishbone"), false);
-                                        chest.item[1].SetDefaults(Utils.Next<int>(WorldGen.genRand, new int[]
-                                        {
-                                    (int)((ushort)ModLoader.GetMod("ThoriumMod").ItemType("AquaiteBar"))
-                                        }), false);
-                                        chest.item[1].stack = WorldGen.genRand.Next(3, 11);
-                                        Item item = chest.item[2];
-                                        UnifiedRandom genRand = WorldGen.genRand;
-                                        int[] array = new int[]
-                                        {
-                                    0,
-                                    303,
-                                    296,
-                                    289,
-                                    295,
-                                    305
-                                        };
-                                        array[0] = (int)((ushort)ModLoader.GetMod("ThoriumMod").ItemType("FrenzyPotion"));
-                                        item.SetDefaults(Utils.Next<int>(genRand, array), false);
-                                        chest.item[2].stack = WorldGen.genRand.Next(1, 4);
-                                        Item item2 = chest.item[3];
-                                        UnifiedRandom genRand2 = WorldGen.genRand;
-                                        int[] array2 = new int[]
-                                        {
-                                    0,
-                                    302,
-                                    2327,
-                                    2351,
-                                    304,
-                                    2329
-                                        };
-                                        array2[0] = (int)((ushort)ModLoader.GetMod("ThoriumMod").ItemType("AquaPotion"));
-                                        item2.SetDefaults(Utils.Next<int>(genRand2, array2), false);
-                                        chest.item[3].stack = WorldGen.genRand.Next(1, 3);
-                                        chest.item[4].SetDefaults(Utils.Next<int>(WorldGen.genRand, new int[]
-                                        {
-                                    282,
-                                    286
-                                        }), false);
-                                        chest.item[4].stack = WorldGen.genRand.Next(15, 31);
-                                        chest.item[5].SetDefaults(73, false);
-                                        chest.item[5].stack = WorldGen.genRand.Next(1, 3);
-                                        i += 2000;
-                                        break;
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                        i++;
-                    }
-                }));
-            }
-        }*/
-
-
         public int ChestNumber = 0;
 
         public void VoidHouses(int X, int Y, int type = 30, int sizeX = 10, int sizeY = 7)
@@ -1273,14 +1186,14 @@ namespace AAMod
 
         public override void TileCountsAvailable(int[] tileCounts)
         {
-            stormTiles = tileCounts[mod.TileType<StormCloud>()] + tileCounts[mod.TileType<FulguritePlatingS>()] + tileCounts[mod.TileType<FulguriteBrickS>()] + tileCounts[mod.TileType<FulgurGlassS>()];
+            //stormTiles = tileCounts[mod.TileType<StormCloud>()] + tileCounts[mod.TileType<FulguritePlatingS>()] + tileCounts[mod.TileType<FulguriteBrickS>()] + tileCounts[mod.TileType<FulgurGlassS>()];
             mireTiles = tileCounts[mod.TileType<MireGrass>()]+ tileCounts[mod.TileType<Depthstone>()] + tileCounts[mod.TileType<Depthsand>()] + tileCounts[mod.TileType<Depthsandstone>()] + tileCounts[mod.TileType<DepthsandHardened>()] + tileCounts[mod.TileType<Depthice>()];
             infernoTiles = tileCounts[mod.TileType<InfernoGrass>()]+ tileCounts[mod.TileType<Torchstone>()] + tileCounts[mod.TileType<Torchsand>()] + tileCounts[mod.TileType<Torchsandstone>()] + tileCounts[mod.TileType<TorchsandHardened>()] + tileCounts[mod.TileType<Torchice>()];
             voidTiles = tileCounts[mod.TileType<Doomstone>()] + tileCounts[mod.TileType<Apocalyptite>()];
             mushTiles = tileCounts[mod.TileType<Mycelium>() ];
             pagodaTiles = tileCounts[mod.TileType<DracoAltarS>()] + tileCounts[mod.TileType<ScorchedDynastyWoodS>()] + tileCounts[mod.TileType<ScorchedShinglesS>()];
             lakeTiles = tileCounts[mod.TileType<DreadAltarS>()] + tileCounts[mod.TileType<Darkmud>()] + tileCounts[mod.TileType<AbyssGrass>()] + tileCounts[mod.TileType<AbyssWood>()] + tileCounts[mod.TileType<AbyssWoodSolid>()];
-            shipTiles = tileCounts[mod.TileType<CthulhuPortal>()] + tileCounts[mod.TileType<RottedDynastyWoodS>()];
+            //shipTiles = tileCounts[mod.TileType<CthulhuPortal>()] + tileCounts[mod.TileType<RottedDynastyWoodS>()];
             terraTiles = tileCounts[mod.TileType<TerraCrystal>()] + tileCounts[mod.TileType<TerraWood>()] + tileCounts[mod.TileType<TerraLeaves>()];
         }
 

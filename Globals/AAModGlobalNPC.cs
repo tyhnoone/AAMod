@@ -11,15 +11,15 @@ using AAMod.NPCs.Bosses.Orthrus;
 using AAMod.NPCs.Bosses.Raider;
 using AAMod.NPCs.Bosses.Retriever;
 using AAMod.NPCs.Bosses.Akuma;
-using AAMod.NPCs.Bosses.Infinity;
+//using AAMod.NPCs.Bosses.Infinity;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
 using AAMod.NPCs.Bosses.Zero;
 using AAMod.NPCs.Bosses.MushroomMonarch;
 using AAMod.NPCs.Bosses.Shen;
 using AAMod.NPCs.Bosses.Djinn;
 using AAMod.NPCs.Bosses.Serpent;
-using AAMod.NPCs.Bosses.SoC;
-using AAMod.NPCs.Bosses.SoC.Bosses;
+//using AAMod.NPCs.Bosses.SoC;
+//using AAMod.NPCs.Bosses.SoC.Bosses;
 using System;
 using BaseMod;
 using AAMod.NPCs.Bosses.Yamata;
@@ -716,10 +716,7 @@ namespace AAMod
                 NPC.AnyNPCs(mod.NPCType<ShenDoragon>()) ||
                 NPC.AnyNPCs(mod.NPCType<ShenA>()) ||
                 NPC.AnyNPCs(mod.NPCType<Zero>()) ||
-                NPC.AnyNPCs(mod.NPCType<ZeroAwakened>())||
-                NPC.AnyNPCs(mod.NPCType<Infinity>()) ||
-                NPC.AnyNPCs(mod.NPCType<SoC>()) ||
-                NPC.AnyNPCs(mod.NPCType<Cthulhu>()))
+                NPC.AnyNPCs(mod.NPCType<ZeroAwakened>()))
             {
                 spawnRate = 0;
                 maxSpawns = 0;

@@ -13,11 +13,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
-using AAMod.NPCs.Bosses.Infinity;
+//using AAMod.NPCs.Bosses.Infinity;
 using AAMod.NPCs.Bosses.Shen;
 using AAMod.NPCs.Bosses.Yamata;
-using AAMod.NPCs.Bosses.SoC;
-using AAMod.NPCs.Bosses.SoC.Bosses;
+//using AAMod.NPCs.Bosses.SoC;
+//using AAMod.NPCs.Bosses.SoC.Bosses;
 using System.Collections.Generic;
 using BaseMod;
 using Terraria.ModLoader.IO;
@@ -502,8 +502,8 @@ namespace AAMod
             ZoneMush = (AAWorld.mushTiles > 100);
             Terrarium = (AAWorld.terraTiles >= 1);
             ZoneVoid = (AAWorld.voidTiles > 20) || (NPC.AnyNPCs(mod.NPCType<Zero>()) || NPC.AnyNPCs(mod.NPCType<ZeroAwakened>()));
-            ZoneStorm = (AAWorld.stormTiles >= 1);
-            ZoneShip = (AAWorld.shipTiles >= 1);
+            //ZoneStorm = (AAWorld.stormTiles >= 1);
+            //ZoneShip = (AAWorld.shipTiles >= 1);
             ZoneRisingMoonLake = AAWorld.lakeTiles >= 1;
             ZoneRisingSunPagoda = AAWorld.pagodaTiles >= 1;
         }
@@ -719,31 +719,31 @@ namespace AAMod
             bool useShenA = NPC.AnyNPCs(mod.NPCType<ShenA>());
             player.ManageSpecialBiomeVisuals("AAMod:ShenASky", useShenA);
             player.ManageSpecialBiomeVisuals("HeatDistortion", useShenA);
-            bool useIZ = NPC.AnyNPCs(mod.NPCType<Infinity>()) || NPC.AnyNPCs(mod.NPCType<IZSpawn1>());
-            player.ManageSpecialBiomeVisuals("AAMod:IZSky", useIZ);
-            bool useCthulhu = NPC.AnyNPCs(mod.NPCType<Cthulhu>());
-            player.ManageSpecialBiomeVisuals("AAMod:CthulhuStars", useCthulhu);
-            bool useSoC = (NPC.AnyNPCs(mod.NPCType<SoC>()) ||
-                NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || 
-                NPC.AnyNPCs(mod.NPCType<DeityEater>()) || 
-                NPC.AnyNPCs(mod.NPCType<DeityEater>()) ||
-                NPC.AnyNPCs(mod.NPCType<DeityEaterTail>()) ||
-                NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) ||
-                NPC.AnyNPCs(mod.NPCType<DeityEye>())) ||
-                ZoneShip ||
-                (player.InZone("Ocean") && AAWorld.downedAllAncients && !AAWorld.downedSoC);
-            player.ManageSpecialBiomeVisuals("AAMod:CthulhuSky", useSoC);
+            //bool useIZ = NPC.AnyNPCs(mod.NPCType<Infinity>()) || NPC.AnyNPCs(mod.NPCType<IZSpawn1>());
+            //player.ManageSpecialBiomeVisuals("AAMod:IZSky", useIZ);
+            //bool useCthulhu = NPC.AnyNPCs(mod.NPCType<Cthulhu>());
+            //player.ManageSpecialBiomeVisuals("AAMod:CthulhuStars", useCthulhu);
+            //bool useSoC = (NPC.AnyNPCs(mod.NPCType<SoC>()) ||
+                //NPC.AnyNPCs(mod.NPCType<DeitySkull>()) || 
+                //NPC.AnyNPCs(mod.NPCType<DeityEater>()) || 
+                //NPC.AnyNPCs(mod.NPCType<DeityEater>()) ||
+                //NPC.AnyNPCs(mod.NPCType<DeityEaterTail>()) ||
+                //NPC.AnyNPCs(mod.NPCType<DeityLeviathan>()) ||
+                //NPC.AnyNPCs(mod.NPCType<DeityEye>())) ||
+                //ZoneShip ||
+                //(player.InZone("Ocean") && AAWorld.downedAllAncients && !AAWorld.downedSoC);
+            //player.ManageSpecialBiomeVisuals("AAMod:CthulhuSky", useSoC);
             bool useShen = NPC.AnyNPCs(mod.NPCType<ShenDoragon>());
             player.ManageSpecialBiomeVisuals("AAMod:ShenSky", useShen);
-            bool useAkuma = (NPC.AnyNPCs(mod.NPCType<AkumaA>()) || AkumaAltar) && !useShen && !useShenA && !useIZ;
+            bool useAkuma = (NPC.AnyNPCs(mod.NPCType<AkumaA>()) || AkumaAltar) && !useShen && !useShenA; //&& !useIZ;
             player.ManageSpecialBiomeVisuals("AAMod:AkumaSky", useAkuma);
             player.ManageSpecialBiomeVisuals("HeatDistortion", useAkuma);
-            bool useYamata = (NPC.AnyNPCs(mod.NPCType<YamataA>()) || YamataAltar) && !useShen && !useShenA && !useIZ;
+            bool useYamata = (NPC.AnyNPCs(mod.NPCType<YamataA>()) || YamataAltar) && !useShen && !useShenA; //&& !useIZ;
             player.ManageSpecialBiomeVisuals("AAMod:YamataSky", useYamata);
-            bool useInferno = (ZoneInferno || SunAltar) && !useAkuma && !useShen && !useShenA && !useIZ;
+            bool useInferno = (ZoneInferno || SunAltar) && !useAkuma && !useShen && !useShenA; //&& !useIZ;
             player.ManageSpecialBiomeVisuals("AAMod:InfernoSky", useInferno);
             player.ManageSpecialBiomeVisuals("HeatDistortion", useInferno);
-            bool useMire = (ZoneMire || MoonAltar) && !useYamata && !useShen && !useShenA && !useIZ;
+            bool useMire = (ZoneMire || MoonAltar) && !useYamata && !useShen && !useShenA; //&& !useIZ;
             player.ManageSpecialBiomeVisuals("AAMod:MireSky", useMire);
             bool useZero = NPC.AnyNPCs(mod.NPCType<ZeroAwakened>());
             if (useZero)
@@ -754,11 +754,11 @@ namespace AAMod
                 }
                 Filters.Scene["MoonLordShake"].GetShader().UseIntensity(Math.Min(1f, 0.01f + Intensity));
             }
-            bool useVoid = (ZoneVoid || VoidUnit) && !useIZ && !useShenA && !useShen;
+            bool useVoid = (ZoneVoid || VoidUnit) && !useShenA && !useShen; //&& !useIZ;
             player.ManageSpecialBiomeVisuals("AAMod:VoidSky", useVoid);
             bool useFog = !FogRemover && (Main.dayTime && !AAWorld.downedYamata) && ZoneMire;
-            bool useStorm = ZoneStorm;
-            player.ManageSpecialBiomeVisuals("AAMod:StormSky", useStorm);
+            //bool useStorm = ZoneStorm;
+            //player.ManageSpecialBiomeVisuals("AAMod:StormSky", useStorm);
         }
 
         public override bool CustomBiomesMatch(Player other)
@@ -1101,7 +1101,7 @@ namespace AAMod
 
         public override void PostUpdate()
         {
-            if (AAWorld.Compass == false && Compass == false)
+            /*if (AAWorld.Compass == false && Compass == false)
             {
                 if (player.inventory.Any(i => i.type == mod.ItemType<Items.BossSummons.CursedCompass>() && i.stack > 0))
                 {
@@ -1166,7 +1166,7 @@ namespace AAMod
                 {
                     BaseUtility.Chat("...do not return...", Color.DarkCyan);
                 }
-            }
+            }*/
             if (player.GetModPlayer<AAPlayer>().ZoneMire || player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake)
             {
                 if (Main.dayTime && !AAWorld.downedYamata)
@@ -1437,7 +1437,7 @@ namespace AAMod
                     Main.maxRaining = 0f;
                 }
             }
-            if (player.GetModPlayer<AAPlayer>().ZoneMire || player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake || NPC.AnyNPCs(mod.NPCType<SoC>()))
+            if (player.GetModPlayer<AAPlayer>().ZoneMire || player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake /*|| NPC.AnyNPCs(mod.NPCType<SoC>())*/)
             {
                 if (Main.raining)
                 {
@@ -1659,7 +1659,7 @@ namespace AAMod
                 if (AAMod.InfinityHotKey.JustPressed && SnapCD == 0)
                 {
                     SnapCD = 18000;
-                    Main.npc.Where(x => x.active && !x.townNPC && x.type != NPCID.TargetDummy && x.type != mod.NPCType<CrabGuardian>() && x.type != mod.NPCType<IZHand1>() && x.type != mod.NPCType<IZHand2>() && x.type != mod.NPCType<RiftShredder>() && x.type != mod.NPCType<Taser>() && x.type != mod.NPCType<RealityCannon>() && x.type != mod.NPCType<VoidStar>() && x.type != mod.NPCType<TeslaHand>() && !x.boss).ToList().ForEach(x =>
+                    Main.npc.Where(x => x.active && !x.townNPC && x.type != NPCID.TargetDummy && x.type != mod.NPCType<CrabGuardian>() /*&& x.type != mod.NPCType<IZHand1>() && x.type != mod.NPCType<IZHand2>()*/ && x.type != mod.NPCType<RiftShredder>() && x.type != mod.NPCType<Taser>() && x.type != mod.NPCType<RealityCannon>() && x.type != mod.NPCType<VoidStar>() && x.type != mod.NPCType<TeslaHand>() && !x.boss).ToList().ForEach(x =>
                     {
                         Main.NewText("Perfectly Balanced, as all things should be", Color.Purple);
                         player.ApplyDamageToNPC(x, damage: x.lifeMax, knockback: 0f, direction: 0, crit: true);
@@ -1752,7 +1752,7 @@ namespace AAMod
 
             if (infinitySet && Main.rand.Next(2) == 0)
             {
-                target.AddBuff(mod.BuffType<Buffs.InfinityScorch>(), 300);
+                //target.AddBuff(mod.BuffType<Buffs.InfinityScorch>(), 300);
             }
 
             if (darkmatterSetMe && Main.rand.Next(2) == 0)
@@ -2220,7 +2220,7 @@ namespace AAMod
 
             if (infinitySet && proj.ranged && Main.rand.Next(2) == 0)
             {
-                target.AddBuff(mod.BuffType<InfinityScorch>(), 300);
+                //target.AddBuff(mod.BuffType<InfinityScorch>(), 300);
             }
 
             if (zeroSet && (proj.melee || proj.ranged) && Main.rand.Next(2) == 0)
@@ -2700,10 +2700,10 @@ namespace AAMod
             {
                 BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/RetrieverMask_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("ZeroMask")))
-            {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/ZeroMask_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
-            }
+            //else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("ZeroMask")))
+            //{
+                //BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/ZeroMask_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
+            //}
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("InfinityVisor")))
             {
                 BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/InfinityVisor_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
@@ -2769,14 +2769,14 @@ namespace AAMod
             {
                 BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/Radium/RadiumPlatemail_Body"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
             }
-            else if (drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("InfinityPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/InfinityPlate_Body_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (!drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("InfinityPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/InfinityPlate_Female_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
+            //else if (drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("InfinityPlate")))
+            //{
+                //BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/InfinityPlate_Body_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
+            //}
+            //else if (!drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("InfinityPlate")))
+            //{
+                //BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/InfinityPlate_Female_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
+            //}
             else if (drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosPlate")))
             {
                 if (drawPlayer.direction == -1)
@@ -2822,10 +2822,10 @@ namespace AAMod
             {
                 BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/Radium/RadiumPlatemail_Arms"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
             }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("InfinityPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/InfinityPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
+            //else if (HasAndCanDraw(drawPlayer, mod.ItemType("InfinityPlate")))
+            //{
+                //BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/InfinityPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
+            //}
             else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosPlate")))
             {
                 if (drawPlayer.direction == -1)
@@ -2863,10 +2863,10 @@ namespace AAMod
             {
                 BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/Radium/RadiumCuisses_Legs"), edi.legArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.legFrame);
             }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("InfinityGreaves")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/InfinityGreaves_Legs_Glow"), edi.legArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.legFrame);
-            }
+            //else if (HasAndCanDraw(drawPlayer, mod.ItemType("InfinityGreaves")))
+            //{
+                //BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/InfinityGreaves_Legs_Glow"), edi.legArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.legFrame);
+            //}
             else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosGreaves")))
             {
                 if (drawPlayer.direction == -1)

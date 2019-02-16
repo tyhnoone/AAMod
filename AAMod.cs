@@ -419,12 +419,12 @@ namespace AAMod
                 bossChecklist.Call("AddBossWithInfo", "Orthrus X", 6.9999997f, (Func<bool>)(() => AAWorld.downedOrthrus), "Use a [i:" + ItemType("HydraChow") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Emperor Fishron", 14.00000000001f, (Func<bool>)(() => AAWorld.downedEFish), "Use a [i:" + ItemType("ShroomGrub") + " at the ocean]");
                 bossChecklist.Call("AddBossWithInfo", "Nightcrawler & Daybringer", 14.00000000002f, (Func<bool>)(() => AAWorld.downedEquinox), "Use a [i:" + ItemType("EquinoxWorm") + "]");
-                bossChecklist.Call("AddBossWithInfo", "Kraken", 16.1f, (Func<bool>)(() => AAWorld.downedKraken), "Use a [i:" + ItemType("Portal") + "] at the Ocean");
+                //bossChecklist.Call("AddBossWithInfo", "Kraken", 16.1f, (Func<bool>)(() => AAWorld.downedKraken), "Use a [i:" + ItemType("Portal") + "] at the Ocean");
                 bossChecklist.Call("AddBossWithInfo", "Yamata", 16.2f, (Func<bool>)(() => AAWorld.downedYamata), "Use a [i:" + ItemType("DreadSigil") + "] in the Mire at night");
                 bossChecklist.Call("AddBossWithInfo", "Akuma", 16.3f, (Func<bool>)(() => AAWorld.downedAkuma), "Use a [i:" + ItemType("DraconianSigil") + "] in the Inferno during the day");
                 bossChecklist.Call("AddBossWithInfo", "Zero", 16.4f, (Func<bool>)(() => AAWorld.downedZero), "Use a [i:" + ItemType("ZeroTesseract") + "] in the Void");
-                bossChecklist.Call("AddBossWithInfo", "Soul of Cthulhu", 17.997f, (Func<bool>)(() => AAWorld.downedSoC), "Use a [i:" + ItemType("SpatialWheel") + "at the ocean]");
-                bossChecklist.Call("AddBossWithInfo", "Infinity Zero", 17.998f, (Func<bool>)(() => AAWorld.downedIZ), "Use a [i:" + ItemType("InfinityOverloader") + "]");
+                //bossChecklist.Call("AddBossWithInfo", "Soul of Cthulhu", 17.997f, (Func<bool>)(() => AAWorld.downedSoC), "Use a [i:" + ItemType("SpatialWheel") + "at the ocean]");
+                //bossChecklist.Call("AddBossWithInfo", "Infinity Zero", 17.998f, (Func<bool>)(() => AAWorld.downedIZ), "Use a [i:" + ItemType("InfinityOverloader") + "]");
                 bossChecklist.Call("AddBossWithInfo", "Shen Doragon", 17.999f, (Func<bool>)(() => AAWorld.downedShen), "Use a [i:" + ItemType("ChaosSigil") + "]");
 
 
@@ -457,7 +457,7 @@ namespace AAMod
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Equinox Eradicator", "Defeat the time-turning worms, the Equinox Duo", instance.GetTexture("Achievments/Equinox"), AAWorld.downedEquinox);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Grip it and rip it", "Rematch the Grips of Chaos in their enhanced, discordian form", instance.GetTexture("Achievments/Grips"), AAWorld.downedGripsS);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Hurricane Horror", "Defeat the Spatial Squid of the Ocean, the Kraken", instance.GetTexture("BlankTex"), AAWorld.downedKraken);
-                DradonIsDum.Call("AddAchievementWithoutReward", this, "Kraken Slayer", "Defeat the Kraken in Expert mode", instance.GetTexture("BlankTex"), (AAWorld.downedKraken && Main.expertMode));
+                //DradonIsDum.Call("AddAchievementWithoutReward", this, "Kraken Slayer", "Defeat the Kraken in Expert mode", instance.GetTexture("BlankTex"), (AAWorld.downedKraken && Main.expertMode));
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Clockwork Catastrophe", "Defeat the destructive doomsday construct, Zero", instance.GetTexture("Achievments/Zero"), AAWorld.downedZero);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Doom Slayer", "Destroy Zero's true, dark form, Zero Protocol", instance.GetTexture("Achievments/ZeroA"), (AAWorld.downedZero && Main.expertMode));
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Trial By Fire", "Defeat the draconian demon of the Inferno, Akuma", instance.GetTexture("Achievments/Akuma"), AAWorld.downedAkuma);
@@ -466,9 +466,9 @@ namespace AAMod
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Hydra Slayer", "Slay Yamata's true, abyssal form, Yamata Awakened", instance.GetTexture("BlankTex"), (AAWorld.downedYamata && Main.expertMode));
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Unyielding Discord", "Defeat the discordian doomsayer of chaos, Shen Doragon", instance.GetTexture("BlankTex"), AAWorld.downedShen);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Dragon Slayer", "Slay Shen Doragon's true, chaotic form, Shen Doragon Awakened", instance.GetTexture("BlankTex"), (AAWorld.downedShen && Main.expertMode));
-                DradonIsDum.Call("AddAchievementWithoutReward", this, "Endless Nothing", "Destroy the slayer of worlds, Infinity Zero", instance.GetTexture("BlankTex"), AAWorld.downedIZ);
-                DradonIsDum.Call("AddAchievementWithoutReward", this, "Song of the Sea", "Defeat the nautical nightmare, the Soul of Cthulhu", instance.GetTexture("BlankTex"), AAWorld.downedSoC);
-                DradonIsDum.Call("AddAchievementWithoutReward", this, "Endless Nothing", "Triumph over the Soul of Cthulhu's unbound form, Cthulhu; Cosmic Calamity", instance.GetTexture("BlankTex"), AAWorld.downedSoC && Main.expertMode);
+                //DradonIsDum.Call("AddAchievementWithoutReward", this, "Endless Nothing", "Destroy the slayer of worlds, Infinity Zero", instance.GetTexture("BlankTex"), AAWorld.downedIZ);
+                //DradonIsDum.Call("AddAchievementWithoutReward", this, "Song of the Sea", "Defeat the nautical nightmare, the Soul of Cthulhu", instance.GetTexture("BlankTex"), AAWorld.downedSoC);
+                //DradonIsDum.Call("AddAchievementWithoutReward", this, "Endless Nothing", "Triumph over the Soul of Cthulhu's unbound form, Cthulhu; Cosmic Calamity", instance.GetTexture("BlankTex"), AAWorld.downedSoC && Main.expertMode);
             }
 
         }
@@ -543,7 +543,7 @@ namespace AAMod
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Yamata2"), ItemType("YamataABox"), TileType("YamataABox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Shen"), ItemType("ShenBox"), TileType("ShenBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/ShenA"), ItemType("ShenABox"), TileType("ShenABox"));
-                    AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/IZ"), ItemType("IZBox"), TileType("IZBox"));
+                    //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/IZ"), ItemType("IZBox"), TileType("IZBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/RayOfHope"), ItemType("RoHBox"), TileType("RoHBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/LastStand"), ItemType("SABox"), TileType("SABox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Terrarium"), ItemType("TerrariumBox"), TileType("TerrariumBox"));
@@ -553,11 +553,11 @@ namespace AAMod
                 SkyManager.Instance["AAMod:MireSky"] = new MireSky();
                 MireSky.PlanetTexture = GetTexture("Backgrounds/MireMoon");
 
-                Filters.Scene["AAMod:CthulhuSky"] = new Filter(new MireSkyData("FilterMiniTower").UseColor(0f, 0.20f, 1f).UseOpacity(0.3f), EffectPriority.High);
-                SkyManager.Instance["AAMod:CthulhuSky"] = new CthulhuSky();
+                //Filters.Scene["AAMod:CthulhuSky"] = new Filter(new MireSkyData("FilterMiniTower").UseColor(0f, 0.20f, 1f).UseOpacity(0.3f), EffectPriority.High);
+                //SkyManager.Instance["AAMod:CthulhuSky"] = new CthulhuSky();
 
-                Filters.Scene["AAMod:StormSky"] = new Filter(new StormSkyData("FilterMiniTower").UseColor(0.4f, 0f, 0.6f).UseOpacity(0.3f), EffectPriority.High);
-                SkyManager.Instance["AAMod:StormSky"] = new StormSky();
+                //Filters.Scene["AAMod:StormSky"] = new Filter(new StormSkyData("FilterMiniTower").UseColor(0.4f, 0f, 0.6f).UseOpacity(0.3f), EffectPriority.High);
+                //SkyManager.Instance["AAMod:StormSky"] = new StormSky();
 
                 Filters.Scene["AAMod:VoidSky"] = new Filter(new VoidSkyData("FilterMiniTower").UseColor(0.15f, 0.1f, 0.1f).UseOpacity(0.3f), EffectPriority.High);
                 SkyManager.Instance["AAMod:VoidSky"] = new VoidSky();
@@ -570,15 +570,15 @@ namespace AAMod
                 VoidSky.boltTexture = GetTexture("Backgrounds/VoidBolt");
                 VoidSky.flashTexture = GetTexture("Backgrounds/VoidFlash");
 
-                Filters.Scene["AAMod:IZSky"] = new Filter(new IZSkyData("FilterMiniTower").UseColor(0.4f, 0.1f, 0.1f).UseOpacity(0.3f), EffectPriority.High);
-                SkyManager.Instance["AAMod:IZSky"] = new IZSky();
-                IZSky.boltTexture = GetTexture("Backgrounds/VoidBolt");
-                IZSky.flashTexture = GetTexture("Backgrounds/VoidFlash");
+                //Filters.Scene["AAMod:IZSky"] = new Filter(new IZSkyData("FilterMiniTower").UseColor(0.4f, 0.1f, 0.1f).UseOpacity(0.3f), EffectPriority.High);
+                //SkyManager.Instance["AAMod:IZSky"] = new IZSky();
+                //IZSky.boltTexture = GetTexture("Backgrounds/VoidBolt");
+                //IZSky.flashTexture = GetTexture("Backgrounds/VoidFlash");
 
-                Filters.Scene["AAMod:CthulhuStars"] = new Filter(new CthulhuStarData("FilterMiniTower").UseColor(0.0f, 0.3f, 0.1f).UseOpacity(0.3f), EffectPriority.High);
-                SkyManager.Instance["AAMod:CthulhuStars"] = new CthulhuStars();
-                CthulhuStars.boltTexture = GetTexture("Backgrounds/CthulhuBolt");
-                CthulhuStars.flashTexture = GetTexture("Backgrounds/CthulhuFlash");
+                //Filters.Scene["AAMod:CthulhuStars"] = new Filter(new CthulhuStarData("FilterMiniTower").UseColor(0.0f, 0.3f, 0.1f).UseOpacity(0.3f), EffectPriority.High);
+                //SkyManager.Instance["AAMod:CthulhuStars"] = new CthulhuStars();
+                //CthulhuStars.boltTexture = GetTexture("Backgrounds/CthulhuBolt");
+                //CthulhuStars.flashTexture = GetTexture("Backgrounds/CthulhuFlash");
 
                 Filters.Scene["AAMod:InfernoSky"] = new Filter(new InfernoSkyData("FilterMiniTower").UseColor(1f, 0.20f, 0f).UseOpacity(0.3f), EffectPriority.High);
                 SkyManager.Instance["AAMod:InfernoSky"] = new InfernoSky();
@@ -602,80 +602,6 @@ namespace AAMod
                 ShenASky.PlanetTexture = GetTexture("Backgrounds/ShenEclipse");
 
                 UserInterface = new UserInterface();
-
-
-                /*AddSound(SoundType.Item, "Sounds/Sounds/FerretNote");
-                AddSound(SoundType.Item, "Sounds/Sounds/Glitch");
-                AddSound(SoundType.Item, "Sounds/Sounds/GONG");
-                AddSound(SoundType.Custom, "Sounds/Sounds/IZRoar");
-                AddSound(SoundType.Item, "Sounds/Sounds/MOARGONG");
-                AddSound(SoundType.Item, "Sounds/Sounds/QUAK");
-                AddSound(SoundType.NPCKilled, "Sounds/Sounds/ZeroDeath");
-                AddSound(SoundType.NPCHit, "Sounds/Sounds/ZeroHit");
-                AddSound(SoundType.NPCHit, "Sounds/Sounds/ZeroHit2");
-
-
-                AddSound(SoundType.Music, "Sounds/Music/Akuma");
-                AddSound(SoundType.Music, "Sounds/Music/Akuma2");
-                if (Config.BroodMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/BroodTheme");
-                }
-                if (Config.SerpentMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/Boss6");
-                }
-                if (Config.SoCMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/SoC");
-                }
-                if (Config.CthulhuMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/Cthulhu");
-                }
-
-                if (Config.EquinoxMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/Equinox");
-                }
-                if (Config.GripsMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/GripsTheme");
-                }
-                if (Config.HydraMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/HydraTheme");
-                }
-                if (Config.KrakenMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/Kraken");
-                }
-                if (Config.MonarchMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/Monarch");
-                }
-                if (Config.ShrinesMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/Shrines");
-                    AddSound(SoundType.Music, "Sounds/Music/AkumaShrine");
-                }
-                if (Config.StormMusic)
-                {
-                    AddSound(SoundType.Music, "Sounds/Music/Siege");
-                }
-                AddSound(SoundType.Music, "Sounds/Music/IZ");
-                AddSound(SoundType.Music, "Sounds/Music/InfernoSurface");
-                AddSound(SoundType.Music, "Sounds/Music/InfernoUnderground");
-                AddSound(SoundType.Music, "Sounds/Music/LastStand");
-                AddSound(SoundType.Music, "Sounds/Music/LastStand");
-                AddSound(SoundType.Music, "Sounds/Music/RayOfHope");
-                AddSound(SoundType.Music, "Sounds/Music/Shen");
-                AddSound(SoundType.Music, "Sounds/Music/ShenA");
-                AddSound(SoundType.Music, "Sounds/Music/Yamata");
-                AddSound(SoundType.Music, "Sounds/Music/Yamata2");
-                AddSound(SoundType.Music, "Sounds/Music/Zero");
-                AddSound(SoundType.Music, "Sounds/Music/Zero2");*/
-
                 Main.itemTexture[1291] = GetTexture("Resprites/LifeFruit");
                 Main.itemTexture[1327] = GetTexture("Resprites/DeathSickle");
                 Main.itemTexture[3460] = GetTexture("Resprites/Luminite");
@@ -709,12 +635,12 @@ namespace AAMod
                 NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex2 = null;
                 AkumaSky.PlanetTexture = null;
                 AkumaSky.BGTexture = null;
-                CthulhuStars.boltTexture = null;
-                CthulhuStars.flashTexture = null;
+                //CthulhuStars.boltTexture = null;
+                //CthulhuStars.flashTexture = null;
                 InfernoSky.PlanetTexture = null;
                 InfernoSky.BGTexture = null;
-                IZSky.boltTexture = null;
-                IZSky.flashTexture = null;
+                //IZSky.boltTexture = null;
+                //IZSky.flashTexture = null;
                 MireSky.PlanetTexture = null;
                 MireSky.SkyTexture = null;
                 MireSky.BGTexture = null;
@@ -723,8 +649,8 @@ namespace AAMod
                 ShenSky.BGTexture = null;
                 ShenASky.PlanetTexture = null;
                 ShenASky.BGTexture = null;
-                StormSky.boltTexture = null;
-                StormSky.flashTexture = null;
+                //StormSky.boltTexture = null;
+                //StormSky.flashTexture = null;
                 VoidSky.PlanetTexture = null;
                 VoidSky.BGTexture = null;
                 VoidSky.Echo = null;
@@ -743,11 +669,11 @@ namespace AAMod
                 NPCs.Bosses.Grips.GripOfChaosRed.glowTex = null;
                 NPCs.Bosses.GripsShen.AbyssGrip.glowTex = null;
                 NPCs.Bosses.GripsShen.BlazeGrip.glowTex = null;
-                NPCs.Bosses.Infinity.Infinity.glowTex = null;
-                NPCs.Bosses.Infinity.InfinityStorm.glowTex = null;
-                NPCs.Bosses.Infinity.InfinityStorm.tex = null;
-                NPCs.Bosses.Infinity.Oblivion.glowTex = null;
-                NPCs.Bosses.Infinity.Oblivion.glitchTex = null;
+                //NPCs.Bosses.Infinity.Infinity.glowTex = null;
+                //NPCs.Bosses.Infinity.InfinityStorm.glowTex = null;
+                //NPCs.Bosses.Infinity.InfinityStorm.tex = null;
+                //NPCs.Bosses.Infinity.Oblivion.glowTex = null;
+                //NPCs.Bosses.Infinity.Oblivion.glitchTex = null;
                 NPCs.Bosses.Raider.Raider.glowTex = null;
                 NPCs.Bosses.Raider.Raider.glowTex1 = null;
                 NPCs.Bosses.Raider.RaidEgg.glowTex = null;
@@ -943,7 +869,7 @@ namespace AAMod
             {
                 music = MusicID.Boss4;
             }
-            if (AAWorld.downedAllAncients && (zoneIZ || zoneShen || zoneSoC))
+            if (AAWorld.downedAllAncients && (zoneIZ || zoneShen))
             {
                 priority = MusicPriority.Event;
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingGiant");
@@ -969,12 +895,12 @@ namespace AAMod
                 return;
             }
 
-            if (Ancients.ZoneStorm)
-            {
-                priority = MusicPriority.Event;
-                music = GetSoundSlot(SoundType.Music, "Sounds/Music/Maelstrom");
-                return;
-            }
+            //if (Ancients.ZoneStorm)
+            //{
+                //priority = MusicPriority.Event;
+                //music = GetSoundSlot(SoundType.Music, "Sounds/Music/Maelstrom");
+                //return;
+            //}
             if (Ancients.ZoneInferno)
             {
                 if (Ancients.ZoneRisingSunPagoda && AAWorld.downedEquinox && !AAWorld.downedAkuma && Config.ShrinesMusic)
