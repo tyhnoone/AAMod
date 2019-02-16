@@ -84,6 +84,7 @@ namespace AAMod
         public bool deathlySet;
         public bool tribalSet;
         public bool uraniumSet;
+        public bool techneciumSet;
         public bool trueHallow;
         public bool trueNights;
         public bool trueFlesh;
@@ -225,7 +226,8 @@ namespace AAMod
             fleshrendSet = false;
             goblinSlayer = false;
             tribalSet = false;
-            trueTribal = false;
+            techneciumSet = false;
+             trueTribal = false;
             impSet = false;
             trueDemon = false;
             trueDeathly = false;
@@ -849,6 +851,11 @@ namespace AAMod
 
                     }
                 }
+            }
+
+            if (techneciumSet)
+            {
+                npc.AddBuff(mod.BuffType<Electrified>(), 180);
             }
 
             if (BrokenCode)
