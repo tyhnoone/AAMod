@@ -19,7 +19,7 @@ namespace AAMod.Items.Boss.Broodmother
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Scorched Scale");
-            Tooltip.SetDefault("The scale of a formidable foe");
+            Tooltip.SetDefault("A scale radiating heat, taken from a blazing monstrosity");
         }
 
 
