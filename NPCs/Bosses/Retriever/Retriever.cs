@@ -24,7 +24,7 @@ namespace AAMod.NPCs.Bosses.Retriever
         public override void SetDefaults()
         {
             npc.aiStyle = 5;  //5 is the flying AI
-            npc.lifeMax = 25000;   //boss life
+            npc.lifeMax = 30000;   //boss life
             npc.damage = 80;  //boss damage
             npc.defense = 30;    //boss defense
             npc.knockBackResist = 0f;

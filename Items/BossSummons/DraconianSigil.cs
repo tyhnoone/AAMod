@@ -17,8 +17,7 @@ namespace AAMod.Items.BossSummons
             DisplayName.SetDefault("Draconian Sun Sigil");
             Tooltip.SetDefault(@"An ornate tablet said to contain the radiant power of a thousand suns
 Summons Akuma
-Only Usable during the day
-Must be used at a Draconian Sun pedestal pre-Akuma");
+Only Usable during the day");
         }
 
         public override void SetDefaults()
@@ -54,11 +53,11 @@ Must be used at a Draconian Sun pedestal pre-Akuma");
             }
             if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno)
             {
-                if (!AAWorld.downedAkuma)
+                /*if (!AAWorld.downedAkuma)
                 {
                     if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("That sigil has to be used at the Altar of the Draconian Sun. It's in the middle of the inferno.", new Color(180, 41, 32), false);
                     return false;
-                }
+                }*/
                 if (NPC.AnyNPCs(mod.NPCType<Akuma>()))
                 {
                     if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Hey kid, that Sigil only works once, ya know.", new Color(180, 41, 32), false);

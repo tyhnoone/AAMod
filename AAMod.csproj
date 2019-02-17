@@ -1358,9 +1358,8 @@
     <Compile Include="Projectiles\Akuma\FireProj.cs" />
     <Compile Include="Projectiles\Akuma\FireProjBoom.cs" />
     <Compile Include="Projectiles\Akuma\FireRain.cs" />
-    <Compile Include="Projectiles\Akuma\Lung\LungBody.cs" />
-    <Compile Include="Projectiles\Akuma\Lung\LungHead.cs" />
-    <Compile Include="Projectiles\Akuma\Lung\LungTail.cs" />
+    <Compile Include="Projectiles\Akuma\Lung\Lung.cs" />
+    <Compile Include="Projectiles\Akuma\Lung\LungFireball.cs" />
     <Compile Include="Projectiles\Akuma\MorningGlory.cs" />
     <Compile Include="Projectiles\Akuma\Solar.cs" />
     <Compile Include="Projectiles\Akuma\SunOrb.cs" />
@@ -4316,10 +4315,13 @@
     <Content Include="NPCs\Bosses\Hydra\HydraNeck.png" />
     <Content Include="NPCs\Bosses\Hydra\HydraTail.png" />
     <Content Include="NPCs\Bosses\Hydra\Hydra_Head_Boss.png" />
+    <Content Include="NPCs\Bosses\MushroomMonarch\MonarchDig.png" />
     <Content Include="NPCs\Bosses\MushroomMonarch\MonarchRUNAWAY.png" />
     <Content Include="NPCs\Bosses\MushroomMonarch\MushroomMonarch.png" />
     <Content Include="NPCs\Bosses\MushroomMonarch\MushroomMonarch0.png" />
     <Content Include="NPCs\Bosses\MushroomMonarch\MushroomMonarchFly.gif" />
+    <Content Include="NPCs\Bosses\MushroomMonarch\MushroomMonarchGlow.gif" />
+    <Content Include="NPCs\Bosses\MushroomMonarch\MushroomMonarchGlow.png" />
     <Content Include="NPCs\Bosses\MushroomMonarch\MushroomMonarchHop.gif" />
     <Content Include="NPCs\Bosses\MushroomMonarch\MushroomMonarchJump.png" />
     <Content Include="NPCs\Bosses\MushroomMonarch\MushroomMonarchWalkNew.gif" />
@@ -4535,6 +4537,14 @@
     <Content Include="NPCs\Enemies\Mire\Toxitoad\ToxitoadWalk.png" />
     <Content Include="NPCs\Enemies\Mire\Toxitoad\Toxitongue.png" />
     <Content Include="NPCs\Enemies\Mire\Toxitoad\Toxitongue_Chain.png" />
+    <Content Include="NPCs\Enemies\Mushroom\Mushbug.png" />
+    <Content Include="NPCs\Enemies\Mushroom\Mushbulb.png" />
+    <Content Include="NPCs\Enemies\Mushroom\MushbulbBigBoi.png" />
+    <Content Include="NPCs\Enemies\Mushroom\MushroomCrab.png" />
+    <Content Include="NPCs\Enemies\Mushroom\MushroomZombie.png" />
+    <Content Include="NPCs\Enemies\Mushroom\MushroomZombie2.png" />
+    <Content Include="NPCs\Enemies\Mushroom\Mushspore.png" />
+    <Content Include="NPCs\Enemies\Mushroom\ShroomJelly.png" />
     <Content Include="NPCs\Enemies\Other\AbyssClaw.png" />
     <Content Include="NPCs\Enemies\Other\BlazeClaw.png" />
     <Content Include="NPCs\Enemies\Other\ChaosDragon.png" />
@@ -4635,9 +4645,10 @@
     <Content Include="Projectiles\Akuma\FireProj.png" />
     <Content Include="Projectiles\Akuma\FireProjBoom.png" />
     <Content Include="Projectiles\Akuma\FireRain.png" />
+    <Content Include="Projectiles\Akuma\Lung\Lung.png" />
     <Content Include="Projectiles\Akuma\Lung\LungBody.png" />
     <Content Include="Projectiles\Akuma\Lung\LungBody1.png" />
-    <Content Include="Projectiles\Akuma\Lung\LungHead.png" />
+    <Content Include="Projectiles\Akuma\Lung\LungFireball.png" />
     <Content Include="Projectiles\Akuma\Lung\LungTail.png" />
     <Content Include="Projectiles\Akuma\MorningGlory.png" />
     <Content Include="Projectiles\Akuma\Solar.png" />
@@ -5363,7 +5374,6 @@
     <Folder Include="bin\Release\" />
     <Folder Include="NPCs\Bosses\Zero\Zero2\" />
     <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="OtherModWork\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

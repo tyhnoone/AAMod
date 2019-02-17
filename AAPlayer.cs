@@ -13,7 +13,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
-//using AAMod.NPCs.Bosses.Infinity;
+////using AAMod.NPCs.Bosses.Infinity;
 using AAMod.NPCs.Bosses.Shen;
 using AAMod.NPCs.Bosses.Yamata;
 //using AAMod.NPCs.Bosses.SoC;

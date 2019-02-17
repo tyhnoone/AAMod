@@ -91,6 +91,29 @@ namespace AAMod.NPCs.Bosses.Akuma
             Main.time = 24000;
             Player player = Main.player[npc.target];
             float dist = npc.Distance(player.Center);
+            int num429 = 1;
+            if (npc.position.X + (npc.width / 2) < Main.player[npc.target].position.X + Main.player[npc.target].width)
+            {
+                num429 = -1;
+            }
+            Vector2 Origin = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+            float PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) + (num429 * 180) - Origin.X;
+            float PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - Origin.Y;
+            float PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX) + (PlayerPosY * PlayerPosY));
+            float num433 = 6f;
+            Origin = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+            PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - Origin.X;
+            PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - Origin.Y;
+            PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX + PlayerPosY * PlayerPosY));
+            PlayerPos = num433 / PlayerPos;
+            PlayerPosX *= PlayerPos;
+            PlayerPosY *= PlayerPos;
+            PlayerPosY += Main.rand.Next(-40, 41) * 0.01f;
+            PlayerPosX += Main.rand.Next(-40, 41) * 0.01f;
+            PlayerPosY += npc.velocity.Y * 0.5f;
+            PlayerPosX += npc.velocity.X * 0.5f;
+            Origin.X -= PlayerPosX * 1f;
+            Origin.Y -= PlayerPosY * 1f;
             if (dist > 300 & Main.rand.Next(20) == 1 && fireAttack == false)
             {
                 fireAttack = true;
@@ -100,30 +123,9 @@ namespace AAMod.NPCs.Bosses.Akuma
                 attackTimer++;
                 if (Main.netMode != 1)
                 {
-                    int num429 = 1;
-                    if (npc.position.X + (npc.width / 2) < Main.player[npc.target].position.X + Main.player[npc.target].width)
-                    {
-                        num429 = -1;
-                    }
-                    Vector2 PlayerDistance = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
-                    float PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) + (num429 * 180) - PlayerDistance.X;
-                    float PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - PlayerDistance.Y;
-                    float PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX) + (PlayerPosY * PlayerPosY));
-                    float num433 = 6f;
-                    PlayerDistance = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
-                    PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - PlayerDistance.X;
-                    PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - PlayerDistance.Y;
-                    PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX + PlayerPosY * PlayerPosY));
-                    PlayerPos = num433 / PlayerPos;
-                    PlayerPosX *= PlayerPos;
-                    PlayerPosY *= PlayerPos;
-                    PlayerPosY += Main.rand.Next(-40, 41) * 0.01f;
-                    PlayerPosX += Main.rand.Next(-40, 41) * 0.01f;
-                    PlayerPosY += npc.velocity.Y * 0.5f;
-                    PlayerPosX += npc.velocity.X * 0.5f;
-                    PlayerDistance.X -= PlayerPosX * 1f;
-                    PlayerDistance.Y -= PlayerPosY * 1f;
-                    Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, npc.velocity.X * 2f, npc.velocity.Y * 2f, mod.ProjectileType("AkumaBreath"), npc.damage, 0, Main.myPlayer);
+                    
+                    //BaseAI.FireProjectile(player.Center, npc, mod.ProjectileType("AkumaBreath"), (int)(npc.damage * .08f), 1, 2f, 0, -1, -1, Main.myPlayer);
+                    Projectile.NewProjectile(Origin.X, Origin.Y, npc.velocity.X * 2f, npc.velocity.Y * 2f, mod.ProjectileType("AkumaBreath"), npc.damage, 0, Main.myPlayer);
                 }
                 if ((attackTimer == 20 || attackTimer == 50 || attackTimer == 79) && npc.HasBuff(103))
                 {
@@ -535,7 +537,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                     npc.life = 0;
                     npc.HitEffect(0, 10.0);
                     npc.active = false;
-                    // NetMessage.SendData(28, -1, -1, "", npc.whoAmI, -1f, 0.0f, 0.0f, 0, 0, 0);
+                    NetMessage.SendData(28, -1, -1, null, npc.whoAmI, -1f, 0.0f, 0.0f, 0, 0, 0);
                 }
             }
 
@@ -560,21 +562,14 @@ namespace AAMod.NPCs.Bosses.Akuma
 
             if (npc.ai[1] < (double)Main.npc.Length)
             {
-                // We're getting the center of this NPC.
                 Vector2 npcCenter = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                // Then using that center, we calculate the direction towards the 'parent NPC' of this NPC.
                 float dirX = Main.npc[(int)npc.ai[1]].position.X + (float)(Main.npc[(int)npc.ai[1]].width / 2) - npcCenter.X;
                 float dirY = Main.npc[(int)npc.ai[1]].position.Y + (float)(Main.npc[(int)npc.ai[1]].height / 2) - npcCenter.Y;
-                // We then use Atan2 to get a correct rotation towards that parent NPC.
                 npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                // We also get the length of the direction vector.
                 float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                // We calculate a new, correct distance.
                 float dist = (length - (float)npc.width) / length;
                 float posX = dirX * dist;
                 float posY = dirY * dist;
-
-                // Reset the velocity of this NPC, because we don't want it to move on its own
                 if (dirX < 0f)
                 {
                     npc.spriteDirection = 1;
@@ -584,7 +579,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 {
                     npc.spriteDirection = -1;
                 }
-                // And set this NPCs position accordingly to that of this NPCs parent NPC.
                 npc.position.X = npc.position.X + posX;
                 npc.position.Y = npc.position.Y + posY;
             }
@@ -700,7 +694,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                     npc.life = 0;
                     npc.HitEffect(0, 10.0);
                     npc.active = false;
-                    // NetMessage.SendData(28, -1, -1, "", npc.whoAmI, -1f, 0.0f, 0.0f, 0, 0, 0);
+                    NetMessage.SendData(28, -1, -1, null, npc.whoAmI, -1f, 0.0f, 0.0f, 0, 0, 0);
                 }
             }
 
@@ -724,21 +718,14 @@ namespace AAMod.NPCs.Bosses.Akuma
 
             if (npc.ai[1] < (double)Main.npc.Length)
             {
-                // We're getting the center of this NPC.
                 Vector2 npcCenter = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                // Then using that center, we calculate the direction towards the 'parent NPC' of this NPC.
                 float dirX = Main.npc[(int)npc.ai[1]].position.X + (float)(Main.npc[(int)npc.ai[1]].width / 2) - npcCenter.X;
                 float dirY = Main.npc[(int)npc.ai[1]].position.Y + (float)(Main.npc[(int)npc.ai[1]].height / 2) - npcCenter.Y;
-                // We then use Atan2 to get a correct rotation towards that parent NPC.
                 npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                // We also get the length of the direction vector.
                 float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                // We calculate a new, correct distance.
                 float dist = (length - (float)npc.width) / length;
                 float posX = dirX * dist;
                 float posY = dirY * dist;
-
-                // Reset the velocity of this NPC, because we don't want it to move on its own
                 if (dirX < 0f)
                 {
                     npc.spriteDirection = 1;
@@ -748,7 +735,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 {
                     npc.spriteDirection = -1;
                 }
-                // And set this NPCs position accordingly to that of this NPCs parent NPC.
                 npc.position.X = npc.position.X + posX;
                 npc.position.Y = npc.position.Y + posY;
             }
@@ -861,7 +847,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                     npc.life = 0;
                     npc.HitEffect(0, 10.0);
                     npc.active = false;
-                    // NetMessage.SendData(28, -1, -1, "", npc.whoAmI, -1f, 0.0f, 0.0f, 0, 0, 0);
+                    NetMessage.SendData(28, -1, -1, null, npc.whoAmI, -1f, 0.0f, 0.0f, 0, 0, 0);
                 }
             }
 
@@ -885,21 +871,14 @@ namespace AAMod.NPCs.Bosses.Akuma
 
             if (npc.ai[1] < (double)Main.npc.Length)
             {
-                // We're getting the center of this NPC.
                 Vector2 npcCenter = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                // Then using that center, we calculate the direction towards the 'parent NPC' of this NPC.
                 float dirX = Main.npc[(int)npc.ai[1]].position.X + (float)(Main.npc[(int)npc.ai[1]].width / 2) - npcCenter.X;
                 float dirY = Main.npc[(int)npc.ai[1]].position.Y + (float)(Main.npc[(int)npc.ai[1]].height / 2) - npcCenter.Y;
-                // We then use Atan2 to get a correct rotation towards that parent NPC.
                 npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                // We also get the length of the direction vector.
                 float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                // We calculate a new, correct distance.
                 float dist = (length - (float)npc.width) / length;
                 float posX = dirX * dist;
                 float posY = dirY * dist;
-
-                // Reset the velocity of this NPC, because we don't want it to move on its own
                 if (dirX < 0f)
                 {
                     npc.spriteDirection = 1;
@@ -909,7 +888,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 {
                     npc.spriteDirection = -1;
                 }
-                // And set this NPCs position accordingly to that of this NPCs parent NPC.
                 npc.position.X = npc.position.X + posX;
                 npc.position.Y = npc.position.Y + posY;
             }

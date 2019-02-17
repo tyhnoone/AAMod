@@ -37,6 +37,7 @@ namespace AAMod
         public static IDictionary<string, Texture2D> Textures = null;
         public static Dictionary<string, Texture2D> precachedTextures = new Dictionary<string, Texture2D>();
         public static string BLANK_TEX = "AAMod/BlankTex";
+        public TextureHandler texHandler = new TextureHandler();
 
         #region mod loaded bools
         public static bool fargoLoaded = false;
@@ -61,7 +62,17 @@ namespace AAMod
                 AutoloadSounds = true
             };
             instance = this;
+        }
 
+        public class TextureHandler
+        {
+            public Texture2D[] LungTex = null;
+            public Texture2D[] ShenlingTex = null;
+
+            public void UnloadAllTextures()
+            {
+                LungTex = ShenlingTex = null;
+            }
         }
 
         public override void PostSetupContent()
@@ -510,11 +521,11 @@ namespace AAMod
                 PremultiplyTexture(GetTexture("Backgrounds/AkumaSun"));
                 PremultiplyTexture(GetTexture("Backgrounds/YamataMoon"));
                 PremultiplyTexture(GetTexture("Backgrounds/ShenEclipse"));
-                PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/CthulhuPortal"));
-                PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/CthulhuPortal2"));
-                PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/Portal"));
-                PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/CthulhuSpawn"));
-                PremultiplyTexture(GetTexture("Projectiles/SoC/CthulhuBoom"));
+                //PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/CthulhuPortal"));
+                //PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/CthulhuPortal2"));
+                //PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/Portal"));
+                //PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/CthulhuSpawn"));
+                //PremultiplyTexture(GetTexture("Projectiles/SoC/CthulhuBoom"));
 
 
                 AddEquipTexture(new Items.Vanity.Beg.Pony_Head(), null, EquipType.Head, "Pony_Head", "AAMod/Items/Vanity/Beg/Pony_Head");
