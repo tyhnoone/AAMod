@@ -102,8 +102,11 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
         }
 
+        public int SpawnTimer = 200;
+
         public override void AI()
         {
+            SpawnTimer--;
             speed = 8;
             if (loludided)
             {
@@ -190,7 +193,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                     npc.spriteDirection = -1;
                 }
 
-                if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+                if ((Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f) && SpawnTimer <= 0)
                 {
                     if (loludided == false)
                     {
