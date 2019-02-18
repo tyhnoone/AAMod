@@ -500,7 +500,7 @@ namespace AAMod
         public override void UpdateBiomes()
         {
             ZoneMire = (AAWorld.mireTiles > 100) || NPC.AnyNPCs(mod.NPCType<Yamata>()) || NPC.AnyNPCs(mod.NPCType<YamataA>());
-            ZoneInferno = (AAWorld.infernoTiles > 100) || (NPC.AnyNPCs(mod.NPCType<Akuma>()) || NPC.AnyNPCs(mod.NPCType<AkumaA>()));
+            ZoneInferno = (AAWorld.infernoTiles > 100) || (NPC.AnyNPCs(mod.NPCType<AncientLung>()) || NPC.AnyNPCs(mod.NPCType<AkumaA>()));
             ZoneMush = (AAWorld.mushTiles > 100);
             Terrarium = (AAWorld.terraTiles >= 1);
             ZoneVoid = (AAWorld.voidTiles > 20) || (NPC.AnyNPCs(mod.NPCType<Zero>()) || NPC.AnyNPCs(mod.NPCType<ZeroAwakened>()));
@@ -1933,11 +1933,11 @@ namespace AAMod
 
             if (dragonFire)
             {
-                player.magicDamage -= 0.8f;
-                player.minionDamage -= 0.8f;
-                player.meleeDamage -= 0.8f;
-                player.thrownDamage -= 0.8f;
-                player.rangedDamage -= 0.8f;
+                player.magicDamage *= 0.8f;
+                player.minionDamage *= 0.8f;
+                player.meleeDamage *= 0.8f;
+                player.thrownDamage *= 0.8f;
+                player.rangedDamage *= 0.8f;
             }
             if (hydraToxin)
             {

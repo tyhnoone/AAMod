@@ -52,7 +52,7 @@ Only Usable during the day in the inferno");
             }
             if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno)
             {
-                if (NPC.AnyNPCs(mod.NPCType<Akuma>()))
+                if (NPC.AnyNPCs(mod.NPCType<AncientLung>()))
                 {
                     if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Hey kid, that rune only works once, ya know.", new Color(180, 41, 32), false);
                     return false;

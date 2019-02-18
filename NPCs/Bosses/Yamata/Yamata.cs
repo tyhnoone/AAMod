@@ -28,6 +28,8 @@ namespace AAMod.NPCs.Bosses.Yamata
         private bool threeQuarterHealth = false;
         private bool HalfHealth = false;
 
+
+        public float[] internalAI = new float[4];
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
@@ -137,7 +139,6 @@ namespace AAMod.NPCs.Bosses.Yamata
             
         }
 
-        public float[] internalAI = new float[4];
         public int playerTooFarDist = 800;
         public Rectangle frameBottom = new Rectangle(0, 0, 1, 1), frameHead = new Rectangle(0, 0, 1, 1);
         public bool prevHalfHPLeft = false, halfHPLeft = false, prevFourthHPLeft = false, fourthHPLeft = false;

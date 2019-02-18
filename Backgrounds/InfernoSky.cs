@@ -91,7 +91,7 @@ namespace AAMod.Backgrounds
             int num = -1;
             int num2 = 0;
             Mod mod = AAMod.instance;
-            if (NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Akuma.Akuma>()))
+            if (NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Akuma.AncientLung>()))
             {
                 for (int i = 0; i < Meteors.Length; i++)
                 {

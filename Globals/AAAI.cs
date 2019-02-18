@@ -1,5 +1,6 @@
 using BaseMod;
 using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -101,6 +102,117 @@ namespace AAMod
                     }
                     if (npc.velocity != newVec) { npc.velocity = newVec; npc.netUpdate = true; }
                 }
+            }
+        }
+
+        /*
+		 * A method that slowly lowers an NPC's alpha while spawning dust to give a bursting into existence look. Works great with worms.
+		 * 
+		 * DustType: What dust is used 
+         * DustFrequency: How much dust is spawned
+		 * AlphaRate: How fast the npc lowers alpha. The higher it is, the faster the alpha drops
+		 */
+
+        public static void DustOnNPCSpawn(NPC npc, int DustType = 1, int DustFrequency = 1, int AlphaRate = 1)
+        {
+            if (npc.alpha != 0)
+            {
+                for (int spawnDust = 0; spawnDust < DustFrequency; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, DustType, 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+            }
+            npc.alpha -= AlphaRate;
+            if (npc.alpha < 0)
+            {
+                npc.alpha = 0;
+            }
+        }
+
+        /*
+		 * A method that's good for flamethrower-like projectiles
+		 * 
+		 * ProjectileType: What Projectile is used 
+         * UseNPCVelocity: Uses the npc's velocity for speed instead of the player's position. Good for worms.
+         * SpeedBoost: How much faster the projectile should be (1 = Flamethrower/Yamata)
+		 * DamageReduction: How much to divide damage by to prevent one-shotting projectiles
+		 */
+
+        public static void BreatheFire(NPC npc, bool UseNPCVelocity = false, int ProjectileType = 85, float SpeedBoost = 1, float DamageReduction = 2)
+        {
+            int num429 = 1;
+            if (npc.position.X + (npc.width / 2) < Main.player[npc.target].position.X + Main.player[npc.target].width)
+            {
+                num429 = -1;
+            }
+            Vector2 Origin = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+            float PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) + (num429 * 180) - Origin.X;
+            float PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - Origin.Y;
+            float PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX) + (PlayerPosY * PlayerPosY));
+            float num433 = 6f;
+            PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - Origin.X;
+            PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - Origin.Y;
+            PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX + PlayerPosY * PlayerPosY));
+            PlayerPos = num433 / PlayerPos;
+            PlayerPosX *= PlayerPos;
+            PlayerPosY *= PlayerPos;
+            PlayerPosY += Main.rand.Next(-40, 41) * 0.01f;
+            PlayerPosX += Main.rand.Next(-40, 41) * 0.01f;
+            PlayerPosY += npc.velocity.Y * 0.5f;
+            PlayerPosX += npc.velocity.X * 0.5f;
+            Origin.X -= PlayerPosX * 1f;
+            Origin.Y -= PlayerPosY * 1f;
+            if (UseNPCVelocity)
+            {
+                PlayerPosX = npc.velocity.X;
+                PlayerPosY = npc.velocity.Y;
+            }
+            Projectile.NewProjectile(Origin.X, Origin.Y, PlayerPosX * SpeedBoost, PlayerPosY * SpeedBoost, ProjectileType, (int)(npc.damage / DamageReduction), 0f, Main.myPlayer);
+        }
+
+        /*
+		 * A method that handles boss loot & downed bools
+		 * 
+		 * Loot: The items you want the boss to have a random chance of dropping. Example: { "Item1", "Item2" }. NoTE: THIS ONLY WORKS WITH MODDED ITEMS.
+         * DownedBoss: The Boss's downed bool
+         * HasItemDrop: Whether or not the boss drops an item along with it's random chance drop (Such as a material)
+         * ItemType: What the Extra Item drop is
+         * ItemMin: The minimum ammount of the extra item can drop
+         * ItemMax: The maximum ammount of the extra item can drop
+		 * DamageReduction: How much to divide damage by to prevent one-shotting projectiles
+         * HasMask: Whether or not the boss has a mask. 
+		 */
+
+        public static void DownedBoss(NPC npc, Mod mod, string[] Loot, bool DownedBoss, bool HasItemDrop = false, int ItemType = 0, int ItemMin = 0, int ItemMax = 1, bool HasMask = false, bool ExpertMaskDrop = false, bool HasTrophy = false, int MaskType = 0, int TrophyType = 0, bool HasExpertBag = false)
+        {
+            DownedBoss = true;
+            if (HasMask && !Main.expertMode)
+            {
+                npc.DropLoot(MaskType, 1 / 10);
+            }
+            if (Main.expertMode && ExpertMaskDrop)
+            {
+                npc.DropLoot(MaskType, 1 / 10);
+            }
+            if (HasTrophy)
+            {
+                npc.DropLoot(TrophyType, 1 / 10);
+            }
+            if (HasExpertBag && Main.expertMode)
+            {
+                npc.DropBossBags();
+            }
+            else
+            {
+                if (HasItemDrop)
+                {
+                    npc.DropLoot(ItemType, ItemMin, ItemMax);
+                }
+                string[] lootTable = Loot;
+                int loot = Main.rand.Next(lootTable.Length);
+                npc.DropLoot(mod.ItemType(lootTable[loot]));
             }
         }
 

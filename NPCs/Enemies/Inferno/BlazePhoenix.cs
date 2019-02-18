@@ -91,7 +91,7 @@ namespace AAMod.NPCs.Enemies.Inferno
         {
 			if(Main.netMode != 1)
 			{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Dragonfire"), 1 + Main.rand.Next(2));
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DragonFire"), 1 + Main.rand.Next(2));
 			}
         }
 
