@@ -428,7 +428,7 @@ namespace AAMod
                 bossChecklist.Call("AddBossWithInfo", "Retriever", 6.9999997f, (Func<bool>)(() => AAWorld.downedRetriever), "Use a [i:" + ItemType("CyberneticClaw") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Raider Ultima", 6.9999997f, (Func<bool>)(() => AAWorld.downedRaider), "Use a [i:" + ItemType("CyberneticBell") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Orthrus X", 6.9999997f, (Func<bool>)(() => AAWorld.downedOrthrus), "Use a [i:" + ItemType("HydraChow") + "] at night");
-                bossChecklist.Call("AddBossWithInfo", "Emperor Fishron", 14.00000000001f, (Func<bool>)(() => AAWorld.downedEFish), "Use a [i:" + ItemType("ShroomGrub") + " at the ocean]");
+                bossChecklist.Call("AddBossWithInfo", "Emperor Fishron", 14.00000000001f, (Func<bool>)(() => AAWorld.downedEFish), "Use a [i:" + ItemType("ShroomGrub") + "] at the ocean");
                 bossChecklist.Call("AddBossWithInfo", "Nightcrawler & Daybringer", 14.00000000002f, (Func<bool>)(() => AAWorld.downedEquinox), "Use a [i:" + ItemType("EquinoxWorm") + "]");
                 //bossChecklist.Call("AddBossWithInfo", "Kraken", 16.1f, (Func<bool>)(() => AAWorld.downedKraken), "Use a [i:" + ItemType("Portal") + "] at the Ocean");
                 bossChecklist.Call("AddBossWithInfo", "Yamata", 16.2f, (Func<bool>)(() => AAWorld.downedYamata), "Use a [i:" + ItemType("DreadSigil") + "] in the Mire at night");

@@ -103,122 +103,128 @@ namespace AAMod.NPCs.Bosses.Akuma
                 internalAI[3] = reader.ReadFloat();
             }
         }
-        public override bool PreAI()
+        public override void AI()
         {
-            if (fireAttack == true)
-            {
-                attackCounter++;
-                if (attackCounter > 10)
-                {
-                    attackFrame++;
-                    attackCounter = 0;
-                }
-                if (attackFrame >= 3)
-                {
-                    attackFrame = 2;
-                }
-            }
-
-            npc.frameCounter = 0;
-            Main.dayTime = true;
-            Main.time = 24000;
-            Player player = Main.player[npc.target];
-            float dist = npc.Distance(player.Center);
-            int speedval = 9;
+            int speedval = 8;
             if (npc.life <= npc.lifeMax / 3 && npc.type == mod.NPCType<AkumaA>())
             {
                 speedval = 11;
             }
 
             speed = speedval;
-
-            if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+            if (Loludided)
             {
-                if (Loludided == false)
+                speed = 30;
+            }
+
+            Player player = Main.player[npc.target];
+
+            BaseAI.AIWorm(npc, new int[] { mod.NPCType<AkumaA>(), mod.NPCType<AkumaAArms>(), mod.NPCType<AkumaABody>(), mod.NPCType<AkumaATail>() }, 6, 8f, speed, 0, true, false, true, false, false);
+
+            bool isHead = npc.type == mod.NPCType("AkumaA");
+            if (isHead)
+            {
+                if (fireAttack == true || internalAI[0] >= 500)
                 {
-                    Main.NewText("You just got burned, kid.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
-                    Loludided = true;
-                }
-                npc.velocity.Y = npc.velocity.Y + 1f;
-                if ((double)npc.position.Y > Main.rockLayer * 16.0)
-                {
-                    npc.velocity.Y = npc.velocity.Y + 1f;
-                    speed = 30;
-                }
-                if ((double)npc.position.Y > Main.rockLayer * 16.0)
-                {
-                    for (int num957 = 0; num957 < 200; num957++)
+                    attackCounter++;
+                    if (attackCounter > 10)
                     {
-                        if (Main.npc[num957].aiStyle == npc.aiStyle)
+                        attackFrame++;
+                        attackCounter = 0;
+                    }
+                    if (attackFrame >= 3)
+                    {
+                        attackFrame = 2;
+                    }
+                }
+                Main.dayTime = true;
+                Main.time = 24000;
+                float dist = npc.Distance(player.Center);
+                internalAI[0]++;
+                if (internalAI[0] == 500)
+                {
+                    internalAI[1] += 1;
+                    Attack(npc, npc.velocity);
+                }
+                if (internalAI[0] >= 600)
+                {
+                    internalAI[0] = 0;
+                }
+
+                if (dist > 400 & Main.rand.Next(20) == 1 && fireAttack == false && internalAI[0] < 500)
+                {
+                    fireAttack = true;
+                }
+                if (fireAttack == true)
+                {
+                    attackTimer++;
+                    if ((attackTimer == 20 || attackTimer == 50 || attackTimer == 79) && npc.HasBuff(BuffID.Wet))
+                    {
+                        for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                         {
-                            Main.npc[num957].active = false;
+                            int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("MireBubbleDust"), 0f, 0f, 90, default(Color), 2f);
+                            Main.dust[num935].noGravity = true;
+                            Main.dust[num935].velocity.Y -= 1f;
+                        }
+                        if (weakness == false)
+                        {
+                            weakness = true;
+                            Main.NewText("ACK..! WATER! I LOATHE WATER!!!", Color.DeepSkyBlue);
+                        }
+                    }
+                    else
+                    {
+                        AAAI.BreatheFire(npc, true, mod.ProjectileType<AkumaABreath>(), 2, 2);
+                    }
+                    if (attackTimer >= 80)
+                    {
+                        fireAttack = false;
+                        attackTimer = 0;
+                        attackFrame = 0;
+                        attackCounter = 0;
+                    }
+                }
+                AAAI.DustOnNPCSpawn(npc, mod.DustType("AkumaADust"), 2, 12);
+                npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
+                if (npc.velocity.X < 0f)
+                {
+                    npc.spriteDirection = 1;
+
+                }
+                else
+                {
+                    npc.spriteDirection = -1;
+                }
+                if (npc.life <= npc.lifeMax / 3)
+                {
+                    music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
+                }
+
+                if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+                {
+                    if (Loludided == false)
+                    {
+                        Main.NewText("You just got burned, kid.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
+                        Loludided = true;
+                    }
+                    npc.velocity.Y = npc.velocity.Y + 1f;
+                    if ((double)npc.position.Y > Main.rockLayer * 16.0)
+                    {
+                        npc.velocity.Y = npc.velocity.Y + 1f;
+                        speed = 30;
+                    }
+                    if ((double)npc.position.Y > Main.rockLayer * 16.0)
+                    {
+                        for (int num957 = 0; num957 < 200; num957++)
+                        {
+                            if (Main.npc[num957].aiStyle == npc.aiStyle)
+                            {
+                                Main.npc[num957].active = false;
+                            }
                         }
                     }
                 }
             }
-
-            BaseAI.AIWorm(npc, new int[] { mod.NPCType<AncientLung>(), mod.NPCType<AkumaArms>(), mod.NPCType<AkumaBody>(), mod.NPCType<AkumaTail>() }, 6, 8f, speed, 0, true, false, true, false, false);
-
-            internalAI[0]++;
-            if (internalAI[0] == 500)
-            {
-                internalAI[1] += 1;
-                Attack(npc, npc.velocity);
-            }
-            if (internalAI[0] >= 600)
-            {
-                internalAI[0] = 0;
-            }
-
-            if (dist > 400 & Main.rand.Next(20) == 1 && fireAttack == false && internalAI[0] < 500)
-            {
-                fireAttack = true;
-            }
-            if (fireAttack == true)
-            {
-                attackTimer++;
-                if ((attackTimer == 20 || attackTimer == 50 || attackTimer == 79) && npc.HasBuff(BuffID.Wet))
-                {
-                    for (int spawnDust = 0; spawnDust < 2; spawnDust++)
-                    {
-                        int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("MireBubbleDust"), 0f, 0f, 90, default(Color), 2f);
-                        Main.dust[num935].noGravity = true;
-                        Main.dust[num935].velocity.Y -= 1f;
-                    }
-                    if (weakness == false)
-                    {
-                        weakness = true;
-                        Main.NewText("ACK..! WATER! I LOATHE WATER!!!", Color.DeepSkyBlue);
-                    }
-                }
-                else
-                {
-                    AAAI.BreatheFire(npc, true, mod.ProjectileType<AkumaABreath>(), 2, 2);
-                }
-                if (attackTimer >= 80)
-                {
-                    fireAttack = false;
-                    attackTimer = 0;
-                    attackFrame = 0;
-                    attackCounter = 0;
-                }
-            }
-            AAAI.DustOnNPCSpawn(npc, mod.DustType("AkumaADust"), 2, 12);
-            npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
-            if (npc.velocity.X < 0f)
-            {
-                npc.spriteDirection = 1;
-
-            }
-            else
-            {
-                npc.spriteDirection = -1;
-            }
-            if (npc.life <= npc.lifeMax / 3)
-            {
-                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
-            }
-            return false;
         }
 
         public void Attack(NPC npc, Vector2 velocity)
@@ -415,15 +421,18 @@ namespace AAMod.NPCs.Bosses.Akuma
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Akuma Awakened; Blazing Fury Incarnate");
+            Main.npcFrameCount[npc.type] = 1;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-             npc.width = 84;
-            npc.height = 84;
             npc.dontCountMe = true;
-            npc.alpha = 255;
+        }
+
+        public override bool PreNPCLoot()
+        {
+            return false;
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
@@ -431,156 +440,17 @@ namespace AAMod.NPCs.Bosses.Akuma
             return false;
         }
 
-        public override bool PreAI()
+        public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
         {
-            if (npc.ai[3] > 0)
-                npc.realLife = (int)npc.ai[3];
-            if (npc.target < 0 || npc.target == byte.MaxValue || Main.player[npc.target].dead)
-                npc.TargetClosest(true);
-            if (Main.player[npc.target].dead && npc.timeLeft > 300)
-                npc.timeLeft = 300;
-
-            if (Main.npc[(int)npc.ai[1]].alpha < 128)
-            {
-                if (npc.alpha != 0)
-                {
-                    for (int num934 = 0; num934 < 2; num934++)
-                    {
-                        int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("AkumaADust"), 0f, 0f, 100, default(Color), 2f);
-                        Main.dust[num935].noGravity = false;
-                        Main.dust[num935].noLight = false;
-                    }
-                }
-                npc.alpha -= 10;
-                if (npc.alpha < 0)
-                {
-                    npc.alpha = 0;
-                }
-            }
-
-            if (Main.netMode != 1)
-            {
-                if (!Main.npc[(int)npc.ai[1]].active)
-                {
-                    npc.life = 0;
-                    npc.HitEffect(0, 10.0);
-                    npc.active = false;
-                    // NetMessage.SendData(28, -1, -1, "", npc.whoAmI, -1f, 0.0f, 0.0f, 0, 0, 0);
-                }
-            }
-            if (npc.life <= npc.lifeMax / 3)
-            {
-                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
-            }
-
-            if (npc.ai[1] < (double)Main.npc.Length)
-            {
-                // We're getting the center of this NPC.
-                Vector2 npcCenter = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                // Then using that center, we calculate the direction towards the 'parent NPC' of this NPC.
-                float dirX = Main.npc[(int)npc.ai[1]].position.X + (float)(Main.npc[(int)npc.ai[1]].width / 2) - npcCenter.X;
-                float dirY = Main.npc[(int)npc.ai[1]].position.Y + (float)(Main.npc[(int)npc.ai[1]].height / 2) - npcCenter.Y;
-                // We then use Atan2 to get a correct rotation towards that parent NPC.
-                npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                // We also get the length of the direction vector.
-                float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                // We calculate a new, correct distance.
-                float dist = (length - (float)npc.width) / length;
-                float posX = dirX * dist;
-                float posY = dirY * dist;
-
-                // Reset the velocity of this NPC, because we don't want it to move on its own
-
-                if (dirX < 0f)
-                {
-                    npc.spriteDirection = 1;
-
-                }
-                else
-                {
-                    npc.spriteDirection = -1;
-                }
-                // And set this NPCs position accordingly to that of this NPCs parent NPC.
-                npc.position.X = npc.position.X + posX;
-                npc.position.Y = npc.position.Y + posY;
-            }
-            return false;
+            spriteEffects = (npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
         }
 
-        public const string BodyTex = "AAMod/NPCs/Boss/Akuma/AkumaABody_Head_Boss";
-
-        public override void BossHeadSlot(ref int index)
-        {
-
-            index = NPCHeadLoader.GetBossHeadSlot(BodyTex);
-
-        }
         public override void BossHeadRotation(ref float rotation)
         {
-
             rotation = npc.rotation;
-
-        }
-
-        public override void HitEffect(int hitDirection, double damage)
-        {
-            
-            if (npc.life <= 0)
-            {
-                int dust1 = mod.DustType<Dusts.AkumaADust>();
-                int dust2 = mod.DustType<Dusts.AkumaADust>();
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust1].velocity *= 0.5f;
-                Main.dust[dust1].scale *= 1.3f;
-                Main.dust[dust1].fadeIn = 1f;
-                Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust2].velocity *= 0.5f;
-                Main.dust[dust2].scale *= 1.3f;
-                Main.dust[dust2].fadeIn = 1f;
-                Main.dust[dust2].noGravity = true;
-
-            }
-            if (npc.life > npc.lifeMax / 3)
-            {
-                Panic = false;
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && !AAWorld.downedAkuma && npc.type == mod.NPCType<AkumaA>())
-            {
-                Panic = true;
-                Main.NewText("What?! How have you lasted this long?! Why you little...I refuse to be bested by a terrarian again! Have at it!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && AAWorld.downedAkuma && npc.type == mod.NPCType<AkumaA>())
-            {
-                Panic = true;
-                Main.NewText("Still got it, do you? Ya got fire in your spirit; I like that about you, kid!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
-            }
-        }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            Player player = Main.player[npc.target];
-            if (player.vortexStealthActive && projectile.ranged)
-            {
-                damage /= 2;
-                crit = false;
-            }
-            if (projectile.penetrate == -1 && !projectile.minion)
-            {
-                projectile.damage *= (int).2;
-            }
-            else if (projectile.penetrate >= 1)
-            {
-                projectile.damage *= (int).2;
-            }
-        }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            npc.lifeMax = (int)(npc.lifeMax * 0.8f * bossLifeScale);
-            npc.damage = (int)(npc.damage * 0.8f);
         }
     }
-    
+
     [AutoloadBossHead]
     public class AkumaABody : AkumaA
     {
@@ -589,170 +459,33 @@ namespace AAMod.NPCs.Bosses.Akuma
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Akuma Awakened; Blazing Fury Incarnate");
+            Main.npcFrameCount[npc.type] = 1;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-             npc.width = 84;
-            npc.height = 84;
             npc.dontCountMe = true;
-            npc.alpha = 255;
         }
 
-
+        public override bool PreNPCLoot()
+        {
+            return false;
+        }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
             return false;
         }
 
-        public override bool PreAI()
+        public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
         {
-            if (npc.ai[3] > 0)
-                npc.realLife = (int)npc.ai[3];
-            if (npc.target < 0 || npc.target == byte.MaxValue || Main.player[npc.target].dead)
-                npc.TargetClosest(true);
-            if (Main.player[npc.target].dead && npc.timeLeft > 300)
-                npc.timeLeft = 300;
-
-            if (Main.npc[(int)npc.ai[1]].alpha < 128)
-            {
-                if (npc.alpha != 0)
-                {
-                    for (int num934 = 0; num934 < 2; num934++)
-                    {
-                        int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("AkumaADust"), 0f, 0f, 100, default(Color), 2f);
-                        Main.dust[num935].noGravity = false;
-                        Main.dust[num935].noLight = false;
-                    }
-                }
-                npc.alpha -= 10;
-                if (npc.alpha < 0)
-                {
-                    npc.alpha = 0;
-                }
-            }
-
-            if (Main.netMode != 1)
-            {
-                if (!Main.npc[(int)npc.ai[1]].active)
-                {
-                    npc.life = 0;
-                    npc.HitEffect(0, 10.0);
-                    npc.active = false;
-                    // NetMessage.SendData(28, -1, -1, "", npc.whoAmI, -1f, 0.0f, 0.0f, 0, 0, 0);
-                }
-            }
-            if (npc.life <= npc.lifeMax  / 3)
-            {
-                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
-            }
-
-            if (npc.ai[1] < (double)Main.npc.Length)
-            {
-                // We're getting the center of this NPC.
-                Vector2 npcCenter = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                // Then using that center, we calculate the direction towards the 'parent NPC' of this NPC.
-                float dirX = Main.npc[(int)npc.ai[1]].position.X + (float)(Main.npc[(int)npc.ai[1]].width / 2) - npcCenter.X;
-                float dirY = Main.npc[(int)npc.ai[1]].position.Y + (float)(Main.npc[(int)npc.ai[1]].height / 2) - npcCenter.Y;
-                // We then use Atan2 to get a correct rotation towards that parent NPC.
-
-                npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                // We also get the length of the direction vector.
-                float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                // We calculate a new, correct distance.
-                float dist = (length - (float)npc.width) / length;
-                float posX = dirX * dist;
-                float posY = dirY * dist;
-
-                // Reset the velocity of this NPC, because we don't want it to move on its own
-                if (dirX < 0f)
-                {
-                    npc.spriteDirection = 1;
-
-                }
-                else
-                {
-                    npc.spriteDirection = -1;
-                }
-                // And set this NPCs position accordingly to that of this NPCs parent NPC.
-                npc.position.X = npc.position.X + posX;
-                npc.position.Y = npc.position.Y + posY;
-            }
-            return false;
+            spriteEffects = (npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
         }
 
-        public const string BodyTex = "AAMod/NPCs/Boss/Akuma/AkumaABody_Head_Boss";
-
-        public override void BossHeadSlot(ref int index)
-        {
-
-            index = NPCHeadLoader.GetBossHeadSlot(BodyTex);
-
-        }
         public override void BossHeadRotation(ref float rotation)
         {
-
             rotation = npc.rotation;
-
-        }
-
-        public override void HitEffect(int hitDirection, double damage)
-        {
-            int dust1 = mod.DustType<Dusts.AkumaADust>();
-            int dust2 = mod.DustType<Dusts.AkumaADust>();
-            if (npc.life <= 0)
-            {
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust1].velocity *= 0.5f;
-                Main.dust[dust1].scale *= 1.3f;
-                Main.dust[dust1].fadeIn = 1f;
-                Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust2].velocity *= 0.5f;
-                Main.dust[dust2].scale *= 1.3f;
-                Main.dust[dust2].fadeIn = 1f;
-                Main.dust[dust2].noGravity = true;
-
-            }
-            if (npc.life > npc.lifeMax  / 3)
-            {
-                Panic = false;
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && !AAWorld.downedAkuma && npc.type == mod.NPCType<AkumaA>())
-            {
-                Panic = true;
-                Main.NewText("What?! How have you lasted this long?! Why you little...I refuse to be bested by a terrarian again! Have at it!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && AAWorld.downedAkuma && npc.type == mod.NPCType<AkumaA>())
-            {
-                Panic = true;
-                Main.NewText("Still got it, do you? Ya got fire in your spirit; I like that about you, kid!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
-            }
-        }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            Player player = Main.player[npc.target];
-            if (player.vortexStealthActive && projectile.ranged)
-            {
-                damage /= 2;
-                crit = false;
-            }
-            if (projectile.penetrate == -1 && !projectile.minion)
-            {
-                projectile.damage *= (int).2;
-            }
-            else if (projectile.penetrate >= 1)
-            {
-                projectile.damage *= (int).2;
-            }
-        }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            npc.lifeMax = (int)(npc.lifeMax * 0.8f * bossLifeScale);
-            npc.damage = (int)(npc.damage * 0.8f);
         }
     }
 
@@ -765,168 +498,33 @@ namespace AAMod.NPCs.Bosses.Akuma
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Akuma Awakened; Blazing Fury Incarnate");
+            Main.npcFrameCount[npc.type] = 1;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            npc.width = 78;
-            npc.height = 78;
             npc.dontCountMe = true;
-            npc.alpha = 255;
         }
 
-
+        public override bool PreNPCLoot()
+        {
+            return false;
+        }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
             return false;
         }
 
-        public override bool PreAI()
+        public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
         {
-            if (npc.ai[3] > 0)
-                npc.realLife = (int)npc.ai[3];
-            if (npc.target < 0 || npc.target == byte.MaxValue || Main.player[npc.target].dead)
-                npc.TargetClosest(true);
-            if (Main.player[npc.target].dead && npc.timeLeft > 300)
-                npc.timeLeft = 300;
-
-            if (Main.netMode != 1)
-            {
-                if (!Main.npc[(int)npc.ai[1]].active)
-                {
-                    npc.life = 0;
-                    npc.HitEffect(0, 10.0);
-                    npc.active = false;
-                    // NetMessage.SendData(28, -1, -1, "", npc.whoAmI, -1f, 0.0f, 0.0f, 0, 0, 0);
-                }
-            }
-            if (npc.life <= npc.lifeMax  / 3)
-            {
-                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
-            }
-
-            if (Main.npc[(int)npc.ai[1]].alpha < 128)
-            {
-                if (npc.alpha != 0)
-                {
-                    for (int num934 = 0; num934 < 2; num934++)
-                    {
-                        int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("AkumaADust"), 0f, 0f, 100, default(Color), 2f);
-                        Main.dust[num935].noGravity = false;
-                        Main.dust[num935].noLight = false;
-                    }
-                }
-                npc.alpha -= 10;
-                if (npc.alpha < 0)
-                {
-                    npc.alpha = 0;
-                }
-            }
-
-
-            if (npc.ai[1] < (double)Main.npc.Length)
-            {
-                // We're getting the center of this NPC.
-                Vector2 npcCenter = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                // Then using that center, we calculate the direction towards the 'parent NPC' of this NPC.
-                float dirX = Main.npc[(int)npc.ai[1]].position.X + (float)(Main.npc[(int)npc.ai[1]].width / 2) - npcCenter.X;
-                float dirY = Main.npc[(int)npc.ai[1]].position.Y + (float)(Main.npc[(int)npc.ai[1]].height / 2) - npcCenter.Y;
-                // We then use Atan2 to get a correct rotation towards that parent NPC.
-                npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                // We also get the length of the direction vector.
-                float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                // We calculate a new, correct distance.
-                float dist = (length - (float)npc.width) / length;
-                float posX = dirX * dist;
-                float posY = dirY * dist;
-
-                // Reset the velocity of this NPC, because we don't want it to move on its own
-                if (dirX < 0f)
-                {
-                    npc.spriteDirection = 1;
-
-                }
-                else
-                {
-                    npc.spriteDirection = -1;
-                }
-                // And set this NPCs position accordingly to that of this NPCs parent NPC.
-                npc.position.X = npc.position.X + posX;
-                npc.position.Y = npc.position.Y + posY;
-            }
-            return false;
+            spriteEffects = (npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
         }
 
-        public const string BodyTex = "AAMod/NPCs/Boss/Akuma/AkumaATail_Head_Boss";
-
-        public override void BossHeadSlot(ref int index)
-        {
-
-            index = NPCHeadLoader.GetBossHeadSlot(BodyTex);
-
-        }
         public override void BossHeadRotation(ref float rotation)
         {
-
             rotation = npc.rotation;
-
-        }
-
-        public override void HitEffect(int hitDirection, double damage)
-        {
-            int dust1 = mod.DustType<Dusts.AkumaADust>();
-            int dust2 = mod.DustType<Dusts.AkumaADust>();
-            if (npc.life <= 0)
-            {
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust1].scale *= 1.3f;
-                Main.dust[dust1].fadeIn = 1f;
-                Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust2].scale *= 1.3f;
-                Main.dust[dust2].fadeIn = 1f;
-                Main.dust[dust2].noGravity = true;
-
-            }
-            if (npc.life > npc.lifeMax  / 3)
-            {
-                Panic = false;
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && !AAWorld.downedAkuma && npc.type == mod.NPCType<AkumaA>())
-            {
-                Panic = true;
-                Main.NewText("What?! How have you lasted this long?! Why you little...I refuse to be bested by a terrarian again! Have at it!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && AAWorld.downedAkuma && npc.type == mod.NPCType<AkumaA>())
-            {
-                Panic = true;
-                Main.NewText("Still got it, do you? Ya got fire in your spirit; I like that about you, kid!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
-            }
-        }
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            Player player = Main.player[npc.target];
-            if (player.vortexStealthActive && projectile.ranged)
-            {
-                damage /= 2;
-                crit = false;
-            }
-            if (projectile.penetrate == -1 && !projectile.minion)
-            {
-                projectile.damage *= (int).2;
-            }
-            else if (projectile.penetrate >= 1)
-            {
-                projectile.damage *= (int).2;
-            }
-        }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            npc.lifeMax = (int)(npc.lifeMax * 0.8f * bossLifeScale);
-            npc.damage = (int)(npc.damage * 0.8f);
         }
     }
-
 }

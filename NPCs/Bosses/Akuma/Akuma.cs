@@ -102,110 +102,119 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
         }
 
-        public override bool PreAI()
+        public override void AI()
         {
-            if (fireAttack == true || internalAI[0] >= 500)
-            {
-                attackCounter++;
-                if (attackCounter > 10)
-                {
-                    attackFrame++;
-                    attackCounter = 0;
-                }
-                if (attackFrame >= 3)
-                {
-                    attackFrame = 2;
-                }
-            }
             speed = 8;
-            Main.dayTime = true;
-            Main.time = 24000;
-            Player player = Main.player[npc.target];
-            float dist = npc.Distance(player.Center);
-            
-            if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+            if (loludided)
             {
-                if (loludided == false)
+                speed = 30;
+            }
+            
+            Player player = Main.player[npc.target];
+            
+            BaseAI.AIWorm(npc, new int[] { mod.NPCType<Akuma>(), mod.NPCType<AkumaArms>(), mod.NPCType<AkumaBody>(), mod.NPCType<AkumaTail>() }, 6, 8f, speed, 0, true, false, true, false, false);
+            
+            bool isHead = npc.type == mod.NPCType("Akuma");
+            if (isHead)
+            {
+                if (fireAttack == true || internalAI[0] >= 500)
                 {
-                    Main.NewText("I thought you terrarians put up more of a fight. Guess not.", new Color(180, 41, 32));
-                    loludided = true;
-                }
-                npc.velocity.Y = npc.velocity.Y + 1f;
-                if ((double)npc.position.Y > Main.rockLayer * 16.0)
-                {
-                    npc.velocity.Y = npc.velocity.Y + 1f;
-                    speed = 30;
-                }
-                if ((double)npc.position.Y > Main.rockLayer * 16.0)
-                {
-                    for (int num957 = 0; num957 < 200; num957++)
+                    attackCounter++;
+                    if (attackCounter > 10)
                     {
-                        if (Main.npc[num957].aiStyle == npc.aiStyle)
+                        attackFrame++;
+                        attackCounter = 0;
+                    }
+                    if (attackFrame >= 3)
+                    {
+                        attackFrame = 2;
+                    }
+                }
+                Main.dayTime = true;
+                Main.time = 24000;
+                float dist = npc.Distance(player.Center);
+                internalAI[0]++;
+                if (internalAI[0] == 500)
+                {
+                    internalAI[1] += 1;
+                    Attack(npc, npc.velocity);
+                }
+                if (internalAI[0] >= 600)
+                {
+                    internalAI[0] = 0;
+                }
+
+                if (dist > 300 & Main.rand.Next(20) == 1 && fireAttack == false && internalAI[0] < 500)
+                {
+                    fireAttack = true;
+                }
+                if (fireAttack == true)
+                {
+                    attackTimer++;
+                    if ((attackTimer == 20 || attackTimer == 50 || attackTimer == 79) && npc.HasBuff(BuffID.Wet))
+                    {
+                        for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                         {
-                            Main.npc[num957].active = false;
+                            int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("MireBubbleDust"), 0f, 0f, 90, default(Color), 2f);
+                            Main.dust[num935].noGravity = true;
+                            Main.dust[num935].velocity.Y -= 1f;
+                        }
+                        if (weakness == false)
+                        {
+                            weakness = true;
+                            Main.NewText("Water?! AGH...! I CAN'T BREATHE!", new Color(180, 41, 32));
+                        }
+                    }
+                    else
+                    {
+                        AAAI.BreatheFire(npc, true, mod.ProjectileType<AkumaBreath>(), 2, 2);
+                        Main.PlaySound(4, (int)npc.Center.X, (int)npc.Center.Y, 60);
+                    }
+                    if (attackTimer >= 80)
+                    {
+                        fireAttack = false;
+                        attackTimer = 0;
+                        attackFrame = 0;
+                        attackCounter = 0;
+                    }
+                }
+                AAAI.DustOnNPCSpawn(npc, mod.DustType("AkumaDust"), 2, 12);
+                npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
+                if (npc.velocity.X < 0f)
+                {
+                    npc.spriteDirection = 1;
+
+                }
+                else
+                {
+                    npc.spriteDirection = -1;
+                }
+
+                if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+                {
+                    if (loludided == false)
+                    {
+                        Main.NewText("I thought you terrarians put up more of a fight. Guess not.", new Color(180, 41, 32));
+                        loludided = true;
+                    }
+                    npc.velocity.Y = npc.velocity.Y + 1f;
+                    if (npc.position.Y > Main.rockLayer * 16.0)
+                    {
+                        npc.velocity.Y = npc.velocity.Y + 1f;
+                        speed = 30;
+                    }
+                    if (npc.position.Y > Main.rockLayer * 16.0)
+                    {
+                        for (int num957 = 0; num957 < 200; num957++)
+                        {
+                            if (Main.npc[num957].aiStyle == npc.aiStyle)
+                            {
+                                Main.npc[num957].active = false;
+                            }
                         }
                     }
                 }
             }
-            BaseAI.AIWorm(npc, new int[] { mod.NPCType<AncientLung>(), mod.NPCType<AkumaArms>(), mod.NPCType<AkumaBody>(), mod.NPCType<AkumaTail>() }, 6, 8f, speed, 0, true, false, true, false, false);
-
-            internalAI[0]++;
-            if (internalAI[0] == 500)
-            {
-                internalAI[1] += 1;
-                Attack(npc, npc.velocity);
-            }
-            if (internalAI[0] >= 600)
-            {
-                internalAI[0] = 0;
-            }
-
-            if (dist > 300 & Main.rand.Next(20) == 1 && fireAttack == false && internalAI[0] < 500)
-            {
-                fireAttack = true;
-            }
-            if (fireAttack == true)
-            {
-                attackTimer++;
-                if ((attackTimer == 20 || attackTimer == 50 || attackTimer == 79) && npc.HasBuff(BuffID.Wet))
-                {
-                    for (int spawnDust = 0; spawnDust < 2; spawnDust++)
-                    {
-                        int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("MireBubbleDust"), 0f, 0f, 90, default(Color), 2f);
-                        Main.dust[num935].noGravity = true;
-                        Main.dust[num935].velocity.Y -= 1f;
-                    }
-                    if (weakness == false)
-                    {
-                        weakness = true;
-                        Main.NewText("Water?! AGH...! I CAN'T BREATHE!", new Color(180, 41, 32));
-                    }
-                }
-                else
-                {
-                    AAAI.BreatheFire(npc, true, mod.ProjectileType<AkumaBreath>(), 2, 2);
-                    Main.PlaySound(4, (int)npc.Center.X, (int)npc.Center.Y, 60);
-                }
-                if (attackTimer >= 80)
-                {
-                    fireAttack = false;
-                    attackTimer = 0;
-                    attackFrame = 0;
-                    attackCounter = 0;
-                }
-            }
-            AAAI.DustOnNPCSpawn(npc, mod.DustType("AkumaDust"), 2, 12);
-            npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
-            if (npc.velocity.X < 0f)
-            {
-                npc.spriteDirection = 1;
-
-            }
-            else
-            {
-                npc.spriteDirection = -1;
-            }
-			return false;
 		}
 
         public void Attack(NPC npc, Vector2 velocity)
@@ -371,7 +380,7 @@ namespace AAMod.NPCs.Bosses.Akuma
 
 
     [AutoloadBossHead]
-    public class AkumaArms : AncientLung
+    public class AkumaArms : Akuma
     {
         public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/AkumaArms"; } }
 
@@ -392,6 +401,11 @@ namespace AAMod.NPCs.Bosses.Akuma
             return false;
         }
 
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            return false;
+        }
+
         public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
         {
             spriteEffects = (npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
@@ -405,7 +419,7 @@ namespace AAMod.NPCs.Bosses.Akuma
 
 
     [AutoloadBossHead]
-    public class AkumaBody : AncientLung
+    public class AkumaBody : Akuma
     {
         public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/AkumaBody"; } }
 
@@ -426,6 +440,11 @@ namespace AAMod.NPCs.Bosses.Akuma
             return false;
         }
 
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            return false;
+        }
+
         public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
         {
             spriteEffects = (npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
@@ -438,7 +457,7 @@ namespace AAMod.NPCs.Bosses.Akuma
     }
     
     [AutoloadBossHead]
-    public class AkumaTail : AncientLung
+    public class AkumaTail : Akuma
     {
         public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/AkumaTail"; } }
 

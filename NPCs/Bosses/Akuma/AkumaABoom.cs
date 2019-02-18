@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Akuma
 {
-    public class AkumaSBoom : ModProjectile
+    public class AkumaABoom : ModProjectile
     {
         public override void SetStaticDefaults()
         {

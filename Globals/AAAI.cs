@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace AAMod
 {
