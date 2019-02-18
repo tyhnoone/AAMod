@@ -18,8 +18,6 @@ namespace AAMod.Items.Boss.Equinox
             Tooltip.SetDefault(
 @"Gives immensely increased stats
 'True balance'");
-
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 8));
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
         public override void SetDefaults()
@@ -78,7 +76,7 @@ namespace AAMod.Items.Boss.Equinox
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = new Color(Main.DiscoR, 125, Main.DiscoB);
+                    line2.overrideColor = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Cyan, Color.Gold, Color.Gold, Color.Cyan);
                 }
             }
         }
