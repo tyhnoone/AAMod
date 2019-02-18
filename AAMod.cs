@@ -644,6 +644,10 @@ namespace AAMod
                 NPCs.Bosses.Yamata.Yamata.glowTexBody = null;
                 NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex = null;
                 NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex2 = null;
+                NPCs.Bosses.Akuma.AkumaA.glowTex = null;
+                NPCs.Bosses.Akuma.AkumaA.glowTex2 = null;
+                NPCs.Bosses.Akuma.AkumaA.glowTex3 = null;
+                NPCs.Bosses.Akuma.AkumaA.glowTex4 = null;
                 AkumaSky.PlanetTexture = null;
                 AkumaSky.BGTexture = null;
                 //CthulhuStars.boltTexture = null;
