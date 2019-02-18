@@ -594,33 +594,5 @@ namespace AAMod
             }
         }
 
-        public static void MakeSegmentsImmune(NPC npc, int id) //Excerpt from Segmented Enemy Overhaul for Akuma & possibly Greed.
-        { 
-            // Makes all segments of a segmented NPC immune when hit to avoid insane damages (better than multiplying health by number of segments)
-            if (npc.realLife >= 0)
-            { // As long as it respects using ai[0] for segments
-                bool last = false;
-                NPC parent = Main.npc[npc.realLife];
-                parent.lifeRegen = npc.lifeRegen; // Make the head use the life regen that segment uses
-                int i = 0;
-                while (parent.ai[0] > 0 || last)
-                {
-                    parent.immune[id] = npc.immune[id];
-                    for (int j = 0; j < npc.buffType.Length; j++)
-                    { // Share the debuffs between all segments
-                        if (npc.buffType[j] > 0 && npc.buffTime[j] > 0)
-                        {
-                            parent.buffType[j] = npc.buffType[j];
-                            parent.buffTime[j] = npc.buffTime[j];
-                        }
-                    }
-                    if (last) { break; }
-                    parent = Main.npc[(int)parent.ai[0]];
-                    if (parent.ai[0] == 0) { last = true; } // If it's the tail tip
-                    if (i++ > 200) { throw new System.InvalidOperationException("Recursion detected"); break; } // Just in case
-                }
-            }
-        }
-
     }
 }

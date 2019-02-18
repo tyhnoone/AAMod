@@ -648,6 +648,7 @@ namespace AAMod
                 NPCs.Bosses.Akuma.AkumaA.glowTex2 = null;
                 NPCs.Bosses.Akuma.AkumaA.glowTex3 = null;
                 NPCs.Bosses.Akuma.AkumaA.glowTex4 = null;
+                NPCs.Bosses.Akuma.AkumaA.glowTex5 = null;
                 AkumaSky.PlanetTexture = null;
                 AkumaSky.BGTexture = null;
                 //CthulhuStars.boltTexture = null;
