@@ -2471,7 +2471,6 @@ namespace AAMod
             Mod mod = AAMod.instance;
             Player drawPlayer = edi.drawPlayer;
             Color lightColor = GetItemColor(drawPlayer, drawPlayer.Center);
-            bool letDraw = true;
 
             Item heldItem = drawPlayer.inventory[drawPlayer.selectedItem];
             BaseAAItem baseAAItem = null;

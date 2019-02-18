@@ -38,7 +38,7 @@ namespace AAMod.Projectiles
 			target.immune[projectile.owner] = 1;
         }
 		
-		public Color GetAlpha(Color newColor)
+		public override Color? GetAlpha(Color newColor)
 		{
 			float num6 = 1f - (float)projectile.alpha / 255f;
 			return new Color((int)(250f * num6), (int)(250f * num6), (int)(250f * num6), (int)(100f * num6));

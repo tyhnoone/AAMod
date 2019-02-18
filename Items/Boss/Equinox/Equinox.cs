@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
+using BaseMod;
 
 namespace AAMod.Items.Boss.Equinox
 {

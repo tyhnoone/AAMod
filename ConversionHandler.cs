@@ -38,8 +38,8 @@ namespace AAMod.Worldgen
 				do_ConvertDown(threadContext);
 				startX = startY = genWidth = conversionType = -1;				
 			}
-			catch (Exception e)
-			{
+			catch (Exception)
+            {
 				startX = startY = genWidth = conversionType = -1;
 			}
 		}

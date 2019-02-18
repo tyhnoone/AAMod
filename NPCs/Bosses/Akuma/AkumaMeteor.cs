@@ -58,7 +58,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             float spread = 45f * 0.0174f;
             double startAngle = Math.Atan2(projectile.velocity.X, projectile.velocity.Y) - (spread / 2);
             double deltaAngle = spread / 8f;
-            Projectile.NewProjectile(projectile.Center, 0, mod.ProjectileType<AkumaBoom>(), projectile.damage, 2);
+            Projectile.NewProjectile(projectile.Center, new Vector2(0, 0), mod.ProjectileType<AkumaBoom>(), projectile.damage, 2);
             for (int num468 = 0; num468 < 20; num468++)
             {
                 int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,

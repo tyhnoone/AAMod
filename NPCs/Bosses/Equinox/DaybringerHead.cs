@@ -147,16 +147,16 @@ namespace AAMod.NPCs.Bosses.Equinox
 			float moveSpeedMax = 16f;	
 			npc.damage = 200;
 			npc.defense = 100;
-			int laserFireRate = 300;
-			int laserInterval = 20;
+			//int laserFireRate = 300;
+			//int laserInterval = 20;
 			if(wormStronger)
 			{
 				aiCount = (!nightcrawler ? 6 : 4); //daybringer is a bit faster
 				moveSpeedMax = (!nightcrawler ? 20f : 16f); //ditto as above
 				npc.damage = 300;		
 				npc.defense = (!nightcrawler ? 120 : 150); //nightcrawler has more defense
-				laserFireRate = 200;
-				laserInterval = 10;
+				//laserFireRate = 200;
+				//laserInterval = 10;
 			}
 
 			/*if(Main.netMode != 1 && isHead) //shoot lasers (disabled - probes fire lasers)

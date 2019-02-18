@@ -124,7 +124,8 @@ namespace AAMod.NPCs.Bosses.Akuma
 
             Texture2D Rock = mod.GetTexture(RockType);
             float rot = projectile.rotation;
-            BaseMod.BaseDrawing.DrawTexture(spriteBatch, mod.GetTexture(RockType), 0, projectile, projectile.GetAlpha(Color.White));\
+            BaseMod.BaseDrawing.DrawTexture(spriteBatch, mod.GetTexture(RockType), 0, projectile, projectile.GetAlpha(Color.White));
+            return false;
         }
     }
 }

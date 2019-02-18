@@ -13,8 +13,6 @@ namespace AAMod.NPCs.Bosses.Retriever
     [AutoloadBossHead]
     public class Retriever : ModNPC
     {
-        private Player player;
-        private float speed;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Retriever");
