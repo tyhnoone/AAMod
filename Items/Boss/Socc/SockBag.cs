@@ -1,7 +1,7 @@
 using Terraria;
 using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
 
-namespace AAMod.Items.Boss.Sock
+namespace AAMod.Items.Boss.Socc
 {
 	public class SockBag : ModItem
 	{

@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
-namespace AAMod.Items.Boss.Sock
+namespace AAMod.Items.Boss.Socc
 {
     [AutoloadEquip(EquipType.Shoes)]
     public class HolySock : ModItem

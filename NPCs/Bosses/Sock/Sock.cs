@@ -38,15 +38,60 @@ namespace AAMod.NPCs.Bosses.Sock
             npc.value = 10000f;
             npc.netAlways = true;
             npc.timeLeft = NPC.activeTime * 30;
+            music = MusicID.Boss4;
+            musicPriority = MusicPriority.BossMedium;
             bossBag = mod.ItemType("SoccBag");
+            npc.alpha = 255;
         }
+        bool Spawn = false;
+        bool HasSpawned = false;
         float DespawnScale = 0;
         float DespawnAlpha = 255;
         bool Despawn = false;
         bool HasDespawned = false;
-        
+
+        public override void FindFrame(int frameHeight)
+        {
+            npc.frameCounter++;
+            
+            if (npc.ai[2] > 900)
+            {
+                if (npc.frameCounter > 6)
+                {
+                    npc.frameCounter = 0;
+                    npc.frameCounter += 150;
+                }
+                if (npc.frame.Y < 150 * 6 || npc.frame.Y > 150 * 10)
+                {
+                    npc.frame.Y = 150 * 6;
+                }
+            }
+            else
+            {
+                if (npc.frameCounter > 10)
+                {
+                    npc.frameCounter = 0;
+                    npc.frameCounter += 150;
+                }
+                if (npc.frame.Y < 150 * 5)
+                {
+                    npc.frame.Y = 150 * 6;
+                }
+            }
+        }
+
         public override void AI()
         {
+            if (!HasSpawned)
+            {
+                DespawnAlpha -= 25.5f;
+                DespawnScale += 0.1f;
+                if (DespawnScale >= 1f)
+                {
+                    HasSpawned = true;
+                }
+                return;
+            }
             float maxDistanceAmt = 4f;
             float maxDistance = 350f;
             float increment = 0.011f;
@@ -66,7 +111,7 @@ namespace AAMod.NPCs.Bosses.Sock
             {
                 npc.spriteDirection = 1;
             }
-            if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f || Main.player[npc.target].dead)
+            if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f || Main.player[npc.target].dead || Main.dayTime)
             {
                 npc.velocity *= .8f;
                 npc.ai[2] = 0;
@@ -100,6 +145,21 @@ namespace AAMod.NPCs.Bosses.Sock
                 }
 
                 return;
+            }
+            else
+            {
+                npc.alpha = 0;
+                DespawnAlpha += 17;
+                DespawnScale -= 0.1f;
+                if (DespawnScale < .1f)
+                {
+                    DespawnScale = .1f;
+                }
+                if (DespawnAlpha >= 255 && !Spawn)
+                {
+                    DespawnAlpha = 255;
+                    Spawn = true;
+                }
             }
             npc.ai[2]++;
             if (npc.ai[2] > 900)
@@ -187,9 +247,18 @@ namespace AAMod.NPCs.Bosses.Sock
                 }
             }
         }
-
+        
         public override void NPCLoot()
         {
+            for (int Dust1 = 0; Dust1 < 5; Dust1++)
+            {
+                int dust1 = mod.DustType<Dusts.HolyDust>();
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
+                Main.dust[dust1].velocity *= 0.5f;
+                Main.dust[dust1].scale *= 1.3f;
+                Main.dust[dust1].fadeIn = 1f;
+                Main.dust[dust1].noGravity = false;
+            }
             if (Main.expertMode)
             {
                 npc.DropBossBags();
@@ -226,7 +295,7 @@ namespace AAMod.NPCs.Bosses.Sock
 
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, new Color(dColor.R, dColor.G, dColor.B, npc.alpha));
 
-            if (Despawn)
+            if (Despawn || Spawn)
             {
                 BaseDrawing.DrawTexture(spritebatch, Despawntex, 0, npc.Center, npc.width, npc.height, DespawnScale, 0, 0, 1, new Rectangle(0, 0, Despawntex.Width, Despawntex.Height), new Color(255, 255, 255, DespawnAlpha), true);
             }

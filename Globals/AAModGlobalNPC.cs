@@ -797,6 +797,19 @@ namespace AAMod
                 shop.item[nextSlot].SetDefaults(mod.ItemType("M79Round"));
                 nextSlot++;
             }
+            if (type == NPCID.Clothier)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("BlessedSock"));
+                nextSlot++;
+            }
+        }
+
+        public override void GetChat(NPC npc, ref string chat)
+        {
+            if (npc.type == NPCID.Clothier && Main.rand.Next(14) == 0)
+            {
+                chat = "If you don't want tobe destroyed, I'd avoid using a Blessed Sock. The great silken lord does not like to be bothered.";
+            }
         }
 
         public override bool PreAI(NPC npc)
