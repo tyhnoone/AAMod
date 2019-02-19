@@ -382,8 +382,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
             if ((npc.velocity.X > 0.0 && npc.oldVelocity.X < 0.0 || npc.velocity.X < 0.0 && npc.oldVelocity.X > 0.0 || (npc.velocity.Y > 0.0 && npc.oldVelocity.Y < 0.0 || npc.velocity.Y < 0.0 && npc.oldVelocity.Y > 0.0)) && !npc.justHit)
                 npc.netUpdate = true;
-
-
+            
             if (npc.life <= npc.lifeMax / 3)
             {
                 music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
@@ -505,7 +504,7 @@ namespace AAMod.NPCs.Bosses.Akuma
 
             Texture2D myGlowTex = (npc.type == mod.NPCType<AkumaA>() ? glowTex : npc.type == mod.NPCType<AkumaAArms>() ? glowTex2 : npc.type == mod.NPCType<AkumaABody>() ? glowTex3 : npc.type == mod.NPCType<AkumaABody1>() ? glowTex4 : glowTex5);
             spriteBatch.Draw(texture, npc.Center - Main.screenPosition, npc.frame, drawColor, npc.rotation, npc.frame.Size() / 2, npc.scale, npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
-            BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc, Color.White);
+            BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc, Color.White, true);
             return false;
         }
 
