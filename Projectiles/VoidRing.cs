@@ -28,7 +28,7 @@ namespace AAMod.Projectiles
 
         public override void AI()
         {
-            projectile.Center == Main.npc[(int)projectile.ai[3]].Center;
+            projectile.Center = Main.npc[(int)projectile.ai[3]].Center;
             if (projectile.alpha != 0)
             {
                 projectile.localAI[0] += 1f;
@@ -78,8 +78,6 @@ namespace AAMod.Projectiles
                 }
             }
         }
-
-        
 
         public override bool PreDraw(SpriteBatch sb, Color lightColor)
         {
