@@ -13,7 +13,6 @@ namespace AAMod.NPCs.Bosses.Akuma
     [AutoloadBossHead]
     public class Akuma : ModNPC
 	{
-        
         public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/Akuma"; } }
 
         public bool loludided;
@@ -549,12 +548,12 @@ namespace AAMod.NPCs.Bosses.Akuma
 
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
         {
-            AAAI.MakeSegmentsImmune(npc, projectile.owner);
+            MakeSegmentsImmune(npc, projectile.owner);
         }
 
         public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
         {
-            AAAI.MakeSegmentsImmune(npc, player.whoAmI);
+            MakeSegmentsImmune(npc, player.whoAmI);
         }
 
 
@@ -595,8 +594,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             rotation = npc.rotation;
         }
     }
-
-
+    
     [AutoloadBossHead]
     public class AkumaArms : Akuma
     {
@@ -660,7 +658,17 @@ namespace AAMod.NPCs.Bosses.Akuma
                 float dist = (length - (float)npc.width) / length;
                 float posX = dirX * dist;
                 float posY = dirY * dist;
-                
+
+                if (dirX < 0f)
+                {
+                    npc.spriteDirection = 1;
+
+                }
+                else
+                {
+                    npc.spriteDirection = -1;
+                }
+
                 npc.velocity = Vector2.Zero;
                 npc.position.X = npc.position.X + posX;
                 npc.position.Y = npc.position.Y + posY;
@@ -672,23 +680,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.TargetClosest(true);
             }
             npc.netUpdate = true;
-            if (Main.npc[(int)npc.ai[3]].ai[1] >= 900)
-            {
-                if (Main.rand.Next(70) == 0 && Main.netMode != 1)
-                {
-                    Vector2 vector1 = player.Center - npc.Center;
-                    float speed = 20f;
-                    float mag = (float)Math.Sqrt(vector1.X * vector1.X + vector1.Y * vector1.Y);
-                    if (mag > speed)
-                    {
-                        mag = speed / mag;
-                    }
-                    vector1 *= mag;
-                    vector1.Normalize();
-                    vector1 *= 10f;
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, vector1.X + Main.rand.Next(-80, 81) * 0.05f, vector1.Y + Main.rand.Next(-80, 81) * 0.05f, mod.ProjectileType("DustiteDragonBreath"), npc.damage / 3, 5, Main.myPlayer);
-                }
-            }
             return false;
         }
 
@@ -738,16 +729,15 @@ namespace AAMod.NPCs.Bosses.Akuma
 
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
         {
-            AAAI.MakeSegmentsImmune(npc, projectile.owner);
+            MakeSegmentsImmune(npc, projectile.owner);
         }
 
         public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
         {
-            AAAI.MakeSegmentsImmune(npc, player.whoAmI);
+            MakeSegmentsImmune(npc, player.whoAmI);
         }
     }
-
-
+    
     [AutoloadBossHead]
     public class AkumaBody : Akuma
     {
@@ -808,6 +798,16 @@ namespace AAMod.NPCs.Bosses.Akuma
                 float posX = dirX * dist;
                 float posY = dirY * dist;
 
+                if (dirX < 0f)
+                {
+                    npc.spriteDirection = 1;
+
+                }
+                else
+                {
+                    npc.spriteDirection = -1;
+                }
+
                 npc.velocity = Vector2.Zero;
                 npc.position.X = npc.position.X + posX;
                 npc.position.Y = npc.position.Y + posY;
@@ -819,23 +819,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.TargetClosest(true);
             }
             npc.netUpdate = true;
-            if (Main.npc[(int)npc.ai[3]].ai[1] >= 900)
-            {
-                if (Main.rand.Next(70) == 0 && Main.netMode != 1)
-                {
-                    Vector2 vector1 = player.Center - npc.Center;
-                    float speed = 20f;
-                    float mag = (float)Math.Sqrt(vector1.X * vector1.X + vector1.Y * vector1.Y);
-                    if (mag > speed)
-                    {
-                        mag = speed / mag;
-                    }
-                    vector1 *= mag;
-                    vector1.Normalize();
-                    vector1 *= 10f;
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, vector1.X + Main.rand.Next(-80, 81) * 0.05f, vector1.Y + Main.rand.Next(-80, 81) * 0.05f, mod.ProjectileType("DustiteDragonBreath"), npc.damage / 3, 5, Main.myPlayer);
-                }
-            }
             return false;
         }
 
@@ -890,16 +873,16 @@ namespace AAMod.NPCs.Bosses.Akuma
 
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
         {
-            AAAI.MakeSegmentsImmune(npc, projectile.owner);
+            MakeSegmentsImmune(npc, projectile.owner);
         }
 
         public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
         {
-            AAAI.MakeSegmentsImmune(npc, player.whoAmI);
+            MakeSegmentsImmune(npc, player.whoAmI);
         }
     }
-
-
+    
+    [AutoloadBossHead]
     public class AkumaBody1 : Akuma
     {
         public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/AkumaBody1"; } }
@@ -959,6 +942,16 @@ namespace AAMod.NPCs.Bosses.Akuma
                 float posX = dirX * dist;
                 float posY = dirY * dist;
 
+                if (dirX < 0f)
+                {
+                    npc.spriteDirection = 1;
+
+                }
+                else
+                {
+                    npc.spriteDirection = -1;
+                }
+
                 npc.velocity = Vector2.Zero;
                 npc.position.X = npc.position.X + posX;
                 npc.position.Y = npc.position.Y + posY;
@@ -970,23 +963,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.TargetClosest(true);
             }
             npc.netUpdate = true;
-            if (Main.npc[(int)npc.ai[3]].ai[1] >= 900)
-            {
-                if (Main.rand.Next(70) == 0 && Main.netMode != 1)
-                {
-                    Vector2 vector1 = player.Center - npc.Center;
-                    float speed = 20f;
-                    float mag = (float)Math.Sqrt(vector1.X * vector1.X + vector1.Y * vector1.Y);
-                    if (mag > speed)
-                    {
-                        mag = speed / mag;
-                    }
-                    vector1 *= mag;
-                    vector1.Normalize();
-                    vector1 *= 10f;
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, vector1.X + Main.rand.Next(-80, 81) * 0.05f, vector1.Y + Main.rand.Next(-80, 81) * 0.05f, mod.ProjectileType("DustiteDragonBreath"), npc.damage / 3, 5, Main.myPlayer);
-                }
-            }
             return false;
         }
 
@@ -1041,12 +1017,12 @@ namespace AAMod.NPCs.Bosses.Akuma
 
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
         {
-            AAAI.MakeSegmentsImmune(npc, projectile.owner);
+            MakeSegmentsImmune(npc, projectile.owner);
         }
 
         public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
         {
-            AAAI.MakeSegmentsImmune(npc, player.whoAmI);
+            MakeSegmentsImmune(npc, player.whoAmI);
         }
     }
 
@@ -1115,6 +1091,16 @@ namespace AAMod.NPCs.Bosses.Akuma
                 float posX = dirX * dist;
                 float posY = dirY * dist;
 
+                if (dirX < 0f)
+                {
+                    npc.spriteDirection = 1;
+
+                }
+                else
+                {
+                    npc.spriteDirection = -1;
+                }
+
                 npc.velocity = Vector2.Zero;
                 npc.position.X = npc.position.X + posX;
                 npc.position.Y = npc.position.Y + posY;
@@ -1126,23 +1112,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.TargetClosest(true);
             }
             npc.netUpdate = true;
-            if (Main.npc[(int)npc.ai[3]].ai[1] >= 900)
-            {
-                if (Main.rand.Next(70) == 0 && Main.netMode != 1)
-                {
-                    Vector2 vector1 = player.Center - npc.Center;
-                    float speed = 20f;
-                    float mag = (float)Math.Sqrt(vector1.X * vector1.X + vector1.Y * vector1.Y);
-                    if (mag > speed)
-                    {
-                        mag = speed / mag;
-                    }
-                    vector1 *= mag;
-                    vector1.Normalize();
-                    vector1 *= 10f;
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, vector1.X + Main.rand.Next(-80, 81) * 0.05f, vector1.Y + Main.rand.Next(-80, 81) * 0.05f, mod.ProjectileType("DustiteDragonBreath"), npc.damage / 3, 5, Main.myPlayer);
-                }
-            }
             return false;
         }
 
@@ -1192,13 +1161,12 @@ namespace AAMod.NPCs.Bosses.Akuma
 
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
         {
-            AAAI.MakeSegmentsImmune(npc, projectile.owner);
+            MakeSegmentsImmune(npc, projectile.owner);
         }
 
         public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
         {
-            AAAI.MakeSegmentsImmune(npc, player.whoAmI);
+            MakeSegmentsImmune(npc, player.whoAmI);
         }
     }
-    
 }

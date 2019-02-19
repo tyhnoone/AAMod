@@ -568,7 +568,7 @@ namespace AAMod
             progress.Set(0f);
             int VoidHeight = 0;
             progress.Set(0.1f);
-            VoidHeight = 120;
+            VoidHeight = 100;
             progress.Set(0.4f);
             Point center = new Point((Main.maxTilesX / 15 * 14) + (Main.maxTilesX / 15 / 2) - 100, center.Y = VoidHeight);
             progress.Set(0.5f);

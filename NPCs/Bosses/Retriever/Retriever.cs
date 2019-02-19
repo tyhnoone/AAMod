@@ -244,7 +244,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                     PlayerPosX += npc.velocity.X * 0.5f;
                     PlayerDistance.X -= PlayerPosX * 2f;
                     PlayerDistance.Y -= PlayerPosY * 2f;
-                    if (npc.ai[3] == 250 || npc.ai[3] == 230 || npc.ai[3] == 210 || npc.ai[3] == 190 || npc.ai[3] == 170 || npc.ai[3] == 150 || npc.ai[3] == 130 || npc.ai[3] == 110 || npc.ai[3] == 90 || npc.ai[3] == 70)
+                    if (npc.ai[0] == 250 || npc.ai[0] == 230 || npc.ai[0] == 210 || npc.ai[0] == 190 || npc.ai[0] == 170 || npc.ai[0] == 150 || npc.ai[0] == 130 || npc.ai[0] == 110 || npc.ai[0] == 90 || npc.ai[0] == 70)
                     {
                         Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX, PlayerPosY, mod.ProjectileType("RetrieverShot"), (int)(npc.damage * 1.4f), 0f, Main.myPlayer);
                     }

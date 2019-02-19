@@ -427,7 +427,7 @@ namespace AAMod
                 //bossChecklist.Call("AddBossWithInfo", "Truffle Toad", 6.00000000001f, (Func<bool>)(() => AAWorld.downedToad), "Use a [i:" + ItemType("Toadstool") + "] in an underground mushroom biome");
                 bossChecklist.Call("AddBossWithInfo", "Retriever", 6.9999997f, (Func<bool>)(() => AAWorld.downedRetriever), "Use a [i:" + ItemType("CyberneticClaw") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Raider Ultima", 6.9999997f, (Func<bool>)(() => AAWorld.downedRaider), "Use a [i:" + ItemType("CyberneticBell") + "] at night");
-                bossChecklist.Call("AddBossWithInfo", "Orthrus X", 6.9999997f, (Func<bool>)(() => AAWorld.downedOrthrus), "Use a [i:" + ItemType("HydraChow") + "] at night");
+                bossChecklist.Call("AddBossWithInfo", "Orthrus X", 6.9999997f, (Func<bool>)(() => AAWorld.downedOrthrus), "Use a [i:" + ItemType("ScrapHeap") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Emperor Fishron", 14.00000000001f, (Func<bool>)(() => AAWorld.downedEFish), "Use a [i:" + ItemType("ShroomGrub") + "] at the ocean");
                 bossChecklist.Call("AddBossWithInfo", "Nightcrawler & Daybringer", 14.00000000002f, (Func<bool>)(() => AAWorld.downedEquinox), "Use a [i:" + ItemType("EquinoxWorm") + "]");
                 //bossChecklist.Call("AddBossWithInfo", "Kraken", 16.1f, (Func<bool>)(() => AAWorld.downedKraken), "Use a [i:" + ItemType("Portal") + "] at the Ocean");
@@ -707,7 +707,6 @@ namespace AAMod
                 NPCs.Bosses.Zero.RiftShredder.glowTex = null;
                 NPCs.Bosses.Zero.Taser.glowTex = null;
                 NPCs.Bosses.Zero.TeslaHand.glowTex = null;
-                NPCs.Bosses.Zero.ZeroAwakened.glowTex = null;
                 NPCs.Bosses.Zero.SearcherZero.glowTex = null;
                 NPCs.Enemies.Void.Searcher.glowTex = null;
             }
