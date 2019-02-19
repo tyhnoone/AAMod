@@ -44,6 +44,7 @@ namespace AAMod.Items.Magic
 				Vector2 perturbedSpeed = new Vector2(speedX*5, speedY*5).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f;
 				int proj = Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage*2, knockBack, player.whoAmI);
 				Main.projectile[proj].penetrate = 10;
+				Main.projectile[proj].usesLocalNPCImmunity = true;
 				Main.projectile[proj].localNPCHitCooldown = 1;
 			}
 			return false;
