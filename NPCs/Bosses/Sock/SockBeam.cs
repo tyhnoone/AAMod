@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AAMod.Projectiles.Akuma
+namespace AAMod.NPCs.Bosses.Sock
 {
-    public class Sunray : ModProjectile
+    public class SockBeam : ModProjectile
 	{
         public override void SetStaticDefaults()
         {
@@ -19,8 +19,8 @@ namespace AAMod.Projectiles.Akuma
             projectile.width = 18;
             projectile.height = 18;
             projectile.aiStyle = 0;
-            projectile.friendly = true;
-            projectile.hostile = false;
+            projectile.friendly = false;
+            projectile.hostile = true;
             projectile.penetrate = -1;
             projectile.alpha = 255;
             projectile.tileCollide = false;
@@ -36,7 +36,9 @@ namespace AAMod.Projectiles.Akuma
 
             return false;
         }
-        
+
+
+
         public override bool PreAI()
         {
             projectile.Center = Main.projectile[(int)projectile.ai[1]].Center;
@@ -105,7 +107,7 @@ namespace AAMod.Projectiles.Akuma
         {
             for (int num56 = 0; num56 < 1000; num56++)
             {
-                if (Main.projectile[num56].active && Main.projectile[num56].owner == projectile.owner && Main.projectile[num56].type == mod.ProjectileType<Sunray>())
+                if (Main.projectile[num56].active && Main.projectile[num56].owner == projectile.owner && Main.projectile[num56].type == mod.ProjectileType<SockBeam>())
                 {
                     Main.projectile[num56].Kill();
                 }

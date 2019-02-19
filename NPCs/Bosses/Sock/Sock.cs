@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using BaseMod;
 
 namespace AAMod.NPCs.Bosses.Sock
 {
@@ -37,8 +38,13 @@ namespace AAMod.NPCs.Bosses.Sock
             npc.value = 10000f;
             npc.netAlways = true;
             npc.timeLeft = NPC.activeTime * 30;
+            bossBag = mod.ItemType("SoccBag");
         }
-
+        float DespawnScale = 0;
+        float DespawnAlpha = 255;
+        bool Despawn = false;
+        bool HasDespawned = false;
+        
         public override void AI()
         {
             float maxDistanceAmt = 4f;
@@ -50,57 +56,254 @@ namespace AAMod.NPCs.Bosses.Sock
             float distX = Main.player[npc.target].Center.X - npc.Center.X;
             float distY = Main.player[npc.target].Center.Y - npc.Center.Y;
             float dist = (float)Math.Sqrt((double)(distX * distX + distY * distY));
-            npc.ai[1] += 1f;
-            if (npc.ai[1] > 600f)
+            Player player = Main.player[npc.target];
+            npc.rotation = npc.velocity.X / 15f;
+            if (player.Center.X > npc.Center.X)
             {
-                increment *= 14f;
-                distanceAmt = 6f;
-                if (npc.ai[1] > 650f) { npc.ai[1] = 0f; }
+                npc.spriteDirection = -1;
             }
             else
-            if (dist < 250f)
             {
-                npc.ai[0] += 0.9f;
-                if (npc.ai[0] > 0f) { npc.velocity.Y = npc.velocity.Y + closeIncrement; } else { npc.velocity.Y = npc.velocity.Y - closeIncrement; }
-                if (npc.ai[0] < -100f || npc.ai[0] > 100f) { npc.velocity.X = npc.velocity.X + closeIncrement; } else { npc.velocity.X = npc.velocity.X - closeIncrement; }
-                if (npc.ai[0] > 200f) { npc.ai[0] = -200f; }
+                npc.spriteDirection = 1;
             }
-            if (dist > maxDistance)
+            if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f || Main.player[npc.target].dead)
             {
-                distanceAmt = maxDistanceAmt + (maxDistanceAmt / 4f);
-                increment = 0.3f;
+                npc.velocity *= .8f;
+                npc.ai[2] = 0;
+                if (npc.velocity.X < .5f || npc.velocity.X > -.5f)
+                {
+                    npc.velocity.X = 0;
+                }
+                if (npc.velocity.Y < .5f || npc.velocity.Y > -.5f)
+                {
+                    npc.velocity.Y = 0;
+                }
+
+                if (npc.velocity == new Vector2(0, 0) && !HasDespawned)
+                {
+                    DespawnAlpha -= 25.5f;
+                    DespawnScale += 0.1f;
+                    Despawn = true;
+                }
+                if (DespawnScale >= 1f)
+                {
+                    HasDespawned = true;
+                }
+                if (HasDespawned)
+                {
+                    npc.alpha -= 20;
+                    DespawnAlpha += 17;
+                    if (DespawnAlpha >= 255)
+                    {
+                        npc.active = false;
+                    }
+                }
+
+                return;
             }
-            else if (dist > maxDistance - (maxDistance / 7f))
+            npc.ai[2]++;
+            if (npc.ai[2] > 900)
             {
-                distanceAmt = maxDistanceAmt - (maxDistanceAmt / 4f);
-                increment = 0.2f;
+                if (npc.ai[2] == 900)
+                {
+                    npc.ai[3] += 1;
+                }
+                if (npc.ai[2] >= 900 && (npc.ai[3] == 8 || npc.ai[3] == 10 || npc.ai[3] == 13 || npc.ai[3] == 19 || npc.ai[3] == 23))
+                {
+                    if (npc.ai[2] == 915 || npc.ai[2] == 930 || npc.ai[2] == 945 || npc.ai[2] == 960 || npc.ai[2] == 975 || npc.ai[2] == 990)
+                    {
+                        FireMagic(npc, npc.velocity);
+                    }
+                }
+                else if (npc.ai[2] >= 900 && (npc.ai[3] == 1 || npc.ai[3] == 4 || npc.ai[3] == 6 || npc.ai[3] == 15 || npc.ai[3] == 20))
+                {
+                    if (npc.ai[2] == 925 || npc.ai[2] == 950 || npc.ai[2] == 975 || npc.ai[2] == 999)
+                    {
+                        FireMagic(npc, npc.velocity);
+                    }
+                }
+                else if (npc.ai[2] >= 950 && !(npc.ai[3] == 8 || npc.ai[3] == 10 || npc.ai[3] == 13 || npc.ai[3] == 19 || npc.ai[3] == 23 || npc.ai[3] == 1 || npc.ai[3] == 4 || npc.ai[3] == 6 || npc.ai[3] == 15 || npc.ai[3] == 20))
+                {
+                    FireMagic(npc, npc.velocity);
+                }
+                if (npc.ai[2] > 1000)
+                {
+                    npc.ai[2] = 0;
+                }
             }
-            else if (dist > maxDistance - (2 * (maxDistance / 7f)))
+            else
             {
-                distanceAmt = (maxDistanceAmt / 2.66f);
-                increment = 0.1f;
+                npc.ai[1] += 1f;
+                if (npc.ai[1] > 299f)
+                {
+                    increment *= 14f;
+                    distanceAmt = 6f;
+                    if (npc.ai[1] > 650f) { npc.ai[1] = 0f; }
+                }
+                else if (dist < 250f)
+                {
+                    npc.ai[0] += 0.9f;
+                    if (npc.ai[0] > 0f) { npc.velocity.Y = npc.velocity.Y + closeIncrement; } else { npc.velocity.Y = npc.velocity.Y - closeIncrement; }
+                    if (npc.ai[0] < -100f || npc.ai[0] > 100f) { npc.velocity.X = npc.velocity.X + closeIncrement; } else { npc.velocity.X = npc.velocity.X - closeIncrement; }
+                    if (npc.ai[0] > 200f) { npc.ai[0] = -200f; }
+                }
+                if (dist > maxDistance)
+                {
+                    distanceAmt = maxDistanceAmt + (maxDistanceAmt / 4f);
+                    increment = 0.3f;
+                }
+                else if (dist > maxDistance - (maxDistance / 7f))
+                {
+                    distanceAmt = maxDistanceAmt - (maxDistanceAmt / 4f);
+                    increment = 0.2f;
+                }
+                else if (dist > maxDistance - (2 * (maxDistance / 7f)))
+                {
+                    distanceAmt = (maxDistanceAmt / 2.66f);
+                    increment = 0.1f;
+                }
+                dist = distanceAmt / dist;
+                distX *= dist; distY *= dist;
+                if (Main.player[npc.target].dead)
+                {
+                    distX = (float)npc.direction * distanceAmt / 2f;
+                    distY = -distanceAmt / 2f;
+                }
+                if (npc.velocity.X < distX)
+                {
+                    npc.velocity.X = npc.velocity.X + increment;
+                }
+                else if (npc.velocity.X > distX)
+                {
+                    npc.velocity.X = npc.velocity.X - increment;
+                }
+                if (npc.velocity.Y < distY)
+                {
+                    npc.velocity.Y = npc.velocity.Y + increment;
+                }
+                else if (npc.velocity.Y > distY)
+                {
+                    npc.velocity.Y = npc.velocity.Y - increment;
+                }
             }
-            dist = distanceAmt / dist;
-            distX *= dist; distY *= dist;
-            if (Main.player[npc.target].dead)
-            {
-                distX = (float)npc.direction * distanceAmt / 2f;
-                distY = -distanceAmt / 2f;
-            }
-            if (npc.velocity.X < distX) { npc.velocity.X = npc.velocity.X + increment; }
-            else if (npc.velocity.X > distX) { npc.velocity.X = npc.velocity.X - increment; }
-            if (npc.velocity.Y < distY) { npc.velocity.Y = npc.velocity.Y + increment; }
-            else if (npc.velocity.Y > distY) { npc.velocity.Y = npc.velocity.Y - increment; }
         }
 
-        public override bool PreNPCLoot()
-		{
-			return false;
-		}
+        public override void NPCLoot()
+        {
+            if (Main.expertMode)
+            {
+                npc.DropBossBags();
+            }
+            else
+            {
+                string[] lootTable =
+                {
+                    "HolyLaserBlaster",
+                    "PuppetStaff",
+                    "SockCannon",
+                    "SockMace"
+                };
+                int loot = Main.rand.Next(lootTable.Length);
+                if (Main.rand.Next(5) == 0)
+                {
+                    npc.DropLoot(mod.ItemType("Sock"), 200, 300);
+                    return;
+                }
+                npc.DropLoot(mod.ItemType(lootTable[loot]));
+            }
+        }
 
-		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
-		{
-			return false;
-		}	
+        public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
+        {
+
+            Texture2D glowTex = mod.GetTexture("Glowmasks/Sock_Glow");
+            Texture2D Despawntex = mod.GetTexture("NPCs/Bosses/Sock/SoccDespawn");
+
+            if (npc.ai[1] > 299f)
+            {
+                BaseDrawing.DrawAfterimage(spritebatch, Main.npcTexture[npc.type], 0, npc, 1.5f, 1f, 3, false, 0f, 0f, new Color(dColor.R, dColor.G, dColor.B, 150));
+            }
+
+            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, new Color(dColor.R, dColor.G, dColor.B, npc.alpha));
+
+            if (Despawn)
+            {
+                BaseDrawing.DrawTexture(spritebatch, Despawntex, 0, npc.Center, npc.width, npc.height, DespawnScale, 0, 0, 1, new Rectangle(0, 0, Despawntex.Width, Despawntex.Height), new Color(255, 255, 255, DespawnAlpha), true);
+            }
+
+            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, Color.White);
+            return false;
+        }
+
+        int ShootThis;
+        int Loop;
+        int ProjID;
+
+        public void FireMagic(NPC npc, Vector2 velocity)
+        {
+            Player player = Main.player[npc.target];
+            int num429 = 1;
+            if (npc.position.X + (npc.width / 2) < Main.player[npc.target].position.X + Main.player[npc.target].width)
+            {
+                num429 = -1;
+            }
+            Vector2 PlayerDistance = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+            float PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) + (num429 * 180) - PlayerDistance.X;
+            float PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - PlayerDistance.Y;
+            float PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX) + (PlayerPosY * PlayerPosY));
+            float num433 = 6f;
+            PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - PlayerDistance.X;
+            PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - PlayerDistance.Y;
+            PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX + PlayerPosY * PlayerPosY));
+            PlayerPos = num433 / PlayerPos;
+            PlayerPosX *= PlayerPos;
+            PlayerPosY *= PlayerPos;
+            PlayerPosY += Main.rand.Next(-40, 41) * 0.01f;
+            PlayerPosX += Main.rand.Next(-40, 41) * 0.01f;
+            PlayerPosY += npc.velocity.Y * 0.5f;
+            PlayerPosX += npc.velocity.X * 0.5f;
+            PlayerDistance.X -= PlayerPosX * 1f;
+            PlayerDistance.Y -= PlayerPosY * 1f;
+            Vector2 spawnAt = npc.Center + new Vector2(0f, npc.height / 2f);
+            if (Main.expertMode)
+            {
+                Loop = 5;
+            }
+            else
+            {
+                Loop = 3;
+            }
+            if (npc.ai[3] == 1 || npc.ai[3] == 4 || npc.ai[3] == 6 || npc.ai[3] == 15 || npc.ai[3] == 20)
+            {
+                ShootThis = mod.ProjectileType<SockBlast>();
+            }
+            if ((npc.ai[3] == 2 || npc.ai[3] == 3 || npc.ai[3] == 9 || npc.ai[3] == 17 || npc.ai[3] == 22))
+            {
+                for (int Minions = 0; Minions < Loop; Minions++)
+                {
+                    NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("SockMinion"), 0, -npc.velocity.X * 1.2f, -npc.velocity.Y * 1.2f);
+                }
+                return;
+            }
+            if (npc.ai[3] == 5 || npc.ai[3] == 12 || npc.ai[3] == 16 || npc.ai[3] == 21 || npc.ai[3] == 25)
+            {
+                ShootThis = mod.ProjectileType<SockonianSun>();
+            }
+            if (npc.ai[3] == 7 || npc.ai[3] == 11 || npc.ai[3] == 14 || npc.ai[3] == 18 || npc.ai[3] == 24)
+            {
+                ShootThis = mod.ProjectileType<SockShot>();
+                Loop = 5;
+            }
+            if (npc.ai[3] == 8 || npc.ai[3] == 10 || npc.ai[3] == 13 || npc.ai[3] == 19 || npc.ai[3] == 23)
+            {
+                ShootThis = mod.ProjectileType<SockLaser>();
+                Loop = 9;
+            }
+            Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX * 2, PlayerPosY * 2, ShootThis, (int)(npc.damage * .8f), 0f, Main.myPlayer);
+            if (npc.ai[0] > 25)
+            {
+                npc.ai[0] = 0;
+            }
+        }
     }
 }

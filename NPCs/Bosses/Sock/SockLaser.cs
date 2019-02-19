@@ -50,7 +50,12 @@ namespace AAMod.NPCs.Bosses.Sock
 	        Lighting.AddLight(projectile.Center, ((255 - projectile.alpha) * 0.05f) / 255f, ((255 - projectile.alpha) * 0.25f) / 255f, ((255 - projectile.alpha) * 0f) / 255f);		
 		}
 
-		public override Color? GetAlpha(Color lightColor)
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            target.AddBuff(mod.BuffType<Buffs.HolySmite>(), 300);
+        }
+
+        public override Color? GetAlpha(Color lightColor)
 		{
 			return Color.White;
 		}

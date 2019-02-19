@@ -146,6 +146,7 @@ namespace AAMod
         public bool nullified = false;
         //debuffs
         public bool infinityOverload = false;
+        public bool HolySmite = false;
         public bool discordInferno = false;
         public bool dragonFire = false;
         public bool hydraToxin = false;
@@ -281,6 +282,7 @@ namespace AAMod
             nullified = false;
             //Debuffs
             infinityOverload = false;
+            HolySmite = false;
             discordInferno = false;
             dragonFire = false;
             hydraToxin = false;
@@ -555,9 +557,6 @@ namespace AAMod
                             if (player.whoAmI == Main.myPlayer)
                             {
                                 player.ApplyDamageToNPC(nPC, (int)num, num2, direction, crit);
-                                int num6 = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, mod.ProjectileType("HolyExplosionSupreme"), 1000, 20f, Main.myPlayer, 0f, 0f);
-                                Main.projectile[num6].Kill();
-                                Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, mod.ProjectileType("HolyEruption"), 780, 5f, Main.myPlayer, 0f, 0f);
                             }
                             nPC.immune[player.whoAmI] = 6;
                             player.immune = true;
@@ -1912,6 +1911,12 @@ namespace AAMod
                 drain = true;
                 player.lifeRegen -= 60;
             }
+
+            if (HolySmite)
+            {
+                drain = true;
+                player.lifeRegen -= 30;
+            }
             if (InfinityScorch)
             {
                 if (player.lifeRegen > 0)
@@ -2160,6 +2165,18 @@ namespace AAMod
                     Main.dust[num4].scale += Main.rand.NextFloat();
                 }
                 Lighting.AddLight((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f), 0f, 0f, 0.45f);
+            }
+
+            if (HolySmite)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    int num4 = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, mod.DustType<Dusts.HolyDust>(), 0f, -2.5f, 0, default(Color), 1f);
+                    Main.dust[num4].alpha = 100;
+                    Main.dust[num4].noGravity = true;
+                    Main.dust[num4].scale += Main.rand.NextFloat();
+                }
+                Lighting.AddLight((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f), 0.5f, 0.25f, 0f);
             }
         }
 

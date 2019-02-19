@@ -13,8 +13,8 @@ namespace AAMod.Items.Boss.Socc
 			item.width = 20;
 			item.height = 18;
 			item.noUseGraphic = true;
-			item.maxStack = 1;
-			item.consumable = false;
+			item.maxStack = 999;
+			item.consumable = true;
 			item.useTime = 30;
 			item.useAnimation = 30;
 			item.shoot = mod.ProjectileType("SockP");

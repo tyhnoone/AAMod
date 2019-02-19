@@ -11,7 +11,7 @@ namespace AAMod.Items.Vanity.Eliza
        
 		{
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Midnight Scarft");
+            DisplayName.SetDefault("Midnight Scarf");
             Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Devs!'");
 		}
 

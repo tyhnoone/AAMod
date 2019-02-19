@@ -40,6 +40,7 @@ namespace AAMod
         public bool irradiated = false;
         public bool DiscordInferno = false;
         public bool riftBent = false;
+        public bool HolySmite = false;
         public static int Toad = -1;
         public static int Rose = -1;
         public static int Brain = -1;
@@ -95,6 +96,16 @@ namespace AAMod
                 }
             }
 
+            if (HolySmite)
+            {
+                drain = true;
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
+
+                npc.lifeRegen -= 30;
+            }
             if (InfinityScorch)
             {
                 drain = true;
@@ -691,6 +702,17 @@ namespace AAMod
                     }
                 }
                 Lighting.AddLight(npc.position, 0.7f, 0.2f, 0.1f);
+            }
+            if (HolySmite)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    int num4 = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width, npc.height, mod.DustType<Dusts.HolyDust>(), 0f, -2.5f, 0, default(Color), 1f);
+                    Main.dust[num4].alpha = 100;
+                    Main.dust[num4].noGravity = true;
+                    Main.dust[num4].scale += Main.rand.NextFloat();
+                }
+                Lighting.AddLight((int)(npc.Center.X / 16f), (int)(npc.Center.Y / 16f), 0.5f, 0.25f, 0f);
             }
 
         }
