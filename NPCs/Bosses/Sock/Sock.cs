@@ -111,7 +111,7 @@ namespace AAMod.NPCs.Bosses.Sock
             {
                 npc.spriteDirection = 1;
             }
-            if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f || Main.player[npc.target].dead || Main.dayTime)
+            if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f || Main.player[npc.target].dead || !Main.dayTime)
             {
                 npc.velocity *= .8f;
                 npc.ai[2] = 0;
