@@ -77,7 +77,7 @@ namespace AAMod.Projectiles.Socc
 				{
 					if (Main.rand.Next(2) == 0)
 					{
-						int num239 = Dust.NewDust(new Vector2(projectile.position.X + 3f + num237, projectile.position.Y + 3f + num238) - projectile.velocity * 0.5f, projectile.width - 8, projectile.height - 8, 6, 0f, 0f, 100, default(Color), 1f);
+						int num239 = Dust.NewDust(new Vector2(projectile.position.X + 3f + num237, projectile.position.Y + 3f + num238) - projectile.velocity * 0.5f, projectile.width - 8, projectile.height - 8, mod.DustType<Dusts.HolyDust>(), 0f, 0f, 100, default(Color), 1f);
 						Dust dust = Main.dust[num239];
 						dust.scale *= 1.4f + (float)Main.rand.Next(10) * 0.1f;
 						dust = Main.dust[num239];
@@ -86,7 +86,7 @@ namespace AAMod.Projectiles.Socc
 					}
 					if (Main.rand.Next(2) == 0)
 					{
-						int num240 = Dust.NewDust(new Vector2(projectile.position.X + 3f + num237, projectile.position.Y + 3f + num238) - projectile.velocity * 0.5f, projectile.width - 8, projectile.height - 8, 31, 0f, 0f, 100, default(Color), 0.5f);
+						int num240 = Dust.NewDust(new Vector2(projectile.position.X + 3f + num237, projectile.position.Y + 3f + num238) - projectile.velocity * 0.5f, projectile.width - 8, projectile.height - 8, mod.DustType<Dusts.HolyDust>(), 0f, 0f, 100, default(Color), 0.5f);
 						Main.dust[num240].fadeIn = 0.5f + (float)Main.rand.Next(5) * 0.1f;
 						Dust dust = Main.dust[num240];
 						dust.velocity *= 0.05f;
@@ -158,7 +158,7 @@ namespace AAMod.Projectiles.Socc
 			int num3;
 			for (int num735 = 0; num735 < 40; num735 = num3 + 1)
 			{
-				int num736 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 2f);
+				int num736 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.HolyDust>(), 0f, 0f, 100, default(Color), 2f);
 				Dust dust = Main.dust[num736];
 				dust.velocity *= 3f;
 				if (Main.rand.Next(2) == 0)
@@ -170,11 +170,11 @@ namespace AAMod.Projectiles.Socc
 			}
 			for (int num737 = 0; num737 < 70; num737 = num3 + 1)
 			{
-				int num738 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 3f);
+				int num738 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.HolyDust>(), 0f, 0f, 100, default(Color), 3f);
 				Main.dust[num738].noGravity = true;
 				Dust dust = Main.dust[num738];
 				dust.velocity *= 5f;
-				num738 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 2f);
+				num738 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.HolyDust>(), 0f, 0f, 100, default(Color), 2f);
 				dust = Main.dust[num738];
 				dust.velocity *= 2f;
 				num3 = num737;

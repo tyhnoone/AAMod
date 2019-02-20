@@ -34,7 +34,7 @@ only usable during the day");
 
         public override bool CanUseItem(Player player)
         {
-            if (Main.dayTime)
+            if (!Main.dayTime)
             {
                 if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The sock flops in your hand", Color.Orange, false);
                 return false;
