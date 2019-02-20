@@ -2,7 +2,6 @@
 using System.Linq;
 using AAMod.Buffs;
 using AAMod.Items.Dev;
-using AAMod.Items.Boss.Socc;
 using AAMod.NPCs.Bosses.Zero;
 using AAMod.NPCs.Bosses.Akuma;
 using Microsoft.Xna.Framework;
@@ -51,7 +50,6 @@ namespace AAMod
         public bool SnakeMinion = false;
         public bool dustDevil = false;
         public bool KrakenMinion = false;
-		public bool SockPuppet = false;
         // Biome bools.
         public bool ZoneMire = false;
         public bool ZoneInferno = false;
@@ -221,7 +219,6 @@ namespace AAMod
             SnakeMinion = false;
             dustDevil = false;
             KrakenMinion = false;
-			SockPuppet = false;
             //Armor
             valkyrieSet = false;
             kindledSet = false;
