@@ -31,7 +31,7 @@ namespace AAMod.Items.Boss.Socc
 			item.useStyle = 5;
 			item.noMelee = true;
 			item.value = 100000;
-			item.rare = 9;
+			item.rare = 8;
 			item.autoReuse = true;
 			item.shoot = 449;
 			item.shootSpeed = 16f;

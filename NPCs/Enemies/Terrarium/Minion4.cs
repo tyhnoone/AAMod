@@ -246,22 +246,76 @@ namespace AAMod.NPCs.Enemies.Terrarium
                 Main.dust[dust2].noGravity = true;
             }
         }
+        
+
+        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+            ModifyCritArea(npc, ref crit);
+        }
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            Player player = Main.player[npc.target];
-            if (player.vortexStealthActive && projectile.ranged)
+            ModifyCritArea(npc, ref crit);
+        }
+
+        private void ModifyCritArea(NPC npc, ref bool crit)
+        {
+            if (npc.realLife >= 0)
             {
-                damage /= 2;
-                crit = false;
+                if (npc.whoAmI == npc.realLife)
+                {
+                    crit = true;
+                }
+                if (npc.ai[0] == 0)
+                {
+                    crit = false;
+                }
             }
-            if (projectile.penetrate == -1 && !projectile.minion)
+        }
+
+        public override void UpdateLifeRegen(ref int damage)
+        {
+            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
             {
-                projectile.damage *= (int).2;
+                damage = 0;
+                npc.lifeRegen = 0;
             }
-            else if (projectile.penetrate >= 1)
+        }
+
+        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+        {
+            MakeSegmentsImmune(npc, projectile.owner);
+        }
+
+        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
+        {
+            MakeSegmentsImmune(npc, player.whoAmI);
+        }
+
+        public void MakeSegmentsImmune(NPC npc, int id)
+        {
+            if (npc.realLife >= 0)
             {
-                projectile.damage *= (int).2;
+                bool last = false;
+                NPC parent = Main.npc[npc.realLife];
+                parent.lifeRegen = npc.lifeRegen;
+                int i = 0;
+                while (parent.ai[0] > 0 || last)
+                {
+                    parent.immune[id] = npc.immune[id];
+                    for (int j = 0; j < npc.buffType.Length; j++)
+                    {
+                        if (npc.buffType[j] > 0 && npc.buffTime[j] > 0)
+                        {
+                            parent.buffType[j] = npc.buffType[j];
+                            parent.buffTime[j] = npc.buffTime[j];
+                        }
+                    }
+                    if (last) { break; }
+                    parent = Main.npc[(int)parent.ai[0]];
+                    if (parent.ai[0] == 0) { last = true; }
+                    if (i++ > 200) { throw new InvalidOperationException("Recursion detected"); } // Just in case
+                }
             }
         }
     }
@@ -403,6 +457,45 @@ namespace AAMod.NPCs.Enemies.Terrarium
                 projectile.damage *= (int).2;
             }
         }
+
+        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+            ModifyCritArea(npc, ref crit);
+        }
+
+        private void ModifyCritArea(NPC npc, ref bool crit)
+        {
+            if (npc.realLife >= 0)
+            {
+                if (npc.whoAmI == npc.realLife)
+                {
+                    crit = true;
+                }
+                if (npc.ai[0] == 0)
+                {
+                    crit = false;
+                }
+            }
+        }
+
+        public override void UpdateLifeRegen(ref int damage)
+        {
+            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
+            {
+                damage = 0;
+                npc.lifeRegen = 0;
+            }
+        }
+
+        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+        {
+            MakeSegmentsImmune(npc, projectile.owner);
+        }
+
+        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
+        {
+            MakeSegmentsImmune(npc, player.whoAmI);
+        }
     }
 
     public class Minion4Tail : Minion4
@@ -532,22 +625,48 @@ namespace AAMod.NPCs.Enemies.Terrarium
             target.AddBuff(mod.BuffType<Buffs.Terrablaze>(), 300);
         }
 
+        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+            ModifyCritArea(npc, ref crit);
+        }
+
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            Player player = Main.player[npc.target];
-            if (player.vortexStealthActive && projectile.ranged)
+            ModifyCritArea(npc, ref crit);
+        }
+
+        private void ModifyCritArea(NPC npc, ref bool crit)
+        {
+            if (npc.realLife >= 0)
             {
-                damage /= 2;
-                crit = false;
+                if (npc.whoAmI == npc.realLife)
+                {
+                    crit = true;
+                }
+                if (npc.ai[0] == 0)
+                {
+                    crit = false;
+                }
             }
-            if (projectile.penetrate == -1 && !projectile.minion)
+        }
+
+        public override void UpdateLifeRegen(ref int damage)
+        {
+            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
             {
-                projectile.damage *= (int).2;
+                damage = 0;
+                npc.lifeRegen = 0;
             }
-            else if (projectile.penetrate >= 1)
-            {
-                projectile.damage *= (int).2;
-            }
+        }
+
+        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+        {
+            MakeSegmentsImmune(npc, projectile.owner);
+        }
+
+        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
+        {
+            MakeSegmentsImmune(npc, player.whoAmI);
         }
     }
     

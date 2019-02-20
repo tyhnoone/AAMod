@@ -28,7 +28,7 @@ namespace AAMod.Items.Boss.Socc
             item.noMelee = true;
             item.value = Item.sellPrice(0, 1, 0, 0);
             item.knockBack = 5f;
-            item.rare = 9;
+            item.rare = 8;
             item.summon = true;
             item.mana = 20;
         }

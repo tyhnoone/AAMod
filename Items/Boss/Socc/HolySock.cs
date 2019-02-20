@@ -24,9 +24,9 @@ Grants a speedy dash");
         {
             item.width = 32;
             item.height = 34;
-            item.maxStack = 999;
+            item.maxStack = 1;
             item.value = 10000;
-            item.rare = 1;
+            item.rare = 8;
             item.expert = true;
             item.accessory = true;
         }

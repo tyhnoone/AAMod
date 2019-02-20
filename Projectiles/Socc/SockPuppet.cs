@@ -24,7 +24,7 @@ namespace AAMod.Projectiles.Socc
         public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sock Puppet");
-			Main.projFrames[projectile.type] = 4;
+			Main.projFrames[projectile.type] = 8;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
 		}
@@ -91,9 +91,11 @@ namespace AAMod.Projectiles.Socc
             float targetDist = viewDist;
             bool target = false;
             projectile.tileCollide = true;
+            bool AttackFrame = false;
             if (player.HasMinionAttackTargetNPC)
             {
                 NPC npc = Main.npc[player.MinionAttackTargetNPC];
+                AttackFrame = true;
                 if (Collision.CanHitLine(projectile.position, projectile.width, projectile.height, npc.position, npc.width, npc.height))
                 {
                     targetDist = Vector2.Distance(projectile.Center, targetPos);
@@ -101,11 +103,12 @@ namespace AAMod.Projectiles.Socc
                     target = true;
                 }
             }
-            else for (int k = 0; k < 200; k++)
+                else for (int k = 0; k < 200; k++)
                 {
                     NPC npc = Main.npc[k];
                     if (npc.CanBeChasedBy(this, false))
                     {
+                        AttackFrame = true;
                         float distance = Vector2.Distance(npc.Center, projectile.Center);
                         if ((distance < targetDist || !target) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, npc.position, npc.width, npc.height))
                         {
@@ -249,10 +252,21 @@ namespace AAMod.Projectiles.Socc
 			if (++projectile.frameCounter >= 15)
 			{
 				projectile.frameCounter = 0;
-				if (++projectile.frame >= 3)
-				{
-					projectile.frame = 0;
-				}
+                if (!AttackFrame)
+                {
+                    if (++projectile.frame > 3)
+                    {
+                        projectile.frame = 0;
+                    }
+                }
+                else
+                {
+                    if (++projectile.frame < 3 || projectile.frame > 7)
+                    {
+                        projectile.frame = 3;
+                    }
+                }
+				
 			}
         }
     }

@@ -30,7 +30,7 @@ namespace AAMod.Items.Boss.Socc
 			item.useAnimation = 25;
 			item.hammer = 100;
 			item.value = 100000;
-			item.rare = 9;
+			item.rare = 8;
             item.knockBack = 10;
             item.autoReuse = true;
 			item.UseSound = SoundID.Item1;

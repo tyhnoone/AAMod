@@ -18,7 +18,7 @@ namespace AAMod.Items.Boss.Socc
 			item.consumable = true;
 			item.width = 36;
 			item.height = 32;
-			item.rare = 9;
+			item.rare = 8;
 			item.expert = true;
 			bossBagNPC = mod.NPCType("Sock");
 		}

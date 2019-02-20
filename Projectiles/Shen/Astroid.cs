@@ -11,7 +11,7 @@ namespace AAMod.Projectiles.Shen
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Daycrusher");
+            DisplayName.SetDefault("Asteroid");
         }
         public override void SetDefaults()
         {
@@ -75,7 +75,7 @@ namespace AAMod.Projectiles.Shen
                 {
                     projectile.ai[0] = 1f;
                 }
-                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 0.785f;
+                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
                 projectile.ai[1] += 1f;
                 if (projectile.ai[1] > 5f)
                 {
@@ -102,7 +102,7 @@ namespace AAMod.Projectiles.Shen
             else if (projectile.ai[0] == 1f)
             {
                 projectile.tileCollide = false;
-                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) - 0.785f;
+                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) - 1.57f;
                 float num169 = 30f;
 
                 if (num168 < 50f)
