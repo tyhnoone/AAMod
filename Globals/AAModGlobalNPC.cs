@@ -797,7 +797,7 @@ namespace AAMod
                 shop.item[nextSlot].SetDefaults(mod.ItemType("M79Round"));
                 nextSlot++;
             }
-            if (type == NPCID.Clothier)
+            if (type == NPCID.Clothier & Main.hardMode)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("BlessedSock"));
                 nextSlot++;
