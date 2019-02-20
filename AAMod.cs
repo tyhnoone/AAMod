@@ -890,13 +890,6 @@ namespace AAMod
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingGiant");
                 return;
             }
-            if (Slayer == true)
-            {
-                music = GetSoundSlot(SoundType.Music, "Sounds/Music/ZeroDeath");
-
-                priority = MusicPriority.BossHigh;
-                return;
-            }
             if (Ancients.ZoneVoid)
             {
                 priority = MusicPriority.Event;

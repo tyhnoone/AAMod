@@ -59,7 +59,8 @@ namespace AAMod.NPCs.Bosses.Akuma
             npc.noTileCollide = true;
             npc.behindTiles = true;
             music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Akuma");
-            npc.DeathSound = new LegacySoundStyle(2, 124, Terraria.Audio.SoundType.Sound);
+            npc.HitSound = SoundID.NPCHit1;
+            npc.DeathSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.NPCKilled, "Sounds/Sounds/AkumaRoar");
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
                 npc.buffImmune[k] = true;
@@ -158,7 +159,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 else
                 {
                     AAAI.BreatheFire(npc, true, mod.ProjectileType<AkumaBreath>(), 2, 2);
-                    Main.PlaySound(4, (int)npc.Center.X, (int)npc.Center.Y, 60);
                 }
                 if (attackTimer >= 80)
                 {

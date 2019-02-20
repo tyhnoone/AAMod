@@ -54,7 +54,8 @@ namespace AAMod.NPCs.Bosses.Akuma
             npc.noGravity = true;
             npc.noTileCollide = true;
             npc.behindTiles = true;
-            npc.DeathSound = new LegacySoundStyle(2, 88, Terraria.Audio.SoundType.Sound);
+            npc.HitSound = SoundID.NPCHit1;
+            npc.DeathSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.NPCKilled, "Sounds/Sounds/AkumaRoar");
             music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Akuma2");
             musicPriority = MusicPriority.BossHigh;
             bossBag = mod.ItemType("AkumaBag");
@@ -500,19 +501,8 @@ namespace AAMod.NPCs.Bosses.Akuma
 
             Texture2D myGlowTex = (npc.type == mod.NPCType<AkumaA>() ? glowTex : npc.type == mod.NPCType<AkumaAArms>() ? glowTex2 : npc.type == mod.NPCType<AkumaABody>() ? glowTex3 : npc.type == mod.NPCType<AkumaABody1>() ? glowTex4 : glowTex5);
 
-            BaseDrawing.DrawTexture(spriteBatch, 
-                texture, 
-                0, 
-                npc.position, 
-                npc.width, 
-                npc.height, 
-                npc.scale, 
-                npc.rotation, 
-                npc.spriteDirection, 
-                npc.type == mod.NPCType<AkumaA>() ? 3 : 1, 
-                new Rectangle(0, 0, texture.Width, texture.Height), 
-                new Color(drawColor.R, drawColor.G, drawColor.B, npc.alpha), 
-                true);
+            
+			BaseDrawing.DrawTexture(spriteBatch, texture, 0, npc, new Color(drawColor.R, drawColor.G, drawColor.B, npc.alpha), true);
 
             BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc, Color.White, true);
             return false;
