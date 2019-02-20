@@ -20,7 +20,7 @@ namespace AAMod.Items.Boss.Socc
 			item.useAnimation = 10;
 			item.useTime = 10;
             item.shoot = mod.ProjectileType("SockRocket");
-            item.useAmmo = 771;
+            item.useAmmo = AmmoID.Rocket;
             item.width = 50;
 			item.height = 20;
 			item.UseSound = SoundID.Item11;
@@ -32,9 +32,15 @@ namespace AAMod.Items.Boss.Socc
 			item.rare = 8;
 			item.ranged = true;
 		}
+		
+		public override Vector2? HoldoutOffset()
+		{
+			return new Vector2(-4, 0);
+		}
+		
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("Nuke"), damage, knockBack, player.whoAmI, 0.0f, 0.0f);
+            Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("SockRocket"), damage, knockBack, player.whoAmI, 0.0f, 0.0f);
             return false;
         }
     }
