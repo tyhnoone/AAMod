@@ -50,6 +50,9 @@ namespace AAMod.NPCs.Bosses.Sock
         bool Despawn = false;
         bool HasDespawned = false;
 
+        public float _normalSpeed = 15f; //base for normal movement
+        public float _chargeSpeed = 40f; //base for charge movement
+
         public override void FindFrame(int frameHeight)
         {
             npc.frameCounter++;
@@ -75,13 +78,14 @@ namespace AAMod.NPCs.Bosses.Sock
                 }
                 if (npc.frame.Y < 150 * 5)
                 {
-                    npc.frame.Y = 150 * 6;
+                    npc.frame.Y = 0;
                 }
             }
         }
 
         public override void AI()
         {
+            Player player = Main.player[npc.target];
             if (!HasSpawned)
             {
                 DespawnAlpha -= 25.5f;
@@ -92,17 +96,6 @@ namespace AAMod.NPCs.Bosses.Sock
                 }
                 return;
             }
-            float maxDistanceAmt = 4f;
-            float maxDistance = 350f;
-            float increment = 0.011f;
-            float closeIncrement = 0.019f;
-            float distanceAmt = 1f;
-            npc.TargetClosest(true);
-            float distX = Main.player[npc.target].Center.X - npc.Center.X;
-            float distY = Main.player[npc.target].Center.Y - npc.Center.Y;
-            float dist = (float)Math.Sqrt((double)(distX * distX + distY * distY));
-            Player player = Main.player[npc.target];
-            npc.rotation = npc.velocity.X / 15f;
             if (player.Center.X > npc.Center.X)
             {
                 npc.spriteDirection = -1;
@@ -193,14 +186,24 @@ namespace AAMod.NPCs.Bosses.Sock
             }
             else
             {
+                float distanceAmt = 1f;
+                npc.TargetClosest(true);
+                float distX = Main.player[npc.target].Center.X - npc.Center.X;
+                float distY = Main.player[npc.target].Center.Y - npc.Center.Y;
+                float dist = (float)Math.Sqrt((double)(distX * distX + distY * distY));
+                float maxDistanceAmt = 4f;
+                float maxDistance = 150f;
+                float increment = 0.040f;
+                float closeIncrement = 0.030f;
                 npc.ai[1] += 1f;
-                if (npc.ai[1] > 299f)
+                if (npc.ai[1] > 280f)
                 {
-                    increment *= 14f;
-                    distanceAmt = 6f;
-                    if (npc.ai[1] > 650f) { npc.ai[1] = 0f; }
+                    increment *= 14;
+                    distanceAmt = 4f;
+                    if (npc.ai[1] > 330f) { npc.ai[1] = 0f; }
                 }
-                else if (dist < 250f)
+                else
+                if (dist < 250f)
                 {
                     npc.ai[0] += 0.9f;
                     if (npc.ai[0] > 0f) { npc.velocity.Y = npc.velocity.Y + closeIncrement; } else { npc.velocity.Y = npc.velocity.Y - closeIncrement; }
@@ -212,12 +215,14 @@ namespace AAMod.NPCs.Bosses.Sock
                     distanceAmt = maxDistanceAmt + (maxDistanceAmt / 4f);
                     increment = 0.3f;
                 }
-                else if (dist > maxDistance - (maxDistance / 7f))
+                else
+                if (dist > maxDistance - (maxDistance / 7f))
                 {
                     distanceAmt = maxDistanceAmt - (maxDistanceAmt / 4f);
                     increment = 0.2f;
                 }
-                else if (dist > maxDistance - (2 * (maxDistance / 7f)))
+                else
+                if (dist > maxDistance - (2 * (maxDistance / 7f)))
                 {
                     distanceAmt = (maxDistanceAmt / 2.66f);
                     increment = 0.1f;
@@ -229,22 +234,12 @@ namespace AAMod.NPCs.Bosses.Sock
                     distX = (float)npc.direction * distanceAmt / 2f;
                     distY = -distanceAmt / 2f;
                 }
-                if (npc.velocity.X < distX)
-                {
-                    npc.velocity.X = npc.velocity.X + increment;
-                }
-                else if (npc.velocity.X > distX)
-                {
-                    npc.velocity.X = npc.velocity.X - increment;
-                }
-                if (npc.velocity.Y < distY)
-                {
-                    npc.velocity.Y = npc.velocity.Y + increment;
-                }
-                else if (npc.velocity.Y > distY)
-                {
-                    npc.velocity.Y = npc.velocity.Y - increment;
-                }
+                if (npc.velocity.X < distX) { npc.velocity.X = npc.velocity.X + increment; }
+                else
+                if (npc.velocity.X > distX) { npc.velocity.X = npc.velocity.X - increment; }
+                if (npc.velocity.Y < distY) { npc.velocity.Y = npc.velocity.Y + increment; }
+                else
+                if (npc.velocity.Y > distY) { npc.velocity.Y = npc.velocity.Y - increment; }
             }
         }
         
@@ -288,7 +283,7 @@ namespace AAMod.NPCs.Bosses.Sock
             Texture2D glowTex = mod.GetTexture("Glowmasks/Sock_Glow");
             Texture2D Despawntex = mod.GetTexture("NPCs/Bosses/Sock/SoccDespawn");
 
-            if (npc.ai[1] > 299f)
+            if (npc.ai[1] > 280f)
             {
                 BaseDrawing.DrawAfterimage(spritebatch, Main.npcTexture[npc.type], 0, npc, 1.5f, 1f, 3, false, 0f, 0f, new Color(dColor.R, dColor.G, dColor.B, 150));
             }
