@@ -44,8 +44,30 @@ namespace AAMod.NPCs.Bosses.Sock
             npc.alpha = 255;
         }
 
-        public float _normalSpeed = 15f; //base for normal movement
-        public float _chargeSpeed = 40f; //base for charge movement
+        public float[] customAI = new float[4];
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            if ((Main.netMode == 2 || Main.dedServ))
+            {
+                writer.Write((short)customAI[0]);
+                writer.Write((short)customAI[1]);
+                writer.Write((short)customAI[2]);
+                writer.Write((short)customAI[3]);
+            }
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            if (Main.netMode == 1)
+            {
+                customAI[0] = reader.ReadFloat();
+                customAI[1] = reader.ReadFloat();
+                customAI[2] = reader.ReadFloat();
+                customAI[3] = reader.ReadFloat();
+            }
+        }
 
         public override void FindFrame(int frameHeight)
         {
@@ -70,68 +92,40 @@ namespace AAMod.NPCs.Bosses.Sock
                     npc.frameCounter = 0;
                     npc.frameCounter += 150;
                 }
-                if (npc.frame.Y < 150 * 5)
+                if (npc.frame.Y > 150 * 5)
                 {
                     npc.frame.Y = 0;
                 }
             }
         }
 
-
-        bool Spawn = false;
-        bool HasSpawned = false;
-        float DespawnScale = 0;
-        float DespawnAlpha = 255;
+        int despawnTimer = 0;
         bool Despawn = false;
-        bool HasDespawned = false;
 
         public override void AI()
         {
             Player player = Main.player[npc.target];
-            if (!HasSpawned)
-            {
-                DespawnAlpha -= 25.5f;
-                DespawnScale += 0.1f;
-                if (DespawnScale >= 1f)
-                {
-                    HasSpawned = true;
-                }
-                return;
-            }
+            
             if (player.Center.X > npc.Center.X)
-            {
-                npc.spriteDirection = -1;
-            }
-            else
             {
                 npc.spriteDirection = 1;
             }
-            npc.ai[2]++;
-            if (npc.ai[2] > 900)
+            else
             {
-                if (npc.ai[2] == 900)
+                npc.spriteDirection = -1;
+            }
+            npc.ai[2]++;
+            if (npc.ai[2] > 600)
+            {
+                if (npc.ai[2] == 600)
                 {
                     npc.ai[3] += 1;
                 }
-                if (npc.ai[2] >= 900 && (npc.ai[3] == 8 || npc.ai[3] == 10 || npc.ai[3] == 13 || npc.ai[3] == 19 || npc.ai[3] == 23))
-                {
-                    if (npc.ai[2] == 915 || npc.ai[2] == 930 || npc.ai[2] == 945 || npc.ai[2] == 960 || npc.ai[2] == 975 || npc.ai[2] == 990)
-                    {
-                        FireMagic(npc, npc.velocity);
-                    }
-                }
-                else if (npc.ai[2] >= 900 && (npc.ai[3] == 1 || npc.ai[3] == 4 || npc.ai[3] == 6 || npc.ai[3] == 15 || npc.ai[3] == 20))
-                {
-                    if (npc.ai[2] == 925 || npc.ai[2] == 950 || npc.ai[2] == 975 || npc.ai[2] == 999)
-                    {
-                        FireMagic(npc, npc.velocity);
-                    }
-                }
-                else if (npc.ai[2] >= 950 && !(npc.ai[3] == 8 || npc.ai[3] == 10 || npc.ai[3] == 13 || npc.ai[3] == 19 || npc.ai[3] == 23 || npc.ai[3] == 1 || npc.ai[3] == 4 || npc.ai[3] == 6 || npc.ai[3] == 15 || npc.ai[3] == 20))
+                if (npc.ai[2] < 700)
                 {
                     FireMagic(npc, npc.velocity);
                 }
-                if (npc.ai[2] > 1000)
+                else
                 {
                     npc.ai[2] = 0;
                 }
@@ -144,13 +138,13 @@ namespace AAMod.NPCs.Bosses.Sock
                 float distY = Main.player[npc.target].Center.Y - npc.Center.Y;
                 float dist = (float)Math.Sqrt((double)(distX * distX + distY * distY));
                 float maxDistanceAmt = 4f;
-                float maxDistance = 150f;
+                float maxDistance = 250f;
                 float increment = 0.040f;
                 float closeIncrement = 0.030f;
                 npc.ai[1] += 1f;
                 if (npc.ai[1] > 280f)
                 {
-                    increment *= 14;
+                    increment *= 40;
                     distanceAmt = 4f;
                     if (npc.ai[1] > 330f) { npc.ai[1] = 0f; }
                 }
@@ -194,11 +188,9 @@ namespace AAMod.NPCs.Bosses.Sock
                 if (npc.velocity.Y > distY) { npc.velocity.Y = npc.velocity.Y - increment; }
             }
 
-
-            if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f || Main.player[npc.target].dead || !Main.dayTime)
+            if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f || Main.player[npc.target].dead)
             {
                 npc.velocity *= .8f;
-                npc.ai[2] = 0;
                 if (npc.velocity.X < .5f || npc.velocity.X > -.5f)
                 {
                     npc.velocity.X = 0;
@@ -208,45 +200,23 @@ namespace AAMod.NPCs.Bosses.Sock
                     npc.velocity.Y = 0;
                 }
 
-                if (npc.velocity == new Vector2(0, 0) && !HasDespawned)
+                if (npc.velocity.Y == 0 && npc.velocity.X == 0)
                 {
-                    DespawnAlpha -= 25.5f;
-                    DespawnScale += 0.1f;
-                    Despawn = true;
-                }
-                if (DespawnScale >= 1f)
-                {
-                    HasDespawned = true;
-                }
-                if (HasDespawned)
-                {
-                    npc.alpha -= 20;
-                    DespawnAlpha += 17;
-                    if (DespawnAlpha >= 255)
+                    Vector2 spawnAt = npc.Center + new Vector2(0f, npc.height / 2f);
+                    npc.alpha -= 15;
+                    if (!Despawn)
+                    {
+                        Despawn = true;
+                        NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("SoccDespawn"));
+                    }
+                    if (npc.alpha >= 255)
                     {
                         npc.active = false;
                     }
                 }
-
-                return;
-            }
-            else
-            {
-                npc.alpha = 0;
-                DespawnAlpha += 17;
-                DespawnScale -= 0.1f;
-                if (DespawnScale < .1f)
-                {
-                    DespawnScale = .1f;
-                }
-                if (DespawnAlpha >= 255 && !Spawn)
-                {
-                    DespawnAlpha = 255;
-                    Spawn = true;
-                }
             }
         }
-        
+
         public override void NPCLoot()
         {
             for (int Dust1 = 0; Dust1 < 5; Dust1++)
@@ -285,7 +255,6 @@ namespace AAMod.NPCs.Bosses.Sock
         {
 
             Texture2D glowTex = mod.GetTexture("Glowmasks/Sock_Glow");
-            Texture2D Despawntex = mod.GetTexture("NPCs/Bosses/Sock/SoccDespawn");
 
             if (npc.ai[1] > 280f)
             {
@@ -294,21 +263,17 @@ namespace AAMod.NPCs.Bosses.Sock
 
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, new Color(dColor.R, dColor.G, dColor.B, npc.alpha));
 
-            if (Despawn || Spawn)
-            {
-                BaseDrawing.DrawTexture(spritebatch, Despawntex, 0, npc.Center, npc.width, npc.height, DespawnScale, 0, 0, 1, new Rectangle(0, 0, Despawntex.Width, Despawntex.Height), new Color(255, 255, 255, DespawnAlpha), true);
-            }
-
-            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, Color.White);
+            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, Color.White, true);
             return false;
         }
 
-        int ShootThis;
-        int Loop;
-        int ProjID;
 
         public void FireMagic(NPC npc, Vector2 velocity)
         {
+
+            int ShootThis = -1;
+            int Loop;
+
             Player player = Main.player[npc.target];
             int num429 = 1;
             if (npc.position.X + (npc.width / 2) < Main.player[npc.target].position.X + Main.player[npc.target].width)
@@ -341,36 +306,53 @@ namespace AAMod.NPCs.Bosses.Sock
             {
                 Loop = 3;
             }
+            if (npc.ai[0] > 25)
+            {
+                npc.ai[0] = 0;
+            }
             if (npc.ai[3] == 1 || npc.ai[3] == 4 || npc.ai[3] == 6 || npc.ai[3] == 15 || npc.ai[3] == 20)
             {
-                ShootThis = mod.ProjectileType<SockBlast>();
+                if (npc.ai[2] == 625 || npc.ai[2] == 650 || npc.ai[2] == 675 || npc.ai[2] == 699)
+                {
+                    ShootThis = mod.ProjectileType<SockBlast>();
+                }
             }
             if ((npc.ai[3] == 2 || npc.ai[3] == 3 || npc.ai[3] == 9 || npc.ai[3] == 17 || npc.ai[3] == 22))
             {
-                for (int Minions = 0; Minions < Loop; Minions++)
+                if (npc.ai[2] == 950)
                 {
-                    NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("SockMinion"), 0, -npc.velocity.X * 1.2f, -npc.velocity.Y * 1.2f);
+                    for (int Minions = 0; Minions < Loop; Minions++)
+                    {
+                        NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType("SockMinion"), 0, -npc.velocity.X * 1.2f, -npc.velocity.Y * 1.2f);
+                    }
                 }
                 return;
             }
             if (npc.ai[3] == 5 || npc.ai[3] == 12 || npc.ai[3] == 16 || npc.ai[3] == 21 || npc.ai[3] == 25)
             {
-                ShootThis = mod.ProjectileType<SockonianSun>();
+                if (npc.ai[2] == 950)
+                {
+
+                }
+                    ShootThis = mod.ProjectileType<SockonianSun>();
             }
             if (npc.ai[3] == 7 || npc.ai[3] == 11 || npc.ai[3] == 14 || npc.ai[3] == 18 || npc.ai[3] == 24)
             {
-                ShootThis = mod.ProjectileType<SockShot>();
-                Loop = 5;
+                if (npc.ai[2] == 950)
+                {
+                    ShootThis = mod.ProjectileType<SockShot>();
+                }
             }
             if (npc.ai[3] == 8 || npc.ai[3] == 10 || npc.ai[3] == 13 || npc.ai[3] == 19 || npc.ai[3] == 23)
             {
-                ShootThis = mod.ProjectileType<SockLaser>();
-                Loop = 9;
+                if (npc.ai[2] == 615 || npc.ai[2] == 630 || npc.ai[2] == 645 || npc.ai[2] == 660 || npc.ai[2] == 675 || npc.ai[2] == 690)
+                {
+                    ShootThis = mod.ProjectileType<SockLaser>();
+                }
             }
-            Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX * 2, PlayerPosY * 2, ShootThis, (int)(npc.damage * .8f), 0f, Main.myPlayer);
-            if (npc.ai[0] > 25)
+            if (ShootThis != -1)
             {
-                npc.ai[0] = 0;
+                Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX * 2, PlayerPosY * 2, ShootThis, (int)(npc.damage * .8f), 0f, Main.myPlayer);
             }
         }
     }

@@ -170,7 +170,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
             AAAI.DustOnNPCSpawn(npc, mod.DustType("AkumaDust"), 2, 12);
 
-            npc.spriteDirection = npc.velocity.X > 0 ? 1 : -1;
+            npc.spriteDirection = npc.velocity.X > 0 ? -1 : 1;
             npc.ai[1]++;
             if (npc.ai[1] >= 1200)
                 npc.ai[1] = 0;

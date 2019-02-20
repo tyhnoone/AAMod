@@ -49,7 +49,7 @@ only usable during the day");
 
         public override bool UseItem(Player player)
         {
-            SpawnBoss(player, "Sock", "Sock");
+            SpawnBoss(player, "SoccSpawn", "Sock");
             if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The light of the holy sun shines, bringing SOCC into this world", Color.Orange, false);
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;

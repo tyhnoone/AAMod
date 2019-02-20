@@ -1197,7 +1197,7 @@ namespace AAMod.NPCs.Bosses.EmperorFishron
             else if (npc.ai[0] == 4f && npc.ai[2] > (float)num157)
             {
                 float num159 = npc.ai[2] - (float)num157;
-                num159 /= (float)num158;
+                num159 /= num158;
                 color9 = buffColor(color9, 1f - 0.5f * num159, 1f - 0.3f * num159, 1f - 0.5f * num159, 1f);
             }
             int num160 = 10;

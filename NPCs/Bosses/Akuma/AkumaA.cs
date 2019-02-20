@@ -177,7 +177,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
             AAAI.DustOnNPCSpawn(npc, mod.DustType("AkumaADust"), 2, 12);
 
-            npc.spriteDirection = npc.velocity.X > 0 ? 1 : -1;
+            npc.spriteDirection = npc.velocity.X > 0 ? -1 : 1;
             npc.ai[1]++;
             if (npc.ai[1] >= 1200)
                 npc.ai[1] = 0;
@@ -214,28 +214,44 @@ namespace AAMod.NPCs.Bosses.Akuma
                     for (int i = 0; i < 3; ++i)
                     {
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaABody"), npc.whoAmI, 0, latestNPC);
-                        Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                        Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                        Main.npc[latestNPC].realLife = npc.whoAmI;
+                        Main.npc[latestNPC].ai[3] = npc.whoAmI;
 
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaAArms"), npc.whoAmI, 0, latestNPC);
-                        Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                        Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                        Main.npc[latestNPC].realLife = npc.whoAmI;
+                        Main.npc[latestNPC].ai[3] = npc.whoAmI;
                     }
+
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaABody"), npc.whoAmI, 0, latestNPC);
-                    Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                    Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
-                    
+                    Main.npc[latestNPC].realLife = npc.whoAmI;
+                    Main.npc[latestNPC].ai[3] = npc.whoAmI;
+
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaABody1"), npc.whoAmI, 0, latestNPC);
                     Main.npc[latestNPC].realLife = npc.whoAmI;
                     Main.npc[latestNPC].ai[3] = npc.whoAmI;
 
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaATail"), npc.whoAmI, 0, latestNPC);
-                    Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                    Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                    Main.npc[latestNPC].realLife = npc.whoAmI;
+                    Main.npc[latestNPC].ai[3] = npc.whoAmI;
 
                     npc.ai[0] = 1;
                     npc.netUpdate = true;
                 }
+            }
+
+            if (npc.life <= npc.lifeMax / 3)
+            {
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
+            }
+
+            if (npc.life > npc.lifeMax / 3)
+            {
+                Panic = false;
+            }
+            if (npc.life <= npc.lifeMax / 3 && Panic == false && npc.type == mod.NPCType<AkumaA>())
+            {
+                Panic = true;
+                Main.NewText(AAWorld.downedAkuma ? "Still got it, do you? Ya got fire in your spirit! I like that about you, kid!" : "What?! How have you lasted this long?! Why you little... I refuse to be bested by a terrarian again! Have at it!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
             }
 
             int minTilePosX = (int)(npc.position.X / 16.0) - 1;
@@ -382,26 +398,6 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
             if ((npc.velocity.X > 0.0 && npc.oldVelocity.X < 0.0 || npc.velocity.X < 0.0 && npc.oldVelocity.X > 0.0 || (npc.velocity.Y > 0.0 && npc.oldVelocity.Y < 0.0 || npc.velocity.Y < 0.0 && npc.oldVelocity.Y > 0.0)) && !npc.justHit)
                 npc.netUpdate = true;
-            
-            if (npc.life <= npc.lifeMax / 3)
-            {
-                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
-            }
-            
-            if (npc.life > npc.lifeMax / 3)
-            {
-                Panic = false;
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && !AAWorld.downedAkuma && npc.type == mod.NPCType<AkumaA>())
-            {
-                Panic = true;
-                Main.NewText("What?! How have you lasted this long?! Why you little... I refuse to be bested by a terrarian again! Have at it!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && AAWorld.downedAkuma && npc.type == mod.NPCType<AkumaA>())
-            {
-                Panic = true;
-                Main.NewText("Still got it, do you? Ya got fire in your spirit! I like that about you, kid!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
-            }
 
             return false;
         }
@@ -503,7 +499,21 @@ namespace AAMod.NPCs.Bosses.Akuma
             Color lightColor = npc.GetAlpha(BaseDrawing.GetLightColor(Center));
 
             Texture2D myGlowTex = (npc.type == mod.NPCType<AkumaA>() ? glowTex : npc.type == mod.NPCType<AkumaAArms>() ? glowTex2 : npc.type == mod.NPCType<AkumaABody>() ? glowTex3 : npc.type == mod.NPCType<AkumaABody1>() ? glowTex4 : glowTex5);
-            spriteBatch.Draw(texture, npc.Center - Main.screenPosition, npc.frame, drawColor, npc.rotation, npc.frame.Size() / 2, npc.scale, npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
+
+            BaseDrawing.DrawTexture(spriteBatch, 
+                texture, 
+                0, 
+                npc.position, 
+                npc.width, 
+                npc.height, 
+                npc.scale, 
+                npc.rotation, 
+                npc.spriteDirection, 
+                npc.type == mod.NPCType<AkumaA>() ? 3 : 1, 
+                new Rectangle(0, 0, texture.Width, texture.Height), 
+                new Color(drawColor.R, drawColor.G, drawColor.B, npc.alpha), 
+                true);
+
             BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc, Color.White, true);
             return false;
         }
