@@ -563,6 +563,7 @@ namespace AAMod
                 Filters.Scene["AAMod:MireSky"] = new Filter(new MireSkyData("FilterMiniTower").UseColor(0f, 0.20f, 1f).UseOpacity(0.3f), EffectPriority.High);
                 SkyManager.Instance["AAMod:MireSky"] = new MireSky();
                 MireSky.PlanetTexture = GetTexture("Backgrounds/MireMoon");
+                MireSky.SkyTexture = GetTexture("Backgrounds/MireSky");
 
                 //Filters.Scene["AAMod:CthulhuSky"] = new Filter(new MireSkyData("FilterMiniTower").UseColor(0f, 0.20f, 1f).UseOpacity(0.3f), EffectPriority.High);
                 //SkyManager.Instance["AAMod:CthulhuSky"] = new CthulhuSky();
@@ -594,23 +595,28 @@ namespace AAMod
                 Filters.Scene["AAMod:InfernoSky"] = new Filter(new InfernoSkyData("FilterMiniTower").UseColor(1f, 0.20f, 0f).UseOpacity(0.3f), EffectPriority.High);
                 SkyManager.Instance["AAMod:InfernoSky"] = new InfernoSky();
                 InfernoSky.PlanetTexture = GetTexture("Backgrounds/InfernoSun");
+                InfernoSky.SkyTex = GetTexture("Backgrounds/InfernoSky");
 
                 Filters.Scene["AAMod:AkumaSky"] = new Filter(new AkumaSkyData("FilterMiniTower").UseColor(0f, 0.3f, 0.4f).UseOpacity(0.5f), EffectPriority.VeryHigh);
                 SkyManager.Instance["AAMod:AkumaSky"] = new AkumaSky();
                 AkumaSky.PlanetTexture = GetTexture("Backgrounds/AkumaSun");
+                AkumaSky.SkyTex = GetTexture("Backgrounds/AkumaASky");
 
                 Filters.Scene["AAMod:YamataSky"] = new Filter(new YamataSkyData("FilterMiniTower").UseColor(.7f, 0f, 0f).UseOpacity(0.5f), EffectPriority.VeryHigh);
                 SkyManager.Instance["AAMod:YamataSky"] = new YamataSky();
                 YamataSky.PlanetTexture = GetTexture("Backgrounds/YamataMoon");
+                YamataSky.SkyTex = GetTexture("Backgrounds/YamataSky");
 
                 Filters.Scene["AAMod:ShenSky"] = new Filter(new ShenSkyData("FilterMiniTower").UseColor(.5f, 0f, .5f).UseOpacity(0.2f), EffectPriority.VeryHigh);
                 SkyManager.Instance["AAMod:ShenSky"] = new ShenSky();
                 ShenSky.Sun = GetTexture("Backgrounds/InfernoSun");
                 ShenSky.Moon = GetTexture("Backgrounds/MireMoon");
+                ShenSky.SkyTex = GetTexture("Backgrounds/ShenSky");
 
                 Filters.Scene["AAMod:ShenASky"] = new Filter(new ShenASkyData("FilterMiniTower").UseColor(.7f, 0f, .7f).UseOpacity(0.2f), EffectPriority.VeryHigh);
                 SkyManager.Instance["AAMod:ShenASky"] = new ShenASky();
                 ShenASky.PlanetTexture = GetTexture("Backgrounds/ShenEclipse");
+                ShenASky.SkyTex = GetTexture("Backgrounds/ShenASky");
 
                 UserInterface = new UserInterface();
                 Main.itemTexture[1291] = GetTexture("Resprites/LifeFruit");
@@ -650,10 +656,12 @@ namespace AAMod
                 NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex5 = null;
                 AkumaSky.PlanetTexture = null;
                 AkumaSky.BGTexture = null;
+                AkumaSky.SkyTex = null;
                 //CthulhuStars.boltTexture = null;
                 //CthulhuStars.flashTexture = null;
                 InfernoSky.PlanetTexture = null;
                 InfernoSky.BGTexture = null;
+                InfernoSky.SkyTex = null;
                 //IZSky.boltTexture = null;
                 //IZSky.flashTexture = null;
                 MireSky.PlanetTexture = null;
@@ -661,9 +669,11 @@ namespace AAMod
                 MireSky.BGTexture = null;
                 ShenSky.Sun = null;
                 ShenSky.Moon = null;
+                ShenSky.SkyTex = null;
                 ShenSky.BGTexture = null;
                 ShenASky.PlanetTexture = null;
                 ShenASky.BGTexture = null;
+                ShenASky.SkyTex = null;
                 //StormSky.boltTexture = null;
                 //StormSky.flashTexture = null;
                 VoidSky.PlanetTexture = null;
@@ -677,6 +687,7 @@ namespace AAMod
                 VoidSky.flashTexture = null;
                 YamataSky.PlanetTexture = null;
                 YamataSky.BGTexture = null;
+                YamataSky.SkyTex = null;
                 Items.Accessories.SoulStone._glow = null;
                 Items.Pets.Mudkip.glowTex = null;
                 Items.Pets.MudkipS.glowTex = null;

@@ -30,7 +30,7 @@ namespace AAMod.Backgrounds
         }
         private Meteor[] Meteors;
         private Texture2D MeteorTexture;
-        public Texture2D SkyTex;
+        public static Texture2D SkyTex;
         private UnifiedRandom _random = new UnifiedRandom();
 
         public override void OnLoad()

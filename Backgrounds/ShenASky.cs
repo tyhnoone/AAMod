@@ -12,10 +12,10 @@ namespace AAMod.Backgrounds
         
         public static Texture2D PlanetTexture;
         public static Texture2D BGTexture;
+        public static Texture2D SkyTex;
         public bool Active;
         public float Intensity;
 
-        public Texture2D SkyTex;
         public override void OnLoad()
         {
             SkyTex = TextureManager.Load("Backgrounds/ShenASky");
