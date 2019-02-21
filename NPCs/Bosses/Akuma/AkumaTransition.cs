@@ -104,7 +104,7 @@ namespace AAMod.NPCs.Bosses.Akuma
 
             AAMod.AkumaMusic = false;
 
-            NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, mod.NPCType<AkumaA>());
+            NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, mod.NPCType("AkumaA"));
         }
         
     }

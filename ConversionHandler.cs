@@ -16,18 +16,14 @@ namespace AAMod.Worldgen
 		public static int startY = -1;
 		public static int genWidth = -1;
 		public static int conversionType = 1;
-		
-		public static bool FULLBRIGHT_MAP = true; //causes the gen to be fullbright on the map for easy viewing
 
-		//CALL THIS TO START CONVERTING
-		//example use: ConversionHandler.ConvertDown(x, y, 10, ConversionHandler.CONVERTID_MIRE);
 		public static void ConvertDown(int centerX, int y, int width, int convertType)
 		{
 			startX = centerX;
 			startY = y;
 			genWidth = width;
 			conversionType = convertType;
-			ThreadPool.QueueUserWorkItem(new WaitCallback(ConversionHandler.ConvertDownCallback), null);
+			ThreadPool.QueueUserWorkItem(new WaitCallback(ConvertDownCallback), null);
 		}
 
 	#region thread callback stuff
@@ -189,21 +185,8 @@ namespace AAMod.Worldgen
 							//WorldGen.SquareTileFrame(k, l, true);
 							NetMessage.SendTileSquare(-1, k, l, 1, TileChangeType.None);
 						}
-						if(FULLBRIGHT_MAP && tileChanged)
-						{
-							Main.Map.UpdateLighting(k, l, (byte)255);						
-						}
 					}
 				}
-			}
-			if(FULLBRIGHT_MAP)
-			{
-				//Main.mapMinX = i - size; Main.mapMinY = i + size;
-				//Main.mapMaxX = j - size; Main.mapMaxY = j + size;
-				Main.mapMinX = 10; Main.mapMinY = 10;
-				Main.mapMaxX = Main.maxTilesX - 10; Main.mapMaxY = Main.maxTilesY - 10;				
-				Main.refreshMap = true;
-				//Main.instance.DrawToMap();	
 			}
 		}
 	}

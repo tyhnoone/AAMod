@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace AAMod.NPCs.Bosses.Akuma
+namespace AAMod.NPCs.Bosses.Akuma.Awakened
 {
     public class AkumaABoom : ModProjectile
     {

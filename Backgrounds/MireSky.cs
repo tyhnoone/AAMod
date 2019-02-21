@@ -49,7 +49,7 @@ namespace AAMod.Backgrounds
                     Vector2 SkyPos = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
                     var planetPos = new Vector2((Main.screenWidth / 4) * 3, Main.screenHeight / 4);
                     spriteBatch.Draw(SkyTexture, SkyPos, null, Color.White, 0f, new Vector2(SkyTexture.Width >> 1, SkyTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
-                    spriteBatch.Draw(PlanetTexture, planetPos, null, Color.White * 0.9f * this.Intensity, 0f, new Vector2(PlanetTexture.Width >> 1, PlanetTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    spriteBatch.Draw(PlanetTexture, SkyPos, null, Color.White * 0.9f * this.Intensity, 0f, new Vector2(PlanetTexture.Width >> 1, PlanetTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
                 }
             }
         }

@@ -216,7 +216,7 @@ namespace AAMod.NPCs.Bosses.Equinox
 			}
 			if (foundPlayer != -1)
 			{
-				BaseMod.BaseAI.SetTarget(npc, foundPlayer);
+				BaseAI.SetTarget(npc, foundPlayer);
 				return true;
 			}
 			return false;

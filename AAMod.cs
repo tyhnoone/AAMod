@@ -614,7 +614,6 @@ namespace AAMod
 
                 UserInterface = new UserInterface();
                 Main.itemTexture[1291] = GetTexture("Resprites/LifeFruit");
-                Main.itemTexture[1327] = GetTexture("Resprites/DeathSickle");
                 Main.itemTexture[3460] = GetTexture("Resprites/Luminite");
                 Main.itemTexture[512] = GetTexture("Resprites/SoulOfNight");
                 Main.itemTexture[5] = GetTexture("Resprites/Mushroom");
@@ -644,11 +643,11 @@ namespace AAMod
                 NPCs.Bosses.Yamata.Yamata.glowTexBody = null;
                 NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex = null;
                 NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex2 = null;
-                NPCs.Bosses.Akuma.AkumaA.glowTex = null;
-                NPCs.Bosses.Akuma.AkumaA.glowTex2 = null;
-                NPCs.Bosses.Akuma.AkumaA.glowTex3 = null;
-                NPCs.Bosses.Akuma.AkumaA.glowTex4 = null;
-                NPCs.Bosses.Akuma.AkumaA.glowTex5 = null;
+                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex = null;
+                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex2 = null;
+                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex3 = null;
+                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex4 = null;
+                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex5 = null;
                 AkumaSky.PlanetTexture = null;
                 AkumaSky.BGTexture = null;
                 //CthulhuStars.boltTexture = null;

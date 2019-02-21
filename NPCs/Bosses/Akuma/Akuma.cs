@@ -362,6 +362,31 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
             npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
 
+            if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+            {
+                if (loludided == false)
+                {
+                    Main.NewText("I thought you terrarians put up more of a fight. Guess not.", new Color(180, 41, 32));
+                    loludided = true;
+                }
+                npc.velocity.Y = npc.velocity.Y + 1f;
+                if ((double)npc.position.Y > Main.rockLayer * 16.0)
+                {
+                    npc.velocity.Y = npc.velocity.Y + 1f;
+                    speed = 30f;
+                }
+                if ((double)npc.position.Y > Main.rockLayer * 16.0)
+                {
+                    for (int num957 = 0; num957 < 200; num957++)
+                    {
+                        if (Main.npc[num957].aiStyle == npc.aiStyle)
+                        {
+                            Main.npc[num957].active = false;
+                        }
+                    }
+                }
+            }
+
             if (collision)
             {
                 if (npc.localAI[0] != 1)
@@ -383,7 +408,7 @@ namespace AAMod.NPCs.Bosses.Akuma
         public void Attack(NPC npc, Vector2 velocity)
         {
             Player player = Main.player[npc.target];
-            if (npc.ai[0] == 1 || npc.ai[0] == 4 || npc.ai[0] == 6 || npc.ai[0] == 10 || npc.ai[0] == 14)
+            if (internalAI[1] == 1 || internalAI[1] == 4 || internalAI[1] == 6 || internalAI[1] == 10 || internalAI[1] == 14)
             {
                 Roar(roarTimerMax, true);
                 int Fireballs = Main.expertMode ? 7 : 10;
@@ -392,7 +417,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                     AkumaAttacks.Dragonfire(npc, mod, false);
                 }
             }
-            if ((npc.ai[0] == 2 || npc.ai[0] == 7 || npc.ai[0] == 9 || npc.ai[0] == 12 || npc.ai[0] == 15))
+            if ((internalAI[1] == 2 || internalAI[1] == 7 || internalAI[1] == 9 || internalAI[1] == 12 || internalAI[1] == 15))
             {
                 Roar(roarTimerMax, false);
                 int Fireballs = Main.expertMode ? 3 : 5;
@@ -401,7 +426,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                     AAAI.BreatheFire(npc, false, mod.ProjectileType<AkumaBomb>(), 1, 2);
                 }
             }
-            if (npc.ai[0] == 3 || npc.ai[0] == 5 || npc.ai[0] == 8 || npc.ai[0] == 11 || npc.ai[0] == 13)
+            if (internalAI[1] == 3 || internalAI[1] == 5 || internalAI[1] == 8 || internalAI[1] == 11 || internalAI[1] == 13)
             {
                 if (MinionCount < MaxMinons)
                 {
@@ -411,9 +436,9 @@ namespace AAMod.NPCs.Bosses.Akuma
                 }
             }
 
-            if (npc.ai[0] > 25)
+            if (internalAI[1] > 25)
             {
-                npc.ai[0] = 0;
+                internalAI[1] = 0;
             }
         }
 
@@ -511,78 +536,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                 Main.PlaySound(roarSound, (int)npc.Center.X, (int)npc.Center.Y, 92);
             }
         }
-
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        private void ModifyCritArea(NPC npc, ref bool crit)
-        {
-            if (npc.realLife >= 0)
-            {
-                if (npc.whoAmI == npc.realLife)
-                {
-                    crit = true;
-                }
-                if (npc.ai[0] == 0)
-                {
-                    crit = false;
-                }
-            }
-        }
-
-        public override void UpdateLifeRegen(ref int damage)
-        {
-            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
-            {
-                damage = 0;
-                npc.lifeRegen = 0;
-            }
-        }
-
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, projectile.owner);
-        }
-
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, player.whoAmI);
-        }
-
-
-        public void MakeSegmentsImmune(NPC npc, int id)
-        {
-            if (npc.realLife >= 0)
-            {
-                bool last = false;
-                NPC parent = Main.npc[npc.realLife];
-                parent.lifeRegen = npc.lifeRegen;
-                int i = 0;
-                while (parent.ai[0] > 0 || last)
-                {
-                    parent.immune[id] = npc.immune[id];
-                    for (int j = 0; j < npc.buffType.Length; j++)
-                    {
-                        if (npc.buffType[j] > 0 && npc.buffTime[j] > 0)
-                        {
-                            parent.buffType[j] = npc.buffType[j];
-                            parent.buffTime[j] = npc.buffTime[j];
-                        }
-                    }
-                    if (last) { break; }
-                    parent = Main.npc[(int)parent.ai[0]];
-                    if (parent.ai[0] == 0) { last = true; }
-                    if (i++ > 200) { throw new InvalidOperationException("Recursion detected"); } // Just in case
-                }
-            }
-        }
+        
 
         public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
         {
@@ -692,50 +646,6 @@ namespace AAMod.NPCs.Bosses.Akuma
         {
             rotation = npc.rotation;
         }
-
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        private void ModifyCritArea(NPC npc, ref bool crit)
-        {
-            if (npc.realLife >= 0)
-            {
-                if (npc.whoAmI == npc.realLife)
-                {
-                    crit = true;
-                }
-                if (npc.ai[0] == 0)
-                {
-                    crit = false;
-                }
-            }
-        }
-
-        public override void UpdateLifeRegen(ref int damage)
-        {
-            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
-            {
-                damage = 0;
-                npc.lifeRegen = 0;
-            }
-        }
-
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, projectile.owner);
-        }
-
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, player.whoAmI);
-        }
     }
     
     [AutoloadBossHead]
@@ -835,50 +745,6 @@ namespace AAMod.NPCs.Bosses.Akuma
         public override void BossHeadRotation(ref float rotation)
         {
             rotation = npc.rotation;
-        }
-
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        private void ModifyCritArea(NPC npc, ref bool crit)
-        {
-            if (npc.realLife >= 0)
-            {
-                if (npc.whoAmI == npc.realLife)
-                {
-                    crit = true;
-                }
-                if (npc.ai[0] == 0)
-                {
-                    crit = false;
-                }
-            }
-        }
-
-        public override void UpdateLifeRegen(ref int damage)
-        {
-            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
-            {
-                damage = 0;
-                npc.lifeRegen = 0;
-            }
-        }
-
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, projectile.owner);
-        }
-
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, player.whoAmI);
         }
     }
     
@@ -980,50 +846,6 @@ namespace AAMod.NPCs.Bosses.Akuma
         {
             rotation = npc.rotation;
         }
-
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        private void ModifyCritArea(NPC npc, ref bool crit)
-        {
-            if (npc.realLife >= 0)
-            {
-                if (npc.whoAmI == npc.realLife)
-                {
-                    crit = true;
-                }
-                if (npc.ai[0] == 0)
-                {
-                    crit = false;
-                }
-            }
-        }
-
-        public override void UpdateLifeRegen(ref int damage)
-        {
-            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
-            {
-                damage = 0;
-                npc.lifeRegen = 0;
-            }
-        }
-
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, projectile.owner);
-        }
-
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, player.whoAmI);
-        }
     }
 
     [AutoloadBossHead]
@@ -1123,50 +945,6 @@ namespace AAMod.NPCs.Bosses.Akuma
         public override void BossHeadRotation(ref float rotation)
         {
             rotation = npc.rotation;
-        }
-
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        private void ModifyCritArea(NPC npc, ref bool crit)
-        {
-            if (npc.realLife >= 0)
-            {
-                if (npc.whoAmI == npc.realLife)
-                {
-                    crit = true;
-                }
-                if (npc.ai[0] == 0)
-                {
-                    crit = false;
-                }
-            }
-        }
-
-        public override void UpdateLifeRegen(ref int damage)
-        {
-            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
-            {
-                damage = 0;
-                npc.lifeRegen = 0;
-            }
-        }
-
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, projectile.owner);
-        }
-
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, player.whoAmI);
         }
     }
 }

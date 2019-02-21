@@ -4,6 +4,7 @@ using AAMod.Buffs;
 using AAMod.Items.Dev;
 using AAMod.NPCs.Bosses.Zero;
 using AAMod.NPCs.Bosses.Akuma;
+using AAMod.NPCs.Bosses.Akuma.Awakened;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

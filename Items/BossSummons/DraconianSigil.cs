@@ -3,6 +3,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using AAMod.NPCs.Bosses.Akuma;
+using AAMod.NPCs.Bosses.Akuma.Awakened;
 using System.Collections.Generic;
 using BaseMod;
 using Terraria.Localization;

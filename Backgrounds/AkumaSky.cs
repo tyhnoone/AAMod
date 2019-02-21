@@ -27,6 +27,7 @@ namespace AAMod.Backgrounds
         }
         private Meteor[] Meteors;
         private Texture2D MeteorTexture;
+        public Texture2D SkyTex;
         public bool Active;
         public float Intensity;
         private UnifiedRandom _random = new UnifiedRandom();
@@ -35,6 +36,7 @@ namespace AAMod.Backgrounds
         {
             PlanetTexture = TextureManager.Load("Backgrounds/AkumaSun");
             MeteorTexture = TextureManager.Load("Backgrounds/AkumaAMeteor");
+            SkyTex = TextureManager.Load("Backgrounds/AkumaASky");
         }
 
         float num = 1200f;
@@ -79,29 +81,9 @@ namespace AAMod.Backgrounds
             {
                 if (Main.dayTime)
                 {
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 1), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 2), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 3), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 4), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 5), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 6), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 7), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 8), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 9), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 10), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 11), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 12), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 13), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 14), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 15), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 16), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 17), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 18), Color.DeepSkyBlue * 0.05f * Intensity);
-                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, (Main.screenHeight / 20) * 19), Color.DeepSkyBlue * 0.05f * Intensity);
-
-                    var planetPos = new Vector2((Main.screenWidth / 4) * 1, Main.screenHeight / 4);
-                    spriteBatch.Draw(PlanetTexture, planetPos, null, Color.White * 0.9f * Intensity, 0f, new Vector2(PlanetTexture.Width >> 1, PlanetTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    Vector2 SkyPos = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
+                    spriteBatch.Draw(SkyTex, SkyPos, null, Color.White, 0f, new Vector2(SkyTex.Width >> 1, SkyTex.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    spriteBatch.Draw(PlanetTexture, SkyPos, null, Color.White * 0.9f * Intensity, 0f, new Vector2(PlanetTexture.Width >> 1, PlanetTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
                 }
             }
 

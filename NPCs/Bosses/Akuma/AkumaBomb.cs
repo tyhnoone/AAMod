@@ -10,7 +10,8 @@ namespace AAMod.NPCs.Bosses.Akuma
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Abyssal Bomb");
+            DisplayName.SetDefault("FireBomb");
+            Main.projFrames[projectile.type] = 4;
         }
 
         public override void SetDefaults()

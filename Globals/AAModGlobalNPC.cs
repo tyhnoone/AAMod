@@ -11,6 +11,7 @@ using AAMod.NPCs.Bosses.Orthrus;
 using AAMod.NPCs.Bosses.Raider;
 using AAMod.NPCs.Bosses.Retriever;
 using AAMod.NPCs.Bosses.Akuma;
+using AAMod.NPCs.Bosses.Akuma.Awakened;
 ////using AAMod.NPCs.Bosses.Infinity;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
 using AAMod.NPCs.Bosses.Zero;

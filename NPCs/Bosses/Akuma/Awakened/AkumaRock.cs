@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AAMod.NPCs.Bosses.Akuma
+namespace AAMod.NPCs.Bosses.Akuma.Awakened
 {
     public class AkumaRock : ModProjectile
     {
@@ -119,7 +119,7 @@ namespace AAMod.NPCs.Bosses.Akuma
         {
             string RockType = Utils.SelectRandom(Main.rand, new string[]
             {
-                "NPCs/Bosses/Akuma/AkumaRock", "NPCs/Bosses/Akuma/AkumaRock", "NPCs/Bosses/Akuma/AkumaRock"
+                "NPCs/Bosses/Akuma/Awakened/AkumaRock", "NPCs/Bosses/Akuma/Awakened/AkumaRock", "NPCs/Bosses/Akuma/Awakened/AkumaRock"
             });
 
             Texture2D Rock = mod.GetTexture(RockType);

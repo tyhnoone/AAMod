@@ -13,7 +13,7 @@ namespace AAMod.NPCs.Bosses.Akuma
     public class AncientLung : ModNPC
 	{
         
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/Akuma"; } }
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/AncientLung"; } }
 
         public bool loludided;
         private bool weakness;
@@ -58,7 +58,7 @@ namespace AAMod.NPCs.Bosses.Akuma
         
         public override bool PreAI()
         {
-            if (fireAttack == true)
+            if (fireAttack == true && npc.type == mod.NPCType<AncientLung>())
             {
                 attackCounter++;
                 if (attackCounter > 10)
@@ -76,28 +76,8 @@ namespace AAMod.NPCs.Bosses.Akuma
             Main.time = 24000;
             Player player = Main.player[npc.target];
             float dist = npc.Distance(player.Center);
-            
-            if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
-            {
-                npc.velocity.Y = npc.velocity.Y + 1f;
-                if ((double)npc.position.Y > Main.rockLayer * 16.0)
-                {
-                    npc.velocity.Y = npc.velocity.Y + 1f;
-                    speed = 19;
-                }
-                if ((double)npc.position.Y > Main.rockLayer * 16.0)
-                {
-                    for (int num957 = 0; num957 < 200; num957++)
-                    {
-                        if (Main.npc[num957].aiStyle == npc.aiStyle)
-                        {
-                            Main.npc[num957].active = false;
-                        }
-                    }
-                }
-            }
 
-            BaseAI.AIWorm(npc, new int[] { mod.NPCType<AncientLung>(), mod.NPCType<AncientLungBody>(), mod.NPCType<AncientLungBody1>(), mod.NPCType<AncientLungTail>() }, 6, 8f, speed, 0, true, false, true, false, false);
+            BaseAI.AIWorm(npc, new int[] { mod.NPCType<AncientLung>(),mod.NPCType<AncientLungBody1>(), mod.NPCType<AncientLungTail>() }, 6, 8f, speed, 0, true, false, true, false, false);
             
             if (dist > 300 & Main.rand.Next(20) == 1 && fireAttack == false)
             {
@@ -106,7 +86,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             if (fireAttack == true)
             {
                 attackTimer++;
-                if ((attackTimer == 20 || attackTimer == 40 || attackTimer == 60) && npc.HasBuff(BuffID.Wet))
+                if (attackTimer == 20 || attackTimer == 40 || attackTimer == 60)
                 {
                     AAAI.BreatheFire(npc, true, mod.ProjectileType<Flameburst>(), 2, 2);
                 }
