@@ -36,7 +36,7 @@ namespace AAMod.Backgrounds
         {
             PlanetTexture = TextureManager.Load("Backgrounds/AkumaSun");
             MeteorTexture = TextureManager.Load("Backgrounds/AkumaAMeteor");
-            SkyTex = TextureManager.Load("Backgrounds/AkumaASky");
+            SkyTex = TextureManager.Load("Backgrounds/Sky");
         }
 
         float num = 1200f;

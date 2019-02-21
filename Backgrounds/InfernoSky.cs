@@ -38,7 +38,7 @@ namespace AAMod.Backgrounds
             PlanetTexture = TextureManager.Load("Backgrounds/Sun");
             MeteorTexture = TextureManager.Load("Backgrounds/AkumaMeteors");
 
-            SkyTex = TextureManager.Load("Backgrounds/InfernoSky");
+            SkyTex = TextureManager.Load("Backgrounds/Sky");
         }
 
         public override void Update(GameTime gameTime)

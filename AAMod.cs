@@ -504,9 +504,6 @@ namespace AAMod
                 PremultiplyTexture(GetTexture("Backgrounds/VoidBH"));
                 PremultiplyTexture(GetTexture("Backgrounds/Moon"));
                 PremultiplyTexture(GetTexture("Backgrounds/Sun"));
-                PremultiplyTexture(GetTexture("Backgrounds/InfernoSky"));
-                PremultiplyTexture(GetTexture("Backgrounds/MireSky"));
-                PremultiplyTexture(GetTexture("Backgrounds/VoidSky"));
                 PremultiplyTexture(GetTexture("Backgrounds/fog"));
                 PremultiplyTexture(GetTexture("Backgrounds/AkumaSun"));
                 PremultiplyTexture(GetTexture("Backgrounds/YamataMoon"));
@@ -589,7 +586,7 @@ namespace AAMod
                 Filters.Scene["AAMod:AkumaSky"] = new Filter(new AkumaSkyData("FilterMiniTower").UseColor(0f, 0.3f, 0.4f).UseOpacity(0.5f), EffectPriority.VeryHigh);
                 SkyManager.Instance["AAMod:AkumaSky"] = new AkumaSky();
                 AkumaSky.PlanetTexture = GetTexture("Backgrounds/AkumaSun");
-                AkumaSky.SkyTex = GetTexture("Backgrounds/AkumaASky");
+                AkumaSky.SkyTex = GetTexture("Backgrounds/Sky");
 
                 Filters.Scene["AAMod:YamataSky"] = new Filter(new YamataSkyData("FilterMiniTower").UseColor(.7f, 0f, 0f).UseOpacity(0.5f), EffectPriority.VeryHigh);
                 SkyManager.Instance["AAMod:YamataSky"] = new YamataSky();

@@ -19,7 +19,7 @@ namespace AAMod.Backgrounds
 
         public override void OnLoad()
         {
-            SkyTex = TextureManager.Load("Backgrounds/ShenSky");
+            SkyTex = TextureManager.Load("Backgrounds/Sky");
             Moon = TextureManager.Load("Backgrounds/MireMoon");
             Sun = TextureManager.Load("Backgrounds/InfernoSun");
         }
