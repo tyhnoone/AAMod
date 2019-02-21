@@ -45,7 +45,7 @@ namespace AAMod.Backgrounds
                 {
 
                     Vector2 SkyPos = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
-                    spriteBatch.Draw(SkyTex, SkyPos, null, Color.White, 0f, new Vector2(SkyTex.Width >> 1, SkyTex.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    spriteBatch.Draw(SkyTex, SkyPos, null, Color.Magenta, 0f, new Vector2(SkyTex.Width >> 1, SkyTex.Height >> 1), 1f, SpriteEffects.None, 1f);
                     var planetPos = new Vector2((Main.screenWidth / 4f) * 2, Main.screenHeight / 4);
                     spriteBatch.Draw(Moon, planetPos, null, Color.White * 0.9f * this.Intensity, 0f, new Vector2(Moon.Width >> 1, Moon.Height >> 1), 1f, SpriteEffects.None, 1f);
                     planetPos = new Vector2(Main.screenWidth * .75f, Main.screenHeight / 4);

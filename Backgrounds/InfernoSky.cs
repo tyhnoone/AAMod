@@ -35,7 +35,7 @@ namespace AAMod.Backgrounds
 
         public override void OnLoad()
         {
-            PlanetTexture = TextureManager.Load("Backgrounds/InfernoSun");
+            PlanetTexture = TextureManager.Load("Backgrounds/Sun");
             MeteorTexture = TextureManager.Load("Backgrounds/AkumaMeteors");
 
             SkyTex = TextureManager.Load("Backgrounds/InfernoSky");
@@ -66,8 +66,36 @@ namespace AAMod.Backgrounds
                 if (Main.dayTime)
                 {
                     Vector2 SkyPos = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
-                    spriteBatch.Draw(SkyTex, SkyPos, null, Color.White, 0f, new Vector2(SkyTex.Width >> 1, SkyTex.Height >> 1), 1f, SpriteEffects.None, 1f);
-                    spriteBatch.Draw(PlanetTexture, SkyPos, null, Color.White * 0.9f * Intensity, 0f, new Vector2(PlanetTexture.Width >> 1, PlanetTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    spriteBatch.Draw(SkyTex, SkyPos, null, Color.OrangeRed, 0f, new Vector2(SkyTex.Width >> 1, SkyTex.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    float num64 = 1f;
+                    num64 -= Main.cloudAlpha * 1.5f;
+                    if (num64 < 0f)
+                    {
+                        num64 = 0f;
+                    }
+                    int num20 = (int)(Main.time / 54000.0 * (double)(Main.screenWidth + Main.sunTexture.Width * 2)) - Main.sunTexture.Width;
+                    int num21 = 0;
+                    float num22 = 1f;
+                    float rotation = (float)(Main.time / 54000.0) * 2f - 7.3f;
+                    double bgTop = ((-Main.screenPosition.Y) / (Main.worldSurface * 16.0 - 600.0) * 200.0);
+                    float rotation2 = (float)(Main.time / 32400.0) * 2f - 7.3f;
+                    if (Main.dayTime)
+                    {
+                        double num26;
+                        if (Main.time < 27000.0)
+                        {
+                            num26 = Math.Pow(1.0 - Main.time / 54000.0 * 2.0, 2.0);
+                            num21 = (int)(bgTop + num26 * 250.0 + 180.0);
+                        }
+                        else
+                        {
+                            num26 = Math.Pow((Main.time / 54000.0 - 0.5) * 2.0, 2.0);
+                            num21 = (int)(bgTop + num26 * 250.0 + 180.0);
+                        }
+                        num22 = (float)(1.2 - num26 * 0.4);
+                    }
+                    Color color6 = new Color(((byte)(255f * num64)), ((byte)(Color.White.G * num64)), ((byte)(Color.White.B * num64)), ((byte)(255f * num64)));
+                    Main.spriteBatch.Draw(PlanetTexture, new Vector2(num20, (num21 + Main.sunModY)), new Microsoft.Xna.Framework.Rectangle?(new Rectangle(0, 0, PlanetTexture.Width, PlanetTexture.Height)), color6, rotation, new Vector2((PlanetTexture.Width / 2), (PlanetTexture.Height / 2)), num22, SpriteEffects.None, 0f);
                 }
             }
             int num = -1;

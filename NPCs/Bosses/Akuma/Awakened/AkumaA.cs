@@ -105,10 +105,10 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 {
                     npc.frameCounter = 0;
                     npc.frame.Y += 146;
-                    if (npc.frame.Y > (146 * 2))
-                    {
-                        npc.frame.Y = npc.frame.Y * 2;
-                    }
+                }
+                if (npc.frame.Y > (146 * 2))
+                {
+                    npc.frame.Y = npc.frame.Y * 2;
                 }
             }
             else
@@ -476,9 +476,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             set { position = new Vector2(value.X - ((float)Hitbox.Width * 0.5f), value.Y - ((float)Hitbox.Height * 0.5f)); }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            Texture2D texture = Main.npcTexture[npc.type];
             if (glowTex == null)
             {
                 glowTex = mod.GetTexture("Glowmasks/AkumaA_Glow");
@@ -496,12 +495,10 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
             }
-            Color lightColor = npc.GetAlpha(BaseDrawing.GetLightColor(Center));
             Texture2D myGlowTex = (npc.type == mod.NPCType<AkumaA>() ? glowTex : npc.type == mod.NPCType<AkumaAArms>() ? glowTex2 : npc.type == mod.NPCType<AkumaABody>() ? glowTex3 : npc.type == mod.NPCType<AkumaABody1>() ? glowTex4 : glowTex5);
-			BaseDrawing.DrawTexture(spriteBatch, texture, 0, npc, new Color(drawColor.R, drawColor.G, drawColor.B, npc.alpha), true);
             BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc, Color.White, true);
-            return false;
         }
+        
 
         public override void HitEffect(int hitDirection, double damage)
         {

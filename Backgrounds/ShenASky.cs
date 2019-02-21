@@ -18,7 +18,7 @@ namespace AAMod.Backgrounds
 
         public override void OnLoad()
         {
-            SkyTex = TextureManager.Load("Backgrounds/ShenASky");
+            SkyTex = TextureManager.Load("Backgrounds/Stars");
             PlanetTexture = TextureManager.Load("Backgrounds/ShenEclipse");
         }
 
@@ -47,7 +47,8 @@ namespace AAMod.Backgrounds
             if (maxDepth >= 3.40282347E+38f && minDepth < 3.40282347E+38f)
             {
                 Vector2 SkyPos = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
-                spriteBatch.Draw(SkyTex, SkyPos, null, Color.White, 0f, new Vector2(SkyTex.Width >> 1, SkyTex.Height >> 1), 1f, SpriteEffects.None, 1f);
+                Vector2 PlanetPos = new Vector2(Main.screenWidth / 2, Main.screenHeight / 4);
+                spriteBatch.Draw(SkyTex, SkyPos, null, Color.DarkMagenta, 0f, new Vector2(SkyTex.Width >> 1, SkyTex.Height >> 1), 1f, SpriteEffects.None, 1f);
                 spriteBatch.Draw(PlanetTexture, SkyPos, null, Color.White * 0.9f * Intensity, 0f, new Vector2(PlanetTexture.Width >> 1, PlanetTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
             }
         }

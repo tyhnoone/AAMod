@@ -370,6 +370,8 @@ namespace AAMod
                 Texture2D mana= mod.GetTexture("Resprites/Mana");
                 int ManaBoost = ManaLantern;
 
+                
+
                 if (ManaBoost == 1)
                 {
                     Main.manaTexture = manaGreen;

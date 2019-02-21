@@ -34,7 +34,7 @@ namespace AAMod.Backgrounds
         public static Texture2D LB;
         public static Texture2D boltTexture;
         public static Texture2D flashTexture;
-        public Texture2D Stars;
+        public static Texture2D Stars;
         private Bolt[] bolts;
         public bool Active;
         public int ticksUntilNextBolt;
