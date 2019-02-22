@@ -48,6 +48,21 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             if (Main.player[npc.target].dead && npc.timeLeft > 300)
                 npc.timeLeft = 300;
 
+            if (npc.alpha != 0)
+            {
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("AkumaADust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+            }
+            npc.alpha -= 12;
+            if (npc.alpha < 0)
+            {
+                npc.alpha = 0;
+            }
+
             if (Main.netMode != 1)
             {
                 if (!Main.npc[(int)npc.ai[1]].active || Main.npc[(int)npc.ai[3]].type != mod.NPCType("AkumaA"))

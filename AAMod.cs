@@ -20,6 +20,7 @@ using AAMod.Items.Blocks;
 using AAMod;
 using Terraria.IO;
 using System.IO;
+using System.Reflection.Emit;
 
 namespace AAMod
 {

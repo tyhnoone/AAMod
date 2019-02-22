@@ -43,20 +43,7 @@ namespace AAMod.NPCs.Boss.Akuma
             float dist = npc.Distance(player.Center);
 
             npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
-            if (npc.alpha != 0)
-            {
-                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
-                {
-                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("AkumaDust"), 0f, 0f, 100, default(Color), 2f);
-                    Main.dust[num935].noGravity = true;
-                    Main.dust[num935].noLight = true;
-                }
-            }
-            npc.alpha -= 12;
-            if (npc.alpha < 0)
-            {
-                npc.alpha = 0;
-            }
+            
 
             if (Main.netMode != 1)
             {
@@ -68,7 +55,7 @@ namespace AAMod.NPCs.Boss.Akuma
                     for (int i = 0; i < WormLength; ++i)
                     {
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AncientLungBody1"), npc.whoAmI, 0, latestNPC);
-                        Main.npc[(int)latestNPC].realLife = npc.whoAmI;
+                        Main.npc[latestNPC].realLife = npc.whoAmI;
                         Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AncientLungBody"), npc.whoAmI, 0, latestNPC);
                         Main.npc[(int)latestNPC].realLife = npc.whoAmI;
@@ -223,7 +210,34 @@ namespace AAMod.NPCs.Boss.Akuma
 			if ((npc.velocity.X > 0.0 && npc.oldVelocity.X < 0.0 || npc.velocity.X < 0.0 && npc.oldVelocity.X > 0.0 || (npc.velocity.Y > 0.0 && npc.oldVelocity.Y < 0.0 || npc.velocity.Y < 0.0 && npc.oldVelocity.Y > 0.0)) && !npc.justHit)
 				npc.netUpdate = true;
 
-			return false;
+
+            if (npc.alpha != 0)
+            {
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("AkumaDust"), 0f, 0f, 100, default(Color), 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+            }
+
+            if (!NPC.AnyNPCs(mod.NPCType("Akuma")) || !NPC.AnyNPCs(mod.NPCType("AkumaA")))
+            {
+                npc.alpha += 12;
+                if (npc.alpha > 255)
+                {
+                    npc.active = false;
+                }
+                return false;
+            }
+
+            npc.alpha -= 12;
+            if (npc.alpha < 0)
+            {
+                npc.alpha = 0;
+            }
+
+            return false;
 		}
 
         public void DespawnMe()
@@ -263,14 +277,15 @@ namespace AAMod.NPCs.Boss.Akuma
 
         public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
         {
-            Texture2D glowTex = null, glowTex2 = null, glowTex3 = null, glowTex4 = null;
+            Texture2D glowTex = null, glowTex2 = null, glowTex3 = null, glowTex4 = null, glowTex5 = null;
 
             if (glowTex == null)
             {
                 glowTex = mod.GetTexture("Glowmasks/Shenling_Glow");
-                glowTex2 = mod.GetTexture("Glowmasks/ShenlingBody_Glow");
-                glowTex3 = mod.GetTexture("Glowmasks/ShenlingBody1_Glow");
-                glowTex4 = mod.GetTexture("Glowmasks/ShenlingTail_Glow");
+                glowTex2 = mod.GetTexture("Glowmasks/ShenlingBody_Glow1");
+                glowTex3 = mod.GetTexture("Glowmasks/ShenlingBody_Glow2");
+                glowTex4 = mod.GetTexture("Glowmasks/ShenlingBody_Glow3");
+                glowTex5 = mod.GetTexture("Glowmasks/ShenlingTail_Glow");
             }
             int shader = 0;
             if (NPC.AnyNPCs(mod.NPCType("AkumaA")))
@@ -279,9 +294,14 @@ namespace AAMod.NPCs.Boss.Akuma
             }
             npc.position.Y += npc.height * 0.5f;
 
-            Texture2D myGlowTex = (npc.type == mod.NPCType<AncientLung>() ? glowTex : npc.type == mod.NPCType<AncientLungBody>() ? glowTex2 : npc.type == mod.NPCType<AncientLungBody1>() ? glowTex3 : glowTex4);
+            Texture2D myGlowTex = (npc.type == mod.NPCType<AncientLung>() ? glowTex : npc.type == mod.NPCType<AncientLungBody>() ? glowTex2 : npc.type == mod.NPCType<AncientLungBody1>() ? glowTex2 : glowTex5);
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
             BaseDrawing.DrawTexture(spritebatch, myGlowTex, shader, npc, Color.Goldenrod);
+            if (npc.type == mod.NPCType<AncientLungBody>() || npc.type == mod.NPCType<AncientLungBody1>())
+            {
+                BaseDrawing.DrawTexture(spritebatch, glowTex3, shader, npc, Color.Goldenrod);
+                BaseDrawing.DrawTexture(spritebatch, glowTex4, shader, npc, Color.Goldenrod);
+            }
 
             npc.position.Y -= npc.height * 0.5f;
             return false;

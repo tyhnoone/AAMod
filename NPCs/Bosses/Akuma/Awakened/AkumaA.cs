@@ -23,7 +23,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 		{
 			DisplayName.SetDefault("Akuma Awakened; Blazing Fury Incarnate");
 			NPCID.Sets.TechnicallyABoss[npc.type] = true;
-            Main.npcFrameCount[npc.type] = 3;
+            Main.npcFrameCount[npc.type] = 2;
         }
 
 		public override void SetDefaults()
@@ -99,21 +99,10 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             Player player = Main.player[npc.target];
             if (npc.ai[1] == 1 || npc.ai[2] >= 500)
             {
-                npc.frameCounter++;
-
-                if (npc.frameCounter >= 10)
-                {
-                    npc.frameCounter = 0;
-                    npc.frame.Y += 146;
-                }
-                if (npc.frame.Y > (146 * 2))
-                {
-                    npc.frame.Y = npc.frame.Y * 2;
-                }
+                npc.frame.Y = 146;
             }
             else
             {
-                npc.frameCounter = 0;
                 npc.frame.Y = 0;
             }
             float dist = npc.Distance(player.Center);
@@ -183,7 +172,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                 {
-                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("AkumaDust"), 0f, 0f, 100, default(Color), 2f);
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("AkumaADust"), 0f, 0f, 100, default(Color), 2f);
                     Main.dust[num935].noGravity = true;
                     Main.dust[num935].noLight = true;
                 }
@@ -207,29 +196,29 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                         if (segment == 0 || segment == 2 || segment == 3 || segment == 5 || segment == 6 || segment == 8)
                         {
                             latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaABody"), npc.whoAmI, 0, latestNPC);
-                            Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                            Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                            Main.npc[latestNPC].realLife = npc.whoAmI;
+                            Main.npc[latestNPC].ai[3] = npc.whoAmI;
                             segment += 1;
                         }
                         if (segment == 1 || segment == 4 || segment == 7)
                         {
                             latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaAArms"), npc.whoAmI, 0, latestNPC);
-                            Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                            Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                            Main.npc[latestNPC].realLife = npc.whoAmI;
+                            Main.npc[latestNPC].ai[3] = npc.whoAmI;
                             segment += 1;
                         }
                     }
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaABody"), npc.whoAmI, 0, latestNPC);
-                    Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                    Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                    Main.npc[latestNPC].realLife = npc.whoAmI;
+                    Main.npc[latestNPC].ai[3] = npc.whoAmI;
 
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaABody1"), npc.whoAmI, 0, latestNPC);
-                    Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                    Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                    Main.npc[latestNPC].realLife = npc.whoAmI;
+                    Main.npc[latestNPC].ai[3] = npc.whoAmI;
 
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaATail"), npc.whoAmI, 0, latestNPC);
-                    Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                    Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                    Main.npc[latestNPC].realLife = npc.whoAmI;
+                    Main.npc[latestNPC].ai[3] = npc.whoAmI;
 
                     npc.ai[0] = 1;
                     npc.netUpdate = true;
@@ -388,7 +377,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             if (Main.expertMode)
             {
                 //npc.DropLoot(Items.Vanity.Mask.AkumaMask.type, 1f / 7);
-                npc.DropLoot(Items.Boss.Akuma.AkumaTrophy.type, 1f / 10);
+                npc.DropLoot(Items.Boss.Akuma.AkumaATrophy.type, 1f / 10);
                 if (Main.rand.NextFloat() < 0.1f)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EXSoul"));
@@ -441,11 +430,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 internalAI[1] = 0;
             }
         }
-
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        {
-            base.ModifyHitByItem(player, item, ref damage, ref knockback, ref crit);
-        }
+        
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
@@ -456,15 +441,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
         }
 
         public static Texture2D glowTex = null, glowTex2 = null, glowTex3 = null, glowTex4 = null, glowTex5 = null;
-
-        public Vector2 position, oldPosition;
-        public Rectangle Hitbox;
-        public Vector2 Center
-        {
-            get { return new Vector2(position.X + ((float)Hitbox.Width * 0.5f), position.Y + ((float)Hitbox.Height * 0.5f)); }
-            set { position = new Vector2(value.X - ((float)Hitbox.Width * 0.5f), value.Y - ((float)Hitbox.Height * 0.5f)); }
-        }
-
+        
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             Texture2D texture = Main.npcTexture[npc.type];
@@ -476,8 +453,9 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 glowTex4 = mod.GetTexture("Glowmasks/AkumaABody1_Glow");
                 glowTex5 = mod.GetTexture("Glowmasks/AkumaATail_Glow");
             }
+            Vector2 Drawpos = npc.Center - Main.screenPosition + new Vector2(0, npc.gfxOffY);
             int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
-            if (npc.ai[1] == 1 || npc.ai[2] >= 500 || Main.npc[(int)npc.ai[3]].ai[1] == 1 || Main.npc[(int)npc.ai[3]].ai[2] >= 500)
+            if (npc.ai[1] == 1 || npc.ai[2] >= 470 || Main.npc[(int)npc.ai[3]].ai[1] == 1 || Main.npc[(int)npc.ai[3]].ai[2] >= 500)
             {
                 shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingFlameDye);
             }
@@ -485,13 +463,13 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
             }
-            npc.position.Y += npc.height * 0.5f;
             
-            Texture2D myGlowTex = (npc.type == mod.NPCType<AkumaA>() ? glowTex : npc.type == mod.NPCType<AkumaAArms>() ? glowTex2 : npc.type == mod.NPCType<AkumaABody>() ? glowTex3 : npc.type == mod.NPCType<AkumaABody1>() ? glowTex4 : glowTex5);
-            BaseDrawing.DrawTexture(spriteBatch, texture, 0, npc, new Color (drawColor.R, drawColor.G, drawColor.B, npc.alpha), true);
-            BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc, new Color(Color.White.R, Color.White.G, Color.White.B, npc.alpha), true);
 
-            npc.position.Y -= npc.height * 0.5f;
+
+            Texture2D myGlowTex = (npc.type == mod.NPCType<AkumaA>() ? glowTex : npc.type == mod.NPCType<AkumaAArms>() ? glowTex2 : npc.type == mod.NPCType<AkumaABody>() ? glowTex3 : npc.type == mod.NPCType<AkumaABody1>() ? glowTex4 : glowTex5);
+            var effects = npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            spriteBatch.Draw(texture, Drawpos, npc.frame, npc.GetAlpha(drawColor), npc.rotation, npc.frame.Size() / 2, npc.scale, effects, 0);
+            BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc, npc.GetAlpha(Color.White), true, npc.frame.Size() / 2);
             return false;
         }
 
@@ -517,9 +495,9 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
         }
         
 
-        public int roarTimer = 0; //if this is > 0, then use the roaring frame.
-        public int roarTimerMax = 120; //default roar timer. only changed for fire breath as it's longer.
-        public bool Roaring //wether or not he is roaring. only used clientside for frame visuals.
+        public int roarTimer = 0;
+        public int roarTimerMax = 120;
+        public bool Roaring
         {
             get
             {

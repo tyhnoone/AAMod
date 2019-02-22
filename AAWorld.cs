@@ -53,6 +53,9 @@ namespace AAMod
         public static Vector2 shipPos = new Vector2(0, 0);
         private Vector2 TerraPos = new Vector2(0, 0);
         public string nums = "1234567890";
+        public static bool CorruptionSpread;
+        public static bool CrimsonSpread;
+        public static bool HallowSpread;
         //Messages
         public static bool Evil;
         public static bool Compass;
@@ -147,6 +150,9 @@ namespace AAMod
             LuminiteMeteorBool = false;
             Anticheat = true;
             Compass = false;
+            CorruptionSpread = false;
+            CrimsonSpread = false;
+            HallowSpread = false;
             //Stones
             RealityDropped = false;
             SpaceDropped = false;
@@ -215,12 +221,14 @@ namespace AAMod
             if (Compass) downed.Add("Compass");
             if (downedKraken) downed.Add("Kraken");
             if (downedSOCC) downed.Add("SOCC");
+            if (CorruptionSpread) downed.Add("Corruption");
+            if (CrimsonSpread) downed.Add("Crimson");
+            if (HallowSpread) downed.Add("Hallow");
 
             return new TagCompound {
-                {"downed", downed}
+                {"downed", downed},
             };
         }
-
         public override void NetSend(BinaryWriter writer)
         {
             BitsByte flags = new BitsByte();
@@ -273,7 +281,10 @@ namespace AAMod
             flags5[1] = Compass;
             flags5[2] = downedKraken;
             flags5[3] = downedSOCC;
-            writer.Write(flags4);
+            flags5[4] = CorruptionSpread;
+            flags5[5] = CrimsonSpread;
+            flags5[6] = HallowSpread;
+            writer.Write(flags5);
         }
 
         public override void NetReceive(BinaryReader reader)
@@ -323,6 +334,12 @@ namespace AAMod
             Compass = flags5[1];
             downedKraken = flags5[2];
             downedSOCC = flags5[3];
+            CorruptionSpread = flags5[4];
+            CrimsonSpread = flags5[5];
+            HallowSpread = flags5[6];
+
+
+            BitsByte CorruptionFlag = reader.ReadByte();
         }
 
         public override void Load(TagCompound tag)
@@ -375,6 +392,9 @@ namespace AAMod
             DarkMatter = downedNC;
             RadiumOre = downedDB;
             DiscordOres = downedGripsS;
+            CorruptionSpread = downed.Contains("Corruption");
+            CrimsonSpread = downed.Contains("Crimson");
+            HallowSpread = downed.Contains("Hallow");
         }
 
 

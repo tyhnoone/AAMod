@@ -285,6 +285,14 @@ namespace AAMod.NPCs.Bosses.Equinox
         public override void NPCLoot()
         {
             int otherWormAlive = (nightcrawler ? mod.NPCType("DaybringerHead") : mod.NPCType("NightcrawlerHead"));
+            if (!nightcrawler)
+            {
+                BaseAI.DropItem(npc, mod.ItemType("DBTrophy"), 1, 1, 15, true);
+            }
+            else
+            {
+                BaseAI.DropItem(npc, mod.ItemType("NCTrophy"), 1, 1, 15, true);
+            }
             if (NPC.CountNPCS(otherWormAlive) == 0)
             {
                 AAWorld.downedEquinox = true;

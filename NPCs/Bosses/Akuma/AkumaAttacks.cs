@@ -14,7 +14,7 @@ namespace AAMod
         public static void Dragonfire(NPC npc, Mod mod, bool Awakened = false)
         {
             Player player = Main.player[npc.target];
-            float num72 = 18;
+            float num72 = 10;
             Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
             float num78 = player.Center.X + Main.screenPosition.X - vector2.X;
             float num79 = player.Center.Y + Main.screenPosition.Y - vector2.Y;
@@ -62,7 +62,6 @@ namespace AAMod
         {
             if (Main.netMode != 1)
             {
-                if (NPC.AnyNPCs(mod.NPCType("AncientLung"))) { return; } //don't spawn if there's already a boss!
                 int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, mod.NPCType("AncientLung"), 0);
                 Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 600f);
                 Main.npc[npcID].netUpdate2 = true;
@@ -72,7 +71,7 @@ namespace AAMod
         public static void Eruption(NPC npc, Mod mod)
         {
             Player player = Main.player[npc.target];
-            float num72 = 18;
+            float num72 = 10;
             Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
             float num78 = player.Center.X + Main.screenPosition.X - vector2.X;
             float num79 = player.Center.Y + Main.screenPosition.Y - vector2.Y;

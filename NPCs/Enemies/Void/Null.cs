@@ -59,5 +59,7 @@ namespace AAMod.NPCs.Enemies.Void
         {
             Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("UnstableSingularity"), 1);
         }
+
+        
     }
 }

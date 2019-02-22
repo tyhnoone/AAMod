@@ -710,7 +710,7 @@ namespace AAMod
                 NPC.AnyNPCs(mod.NPCType<Orthrus>()) ||
                 NPC.AnyNPCs(mod.NPCType<DaybringerHead>()) ||
                 NPC.AnyNPCs(mod.NPCType<NightcrawlerHead>()) ||
-                NPC.AnyNPCs(mod.NPCType<AncientLung>()) ||
+                NPC.AnyNPCs(mod.NPCType<Akuma>()) ||
                 NPC.AnyNPCs(mod.NPCType<AkumaA>()) ||
                 NPC.AnyNPCs(mod.NPCType<Yamata>()) ||
                 NPC.AnyNPCs(mod.NPCType<YamataA>()) ||
@@ -738,6 +738,10 @@ namespace AAMod
                     {
                         pool.Add(mod.NPCType("Null"), .5f);
                     }
+                }
+                else
+                {
+                    pool.Add(mod.NPCType("Searcher1"), .5f);
                 }
             }
 

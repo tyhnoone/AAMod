@@ -278,14 +278,6 @@ namespace AAMod.NPCs.Bosses.Zero
                 saythelinezero = true;
                 Main.NewText("CRITICAL ERR0R: ARM UNITS NOT FOUND. SHIELDS L0WERED. RER0UTING RES0URCES TO OFFENSIVE PR0T0C0LS", Color.Red.R, Color.Red.G, Color.Red.B);
             }
-            if ( Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
-            {
-                npc.ai[1] = 4f;
-            }
-            if (Main.player[npc.target].dead)
-            {
-                npc.ai[1] = 3f;
-            }
             if (npc.ai[1] == 0f)
             {
                 npc.damage = 100;
@@ -351,13 +343,45 @@ namespace AAMod.NPCs.Bosses.Zero
             }
             else if (npc.ai[1] == 1f)
             {
-                internalAI[0] = 1;
-                internalAI[1] = 0;
-                internalAI[2] = 0;
-                internalAI[3] = 0;
-                npc.netUpdate = true;
-                chargeAI();
+                npc.frame.Y = 202;
+                npc.defense = 180;
+                npc.damage = 200;
+                npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
+                Vector2 vector45 = new Vector2(npc.position.X + ((float)npc.width * 0.5f), npc.position.Y + ((float)npc.height * 0.5f));
+                float num444 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector45.X;
+                float num445 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector45.Y;
+                float num446 = (float)Math.Sqrt((double)((num444 * num444) + (num445 * num445)));
+                float num447 = 10f;
+                num447 += num446 / 100f;
+                if (num447 < 8f)
+                {
+                    num447 = 8f;
+                }
+                if (num447 > 32f)
+                {
+                    num447 = 32f;
+                }
+                num446 = num447 / num446;
+                npc.velocity.X = num444 * num446;
+                npc.velocity.Y = num445 * num446;
+
+                npc.ai[2] += 1f;
+                if (npc.ai[2] >= 240f)
+                {
+                    npc.ai[2] = 0f;
+                    npc.ai[1] = 0f;
+                    npc.TargetClosest(true);
+                    npc.netUpdate = true;
+                }
                 return;
+            }
+            if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+            {
+                npc.ai[1] = 4f;
+            }
+            if (Main.player[npc.target].dead)
+            {
+                npc.ai[1] = 3f;
             }
             else if (npc.ai[1] == 3f)
             {
