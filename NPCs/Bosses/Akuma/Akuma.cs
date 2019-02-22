@@ -120,12 +120,11 @@ namespace AAMod.NPCs.Bosses.Akuma
                     attackFrame = 2;
                 }
             }
-            Main.dayTime = true;
-            Main.time = 24000;
             float dist = npc.Distance(player.Center);
             internalAI[0]++;
             if (internalAI[0] == 600)
             {
+                Roar(roarTimerMax, false);
                 internalAI[1] += 1;
                 Attack(npc, npc.velocity);
             }
@@ -362,6 +361,17 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
             npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
 
+            if (!Main.dayTime)
+            {
+                if (loludided == false)
+                {
+                    Main.NewText("Yaaaaaaaaawn. I'm bushed kid, I'm gonna have to take a rain check. Come back tomorrow.", new Color(180, 41, 32));
+                    loludided = true;
+                }
+                npc.velocity.Y = npc.velocity.Y + 1f;
+                if (npc.position.Y - npc.height - npc.velocity.Y >= Main.maxTilesY && Main.netMode != 1) { BaseAI.KillNPC(npc); npc.netUpdate2 = true; }
+            }
+
             if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
             {
                 if (loludided == false)
@@ -410,7 +420,6 @@ namespace AAMod.NPCs.Bosses.Akuma
             Player player = Main.player[npc.target];
             if (internalAI[1] == 1 || internalAI[1] == 4 || internalAI[1] == 6 || internalAI[1] == 10 || internalAI[1] == 14)
             {
-                Roar(roarTimerMax, true);
                 int Fireballs = Main.expertMode ? 7 : 10;
                 for (int Loops = 0; Loops < Fireballs; Loops++)
                 {
@@ -419,7 +428,6 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
             if ((internalAI[1] == 2 || internalAI[1] == 7 || internalAI[1] == 9 || internalAI[1] == 12 || internalAI[1] == 15))
             {
-                Roar(roarTimerMax, false);
                 int Fireballs = Main.expertMode ? 3 : 5;
                 for (int Loops = 0; Loops < Fireballs; Loops++)
                 {
@@ -430,7 +438,6 @@ namespace AAMod.NPCs.Bosses.Akuma
             {
                 if (MinionCount < MaxMinons)
                 {
-                    Roar(roarTimerMax, false);
                     AkumaAttacks.SpawnLung(player, mod);
                     MinionCount += 1;
                 }

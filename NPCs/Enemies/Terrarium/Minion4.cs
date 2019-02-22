@@ -220,104 +220,6 @@ namespace AAMod.NPCs.Enemies.Terrarium
 
 			return false;
 		}
-
-        public override void HitEffect(int hitDirection, double damage)
-        {
-            if (npc.life <= 0)
-            {
-
-                npc.position.X = npc.position.X + (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y + (float)(npc.height / 2);
-                npc.width = 44;
-                npc.height = 78;
-                npc.position.X = npc.position.X - (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y - (float)(npc.height / 2);
-                int dust1 = mod.DustType<Dusts.SummonDust>();
-                int dust2 = mod.DustType<Dusts.SummonDust>();
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust1].velocity *= 0.5f;
-                Main.dust[dust1].scale *= 1.3f;
-                Main.dust[dust1].fadeIn = 1f;
-                Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust2].velocity *= 0.5f;
-                Main.dust[dust2].scale *= 1.3f;
-                Main.dust[dust2].fadeIn = 1f;
-                Main.dust[dust2].noGravity = true;
-            }
-        }
-        
-
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        private void ModifyCritArea(NPC npc, ref bool crit)
-        {
-            if (npc.realLife >= 0)
-            {
-                if (npc.whoAmI == npc.realLife)
-                {
-                    crit = true;
-                }
-                if (npc.ai[0] == 0)
-                {
-                    crit = false;
-                }
-            }
-        }
-
-        public override void UpdateLifeRegen(ref int damage)
-        {
-            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
-            {
-                damage = 0;
-                npc.lifeRegen = 0;
-            }
-        }
-
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, projectile.owner);
-        }
-
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, player.whoAmI);
-        }
-
-        public void MakeSegmentsImmune(NPC npc, int id)
-        {
-            if (npc.realLife >= 0)
-            {
-                bool last = false;
-                NPC parent = Main.npc[npc.realLife];
-                parent.lifeRegen = npc.lifeRegen;
-                int i = 0;
-                while (parent.ai[0] > 0 || last)
-                {
-                    parent.immune[id] = npc.immune[id];
-                    for (int j = 0; j < npc.buffType.Length; j++)
-                    {
-                        if (npc.buffType[j] > 0 && npc.buffTime[j] > 0)
-                        {
-                            parent.buffType[j] = npc.buffType[j];
-                            parent.buffTime[j] = npc.buffTime[j];
-                        }
-                    }
-                    if (last) { break; }
-                    parent = Main.npc[(int)parent.ai[0]];
-                    if (parent.ai[0] == 0) { last = true; }
-                    if (i++ > 200) { throw new InvalidOperationException("Recursion detected"); } // Just in case
-                }
-            }
-        }
     }
 
     public class Minion4Body : Minion4
@@ -439,63 +341,6 @@ namespace AAMod.NPCs.Enemies.Terrarium
             }
             return false;
         }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            Player player = Main.player[npc.target];
-            if (player.vortexStealthActive && projectile.ranged)
-            {
-                damage /= 2;
-                crit = false;
-            }
-            if (projectile.penetrate == -1 && !projectile.minion)
-            {
-                projectile.damage *= (int).2;
-            }
-            else if (projectile.penetrate >= 1)
-            {
-                projectile.damage *= (int).2;
-            }
-        }
-
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        private void ModifyCritArea(NPC npc, ref bool crit)
-        {
-            if (npc.realLife >= 0)
-            {
-                if (npc.whoAmI == npc.realLife)
-                {
-                    crit = true;
-                }
-                if (npc.ai[0] == 0)
-                {
-                    crit = false;
-                }
-            }
-        }
-
-        public override void UpdateLifeRegen(ref int damage)
-        {
-            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
-            {
-                damage = 0;
-                npc.lifeRegen = 0;
-            }
-        }
-
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, projectile.owner);
-        }
-
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, player.whoAmI);
-        }
     }
 
     public class Minion4Tail : Minion4
@@ -516,32 +361,6 @@ namespace AAMod.NPCs.Enemies.Terrarium
             npc.dontCountMe = true;
 
             npc.alpha = 255;
-        }
-
-        public override void HitEffect(int hitDirection, double damage)
-        {
-            if (npc.life <= 0)
-            {
-
-                npc.position.X = npc.position.X + (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y + (float)(npc.height / 2);
-                npc.width = 44;
-                npc.height = 78;
-                npc.position.X = npc.position.X - (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y - (float)(npc.height / 2);
-                int dust1 = mod.DustType<Dusts.SummonDust>();
-                int dust2 = mod.DustType<Dusts.SummonDust>();
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust1].velocity *= 0.5f;
-                Main.dust[dust1].scale *= 1.3f;
-                Main.dust[dust1].fadeIn = 1f;
-                Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
-                Main.dust[dust2].velocity *= 0.5f;
-                Main.dust[dust2].scale *= 1.3f;
-                Main.dust[dust2].fadeIn = 1f;
-                Main.dust[dust2].noGravity = true;
-            }
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
@@ -618,55 +437,6 @@ namespace AAMod.NPCs.Enemies.Terrarium
                 npc.position.Y = npc.position.Y + posY;
             }
             return false;
-        }
-
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            target.AddBuff(mod.BuffType<Buffs.Terrablaze>(), 300);
-        }
-
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            ModifyCritArea(npc, ref crit);
-        }
-
-        private void ModifyCritArea(NPC npc, ref bool crit)
-        {
-            if (npc.realLife >= 0)
-            {
-                if (npc.whoAmI == npc.realLife)
-                {
-                    crit = true;
-                }
-                if (npc.ai[0] == 0)
-                {
-                    crit = false;
-                }
-            }
-        }
-
-        public override void UpdateLifeRegen(ref int damage)
-        {
-            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
-            {
-                damage = 0;
-                npc.lifeRegen = 0;
-            }
-        }
-
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, projectile.owner);
-        }
-
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
-            MakeSegmentsImmune(npc, player.whoAmI);
         }
     }
     

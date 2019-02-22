@@ -121,6 +121,10 @@ namespace AAMod.NPCs.Bosses.Yamata
                 }
                 return;
             }
+            if (Body.active)
+            {
+                npc.alpha = Body.alpha;
+            }
 
             bool SISSY = false;
             int GETDOWNHERE = 0;
@@ -197,6 +201,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             fireTimer++;
             if (fireTimer >= 240 && fireAttack == false)
             {
+                Roar(roarTimerMax, false);
                 fireAttack = true;
 
                 fireTimer = 0;
@@ -288,7 +293,6 @@ namespace AAMod.NPCs.Bosses.Yamata
             roarTimer = timer;
             if (fireSound)
             {
-                Main.PlaySound(4, (int)npc.Center.X, (int)npc.Center.Y, 60);
             }
             else
             {

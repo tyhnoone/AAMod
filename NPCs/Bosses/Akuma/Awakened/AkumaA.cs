@@ -116,12 +116,12 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 npc.frameCounter = 0;
                 npc.frame.Y = 0;
             }
-            Main.dayTime = true;
-            Main.time = 24000;
             float dist = npc.Distance(player.Center);
             npc.ai[2]++;
             if (npc.ai[2] == 500)
             {
+
+                Roar(roarTimerMax, false);
                 internalAI[1] += 1;
                 Attack(npc);
             }
@@ -250,25 +250,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 maxTilePosY = Main.maxTilesY;
 
             bool collision = true;
-
-            for (int i = minTilePosX; i < maxTilePosX; ++i)
-            {
-                for (int j = minTilePosY; j < maxTilePosY; ++j)
-                {
-                    if (Main.tile[i, j] != null && (Main.tile[i, j].nactive() && (Main.tileSolid[(int)Main.tile[i, j].type] || Main.tileSolidTop[(int)Main.tile[i, j].type] && (int)Main.tile[i, j].frameY == 0) || (int)Main.tile[i, j].liquid > 64))
-                    {
-                        Vector2 vector2;
-                        vector2.X = (float)(i * 16);
-                        vector2.Y = (float)(j * 16);
-                        if (npc.position.X + npc.width > vector2.X && npc.position.X < vector2.X + 16.0 && (npc.position.Y + npc.height > (double)vector2.Y && npc.position.Y < vector2.Y + 16.0))
-                        {
-                            collision = true;
-                            if (Main.rand.Next(100) == 0 && Main.tile[i, j].nactive())
-                                WorldGen.KillTile(i, j, true, true, false);
-                        }
-                    }
-                }
-            }
+            
             float speed = 10f;
             float acceleration = 0.16f;
 
@@ -355,6 +337,13 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             else
             {
                 npc.spriteDirection = -1;
+            }
+
+            if (!Main.dayTime)
+            {
+                Main.NewText("Nighttime won't save you from me this time, kid! The day is born anew!", Color.DeepSkyBlue);
+                Main.dayTime = true;
+                Main.time = 0;
             }
 
             if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
@@ -476,8 +465,9 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             set { position = new Vector2(value.X - ((float)Hitbox.Width * 0.5f), value.Y - ((float)Hitbox.Height * 0.5f)); }
         }
 
-        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
+            Texture2D texture = Main.npcTexture[npc.type];
             if (glowTex == null)
             {
                 glowTex = mod.GetTexture("Glowmasks/AkumaA_Glow");
@@ -495,10 +485,16 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
             }
+            npc.position.Y += npc.height * 0.5f;
+            
             Texture2D myGlowTex = (npc.type == mod.NPCType<AkumaA>() ? glowTex : npc.type == mod.NPCType<AkumaAArms>() ? glowTex2 : npc.type == mod.NPCType<AkumaABody>() ? glowTex3 : npc.type == mod.NPCType<AkumaABody1>() ? glowTex4 : glowTex5);
-            BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc, Color.White, true);
+            BaseDrawing.DrawTexture(spriteBatch, texture, 0, npc, new Color (drawColor.R, drawColor.G, drawColor.B, npc.alpha), true);
+            BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc, new Color(Color.White.R, Color.White.G, Color.White.B, npc.alpha), true);
+
+            npc.position.Y -= npc.height * 0.5f;
+            return false;
         }
-        
+
 
         public override void HitEffect(int hitDirection, double damage)
         {

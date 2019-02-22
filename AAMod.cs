@@ -331,9 +331,9 @@ namespace AAMod
                     GetTexture("Healthbars/YamataBarTail"),
                     GetTexture("Healthbars/BarFill"));
                 yabhb.Call("hbSetColours",
-                    Color.Navy,
-                    Color.Navy,
-                    Color.Navy);
+                    Color.Purple,
+                    Color.Purple,
+                    Color.Purple);
                 yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
@@ -361,9 +361,9 @@ namespace AAMod
                     GetTexture("Healthbars/AkumaBarTail"),
                     GetTexture("Healthbars/BarFill"));
                 yabhb.Call("hbSetColours",
-                    Color.OrangeRed,
-                    Color.OrangeRed,
-                    Color.OrangeRed);
+                    Color.Yellow,
+                    Color.Yellow,
+                    Color.Yellow);
                 yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
