@@ -10,7 +10,8 @@ namespace AAMod.Items.Magic
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Arcanum");
-			Tooltip.SetDefault("Releases homing miniature quazar, which explodes on enemy hit");
+			Tooltip.SetDefault(@"Releases homing miniature quazar, which explodes on enemy hit
+Nebula Arcanum EX");
 		}
 
 		public override void SetDefaults()
@@ -39,6 +40,7 @@ namespace AAMod.Items.Magic
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.NebulaArcanum);
+			recipe.AddIngredient(mod.ItemType("EXSoul"));
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
