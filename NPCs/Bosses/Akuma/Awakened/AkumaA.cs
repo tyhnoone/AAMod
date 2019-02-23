@@ -391,7 +391,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
         public void Attack(NPC npc)
         {
             Player player = Main.player[npc.target];
-            if (internalAI[1] == 1 || internalAI[1] == 5 || internalAI[1] == 6 || internalAI[1] == 11 || internalAI[1] == 17)
+            if (internalAI[1] == 1 || internalAI[1] == 7 || internalAI[1] == 15 || internalAI[1] == 18 || internalAI[1] == 21)
             {
                 int Fireballs = Main.expertMode ? 7 : 10;
                 for (int Loops = 0; Loops < Fireballs; Loops++)
@@ -399,7 +399,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     AkumaAttacks.Dragonfire(npc, mod, true);
                 }
             }
-            if ((internalAI[1] == 2 || internalAI[1] == 6 || internalAI[1] == 9 || internalAI[1] == 13 || internalAI[1] == 16))
+
+            if ((internalAI[1] == 2 || internalAI[1] == 6 || internalAI[1] == 12 || internalAI[1] == 16 || internalAI[1] == 24))
             {
                 int Fireballs = Main.expertMode ? 3 : 5;
                 for (int Loops = 0; Loops < Fireballs; Loops++)
@@ -407,7 +408,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     AAAI.BreatheFire(npc, false, mod.ProjectileType<AkumaABomb>(), 1, 2);
                 }
             }
-            if (internalAI[1] == 3 || internalAI[1] == 4 || internalAI[1] == 7 || internalAI[1] == 12 || internalAI[1] == 15)
+
+            if (internalAI[1] == 3 || internalAI[1] == 8 || internalAI[1] == 11 || internalAI[1] == 17 || internalAI[1] == 23)
             {
                 int Fireballs = Main.expertMode ? 12 : 14;
                 for (int Loops = 0; Loops < Fireballs; Loops++)
@@ -415,13 +417,22 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     AkumaAttacks.Eruption(npc, mod);
                 }
             }
-            if (internalAI[1] == 4 || internalAI[1] == 8 || internalAI[1] == 10 || internalAI[1] == 14 || internalAI[1] == 18)
+
+            if (internalAI[1] == 4 || internalAI[1] == 10 || internalAI[1] == 13 || internalAI[1] == 20 || internalAI[1] == 25)
             {
                 int MaxMinons = Main.expertMode ? 3 : 4;
                 if (MinionCount < MaxMinons)
                 {
                     AkumaAttacks.SpawnLung(player, mod);
                     MinionCount += 1;
+                }
+            }
+            
+            if (internalAI[1] == 5 || internalAI[1] == 9 || internalAI[1] == 14 || internalAI[1] == 19 || internalAI[1] == 22)
+            {
+                if (internalAI[0] == 550)
+                {
+                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, npc.velocity.X * 2, npc.velocity.Y, mod.ProjectileType<AFireProjHostile>(), npc.damage / (Main.expertMode ? 2 : 4), 3, Main.myPlayer);
                 }
             }
 

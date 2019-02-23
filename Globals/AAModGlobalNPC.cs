@@ -213,19 +213,14 @@ namespace AAMod
             {
                 npc.damage -= 10;
             }
-            if (Hydratoxin && !npc.boss)
+            if (Hydratoxin)
             {
-                if (npc.velocity.Y == 0)
+                drain = true;
+                if (npc.lifeRegen > 0)
                 {
-                    if (npc.velocity.X < -2f || npc.velocity.X > 2f)
-                    {
-                        npc.velocity.X *= 0.8f;
-                    }
-                    if (npc.velocity.Y < -2f || npc.velocity.Y > 2f)
-                    {
-                        npc.velocity.Y *= 0.8f;
-                    }
+                    npc.lifeRegen = 0;
                 }
+                npc.lifeRegen -= (int)(npc.velocity.X);
             }
 
         }

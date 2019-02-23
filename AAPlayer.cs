@@ -1431,14 +1431,14 @@ namespace AAMod
         public override void PreUpdate()
         {
 
-            if (player.HeldItem.type == mod.ItemType<Items.Usable.CodeMagnet>())
+            /*if (player.HeldItem.type == mod.ItemType<Items.Usable.CodeMagnet>())
             {
                 Player.defaultItemGrabRange = 500;
             }
             else
             {
                 Player.defaultItemGrabRange = 38;
-            }
+            }*/
 
             if (SnapCD != 0)
             {
@@ -1953,18 +1953,7 @@ namespace AAMod
                 player.thrownDamage *= 0.8f;
                 player.rangedDamage *= 0.8f;
             }
-            if (hydraToxin)
-            {
-                if (player.velocity.X < -2f )
-                {
-                    player.velocity. X = -2f;
-                }
-                if (player.velocity.X > 2f)
-                {
-
-                    player.velocity.X = 2f;
-                }
-            }
+            
             if (riftbent)
             {
                 RiftTimer++;
@@ -1989,7 +1978,13 @@ namespace AAMod
                 RiftDamage = 10;
                 RiftTimer = 0;
             }
+            if (hydraToxin)
+            {
+                player.moveSpeed *= player.statLife / player.statLifeMax;
+            }
         }
+
+        
 
         public override void UpdateDead()
         {

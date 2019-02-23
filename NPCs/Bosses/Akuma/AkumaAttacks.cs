@@ -115,6 +115,7 @@ namespace AAMod
             Projectile.NewProjectile(vector2.X, vector2.Y, num114 * 0.75f, num115 * 0.75f, mod.ProjectileType("AkumaRock"), (int)(npc.damage / 1.3f), 0, player.whoAmI, 0f, 0.5f + ((float)Main.rand.NextDouble() * 0.3f));
         }
 
+        
         public static void DraconianFury(Player player, Mod mod, NPC npc)
         {
 

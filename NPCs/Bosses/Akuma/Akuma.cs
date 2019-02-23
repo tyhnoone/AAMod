@@ -101,7 +101,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                 internalAI[3] = reader.ReadFloat();
             }
         }
-        
+
 
         public override bool PreAI()
         {
@@ -122,10 +122,13 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
             float dist = npc.Distance(player.Center);
             internalAI[0]++;
-            if (internalAI[0] == 600)
+            if (internalAI[0] == 500)
             {
                 Roar(roarTimerMax, false);
                 internalAI[1] += 1;
+            }
+            if (internalAI[0] > 500)
+            {
                 Attack(npc, npc.velocity);
             }
             if (internalAI[0] >= 600)
@@ -418,23 +421,38 @@ namespace AAMod.NPCs.Bosses.Akuma
         public void Attack(NPC npc, Vector2 velocity)
         {
             Player player = Main.player[npc.target];
-            if (internalAI[1] == 1 || internalAI[1] == 4 || internalAI[1] == 6 || internalAI[1] == 10 || internalAI[1] == 14)
+            if (internalAI[1] == 1 || internalAI[1] == 5 || internalAI[1] == 9 || internalAI[1] == 16 || internalAI[1] == 18)
             {
-                int Fireballs = Main.expertMode ? 7 : 10;
-                for (int Loops = 0; Loops < Fireballs; Loops++)
+                if (internalAI[0] == 520 || internalAI[0] == 540 || internalAI[0] == 560 || internalAI[0] == 580)
                 {
-                    AkumaAttacks.Dragonfire(npc, mod, false);
+                    int Fireballs = Main.expertMode ? 3 : 4;
+                    for (int Loops = 0; Loops < Fireballs; Loops++)
+                    {
+                        AkumaAttacks.Dragonfire(npc, mod, false);
+                    }
+                }
+                
+            }
+
+            if ((internalAI[1] == 2 || internalAI[1] == 7 || internalAI[1] == 12 || internalAI[1] == 15 || internalAI[1] == 19))
+            {
+                if (internalAI[0] == 550)
+                {
+                    int Fireballs = Main.expertMode ? 3 : 5;
+                    float spread = 45f * 0.0174f;
+                    float baseSpeed = (float)Math.Sqrt((npc.velocity.X * npc.velocity.X) + (npc.velocity.Y * npc.velocity.Y));
+                    double startAngle = Math.Atan2(npc.velocity.X, npc.velocity.Y) - .1d;
+                    double deltaAngle = spread / 6f;
+                    double offsetAngle;
+                    for (int i = 0; i < Fireballs; i++)
+                    {
+                        offsetAngle = startAngle + (deltaAngle * i);
+                        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType<AkumaBomb>(), npc.damage / (Main.expertMode ? 2 : 4), 3, Main.myPlayer);
+                    }
                 }
             }
-            if ((internalAI[1] == 2 || internalAI[1] == 7 || internalAI[1] == 9 || internalAI[1] == 12 || internalAI[1] == 15))
-            {
-                int Fireballs = Main.expertMode ? 3 : 5;
-                for (int Loops = 0; Loops < Fireballs; Loops++)
-                {
-                    AAAI.BreatheFire(npc, false, mod.ProjectileType<AkumaBomb>(), 1, 2);
-                }
-            }
-            if (internalAI[1] == 3 || internalAI[1] == 5 || internalAI[1] == 8 || internalAI[1] == 11 || internalAI[1] == 13)
+
+            if (internalAI[1] == 3 || internalAI[1] == 8 || internalAI[1] == 13 || internalAI[1] == 11 || internalAI[1] == 20)
             {
                 if (MinionCount < MaxMinons)
                 {
@@ -443,7 +461,15 @@ namespace AAMod.NPCs.Bosses.Akuma
                 }
             }
 
-            if (internalAI[1] > 25)
+            if (internalAI[1] == 4 || internalAI[1] == 6 || internalAI[1] == 10 || internalAI[1] == 14 || internalAI[1] == 17)
+            {
+                if (internalAI[0] == 550)
+                {
+                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, npc.velocity.X * 2, npc.velocity.Y, mod.ProjectileType<AkumaFireProj>(), npc.damage / (Main.expertMode ? 2 : 4), 3, Main.myPlayer);
+                }
+            }
+
+            if (internalAI[1] > 20)
             {
                 internalAI[1] = 0;
             }
