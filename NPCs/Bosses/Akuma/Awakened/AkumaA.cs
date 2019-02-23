@@ -393,19 +393,31 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             Player player = Main.player[npc.target];
             if (internalAI[1] == 1 || internalAI[1] == 7 || internalAI[1] == 15 || internalAI[1] == 18 || internalAI[1] == 21)
             {
-                int Fireballs = Main.expertMode ? 7 : 10;
-                for (int Loops = 0; Loops < Fireballs; Loops++)
+                if (internalAI[0] == 520 || internalAI[0] == 540 || internalAI[0] == 560 || internalAI[0] == 580)
                 {
-                    AkumaAttacks.Dragonfire(npc, mod, true);
+                    int Fireballs = Main.expertMode ? 10 : 7;
+                    for (int Loops = 0; Loops < Fireballs; Loops++)
+                    {
+                        AkumaAttacks.Dragonfire(npc, mod, true);
+                    }
                 }
             }
 
             if ((internalAI[1] == 2 || internalAI[1] == 6 || internalAI[1] == 12 || internalAI[1] == 16 || internalAI[1] == 24))
             {
-                int Fireballs = Main.expertMode ? 3 : 5;
-                for (int Loops = 0; Loops < Fireballs; Loops++)
+                if (internalAI[0] == 550)
                 {
-                    AAAI.BreatheFire(npc, false, mod.ProjectileType<AkumaABomb>(), 1, 2);
+                    int Fireballs = Main.expertMode ? 5 : 3;
+                    float spread = 45f * 0.0174f;
+                    float baseSpeed = (float)Math.Sqrt((npc.velocity.X * npc.velocity.X) + (npc.velocity.Y * npc.velocity.Y));
+                    double startAngle = Math.Atan2(npc.velocity.X, npc.velocity.Y) - .1d;
+                    double deltaAngle = spread / 6f;
+                    double offsetAngle;
+                    for (int i = 0; i < Fireballs; i++)
+                    {
+                        offsetAngle = startAngle + (deltaAngle * i);
+                        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType<AkumaABomb>(), npc.damage / (Main.expertMode ? 2 : 4), 3, Main.myPlayer);
+                    }
                 }
             }
 

@@ -35,7 +35,84 @@ namespace AAMod.Projectiles
 		{
 			target.immune[projectile.owner] = 5;
 		}
-		
+
+        public float GetHue(float indexing)
+        {
+            string playerName;
+            if (Main.player[projectile.owner].active && (playerName = Main.player[projectile.owner].name) != null)
+            {
+                Dictionary<string, int> LaserHue = new Dictionary<string, int>(17)
+                {
+                    {"Alphakip", 0},
+                    {"Liz", 1},
+                    {"Charlie", 2},
+                    {"Hallam", 3},
+                    {"Grox", 4},
+                    {"Turquoise", 5},
+                    {"Blade", 6},
+                    {"Nio", 7},
+                    {"Gregg", 8},
+                    {"Sammy", 9},
+                    {"Tied", 10},
+                    {"Tails", 11},
+                    {"Moon Bee", 12},
+                    {"Aves", 13},
+                    {"Ferret", 14},
+                    {"Dallin", 15},
+                    {"Zip", 16},
+                    {"Beg", 17},
+                    {"Glitched", 18},
+                    {"LCS", 19},
+                    {"Chinzilla", 20},
+                    {"Fargo", 21},
+                    {"Kyuu", 22},
+                    {"Karamitasu", 23},
+                    {"Dan", 24},
+                    {"Sume", 25}
+                };
+                int someNumber;
+                if (LaserHue.TryGetValue(playerName, out someNumber))
+                {
+                    switch (someNumber)
+                    {
+                        case 0:
+                        case 1:
+                            return 2f;
+                        case 2:
+                            return 0.83f;
+                        case 3:
+                            return 1.5f + (float)Math.Cos(Main.time / 180.0 * 6.2831854820251465) * 0.1f;
+                        case 4:
+                            return 1.27f;
+                        case 5:
+                            return 0.65f + (float)Math.Cos(Main.time / 180.0 * 6.2831854820251465) * 0.1f;
+                        case 6:
+                            return 0f;
+                        case 7:
+                        case 8:
+                            return 1.7f + (float)Math.Cos(Main.time / 180.0 * 6.2831854820251465) * 0.07f;
+                        case 9:
+                            return 0.15f + (float)Math.Cos(Main.time / 180.0 * 6.2831854820251465) * 0.07f;
+                        case 10:
+                            return 1.15f + (float)Math.Cos(Main.time / 180.0 * 6.2831854820251465) * 0.18f;
+                        case 11:
+                            return 1.7f + (float)Math.Cos(Main.time / 120.0 * 6.2831854820251465) * 0.05f;
+                        case 12:
+                            return 0.83f + (float)Math.Cos(Main.time / 120.0 * 6.2831854820251465) * 0.03f;
+                        case 13:
+                            return 1.4f + (float)Math.Cos(Main.time / 180.0 * 6.2831854820251465) * 0.06f;
+                        case 14:
+                            return 0.31f + (float)Math.Cos(Main.time / 120.0 * 6.2831854820251465) * 0.13f;
+                        case 15:
+                            return 1.9f + (float)Math.Cos(Main.time / 180.0 * 6.2831854820251465) * 0.1f;
+                        case 16:
+                            return Main.rand.NextFloat();
+                    }
+                }
+            }
+            return (float)((int)indexing) / 6f;
+        }
+
         public override void AI()
         {
 			Vector2? vector71 = null;

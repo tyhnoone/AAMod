@@ -425,7 +425,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             {
                 if (internalAI[0] == 520 || internalAI[0] == 540 || internalAI[0] == 560 || internalAI[0] == 580)
                 {
-                    int Fireballs = Main.expertMode ? 3 : 4;
+                    int Fireballs = Main.expertMode ? 4 : 3;
                     for (int Loops = 0; Loops < Fireballs; Loops++)
                     {
                         AkumaAttacks.Dragonfire(npc, mod, false);
