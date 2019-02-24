@@ -27,7 +27,6 @@ namespace AAMod.NPCs.Enemies.Other
             npc.lifeMax = 30;
             npc.noGravity = true;
             npc.noTileCollide = true;
-            npc.knockBackResist = 0.05f;
             npc.npcSlots = 0f;
             npc.lavaImmune = true;
             npc.netAlways = true;
