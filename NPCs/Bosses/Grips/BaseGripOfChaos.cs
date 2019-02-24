@@ -46,16 +46,16 @@ namespace AAMod.NPCs.Bosses.Grips
                 npc.frame.Y += frameHeight;
                 if (npc.ai[0] == 2 || npc.ai[0] == 3)
                 {
-                    if (npc.frame.Y > 4 * frameHeight)
+                    if (npc.frame.Y < 4 * frameHeight || npc.frame.Y < 7 * frameHeight)
                     {
-                        npc.frame.Y = 0;
+                        npc.frame.Y = 4 * frameHeight;
                     }
                 }
                 else
                 {
-                    if (npc.frame.Y < 4 * frameHeight || npc.frame.Y < 7 * frameHeight)
+                    if (npc.frame.Y > 4 * frameHeight)
                     {
-                        npc.frame.Y = 4 * frameHeight;
+                        npc.frame.Y = 0;
                     }
                 }
             }

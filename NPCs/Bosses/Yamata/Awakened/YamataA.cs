@@ -2,11 +2,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using BaseMod;
+using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Yamata.Awakened
 {
-    //[AutoloadBossHead]
-
+    [AutoloadBossHead]
     public class YamataA : Yamata
 	{
 		bool cheated = false;
@@ -108,7 +108,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
         {
             if (Main.expertMode)
             {
-                BaseAI.DropItem(npc, mod.ItemType("YamataTrophy"), 1, 1, 15, true);
+                BaseAI.DropItem(npc, mod.ItemType("YamataATrophy"), 1, 1, 15, true);
                 
                 npc.DropBossBags();
                 AAWorld.downedYamata = true;

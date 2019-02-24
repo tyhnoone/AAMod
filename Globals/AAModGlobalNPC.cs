@@ -11,6 +11,7 @@ using AAMod.NPCs.Bosses.Orthrus;
 using AAMod.NPCs.Bosses.Raider;
 using AAMod.NPCs.Bosses.Retriever;
 using AAMod.NPCs.Bosses.Akuma;
+using AAMod.NPCs.Bosses.Akuma.Awakened;
 ////using AAMod.NPCs.Bosses.Infinity;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
 using AAMod.NPCs.Bosses.Zero;
@@ -94,7 +95,7 @@ namespace AAMod
                     damage = 40;
                 }
             }
-
+            
             if (InfinityScorch)
             {
                 drain = true;
@@ -212,19 +213,14 @@ namespace AAMod
             {
                 npc.damage -= 10;
             }
-            if (Hydratoxin && !npc.boss)
+            if (Hydratoxin)
             {
-                if (npc.velocity.Y == 0)
+                drain = true;
+                if (npc.lifeRegen > 0)
                 {
-                    if (npc.velocity.X < -2f || npc.velocity.X > 2f)
-                    {
-                        npc.velocity.X *= 0.8f;
-                    }
-                    if (npc.velocity.Y < -2f || npc.velocity.Y > 2f)
-                    {
-                        npc.velocity.Y *= 0.8f;
-                    }
+                    npc.lifeRegen = 0;
                 }
+                npc.lifeRegen -= (int)(npc.velocity.X);
             }
 
         }
@@ -738,6 +734,10 @@ namespace AAMod
                         pool.Add(mod.NPCType("Null"), .5f);
                     }
                 }
+                else
+                {
+                    pool.Add(mod.NPCType("Searcher1"), .5f);
+                }
             }
 
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneShip)
@@ -774,6 +774,14 @@ namespace AAMod
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("M79Round"));
                 nextSlot++;
+            }
+        }
+
+        public override void GetChat(NPC npc, ref string chat)
+        {
+            if (npc.type == NPCID.Clothier && Main.rand.Next(14) == 0)
+            {
+                chat = "If you don't want tobe destroyed, I'd avoid using a Blessed Sock. The great silken lord does not like to be bothered.";
             }
         }
 

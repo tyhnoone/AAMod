@@ -84,10 +84,11 @@ namespace AAMod.Items.Boss.Shen
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("RealityBar"), 5);
-			recipe.AddIngredient(1910);
-			recipe.AddIngredient(ItemID.Flamethrower);
-			recipe.AddTile(mod.TileType("ASC"));
+			recipe.AddIngredient(mod.ItemType("Discordium"), 5);
+            recipe.AddIngredient(mod.ItemType("ChaosScale"), 5);
+            recipe.AddIngredient(mod.ItemType("Dawnstrike"));
+            recipe.AddIngredient(mod.ItemType("Darksprayer"));
+            recipe.AddTile(mod.TileType("ASC"));
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

@@ -30,8 +30,16 @@ namespace AAMod.NPCs.Bosses.Zero
         public override void SetDefaults()
         {
             npc.lifeMax = 120000;
-            npc.damage = 120;
-            npc.defense = 80;
+            if (npc.life > npc.lifeMax / 3)
+            {
+                npc.damage = 120;
+                npc.defense = 80;
+            }
+            if (npc.life <= npc.lifeMax / 3)
+            {
+                npc.damage = 140;
+                npc.defense = 110;
+            }
             npc.knockBackResist = 0f;
             npc.width = 78;
             npc.height = 78;
@@ -43,15 +51,16 @@ namespace AAMod.NPCs.Bosses.Zero
             npc.lavaImmune = true;
             npc.noGravity = true;
             npc.noTileCollide = true;
-            npc.HitSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Sounds/Zerohit");
-            npc.DeathSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Sounds/ZeroDeath");
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Zero2");
+            npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/Sounds/Zerohit");
+            npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCKilled, "Sounds/Sounds/ZeroDeath");
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Zero2");
             npc.netAlways = true;
             bossBag = mod.ItemType("ZeroBag");
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
                 npc.buffImmune[k] = true;
             }
+            npc.alpha = 255;
         }
 
         public override void NPCLoot()
@@ -75,7 +84,8 @@ namespace AAMod.NPCs.Bosses.Zero
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
-            potionType = ItemID.SuperHealingPotion; 
+            potionType = ItemID.SuperHealingPotion;   //boss drops
+            AAWorld.downedZero = true;
             Projectile.NewProjectile((new Vector2(npc.Center.X, npc.Center.Y)), (new Vector2(0f, 0f)), mod.ProjectileType("ZeroDeath1"), 0, 0);
         }
 
@@ -95,16 +105,11 @@ namespace AAMod.NPCs.Bosses.Zero
             {
                 Panic = true;
                 Main.NewText("WARNING. DRASTIC DAMAGE DETECTED, FAILURE IMMINENT. ENGAGE T0TAL 0FFENCE PR0T0C0L", Color.Red.R, Color.Red.G, Color.Red.B);
-                npc.damage = 140;
-                npc.defense = 110;
             }
             if (npc.life <= npc.lifeMax / 3 && Panic == false && AAWorld.downedZero)
             {
                 Panic = true;
                 Main.NewText("WARNING. DRASTIC DAMAGE DETECTED, FAILURE IMMINENT AGAIN. ENGAGE T0TAL 0FFENCE PR0T0C0L 0MEGA", Color.Red.R, Color.Red.G, Color.Red.B);
-
-                npc.damage = 160;
-                npc.defense = 120;
             }
             if (damage > 30)
             {
@@ -127,133 +132,33 @@ namespace AAMod.NPCs.Bosses.Zero
             }
         }
 
-        public static Texture2D glowTex = null;
-        public float auraPercent = 0f;
-        public bool auraDirection = true;
-        public int CloneAlpha = 255;
-        public int TrailAlpha = 0;
-
-        public Color GetAlpha(Color newColor, float alph)
+        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            int alpha = 255 - (int)(255 * alph);
-            float alphaDiff = (float)(255 - alpha) / 255f;
-            int newR = (int)((float)newColor.R * alphaDiff);
-            int newG = (int)((float)newColor.G * alphaDiff);
-            int newB = (int)((float)newColor.B * alphaDiff);
-            int newA = (int)newColor.A - alpha;
-            if (newA < 0) newA = 0;
-            if (newA > 255) newA = 255;
-            return new Color(newR, newG, newB, newA);
-        }
-
-        public Color TrailColor(Color newColor, float alph)
-        {
-            int alpha = 255 - (int)(255 * alph);
-            float alphaDiff = (float)(255 - alpha) / 255f;
-            int newR = (int)((float)newColor.R * alphaDiff);
-            int newG = (int)((float)newColor.G * alphaDiff);
-            int newB = (int)((float)newColor.B * alphaDiff);
-            int newA = (int)newColor.A - alpha;
-            if (newA < 0) newA = 0;
-            if (newA > 255) newA = 255;
-            return new Color(newR, newG, newB, newA);
-        }
-
-        public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
-        {
-            if (glowTex == null)
-            {
-                glowTex = mod.GetTexture("Glowmasks/ZeroAwakened_Glow");
-            }
-            Vector2 vector10 = new Vector2((Main.npcTexture[type].Width / 2), (Main.npcTexture[type].Height / Main.npcFrameCount[type] / 2));
-            Texture2D ZeroTrail = mod.GetTexture("npcs/Bosses/Zero/ZeroTrail");
             float Eggroll = Math.Abs(Main.GameUpdateCount) / 0.5f;
             float Pie = 1f * (float)Math.Sin(Eggroll);
             Color color1 = Color.Lerp(Color.Red, Color.Black, Pie);
+            SpriteEffects spriteEffects = SpriteEffects.None;
+            if (npc.spriteDirection == 1)
+            {
+                spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+            spriteBatch.Draw(mod.GetTexture("Glowmasks/ZeroAwakened_Glow"), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
+            npc.frame, color1, npc.rotation,
+            new Vector2(npc.width * 0.5f, npc.height * 0.5f), 1f, spriteEffects, 0f);
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
             Vector2 drawOrigin = new Vector2(Main.npcTexture[npc.type].Width * 0.5f, npc.height * 0.5f);
-            if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
-            else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
-            Color color9 = Lighting.GetColor((int)((double)npc.position.X + (double)npc.width * 0.5) / 16, (int)(((double)npc.position.Y + (double)npc.height * 0.5) / 16.0));
-            float num66 = 0f;
-            Vector2 vector11 = new Vector2((Main.npcTexture[npc.type].Width / 2), (Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type] / 2));
-            
-            Rectangle frame6 = npc.frame;
-            Color alpha15 = npc.GetAlpha(color9);
-            float num212 = 1f - npc.life / npc.lifeMax;
-            num212 *= num212;
-            alpha15.R = (byte)(alpha15.R * num212);
-            alpha15.G = (byte)(alpha15.G * num212);
-            alpha15.B = (byte)(alpha15.B * num212);
-            alpha15.A = (byte)(alpha15.A * num212);
-
-            Color CloneColor1 = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, color9, color9, color9, AAColor.Oblivion, AAColor.Oblivion, color9);
-            Color CloneColor2 = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, color9, AAColor.Oblivion, AAColor.Oblivion, color9, color9, color9);
-            Color CloneColor3 = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, color9, color9, AAColor.Oblivion, AAColor.Oblivion, color9, color9);
-
-            int CloneCount = 4;
-            if (AAWorld.downedZero)
+            for (int k = 0; k < npc.oldPos.Length; k++)
             {
-                CloneCount = 6;
+                Texture2D ZeroTrail = mod.GetTexture("NPCs/Bosses/Zero/ZeroTrail");
+                lightColor = new Color(k * 50, 0, 0);
+                Vector2 drawPos = npc.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, npc.gfxOffY);
+                Color color = npc.GetAlpha(lightColor) * ((npc.oldPos.Length - k) / (float)npc.oldPos.Length);
+                spriteBatch.Draw(ZeroTrail, drawPos, null, color, npc.rotation, drawOrigin, npc.scale, SpriteEffects.None, 0f);
             }
-            if (npc.life > npc.lifeMax / 3)
-            {
-                CloneAlpha -= 5;
-                TrailAlpha += 5;
-                for (int num213 = 0; num213 < CloneCount; num213++)
-                {
-                    Vector2 position9 = npc.position;
-                    float num214 = Math.Abs(npc.Center.X - Main.player[Main.myPlayer].Center.X);
-                    float num215 = Math.Abs(npc.Center.Y - Main.player[Main.myPlayer].Center.Y);
-                    if (num213 == 0 || num213 == 2)
-                    {
-                        position9.X = Main.player[Main.myPlayer].Center.X + num214;
-                    }
-                    else
-                    {
-                        position9.X = Main.player[Main.myPlayer].Center.X - num214;
-                    }
-                    position9.X -= (npc.width / 2);
-                    if (num213 == 0 || num213 == 1)
-                    {
-                        position9.Y = Main.player[Main.myPlayer].Center.Y + num215;
-                    }
-                    else
-                    {
-                        position9.Y = Main.player[Main.myPlayer].Center.Y - num215;
-                    }
-                    position9.Y -= (npc.height / 2);
-                    Color CloneColor = GetAlpha(CloneColor1, CloneAlpha);
-                    if (num213 == 2)
-                    {
-                        CloneColor = GetAlpha(CloneColor2, CloneAlpha);
-                    }
-                    if (num213 == 3)
-                    {
-                        CloneColor = GetAlpha(CloneColor3, CloneAlpha);
-                    }
-                    Vector2[] velocities = new Vector2[] { npc.velocity };
-                    velocities = npc.oldPos;
-                    float offsetY2 = npc.gfxOffY;
-                    Vector2 ClonePosition = new Vector2(position9.X - Main.screenPosition.X + (npc.width / 2) - Main.npcTexture[npc.type].Width * npc.scale / 2f + vector11.X * npc.scale, position9.Y - Main.screenPosition.Y + npc.height - Main.npcTexture[npc.type].Height * npc.scale / Main.npcFrameCount[npc.type] + 4f + vector11.Y * npc.scale + num66 + npc.gfxOffY);
-                    if (npc.spriteDirection == 1)
-                    {
-                        Main.spriteBatch.Draw(Main.npcTexture[npc.type], ClonePosition, new Rectangle?(frame6), CloneColor, npc.rotation, vector11, npc.scale, SpriteEffects.FlipHorizontally, 0f);
-                    }
-                    else
-                    {
-                        Main.spriteBatch.Draw(Main.npcTexture[npc.type], ClonePosition, new Rectangle?(frame6), CloneColor, npc.rotation, vector11, npc.scale, SpriteEffects.None, 0f);
-                    }
-                }
-            }
-            TrailColor(Color.White, TrailAlpha);
-            if (TrailAlpha < 255)
-            {
-                BaseDrawing.DrawAfterimage(spritebatch, ZeroTrail, 0, npc, 0.8f, 1f, 3, false, 0f, 0f, Color.White);
-            }
-            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
-            BaseDrawing.DrawAura(spritebatch, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, color1);
-            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, color1);
-            return false;
+            return true;
         }
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
@@ -276,36 +181,32 @@ namespace AAMod.NPCs.Bosses.Zero
 
         public override void AI()
         {
-            Glitch = Main.rand.Next(10);
-            if(Glitch == 0)
-            {
-                GlitchBool = true;
-            }
+            Glitch = Main.rand.Next(8);
             npc.frameCounter++;
             if (npc.frameCounter >= 10)
             {
                 npc.frameCounter = 0;
                 npc.frame.Y += 170;
-                if (GlitchBool)
+                if (Glitch == 0)
                 {
-
-                    if (npc.frame.Y > (170 * 7))
+                    if (npc.frame.Y > (108 * 7))
                     {
+                        npc.frameCounter = 0;
                         npc.frame.Y = 0;
-                        GlitchBool = false;
                     }
                 }
                 else
                 {
-                    if (npc.frame.Y > (170 * 3))
+                    if (npc.frame.Y > (108 * 3))
                     {
+                        npc.frameCounter = 0;
                         npc.frame.Y = 0;
                     }
                 }
             }
             if (npc.life <= npc.lifeMax / 3)
             {
-                music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/ZeroPinch");
+                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
             }
             if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead || !Main.player[npc.target].active)
             {

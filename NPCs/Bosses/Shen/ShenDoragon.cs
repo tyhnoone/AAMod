@@ -502,7 +502,8 @@ namespace AAMod.NPCs.Bosses.Shen
 				Main.PlaySound(4, (int)npc.Center.X, (int)npc.Center.Y, 60);
 			}else
 			{
-				Main.PlaySound(29, (int)npc.Center.X, (int)npc.Center.Y, 92);			
+                int roarSound = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Sounds/ShenRoar");
+                Main.PlaySound(roarSound, (int)npc.Center.X, (int)npc.Center.Y, 92);			
 			}
 		}
 
@@ -590,47 +591,6 @@ namespace AAMod.NPCs.Bosses.Shen
                 SpawnBoss(player, "BlazeGripS", "GripOfChaosRed");
                 Main.PlaySound(SoundID.Roar, player.position, 0);
             }
-            if (npc.life <= 0)
-            {
-                for (int m = 0; m < 60; m++)
-                {
-                    int dustID = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType<Dusts.Discord>(), 0f, 0f, 100, default(Color), 2f);
-                    Main.dust[dustID].velocity *= 3f;
-                    if (Main.rand.Next(2) == 0)
-                    {
-                        Main.dust[dustID].scale = 0.5f;
-                        Main.dust[dustID].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
-                }
-                for (int m = 0; m < 90; m++)
-                {
-                    int dustID = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default(Color), 3f);
-                    Main.dust[dustID].noGravity = true;
-                    Main.dust[dustID].velocity *= 5f;
-                    dustID = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType<Dusts.YamataDust>(), 0f, 0f, 100, default(Color), 2f);
-                    Main.dust[dustID].velocity *= 2f;
-                }
-            }else
-			{
-                for (int m = 0; m < 12; m++)
-                {
-                    int dustID = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType<Dusts.Discord>(), 0f, 0f, 100, default(Color), 1.5f);
-                    Main.dust[dustID].velocity *= 3f;
-                    if (Main.rand.Next(2) == 0)
-                    {
-                        Main.dust[dustID].scale = 0.5f;
-                        Main.dust[dustID].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
-                    }
-                }
-                for (int m = 0; m < 12; m++)
-                {
-                    int dustID = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default(Color), 1f);
-                    //Main.dust[dustID].noGravity = true;
-                    Main.dust[dustID].velocity *= 5f;
-                    dustID = Dust.NewDust(new Vector2(npc.position.X + 20, npc.position.Y + 5), npc.width, npc.height, mod.DustType<Dusts.YamataDust>(), 0f, 0f, 100, default(Color), 0.6f);
-                    Main.dust[dustID].velocity *= 2f;
-                }				
-			}
         }
 
         public override void NPCLoot()
@@ -639,7 +599,7 @@ namespace AAMod.NPCs.Bosses.Shen
 			{
 				if (Main.expertMode)
                 {
-                    BaseAI.DropItem(npc, mod.ItemType("ShenTrophy"), 1, 1, 15, true);
+                    BaseAI.DropItem(npc, mod.ItemType("ShenATrophy"), 1, 1, 15, true);
                     NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<ShenDeath>());
                     npc.DropBossBags();
 					AAWorld.downedShen = true;

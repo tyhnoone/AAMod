@@ -20,6 +20,7 @@ using AAMod.Items.Blocks;
 using AAMod;
 using Terraria.IO;
 using System.IO;
+using System.Reflection.Emit;
 
 namespace AAMod
 {
@@ -331,9 +332,9 @@ namespace AAMod
                     GetTexture("Healthbars/YamataBarTail"),
                     GetTexture("Healthbars/BarFill"));
                 yabhb.Call("hbSetColours",
-                    Color.Navy,
-                    Color.Navy,
-                    Color.Navy);
+                    Color.Purple,
+                    Color.Purple,
+                    Color.Purple);
                 yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
@@ -361,9 +362,9 @@ namespace AAMod
                     GetTexture("Healthbars/AkumaBarTail"),
                     GetTexture("Healthbars/BarFill"));
                 yabhb.Call("hbSetColours",
-                    Color.OrangeRed,
-                    Color.OrangeRed,
-                    Color.OrangeRed);
+                    Color.Yellow,
+                    Color.Yellow,
+                    Color.Yellow);
                 yabhb.Call("hbSetMidBarOffset", -30, 10);
                 yabhb.Call("hbSetBossHeadCentre", 50, 32);
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
@@ -424,18 +425,14 @@ namespace AAMod
                 bossChecklist.Call("AddBossWithInfo", "Hydra", 4.00000000001f, (Func<bool>)(() => AAWorld.downedHydra), "Use a [i:" + ItemType("HydraChow") + "] in the Mire at night");
                 bossChecklist.Call("AddBossWithInfo", "Subzero Serpent", 5.00000000001f, (Func<bool>)(() => AAWorld.downedSerpent), "Use a [i:" + ItemType("SubzeroCrystal") + "] in the Snow biome at night");
                 bossChecklist.Call("AddBossWithInfo", "Desert Djinn", 5.00000000001f, (Func<bool>)(() => AAWorld.downedDjinn), "Use a [i:" + ItemType("DjinnLamp") + "] in the Desert during the day");
-                //bossChecklist.Call("AddBossWithInfo", "Truffle Toad", 6.00000000001f, (Func<bool>)(() => AAWorld.downedToad), "Use a [i:" + ItemType("Toadstool") + "] in an underground mushroom biome");
                 bossChecklist.Call("AddBossWithInfo", "Retriever", 6.9999997f, (Func<bool>)(() => AAWorld.downedRetriever), "Use a [i:" + ItemType("CyberneticClaw") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Raider Ultima", 6.9999997f, (Func<bool>)(() => AAWorld.downedRaider), "Use a [i:" + ItemType("CyberneticBell") + "] at night");
-                bossChecklist.Call("AddBossWithInfo", "Orthrus X", 6.9999997f, (Func<bool>)(() => AAWorld.downedOrthrus), "Use a [i:" + ItemType("HydraChow") + "] at night");
-                bossChecklist.Call("AddBossWithInfo", "Emperor Fishron", 14.00000000001f, (Func<bool>)(() => AAWorld.downedEFish), "Use a [i:" + ItemType("ShroomGrub") + " at the ocean]");
-                bossChecklist.Call("AddBossWithInfo", "Nightcrawler & Daybringer", 14.00000000002f, (Func<bool>)(() => AAWorld.downedEquinox), "Use a [i:" + ItemType("EquinoxWorm") + "]");
-                //bossChecklist.Call("AddBossWithInfo", "Kraken", 16.1f, (Func<bool>)(() => AAWorld.downedKraken), "Use a [i:" + ItemType("Portal") + "] at the Ocean");
+                bossChecklist.Call("AddBossWithInfo", "Orthrus X", 6.9999997f, (Func<bool>)(() => AAWorld.downedOrthrus), "Use a [i:" + ItemType("ScrapHeap") + "] at night");
+                bossChecklist.Call("AddBossWithInfo", "Emperor Fishron", 15f, (Func<bool>)(() => AAWorld.downedEFish), "Use a [i:" + ItemType("ShroomGrub") + "] at the ocean");
+                bossChecklist.Call("AddBossWithInfo", "Nightcrawler & Daybringer", 15f, (Func<bool>)(() => AAWorld.downedEquinox), "Use a [i:" + ItemType("EquinoxWorm") + "]");
                 bossChecklist.Call("AddBossWithInfo", "Yamata", 16.2f, (Func<bool>)(() => AAWorld.downedYamata), "Use a [i:" + ItemType("DreadSigil") + "] in the Mire at night");
                 bossChecklist.Call("AddBossWithInfo", "Akuma", 16.3f, (Func<bool>)(() => AAWorld.downedAkuma), "Use a [i:" + ItemType("DraconianSigil") + "] in the Inferno during the day");
                 bossChecklist.Call("AddBossWithInfo", "Zero", 16.4f, (Func<bool>)(() => AAWorld.downedZero), "Use a [i:" + ItemType("ZeroTesseract") + "] in the Void");
-                //bossChecklist.Call("AddBossWithInfo", "Soul of Cthulhu", 17.997f, (Func<bool>)(() => AAWorld.downedSoC), "Use a [i:" + ItemType("SpatialWheel") + "at the ocean]");
-                //bossChecklist.Call("AddBossWithInfo", "Infinity Zero", 17.998f, (Func<bool>)(() => AAWorld.downedIZ), "Use a [i:" + ItemType("InfinityOverloader") + "]");
                 bossChecklist.Call("AddBossWithInfo", "Shen Doragon", 17.999f, (Func<bool>)(() => AAWorld.downedShen), "Use a [i:" + ItemType("ChaosSigil") + "]");
 
 
@@ -462,13 +459,11 @@ namespace AAMod
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Amphibious Atrocity", "Defeat the three-headed horror, the Hydra", instance.GetTexture("BlankTex"), AAWorld.downedHydra);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Slithering Snowmongerer", "Defeat the Snow-burrowing Snake, the Subzero Serpent", instance.GetTexture("BlankTex"), AAWorld.downedSerpent);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Sandskrit Sandman", "Defeat majin of magic, the Desert Djinn", instance.GetTexture("BlankTex"), AAWorld.downedDjinn);
-                //DradonIsDum.Call("AddAchievementWithoutReward", this, "T O D E", "Defeat the fungal frog, the Truffle Toad", instance.GetTexture("BlankTex"), AAWorld.downedToad);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Shocking", "Destroy any of the S.I.E.G.E. unit bosses", instance.GetTexture("Achievments/Storm"), AAWorld.downedStormAny);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Storming Smackdown", "Destroy all of the S.I.E.G.E. unit bosses", instance.GetTexture("Achievments/Storm"), AAWorld.downedStormAll);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Equinox Eradicator", "Defeat the time-turning worms, the Equinox Duo", instance.GetTexture("Achievments/Equinox"), AAWorld.downedEquinox);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Grip it and rip it", "Rematch the Grips of Chaos in their enhanced, discordian form", instance.GetTexture("Achievments/Grips"), AAWorld.downedGripsS);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Hurricane Horror", "Defeat the Spatial Squid of the Ocean, the Kraken", instance.GetTexture("BlankTex"), AAWorld.downedKraken);
-                //DradonIsDum.Call("AddAchievementWithoutReward", this, "Kraken Slayer", "Defeat the Kraken in Expert mode", instance.GetTexture("BlankTex"), (AAWorld.downedKraken && Main.expertMode));
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Clockwork Catastrophe", "Defeat the destructive doomsday construct, Zero", instance.GetTexture("Achievments/Zero"), AAWorld.downedZero);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Doom Slayer", "Destroy Zero's true, dark form, Zero Protocol", instance.GetTexture("Achievments/ZeroA"), (AAWorld.downedZero && Main.expertMode));
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Trial By Fire", "Defeat the draconian demon of the Inferno, Akuma", instance.GetTexture("Achievments/Akuma"), AAWorld.downedAkuma);
@@ -477,9 +472,6 @@ namespace AAMod
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Hydra Slayer", "Slay Yamata's true, abyssal form, Yamata Awakened", instance.GetTexture("BlankTex"), (AAWorld.downedYamata && Main.expertMode));
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Unyielding Discord", "Defeat the discordian doomsayer of chaos, Shen Doragon", instance.GetTexture("BlankTex"), AAWorld.downedShen);
                 DradonIsDum.Call("AddAchievementWithoutReward", this, "Dragon Slayer", "Slay Shen Doragon's true, chaotic form, Shen Doragon Awakened", instance.GetTexture("BlankTex"), (AAWorld.downedShen && Main.expertMode));
-                //DradonIsDum.Call("AddAchievementWithoutReward", this, "Endless Nothing", "Destroy the slayer of worlds, Infinity Zero", instance.GetTexture("BlankTex"), AAWorld.downedIZ);
-                //DradonIsDum.Call("AddAchievementWithoutReward", this, "Song of the Sea", "Defeat the nautical nightmare, the Soul of Cthulhu", instance.GetTexture("BlankTex"), AAWorld.downedSoC);
-                //DradonIsDum.Call("AddAchievementWithoutReward", this, "Endless Nothing", "Triumph over the Soul of Cthulhu's unbound form, Cthulhu; Cosmic Calamity", instance.GetTexture("BlankTex"), AAWorld.downedSoC && Main.expertMode);
             }
 
         }
@@ -498,7 +490,6 @@ namespace AAMod
 
         public override void Load()
         {
-            //Textures = (IDictionary<string, Texture2D>)typeof(Mod).GetField("textures", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(this);
             instance = this;
             GoblinSoul = CustomCurrencyManager.RegisterCurrency(new CustomCurrency(ItemType<Items.Currency.GoblinSoul>(), 999L));
             if (Main.rand == null)
@@ -512,20 +503,16 @@ namespace AAMod
             {
 
                 PremultiplyTexture(GetTexture("Backgrounds/VoidBH"));
-                PremultiplyTexture(GetTexture("Backgrounds/MireMoon"));
-                PremultiplyTexture(GetTexture("Backgrounds/InfernoSun"));
-                PremultiplyTexture(GetTexture("Backgrounds/InfernoSky"));
-                PremultiplyTexture(GetTexture("Backgrounds/MireSky"));
-                PremultiplyTexture(GetTexture("Backgrounds/VoidSky"));
+                PremultiplyTexture(GetTexture("Backgrounds/Moon"));
+                PremultiplyTexture(GetTexture("Backgrounds/Sun"));
                 PremultiplyTexture(GetTexture("Backgrounds/fog"));
                 PremultiplyTexture(GetTexture("Backgrounds/AkumaSun"));
                 PremultiplyTexture(GetTexture("Backgrounds/YamataMoon"));
+                PremultiplyTexture(GetTexture("Backgrounds/YamataBeam"));
                 PremultiplyTexture(GetTexture("Backgrounds/ShenEclipse"));
-                //PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/CthulhuPortal"));
-                //PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/CthulhuPortal2"));
-                //PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/Portal"));
-                //PremultiplyTexture(GetTexture("NPCs/Bosses/SoC/CthulhuSpawn"));
-                //PremultiplyTexture(GetTexture("Projectiles/SoC/CthulhuBoom"));
+                PremultiplyTexture(GetTexture("Backgrounds/ShenMeteor"));
+                PremultiplyTexture(GetTexture("Backgrounds/AkumaAMeteor"));
+                PremultiplyTexture(GetTexture("Backgrounds/AkumaMeteor"));
 
 
                 AddEquipTexture(new Items.Vanity.Beg.Pony_Head(), null, EquipType.Head, "Pony_Head", "AAMod/Items/Vanity/Beg/Pony_Head");
@@ -554,7 +541,6 @@ namespace AAMod
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Yamata2"), ItemType("YamataABox"), TileType("YamataABox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Shen"), ItemType("ShenBox"), TileType("ShenBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/ShenA"), ItemType("ShenABox"), TileType("ShenABox"));
-                    //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/IZ"), ItemType("IZBox"), TileType("IZBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/RayOfHope"), ItemType("RoHBox"), TileType("RoHBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/LastStand"), ItemType("SABox"), TileType("SABox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Terrarium"), ItemType("TerrariumBox"), TileType("TerrariumBox"));
@@ -562,7 +548,8 @@ namespace AAMod
 
                 Filters.Scene["AAMod:MireSky"] = new Filter(new MireSkyData("FilterMiniTower").UseColor(0f, 0.20f, 1f).UseOpacity(0.3f), EffectPriority.High);
                 SkyManager.Instance["AAMod:MireSky"] = new MireSky();
-                MireSky.PlanetTexture = GetTexture("Backgrounds/MireMoon");
+                MireSky.PlanetTexture = GetTexture("Backgrounds/Moon");
+                MireSky.SkyTexture = GetTexture("Backgrounds/MireSky");
 
                 //Filters.Scene["AAMod:CthulhuSky"] = new Filter(new MireSkyData("FilterMiniTower").UseColor(0f, 0.20f, 1f).UseOpacity(0.3f), EffectPriority.High);
                 //SkyManager.Instance["AAMod:CthulhuSky"] = new CthulhuSky();
@@ -580,6 +567,7 @@ namespace AAMod
                 VoidSky.LB = GetTexture("Backgrounds/LB");
                 VoidSky.boltTexture = GetTexture("Backgrounds/VoidBolt");
                 VoidSky.flashTexture = GetTexture("Backgrounds/VoidFlash");
+                VoidSky.Stars = GetTexture("Backgrounds/StarTex");
 
                 //Filters.Scene["AAMod:IZSky"] = new Filter(new IZSkyData("FilterMiniTower").UseColor(0.4f, 0.1f, 0.1f).UseOpacity(0.3f), EffectPriority.High);
                 //SkyManager.Instance["AAMod:IZSky"] = new IZSky();
@@ -593,28 +581,32 @@ namespace AAMod
 
                 Filters.Scene["AAMod:InfernoSky"] = new Filter(new InfernoSkyData("FilterMiniTower").UseColor(1f, 0.20f, 0f).UseOpacity(0.3f), EffectPriority.High);
                 SkyManager.Instance["AAMod:InfernoSky"] = new InfernoSky();
-                InfernoSky.PlanetTexture = GetTexture("Backgrounds/InfernoSun");
+                InfernoSky.PlanetTexture = GetTexture("Backgrounds/Sun");
+                InfernoSky.SkyTex = GetTexture("Backgrounds/Sky");
 
                 Filters.Scene["AAMod:AkumaSky"] = new Filter(new AkumaSkyData("FilterMiniTower").UseColor(0f, 0.3f, 0.4f).UseOpacity(0.5f), EffectPriority.VeryHigh);
                 SkyManager.Instance["AAMod:AkumaSky"] = new AkumaSky();
                 AkumaSky.PlanetTexture = GetTexture("Backgrounds/AkumaSun");
+                AkumaSky.SkyTex = GetTexture("Backgrounds/Sky");
 
                 Filters.Scene["AAMod:YamataSky"] = new Filter(new YamataSkyData("FilterMiniTower").UseColor(.7f, 0f, 0f).UseOpacity(0.5f), EffectPriority.VeryHigh);
                 SkyManager.Instance["AAMod:YamataSky"] = new YamataSky();
                 YamataSky.PlanetTexture = GetTexture("Backgrounds/YamataMoon");
+                YamataSky.SkyTex = GetTexture("Backgrounds/StarTex");
 
                 Filters.Scene["AAMod:ShenSky"] = new Filter(new ShenSkyData("FilterMiniTower").UseColor(.5f, 0f, .5f).UseOpacity(0.2f), EffectPriority.VeryHigh);
                 SkyManager.Instance["AAMod:ShenSky"] = new ShenSky();
-                ShenSky.Sun = GetTexture("Backgrounds/InfernoSun");
-                ShenSky.Moon = GetTexture("Backgrounds/MireMoon");
+                ShenSky.Sun = GetTexture("Backgrounds/Sun");
+                ShenSky.Moon = GetTexture("Backgrounds/Moon");
+                ShenSky.SkyTex = GetTexture("Backgrounds/Sky");
 
                 Filters.Scene["AAMod:ShenASky"] = new Filter(new ShenASkyData("FilterMiniTower").UseColor(.7f, 0f, .7f).UseOpacity(0.2f), EffectPriority.VeryHigh);
                 SkyManager.Instance["AAMod:ShenASky"] = new ShenASky();
                 ShenASky.PlanetTexture = GetTexture("Backgrounds/ShenEclipse");
+                ShenASky.SkyTex = GetTexture("Backgrounds/StarTex");
 
                 UserInterface = new UserInterface();
                 Main.itemTexture[1291] = GetTexture("Resprites/LifeFruit");
-                Main.itemTexture[1327] = GetTexture("Resprites/DeathSickle");
                 Main.itemTexture[3460] = GetTexture("Resprites/Luminite");
                 Main.itemTexture[512] = GetTexture("Resprites/SoulOfNight");
                 Main.itemTexture[5] = GetTexture("Resprites/Mushroom");
@@ -644,12 +636,19 @@ namespace AAMod
                 NPCs.Bosses.Yamata.Yamata.glowTexBody = null;
                 NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex = null;
                 NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex2 = null;
+                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex = null;
+                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex2 = null;
+                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex3 = null;
+                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex4 = null;
+                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex5 = null;
                 AkumaSky.PlanetTexture = null;
                 AkumaSky.BGTexture = null;
+                AkumaSky.SkyTex = null;
                 //CthulhuStars.boltTexture = null;
                 //CthulhuStars.flashTexture = null;
                 InfernoSky.PlanetTexture = null;
                 InfernoSky.BGTexture = null;
+                InfernoSky.SkyTex = null;
                 //IZSky.boltTexture = null;
                 //IZSky.flashTexture = null;
                 MireSky.PlanetTexture = null;
@@ -657,9 +656,11 @@ namespace AAMod
                 MireSky.BGTexture = null;
                 ShenSky.Sun = null;
                 ShenSky.Moon = null;
+                ShenSky.SkyTex = null;
                 ShenSky.BGTexture = null;
                 ShenASky.PlanetTexture = null;
                 ShenASky.BGTexture = null;
+                ShenASky.SkyTex = null;
                 //StormSky.boltTexture = null;
                 //StormSky.flashTexture = null;
                 VoidSky.PlanetTexture = null;
@@ -673,6 +674,7 @@ namespace AAMod
                 VoidSky.flashTexture = null;
                 YamataSky.PlanetTexture = null;
                 YamataSky.BGTexture = null;
+                YamataSky.SkyTex = null;
                 Items.Accessories.SoulStone._glow = null;
                 Items.Pets.Mudkip.glowTex = null;
                 Items.Pets.MudkipS.glowTex = null;
@@ -702,7 +704,6 @@ namespace AAMod
                 NPCs.Bosses.Zero.RiftShredder.glowTex = null;
                 NPCs.Bosses.Zero.Taser.glowTex = null;
                 NPCs.Bosses.Zero.TeslaHand.glowTex = null;
-                NPCs.Bosses.Zero.ZeroAwakened.glowTex = null;
                 NPCs.Bosses.Zero.SearcherZero.glowTex = null;
                 NPCs.Enemies.Void.Searcher.glowTex = null;
             }
@@ -884,13 +885,6 @@ namespace AAMod
             {
                 priority = MusicPriority.Event;
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingGiant");
-                return;
-            }
-            if (Slayer == true)
-            {
-                music = GetSoundSlot(SoundType.Music, "Sounds/Music/ZeroDeath");
-
-                priority = MusicPriority.BossHigh;
                 return;
             }
             if (Ancients.ZoneVoid)

@@ -35,7 +35,23 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.DarkSlateBlue, Color.Indigo, Color.DarkSlateBlue);
+                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.DarkSlateBlue, Color.Indigo, Color.DarkSlateBlue);
+            }
+        }
+
+        public static Color Glow
+        {
+            get
+            {
+                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.White, Color.Transparent, Color.Transparent, Color.White);
+            }
+        }
+
+        public static Color Flash
+        {
+            get
+            {
+                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Transparent, Color.White, Color.Transparent, Color.White, Color.Transparent, Color.Transparent, Color.Transparent);
             }
         }
 

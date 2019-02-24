@@ -147,16 +147,16 @@ namespace AAMod.NPCs.Bosses.Equinox
 			float moveSpeedMax = 16f;	
 			npc.damage = 200;
 			npc.defense = 100;
-			int laserFireRate = 300;
-			int laserInterval = 20;
+			//int laserFireRate = 300;
+			//int laserInterval = 20;
 			if(wormStronger)
 			{
 				aiCount = (!nightcrawler ? 6 : 4); //daybringer is a bit faster
 				moveSpeedMax = (!nightcrawler ? 20f : 16f); //ditto as above
 				npc.damage = 300;		
 				npc.defense = (!nightcrawler ? 120 : 150); //nightcrawler has more defense
-				laserFireRate = 200;
-				laserInterval = 10;
+				//laserFireRate = 200;
+				//laserInterval = 10;
 			}
 
 			/*if(Main.netMode != 1 && isHead) //shoot lasers (disabled - probes fire lasers)
@@ -216,7 +216,7 @@ namespace AAMod.NPCs.Bosses.Equinox
 			}
 			if (foundPlayer != -1)
 			{
-				BaseMod.BaseAI.SetTarget(npc, foundPlayer);
+				BaseAI.SetTarget(npc, foundPlayer);
 				return true;
 			}
 			return false;
@@ -285,6 +285,14 @@ namespace AAMod.NPCs.Bosses.Equinox
         public override void NPCLoot()
         {
             int otherWormAlive = (nightcrawler ? mod.NPCType("DaybringerHead") : mod.NPCType("NightcrawlerHead"));
+            if (!nightcrawler)
+            {
+                BaseAI.DropItem(npc, mod.ItemType("DBTrophy"), 1, 1, 15, true);
+            }
+            else
+            {
+                BaseAI.DropItem(npc, mod.ItemType("NCTrophy"), 1, 1, 15, true);
+            }
             if (NPC.CountNPCS(otherWormAlive) == 0)
             {
                 AAWorld.downedEquinox = true;
@@ -330,7 +338,78 @@ namespace AAMod.NPCs.Bosses.Equinox
 			return c;
 		}
 
-		public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
+        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+            ModifyCritArea(npc, ref crit);
+        }
+
+        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            ModifyCritArea(npc, ref crit);
+        }
+
+        private void ModifyCritArea(NPC npc, ref bool crit)
+        {
+            if (npc.realLife >= 0)
+            {
+                if (npc.whoAmI == npc.realLife)
+                {
+                    crit = true;
+                }
+                if (npc.ai[0] == 0)
+                {
+                    crit = false;
+                }
+            }
+        }
+
+        public override void UpdateLifeRegen(ref int damage)
+        {
+            if (npc.realLife >= 0 && npc.whoAmI != npc.realLife)
+            {
+                damage = 0;
+                npc.lifeRegen = 0;
+            }
+        }
+
+        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+        {
+            MakeSegmentsImmune(npc, projectile.owner);
+        }
+
+        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
+        {
+            MakeSegmentsImmune(npc, player.whoAmI);
+        }
+
+        public void MakeSegmentsImmune(NPC npc, int id)
+        {
+            if (npc.realLife >= 0)
+            {
+                bool last = false;
+                NPC parent = Main.npc[npc.realLife];
+                parent.lifeRegen = npc.lifeRegen;
+                int i = 0;
+                while (parent.ai[0] > 0 || last)
+                {
+                    parent.immune[id] = npc.immune[id];
+                    for (int j = 0; j < npc.buffType.Length; j++)
+                    {
+                        if (npc.buffType[j] > 0 && npc.buffTime[j] > 0)
+                        {
+                            parent.buffType[j] = npc.buffType[j];
+                            parent.buffTime[j] = npc.buffTime[j];
+                        }
+                    }
+                    if (last) { break; }
+                    parent = Main.npc[(int)parent.ai[0]];
+                    if (parent.ai[0] == 0) { last = true; }
+                    if (i++ > 200) { throw new InvalidOperationException("Recursion detected"); } // Just in case
+                }
+            }
+        }
+
+        public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
 		{
 			bool wormStronger = (nightcrawler && !Main.dayTime) ||  (!nightcrawler && Main.dayTime);
 			Texture2D tex = Main.npcTexture[npc.type];

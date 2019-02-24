@@ -4,6 +4,7 @@ using AAMod.Buffs;
 using AAMod.Items.Dev;
 using AAMod.NPCs.Bosses.Zero;
 using AAMod.NPCs.Bosses.Akuma;
+using AAMod.NPCs.Bosses.Akuma.Awakened;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -290,6 +291,7 @@ namespace AAMod
             riftbent = false;
             DestinedToDie = false;
             //Buffs
+			//Weapons
             //Pets
             Broodmini = false;
             Raidmini = false;
@@ -367,6 +369,8 @@ namespace AAMod
                 Texture2D manaGreen = mod.GetTexture("Resprites/ManaGreen");
                 Texture2D mana= mod.GetTexture("Resprites/Mana");
                 int ManaBoost = ManaLantern;
+
+                
 
                 if (ManaBoost == 1)
                 {
@@ -550,9 +554,6 @@ namespace AAMod
                             if (player.whoAmI == Main.myPlayer)
                             {
                                 player.ApplyDamageToNPC(nPC, (int)num, num2, direction, crit);
-                                int num6 = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, mod.ProjectileType("HolyExplosionSupreme"), 1000, 20f, Main.myPlayer, 0f, 0f);
-                                Main.projectile[num6].Kill();
-                                Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, mod.ProjectileType("HolyEruption"), 780, 5f, Main.myPlayer, 0f, 0f);
                             }
                             nPC.immune[player.whoAmI] = 6;
                             player.immune = true;
@@ -1174,6 +1175,9 @@ namespace AAMod
                     BaseUtility.Chat("...do not return...", Color.DarkCyan);
                 }
             }*/
+
+            
+
             if (player.GetModPlayer<AAPlayer>().ZoneMire || player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake)
             {
                 if (Main.dayTime && !AAWorld.downedYamata)
@@ -1426,7 +1430,16 @@ namespace AAMod
 
         public override void PreUpdate()
         {
-            groviteGlow[player.whoAmI] = false;
+
+            /*if (player.HeldItem.type == mod.ItemType<Items.Usable.CodeMagnet>())
+            {
+                Player.defaultItemGrabRange = 500;
+            }
+            else
+            {
+                Player.defaultItemGrabRange = 38;
+            }*/
+
             if (SnapCD != 0)
             {
                 SnapCD--;
@@ -1907,6 +1920,7 @@ namespace AAMod
                 drain = true;
                 player.lifeRegen -= 60;
             }
+            
             if (InfinityScorch)
             {
                 if (player.lifeRegen > 0)
@@ -1933,24 +1947,13 @@ namespace AAMod
 
             if (dragonFire)
             {
-                player.magicDamage -= 0.8f;
-                player.minionDamage -= 0.8f;
-                player.meleeDamage -= 0.8f;
-                player.thrownDamage -= 0.8f;
-                player.rangedDamage -= 0.8f;
+                player.magicDamage *= 0.8f;
+                player.minionDamage *= 0.8f;
+                player.meleeDamage *= 0.8f;
+                player.thrownDamage *= 0.8f;
+                player.rangedDamage *= 0.8f;
             }
-            if (hydraToxin)
-            {
-                if (player.velocity.X < -2f )
-                {
-                    player.velocity. X = -2f;
-                }
-                if (player.velocity.X > 2f)
-                {
-
-                    player.velocity.X = 2f;
-                }
-            }
+            
             if (riftbent)
             {
                 RiftTimer++;
@@ -1975,7 +1978,13 @@ namespace AAMod
                 RiftDamage = 10;
                 RiftTimer = 0;
             }
+            if (hydraToxin)
+            {
+                player.moveSpeed *= player.statLife / player.statLifeMax;
+            }
         }
+
+        
 
         public override void UpdateDead()
         {
@@ -2471,7 +2480,6 @@ namespace AAMod
             Mod mod = AAMod.instance;
             Player drawPlayer = edi.drawPlayer;
             Color lightColor = GetItemColor(drawPlayer, drawPlayer.Center);
-            bool letDraw = true;
 
             Item heldItem = drawPlayer.inventory[drawPlayer.selectedItem];
             BaseAAItem baseAAItem = null;

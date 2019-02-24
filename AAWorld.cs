@@ -53,6 +53,9 @@ namespace AAMod
         public static Vector2 shipPos = new Vector2(0, 0);
         private Vector2 TerraPos = new Vector2(0, 0);
         public string nums = "1234567890";
+        public static bool CorruptionSpread;
+        public static bool CrimsonSpread;
+        public static bool HallowSpread;
         //Messages
         public static bool Evil;
         public static bool Compass;
@@ -90,6 +93,7 @@ namespace AAMod
         public static bool downedGripsS;
         public static bool downedSoC;
         public static bool LuminiteMeteorBool;
+        public static bool downedSOCC;
         //Stones
         public static bool RealityDropped;
         public static bool SpaceDropped;
@@ -130,6 +134,7 @@ namespace AAMod
             downedGripsS = false;
             downedSoC = false;
             downedKraken = false;
+            downedSOCC = false;
             //World Changes
             ChaosOres = downedGrips;
             Dynaskull = NPC.downedBoss3;
@@ -145,6 +150,9 @@ namespace AAMod
             LuminiteMeteorBool = false;
             Anticheat = true;
             Compass = false;
+            CorruptionSpread = false;
+            CrimsonSpread = false;
+            HallowSpread = false;
             //Stones
             RealityDropped = false;
             SpaceDropped = false;
@@ -212,12 +220,15 @@ namespace AAMod
             if (downedSoC) downed.Add("SoC");
             if (Compass) downed.Add("Compass");
             if (downedKraken) downed.Add("Kraken");
+            if (downedSOCC) downed.Add("SOCC");
+            if (CorruptionSpread) downed.Add("Corruption");
+            if (CrimsonSpread) downed.Add("Crimson");
+            if (HallowSpread) downed.Add("Hallow");
 
             return new TagCompound {
-                {"downed", downed}
+                {"downed", downed},
             };
         }
-
         public override void NetSend(BinaryWriter writer)
         {
             BitsByte flags = new BitsByte();
@@ -269,7 +280,11 @@ namespace AAMod
             flags5[0] = downedSoC;
             flags5[1] = Compass;
             flags5[2] = downedKraken;
-            writer.Write(flags4);
+            flags5[3] = downedSOCC;
+            flags5[4] = CorruptionSpread;
+            flags5[5] = CrimsonSpread;
+            flags5[6] = HallowSpread;
+            writer.Write(flags5);
         }
 
         public override void NetReceive(BinaryReader reader)
@@ -318,6 +333,13 @@ namespace AAMod
             downedSoC = flags5[0];
             Compass = flags5[1];
             downedKraken = flags5[2];
+            downedSOCC = flags5[3];
+            CorruptionSpread = flags5[4];
+            CrimsonSpread = flags5[5];
+            HallowSpread = flags5[6];
+
+
+            BitsByte CorruptionFlag = reader.ReadByte();
         }
 
         public override void Load(TagCompound tag)
@@ -359,6 +381,7 @@ namespace AAMod
             downedSoC = downed.Contains("SoC");
             Compass = downed.Contains("Compass");
             downedKraken = downed.Contains("Kraken");
+            downedSOCC = downed.Contains("Socc");
             //World Changes
             ChaosOres = downedGrips;
             Dynaskull = NPC.downedBoss3;
@@ -369,6 +392,9 @@ namespace AAMod
             DarkMatter = downedNC;
             RadiumOre = downedDB;
             DiscordOres = downedGripsS;
+            CorruptionSpread = downed.Contains("Corruption");
+            CrimsonSpread = downed.Contains("Crimson");
+            HallowSpread = downed.Contains("Hallow");
         }
 
 
@@ -568,7 +594,7 @@ namespace AAMod
             progress.Set(0f);
             int VoidHeight = 0;
             progress.Set(0.1f);
-            VoidHeight = 120;
+            VoidHeight = 100;
             progress.Set(0.4f);
             Point center = new Point((Main.maxTilesX / 15 * 14) + (Main.maxTilesX / 15 / 2) - 100, center.Y = VoidHeight);
             progress.Set(0.5f);
@@ -1169,7 +1195,7 @@ namespace AAMod
                     infernoPos.X = ((Main.maxTilesX >= 8000) ? (infernoSide == 1 ? 2000 : (Main.maxTilesX - WorldGen.genRand.Next(2000, 2300))) : (infernoSide == 1 ? WorldGen.genRand.Next(1500, 1700) : (Main.maxTilesX - WorldGen.genRand.Next(1500, 1700))));
 
                     Main.NewText("The Souls of Fury and Wrath are unleashed upon the world", Color.Magenta.R, Color.Magenta.G, Color.Magenta.B);
-                    ConversionHandler.ConvertDown((int)infernoPos.X, 0, 120, ConversionHandler.CONVERTID_INFERNO);
+                    ConversionHandler.ConvertDown((int)infernoPos.X, 0, 120, 1);
 
                 }
                 if (MireStripe == false)
@@ -1178,7 +1204,7 @@ namespace AAMod
                     infernoSide = ((Main.dungeonX > Main.maxTilesX / 2) ? (-1) : (1));
                     infernoPos.X = ((Main.maxTilesX >= 8000) ? (infernoSide == 1 ? 2000 : (Main.maxTilesX - WorldGen.genRand.Next(2000, 2300))) : (infernoSide == 1 ? WorldGen.genRand.Next(1500, 1700) : (Main.maxTilesX - WorldGen.genRand.Next(1500, 1700))));
                     mirePos.X = ((Main.maxTilesX >= 8000) ? (infernoSide != 1 ? WorldGen.genRand.Next(2000, 2300) : (Main.maxTilesX - WorldGen.genRand.Next(2000, 2300))) : (infernoSide != 1 ? WorldGen.genRand.Next(1500, 1700) : (Main.maxTilesX - WorldGen.genRand.Next(1500, 1700))));
-                    ConversionHandler.ConvertDown((int)mirePos.X, 0, 120, ConversionHandler.CONVERTID_MIRE);
+                    ConversionHandler.ConvertDown((int)mirePos.X, 0, 120, 0);
 
                 }
             }
