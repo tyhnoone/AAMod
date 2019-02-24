@@ -528,4 +528,5 @@ public class Lung : ModProjectile
 			return false;
 		}			
     }*/
+    }
 }
