@@ -87,7 +87,7 @@ namespace AAMod.Items.Boss.Shen
 			recipe.AddIngredient(mod.ItemType("Discordium"), 5);
             recipe.AddIngredient(mod.ItemType("ChaosScale"), 5);
             recipe.AddIngredient(mod.ItemType("Dawnstrike"));
-            recipe.AddIngredient(mod.ItemType("Darksprayer"), 5);
+            recipe.AddIngredient(mod.ItemType("Darksprayer"));
             recipe.AddTile(mod.TileType("ASC"));
 			recipe.SetResult(this);
 			recipe.AddRecipe();
