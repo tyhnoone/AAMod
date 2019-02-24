@@ -53,6 +53,63 @@ namespace AAMod.Items.Boss.Akuma
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            // from the orange
+            Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
+            float velocityX = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
+            float velocityY = (float)Main.mouseY + Main.screenPosition.Y - vector2.Y;
+
+            int head = -1;
+            int tail = -1;
+            for (int i = 0; i < Main.projectile.Length; i++)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer)
+                {
+                    if (head == -1 && Main.projectile[i].type == mod.ProjectileType("LungHead"))
+                    {
+                        head = i;
+                    }
+                    if (tail == -1 && Main.projectile[i].type == mod.ProjectileType("LungTail"))
+                    {
+                        tail = i;
+                    }
+                    if (head != -1 && tail != -1)
+                    {
+                        break;
+                    }
+                }
+            }
+            if (head == -1 && tail == -1)
+            {
+                velocityX = 0f;
+                velocityY = 0f;
+                vector2.X = (float)Main.mouseX + Main.screenPosition.X;
+                vector2.Y = (float)Main.mouseY + Main.screenPosition.Y;
+
+                int current = Projectile.NewProjectile(vector2.X, vector2.Y, velocityX, velocityX, mod.ProjectileType("LungHead"), damage, knockBack, Main.myPlayer);
+
+                int previous = current;
+                current = Projectile.NewProjectile(vector2.X, vector2.Y, velocityX, velocityX, mod.ProjectileType("LungBody"), damage, knockBack, Main.myPlayer, (float)previous);
+
+                previous = current;
+                current = Projectile.NewProjectile(vector2.X, vector2.Y, velocityX, velocityX, mod.ProjectileType("LungTail"), damage, knockBack, Main.myPlayer, (float)previous);
+                Main.projectile[previous].localAI[1] = (float)current;
+                Main.projectile[previous].netUpdate = true;
+            }
+            else if (head != -1 && tail != -1)
+            {
+                int body = Projectile.NewProjectile(vector2.X, vector2.Y, velocityX, velocityY, mod.ProjectileType("LungBody"), damage, knockBack, Main.myPlayer, Main.projectile[tail].ai[0]);
+
+                Main.projectile[body].localAI[1] = (float)tail;
+                Main.projectile[body].ai[1] = 1f;
+                Main.projectile[body].netUpdate = true;
+
+
+                Main.projectile[tail].ai[0] = (float)body;
+                Main.projectile[tail].netUpdate = true;
+                Main.projectile[tail].ai[1] = 1f;
+            }
+            return false;
+            /*
             //to fix tail disapearing meme
             float slotsUsed = 0;
 
@@ -113,7 +170,7 @@ namespace AAMod.Items.Boss.Akuma
                 Main.projectile[tailCheck].ai[1] = 1f;
             }
 
-            return false;
+            return false;*/
         }
 
         public override void AddRecipes()
