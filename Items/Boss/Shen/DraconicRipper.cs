@@ -32,6 +32,7 @@ namespace AAMod.Items.Boss.Shen
 		{
 			DisplayName.SetDefault("Draconic Ripper");
 			Tooltip.SetDefault("Shoots dozens of high-caliber bullets"
+			+"\nIgnores enemy defense"
 			+"\n77% chance not to consume ammo");
         }
 
@@ -57,6 +58,11 @@ namespace AAMod.Items.Boss.Shen
 				Projectile.NewProjectile(vector.X, vector.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
+		}
+		
+		public override void HoldItem(Player player)
+		{
+			player.armorPenetration += 500;
 		}
 		
 		public override void AddRecipes()
