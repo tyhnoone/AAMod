@@ -1,9 +1,11 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.AH
 {
-    public class HeartOfSorrow: ModItem
+    public class HeartOfSorrow : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -27,11 +29,11 @@ Below 1/3 of your maximum life, your melee and ranged attacks inflict Moonraze i
 
         public override void UpdateEquip(Player player)
         {
-            player.meleeDamage += ( 1 - player.statLife / player.statLifeMax);
+            player.meleeDamage += (1 - player.statLife / player.statLifeMax);
             player.rangedDamage += (1 - player.statLife / player.statLifeMax);
             player.GetModPlayer<AAPlayer>(mod).HeartS = true;
 
-            if (player.statLife > (player.statLifeMax * (2/3)))
+            if (player.statLife > (player.statLifeMax * (2 / 3)))
             {
                 player.moveSpeed += 1f;
             }
@@ -50,6 +52,7 @@ Below 1/3 of your maximum life, your melee and ranged attacks inflict Moonraze i
                     }
                 }
             }
+
             return true;
         }
     }

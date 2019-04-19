@@ -8,25 +8,26 @@ using System.Collections.Generic;
 namespace AAMod.Items.Armor.Doomsday
 {
     [AutoloadEquip(EquipType.Body)]
-	public class DoomsdayChestplate : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			DisplayName.SetDefault("Doomsday Assault Armor");
-			Tooltip.SetDefault(@"25% increased ranged damage
+    public class DoomsdayChestplate : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("Doomsday Assault Armor");
+            Tooltip.SetDefault(@"25% increased ranged damage
 The power to destroy entire planets rests in this armor");
-		}
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 30;
-			item.height = 20;
-			item.value = 3000000;
-			item.defense = 46;
-		}
+        public override void SetDefaults()
+        {
+            item.width = 30;
+            item.height = 20;
+            item.value = 3000000;
+            item.defense = 46;
+        }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -59,18 +60,18 @@ The power to destroy entire planets rests in this armor");
         }
 
         public override void UpdateEquip(Player player)
-		{
-			player.rangedDamage += .25f;
+        {
+            player.rangedDamage += .25f;
         }
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ApocalyptitePlate", 20);
-			recipe.AddIngredient(null, "UnstableSingularity", 5);
-			recipe.AddTile(null, "ACS");
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "ApocalyptitePlate", 20);
+            recipe.AddIngredient(null, "UnstableSingularity", 5);
+            recipe.AddTile(null, "ACS");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

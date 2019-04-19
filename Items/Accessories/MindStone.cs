@@ -12,16 +12,15 @@ namespace AAMod.Items.Accessories
     [AutoloadEquip(EquipType.Face)]
     public class MindStone : ModItem
     {
-        
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mind Stone");
             Tooltip.SetDefault(
-@"Reduces mana consumption by 50%
+                @"Reduces mana consumption by 50%
 +200 Mana
 'It's simple Calculus'");
         }
+
         public override void SetDefaults()
         {
             item.width = 20;
@@ -64,28 +63,34 @@ namespace AAMod.Items.Accessories
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<InfinityGauntlet>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SoulStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<RealityStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<TimeStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SpaceStone>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

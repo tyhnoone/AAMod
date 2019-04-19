@@ -1,11 +1,12 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Yamata
 {
     public class YamataBag : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Treasure Bag");
@@ -20,11 +21,11 @@ namespace AAMod.Items.Boss.Yamata
             item.height = 32;
             item.expert = true;
             bossBagNPC = mod.NPCType("YamataA");
-            
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -56,15 +57,20 @@ namespace AAMod.Items.Boss.Yamata
             {
                 player.QuickSpawnItem(mod.ItemType("YamataMask"));
             }
+
             if (Main.rand.NextFloat() < 0.01f)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PMLDevArmor();
             }
+
             player.QuickSpawnItem(mod.ItemType("YamataMask"));
             player.QuickSpawnItem(mod.ItemType("DreadScale"), Main.rand.Next(30, 40));
             player.QuickSpawnItem(mod.ItemType("Naitokurosu"));
-            string[] lootTable = { "Flairdra", "Crescent", "Hydraslayer", "AbyssArrow", "HydraStabber", "MidnightWrath", "YamataTerratool" };
+            string[] lootTable =
+            {
+                "Flairdra", "Crescent", "Hydraslayer", "AbyssArrow", "HydraStabber", "MidnightWrath", "YamataTerratool"
+            };
             int loot = Main.rand.Next(lootTable.Length);
             player.QuickSpawnItem(mod.ItemType(lootTable[loot]));
         }

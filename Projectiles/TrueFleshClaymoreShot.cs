@@ -10,37 +10,48 @@ namespace AAMod.Projectiles
     {
         public override void SetDefaults()
         {
-            projectile.penetrate = 1;  
+            projectile.penetrate = 1;
             projectile.width = 32;
             projectile.height = 32;
-			projectile.friendly = true;
-			projectile.hostile = false;
+            projectile.friendly = true;
+            projectile.hostile = false;
             projectile.timeLeft = 900;
         }
-		
-		public override void AI()
-		{
-            Lighting.AddLight(projectile.Center, ((255 - projectile.alpha) * 0.3f) / 255f, ((255 - projectile.alpha) * 0.3f) / 255f, ((255 - projectile.alpha) * 0f) / 255f);
+
+        public override void AI()
+        {
+            Lighting.AddLight(projectile.Center, ((255 - projectile.alpha) * 0.3f) / 255f,
+                ((255 - projectile.alpha) * 0.3f) / 255f, ((255 - projectile.alpha) * 0f) / 255f);
             if (Main.rand.NextFloat() < 1f)
             {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
             }
+
             if (Main.rand.NextFloat() < 1f)
             {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
             }
+
             if (Main.rand.NextFloat() < 1f)
             {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
             }
+
             if (Main.rand.NextFloat() < 1f)
             {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
             }
+
             if (Main.rand.NextFloat() < 1f)
             {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
             }
+
             {
                 projectile.rotation += projectile.direction * 0.4f;
                 projectile.spriteDirection = projectile.direction;
@@ -50,7 +61,8 @@ namespace AAMod.Projectiles
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D tex = Main.projectileTexture[projectile.type];
-            spriteBatch.Draw(tex, projectile.Center - Main.screenPosition, null, projectile.GetAlpha(lightColor), projectile.rotation, tex.Size() / 2f, projectile.scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(tex, projectile.Center - Main.screenPosition, null, projectile.GetAlpha(lightColor),
+                projectile.rotation, tex.Size() / 2f, projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
 
@@ -58,11 +70,13 @@ namespace AAMod.Projectiles
         {
             for (int k = 0; k < 5; k++)
             {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246, projectile.oldVelocity.X * 0.5f, projectile.oldVelocity.Y * 0.5f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 246,
+                    projectile.oldVelocity.X * 0.5f, projectile.oldVelocity.Y * 0.5f);
             }
         }
 
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -72,16 +86,18 @@ namespace AAMod.Projectiles
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             DisplayName.SetDefault("Flesh Beam");
         }
-        
-	    public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-           target.AddBuff(BuffID.Ichor, 300);
+            target.AddBuff(BuffID.Ichor, 300);
         }
 
         public override bool? CanCutTiles()

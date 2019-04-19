@@ -6,10 +6,8 @@ using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Enemies.Mire
 {
-
     public class Mosster : ModNPC
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mosster");
@@ -19,9 +17,9 @@ namespace AAMod.NPCs.Enemies.Mire
 
         public override void SetDefaults()
         {
-            npc.lifeMax = 80;   //boss life
-            npc.damage = 18;  //boss damage
-            npc.defense = 10;    //boss defense
+            npc.lifeMax = 80; //boss life
+            npc.damage = 18; //boss damage
+            npc.defense = 10; //boss defense
             npc.knockBackResist = 0f;
             npc.value = Item.buyPrice(0, 0, 6, 45);
             aiType = NPCID.Crawdad;
@@ -32,7 +30,6 @@ namespace AAMod.NPCs.Enemies.Mire
             npc.width = 72;
             npc.height = 78;
             npc.lavaImmune = false;
-
         }
 
         public override void HitEffect(int hitDirection, double damage)
@@ -47,7 +44,7 @@ namespace AAMod.NPCs.Enemies.Mire
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/MossterGoreHead"), 1f);
             }
         }
-        
+
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             SpriteEffects spriteEffects = SpriteEffects.None;
@@ -55,16 +52,16 @@ namespace AAMod.NPCs.Enemies.Mire
             {
                 spriteEffects = SpriteEffects.FlipHorizontally;
             }
-            spriteBatch.Draw(mod.GetTexture("Glowmasks/Mosster_Glow"), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
-            npc.frame, Color.White, npc.rotation,
-            new Vector2(npc.width * 0.5f, npc.height * 0.5f), 1f, spriteEffects, 0f);
+
+            spriteBatch.Draw(mod.GetTexture("Glowmasks/Mosster_Glow"),
+                new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
+                npc.frame, Color.White, npc.rotation,
+                new Vector2(npc.width * 0.5f, npc.height * 0.5f), 1f, spriteEffects, 0f);
         }
 
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MirePod"));
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, mod.ItemType("MirePod"));
         }
     }
 }
-
-

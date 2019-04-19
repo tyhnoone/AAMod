@@ -6,7 +6,6 @@ namespace AAMod.NPCs.Bosses.AH
 {
     public class AHSpawn : ModNPC
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sisters of Discord");
@@ -25,13 +24,14 @@ namespace AAMod.NPCs.Bosses.AH
                 npc.noGravity = true;
                 npc.aiStyle = -1;
                 npc.timeLeft = 10;
-                
+
                 for (int k = 0; k < npc.buffImmune.Length; k++)
                 {
                     npc.buffImmune[k] = true;
                 }
             }
         }
+
         public bool ATransitionActive = false;
         public int RVal = 255;
         public int BVal = 0;
@@ -49,7 +49,7 @@ namespace AAMod.NPCs.Bosses.AH
 
             npc.Center = player.Center;
 
-            if (npc.ai[1] == 60)          //if the timer has gotten to 7.5 seconds, this happens (60 = 1 second)
+            if (npc.ai[1] == 60) //if the timer has gotten to 7.5 seconds, this happens (60 = 1 second)
             {
                 Main.NewText("Well hello there, what a surprise to see YOU here~!", new Color(102, 20, 48));
                 AAMod.AHIntro = true;
@@ -59,11 +59,15 @@ namespace AAMod.NPCs.Bosses.AH
             {
                 if (AAWorld.downedBrood)
                 {
-                    Main.NewText("Oh yes, I've heard PLENTY about you, kid...you're the little warm-blood who thrashed my mother..!", new Color(102, 20, 48));
+                    Main.NewText(
+                        "Oh yes, I've heard PLENTY about you, kid...you're the little warm-blood who thrashed my mother..!",
+                        new Color(102, 20, 48));
                 }
                 else
                 {
-                    Main.NewText("Oh yes, I've heard PLENTY about you, kid...you've been stirring up quite a bit of trouble in these parts...", new Color(102, 20, 48));
+                    Main.NewText(
+                        "Oh yes, I've heard PLENTY about you, kid...you've been stirring up quite a bit of trouble in these parts...",
+                        new Color(102, 20, 48));
                 }
             }
 
@@ -86,7 +90,7 @@ namespace AAMod.NPCs.Bosses.AH
                 }
             }
 
-            
+
             if (npc.ai[1] == 700)
             {
                 Main.NewText("So now..! Heh...", new Color(102, 20, 48));
@@ -95,7 +99,9 @@ namespace AAMod.NPCs.Bosses.AH
             if (npc.ai[1] == 820)
             {
                 AAMod.AHIntro = false;
-                Main.NewText("We're gonna give you something to absolutely SCREAM about..! Come on, Hakie, let's torch this little warm-blood~!", new Color(102, 20, 48));
+                Main.NewText(
+                    "We're gonna give you something to absolutely SCREAM about..! Come on, Hakie, let's torch this little warm-blood~!",
+                    new Color(102, 20, 48));
                 SpawnBoss(player, "Ashe");
             }
 
@@ -112,9 +118,15 @@ namespace AAMod.NPCs.Bosses.AH
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 800f);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(-100f, 100f, (float) Main.rand.NextDouble()),
+                                             800f);
                 Main.npc[npcID].netUpdate2 = true;
             }
         }
@@ -124,13 +136,15 @@ namespace AAMod.NPCs.Bosses.AH
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
                 Main.npc[npcID].Center = player.Center - new Vector2(800f, 0);
                 Main.npc[npcID].netUpdate2 = true;
             }
         }
-
-
     }
 }

@@ -7,32 +7,31 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Blocks
 {
     public class VoidUnit : ModItem
-	{
-
-        
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Void Recreation Unit");
         }
 
         public override void SetDefaults()
-		{
-			item.width = 28;
-			item.height = 28;
-			item.maxStack = 99;
-			item.useTurn = true;
-			item.autoReuse = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.useStyle = 1;
-			item.consumable = true;
-			item.rare = 10;
-			item.value = Item.buyPrice(0, 10, 0, 0);
-			item.createTile = mod.TileType("VoidUnit");
-		}
+        {
+            item.width = 28;
+            item.height = 28;
+            item.maxStack = 99;
+            item.useTurn = true;
+            item.autoReuse = true;
+            item.useAnimation = 15;
+            item.useTime = 10;
+            item.useStyle = 1;
+            item.consumable = true;
+            item.rare = 10;
+            item.value = Item.buyPrice(0, 10, 0, 0);
+            item.createTile = mod.TileType("VoidUnit");
+        }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -59,7 +58,6 @@ namespace AAMod.Items.Blocks
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-
                     line2.overrideColor = new Color(100, 0, 10);
 
                     line2.overrideColor = AAColor.Zero;
@@ -69,12 +67,12 @@ namespace AAMod.Items.Blocks
         }
 
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ApocalyptitePlate", 15);
-			recipe.AddTile(null, "ACS");
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "ApocalyptitePlate", 15);
+            recipe.AddTile(null, "ACS");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

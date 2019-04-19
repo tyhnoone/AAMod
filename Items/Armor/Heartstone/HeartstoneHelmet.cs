@@ -1,4 +1,4 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,7 +9,6 @@ namespace AAMod.Items.Armor.Heartstone
     {
         public override void SetDefaults()
         {
-
             item.width = 22;
             item.height = 20;
             item.value = 10;
@@ -17,35 +16,39 @@ namespace AAMod.Items.Armor.Heartstone
             item.defense = 6;
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Heartstone Headgear");
-      Tooltip.SetDefault(@"+10 Health
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Heartstone Headgear");
+            Tooltip.SetDefault(@"+10 Health
 Its forged with heart, no really");
-    }
+        }
 
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return body.type == mod.ItemType("HeartstoneChestguard") && legs.type == mod.ItemType("HeartstoneLeggings");  //put your Breastplate name and Leggings name
+            return body.type == mod.ItemType("HeartstoneChestguard") &&
+                   legs.type == mod.ItemType("HeartstoneLeggings"); //put your Breastplate name and Leggings name
         }
-		public override void UpdateEquip(Player player)
+
+        public override void UpdateEquip(Player player)
         {
-            player.statLifeMax2 += 10;   //20 max mana
+            player.statLifeMax2 += 10; //20 max mana
         }
+
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = "Doubles damage when health is below 40"; // the armor set bonus
-			if (player.statLife < 40)  //this make that if you have less then 100 health your melee damage multiple for 2
+            if (player.statLife < 40) //this make that if you have less then 100 health your melee damage multiple for 2
             {
                 player.meleeDamage *= 2;
-				player.rangedDamage *= 2;
-				player.magicDamage *= 2;
+                player.rangedDamage *= 2;
+                player.magicDamage *= 2;
                 player.minionDamage *= 2;
                 player.thrownDamage *= 2;
-            }﻿
+            }
         }
-        public override void AddRecipes()  //How to craft this item
+
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.LifeCrystal, 2);

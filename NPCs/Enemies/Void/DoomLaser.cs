@@ -29,25 +29,29 @@ namespace AAMod.NPCs.Enemies.Void
 
         public bool playedSound = false;
         public int dontDrawDelay = 2;
+
         public override void AI()
         {
             if (!playedSound)
             {
                 playedSound = true;
-                Main.PlaySound(SoundID.Item12, (int)projectile.Center.X, (int)projectile.Center.Y);
+                Main.PlaySound(SoundID.Item12, (int) projectile.Center.X, (int) projectile.Center.Y);
             }
+
             Effects();
             if (projectile.velocity.Length() < 12f)
             {
                 projectile.velocity.X *= 1.05f;
                 projectile.velocity.Y *= 1.05f;
             }
-            projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
+
+            projectile.rotation = (float) Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
         }
 
         public virtual void Effects()
         {
-            Lighting.AddLight(projectile.Center, ((255 - projectile.alpha) * 0.5f) / 255f, ((255 - projectile.alpha) * 0.05f) / 255f, ((255 - projectile.alpha) * 0.05f) / 255f);
+            Lighting.AddLight(projectile.Center, ((255 - projectile.alpha) * 0.5f) / 255f,
+                ((255 - projectile.alpha) * 0.05f) / 255f, ((255 - projectile.alpha) * 0.05f) / 255f);
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -60,6 +64,5 @@ namespace AAMod.NPCs.Enemies.Void
             dontDrawDelay = Math.Max(0, dontDrawDelay - 1);
             return dontDrawDelay == 0;
         }
-
     }
 }

@@ -10,7 +10,6 @@ namespace AAMod.Items.DevTools
 {
     public class NoodleSword : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("[DEV] Noodle Sword");
@@ -19,25 +18,26 @@ namespace AAMod.Items.DevTools
 
         public override void SetDefaults()
         {
-            item.damage = 10000;     
-            item.melee = true;    
-            item.width = 64;            
-            item.height = 70;         
-            item.useTime = 17;   
-            item.useAnimation = 17;     
-            item.useStyle = 1;       
-            item.knockBack = 4;   
-            item.value = 0;        
+            item.damage = 10000;
+            item.melee = true;
+            item.width = 64;
+            item.height = 70;
+            item.useTime = 17;
+            item.useAnimation = 17;
+            item.useStyle = 1;
+            item.knockBack = 4;
+            item.value = 0;
             item.rare = 11;
             item.UseSound = SoundID.Item1;
-            item.autoReuse = true;   
+            item.autoReuse = true;
             item.useTurn = true;
             item.expert = true;
-			item.shoot = mod.ProjectileType("Noodle");
-			item.shootSpeed = 9f;
+            item.shoot = mod.ProjectileType("Noodle");
+            item.shootSpeed = 9f;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = Main.itemTexture[item.type];
             spriteBatch.Draw

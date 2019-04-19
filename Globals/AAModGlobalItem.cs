@@ -13,7 +13,7 @@ using AAMod.Items.Dev;
 namespace AAMod
 {
     public class AAModGlobalItem : GlobalItem
-	{
+    {
         public override void SetDefaults(Item item)
         {
             if (item.type == ItemID.SoulofNight)
@@ -27,6 +27,7 @@ namespace AAMod
                     item.color = Color.Violet;
                 }
             }
+
             if (item.type == ItemID.LunarOre)
             {
                 item.createTile = mod.TileType("LuminiteOre");
@@ -43,7 +44,8 @@ namespace AAMod
 
         public override bool CanEquipAccessory(Item item, Player player, int slot)
         {
-            if (item.type == ItemID.AnkhShield || item.type == ItemID.ObsidianShield|| item.type == mod.ItemType<TaiyangBaolei>())
+            if (item.type == ItemID.AnkhShield || item.type == ItemID.ObsidianShield ||
+                item.type == mod.ItemType<TaiyangBaolei>())
             {
                 if (slot < 10)
                 {
@@ -55,10 +57,12 @@ namespace AAMod
                         {
                             return false;
                         }
+
                         if (slot != i && player.armor[i].type == ItemID.ObsidianShield)
                         {
                             return false;
                         }
+
                         if (slot != i && player.armor[i].type == mod.ItemType<TaiyangBaolei>())
                         {
                             return false;
@@ -66,7 +70,9 @@ namespace AAMod
                     }
                 }
             }
-            if (item.type == ItemID.EoCShield || item.type == mod.ItemType<StormRiot>() || item.type == mod.ItemType<BulwarkOfChaos>())
+
+            if (item.type == ItemID.EoCShield || item.type == mod.ItemType<StormRiot>() ||
+                item.type == mod.ItemType<BulwarkOfChaos>())
             {
                 if (slot < 10)
                 {
@@ -78,10 +84,12 @@ namespace AAMod
                         {
                             return false;
                         }
+
                         if (slot != i && player.armor[i].type == mod.ItemType<StormRiot>())
                         {
                             return false;
                         }
+
                         if (slot != i && player.armor[i].type == mod.ItemType<BulwarkOfChaos>())
                         {
                             return false;
@@ -89,6 +97,7 @@ namespace AAMod
                     }
                 }
             }
+
             return true;
         }
     }

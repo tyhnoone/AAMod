@@ -10,11 +10,12 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Daybreak Incinerite");
             Tooltip.SetDefault("Bright as the radiant sun");
         }
+
         public override void SetDefaults()
         {
             item.width = 30;
             item.height = 24;
-			item.maxStack = 99;
+            item.maxStack = 99;
             item.useTurn = true;
             item.autoReuse = true;
             item.useAnimation = 15;
@@ -24,8 +25,10 @@ namespace AAMod.Items.Materials
             item.consumable = true;
             item.createTile = mod.TileType("DaybreakIncineriteBar");
         }
+
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DaybreakIncineriteOre", 5);
             recipe.AddIngredient(null, "RadiantIncinerite", 1);

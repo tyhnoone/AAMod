@@ -5,18 +5,18 @@ using Terraria.ID;
 namespace AAMod.Items.Armor.Raider
 {
     [AutoloadEquip(EquipType.Head)]
-	public class RaiderHelm : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			DisplayName.SetDefault("Raider Helmet");
+    public class RaiderHelm : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("Raider Helmet");
         }
 
-		public override void SetDefaults()
-		{
-			item.width = 22;
-			item.height = 24;
+        public override void SetDefaults()
+        {
+            item.width = 22;
+            item.height = 24;
             item.value = Item.sellPrice(0, 0, 5, 0);
             item.rare = 4;
             item.defense = 8;

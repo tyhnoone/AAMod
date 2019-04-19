@@ -5,12 +5,11 @@ namespace AAMod.Items.Boss.MushroomMonarch
 {
     public class HeartyTruffle : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hearty Truffle");
             Tooltip.SetDefault(
-@"+50 Health
+                @"+50 Health
 Don't eat it");
         }
 
@@ -27,8 +26,7 @@ Don't eat it");
 
         public override void UpdateEquip(Player player)
         {
-                player.statLifeMax2 += 50;
+            player.statLifeMax2 += 50;
         }
-
     }
 }

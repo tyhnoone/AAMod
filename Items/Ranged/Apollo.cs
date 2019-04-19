@@ -5,10 +5,8 @@ namespace AAMod.Items.Ranged
 {
     public class Apollo : ModItem
     {
-
         public override void SetDefaults()
         {
-
             item.damage = 19;
             item.noMelee = true;
             item.ranged = true;
@@ -25,14 +23,13 @@ namespace AAMod.Items.Ranged
             item.UseSound = SoundID.Item5;
             item.autoReuse = false;
             item.shootSpeed = 21f;
-
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Apollo's Bow");
-      Tooltip.SetDefault("");
-    }
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Apollo's Bow");
+            Tooltip.SetDefault("");
+        }
 
         public override void AddRecipes()
         {

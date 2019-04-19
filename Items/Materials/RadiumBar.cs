@@ -9,6 +9,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Radium Bar");
             Tooltip.SetDefault("It's sparkly");
         }
+
         public override void SetDefaults()
         {
             item.width = 30;
@@ -23,10 +24,12 @@ namespace AAMod.Items.Materials
             item.consumable = true;
             item.createTile = mod.TileType("RadiumBarTile");
         }
+
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "RadiumOre", 5);              //example of how to craft with a modded item
+            recipe.AddIngredient(null, "RadiumOre", 5); //example of how to craft with a modded item
             recipe.AddTile(null, "QuantumFusionAccelerator");
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -9,8 +9,6 @@ namespace AAMod.Items.Boss.Akuma
 {
     public class MorningGlory : ModItem
     {
-
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Morning Glory");
@@ -19,7 +17,6 @@ namespace AAMod.Items.Boss.Akuma
 
         public override void SetDefaults()
         {
-
             item.shoot = mod.ProjectileType("MorningGlory");
             item.shootSpeed = 10f;
             item.damage = 250;
@@ -37,8 +34,9 @@ namespace AAMod.Items.Boss.Akuma
             item.value = Item.sellPrice(0, 10, 0, 0);
             item.rare = 10;
         }
-        
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

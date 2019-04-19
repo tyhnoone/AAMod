@@ -7,8 +7,8 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("b00m");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 7;     //The recording mode
+            DisplayName.SetDefault("b00m"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 7; //The recording mode
         }
 
         public override void SetDefaults()
@@ -40,19 +40,18 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 if (++projectile.frame >= 6)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Sounds/Glitch"), (int)projectile.Center.X, (int)projectile.Center.Y);
+            Main.PlaySound(mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Sounds/Glitch"),
+                (int) projectile.Center.X, (int) projectile.Center.Y);
             projectile.timeLeft = 0;
         }
-
     }
 }

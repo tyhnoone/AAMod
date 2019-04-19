@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Dusts
 {
     public class PrismDust : ModDust
-	{
+    {
         public override void OnSpawn(Dust dust)
         {
             dust.velocity.Y = Main.rand.Next(-10, 6) * 0.1f;
@@ -21,6 +21,7 @@ namespace AAMod.Dusts
             {
                 dust.velocity.Y += 0.05f;
             }
+
             if (!dust.noLight)
             {
                 float strength = dust.scale * 1.4f;
@@ -28,8 +29,11 @@ namespace AAMod.Dusts
                 {
                     strength = 1f;
                 }
-                Lighting.AddLight(dust.position, dustColor.R / 255 * strength, dustColor.G / 255 * strength, dustColor.B / 255 * strength);
+
+                Lighting.AddLight(dust.position, dustColor.R / 255 * strength, dustColor.G / 255 * strength,
+                    dustColor.B / 255 * strength);
             }
+
             return false;
         }
 

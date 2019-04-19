@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 namespace AAMod.NPCs.Bosses.Yamata
 {
     [AutoloadBossHead]
@@ -10,8 +11,8 @@ namespace AAMod.NPCs.Bosses.Yamata
     {
         public override void SetDefaults()
         {
-			base.SetDefaults();
-			leftHead = true;
+            base.SetDefaults();
+            leftHead = true;
         }
-	}
+    }
 }

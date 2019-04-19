@@ -7,7 +7,6 @@ namespace AAMod.Items.Tools
     {
         public override void SetDefaults()
         {
-
             item.damage = 90;
             item.melee = true;
             item.width = 40;
@@ -30,7 +29,7 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("True Scalpel");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod, "Scalpel");

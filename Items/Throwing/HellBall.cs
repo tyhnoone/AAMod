@@ -5,13 +5,12 @@ namespace AAMod.Items.Throwing
 {
     public class HellBall : ModItem
     {
-
         public override void SetDefaults()
         {
-			item.useTime = 25;
+            item.useTime = 25;
             item.CloneDefaults(ItemID.LightDisc);
             item.melee = true;
-            item.damage = 42;                            
+            item.damage = 42;
             item.value = 6;
             item.rare = 5;
             item.knockBack = 5;
@@ -19,23 +18,24 @@ namespace AAMod.Items.Throwing
             item.useAnimation = 24;
             item.useTime = 24;
             item.shoot = mod.ProjectileType("HellBallP");
-			item.width = 56;
+            item.width = 56;
             item.height = 56;
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Scorched Saw");
-      Tooltip.SetDefault("");
-    }
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Scorched Saw");
+            Tooltip.SetDefault("");
+        }
 
 
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.HellstoneBar, 20);              //exeample of how to craft with a modded item
-			recipe.AddIngredient(ItemID.SoulofNight, 5);
-			recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.HellstoneBar, 20); //exeample of how to craft with a modded item
+            recipe.AddIngredient(ItemID.SoulofNight, 5);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

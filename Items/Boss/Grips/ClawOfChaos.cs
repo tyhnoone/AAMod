@@ -15,15 +15,19 @@ namespace AAMod.Items.Boss.Grips
             item.expert = true;
             item.accessory = true;
         }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Claw of Chaos");
-            Tooltip.SetDefault("For every hit you land on an enemy, 5 true damage (damage unassigned to any class) is dealt");
+            Tooltip.SetDefault(
+                "For every hit you land on an enemy, 5 true damage (damage unassigned to any class) is dealt");
         }
-		public override void UpdateAccessory(Player player, bool hideVisual)
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.GetModPlayer<AAPlayer>().clawsOfChaos = true;
+            player.GetModPlayer<AAPlayer>().clawsOfChaos = true;
         }
+
         public override bool CanEquipAccessory(Player player, int slot)
         {
             if (slot < 10)
@@ -35,12 +39,14 @@ namespace AAMod.Items.Boss.Grips
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Retriever.StormRiot>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

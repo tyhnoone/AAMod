@@ -7,18 +7,19 @@ using System.Collections.Generic;
 namespace AAMod.Items.Dev
 {
     public class SoulSiphon : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Soul Siphon");
-			Tooltip.SetDefault(@"I swear if you ask me for a song one more time...
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Soul Siphon");
+            Tooltip.SetDefault(@"I swear if you ask me for a song one more time...
 -Charlie");
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 220;
+        }
+
+        public override void SetDefaults()
+        {
+            item.damage = 220;
             item.useStyle = 1;
-			item.melee = true;
+            item.melee = true;
             item.useAnimation = 25;
             item.useTime = 25;
             item.knockBack = 7f;
@@ -32,7 +33,7 @@ namespace AAMod.Items.Dev
             item.autoReuse = true;
             item.shoot = mod.ProjectileType("AmphibiousProjectile");
             item.shootSpeed = 9f;
-		}
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
@@ -44,10 +45,10 @@ namespace AAMod.Items.Dev
                 }
             }
         }
-        
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             //target.AddBuff(BuffID.SoulDrain, 1000);
         }
-	}
+    }
 }

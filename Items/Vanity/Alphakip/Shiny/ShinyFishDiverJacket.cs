@@ -34,6 +34,7 @@ namespace AAMod.Items.Vanity.Alphakip.Shiny
             item.rare = 9;
             item.vanity = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

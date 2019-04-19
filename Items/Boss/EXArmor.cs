@@ -1,7 +1,9 @@
 ﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using BaseMod;
 
 namespace AAMod.Items.Boss
@@ -14,7 +16,6 @@ namespace AAMod.Items.Boss
         {
             DisplayName.SetDefault("EX Armor Fragment");
             Tooltip.SetDefault("Used to make EX armor");
-
         }
 
         // TODO -- Velocity Y smaller, post NewItem?
@@ -28,7 +29,6 @@ namespace AAMod.Items.Boss
             item.value = 333333;
             item.rare = 11;
             item.expert = true;
-            
         }
 
         public override Color? GetAlpha(Color lightColor)

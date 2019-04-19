@@ -33,11 +33,13 @@ namespace AAMod.Items.Boss.MushroomMonarch
             {
                 player.QuickSpawnItem(mod.ItemType<Items.Vanity.Mask.MonarchMask>());
             }
+
             if (Main.rand.NextFloat() < 0.01f)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PHMDevArmor();
             }
+
             player.QuickSpawnItem(mod.ItemType("Mushium"), Main.rand.Next(30, 40));
             player.QuickSpawnItem(mod.ItemType("HeartyTruffle"));
         }

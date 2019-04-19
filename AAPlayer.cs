@@ -26,6 +26,7 @@ using Terraria.Graphics.Effects;
 using AAMod.Items;
 using AAMod.Items.DevTools;
 using AAMod.Items.BossSummons;
+
 namespace AAMod
 {
     public class AAPlayer : ModPlayer
@@ -58,7 +59,9 @@ namespace AAMod
         public bool MadnessElemental = false;
         public bool FlameSoul = false;
         public bool Orbiters = false;
+
         public bool Protocol = false;
+
         // Biome bools.
         public bool ZoneMire = false;
         public bool ZoneInferno = false;
@@ -84,7 +87,9 @@ namespace AAMod
         public bool ZoneTower;
 
         public bool RadiumStars = false;
+
         public bool Darkmatter = true;
+
         // Armor bools.
         public bool MoonSet;
         public bool goblinSlayer;
@@ -139,7 +144,9 @@ namespace AAMod
         public bool Assassin;
         public bool AbyssalStealth;
         public bool AssassinStealth;
+
         public bool Witch;
+
         // Accessory bools.
         public bool clawsOfChaos;
         public bool HydraPendant;
@@ -181,7 +188,9 @@ namespace AAMod
         public bool BegAccessory;
         public bool BegHideVanity;
         public bool BegForceVanity;
+
         public bool HorseBuff;
+
         //debuffs
         public bool infinityOverload = false;
         public bool discordInferno = false;
@@ -205,6 +214,7 @@ namespace AAMod
         public bool Hunted = false;
         public bool Unstable = false;
         public bool Abducted = false;
+
         public Vector2 RingLocation;
         //buffs
 
@@ -223,11 +233,11 @@ namespace AAMod
         public static int yamata = -1;
 
         //Colors
-        public static Color IncineriteColor = new Color((int)(242 * 0.7f), (int)(107 * 0.7f), 0);
+        public static Color IncineriteColor = new Color((int) (242 * 0.7f), (int) (107 * 0.7f), 0);
 
-        public static Color ZeroColor = new Color((int)(233 * 0.7f), (int)(53 * 0.7f), (int)(53 * 0.7f));
+        public static Color ZeroColor = new Color((int) (233 * 0.7f), (int) (53 * 0.7f), (int) (53 * 0.7f));
 
-        public static Color groviteColor = new Color(138, (int)(39 * 0.7f), (int)(196 * 0.7f));
+        public static Color groviteColor = new Color(138, (int) (39 * 0.7f), (int) (196 * 0.7f));
         public static bool[] groviteGlow = new bool[255];
 
         //IZ Death count
@@ -238,7 +248,7 @@ namespace AAMod
 
         //Misc
         public bool Compass = false;
-        
+
         public int PrismCooldown = 0;
 
         public bool WorldgenReminder = false;
@@ -384,7 +394,6 @@ namespace AAMod
             Compass = false;
 
             //Biomes
-
         }
 
         public override void Initialize()
@@ -411,7 +420,8 @@ namespace AAMod
 
             if (Compass) PlayerBool.Add("Compass");
 
-            return new TagCompound {
+            return new TagCompound
+            {
                 {"PlayerBool", PlayerBool},
                 {
                     "ManaLantern", ManaLantern
@@ -448,17 +458,20 @@ namespace AAMod
 
         public override void PreUpdateBuffs()
         {
-            
         }
 
         public override void UpdateBiomes()
         {
-            ZoneTower = player.ZoneTowerSolar || player.ZoneTowerNebula || player.ZoneTowerStardust || player.ZoneTowerVortex;
-            ZoneMire = (AAWorld.mireTiles > 100) || NPC.AnyNPCs(mod.NPCType<Yamata>()) || NPC.AnyNPCs(mod.NPCType<YamataA>());
-            ZoneInferno = (AAWorld.infernoTiles > 100) || (NPC.AnyNPCs(mod.NPCType<Akuma>()) || NPC.AnyNPCs(mod.NPCType<AkumaA>()));
+            ZoneTower = player.ZoneTowerSolar || player.ZoneTowerNebula || player.ZoneTowerStardust ||
+                        player.ZoneTowerVortex;
+            ZoneMire = (AAWorld.mireTiles > 100) || NPC.AnyNPCs(mod.NPCType<Yamata>()) ||
+                       NPC.AnyNPCs(mod.NPCType<YamataA>());
+            ZoneInferno = (AAWorld.infernoTiles > 100) ||
+                          (NPC.AnyNPCs(mod.NPCType<Akuma>()) || NPC.AnyNPCs(mod.NPCType<AkumaA>()));
             ZoneMush = (AAWorld.mushTiles > 100);
             Terrarium = (AAWorld.terraTiles >= 1);
-            ZoneVoid = (AAWorld.voidTiles > 20) || (NPC.AnyNPCs(mod.NPCType<Zero>()) || NPC.AnyNPCs(mod.NPCType<ZeroAwakened>()));
+            ZoneVoid = (AAWorld.voidTiles > 20) ||
+                       (NPC.AnyNPCs(mod.NPCType<Zero>()) || NPC.AnyNPCs(mod.NPCType<ZeroAwakened>()));
             //ZoneStorm = (AAWorld.stormTiles >= 1);
             //ZoneShip = (AAWorld.shipTiles >= 1);
             ZoneRisingMoonLake = AAWorld.lakeTiles >= 1;
@@ -472,7 +485,10 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)), BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)), Color.Green, Color.Green, BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)),
+                    BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)), Color.Green,
+                    Color.Green, BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)));
             }
         }
 
@@ -480,7 +496,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Transparent, Color.White, Color.White, Color.Transparent);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Transparent, Color.White, Color.White, Color.Transparent);
             }
         }
 
@@ -519,12 +536,12 @@ namespace AAMod
         {
             AAPlayer modOther = other.GetModPlayer<AAPlayer>(mod);
             return (ZoneMire == modOther.ZoneMire &&
-                ZoneInferno == modOther.ZoneInferno &&
-                ZoneVoid == modOther.ZoneVoid &&
-                ZoneMush == modOther.ZoneMush &&
-                Terrarium == modOther.Terrarium &&
-                ZoneStorm == modOther.ZoneStorm &&
-                ZoneShip == modOther.ZoneShip);
+                    ZoneInferno == modOther.ZoneInferno &&
+                    ZoneVoid == modOther.ZoneVoid &&
+                    ZoneMush == modOther.ZoneMush &&
+                    Terrarium == modOther.Terrarium &&
+                    ZoneStorm == modOther.ZoneStorm &&
+                    ZoneShip == modOther.ZoneShip);
         }
 
         public override void CopyCustomBiomesTo(Player other)
@@ -609,27 +626,31 @@ namespace AAMod
                         position.Y = player.Center.Y - 40;
                         dust = Main.dust[Dust.NewDust(position, 80, 80, 108, 0f, 0f, 124, new Color(255, 50, 0), 1f)];
                     }
+
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC target = Main.npc[i];
                         float dist = npc.Distance(player.Center);
-                        if (target.active && !target.dontTakeDamage && !target.friendly && target.immune[player.whoAmI] == 0 && dist < 100f)
+                        if (target.active && !target.dontTakeDamage && !target.friendly &&
+                            target.immune[player.whoAmI] == 0 && dist < 100f)
                         {
-                            player.ApplyDamageToNPC(target, 30, 0, 0, false); // target , damage, knockback, direction, crit
+                            player.ApplyDamageToNPC(target, 30, 0, 0,
+                                false); // target , damage, knockback, direction, crit
                         }
-
                     }
                 }
             }
 
             if (trueCopper)
             {
-                Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType<Items.Armor.TrueCopper.CopperSoul>(), 40, 10, Main.myPlayer, 0, 0);
+                Projectile.NewProjectile(player.Center, Vector2.Zero,
+                    mod.ProjectileType<Items.Armor.TrueCopper.CopperSoul>(), 40, 10, Main.myPlayer, 0, 0);
             }
 
             if (fulgurite)
             {
-                Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType<Items.Armor.Fulgurite.FulguriteRing>(), 40, 10, Main.myPlayer, 0, 0);
+                Projectile.NewProjectile(player.Center, Vector2.Zero,
+                    mod.ProjectileType<Items.Armor.Fulgurite.FulguriteRing>(), 40, 10, Main.myPlayer, 0, 0);
             }
 
             if (trueBlazing)
@@ -650,20 +671,20 @@ namespace AAMod
             }
 
             if (npc.type == NPCID.GoblinArcher
-                        || npc.type == NPCID.GoblinPeon
-                        || npc.type == NPCID.GoblinScout
-                        || npc.type == NPCID.GoblinSorcerer
-                        || npc.type == NPCID.GoblinSummoner
-                        || npc.type == NPCID.GoblinThief
-                        || npc.type == NPCID.GoblinWarrior
-                        || npc.type == NPCID.DD2GoblinBomberT1
-                        || npc.type == NPCID.DD2GoblinBomberT2
-                        || npc.type == NPCID.DD2GoblinBomberT3
-                        || npc.type == NPCID.DD2GoblinT1
-                        || npc.type == NPCID.DD2GoblinT2
-                        || npc.type == NPCID.DD2GoblinBomberT3
-                        || npc.type == NPCID.BoundGoblin
-                        || npc.type == NPCID.GoblinTinkerer)
+                || npc.type == NPCID.GoblinPeon
+                || npc.type == NPCID.GoblinScout
+                || npc.type == NPCID.GoblinSorcerer
+                || npc.type == NPCID.GoblinSummoner
+                || npc.type == NPCID.GoblinThief
+                || npc.type == NPCID.GoblinWarrior
+                || npc.type == NPCID.DD2GoblinBomberT1
+                || npc.type == NPCID.DD2GoblinBomberT2
+                || npc.type == NPCID.DD2GoblinBomberT3
+                || npc.type == NPCID.DD2GoblinT1
+                || npc.type == NPCID.DD2GoblinT2
+                || npc.type == NPCID.DD2GoblinBomberT3
+                || npc.type == NPCID.BoundGoblin
+                || npc.type == NPCID.GoblinTinkerer)
             {
                 player.endurance *= 1.8f;
             }
@@ -673,7 +694,8 @@ namespace AAMod
             }
         }
 
-        public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
+        public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize,
+            int worldLayer, int questFish, ref int caughtType, ref bool junk)
         {
             if (Main.rand.Next(100) < (10 + (player.cratePotion ? 10 : 0)))
             {
@@ -681,14 +703,17 @@ namespace AAMod
                 {
                     caughtType = mod.ItemType("IceCrate");
                 }
+
                 if (liquidType == 0 && player.ZoneDesert)
                 {
                     caughtType = mod.ItemType("DesertCrate");
                 }
+
                 if ((liquidType == 0 || liquidType == 1) && player.GetModPlayer<AAPlayer>(mod).ZoneInferno)
                 {
                     caughtType = mod.ItemType("InfernoCrate");
                 }
+
                 if (liquidType == 0 && player.GetModPlayer<AAPlayer>(mod).ZoneMire)
                 {
                     caughtType = mod.ItemType("MireCrate");
@@ -716,17 +741,25 @@ namespace AAMod
                     AbyssalStealth = false;
                 }
             }
+
             if (uraniumSet)
             {
-                Color color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)), BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)), Color.Green, Color.Green, BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)));
-                Lighting.AddLight((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f), (color * .01f).R, (color * .01f).G, (color * .01f).B);
+                Color color = BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)),
+                    BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)), Color.Green,
+                    Color.Green, BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y)));
+                Lighting.AddLight((int) (player.Center.X / 16f), (int) (player.Center.Y / 16f), (color * .01f).R,
+                    (color * .01f).G, (color * .01f).B);
                 float RadiationDistance = 64f;
                 if (player.whoAmI == Main.myPlayer)
                 {
                     for (int l = 0; l < 200; l++)
                     {
                         NPC nPC = Main.npc[l];
-                        if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && !nPC.boss && Vector2.Distance(player.Center, nPC.Center) <= RadiationDistance && Collision.CanHit(nPC.position, nPC.width, nPC.height, Main.player[Main.myPlayer].position, Main.player[Main.myPlayer].width, Main.player[Main.myPlayer].height))
+                        if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && !nPC.boss &&
+                            Vector2.Distance(player.Center, nPC.Center) <= RadiationDistance && Collision.CanHit(
+                                nPC.position, nPC.width, nPC.height, Main.player[Main.myPlayer].position,
+                                Main.player[Main.myPlayer].width, Main.player[Main.myPlayer].height))
                         {
                             player.ApplyDamageToNPC(nPC, 1, 0f, 0, false);
                         }
@@ -738,8 +771,9 @@ namespace AAMod
             {
                 Spheres = BaseAI.GetProjectiles(player.Center, mod.NPCType("FireOrbiter"), Main.myPlayer, 48);
                 if (player.ownedProjectileCounts[mod.ProjectileType("FireOrbiter")] > 0)
-				{
-                    player.minionDamage += AAGlobalProjectile.CountProjectiles(mod.ProjectileType<Projectiles.AH.FireOrbiter>()) * .1f;
+                {
+                    player.minionDamage +=
+                        AAGlobalProjectile.CountProjectiles(mod.ProjectileType<Projectiles.AH.FireOrbiter>()) * .1f;
                     if (Main.netMode != 2 && Main.player[Main.myPlayer].miscCounter % 3 == 0)
                     {
                         for (int m = 0; m < Spheres.Length; m++)
@@ -747,7 +781,8 @@ namespace AAMod
                             Projectile projectile = Main.projectile[Spheres[m]];
                             if (projectile != null && projectile.active)
                             {
-                                int dustID = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.AkumaDustLight>());
+                                int dustID = Dust.NewDust(projectile.position, projectile.width, projectile.height,
+                                    mod.DustType<Dusts.AkumaDustLight>());
                                 Main.dust[dustID].position += (player.position - player.oldPosition);
                                 Main.dust[dustID].velocity = (player.Center - projectile.Center) * 0.05f;
                                 Main.dust[dustID].alpha = 100;
@@ -763,59 +798,92 @@ namespace AAMod
                 AAWorld.ModContentGenerated = true;
                 WorldgenReminder = true;
             }
+
             if (!WorldgenReminder)
             {
                 if (Main.rand.Next(8) == 0)
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Hey uh...kid? Correct me if I'm wrong, but I think your world didn't generate with Ancients Awakened stuff in it. I'd make a new one if I were you.", new Color(180, 41, 32), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat(
+                            "Hey uh...kid? Correct me if I'm wrong, but I think your world didn't generate with Ancients Awakened stuff in it. I'd make a new one if I were you.",
+                            new Color(180, 41, 32), false);
                 }
                 else if (Main.rand.Next(8) == 1)
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("YOU IMBECILE! YOU DIDN'T GENERATE ANCIENTS AWAKENED CONTENT! MAKE A NEW WORLD NOW! REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", new Color(45, 46, 70), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat(
+                            "YOU IMBECILE! YOU DIDN'T GENERATE ANCIENTS AWAKENED CONTENT! MAKE A NEW WORLD NOW! REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+                            new Color(45, 46, 70), false);
                 }
                 else if (Main.rand.Next(8) == 2)
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("ERR0R. W0RLD D0ES N0T APPEAR T0 C0NTAIN AAM0D.TM0D C0NTENT. PLEASE GENERATE A NEW W0RLD.", new Color(255, 0, 0), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat(
+                            "ERR0R. W0RLD D0ES N0T APPEAR T0 C0NTAIN AAM0D.TM0D C0NTENT. PLEASE GENERATE A NEW W0RLD.",
+                            new Color(255, 0, 0), false);
                 }
                 else if (Main.rand.Next(8) == 3)
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("HEY! You didn't generate Ancients Awakened stuff in this world! Generate a new world before I blast you to mars!", new Color(102, 20, 48), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat(
+                            "HEY! You didn't generate Ancients Awakened stuff in this world! Generate a new world before I blast you to mars!",
+                            new Color(102, 20, 48), false);
                 }
                 else if (Main.rand.Next(8) == 4)
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Hey, uh...I don't see any Ancients Awakened content in this world. Might be smart to make a new world or whatever...", new Color(72, 78, 117), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat(
+                            "Hey, uh...I don't see any Ancients Awakened content in this world. Might be smart to make a new world or whatever...",
+                            new Color(72, 78, 117), false);
                 }
                 else if (Main.rand.Next(8) == 5)
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Hey. You. Interdimensional being. You might have forgotten to make a new world after downloading the mod. Make a new world if you want all the mod's content.", new Color(128, 0, 0), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat(
+                            "Hey. You. Interdimensional being. You might have forgotten to make a new world after downloading the mod. Make a new world if you want all the mod's content.",
+                            new Color(128, 0, 0), false);
                 }
                 else if (Main.rand.Next(8) == 6)
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Make...new world....or mushmad...will squish...little terrarian...", new Color(216, 110, 40), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat("Make...new world....or mushmad...will squish...little terrarian...",
+                            new Color(216, 110, 40), false);
                 }
                 else if (Main.rand.Next(8) == 7)
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("...Mortal. Your world doesn't have Ancients Awakened content if my old eyes are not lying to me. Generating a new world would be optimal.", new Color(43, 46, 61), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat(
+                            "...Mortal. Your world doesn't have Ancients Awakened content if my old eyes are not lying to me. Generating a new world would be optimal.",
+                            new Color(43, 46, 61), false);
                 }
+
                 WorldgenReminder = true;
             }
+
             DarkmatterSet = darkmatterSetMe || darkmatterSetRa || darkmatterSetMa || darkmatterSetSu || darkmatterSetTh;
             if (RStar)
             {
-                Lighting.AddLight((int)(player.position.X + (float)(player.width / 2)) / 16, (int)(player.position.Y + (float)(player.height / 2)) / 16, 1f, 0.95f, 0.8f);
+                Lighting.AddLight((int) (player.position.X + (float) (player.width / 2)) / 16,
+                    (int) (player.position.Y + (float) (player.height / 2)) / 16, 1f, 0.95f, 0.8f);
             }
+
             if (kindledSet || lantern)
             {
-                Lighting.AddLight((int)(player.position.X + (float)(player.width / 2)) / 16, (int)(player.position.Y + (float)(player.height / 2)) / 16, AAColor.Lantern.R / 255, (AAColor.Lantern.G / 255) * 0.95f, (AAColor.Lantern.B / 255) * 0.8f);
+                Lighting.AddLight((int) (player.position.X + (float) (player.width / 2)) / 16,
+                    (int) (player.position.Y + (float) (player.height / 2)) / 16, AAColor.Lantern.R / 255,
+                    (AAColor.Lantern.G / 255) * 0.95f, (AAColor.Lantern.B / 255) * 0.8f);
             }
+
             if (NPC.AnyNPCs(mod.NPCType<Yamata>()))
             {
                 player.AddBuff(mod.BuffType<Buffs.YamataGravity>(), 10, true);
             }
+
             if (NPC.AnyNPCs(mod.NPCType<YamataA>()))
             {
                 player.AddBuff(mod.BuffType<Buffs.YamataAGravity>(), 10, true);
             }
+
             if (player.GetModPlayer<AAPlayer>().ZoneMire || player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake)
             {
                 if (Main.dayTime && !AAWorld.downedYamata)
@@ -826,23 +894,28 @@ namespace AAMod
                     }
                 }
             }
+
             if (player.GetModPlayer<AAPlayer>().Terrarium)
             {
                 player.AddBuff(mod.BuffType<Terrarium>(), 2);
                 player.AddBuff(BuffID.DryadsWard, 2);
             }
+
             if (Main.rand.Next(3600) == 0)
             {
                 VoidGrav = (Main.rand.Next(0, 5) + 1);
             }
+
             if (NPC.AnyNPCs(mod.NPCType<ZeroAwakened>()))
             {
                 if (!Filters.Scene["MoonLordShake"].IsActive())
                 {
                     Filters.Scene.Activate("MoonLordShake", player.position, new object[0]);
                 }
+
                 Filters.Scene["MoonLordShake"].GetShader().UseIntensity(1f);
             }
+
             if (player.GetModPlayer<AAPlayer>().ZoneVoid)
             {
                 if (!BrokenCode)
@@ -851,22 +924,27 @@ namespace AAMod
                     {
                         VoidGrav = (Main.rand.Next(0, 5) + 1);
                     }
+
                     if (VoidGrav == 1)
                     {
                         player.gravity = 0.1f;
                     }
+
                     if (VoidGrav == 2)
                     {
                         player.gravity = 0.5f;
                     }
+
                     if (VoidGrav == 3)
                     {
                         player.gravity = 1f;
                     }
+
                     if (VoidGrav == 4)
                     {
                         player.gravity = 5f;
                     }
+
                     if (VoidGrav == 5)
                     {
                         player.gravity = 10f;
@@ -877,6 +955,7 @@ namespace AAMod
                     player.gravity = 1f;
                 }
             }
+
             if (player.GetModPlayer<AAPlayer>().ZoneInferno || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda)
             {
                 if (AshCurse)
@@ -900,15 +979,17 @@ namespace AAMod
                     {
                         flag14 = true;
                     }
+
                     if (player.stealth == 0f && num29 != player.stealth && Main.netMode == 1)
                     {
                         NetMessage.SendData(84, -1, -1, null, player.whoAmI, 0f, 0f, 0f, 0, 0, 0);
                     }
+
                     player.rangedDamage += (1f - player.stealth) * 0.8f;
                     player.meleeDamage += (1f - player.stealth) * 0.8f;
-                    player.rangedCrit += (int)((1f - player.stealth) * 20f);
-                    player.meleeCrit += (int)((1f - player.stealth) * 20f);
-                    player.aggro -= (int)((1f - player.stealth) * 1200f);
+                    player.rangedCrit += (int) ((1f - player.stealth) * 20f);
+                    player.meleeCrit += (int) ((1f - player.stealth) * 20f);
+                    player.aggro -= (int) ((1f - player.stealth) * 1200f);
                     if (player.mount.Active)
                     {
                         AssassinStealth = false;
@@ -926,27 +1007,35 @@ namespace AAMod
                     {
                         flag14 = true;
                     }
+
                     if (player.stealth == 1f && num30 != player.stealth && Main.netMode == 1)
                     {
                         NetMessage.SendData(84, -1, -1, null, player.whoAmI, 0f, 0f, 0f, 0, 0, 0);
                     }
                 }
+
                 if (flag14)
                 {
                     if (Main.rand.Next(2) == 0)
                     {
                         Vector2 vector = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
-                        Dust dust = Main.dust[Dust.NewDust(player.Center - vector * 30f, 0, 0, mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 0, default(Color), 1f)];
+                        Dust dust = Main.dust[
+                            Dust.NewDust(player.Center - vector * 30f, 0, 0, mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 0,
+                                default(Color), 1f)];
                         dust.noGravity = true;
-                        dust.position = player.Center - vector * (float)Main.rand.Next(5, 11);
+                        dust.position = player.Center - vector * (float) Main.rand.Next(5, 11);
                         dust.velocity = vector.RotatedBy(1.5707963705062866, default(Vector2)) * 4f;
                         dust.scale = 0.5f + Main.rand.NextFloat();
                         dust.fadeIn = 0.5f;
                     }
+
                     if (Main.rand.Next(2) == 0)
                     {
                         Vector2 vector2 = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
-                        Dust dust2 = Main.dust[Dust.NewDust(player.Center - vector2 * 30f, 0, 0, mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 0, default(Color), 1f)];
+                        Dust dust2 =
+                            Main.dust[
+                                Dust.NewDust(player.Center - vector2 * 30f, 0, 0, mod.DustType<Dusts.AbyssDust>(), 0f,
+                                    0f, 0, default(Color), 1f)];
                         dust2.noGravity = true;
                         dust2.position = player.Center - vector2 * 12f;
                         dust2.velocity = vector2.RotatedBy(-1.5707963705062866, default(Vector2)) * 2f;
@@ -967,12 +1056,14 @@ namespace AAMod
                     {
                         player.stealth = 0f;
                     }
+
                     if (player.stealth == 0f && num29 != player.stealth && Main.netMode == 1)
                     {
                         NetMessage.SendData(84, -1, -1, null, player.whoAmI, 0f, 0f, 0f, 0, 0, 0);
                     }
+
                     player.rangedDamage += (1f - player.stealth) * 0.6f;
-                    player.rangedCrit += (int)((1f - player.stealth) * 16f);
+                    player.rangedCrit += (int) ((1f - player.stealth) * 16f);
                     player.aggro -= 50;
                     if (player.mount.Active)
                     {
@@ -987,6 +1078,7 @@ namespace AAMod
                     {
                         player.stealth = 1f;
                     }
+
                     if (player.stealth == 1f && num30 != player.stealth && Main.netMode == 1)
                     {
                         NetMessage.SendData(84, -1, -1, null, player.whoAmI, 0f, 0f, 0f, 0, 0, 0);
@@ -1006,6 +1098,7 @@ namespace AAMod
                             AADoubleTapKeyTimer[k] = 0;
                         }
                     }
+
                     for (int l = 0; l < 4; l++)
                     {
                         bool flag5 = false;
@@ -1029,6 +1122,7 @@ namespace AAMod
                                 flag6 = player.controlLeft;
                                 break;
                         }
+
                         if (flag5)
                         {
                             if (player.doubleTapCardinalTimer[l] > 0)
@@ -1040,6 +1134,7 @@ namespace AAMod
                                 AADoubleTapKeyTimer[l] = 15;
                             }
                         }
+
                         if (flag6)
                         {
                             AAHoldDownKeyTimer[l]++;
@@ -1061,6 +1156,7 @@ namespace AAMod
             {
                 num = 1;
             }
+
             if (keyDir == num)
             {
                 if (Assassin && !player.mount.Active)
@@ -1080,14 +1176,15 @@ namespace AAMod
         }
 
 
-
         public void DropDevArmor(int dropType)
         {
             //0 = Pre-HM
             //1 = HM
             //2 = PML
             //3 = PA
-            bool spawnedDevItems = false; //this prevents it from not dropping anything if the chance lands on something it cannot drop yet (for prehm/hm) as by this point it's past the 10% chance and thus should drop.
+            bool
+                spawnedDevItems =
+                    false; //this prevents it from not dropping anything if the chance lands on something it cannot drop yet (for prehm/hm) as by this point it's past the 10% chance and thus should drop.
             string addonEX = (dropType == 3 ? "EX" : ""); //only include EX if it's a dropType 3 (ie from ancients)
             while (!spawnedDevItems)
             {
@@ -1111,11 +1208,13 @@ namespace AAMod
                                 player.QuickSpawnItem(mod.ItemType("ShinyFishDiverJacket" + addonA));
                                 player.QuickSpawnItem(mod.ItemType("ShinyFishDiverBoots" + addonA));
                             }
+
                             if (dropType >= 1)
                             {
                                 player.QuickSpawnItem(mod.ItemType("MudkipBall"));
                                 player.QuickSpawnItem(mod.ItemType("ShinyKipronWings"));
                             }
+
                             if (dropType >= 2)
                             {
                                 player.QuickSpawnItem(mod.ItemType("SFishDiverMaskA"));
@@ -1127,6 +1226,7 @@ namespace AAMod
                             spawnedDevItems = true;
                             break;
                         }
+
                         player.QuickSpawnItem(mod.ItemType("FishDiverMask" + addonA));
                         player.QuickSpawnItem(mod.ItemType("FishDiverJacket" + addonA));
                         player.QuickSpawnItem(mod.ItemType("FishDiverBoots" + addonA));
@@ -1135,10 +1235,12 @@ namespace AAMod
                             player.QuickSpawnItem(mod.ItemType("MudkipBall"));
                             player.QuickSpawnItem(mod.ItemType("KipronWings"));
                         }
+
                         if (dropType >= 2)
                         {
                             player.QuickSpawnItem(mod.ItemType("AmphibianLongsword" + addonEX));
                         }
+
                         spawnedDevItems = true;
                         break;
                     case 2:
@@ -1149,10 +1251,12 @@ namespace AAMod
                         {
                             player.QuickSpawnItem(mod.ItemType("MonochromeApple"));
                         }
+
                         if (dropType >= 2)
                         {
                             player.QuickSpawnItem(mod.ItemType("PoniumStaff" + addonEX));
                         }
+
                         spawnedDevItems = true;
                         break;
                     case 3:
@@ -1167,6 +1271,7 @@ namespace AAMod
                         {
                             player.QuickSpawnItem(mod.ItemType("CordesDuFuret_Notes"));
                         }
+
                         spawnedDevItems = true;
                         break;
                     case 5:
@@ -1178,10 +1283,12 @@ namespace AAMod
                         {
                             player.QuickSpawnItem(mod.ItemType("FazerPaws"));
                         }
+
                         if (dropType >= 2)
                         {
                             player.QuickSpawnItem(mod.ItemType("Fluff" + addonEX));
                         }
+
                         spawnedDevItems = true;
                         break;
                     case 6:
@@ -1190,6 +1297,7 @@ namespace AAMod
                             player.QuickSpawnItem(mod.ItemType("SkrallStaff"));
                             spawnedDevItems = true;
                         }
+
                         break;
                     case 7:
                         if (dropType >= 2)
@@ -1197,6 +1305,7 @@ namespace AAMod
                             player.QuickSpawnItem(mod.ItemType(dropType == 3 ? "DragonShell" : "CharlieShell"));
                             spawnedDevItems = true;
                         }
+
                         break;
                     case 8:
                         player.QuickSpawnItem(mod.ItemType("FezLordsBag"));
@@ -1204,6 +1313,7 @@ namespace AAMod
                         {
                             player.QuickSpawnItem(mod.ItemType(dropType == 3 ? "Chronos" : "TimeTeller"));
                         }
+
                         spawnedDevItems = true;
                         break;
                     case 9:
@@ -1212,6 +1322,7 @@ namespace AAMod
                             player.QuickSpawnItem(mod.ItemType("TitanAxe" + addonEX));
                             spawnedDevItems = true;
                         }
+
                         break;
                     case 10:
                         if (dropType >= 2)
@@ -1219,6 +1330,7 @@ namespace AAMod
                             player.QuickSpawnItem(mod.ItemType("EnderStaff" + addonEX));
                             spawnedDevItems = true;
                         }
+
                         break;
                     case 11:
                         player.QuickSpawnItem(mod.ItemType("LizEars"));
@@ -1230,11 +1342,13 @@ namespace AAMod
                             player.QuickSpawnItem(mod.ItemType("RoyalStar"));
                             player.QuickSpawnItem(mod.ItemType("NightingaleWings"));
                         }
+
                         if (dropType >= 2)
                         {
                             player.QuickSpawnItem(mod.ItemType("CatsEyeRifle" + addonEX));
                             spawnedDevItems = true;
                         }
+
                         break;
                     case 12:
                         player.QuickSpawnItem(mod.ItemType("DJDuckHead"));
@@ -1244,11 +1358,13 @@ namespace AAMod
                         {
                             player.QuickSpawnItem(mod.ItemType("DuckstepWings"));
                         }
+
                         if (dropType >= 2)
                         {
                             player.QuickSpawnItem(mod.ItemType("DuckstepGun" + addonEX));
                             spawnedDevItems = true;
                         }
+
                         break;
                     case 13:
                         player.QuickSpawnItem(mod.ItemType("TiedHat"));
@@ -1256,8 +1372,10 @@ namespace AAMod
                         player.QuickSpawnItem(mod.ItemType("TiedTrousers"));
                         if (dropType >= 2)
                         {
-                            player.QuickSpawnItem(mod.ItemType(dropType == 3 ? "GentlemansLongblade" : "GentlemansRapier"));
+                            player.QuickSpawnItem(
+                                mod.ItemType(dropType == 3 ? "GentlemansLongblade" : "GentlemansRapier"));
                         }
+
                         spawnedDevItems = true;
                         break;
                     case 14:
@@ -1268,6 +1386,7 @@ namespace AAMod
                         {
                             player.QuickSpawnItem(mod.ItemType("Etheral" + addonEX));
                         }
+
                         spawnedDevItems = true;
                         break;
                     case 15:
@@ -1278,6 +1397,7 @@ namespace AAMod
                         {
                             player.QuickSpawnItem(mod.ItemType(dropType == 3 ? "FreedomStar" : "MobianBuster"));
                         }
+
                         break;
                 }
             }
@@ -1292,7 +1412,7 @@ namespace AAMod
         {
             DropDevArmor(1);
         }
-        
+
         public void PMLDevArmor()
         {
             DropDevArmor(2);
@@ -1309,11 +1429,15 @@ namespace AAMod
             {
                 SnapCD--;
             }
-            if ((Mind || Power || Reality || Soul || Space || Time) && !(dwarvenGauntlet || InfinityGauntlet || TrueInfinityGauntlet))
+
+            if ((Mind || Power || Reality || Soul || Space || Time) &&
+                !(dwarvenGauntlet || InfinityGauntlet || TrueInfinityGauntlet))
             {
                 player.AddBuff(mod.BuffType<InfinityOverload>(), 180);
             }
-            if (player.GetModPlayer<AAPlayer>().ZoneVoid || player.GetModPlayer<AAPlayer>().ZoneInferno || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda)
+
+            if (player.GetModPlayer<AAPlayer>().ZoneVoid || player.GetModPlayer<AAPlayer>().ZoneInferno ||
+                player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda)
             {
                 if (Main.raining)
                 {
@@ -1322,7 +1446,9 @@ namespace AAMod
                     Main.maxRaining = 0f;
                 }
             }
-            if (player.GetModPlayer<AAPlayer>().ZoneMire || player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake /*|| NPC.AnyNPCs(mod.NPCType<SoC>())*/)
+
+            if (player.GetModPlayer<AAPlayer>().ZoneMire ||
+                player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake /*|| NPC.AnyNPCs(mod.NPCType<SoC>())*/)
             {
                 if (Main.raining)
                 {
@@ -1340,18 +1466,22 @@ namespace AAMod
             {
                 return;
             }
-            if ((player.GetModPlayer<AAPlayer>(mod).ZoneInferno || player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda) && player.GetModPlayer<AAPlayer>(mod).AshCurse)
+
+            if ((player.GetModPlayer<AAPlayer>(mod).ZoneInferno ||
+                 player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda) && player.GetModPlayer<AAPlayer>(mod).AshCurse)
             {
-                if (!player.GetModPlayer<AAPlayer>(mod).AshRemover || !(player.ZoneSkyHeight || player.ZoneOverworldHeight))
+                if (!player.GetModPlayer<AAPlayer>(mod).AshRemover ||
+                    !(player.ZoneSkyHeight || player.ZoneOverworldHeight))
                 {
                     player.AddBuff(mod.BuffType<BurningAsh>(), 5);
                 }
+
                 if (AAWorld.infernoTiles > 0 && Main.player[Main.myPlayer].position.Y < Main.worldSurface * 16.0)
                 {
                     int maxValue = 800 / AAWorld.infernoTiles;
-                    float num = Main.screenWidth / (float)Main.maxScreenW;
-                    int num2 = (int)(500f * num);
-                    num2 = (int)(num2 * (1f + 2f * Main.cloudAlpha));
+                    float num = Main.screenWidth / (float) Main.maxScreenW;
+                    int num2 = (int) (500f * num);
+                    num2 = (int) (num2 * (1f + 2f * Main.cloudAlpha));
                     float num3 = 1f + 50f * Main.cloudAlpha;
                     int num4 = 0;
                     while (num4 < num3)
@@ -1362,14 +1492,16 @@ namespace AAMod
                             {
                                 break;
                             }
+
                             if (Main.rand.Next(maxValue) == 0)
                             {
                                 int num5 = Main.rand.Next(Main.screenWidth + 1000) - 500;
-                                int num6 = (int)Main.screenPosition.Y - Main.rand.Next(50);
+                                int num6 = (int) Main.screenPosition.Y - Main.rand.Next(50);
                                 if (Main.player[Main.myPlayer].velocity.Y > 0f)
                                 {
-                                    num6 -= (int)Main.player[Main.myPlayer].velocity.Y;
+                                    num6 -= (int) Main.player[Main.myPlayer].velocity.Y;
                                 }
+
                                 if (Main.rand.Next(5) == 0)
                                 {
                                     num5 = Main.rand.Next(500) - 500;
@@ -1378,16 +1510,20 @@ namespace AAMod
                                 {
                                     num5 = Main.rand.Next(500) + Main.screenWidth;
                                 }
+
                                 if (num5 < 0 || num5 > Main.screenWidth)
                                 {
-                                    num6 += Main.rand.Next((int)(Main.screenHeight * 0.8)) + (int)(Main.screenHeight * 0.1);
+                                    num6 += Main.rand.Next((int) (Main.screenHeight * 0.8)) +
+                                            (int) (Main.screenHeight * 0.1);
                                 }
-                                num5 += (int)Main.screenPosition.X;
+
+                                num5 += (int) Main.screenPosition.X;
                                 int num7 = num5 / 16;
                                 int num8 = num6 / 16;
                                 if (Main.tile[num7, num8] != null && Main.tile[num7, num8].wall == 0)
                                 {
-                                    int num9 = Dust.NewDust(new Vector2(num5, num6), 10, 10, mod.DustType<Dusts.AshRain>(), 0f, 0f, 0, default(Color), 1f);
+                                    int num9 = Dust.NewDust(new Vector2(num5, num6), 10, 10,
+                                        mod.DustType<Dusts.AshRain>(), 0f, 0f, 0, default(Color), 1f);
                                     Main.dust[num9].velocity.Y = 3f + Main.rand.Next(30) * 0.1f;
                                     Dust expr_292_cp_0 = Main.dust[num9];
                                     expr_292_cp_0.velocity.Y = expr_292_cp_0.velocity.Y * Main.dust[num9].scale;
@@ -1395,14 +1531,17 @@ namespace AAMod
                                     {
                                         Main.dust[num9].velocity.X = Main.rand.Next(-10, 10) * 0.1f;
                                         Dust expr_2EC_cp_0 = Main.dust[num9];
-                                        expr_2EC_cp_0.velocity.X = expr_2EC_cp_0.velocity.X + Main.windSpeed * Main.cloudAlpha * 10f;
+                                        expr_2EC_cp_0.velocity.X =
+                                            expr_2EC_cp_0.velocity.X + Main.windSpeed * Main.cloudAlpha * 10f;
                                     }
                                     else
                                     {
-                                        Main.dust[num9].velocity.X = (Main.cloudAlpha + 0.5f) * 25f + Main.rand.NextFloat() * 0.2f - 0.1f;
+                                        Main.dust[num9].velocity.X =
+                                            (Main.cloudAlpha + 0.5f) * 25f + Main.rand.NextFloat() * 0.2f - 0.1f;
                                         Dust expr_370_cp_0 = Main.dust[num9];
                                         expr_370_cp_0.velocity.Y = expr_370_cp_0.velocity.Y * 0.5f;
                                     }
+
                                     Dust expr_38E_cp_0 = Main.dust[num9];
                                     expr_38E_cp_0.velocity.Y = expr_38E_cp_0.velocity.Y * (1f + 0.3f * Main.cloudAlpha);
                                     Main.dust[num9].scale += Main.cloudAlpha * 0.2f;
@@ -1413,6 +1552,7 @@ namespace AAMod
                         catch
                         {
                         }
+
                         num4++;
                     }
                 }
@@ -1425,14 +1565,17 @@ namespace AAMod
             {
                 return;
             }
-            if ((player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda || player.GetModPlayer<AAPlayer>(mod).ZoneRisingMoonLake) && AAWorld.downedAllAncients && !AAWorld.downedShen)
+
+            if ((player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda ||
+                 player.GetModPlayer<AAPlayer>(mod).ZoneRisingMoonLake) && AAWorld.downedAllAncients &&
+                !AAWorld.downedShen)
             {
                 if (Main.player[Main.myPlayer].position.Y < Main.worldSurface * 16.0)
                 {
                     int maxValue = 8;
-                    float num = Main.screenWidth / (float)Main.maxScreenW;
-                    int num2 = (int)(500f * num);
-                    num2 = (int)(num2 * (1f + 2f * Main.cloudAlpha));
+                    float num = Main.screenWidth / (float) Main.maxScreenW;
+                    int num2 = (int) (500f * num);
+                    num2 = (int) (num2 * (1f + 2f * Main.cloudAlpha));
                     float num3 = 1f + 50f * Main.cloudAlpha;
                     int num4 = 0;
                     while (num4 < num3)
@@ -1443,14 +1586,16 @@ namespace AAMod
                             {
                                 break;
                             }
+
                             if (Main.rand.Next(maxValue) == 0)
                             {
                                 int num5 = Main.rand.Next(Main.screenWidth + 1000) - 500;
-                                int num6 = (int)Main.screenPosition.Y - Main.rand.Next(50);
+                                int num6 = (int) Main.screenPosition.Y - Main.rand.Next(50);
                                 if (Main.player[Main.myPlayer].velocity.Y > 0f)
                                 {
-                                    num6 -= (int)Main.player[Main.myPlayer].velocity.Y;
+                                    num6 -= (int) Main.player[Main.myPlayer].velocity.Y;
                                 }
+
                                 if (Main.rand.Next(5) == 0)
                                 {
                                     num5 = Main.rand.Next(500) - 500;
@@ -1459,16 +1604,20 @@ namespace AAMod
                                 {
                                     num5 = Main.rand.Next(500) + Main.screenWidth;
                                 }
+
                                 if (num5 < 0 || num5 > Main.screenWidth)
                                 {
-                                    num6 += Main.rand.Next((int)(Main.screenHeight * 0.8)) + (int)(Main.screenHeight * 0.1);
+                                    num6 += Main.rand.Next((int) (Main.screenHeight * 0.8)) +
+                                            (int) (Main.screenHeight * 0.1);
                                 }
-                                num5 += (int)Main.screenPosition.X;
+
+                                num5 += (int) Main.screenPosition.X;
                                 int num7 = num5 / 16;
                                 int num8 = num6 / 16;
                                 if (Main.tile[num7, num8] != null && Main.tile[num7, num8].wall == 0)
                                 {
-                                    int num9 = Dust.NewDust(new Vector2(num5, num6), 10, 10, mod.DustType<Dusts.Discord>(), 0f, 0f, 0, default(Color), 1f);
+                                    int num9 = Dust.NewDust(new Vector2(num5, num6), 10, 10,
+                                        mod.DustType<Dusts.Discord>(), 0f, 0f, 0, default(Color), 1f);
                                     Main.dust[num9].velocity.Y = 3f + Main.rand.Next(30) * 0.1f;
                                     Dust expr_292_cp_0 = Main.dust[num9];
                                     expr_292_cp_0.velocity.Y = expr_292_cp_0.velocity.Y * Main.dust[num9].scale;
@@ -1476,14 +1625,17 @@ namespace AAMod
                                     {
                                         Main.dust[num9].velocity.X = Main.rand.Next(-10, 10) * 0.1f;
                                         Dust expr_2EC_cp_0 = Main.dust[num9];
-                                        expr_2EC_cp_0.velocity.X = expr_2EC_cp_0.velocity.X + Main.windSpeed * Main.cloudAlpha * 10f;
+                                        expr_2EC_cp_0.velocity.X =
+                                            expr_2EC_cp_0.velocity.X + Main.windSpeed * Main.cloudAlpha * 10f;
                                     }
                                     else
                                     {
-                                        Main.dust[num9].velocity.X = (Main.cloudAlpha + 0.5f) * 25f + Main.rand.NextFloat() * 0.2f - 0.1f;
+                                        Main.dust[num9].velocity.X =
+                                            (Main.cloudAlpha + 0.5f) * 25f + Main.rand.NextFloat() * 0.2f - 0.1f;
                                         Dust expr_370_cp_0 = Main.dust[num9];
                                         expr_370_cp_0.velocity.Y = expr_370_cp_0.velocity.Y * 0.5f;
                                     }
+
                                     Dust expr_38E_cp_0 = Main.dust[num9];
                                     expr_38E_cp_0.velocity.Y = expr_38E_cp_0.velocity.Y * (1f + 0.3f * Main.cloudAlpha);
                                     Main.dust[num9].scale += Main.cloudAlpha * 0.2f;
@@ -1494,6 +1646,7 @@ namespace AAMod
                         catch
                         {
                         }
+
                         num4++;
                     }
                 }
@@ -1509,6 +1662,7 @@ namespace AAMod
                     knockback += 2f;
                 }
             }
+
             if (dwarvenGauntlet == true)
             {
                 if (item.melee)
@@ -1516,6 +1670,7 @@ namespace AAMod
                     knockback += 2f;
                 }
             }
+
             if (IsGoblin)
             {
                 knockback += 5f;
@@ -1524,7 +1679,6 @@ namespace AAMod
 
         public void DrawItem(int i)
         {
-
             if (player.HeldItem.type == mod.ItemType("VoidStar"))
             {
                 Vector2 vector25 = Main.OffsetsPlayerOnhand[player.bodyFrame.Y / 56] * 2f;
@@ -1532,15 +1686,19 @@ namespace AAMod
                 {
                     vector25.X = player.bodyFrame.Width - vector25.X;
                 }
+
                 if (player.gravDir != 1f)
                 {
                     vector25.Y = player.bodyFrame.Height - vector25.Y;
                 }
+
                 vector25 -= new Vector2(player.bodyFrame.Width - player.width, player.bodyFrame.Height - 42) / 2f;
                 Vector2 position17 = player.RotatedRelativePoint(player.position + vector25, true) - player.velocity;
                 for (int num277 = 0; num277 < 4; num277++)
                 {
-                    Dust dust = Main.dust[Dust.NewDust(player.Center, 0, 0, 242, player.direction * 2, 0f, 150, new Color(110, 20, 0), 1.3f)];
+                    Dust dust = Main.dust[
+                        Dust.NewDust(player.Center, 0, 0, 242, player.direction * 2, 0f, 150, new Color(110, 20, 0),
+                            1.3f)];
                     dust.position = position17;
                     dust.velocity *= 0f;
                     dust.noGravity = true;
@@ -1592,7 +1750,8 @@ namespace AAMod
             return multiplier;
         }
 
-        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore,
+            ref PlayerDeathReason damageSource)
         {
             if (trueDeathly && player.FindBuffIndex(mod.BuffType("UnstableSoul")) == -1)
             {
@@ -1604,8 +1763,10 @@ namespace AAMod
                 player.AddBuff(mod.BuffType("UnstableSoul"), 18000);
                 return false;
             }
+
             return true;
         }
+
         public override void clientClone(ModPlayer clientClone)
         {
             AAPlayer clone = clientClone as AAPlayer;
@@ -1615,7 +1776,7 @@ namespace AAMod
         {
             if (Time)
             {
-                player.respawnTimer = (int)(player.respawnTimer * .2);
+                player.respawnTimer = (int) (player.respawnTimer * .2);
             }
         }
 
@@ -1627,12 +1788,17 @@ namespace AAMod
                 {
                     SnapCD = 18000;
                     Main.NewText("Perfectly Balanced, as all things should be...", Color.Purple);
-                    Main.npc.Where(x => x.active && !x.townNPC && x.type != NPCID.TargetDummy && x.type != mod.NPCType<RiftShredder>() && x.type != mod.NPCType<Taser>() && x.type != mod.NPCType<RealityCannon>() && x.type != mod.NPCType<VoidStar>() && x.type != mod.NPCType<TeslaHand>() && !x.boss).ToList().ForEach(x =>
+                    Main.npc.Where(x =>
+                        x.active && !x.townNPC && x.type != NPCID.TargetDummy &&
+                        x.type != mod.NPCType<RiftShredder>() && x.type != mod.NPCType<Taser>() &&
+                        x.type != mod.NPCType<RealityCannon>() && x.type != mod.NPCType<VoidStar>() &&
+                        x.type != mod.NPCType<TeslaHand>() && !x.boss).ToList().ForEach(x =>
                     {
                         player.ApplyDamageToNPC(x, damage: x.lifeMax, knockback: 0f, direction: 0, crit: true);
                     });
                 }
             }
+
             if (trueDynaskull)
             {
                 if (AAMod.AbilityKey.JustPressed && AbilityCD == 0)
@@ -1643,28 +1809,32 @@ namespace AAMod
                     int num73 = 70;
                     float num74 = 1;
                     Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
-                    float num78 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
-                    float num79 = (float)Main.mouseY + Main.screenPosition.Y - vector2.Y;
+                    float num78 = (float) Main.mouseX + Main.screenPosition.X - vector2.X;
+                    float num79 = (float) Main.mouseY + Main.screenPosition.Y - vector2.Y;
                     if (player.gravDir == -1f)
                     {
-                        num79 = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY - vector2.Y;
+                        num79 = Main.screenPosition.Y + (float) Main.screenHeight - (float) Main.mouseY - vector2.Y;
                     }
-                    float num80 = (float)Math.Sqrt((double)(num78 * num78 + num79 * num79));
+
+                    float num80 = (float) Math.Sqrt((double) (num78 * num78 + num79 * num79));
                     float num81 = num80;
                     if ((float.IsNaN(num78) && float.IsNaN(num79)) || (num78 == 0f && num79 == 0f))
                     {
-                        num78 = (float)player.direction;
+                        num78 = (float) player.direction;
                         num79 = 0f;
                     }
                     else
                     {
                         num80 = num72 / num80;
                     }
-                    vector2.X = (float)Main.mouseX + Main.screenPosition.X;
-                    vector2.Y = (float)Main.mouseY + Main.screenPosition.Y;
-                    Projectile.NewProjectile(player.Center.X, player.Center.Y, num78, num79, mod.ProjectileType("Dynabomb"), num73, num74, i, 0f, 0f);
+
+                    vector2.X = (float) Main.mouseX + Main.screenPosition.X;
+                    vector2.Y = (float) Main.mouseY + Main.screenPosition.Y;
+                    Projectile.NewProjectile(player.Center.X, player.Center.Y, num78, num79,
+                        mod.ProjectileType("Dynabomb"), num73, num74, i, 0f, 0f);
                 }
             }
+
             if (AbilityCD != 0)
             {
                 AbilityCD--;
@@ -1673,17 +1843,16 @@ namespace AAMod
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            
             if (goblinSlayer)
             {
-                if (target.type == NPCID.GoblinArcher 
-                    || target.type == NPCID.GoblinPeon 
-                    || target.type == NPCID.GoblinScout 
-                    || target.type == NPCID.GoblinSorcerer 
-                    || target.type == NPCID.GoblinSummoner 
-                    || target.type == NPCID.GoblinThief 
-                    || target.type == NPCID.GoblinWarrior 
-                    || target.type == NPCID.DD2GoblinBomberT1 
+                if (target.type == NPCID.GoblinArcher
+                    || target.type == NPCID.GoblinPeon
+                    || target.type == NPCID.GoblinScout
+                    || target.type == NPCID.GoblinSorcerer
+                    || target.type == NPCID.GoblinSummoner
+                    || target.type == NPCID.GoblinThief
+                    || target.type == NPCID.GoblinWarrior
+                    || target.type == NPCID.DD2GoblinBomberT1
                     || target.type == NPCID.DD2GoblinBomberT2
                     || target.type == NPCID.DD2GoblinBomberT3
                     || target.type == NPCID.DD2GoblinT1
@@ -1787,16 +1956,17 @@ namespace AAMod
                 {
                     target.AddBuff(BuffID.CursedInferno, 180);
                 }
+
                 if (WorldGen.crimson == true)
                 {
                     target.AddBuff(BuffID.Ichor, 180);
                 }
             }
+
             if (Time)
             {
                 for (int i = 0; i < 255; i++)
                 {
-
                     target.AddBuff(BuffID.Chilled, 1200);
                 }
             }
@@ -1828,13 +1998,13 @@ namespace AAMod
             {
                 target.AddBuff(BuffID.Wet, 600);
             }
-			
-			if (player.HasBuff(mod.BuffType("DragonfireFlaskBuff")))
+
+            if (player.HasBuff(mod.BuffType("DragonfireFlaskBuff")))
             {
                 target.AddBuff(mod.BuffType("DragonFire"), 900);
             }
-			
-			if (player.HasBuff(mod.BuffType("HydratoxinFlaskBuff")))
+
+            if (player.HasBuff(mod.BuffType("HydratoxinFlaskBuff")))
             {
                 target.AddBuff(mod.BuffType("Hydratoxin"), 900);
             }
@@ -1845,9 +2015,14 @@ namespace AAMod
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType("IZSpawn1");
-                if (NPC.AnyNPCs(bossType)) { return; }
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0, 1f);
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 0f);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                }
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0, 1f);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(-100f, 100f, (float) Main.rand.NextDouble()), 0f);
                 Main.npc[npcID].netUpdate2 = true;
             }
         }
@@ -1867,7 +2042,7 @@ namespace AAMod
                 player.lifeRegenTime++;
             }
         }
-        
+
         public Vector2 OldHeadPos;
         public Vector2 OldBodyPos;
         public Vector2 OldLegPos;
@@ -1900,6 +2075,7 @@ namespace AAMod
                 {
                     player.mount.Dismount(player);
                 }
+
                 if (player.wingTimeMax > 30)
                 {
                     player.wingTimeMax = 30;
@@ -1912,28 +2088,32 @@ namespace AAMod
                 {
                     player.wingTimeMax = 30;
                 }
+
                 if (player.accRunSpeed > 3f)
                 {
                     player.accRunSpeed = 3f;
                 }
+
                 player.wingTimeMax /= 2;
                 if (player.wingTimeMax <= 0)
                 {
                     player.wingTimeMax = 0;
                 }
             }
-            
+
             if (drain && before > 0)
             {
                 player.lifeRegenTime = 0;
                 player.lifeRegen -= before;
             }
+
             if (terraBlaze)
             {
                 if (player.lifeRegen > 0)
                 {
                     player.lifeRegen = 0;
                 }
+
                 player.lifeRegenTime = 0;
                 player.lifeRegen -= 16;
             }
@@ -1946,7 +2126,7 @@ namespace AAMod
                 player.thrownDamage *= 0.8f;
                 player.rangedDamage *= 0.8f;
             }
-            
+
             if (riftbent)
             {
                 RiftTimer++;
@@ -1954,16 +2134,19 @@ namespace AAMod
                 {
                     player.lifeRegen = 0;
                 }
+
                 player.lifeRegenTime = 0;
                 if (RiftTimer >= 120)
                 {
                     RiftDamage += 10;
                     RiftTimer = 0;
                 }
+
                 if (RiftDamage >= 80)
                 {
                     RiftDamage = 80;
                 }
+
                 player.lifeRegen -= RiftDamage;
             }
             else
@@ -1971,13 +2154,13 @@ namespace AAMod
                 RiftDamage = 10;
                 RiftTimer = 0;
             }
+
             if (hydraToxin)
             {
                 player.moveSpeed *= player.statLife / player.statLifeMax;
             }
         }
 
-        
 
         public override void UpdateDead()
         {
@@ -1991,19 +2174,25 @@ namespace AAMod
                 if (Main.rand.NextFloat() < 1f)
                 {
                     Dust dust;
-                    dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 246, 0f, 0f, 46, default(Color), 1.381579f)];
+                    dust = Main.dust[
+                        Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 246, 0f, 0f, 46,
+                            default(Color), 1.381579f)];
                     dust.noGravity = true;
                 }
             }
+
             if (trueNights)
             {
                 if (Main.rand.NextFloat() < 1f)
                 {
                     Dust dust;
-                    dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 76, 0f, 0f, 46, default(Color), 1.381579f)];
+                    dust = Main.dust[
+                        Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 76, 0f, 0f, 46,
+                            default(Color), 1.381579f)];
                     dust.noGravity = true;
                 }
             }
+
             if (demonGauntlet && !dwarvenGauntlet)
             {
                 int ThisDust;
@@ -2015,152 +2204,192 @@ namespace AAMod
                 {
                     ThisDust = 264;
                 }
+
                 if (Main.rand.NextFloat() < 1f)
                 {
                     Dust dust;
-                    dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, ThisDust, 0f, 0f, 46, default(Color), 1.381579f)];
+                    dust = Main.dust[
+                        Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, ThisDust, 0f, 0f, 46,
+                            default(Color), 1.381579f)];
                     dust.noGravity = true;
                 }
             }
         }
 
-        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a,
+            ref bool fullBright)
         {
             if (infinityOverload)
             {
                 if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, mod.DustType("InfinityOverloadB"), player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4,
+                        player.height + 4, mod.DustType("InfinityOverloadB"), player.velocity.X * 0.4f,
+                        player.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
                     Main.playerDrawDust.Add(dust);
                 }
+
                 r *= 0.1f;
                 g *= 0.3f;
                 b *= 0.7f;
                 fullBright = true;
                 if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, mod.DustType("InfinityOverloadR"), player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4,
+                        player.height + 4, mod.DustType("InfinityOverloadR"), player.velocity.X * 0.4f,
+                        player.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
                     Main.playerDrawDust.Add(dust);
                 }
+
                 r *= 0.7f;
                 g *= 0.2f;
                 b *= 0.2f;
                 fullBright = true;
                 if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, mod.DustType("InfinityOverloadG"), player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4,
+                        player.height + 4, mod.DustType("InfinityOverloadG"), player.velocity.X * 0.4f,
+                        player.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
                     Main.playerDrawDust.Add(dust);
                 }
+
                 r *= 0.1f;
                 g *= 0.7f;
                 b *= 0.1f;
-                fullBright = true; if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
+                fullBright = true;
+                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, mod.DustType("InfinityOverloadY"), player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4,
+                        player.height + 4, mod.DustType("InfinityOverloadY"), player.velocity.X * 0.4f,
+                        player.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
                     Main.playerDrawDust.Add(dust);
                 }
+
                 r *= 0.5f;
                 g *= 0.5f;
                 b *= 0.1f;
-                fullBright = true; if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
+                fullBright = true;
+                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, mod.DustType("InfinityOverloadP"), player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4,
+                        player.height + 4, mod.DustType("InfinityOverloadP"), player.velocity.X * 0.4f,
+                        player.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
                     Main.playerDrawDust.Add(dust);
                 }
+
                 r *= 0.6f;
                 g *= 0.1f;
                 b *= 0.6f;
-                fullBright = true; if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
+                fullBright = true;
+                if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, mod.DustType("InfinityOverloadO"), player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4,
+                        player.height + 4, mod.DustType("InfinityOverloadO"), player.velocity.X * 0.4f,
+                        player.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
                     Main.playerDrawDust.Add(dust);
                 }
+
                 r *= 0.8f;
                 g *= 0.5f;
                 b *= 0.1f;
                 fullBright = true;
             }
+
             if (terraBlaze)
             {
                 if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 107, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4,
+                        player.height + 4, 107, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color),
+                        3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
                     Main.playerDrawDust.Add(dust);
                 }
+
                 r *= 0.1f;
                 g *= 0.7f;
                 b *= 0.2f;
                 fullBright = true;
             }
+
             if (infinityOverload)
             {
                 if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, mod.DustType<Dusts.VoidDust>(), player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4,
+                        player.height + 4, mod.DustType<Dusts.VoidDust>(), player.velocity.X * 0.4f,
+                        player.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
                     Main.playerDrawDust.Add(dust);
                 }
+
                 fullBright = true;
             }
+
             if (discordInferno)
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    int num4 = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, mod.DustType<Dusts.Discord>(), 0f, -2.5f, 0, default(Color), 1f);
+                    int num4 = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height,
+                        mod.DustType<Dusts.Discord>(), 0f, -2.5f, 0, default(Color), 1f);
                     Main.dust[num4].alpha = 100;
                     Main.dust[num4].noGravity = true;
                     Main.dust[num4].scale += Main.rand.NextFloat();
                 }
             }
+
             if (shroomed)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    int num4 = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, mod.DustType<Dusts.ShroomDust>(), 0f, -2.5f, 0, default(Color), 1f);
+                    int num4 = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height,
+                        mod.DustType<Dusts.ShroomDust>(), 0f, -2.5f, 0, default(Color), 1f);
                     Main.dust[num4].alpha = 100;
                     Main.dust[num4].noGravity = true;
                     Main.dust[num4].scale += Main.rand.NextFloat();
                 }
-                Lighting.AddLight((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f), 0f, 0f, 0.45f);
+
+                Lighting.AddLight((int) (player.Center.X / 16f), (int) (player.Center.Y / 16f), 0f, 0f, 0.45f);
             }
+
             if (riftbent)
             {
                 int Loops = RiftDamage / 10;
                 for (int i = 0; i < Loops; i++)
                 {
-                    int num4 = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height, mod.DustType<Dusts.CthulhuAuraDust>(), 0f, -2.5f, 0, default(Color), 1f);
+                    int num4 = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width, player.height,
+                        mod.DustType<Dusts.CthulhuAuraDust>(), 0f, -2.5f, 0, default(Color), 1f);
                     Main.dust[num4].alpha = 100;
                     Main.dust[num4].noGravity = true;
                     Main.dust[num4].scale += Main.rand.NextFloat();
                 }
-                Lighting.AddLight((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f), 0f, 0f, 0.45f);
+
+                Lighting.AddLight((int) (player.Center.X / 16f), (int) (player.Center.Y / 16f), 0f, 0f, 0.45f);
             }
         }
 
-        
 
         public override bool ConsumeAmmo(Item weapon, Item ammo)
         {
@@ -2168,12 +2397,13 @@ namespace AAMod
             {
                 return false;
             }
+
             return base.ConsumeAmmo(weapon, ammo);
         }
 
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback,
+            ref bool crit, ref int hitDirection)
         {
-
             if (trueAbyssal && proj.ranged)
             {
                 target.AddBuff(mod.BuffType<HydratoxinFlaskBuff>(), 300);
@@ -2198,7 +2428,8 @@ namespace AAMod
             {
                 if (target.life <= 0)
                 {
-                    Projectile.NewProjectile(target.Center, new Vector2(0, 0), mod.ProjectileType<Items.Armor.TrueNights.CursedFireball>(), damage, 0, Main.myPlayer);
+                    Projectile.NewProjectile(target.Center, new Vector2(0, 0),
+                        mod.ProjectileType<Items.Armor.TrueNights.CursedFireball>(), damage, 0, Main.myPlayer);
                 }
             }
 
@@ -2237,10 +2468,12 @@ namespace AAMod
                     target.AddBuff(mod.BuffType<Moonraze>(), 1000);
                 }
             }
+
             if (zeroSet && proj.ranged)
             {
                 target.AddBuff(mod.BuffType<BrokenArmor>(), 1000);
             }
+
             if (perfectChaos && proj.melee)
             {
                 target.AddBuff(mod.BuffType<DiscordInferno>(), 300);
@@ -2339,21 +2572,22 @@ namespace AAMod
                 {
                     target.AddBuff(BuffID.CursedInferno, 180);
                 }
+
                 if (WorldGen.crimson == true)
                 {
                     target.AddBuff(BuffID.Ichor, 180);
                 }
             }
-			
-			if (player.HasBuff(mod.BuffType("DragonfireFlaskBuff")) && proj.melee)
-			{
-				target.AddBuff(mod.BuffType("DragonFire"), 900);
-			}
 
-			if (player.HasBuff(mod.BuffType("HydratoxinFlaskBuff")) && proj.melee)
-			{
-				target.AddBuff(mod.BuffType("Hydratoxin"), 900);
-			}
+            if (player.HasBuff(mod.BuffType("DragonfireFlaskBuff")) && proj.melee)
+            {
+                target.AddBuff(mod.BuffType("DragonFire"), 900);
+            }
+
+            if (player.HasBuff(mod.BuffType("HydratoxinFlaskBuff")) && proj.melee)
+            {
+                target.AddBuff(mod.BuffType("Hydratoxin"), 900);
+            }
         }
 
         public override Texture2D GetMapBackgroundImage()
@@ -2362,50 +2596,71 @@ namespace AAMod
             {
                 return mod.GetTexture("Map/MireMap");
             }
+
             if (ZoneInferno || ZoneRisingSunPagoda)
             {
                 return mod.GetTexture("Map/InfernoMap");
             }
+
             if (ZoneVoid)
             {
                 return mod.GetTexture("Map/VoidMap");
             }
+
             return null;
         }
-        
+
 
         #region Draw Methods
+
         public static bool HasAndCanDraw(Player player, int type)
         {
-            int dum = 0; bool dummy = false;
+            int dum = 0;
+            bool dummy = false;
             return HasAndCanDraw(player, type, ref dummy, ref dum);
         }
 
         public static bool HasAndCanDraw(Player player, int type, ref bool social, ref int slot)
         {
-            if (player.wereWolf || player.merman) { return false; }
+            if (player.wereWolf || player.merman)
+            {
+                return false;
+            }
+
             ModItem mitem = ItemLoader.GetItem(type);
             if (mitem != null)
             {
                 Item item = mitem.item;
-                if (item.headSlot > 0) return BaseMod.BasePlayer.HasHelmet(player, type) && BaseMod.BaseDrawing.ShouldDrawHelmet(player, type);
-                else if (item.bodySlot > 0) return BaseMod.BasePlayer.HasChestplate(player, type) && BaseMod.BaseDrawing.ShouldDrawChestplate(player, type);
-                else if (item.legSlot > 0) return BaseMod.BasePlayer.HasLeggings(player, type) && BaseMod.BaseDrawing.ShouldDrawLeggings(player, type);
-                else if (item.accessory) return BaseMod.BasePlayer.HasAccessory(player, type, true, true, ref social, ref slot) && BaseMod.BaseDrawing.ShouldDrawAccessory(player, type);
+                if (item.headSlot > 0)
+                    return BaseMod.BasePlayer.HasHelmet(player, type) &&
+                           BaseMod.BaseDrawing.ShouldDrawHelmet(player, type);
+                else if (item.bodySlot > 0)
+                    return BaseMod.BasePlayer.HasChestplate(player, type) &&
+                           BaseMod.BaseDrawing.ShouldDrawChestplate(player, type);
+                else if (item.legSlot > 0)
+                    return BaseMod.BasePlayer.HasLeggings(player, type) &&
+                           BaseMod.BaseDrawing.ShouldDrawLeggings(player, type);
+                else if (item.accessory)
+                    return BaseMod.BasePlayer.HasAccessory(player, type, true, true, ref social, ref slot) &&
+                           BaseMod.BaseDrawing.ShouldDrawAccessory(player, type);
             }
+
             return false;
         }
 
         public static bool ShouldDrawArmSkin(Player drawPlayer, int type)
         {
-            return BasePlayer.HasChestplate(drawPlayer, type, true) && BaseDrawing.ShouldDrawChestplate(drawPlayer, type);
+            return BasePlayer.HasChestplate(drawPlayer, type, true) &&
+                   BaseDrawing.ShouldDrawChestplate(drawPlayer, type);
         }
+
         public static Rectangle GetFrame(Player player, int itemtype, int count, int width, int height)
         {
             return BaseDrawing.GetFrame(count, width, height, 0, 2);
         }
+
         #endregion
-        
+
         public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
         {
             if (Clueless)
@@ -2428,8 +2683,8 @@ namespace AAMod
                 drawInfo.armGlowMaskColor = Color.Black;
                 drawInfo.legGlowMaskColor = Color.Black;
             }
-
         }
+
         public override void ModifyDrawLayers(List<PlayerLayer> list)
         {
             BaseDrawing.AddPlayerLayer(list, glAfterHead, PlayerLayer.Head, false);
@@ -2445,514 +2700,825 @@ namespace AAMod
             BaseDrawing.AddPlayerLayer(list, glAfterFace, PlayerLayer.FaceAcc, false);
         }
 
-        public PlayerLayer glAfterWep = new PlayerLayer("AAMod", "glAfterWep", PlayerLayer.HeldItem, delegate (PlayerDrawInfo edi)
-        {
-            if (edi.shadow != 0) return;
-            Mod mod = AAMod.instance;
-            Player drawPlayer = edi.drawPlayer;
-            Color lightColor = GetItemColor(drawPlayer, drawPlayer.Center);
-
-            Item heldItem = drawPlayer.inventory[drawPlayer.selectedItem];
-            BaseAAItem baseAAItem = null;
-            if (heldItem.modItem != null && heldItem.modItem is BaseAAItem)
+        public PlayerLayer glAfterWep = new PlayerLayer("AAMod", "glAfterWep", PlayerLayer.HeldItem,
+            delegate(PlayerDrawInfo edi)
             {
-                baseAAItem = (BaseAAItem)heldItem.modItem;
-            }
+                if (edi.shadow != 0) return;
+                Mod mod = AAMod.instance;
+                Player drawPlayer = edi.drawPlayer;
+                Color lightColor = GetItemColor(drawPlayer, drawPlayer.Center);
 
-            if (baseAAItem != null && baseAAItem.glowmaskTexture != null && baseAAItem.glowmaskDrawType != BaseAAItem.GLOWMASKTYPE_NONE)
-            {
-                Vector2? offsetNull = baseAAItem.HoldoutOffset();
-                Vector2 offset = Vector2.Zero;
-                if (offsetNull != null) offset = (Vector2)offsetNull;
-                if (baseAAItem.glowmaskDrawType == BaseAAItem.GLOWMASKTYPE_SWORD)
+                Item heldItem = drawPlayer.inventory[drawPlayer.selectedItem];
+                BaseAAItem baseAAItem = null;
+                if (heldItem.modItem != null && heldItem.modItem is BaseAAItem)
                 {
-                    BaseDrawing.DrawHeldSword(Main.playerDrawData, 0, drawPlayer, baseAAItem.glowmaskDrawColor, 0f, (int)offset.X, (int)offset.Y, null, 1, mod.GetTexture(baseAAItem.glowmaskTexture));
+                    baseAAItem = (BaseAAItem) heldItem.modItem;
                 }
-                else
-                if (baseAAItem.glowmaskDrawType == BaseAAItem.GLOWMASKTYPE_GUN)
-                {
-                    BaseDrawing.DrawHeldGun(Main.playerDrawData, 0, drawPlayer, baseAAItem.glowmaskDrawColor, 0f, (int)offset.X, (int)offset.Y, false, false, 0f, 0f, null, 1, mod.GetTexture(baseAAItem.glowmaskTexture));
-                }
-            }
-        });
 
-        public PlayerLayer glAfterHead = new PlayerLayer("AAMod", "glAfterHead", PlayerLayer.Head, delegate (PlayerDrawInfo edi)
-        {
-            DrawAfterHead(edi, default(PlayerHeadDrawInfo), false);
-        });
+                if (baseAAItem != null && baseAAItem.glowmaskTexture != null &&
+                    baseAAItem.glowmaskDrawType != BaseAAItem.GLOWMASKTYPE_NONE)
+                {
+                    Vector2? offsetNull = baseAAItem.HoldoutOffset();
+                    Vector2 offset = Vector2.Zero;
+                    if (offsetNull != null) offset = (Vector2) offsetNull;
+                    if (baseAAItem.glowmaskDrawType == BaseAAItem.GLOWMASKTYPE_SWORD)
+                    {
+                        BaseDrawing.DrawHeldSword(Main.playerDrawData, 0, drawPlayer, baseAAItem.glowmaskDrawColor, 0f,
+                            (int) offset.X, (int) offset.Y, null, 1, mod.GetTexture(baseAAItem.glowmaskTexture));
+                    }
+                    else if (baseAAItem.glowmaskDrawType == BaseAAItem.GLOWMASKTYPE_GUN)
+                    {
+                        BaseDrawing.DrawHeldGun(Main.playerDrawData, 0, drawPlayer, baseAAItem.glowmaskDrawColor, 0f,
+                            (int) offset.X, (int) offset.Y, false, false, 0f, 0f, null, 1,
+                            mod.GetTexture(baseAAItem.glowmaskTexture));
+                    }
+                }
+            });
+
+        public PlayerLayer glAfterHead = new PlayerLayer("AAMod", "glAfterHead", PlayerLayer.Head,
+            delegate(PlayerDrawInfo edi) { DrawAfterHead(edi, default(PlayerHeadDrawInfo), false); });
 
         public static Color GetItemColor(Player drawPlayer, Vector2 position)
         {
-            if (drawPlayer == null || position == default(Vector2) || drawPlayer.selectedItem < 0 || drawPlayer.selectedItem >= drawPlayer.inventory.Length || drawPlayer.inventory[drawPlayer.selectedItem] == null) return Color.White;
-            Color c = Lighting.GetColor((int)((position.X + drawPlayer.width * 0.5f) / 16f), (int)((position.Y + drawPlayer.height * 0.5f) / 16f));
+            if (drawPlayer == null || position == default(Vector2) || drawPlayer.selectedItem < 0 ||
+                drawPlayer.selectedItem >= drawPlayer.inventory.Length ||
+                drawPlayer.inventory[drawPlayer.selectedItem] == null) return Color.White;
+            Color c = Lighting.GetColor((int) ((position.X + drawPlayer.width * 0.5f) / 16f),
+                (int) ((position.Y + drawPlayer.height * 0.5f) / 16f));
             return drawPlayer.inventory[drawPlayer.selectedItem].GetAlpha(c);
         }
 
-        public PlayerLayer glAfterShield = new PlayerLayer("AAMod", "glAfterShield", PlayerLayer.ShieldAcc, delegate (PlayerDrawInfo edi)
-        {
-            Mod mod = AAMod.instance;
-            Player drawPlayer = edi.drawPlayer;
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("TaiyangBaolei")))
+        public PlayerLayer glAfterShield = new PlayerLayer("AAMod", "glAfterShield", PlayerLayer.ShieldAcc,
+            delegate(PlayerDrawInfo edi)
             {
-                if (!Main.dayTime)
+                Mod mod = AAMod.instance;
+                Player drawPlayer = edi.drawPlayer;
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("TaiyangBaolei")))
                 {
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TaiyangBaolei_Shield_Glow"), edi.shieldShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
+                    if (!Main.dayTime)
+                    {
+                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                            mod.GetTexture("Glowmasks/TaiyangBaolei_Shield_Glow"), edi.shieldShader, drawPlayer,
+                            edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                            drawPlayer.bodyFrame);
+                    }
+                    else
+                    {
+                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                            mod.GetTexture("Glowmasks/TaiyangBaoleiA_Shield_Glow"), edi.shieldShader, drawPlayer,
+                            edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                            drawPlayer.bodyFrame);
+                    }
                 }
-                else
-                {
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TaiyangBaoleiA_Shield_Glow"), edi.shieldShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-                }
-            }
-        });
+            });
 
-        public PlayerLayer glAfterFace = new PlayerLayer("AAMod", "glAfterFace", PlayerLayer.FaceAcc, delegate (PlayerDrawInfo edi)
-        {
-            Mod mod = AAMod.instance;
-            Player drawPlayer = edi.drawPlayer;
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("SoulStone")))
+        public PlayerLayer glAfterFace = new PlayerLayer("AAMod", "glAfterFace", PlayerLayer.FaceAcc,
+            delegate(PlayerDrawInfo edi)
             {
-                BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/SoulStone_Face_Glow"), edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
-            }
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("SpaceStone")))
-            {
-                BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/SpaceStone_Face_Glow"), edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
-            }
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("RealityStone")))
-            {
-                BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/RealityStone_Face_Glow"), edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
-            }
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("TimeStone")))
-            {
-                BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/TimeStone_Face_Glow"), edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
-            }
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("PowerStone")))
-            {
-                BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/PowerStone_Face_Glow"), edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
-            }
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("MindStone")))
-            {
-                BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/MindStone_Face_Glow"), edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
-            }
-        });
+                Mod mod = AAMod.instance;
+                Player drawPlayer = edi.drawPlayer;
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("SoulStone")))
+                {
+                    BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/SoulStone_Face_Glow"),
+                        edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
+                }
 
-        public PlayerLayer glAfterNeck = new PlayerLayer("AAMod", "glAfterNeck", PlayerLayer.NeckAcc, delegate (PlayerDrawInfo edi)
-        {
-            Mod mod = AAMod.instance;
-            Player drawPlayer = edi.drawPlayer;
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("Naitokurosu")))
-            {
-                if (Main.dayTime)
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("SpaceStone")))
                 {
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/Naitokurosu_Neck_Glow"), edi.shieldShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
+                    BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/SpaceStone_Face_Glow"),
+                        edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
                 }
-                else
-                {
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/NaitokurosuA_Neck_Glow"), edi.shieldShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-                }
-            }
-        });
 
-        public PlayerLayer glAfterHandOn = new PlayerLayer("AAMod", "glAfterHandOn", PlayerLayer.HandOnAcc, delegate (PlayerDrawInfo edi)
-        {
-            Mod mod = AAMod.instance;
-            Player drawPlayer = edi.drawPlayer;
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("DemonGauntlet")))
-            {
-                Texture2D Glow = mod.GetTexture("Glowmasks/DemonGauntlet_HandsOn_Glow");
-                Color GlowColor = AAColor.CursedInferno;
-                if (WorldGen.crimson)
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("RealityStone")))
                 {
-                    GlowColor = AAColor.Ichor;
+                    BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/RealityStone_Face_Glow"),
+                        edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
                 }
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, Glow, edi.handOnShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(GlowColor, edi.shadow), drawPlayer.bodyFrame);
-            }
-        });
 
-        public PlayerLayer glAfterHandOff = new PlayerLayer("AAMod", "glAfterHandOff", PlayerLayer.HandOffAcc, delegate (PlayerDrawInfo edi)
-        {
-            Mod mod = AAMod.instance;
-            Player drawPlayer = edi.drawPlayer;
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("DemonGauntlet")))
-            {
-                Texture2D Glow = mod.GetTexture("Glowmasks/DemonGauntlet_HandsOff_Glow");
-                Color GlowColor = AAColor.CursedInferno;
-                if (WorldGen.crimson)
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("TimeStone")))
                 {
-                    GlowColor = AAColor.Ichor;
+                    BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/TimeStone_Face_Glow"),
+                        edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
                 }
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, Glow, edi.handOffShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(GlowColor, edi.shadow), drawPlayer.bodyFrame);
-            }
-        });
+
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("PowerStone")))
+                {
+                    BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/PowerStone_Face_Glow"),
+                        edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
+                }
+
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("MindStone")))
+                {
+                    BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/MindStone_Face_Glow"),
+                        edi.faceShader, drawPlayer, edi.position, 0, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame);
+                }
+            });
+
+        public PlayerLayer glAfterNeck = new PlayerLayer("AAMod", "glAfterNeck", PlayerLayer.NeckAcc,
+            delegate(PlayerDrawInfo edi)
+            {
+                Mod mod = AAMod.instance;
+                Player drawPlayer = edi.drawPlayer;
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("Naitokurosu")))
+                {
+                    if (Main.dayTime)
+                    {
+                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                            mod.GetTexture("Glowmasks/Naitokurosu_Neck_Glow"), edi.shieldShader, drawPlayer,
+                            edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                            drawPlayer.bodyFrame);
+                    }
+                    else
+                    {
+                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                            mod.GetTexture("Glowmasks/NaitokurosuA_Neck_Glow"), edi.shieldShader, drawPlayer,
+                            edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                            drawPlayer.bodyFrame);
+                    }
+                }
+            });
+
+        public PlayerLayer glAfterHandOn = new PlayerLayer("AAMod", "glAfterHandOn", PlayerLayer.HandOnAcc,
+            delegate(PlayerDrawInfo edi)
+            {
+                Mod mod = AAMod.instance;
+                Player drawPlayer = edi.drawPlayer;
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("DemonGauntlet")))
+                {
+                    Texture2D Glow = mod.GetTexture("Glowmasks/DemonGauntlet_HandsOn_Glow");
+                    Color GlowColor = AAColor.CursedInferno;
+                    if (WorldGen.crimson)
+                    {
+                        GlowColor = AAColor.Ichor;
+                    }
+
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, Glow, edi.handOnShader, drawPlayer, edi.position,
+                        1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(GlowColor, edi.shadow), drawPlayer.bodyFrame);
+                }
+            });
+
+        public PlayerLayer glAfterHandOff = new PlayerLayer("AAMod", "glAfterHandOff", PlayerLayer.HandOffAcc,
+            delegate(PlayerDrawInfo edi)
+            {
+                Mod mod = AAMod.instance;
+                Player drawPlayer = edi.drawPlayer;
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("DemonGauntlet")))
+                {
+                    Texture2D Glow = mod.GetTexture("Glowmasks/DemonGauntlet_HandsOff_Glow");
+                    Color GlowColor = AAColor.CursedInferno;
+                    if (WorldGen.crimson)
+                    {
+                        GlowColor = AAColor.Ichor;
+                    }
+
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, Glow, edi.handOffShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(GlowColor, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+            });
 
         public static void DrawAfterHead(PlayerDrawInfo edi, PlayerHeadDrawInfo edhi, bool mapHead)
         {
             Mod mod = AAMod.instance;
             Player drawPlayer = (mapHead ? edhi.drawPlayer : edi.drawPlayer);
             AAPlayer modPlayer = drawPlayer.GetModPlayer<AAPlayer>(mod);
-            object drawObj = null; if (mapHead) { drawObj = Main.spriteBatch; } else { drawObj = Main.playerDrawData; }
+            object drawObj = null;
+            if (mapHead)
+            {
+                drawObj = Main.spriteBatch;
+            }
+            else
+            {
+                drawObj = Main.playerDrawData;
+            }
+
             Vector2 Position = (mapHead ? drawPlayer.position : edi.position);
             int dyeHead = (mapHead ? edhi.armorShader : edi.headArmorShader);
             Color colorArmorHead = (mapHead ? edhi.armorColor : edi.upperArmorColor);
             float scale = (mapHead ? edhi.scale : 0f);
 
-            if (mapHead) { Position += new Vector2(0f, -3f * (1f - scale)); }
+            if (mapHead)
+            {
+                Position += new Vector2(0f, -3f * (1f - scale));
+            }
 
             if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("DracoHelm")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DracoHelm_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DracoHelm_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("UraniumVisor")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/UraniumVisor_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAPlayer.Uranium, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/UraniumVisor_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAPlayer.Uranium, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("UraniumHeadgear")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/UraniumHeadgear_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAPlayer.Uranium, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/UraniumHeadgear_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAPlayer.Uranium, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("UraniumHood")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/UraniumHood_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAPlayer.Uranium, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/UraniumHood_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAPlayer.Uranium, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("TrueNightsHelm")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TrueNightsHelm_Glow_Head"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAPlayer.Uranium, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TrueNightsHelm_Glow_Head"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAPlayer.Uranium, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("TrueFleshrendHelm")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TrueFleshrendHelm_Glow_Head"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAPlayer.Uranium, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TrueFleshrendHelm_Glow_Head"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAPlayer.Uranium, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("DoomsdayHelmet")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DoomsdayHelmet_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DoomsdayHelmet_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && !Main.dayTime && modPlayer.DarkmatterSet && HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterVisor")))
+            else if (!mapHead && !Main.dayTime && modPlayer.DarkmatterSet &&
+                     HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterVisor")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DarkmatterVisor_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Nightcrawler, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DarkmatterVisor_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Nightcrawler, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && !Main.dayTime && modPlayer.DarkmatterSet && HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterHelm")))
+            else if (!mapHead && !Main.dayTime && modPlayer.DarkmatterSet &&
+                     HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterHelm")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DarkmatterHelm_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Nightcrawler, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DarkmatterHelm_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Nightcrawler, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && !Main.dayTime && modPlayer.DarkmatterSet && HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterHelmet")))
+            else if (!mapHead && !Main.dayTime && modPlayer.DarkmatterSet &&
+                     HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterHelmet")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DarkmatterHelmet_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Nightcrawler, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DarkmatterHelmet_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Nightcrawler, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && !Main.dayTime && modPlayer.DarkmatterSet && HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterHeaddress")))
+            else if (!mapHead && !Main.dayTime && modPlayer.DarkmatterSet &&
+                     HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterHeaddress")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DarkmatterHeaddress_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Nightcrawler, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DarkmatterHeaddress_Head_Glow"),
+                    dyeHead, drawPlayer, Position, 0, 0f, 0f,
+                    drawPlayer.GetImmuneAlphaPure(AAColor.Nightcrawler, edi.shadow), drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && !Main.dayTime && modPlayer.DarkmatterSet && HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterMask")))
+            else if (!mapHead && !Main.dayTime && modPlayer.DarkmatterSet &&
+                     HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterMask")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DarkmatterMask_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Nightcrawler, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DarkmatterMask_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Nightcrawler, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && Main.dayTime && modPlayer.Radium && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumHat")))
+            else if (!mapHead && Main.dayTime && modPlayer.Radium &&
+                     HasAndCanDraw(drawPlayer, mod.ItemType("RadiumHat")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/Radium/RadiumHat_Head"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/Radium/RadiumHat_Head"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && Main.dayTime && modPlayer.Radium && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumHelm")))
+            else if (!mapHead && Main.dayTime && modPlayer.Radium &&
+                     HasAndCanDraw(drawPlayer, mod.ItemType("RadiumHelm")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/Radium/RadiumHelm_Head"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/Radium/RadiumHelm_Head"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && Main.dayTime && modPlayer.Radium && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumHelmet")))
+            else if (!mapHead && Main.dayTime && modPlayer.Radium &&
+                     HasAndCanDraw(drawPlayer, mod.ItemType("RadiumHelmet")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/Radium/RadiumHelmet_Head"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/Radium/RadiumHelmet_Head"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && Main.dayTime && modPlayer.Radium && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumHeadgear")))
+            else if (!mapHead && Main.dayTime && modPlayer.Radium &&
+                     HasAndCanDraw(drawPlayer, mod.ItemType("RadiumHeadgear")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/Radium/RadiumHeadgear_Head"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/Radium/RadiumHeadgear_Head"),
+                    dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && Main.dayTime && modPlayer.Radium && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumMask")))
+            else if (!mapHead && Main.dayTime && modPlayer.Radium &&
+                     HasAndCanDraw(drawPlayer, mod.ItemType("RadiumMask")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/Radium/RadiumMask_Head"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/Radium/RadiumMask_Head"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("GripMaskRed")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/GripMaskRed_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/GripMaskRed_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("DaybringerMask")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DaybringerMask_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DaybringerMask_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("NightcrawlerMask")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/NightcrawlerMask_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/NightcrawlerMask_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("RetrieverMask")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/RetrieverMask_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/RetrieverMask_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("ZeroMask")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/ZeroMask_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/ZeroMask_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("TiedMask")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TiedMask_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(FlashGlow, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TiedMask_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(FlashGlow, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("LizEars")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/LizEars_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/LizEars_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("StarcrystalHelm")) && drawPlayer.statMana > drawPlayer.statMana * .2f)
+            else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("StarcrystalHelm")) &&
+                     drawPlayer.statMana > drawPlayer.statMana * .2f)
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/StarcrystalHelm_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Starcrystal, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/StarcrystalHelm_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Starcrystal, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
-            else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("HeartstoneHelmet")) && drawPlayer.statLife > 40)
+            else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("HeartstoneHelmet")) &&
+                     drawPlayer.statLife > 40)
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/HeartstoneHelmet_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Heartstone, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/HeartstoneHelmet_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Heartstone, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("TrueHallowedHelm")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TrueHallowedHelm_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Hallow, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TrueHallowedHelm_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Hallow, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("ShroomHat")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/ShroomHat_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/ShroomHat_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("DJDuckHead")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DJDuckHead_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DJDuckHead_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("DoomiteVisor")) && modPlayer.doomite)
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DoomiteVisor_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.ZeroShield, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/DoomiteVisor_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.ZeroShield, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("TrueCopperHelm")))
             {
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TrueCopperHelm_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow), drawPlayer.headFrame, scale);
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TrueCopperHelm_Head_Glow"), dyeHead,
+                    drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
             else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosKabuto")))
             {
                 if (drawPlayer.direction == -1)
                 {
-                    BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosKabutoBlue_Head"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), edi.shadow), drawPlayer.headFrame, scale);
+                    BaseDrawing.DrawPlayerTexture(drawObj,
+                        mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosKabutoBlue_Head"), dyeHead, drawPlayer,
+                        Position, 0, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(
+                            BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)),
+                            edi.shadow), drawPlayer.headFrame, scale);
                 }
-                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/PerfectChaosKabuto_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow), drawPlayer.headFrame, scale);
+
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/PerfectChaosKabuto_Head_Glow"),
+                    dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow),
+                    drawPlayer.headFrame, scale);
             }
         }
-        public PlayerLayer glAfterBody = new PlayerLayer("AAMod", "glAfterBody", PlayerLayer.Body, delegate (PlayerDrawInfo edi)
-        {
-            Mod mod = AAMod.instance;
-            Player drawPlayer = edi.drawPlayer;
-            AAPlayer modPlayer = drawPlayer.GetModPlayer<AAPlayer>(mod);
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("DracoPlate")))
+
+        public PlayerLayer glAfterBody = new PlayerLayer("AAMod", "glAfterBody", PlayerLayer.Body,
+            delegate(PlayerDrawInfo edi)
             {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DracoPlate_Body_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("UraniumChestplate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/UraniumChestplate_Body_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (!drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("UraniumChestplate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/UraniumChestplate_Female_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("TrueNightsPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueNightsPlate_Glow_Body"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (!drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("TrueNightsPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueNightsPlate_Glow_Female"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("TrueFleshrendPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueFleshrendPlate_Glow_Body"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (!drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("TrueFleshrendPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueFleshrendPlate_Glow_Female"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomsdayChestplate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DoomsdayChestplate_Body_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (modPlayer.Darkmatter && !Main.dayTime && HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterBreastplate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DarkmatterBreastplate_Body_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (modPlayer.Radium && Main.dayTime && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumPlatemail")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/Radium/RadiumPlatemail_Body"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("StarcrystaPlate")) && drawPlayer.statMana > drawPlayer.statMana * .2f)
-            {
-                BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/StarcrystaPlate_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Starcrystal, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("HeartstoneChestguard")) && drawPlayer.statLife > 40)
-            {
-                BaseDrawing.DrawPlayerTexture(drawPlayer, mod.GetTexture("Glowmasks/HeartstoneChestguard_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Heartstone, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueHallowedPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueHallowedPlate_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Hallow, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("ShroomShirt")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/ShroomShirt_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("DJDuckShirt")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DJDuckShirt_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomiteBreastplate")) && modPlayer.doomite)
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DoomiteBreastplate_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.ZeroShield, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueCopperPlate")))
-            {
-                if (drawPlayer.Male)
+                Mod mod = AAMod.instance;
+                Player drawPlayer = edi.drawPlayer;
+                AAPlayer modPlayer = drawPlayer.GetModPlayer<AAPlayer>(mod);
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("DracoPlate")))
                 {
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueCopperPlate_Body_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow), drawPlayer.bodyFrame);
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DracoPlate_Body_Glow"),
+                        edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
                 }
-                else
+                else if (drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("UraniumChestplate")))
                 {
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueCopperPlate_Female_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow), drawPlayer.bodyFrame);
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/UraniumChestplate_Body_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow),
+                        drawPlayer.bodyFrame);
                 }
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosPlate")))
+                else if (!drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("UraniumChestplate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/UraniumChestplate_Female_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("TrueNightsPlate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueNightsPlate_Glow_Body"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (!drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("TrueNightsPlate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueNightsPlate_Glow_Female"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("TrueFleshrendPlate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueFleshrendPlate_Glow_Body"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (!drawPlayer.Male && HasAndCanDraw(drawPlayer, mod.ItemType("TrueFleshrendPlate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueFleshrendPlate_Glow_Female"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomsdayChestplate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/DoomsdayChestplate_Body_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (modPlayer.Darkmatter && !Main.dayTime &&
+                         HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterBreastplate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/DarkmatterBreastplate_Body_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (modPlayer.Radium && Main.dayTime && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumPlatemail")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Items/Armor/Radium/RadiumPlatemail_Body"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("StarcrystaPlate")) &&
+                         drawPlayer.statMana > drawPlayer.statMana * .2f)
+                {
+                    BaseDrawing.DrawPlayerTexture(drawPlayer,
+                        mod.GetTexture("Glowmasks/StarcrystaPlate_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"),
+                        edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.Starcrystal, edi.shadow), drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("HeartstoneChestguard")) && drawPlayer.statLife > 40)
+                {
+                    BaseDrawing.DrawPlayerTexture(drawPlayer,
+                        mod.GetTexture("Glowmasks/HeartstoneChestguard_" + (drawPlayer.Male ? "Body" : "Female") +
+                                       "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.Heartstone, edi.shadow), drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueHallowedPlate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueHallowedPlate_" + (drawPlayer.Male ? "Body" : "Female") +
+                                       "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.Hallow, edi.shadow), drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("ShroomShirt")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/ShroomShirt_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"),
+                        edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("DJDuckShirt")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/DJDuckShirt_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"),
+                        edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomiteBreastplate")) && modPlayer.doomite)
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture(
+                            "Glowmasks/DoomiteBreastplate_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"),
+                        edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(AAColor.ZeroShield, edi.shadow), drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueCopperPlate")))
+                {
+                    if (drawPlayer.Male)
+                    {
+                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                            mod.GetTexture("Glowmasks/TrueCopperPlate_Body_Glow"), edi.bodyArmorShader, drawPlayer,
+                            edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow),
+                            drawPlayer.bodyFrame);
+                    }
+                    else
+                    {
+                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                            mod.GetTexture("Glowmasks/TrueCopperPlate_Female_Glow"), edi.bodyArmorShader, drawPlayer,
+                            edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow),
+                            drawPlayer.bodyFrame);
+                    }
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosPlate")))
+                {
+                    if (drawPlayer.Male)
+                    {
+                        if (drawPlayer.direction == -1)
+                        {
+                            BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                                mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosPlateBlue_Body"),
+                                edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f,
+                                drawPlayer.GetImmuneAlphaPure(
+                                    BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X,
+                                        drawPlayer.position.Y)), edi.shadow), drawPlayer.bodyFrame);
+                        }
+
+                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                            mod.GetTexture("Glowmasks/PerfectChaosPlate_Body_Glow"), edi.bodyArmorShader, drawPlayer,
+                            edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow),
+                            drawPlayer.bodyFrame);
+                    }
+                    else
+                    {
+                        if (drawPlayer.direction == -1)
+                        {
+                            BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                                mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosPlateBlue_Female"),
+                                edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f,
+                                drawPlayer.GetImmuneAlphaPure(
+                                    BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X,
+                                        drawPlayer.position.Y)), edi.shadow), drawPlayer.bodyFrame);
+                        }
+
+                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                            mod.GetTexture("Glowmasks/PerfectChaosPlate_Female_Glow"), edi.bodyArmorShader, drawPlayer,
+                            edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow),
+                            drawPlayer.bodyFrame);
+                    }
+                }
+            });
+
+        public PlayerLayer glAfterArm = new PlayerLayer("AAMod", "glAfterArm", PlayerLayer.Arms,
+            delegate(PlayerDrawInfo edi)
             {
-                if (drawPlayer.Male)
+                Mod mod = AAMod.instance;
+                Player drawPlayer = edi.drawPlayer;
+                AAPlayer modPlayer = drawPlayer.GetModPlayer<AAPlayer>(mod);
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("DracoPlate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DracoPlate_Arms_Glow"),
+                        edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f,
+                        drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("UraniumChestplate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/UraniumChestplate_Arms_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueNightsPlate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueNightsPlate_Glow_Arms"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomsdayChestplate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/DoomsdayChestplate_Arms_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (modPlayer.Darkmatter && !Main.dayTime &&
+                         HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterBreastplate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/DarkmatterBreastplate_Arms_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (modPlayer.Radium && Main.dayTime && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumPlatemail")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Items/Armor/Radium/RadiumPlatemail_Arms"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("StarcrystaPlate")) &&
+                         drawPlayer.statMana > drawPlayer.statMana * .2f)
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/StarcrystalPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Starcrystal, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("HeartstoneChestguard")) && drawPlayer.statLife > 40)
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/HeartstoneChestguard_Arms_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Heartstone, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueHallowedPlate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueHallowedPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Hallow, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("ShroomShirt")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/ShroomShirt_Arms_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomiteBreastplate")) && modPlayer.doomite)
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/DoomiteBreastplate_Arms_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.ZeroShield, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueCopperPlate")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueCopperPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow),
+                        drawPlayer.bodyFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosPlate")))
                 {
                     if (drawPlayer.direction == -1)
                     {
-                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosPlateBlue_Body"), edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), edi.shadow), drawPlayer.bodyFrame);
+                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                            mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosPlateBlue_Arms"), edi.bodyArmorShader,
+                            drawPlayer, edi.position, 0, 0f, 0f,
+                            drawPlayer.GetImmuneAlphaPure(
+                                BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)),
+                                edi.shadow), drawPlayer.bodyFrame);
                     }
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/PerfectChaosPlate_Body_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow), drawPlayer.bodyFrame);
+
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/PerfectChaosPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow),
+                        drawPlayer.bodyFrame);
                 }
-                else
+            });
+
+        public PlayerLayer glAfterLegs = new PlayerLayer("AAMod", "glAfterLegs", PlayerLayer.Legs,
+            delegate(PlayerDrawInfo edi)
+            {
+                Mod mod = AAMod.instance;
+                Player drawPlayer = edi.drawPlayer;
+                AAPlayer modPlayer = drawPlayer.GetModPlayer<AAPlayer>(mod);
+                if (HasAndCanDraw(drawPlayer, mod.ItemType("DracoLeggings")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/DracoLeggings_Legs_Glow"), edi.legArmorShader, drawPlayer,
+                        edi.position, 2, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("UraniumBoots")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/UraniumBoots_Legs_Glow"), edi.legArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueNightsBoots")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueNightsBoots_Glow_Legs"), edi.legArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomsdayLeggings")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/DoomsdayLeggings_Legs_Glow"), edi.legArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (modPlayer.Darkmatter && !Main.dayTime &&
+                         HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterGreaves")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/DarkmatterGreaves_Legs_Glow"), edi.legArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (modPlayer.Radium && Main.dayTime && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumCuisses")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Items/Armor/Radium/RadiumCuisses_Legs"), edi.legArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("StarcrystalBoots")) &&
+                         drawPlayer.statMana > drawPlayer.statMana * .2f)
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/StarcrystalBoots_Legs_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Starcrystal, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("HeartstoneLeggings")) && drawPlayer.statLife < 40)
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/HeartstoneLeggings_Legs_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Heartstone, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueHallowedGreaves")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueHallowedGreaves_Legs_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Hallow, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("ShroomPants")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/ShroomPants_Legs_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomiteGreaves")) && modPlayer.doomite)
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/DoomiteGreaves_Legs_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.ZeroShield, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueCopperLeggings")))
+                {
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/TrueCopperLeggings_Legs_Glow"), edi.bodyArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow),
+                        drawPlayer.legFrame);
+                }
+                else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosGreaves")))
                 {
                     if (drawPlayer.direction == -1)
                     {
-                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosPlateBlue_Female"), edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), edi.shadow), drawPlayer.bodyFrame);
+                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                            mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosGreavesBlue_Legs"),
+                            edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f,
+                            drawPlayer.GetImmuneAlphaPure(
+                                BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)),
+                                edi.shadow), drawPlayer.legFrame);
                     }
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/PerfectChaosPlate_Female_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow), drawPlayer.bodyFrame);
+
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData,
+                        mod.GetTexture("Glowmasks/PerfectChaosGreaves_Legs_Glow"), edi.legArmorShader, drawPlayer,
+                        edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow),
+                        drawPlayer.legFrame);
                 }
-            }
-        });
-        public PlayerLayer glAfterArm = new PlayerLayer("AAMod", "glAfterArm", PlayerLayer.Arms, delegate (PlayerDrawInfo edi)
-        {
-            Mod mod = AAMod.instance;
-            Player drawPlayer = edi.drawPlayer;
-            AAPlayer modPlayer = drawPlayer.GetModPlayer<AAPlayer>(mod);
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("DracoPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DracoPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("UraniumChestplate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/UraniumChestplate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueNightsPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueNightsPlate_Glow_Arms"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomsdayChestplate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DoomsdayChestplate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (modPlayer.Darkmatter && !Main.dayTime && HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterBreastplate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DarkmatterBreastplate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (modPlayer.Radium && Main.dayTime && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumPlatemail")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/Radium/RadiumPlatemail_Arms"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("StarcrystaPlate")) && drawPlayer.statMana > drawPlayer.statMana * .2f)
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/StarcrystalPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Starcrystal, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("HeartstoneChestguard")) && drawPlayer.statLife > 40)
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/HeartstoneChestguard_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Heartstone, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueHallowedPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueHallowedPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Hallow, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("ShroomShirt")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/ShroomShirt_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomiteBreastplate")) && modPlayer.doomite)
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DoomiteBreastplate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.ZeroShield, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueCopperPlate")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueCopperPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow), drawPlayer.bodyFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosPlate")))
-            {
-                if (drawPlayer.direction == -1)
-                {
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosPlateBlue_Arms"), edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), edi.shadow), drawPlayer.bodyFrame);
-                }
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/PerfectChaosPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow), drawPlayer.bodyFrame);
-            }
-        });
-        public PlayerLayer glAfterLegs = new PlayerLayer("AAMod", "glAfterLegs", PlayerLayer.Legs, delegate (PlayerDrawInfo edi)
-        {
-            Mod mod = AAMod.instance;
-            Player drawPlayer = edi.drawPlayer;
-            AAPlayer modPlayer = drawPlayer.GetModPlayer<AAPlayer>(mod);
-            if (HasAndCanDraw(drawPlayer, mod.ItemType("DracoLeggings")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DracoLeggings_Legs_Glow"), edi.legArmorShader, drawPlayer, edi.position, 2, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("UraniumBoots")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/UraniumBoots_Legs_Glow"), edi.legArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueNightsBoots")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueNightsBoots_Glow_Legs"), edi.legArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Uranium, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomsdayLeggings")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DoomsdayLeggings_Legs_Glow"), edi.legArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (modPlayer.Darkmatter && !Main.dayTime && HasAndCanDraw(drawPlayer, mod.ItemType("DarkmatterGreaves")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DarkmatterGreaves_Legs_Glow"), edi.legArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (modPlayer.Radium && Main.dayTime && HasAndCanDraw(drawPlayer, mod.ItemType("RadiumCuisses")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/Radium/RadiumCuisses_Legs"), edi.legArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Color.White, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("StarcrystalBoots")) && drawPlayer.statMana > drawPlayer.statMana * .2f)
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/StarcrystalBoots_Legs_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Starcrystal, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("HeartstoneLeggings")) && drawPlayer.statLife < 40)
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/HeartstoneLeggings_Legs_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Heartstone, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueHallowedGreaves")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueHallowedGreaves_Legs_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Hallow, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("ShroomPants")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/ShroomPants_Legs_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Glow, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("DoomiteGreaves")) && modPlayer.doomite)
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/DoomiteGreaves_Legs_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.ZeroShield, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueCopperLeggings")))
-            {
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueCopperLeggings_Legs_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow), drawPlayer.legFrame);
-            }
-            else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosGreaves")))
-            {
-                if (drawPlayer.direction == -1)
-                {
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosGreavesBlue_Legs"), edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), edi.shadow), drawPlayer.legFrame);
-                }
-                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/PerfectChaosGreaves_Legs_Glow"), edi.legArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow), drawPlayer.legFrame);
-            }
-        });
+            });
     }
 }

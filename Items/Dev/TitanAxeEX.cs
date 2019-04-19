@@ -7,18 +7,18 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Dev
 {
     public class TitanAxeEX : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Titan Slayer");
             Tooltip.SetDefault(@"Titan Axe EX");
-		}
+        }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.CloneDefaults(ItemID.Arkhalis);
             item.damage = 300;
-            item.width = 94; 
+            item.width = 94;
             item.height = 96;
             item.noMelee = true;
             item.noUseGraphic = true;
@@ -41,7 +41,6 @@ namespace AAMod.Items.Dev
 
         public override bool CanUseItem(Player player)
         {
-
             if (player.altFunctionUse == 2)
             {
                 item.useStyle = 1;
@@ -56,6 +55,7 @@ namespace AAMod.Items.Dev
                 item.thrown = false;
                 item.shoot = mod.ProjectileType("TitanEX");
             }
+
             return base.CanUseItem(player);
         }
 

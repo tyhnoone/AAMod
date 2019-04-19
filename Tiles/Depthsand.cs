@@ -14,7 +14,7 @@ namespace AAMod.Tiles
             Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[this.Type] = true;
             dustType = mod.DustType("DeepAbyssiumDust");
-            drop = mod.ItemType("Depthsand");   //put your CustomBlock name
+            drop = mod.ItemType("Depthsand"); //put your CustomBlock name
             AddMapEntry(new Color(37, 33, 50));
         }
 

@@ -8,33 +8,33 @@ using System.Collections.Generic;
 namespace AAMod.Items.Boss.Yamata
 {
     public class AbyssArrow : ModItem
-	{
-        
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eventide Arrow");
-			Tooltip.SetDefault(@"Blinds its target with the darkness of the moonless night
+            Tooltip.SetDefault(@"Blinds its target with the darkness of the moonless night
 Inflicts Moonraze
 Non-consumable");
-		}
-
-		public override void SetDefaults()
-		{
-			item.damage = 23;
-			item.ranged = true;
-			item.width = 14;
-			item.height = 40;
-			item.consumable = false;             //You need to set the item consumable so that the ammo would automatically consumed
-			item.knockBack = 7f;
-			item.value = Item.buyPrice(1, 0, 0, 0); ;
-			item.rare = 6;
-			item.shoot = mod.ProjectileType("AbyssArrow");   //The projectile shoot when your weapon using this ammo
-			item.shootSpeed = 3f;                  //The speed of the projectile
-			item.ammo = AmmoID.Arrow;              //The ammo class this ammo belongs to.
-            
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void SetDefaults()
+        {
+            item.damage = 23;
+            item.ranged = true;
+            item.width = 14;
+            item.height = 40;
+            item.consumable = false; //You need to set the item consumable so that the ammo would automatically consumed
+            item.knockBack = 7f;
+            item.value = Item.buyPrice(1, 0, 0, 0);
+            ;
+            item.rare = 6;
+            item.shoot = mod.ProjectileType("AbyssArrow"); //The projectile shoot when your weapon using this ammo
+            item.shootSpeed = 3f; //The speed of the projectile
+            item.ammo = AmmoID.Arrow; //The ammo class this ammo belongs to.
+        }
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -61,20 +61,21 @@ Non-consumable");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata;;
+                    line2.overrideColor = AAColor.Yamata;
+                    ;
                 }
             }
         }
 
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
+        {
+            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "EventideAbyssium", 1);
             recipe.AddIngredient(null, "DreadScale", 1);
             recipe.AddIngredient(ItemID.MoonlordArrow, 999);
             recipe.AddTile(null, "ACS");
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

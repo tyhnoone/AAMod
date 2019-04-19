@@ -48,40 +48,55 @@ Only craftable in expert mode");
         {
             if (!Main.dayTime)
             {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Geez, kid. Can't a dragon get a little shut-eye? Come back in the morning.", new Color(180, 41, 32), false);
+                if (player.whoAmI == Main.myPlayer)
+                    BaseUtility.Chat("Geez, kid. Can't a dragon get a little shut-eye? Come back in the morning.",
+                        new Color(180, 41, 32), false);
                 return false;
             }
+
             if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno)
             {
                 if (!player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda && !AAWorld.downedYamata)
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("An image of the scorched tower at the peak of the inferno flashes through your mind", Color.Indigo, false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat(
+                            "An image of the scorched tower at the peak of the inferno flashes through your mind",
+                            Color.Indigo, false);
                     return false;
                 }
+
                 if (NPC.AnyNPCs(mod.NPCType<Akuma>()))
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Hey kid, that rune only works once, ya know.", new Color(180, 41, 32), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat("Hey kid, that rune only works once, ya know.", new Color(180, 41, 32), false);
                     return false;
                 }
+
                 if (NPC.AnyNPCs(mod.NPCType<AkumaA>()))
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Hey kid, that rune only works once, ya know.", new Color(0, 191, 255), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat("Hey kid, that rune only works once, ya know.", new Color(0, 191, 255), false);
                     return false;
                 }
+
                 if (NPC.AnyNPCs(mod.NPCType("AkumaTransition")))
                 {
                     return false;
                 }
+
                 return true;
             }
-            if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("You can only use that rune in the Inferno, kid.", new Color(180, 41, 32), false);
+
+            if (player.whoAmI == Main.myPlayer)
+                BaseUtility.Chat("You can only use that rune in the Inferno, kid.", new Color(180, 41, 32), false);
             return false;
         }
 
         public override bool UseItem(Player player)
         {
             Main.NewText("Akuma has been Awakened!", Color.Magenta.R, Color.Magenta.G, Color.Magenta.B);
-            Main.NewText("Cutting right to the chase I see..? Alright then, prepare for hell..!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
+            Main.NewText("Cutting right to the chase I see..? Alright then, prepare for hell..!", Color.DeepSkyBlue.R,
+                Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
             SpawnBoss(player, "AkumaA", "Akuma Awakened; Blazing Fury Incarnate");
             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/AkumaRoar"), player.position);
             return true;
@@ -92,9 +107,15 @@ Only craftable in expert mode");
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-2000, 2000, (float)Main.rand.NextDouble()), 1200f);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(-2000, 2000, (float) Main.rand.NextDouble()),
+                                             1200f);
                 Main.npc[npcID].netUpdate2 = true;
             }
         }

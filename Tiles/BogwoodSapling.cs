@@ -21,10 +21,10 @@ namespace AAMod.Tiles
             TileObjectData.newTile.Origin = new Terraria.DataStructures.Point16(0, 1);
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.UsesCustomCanPlace = true;
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
+            TileObjectData.newTile.CoordinateHeights = new int[] {16, 18};
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
-            TileObjectData.newTile.AnchorValidTiles = new int[] { mod.TileType("MireGrass") };
+            TileObjectData.newTile.AnchorValidTiles = new int[] {mod.TileType("MireGrass")};
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.DrawFlipHorizontal = true;
             TileObjectData.newTile.WaterPlacement = Terraria.Enums.LiquidPlacement.NotAllowed;
@@ -36,16 +36,16 @@ namespace AAMod.Tiles
             name.SetDefault("Bogwood Sapling");
             AddMapEntry(new Color(200, 200, 200), name);
             //dustType = mod.DustType("Sparkle");
-            adjTiles = new int[] { TileID.Saplings };
+            adjTiles = new int[] {TileID.Saplings};
         }
 
         public override void RandomUpdate(int i, int j)
         {
-            if(WorldGen.genRand.Next(20) == 0)
+            if (WorldGen.genRand.Next(20) == 0)
             {
                 bool isPlayerNear = WorldGen.PlayerLOS(i, j);
                 bool success = WorldGen.GrowTree(i, j);
-                if(success && isPlayerNear)
+                if (success && isPlayerNear)
                 {
                     WorldGen.TreeGrowFXCheck(i, j);
                 }
@@ -54,7 +54,7 @@ namespace AAMod.Tiles
 
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
-            if(i % 2 == 1)
+            if (i % 2 == 1)
             {
                 spriteEffects = SpriteEffects.FlipHorizontally;
             }

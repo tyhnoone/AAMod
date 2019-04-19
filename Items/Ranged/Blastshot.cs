@@ -7,10 +7,8 @@ namespace AAMod.Items.Ranged
 {
     public class Blastshot : ModItem
     {
-        
         public override void SetDefaults()
         {
-
             item.damage = 70;
             item.noMelee = true;
 
@@ -35,13 +33,15 @@ namespace AAMod.Items.Ranged
             Tooltip.SetDefault("Doesn't use ammo");
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
+
             return true;
         }
 

@@ -13,6 +13,7 @@ namespace AAMod.Items.Materials
             Tooltip.SetDefault("It's really really hot.");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
         }
+
         public override void SetDefaults()
         {
             Item refItem = new Item();

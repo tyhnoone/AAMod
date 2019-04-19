@@ -6,7 +6,6 @@ namespace AAMod.Items.Blocks
     {
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 16;
             item.maxStack = 999;
@@ -22,8 +21,7 @@ namespace AAMod.Items.Blocks
 
         public override void SetStaticDefaults()
         {
-          DisplayName.SetDefault("Torchice");
+            DisplayName.SetDefault("Torchice");
         }
-
     }
 }

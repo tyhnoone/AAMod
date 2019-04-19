@@ -9,15 +9,17 @@ namespace AAMod.NPCs.Bosses.Retriever
     public class RetrieverLaser : ModProjectile
     {
         private const float MoveDistance = 70f;
-        
+
         public float Distance;
 
 
         public NPC shooter;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Static Beam");
         }
+
         public override void SetDefaults()
         {
             projectile.width = 10;
@@ -28,24 +30,24 @@ namespace AAMod.NPCs.Bosses.Retriever
             projectile.hostile = true;
             projectile.hide = false;
         }
+
         // The AI of the projectile
-        public bool runOnce=true;
+        public bool runOnce = true;
+
         public override void AI()
         {
-            
-            
             float rOffset = 0;
-            shooter = Main.npc[(int)projectile.ai[0]];
+            shooter = Main.npc[(int) projectile.ai[0]];
             Player player = Main.player[projectile.owner];
-            if (!shooter.active || shooter.life <=0)
+            if (!shooter.active || shooter.life <= 0)
             {
                 projectile.Kill();
             }
 
             #region Set projectile position
 
-
-            Vector2 diff = new Vector2((float)Math.Cos(shooter.rotation + rOffset) * 14f, (float)Math.Sin(shooter.rotation + rOffset) * 14f);
+            Vector2 diff = new Vector2((float) Math.Cos(shooter.rotation + rOffset) * 14f,
+                (float) Math.Sin(shooter.rotation + rOffset) * 14f);
             diff.Normalize();
             projectile.velocity = diff;
             projectile.direction = projectile.Center.X > shooter.Center.X ? -1 : 1;
@@ -54,8 +56,9 @@ namespace AAMod.NPCs.Bosses.Retriever
             projectile.position = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * MoveDistance;
             projectile.timeLeft = 2;
             int dir = projectile.direction;
+
             #endregion
-            
+
             Vector2 start = new Vector2(shooter.Center.X, shooter.Center.Y);
             Vector2 unit = projectile.velocity;
             unit *= -1;
@@ -70,33 +73,36 @@ namespace AAMod.NPCs.Bosses.Retriever
             }
 
 
-
             //Add lights
             DelegateMethods.v3_1 = new Vector3(0.8f, 0.8f, 1f);
-            Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (Distance - MoveDistance), 26,
+            Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (Distance - MoveDistance),
+                26,
                 DelegateMethods.CastLight);
-
         }
+
         public int colorCounter;
         public Color lineColor;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
+            DrawLaser(spriteBatch, Main.projectileTexture[projectile.type],
+                new Vector2(shooter.Center.X, shooter.Center.Y),
+                projectile.velocity, 10, projectile.damage, -1.57f, 1f, 4000f, AAColor.Oblivion, (int) MoveDistance);
 
-            
-                DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], new Vector2(shooter.Center.X, shooter.Center.Y),
-                    projectile.velocity, 10, projectile.damage, -1.57f, 1f, 4000f, AAColor.Oblivion, (int)MoveDistance);
-            
-            
+
             return false;
         }
 
         // The core function of drawing a laser
-        public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, int damage, float rotation = 0f, float scale = 1f, float maxDist = 4000f, Color color = default(Color), int transDist = 50)
+        public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step,
+            int damage, float rotation = 0f, float scale = 1f, float maxDist = 4000f, Color color = default(Color),
+            int transDist = 50)
         {
             Vector2 origin = start;
             float r = unit.ToRotation() + rotation;
 
             #region Draw laser body
+
             for (float i = transDist; i <= Distance; i += step)
             {
                 Color c = AAColor.Storm2;
@@ -105,16 +111,21 @@ namespace AAMod.NPCs.Bosses.Retriever
                     new Rectangle(0, 26, 28, 26), i < transDist ? Color.Transparent : c, r,
                     new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
             }
+
             #endregion
 
             #region Draw laser tail
+
             spriteBatch.Draw(texture, start + unit * (transDist - step) - Main.screenPosition,
                 new Rectangle(0, 0, 28, 26), AAColor.Storm2, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
+
             #endregion
 
             #region Draw laser head
+
             spriteBatch.Draw(texture, start + (Distance + step) * unit - Main.screenPosition,
                 new Rectangle(0, 52, 28, 26), AAColor.Storm2, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
+
             #endregion
         }
 
@@ -128,7 +139,8 @@ namespace AAMod.NPCs.Bosses.Retriever
             float point = 0f;
             // Run an AABB versus Line check to look for collisions, look up AABB collision first to see how it works
             // It will look for collisions on the given line using AABB
-            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), new Vector2(shooter.Center.X, shooter.Center.Y),
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(),
+                new Vector2(shooter.Center.X, shooter.Center.Y),
                 new Vector2(shooter.Center.X, shooter.Center.Y) + unit * Distance, 22, ref point);
 
             return false;
@@ -141,11 +153,9 @@ namespace AAMod.NPCs.Bosses.Retriever
         }
 
 
-
         public override bool ShouldUpdatePosition()
         {
             return false;
         }
     }
-
 }

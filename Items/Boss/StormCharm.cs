@@ -1,12 +1,13 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria.ID;
 
 namespace AAMod.Items.Boss
 {
     public class StormCharm : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Storm Charm");
@@ -14,6 +15,7 @@ namespace AAMod.Items.Boss
 10% Increased melee speed
 All attacks deal 20 True damage (damage unaffected by class)");
         }
+
         public override void SetDefaults()
         {
             item.width = 58;
@@ -25,7 +27,7 @@ All attacks deal 20 True damage (damage unaffected by class)");
             item.defense = 3;
         }
 
-        
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -60,26 +62,30 @@ All attacks deal 20 True damage (damage unaffected by class)");
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Hydra.HydraPendant>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<DragonSerpentNecklace>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Raider.HoloCape>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Orthrus.StormPendant>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }
-    
 }

@@ -5,11 +5,11 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Melee
 {
     public class HydraGlove : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Hydra Glove");
-		}
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Hydra Glove");
+        }
 
         public override void SetDefaults()
         {
@@ -39,5 +39,5 @@ namespace AAMod.Items.Melee
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

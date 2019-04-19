@@ -21,7 +21,9 @@ namespace AAMod.Backgrounds
         public float fadeOpacity = 0f;
         public float dayTimeOpacity = 0f;
 
-        public FogOverlay(string textureName, string shaderName = "Default", EffectPriority priority = EffectPriority.VeryLow, RenderLayers layer = RenderLayers.All) : base(priority, layer)
+        public FogOverlay(string textureName, string shaderName = "Default",
+            EffectPriority priority = EffectPriority.VeryLow, RenderLayers layer = RenderLayers.All) : base(priority,
+            layer)
         {
             texture = TextureManager.AsyncLoad((textureName == null) ? "" : textureName);
             shader = new ScreenShaderData(Main.ScreenShaderRef, shaderName);
@@ -62,10 +64,12 @@ namespace AAMod.Backgrounds
                 {
                     if (player.position.Y < Main.worldSurface * 16.0)
                     {
-                        Main.spriteBatch.Draw(fog, new Rectangle(i + (fogOffsetX), j, fog.Width, fog.Height), null, fogColor, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+                        Main.spriteBatch.Draw(fog, new Rectangle(i + (fogOffsetX), j, fog.Width, fog.Height), null,
+                            fogColor, 0f, Vector2.Zero, SpriteEffects.None, 0f);
                     }
                 }
             }
+
             Main.spriteBatch.End();
         }
 
@@ -78,7 +82,8 @@ namespace AAMod.Backgrounds
             Texture2D fog = mod.GetTexture("Backgrounds/fog");
 
             bool inMire = Main.player[Main.myPlayer].GetModPlayer<AAPlayer>(AAMod.instance).ZoneMire;
-            if (BasePlayer.HasAccessory(player, AAMod.instance.ItemType("Lantern"), true, false) || AAWorld.downedYamata) inMire = false;
+            if (BasePlayer.HasAccessory(player, AAMod.instance.ItemType("Lantern"), true, false) ||
+                AAWorld.downedYamata) inMire = false;
 
             fogOffsetX += 1;
             if (fogOffsetX >= fog.Width) fogOffsetX = 0;
@@ -92,7 +97,10 @@ namespace AAMod.Backgrounds
                 fadeOpacity -= 0.05f;
                 if (fadeOpacity < 0f) fadeOpacity = 0f;
             }
-            dayTimeOpacity = (Main.dayTime ? BaseUtility.MultiLerp((float)Main.time / 52000f, 0.3f, 1f, 1f, 1f, 1f, 1f, 0.3f) : 0.3f);
+
+            dayTimeOpacity = (Main.dayTime
+                ? BaseUtility.MultiLerp((float) Main.time / 52000f, 0.3f, 1f, 1f, 1f, 1f, 1f, 0.3f)
+                : 0.3f);
             dayTimeOpacity *= Main.dayTime ? 3f : 1f;
         }
 
@@ -114,12 +122,12 @@ namespace AAMod.Backgrounds
 
         public Color GetAlpha(Color newColor, float alph)
         {
-            int alpha = 255 - (int)(255 * alph);
-            float alphaDiff = (float)(255 - alpha) / 255f;
-            int newR = (int)((float)newColor.R * alphaDiff);
-            int newG = (int)((float)newColor.G * alphaDiff);
-            int newB = (int)((float)newColor.B * alphaDiff);
-            int newA = (int)newColor.A - alpha;
+            int alpha = 255 - (int) (255 * alph);
+            float alphaDiff = (float) (255 - alpha) / 255f;
+            int newR = (int) ((float) newColor.R * alphaDiff);
+            int newG = (int) ((float) newColor.G * alphaDiff);
+            int newB = (int) ((float) newColor.B * alphaDiff);
+            int newA = (int) newColor.A - alpha;
             if (newA < 0) newA = 0;
             if (newA > 255) newA = 255;
             return new Color(newR, newG, newB, newA);

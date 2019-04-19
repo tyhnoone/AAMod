@@ -7,24 +7,24 @@ using System.Collections.Generic;
 namespace AAMod.Items.Armor.Dread
 {
     [AutoloadEquip(EquipType.Body)]
-	public class DreadPlate : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			DisplayName.SetDefault("Dread Moon Gi");
-			Tooltip.SetDefault(@"24% increased ranged damage
+    public class DreadPlate : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("Dread Moon Gi");
+            Tooltip.SetDefault(@"24% increased ranged damage
 20% increased movement speed
 The abyssal wrath of the Mire rests in this armor");
-		}
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 30;
-			item.height = 20;
-			item.value = 3000000;
-			item.defense = 40;
-		}
+        public override void SetDefaults()
+        {
+            item.width = 30;
+            item.height = 20;
+            item.value = 3000000;
+            item.defense = 40;
+        }
 
         public override void UpdateEquip(Player player)
         {
@@ -38,7 +38,8 @@ The abyssal wrath of the Mire rests in this armor");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata;;
+                    line2.overrideColor = AAColor.Yamata;
+                    ;
                 }
             }
         }

@@ -1,16 +1,15 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Equinox
 {
     public class NCTrophy : ModItem
     {
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Nightcrawler Trophy");
-
         }
 
         public override void SetDefaults()
@@ -28,7 +27,6 @@ namespace AAMod.Items.Boss.Equinox
             item.value = 2000;
             item.rare = 1;
             item.createTile = mod.TileType("NCTrophy");
-
         }
     }
 }

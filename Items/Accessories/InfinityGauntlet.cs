@@ -8,12 +8,11 @@ namespace AAMod.Items.Accessories
     [AutoloadEquip(EquipType.HandsOn, EquipType.Wings)]
     public class InfinityGauntlet : ModItem
     {
-            
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Infinity Gauntlet");
             Tooltip.SetDefault(
-@"Pressing the G key allows you to snap your fingers, wiping out half of the enemies on your screen
+                @"Pressing the G key allows you to snap your fingers, wiping out half of the enemies on your screen
 The snap has a 5 minute cooldown
 All effects of the infinity stones
 'Perfectly Balanced, as all things should be'");
@@ -21,6 +20,7 @@ All effects of the infinity stones
 
         public bool death;
         public int rodCD;
+
         public override void SetDefaults()
         {
             item.width = 32;
@@ -30,10 +30,10 @@ All effects of the infinity stones
             item.expert = true;
             item.accessory = true;
             item.defense = 12;
-            
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -75,7 +75,6 @@ All effects of the infinity stones
             player.lavaImmune = true;
         }
 
-        
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -96,12 +95,15 @@ All effects of the infinity stones
                 {
                     vector32.Y = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
                 }
+
                 vector32.X -= player.width / 2;
-                if (vector32.X > 50f && vector32.X < (Main.maxTilesX * 16) - 50 && vector32.Y > 50f && vector32.Y < (Main.maxTilesY * 16) - 50)
+                if (vector32.X > 50f && vector32.X < (Main.maxTilesX * 16) - 50 && vector32.Y > 50f &&
+                    vector32.Y < (Main.maxTilesY * 16) - 50)
                 {
-                    int num246 = (int)(vector32.X / 16f);
-                    int num247 = (int)(vector32.Y / 16f);
-                    if ((Main.tile[num246, num247].wall != 87 || num247 <= Main.worldSurface || NPC.downedPlantBoss) && !Collision.SolidCollision(vector32, player.width, player.height))
+                    int num246 = (int) (vector32.X / 16f);
+                    int num247 = (int) (vector32.Y / 16f);
+                    if ((Main.tile[num246, num247].wall != 87 || num247 <= Main.worldSurface || NPC.downedPlantBoss) &&
+                        !Collision.SolidCollision(vector32, player.width, player.height))
                     {
                         player.Teleport(vector32, 1, 0);
                         NetMessage.SendData(65, -1, -1, null, 0, player.whoAmI, vector32.X, vector32.Y, 1, 0, 0);
@@ -110,6 +112,7 @@ All effects of the infinity stones
                     }
                 }
             }
+
             if (rodCD != 0)
             {
                 rodCD--;
@@ -147,6 +150,7 @@ All effects of the infinity stones
                 recipe.AddRecipe();
             }
         }
+
         public override bool CanEquipAccessory(Player player, int slot)
         {
             if (slot < 10)
@@ -158,28 +162,34 @@ All effects of the infinity stones
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<MindStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SoulStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<RealityStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<TimeStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SpaceStone>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

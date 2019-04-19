@@ -1,5 +1,7 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Orthrus
 {
@@ -12,6 +14,7 @@ namespace AAMod.Items.Boss.Orthrus
             Tooltip.SetDefault(@"18% Increased damage
 10% Increased melee speed");
         }
+
         public override void SetDefaults()
         {
             item.width = 26;
@@ -20,6 +23,7 @@ namespace AAMod.Items.Boss.Orthrus
             item.accessory = true;
             item.expert = true;
         }
+
         public override void UpdateEquip(Player player)
         {
             player.meleeSpeed += .1f;
@@ -41,16 +45,19 @@ namespace AAMod.Items.Boss.Orthrus
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<StormCharm>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Hydra.HydraPendant>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

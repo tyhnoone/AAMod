@@ -40,6 +40,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 projectile.timeLeft--;
             }
+
             if (projectile.timeLeft == 0)
             {
                 DidntHitPlayer = true;
@@ -56,11 +57,13 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     projectile.frame = 0;
                 }
             }
-            projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
+
+            projectile.rotation = (float) Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             const int aislotHomingCooldown = 0;
             const int homingDelay = 0;
             const float desiredFlySpeedInPixelsPerFrame = 10;
-            const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
+            const float
+                amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
 
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
@@ -72,7 +75,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 {
                     Player target = Main.player[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(target.Center) * desiredFlySpeedInPixelsPerFrame;
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    projectile.velocity =
+                        Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
         }
@@ -85,11 +89,14 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 20);
-            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("HomingBoom"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+            Main.PlaySound(2, (int) projectile.position.X, (int) projectile.position.Y, 20);
+            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X,
+                projectile.velocity.Y, mod.ProjectileType("HomingBoom"), projectile.damage, projectile.knockBack,
+                projectile.owner, 0f, 0f);
             for (int dust = 0; dust <= 10; dust++)
             {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), projectile.oldVelocity.X * 0.5f, projectile.oldVelocity.Y * 0.5f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height,
+                    mod.DustType<Dusts.AkumaADust>(), projectile.oldVelocity.X * 0.5f, projectile.oldVelocity.Y * 0.5f);
             }
         }
 
@@ -108,7 +115,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance
+                        ) //or we are closer to this target than the already selected target
                     )
                         selectedTarget = i;
                 }
@@ -118,14 +126,21 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
         }
 
 
-        public override bool PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Microsoft.Xna.Framework.Color lightColor)
+        public override bool PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch,
+            Microsoft.Xna.Framework.Color lightColor)
         {
-            int shader = Terraria.Graphics.Shaders.GameShaders.Armor.GetShaderIdFromItemId(Terraria.ID.ItemID.LivingOceanDye);
-            Microsoft.Xna.Framework.Vector2 Drawpos = projectile.Center - Main.screenPosition + new Microsoft.Xna.Framework.Vector2(0, projectile.gfxOffY);
+            int shader =
+                Terraria.Graphics.Shaders.GameShaders.Armor.GetShaderIdFromItemId(Terraria.ID.ItemID.LivingOceanDye);
+            Microsoft.Xna.Framework.Vector2 Drawpos = projectile.Center - Main.screenPosition +
+                                                      new Microsoft.Xna.Framework.Vector2(0, projectile.gfxOffY);
 
-            Rectangle frame = BaseMod.BaseDrawing.GetFrame(projectile.frame, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 4, 0, 2);
+            Rectangle frame = BaseMod.BaseDrawing.GetFrame(projectile.frame,
+                Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 4, 0,
+                2);
 
-            BaseMod.BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], shader, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 4, frame, Color.White, true);
+            BaseMod.BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], shader,
+                projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 4,
+                frame, Color.White, true);
             return false;
         }
     }

@@ -1,5 +1,7 @@
 using Terraria.ID;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria;
 
 namespace AAMod.Items.Materials
@@ -12,17 +14,17 @@ namespace AAMod.Items.Materials
             item.height = 24;
             item.maxStack = 99;
             item.rare = 4;
-			
         }
 
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fulgurite Bar");
             Tooltip.SetDefault("It's static-y");
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -44,9 +46,10 @@ namespace AAMod.Items.Materials
         }
 
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "FulguriteShard", 3);              //example of how to craft with a modded item
+            recipe.AddIngredient(null, "FulguriteShard", 3); //example of how to craft with a modded item
             recipe.AddTile(TileID.AdamantiteForge);
             recipe.SetResult(this);
             recipe.AddRecipe();

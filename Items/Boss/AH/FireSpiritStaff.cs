@@ -1,6 +1,6 @@
-using System; using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -9,13 +9,18 @@ using BaseMod;
 
 namespace AAMod.Items.Boss.AH
 {
-	public class FireSpiritStaff : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-            DisplayName.SetDefault("Flame Vortex Staff");	
-            BaseUtility.AddTooltips(item, new string[] { "Conjures flaming spheres that increase your minion damage", "Each sphere takes up 1 minion slot", "You must have at least 2 open slots for the first summon" });			
-		}		
+    public class FireSpiritStaff : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Flame Vortex Staff");
+            BaseUtility.AddTooltips(item,
+                new string[]
+                {
+                    "Conjures flaming spheres that increase your minion damage", "Each sphere takes up 1 minion slot",
+                    "You must have at least 2 open slots for the first summon"
+                });
+        }
 
         public override void SetDefaults()
         {
@@ -32,18 +37,19 @@ namespace AAMod.Items.Boss.AH
             item.noMelee = true;
             item.summon = true;
             item.shoot = mod.ProjType("FireOrbiter");
-            item.shootSpeed = 5;			
+            item.shootSpeed = 5;
         }
-		
-		public override void UseStyle(Player player)
-		{
-			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
-			{
-				player.AddBuff(mod.BuffType("Orbiters"), 2, true);
-			}
-		}
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override void UseStyle(Player player)
+        {
+            if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+            {
+                player.AddBuff(mod.BuffType("Orbiters"), 2, true);
+            }
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             bool AnyOrbiters = AAGlobalProjectile.AnyProjectiless(mod.ProjectileType<Projectiles.AH.FireOrbiter>());
             int SummonCount = 2;
@@ -51,9 +57,11 @@ namespace AAMod.Items.Boss.AH
             {
                 SummonCount = 1;
             }
+
             for (int Loops = 0; Loops < SummonCount; Loops++)
             {
-                Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, Main.myPlayer, 0, 0);
+                Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, Main.myPlayer,
+                    0, 0);
             }
 
             return false;

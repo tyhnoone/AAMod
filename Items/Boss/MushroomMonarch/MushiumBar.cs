@@ -7,11 +7,10 @@ namespace AAMod.Items.Boss.MushroomMonarch
     {
         public override void SetDefaults()
         {
-
             item.width = 30;
             item.height = 24;
             item.maxStack = 99;
-			item.useTurn = true;
+            item.useTurn = true;
             item.autoReuse = true;
             item.useAnimation = 15;
             item.rare = 1;
@@ -19,7 +18,6 @@ namespace AAMod.Items.Boss.MushroomMonarch
             item.useStyle = 1;
             item.consumable = true;
             item.createTile = mod.TileType("MushiumBar");
-			
         }
 
         public override void SetStaticDefaults()
@@ -28,10 +26,11 @@ namespace AAMod.Items.Boss.MushroomMonarch
             Tooltip.SetDefault("Mushy");
         }
 
-		public override void AddRecipes()
-        {                                                   //How to craft this item
+        public override void AddRecipes()
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Mushium", 3);              //example of how to craft with a modded item
+            recipe.AddIngredient(null, "Mushium", 3); //example of how to craft with a modded item
             recipe.AddTile(TileID.Furnaces);
             recipe.SetResult(this);
             recipe.AddRecipe();

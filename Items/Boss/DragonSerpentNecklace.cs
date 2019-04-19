@@ -1,18 +1,20 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria.ID;
 
 namespace AAMod.Items.Boss
 {
     public class DragonSerpentNecklace : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dragon Serpent Necklace");
             Tooltip.SetDefault(@"7% increased damage and damage resistance
 Ignores 5 Enemy defense");
         }
+
         public override void SetDefaults()
         {
             item.width = 58;
@@ -23,6 +25,7 @@ Ignores 5 Enemy defense");
             item.expert = true;
             item.defense = 3;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -56,26 +59,30 @@ Ignores 5 Enemy defense");
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Hydra.HydraPendant>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<StormCharm>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Raider.HoloCape>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Orthrus.StormPendant>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }
-    
 }

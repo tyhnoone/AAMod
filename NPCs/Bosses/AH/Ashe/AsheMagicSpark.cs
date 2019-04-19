@@ -17,7 +17,6 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
 
         public override void SetDefaults()
         {
-
             projectile.width = 10;
             projectile.height = 10;
             projectile.friendly = false;
@@ -35,6 +34,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             {
                 projectile.alpha++;
             }
+
             if (projectile.timeLeft == 0)
             {
                 projectile.Kill();
@@ -63,7 +63,8 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile, projectile.GetAlpha(Color.White), true);
+            BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile,
+                projectile.GetAlpha(Color.White), true);
             return false;
         }
 

@@ -35,7 +35,8 @@ namespace AAMod.Items.Summoning.Minions
             return Color.White;
         }
 
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles,
+        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles,
+            List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles,
             List<int> drawCacheProjsOverWiresUI)
         {
             drawCacheProjsBehindProjectiles.Add(index);
@@ -46,8 +47,11 @@ namespace AAMod.Items.Summoning.Minions
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num214 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
             int y6 = num214 * projectile.frame;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle(0, y6, texture2D13.Width, num214),
-                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f), projectile.scale,
+            Main.spriteBatch.Draw(texture2D13,
+                projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
+                new Rectangle(0, y6, texture2D13.Width, num214),
+                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f),
+                projectile.scale,
                 projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
             return false;
         }
@@ -93,14 +97,16 @@ namespace AAMod.Items.Summoning.Minions
                 scaleFactor16 = 16f;
                 int arg_2D9AD_0 = Main.projectile[byUUID].alpha;
                 Main.projectile[byUUID].localAI[0] = projectile.localAI[0] + 1f;
-                if (Main.projectile[byUUID].type != mod.ProjectileType("DragonHead")) Main.projectile[byUUID].localAI[1] = projectile.whoAmI;
+                if (Main.projectile[byUUID].type != mod.ProjectileType("DragonHead"))
+                    Main.projectile[byUUID].localAI[1] = projectile.whoAmI;
             }
 
             if (!flag67) return;
             if (projectile.alpha > 0)
                 for (int num1054 = 0; num1054 < 2; num1054++)
                 {
-                    int num1055 = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default(Color), 2f);
+                    int num1055 = Dust.NewDust(projectile.position, projectile.width, projectile.height,
+                        mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default(Color), 2f);
                     Main.dust[num1055].noGravity = true;
                     Main.dust[num1055].noLight = true;
                 }
@@ -120,7 +126,8 @@ namespace AAMod.Items.Summoning.Minions
             projectile.scale = scaleFactor17;
             projectile.width = projectile.height = (int) (num1038 * projectile.scale);
             projectile.Center = projectile.position;
-            if (vector134 != Vector2.Zero) projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
+            if (vector134 != Vector2.Zero)
+                projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
             projectile.spriteDirection = vector134.X > 0f ? 1 : -1;
         }
 
@@ -133,7 +140,8 @@ namespace AAMod.Items.Summoning.Minions
                 if (byUUID != -1)
                 {
                     Projectile projectile1 = Main.projectile[byUUID];
-                    if (projectile1.type != mod.ProjectileType("DragonHead")) projectile1.localAI[1] = projectile.localAI[1];
+                    if (projectile1.type != mod.ProjectileType("DragonHead"))
+                        projectile1.localAI[1] = projectile.localAI[1];
                     projectile1 = Main.projectile[(int) projectile.localAI[1]];
                     projectile1.ai[0] = projectile.ai[0];
                     projectile1.ai[1] = 1f;

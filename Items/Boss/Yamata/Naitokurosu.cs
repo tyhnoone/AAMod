@@ -28,7 +28,8 @@ At night, you move three times as fast and your ranged attacks & minions inflict
         }
 
 
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            ref float rotation, ref float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Items/Boss/Yamata/Naitokurosu");
             Texture2D textureGlow = mod.GetTexture("Glowmasks/Naitokurosu_Glow");
@@ -104,21 +105,24 @@ At night, you move three times as fast and your ranged attacks & minions inflict
                     0f
                 );
             }
+
             return false;
         }
 
-        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D texture = mod.GetTexture("Items/Boss/Yamata/Naitokurosu");
             Texture2D texture2 = mod.GetTexture("Items/Boss/Yamata/NaitokurosuA");
             if (Main.dayTime)
-            { 
+            {
                 spriteBatch.Draw(texture, position, null, drawColor, 0, origin, scale, SpriteEffects.None, 0f);
             }
             else
             {
                 spriteBatch.Draw(texture2, position, null, drawColor, 0, origin, scale, SpriteEffects.None, 0f);
             }
+
             return false;
         }
 
@@ -131,7 +135,7 @@ At night, you move three times as fast and your ranged attacks & minions inflict
             player.buffImmune[mod.BuffType("HydraToxin")] = true;
             player.buffImmune[mod.BuffType("Clueless")] = true;
             if (Main.dayTime)
-            { 
+            {
                 player.moveSpeed *= 2f;
             }
             else

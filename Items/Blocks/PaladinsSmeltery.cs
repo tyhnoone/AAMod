@@ -8,7 +8,7 @@ namespace AAMod.Items.Blocks
         {
             DisplayName.SetDefault("Paladin's Smeltery Forge");
             Tooltip.SetDefault(
-@"This thing can make a lot of stuff
+                @"This thing can make a lot of stuff
 Functions as most hardmode crafting stations + A workbench and heavy workbench");
         }
 

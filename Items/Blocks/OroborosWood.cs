@@ -8,7 +8,6 @@ namespace AAMod.Items.Blocks
     {
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 16;
             item.maxStack = 999;
@@ -27,7 +26,6 @@ namespace AAMod.Items.Blocks
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-
                     line2.overrideColor = new Color(100, 0, 10);
 
                     line2.overrideColor = AAColor.Zero;

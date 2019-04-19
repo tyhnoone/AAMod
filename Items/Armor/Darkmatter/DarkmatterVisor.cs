@@ -7,10 +7,8 @@ namespace AAMod.Items.Armor.Darkmatter
     [AutoloadEquip(EquipType.Head)]
     public class DarkmatterVisor : ModItem
     {
-        
         public override void SetStaticDefaults()
-        { 
-            
+        {
             DisplayName.SetDefault("Darkmatter Visor");
             Tooltip.SetDefault(@"10% increased Ranged damage
 Dark, yet still barely visible");
@@ -42,7 +40,6 @@ Dark, yet still barely visible");
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = @"25% decreased ammo consumption
 20% increased ranged critical chance
 Your ranged ammunition electrocute enemies
@@ -51,6 +48,7 @@ Your ranged ammunition electrocute enemies
             {
                 player.endurance += .08f;
             }
+
             player.ammoCost75 = true;
             player.rangedCrit += 20;
             player.GetModPlayer<AAPlayer>(mod).darkmatterSetRa = true;

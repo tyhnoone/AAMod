@@ -5,10 +5,8 @@ namespace AAMod.Items.Ranged
 {
     public class CrystalBow : ModItem
     {
-
         public override void SetDefaults()
         {
-
             item.damage = 50;
             item.noMelee = true;
             item.ranged = true;
@@ -25,21 +23,20 @@ namespace AAMod.Items.Ranged
             item.UseSound = SoundID.Item5;
             item.autoReuse = true;
             item.shootSpeed = 22f;
-
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Crystal Bow");
-      Tooltip.SetDefault("");
-    }
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Crystal Bow");
+            Tooltip.SetDefault("");
+        }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.PixieDust, 14);   //you need 1 DirtBlock
-			recipe.AddIngredient(ItemID.CrystalShard, 18);
-			recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.PixieDust, 14); //you need 1 DirtBlock
+            recipe.AddIngredient(ItemID.CrystalShard, 18);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

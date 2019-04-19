@@ -5,11 +5,11 @@ namespace AAMod.Items.Usable
 {
     public class KeyOfSmite : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Key of Smite");
-			Tooltip.SetDefault("'Charged with flaming energy'");
-		}
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Key of Smite");
+            Tooltip.SetDefault("'Charged with flaming energy'");
+        }
 
 
         public override void SetDefaults()
@@ -22,6 +22,7 @@ namespace AAMod.Items.Usable
             item.useTime = item.useAnimation = 19;
             item.noMelee = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -29,7 +30,5 @@ namespace AAMod.Items.Usable
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }

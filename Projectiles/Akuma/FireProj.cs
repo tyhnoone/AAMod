@@ -32,16 +32,19 @@ namespace AAMod.Projectiles.Akuma
             {
                 projectile.tileCollide = true;
             }
-            if ((double)projectile.position.Y < Main.worldSurface * 16.0)
+
+            if ((double) projectile.position.Y < Main.worldSurface * 16.0)
             {
                 projectile.tileCollide = true;
             }
+
             projectile.rotation = projectile.velocity.ToRotation() - 1.57079637f;
             Vector2 position = projectile.Center + (Vector2.Normalize(projectile.velocity) * 10f);
             for (int num189 = 0; num189 < 1; num189++)
             {
-                int num190 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 0, default(Color), 1f);
-                
+                int num190 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 0, default(Color), 1f);
+
                 Main.dust[num190].scale *= 1.3f;
                 Main.dust[num190].fadeIn = 1f;
                 Main.dust[num190].noGravity = true;
@@ -50,17 +53,22 @@ namespace AAMod.Projectiles.Akuma
 
         public override void Kill(int timeLeft)
         {
-            for(int num468 = 0; num468 < 20; num468++)
+            for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, 1, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, 1,
+                    mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, default(Color));
                 Main.dust[num469].velocity *= 2f;
             }
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("FireProjBoom"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+
+            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X,
+                projectile.velocity.Y, mod.ProjectileType("FireProjBoom"), projectile.damage, projectile.knockBack,
+                projectile.owner, 0f, 0f);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -71,13 +79,15 @@ namespace AAMod.Projectiles.Akuma
         public override bool PreDraw(SpriteBatch sb, Color lightColor) //this is where the animation happens
         {
             projectile.frameCounter++; //increase the frameCounter by one
-            if (projectile.frameCounter >= 5) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
+            if (projectile.frameCounter >= 5
+            ) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
             {
                 projectile.frame++; //go to the next frame
                 projectile.frameCounter = 0; //reset the counter
                 if (projectile.frame > 3) //if past the last frame
                     projectile.frame = 0; //go back to the first frame
             }
+
             return true;
         }
     }

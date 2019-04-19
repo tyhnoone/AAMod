@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Dusts
 {
     public class JudgementDust : ModDust
-	{
+    {
         public override void OnSpawn(Dust dust)
         {
             dust.velocity.Y = Main.rand.Next(-10, 6) * 0.1f;
@@ -19,6 +19,7 @@ namespace AAMod.Dusts
             {
                 dust.velocity.Y += 0.05f;
             }
+
             if (!dust.noLight)
             {
                 float strength = dust.scale * 1.4f;
@@ -26,8 +27,10 @@ namespace AAMod.Dusts
                 {
                     strength = 1f;
                 }
+
                 Lighting.AddLight(dust.position, 0.0f * strength, 0.3f * strength, 0.4f * strength);
             }
+
             return false;
         }
 

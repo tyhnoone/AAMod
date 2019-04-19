@@ -6,50 +6,49 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Dynaskull
 {
     [AutoloadEquip(EquipType.Head)]
-	public class Dynaskull : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Dynaskull");
-			Tooltip.SetDefault("20% decreased ammo consumption");
+    public class Dynaskull : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Dynaskull");
+            Tooltip.SetDefault("20% decreased ammo consumption");
+        }
 
-		}
+        public override void SetDefaults()
+        {
+            item.width = 30;
+            item.height = 28;
+            item.value = 90000;
+            item.rare = 4;
+            item.defense = 7;
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 30;
-			item.height = 28;
-			item.value = 90000;
-			item.rare = 4;
-			item.defense = 7;
-		}
-		
-		public override void UpdateEquip(Player player)
-		{
-            player.ammoCost80 = true ;
-		}
+        public override void UpdateEquip(Player player)
+        {
+            player.ammoCost80 = true;
+        }
 
-		public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return body.type == mod.ItemType("DynaskullRibguard") && legs.type == mod.ItemType("DynaskullGreaves");
-		}
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == mod.ItemType("DynaskullRibguard") && legs.type == mod.ItemType("DynaskullGreaves");
+        }
 
-		public override void UpdateArmorSet(Player player)
-		{
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus =
+                @"Your ranged projectiles have so much power behind them, they confuse the target due to concussive force";
 
-            player.setBonus = @"Your ranged projectiles have so much power behind them, they confuse the target due to concussive force";
-            
-			player.GetModPlayer<AAPlayer>(mod).DynaskullSet = true;
-		}
+            player.GetModPlayer<AAPlayer>(mod).DynaskullSet = true;
+        }
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.FossilHelm, 1);
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.FossilHelm, 1);
             recipe.AddIngredient(null, "DynaskullOre", 30);
             recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

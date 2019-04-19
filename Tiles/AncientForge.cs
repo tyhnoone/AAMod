@@ -20,7 +20,7 @@ namespace AAMod.Tiles
             dustType = mod.DustType("DoomDust");
             Main.tileLavaDeath[Type] = false;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
+            TileObjectData.newTile.CoordinateHeights = new int[] {16, 18};
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.addTile(Type);
@@ -96,10 +96,12 @@ namespace AAMod.Tiles
                 int width = 16, height = 16;
                 int frameX = (tile != null && tile.active() ? tile.frameX : 0);
                 int frameY = (tile != null && tile.active() ? tile.frameY + (Main.tileFrame[this.Type] * 38) : 0);
-                BaseDrawing.DrawTileTexture(sb, glowTex, x, y, width, height, frameX, frameY, false, false, false, null, GetColor);
+                BaseDrawing.DrawTileTexture(sb, glowTex, x, y, width, height, frameX, frameY, false, false, false, null,
+                    GetColor);
                 for (int m = 0; m < 3; m++)
                 {
-                    BaseDrawing.DrawTileTexture(sb, glowTex, x, y, width, height, frameX, frameY, false, false, false, null, GetColor, new Vector2(Main.rand.Next(-3, 4) * 0.5f, Main.rand.Next(-3, 4) * 0.5f));
+                    BaseDrawing.DrawTileTexture(sb, glowTex, x, y, width, height, frameX, frameY, false, false, false,
+                        null, GetColor, new Vector2(Main.rand.Next(-3, 4) * 0.5f, Main.rand.Next(-3, 4) * 0.5f));
                 }
             }
         }

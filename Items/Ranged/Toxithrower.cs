@@ -4,12 +4,12 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Ranged
 {
     public class Toxithrower : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Toxithrower");
-			Tooltip.SetDefault("Uses gel for ammo");
-		}
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Toxithrower");
+            Tooltip.SetDefault("Uses gel for ammo");
+        }
 
         public override void SetDefaults()
         {

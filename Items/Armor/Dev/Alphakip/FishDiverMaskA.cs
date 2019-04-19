@@ -7,9 +7,9 @@ using Terraria.ID;
 namespace AAMod.Items.Armor.Dev.Alphakip
 {
     [AutoloadEquip(EquipType.Head)]
-	public class FishDiverMaskA : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class FishDiverMaskA : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Fish Diver's Mask");
@@ -17,7 +17,6 @@ namespace AAMod.Items.Armor.Dev.Alphakip
 20% increased Melee/Ranged damage & critical strike chance
 13% increased damage resistance and melee speed
 Allows for underwater breathing");
-
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)

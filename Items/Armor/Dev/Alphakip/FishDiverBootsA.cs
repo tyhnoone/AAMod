@@ -6,11 +6,11 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Dev.Alphakip
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class FishDiverBootsA : ModItem
-	{
-		public override void SetStaticDefaults()
-       
-		{
+    public class FishDiverBootsA : ModItem
+    {
+        public override void SetStaticDefaults()
+
+        {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Fish Diver's Flippers");
             Tooltip.SetDefault(@"Actually flippers now!
@@ -18,7 +18,7 @@ namespace AAMod.Items.Armor.Dev.Alphakip
 13% increased damage resistance and melee speed
 35% increased movement speed
 20% reduced ammo consumption");
-		}
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {

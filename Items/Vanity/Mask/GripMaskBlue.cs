@@ -3,13 +3,13 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Vanity.Mask
 {
     [AutoloadEquip(EquipType.Head)]
-	public class GripMaskBlue : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class GripMaskBlue : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Mire Grip of Chaos Mask");
-		}
+        }
 
         public override void SetDefaults()
         {

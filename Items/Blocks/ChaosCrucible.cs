@@ -9,10 +9,8 @@ namespace AAMod.Items.Blocks
 {
     public class ChaosCrucible : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Chaos Crucible");
             Tooltip.SetDefault(@"Even chaos requires a steady hand and a gigantic forge to work with
 also acts as all vanilla crafting stations");
@@ -35,7 +33,8 @@ also acts as all vanilla crafting stations");
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "Bloc_Glow");
             spriteBatch.Draw

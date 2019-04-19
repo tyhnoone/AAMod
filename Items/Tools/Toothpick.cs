@@ -7,7 +7,6 @@ namespace AAMod.Items.Tools
     {
         public override void SetDefaults()
         {
-
             item.damage = 8;
             item.melee = true;
             item.width = 38;
@@ -29,13 +28,13 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Toothpick");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Bone, 12);
             recipe.AddRecipeGroup("AAMod:Gold", 8);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);  
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }

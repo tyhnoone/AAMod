@@ -24,8 +24,7 @@ namespace AAMod.Items.Accessories
         {
             DisplayName.SetDefault("Ornate Band");
             Tooltip.SetDefault(
-@"5% Increased damage resistance");
+                @"5% Increased damage resistance");
         }
-
     }
 }

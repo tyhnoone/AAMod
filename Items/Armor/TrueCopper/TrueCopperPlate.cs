@@ -8,26 +8,27 @@ using Terraria.ID;
 namespace AAMod.Items.Armor.TrueCopper
 {
     [AutoloadEquip(EquipType.Body)]
-	public class TrueCopperPlate : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			DisplayName.SetDefault("True Copper Chainmail");
-			Tooltip.SetDefault(@"10% increased damage
+    public class TrueCopperPlate : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("True Copper Chainmail");
+            Tooltip.SetDefault(@"10% increased damage
 100 increased maximum mana
 'And you thought copper was worthless.'");
-		}
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 30;
-			item.height = 20;
-			item.value = 300000;
-			item.defense = 12;
-		}
+        public override void SetDefaults()
+        {
+            item.width = 30;
+            item.height = 20;
+            item.value = 300000;
+            item.defense = 12;
+        }
 
-        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             Texture2D texture2 = Main.itemTexture[item.type];
@@ -36,10 +37,12 @@ namespace AAMod.Items.Armor.TrueCopper
             {
                 spriteBatch.Draw(texture, position, null, Main.DiscoColor, 0, origin, scale, SpriteEffects.None, 0f);
             }
+
             return false;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -70,14 +73,14 @@ namespace AAMod.Items.Armor.TrueCopper
             player.statManaMax2 += 200;
         }
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.CopperChainmail);
-			recipe.AddIngredient(null, "Crystal", 1);
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.CopperChainmail);
+            recipe.AddIngredient(null, "Crystal", 1);
             recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

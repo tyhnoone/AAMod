@@ -5,14 +5,13 @@ using System.Collections.Generic;
 namespace AAMod.Items.Vanity.Beg
 {
     [AutoloadEquip(EquipType.Head)]
-	public class PonyMask : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class PonyMask : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Weird Horse Mask");
             Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Devs!'");
-
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -33,5 +32,5 @@ namespace AAMod.Items.Vanity.Beg
             item.rare = 9;
             item.vanity = true;
         }
-	}
+    }
 }

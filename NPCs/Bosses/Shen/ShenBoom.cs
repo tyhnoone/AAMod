@@ -8,8 +8,8 @@ namespace AAMod.NPCs.Bosses.Shen
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Discordian Strike");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 5;     //The recording mode
+            DisplayName.SetDefault("Discordian Strike"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 5; //The recording mode
         }
 
         public override void SetDefaults()
@@ -32,12 +32,11 @@ namespace AAMod.NPCs.Bosses.Shen
                 if (++projectile.frame >= 5)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -54,7 +53,5 @@ namespace AAMod.NPCs.Bosses.Shen
         {
             return Color.White;
         }
-
-
     }
 }

@@ -9,11 +9,11 @@ namespace AAMod.Tiles
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
-			Main.tileMergeDirt[Type] = false;
+            Main.tileMergeDirt[Type] = false;
             Main.tileBlockLight[Type] = false;
-            drop = mod.ItemType("RottedShingles");   //put your CustomBlock name
+            drop = mod.ItemType("RottedShingles"); //put your CustomBlock name
             AddMapEntry(new Color(0, 0, 50));
-			minPick = 0;
+            minPick = 0;
         }
     }
 }

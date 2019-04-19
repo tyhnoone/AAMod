@@ -16,14 +16,14 @@ namespace AAMod.Tiles
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
             TileObjectData.newTile.Height = 3;
             TileObjectData.newTile.Origin = new Point16(1, 2);
-            TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 18 };
+            TileObjectData.newTile.CoordinateHeights = new[] {16, 16, 18};
             TileObjectData.addTile(Type);
             AddMapEntry(new Color(75, 139, 166));
             dustType = 1;
             animationFrameHeight = 56;
             disableSmartCursor = true;
             dustType = mod.DustType<Dusts.YamataADust>();
-            adjTiles = new int[] { TileID.LunarMonolith };
+            adjTiles = new int[] {TileID.LunarMonolith};
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
@@ -58,19 +58,28 @@ namespace AAMod.Tiles
             {
                 texture = Main.tileTexture[Type];
             }
+
             Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
             if (Main.drawToScreen)
             {
                 zero = Vector2.Zero;
             }
+
             int height = tile.frameY == 36 ? 18 : 16;
             int animate = 0;
             if (tile.frameY >= 56)
             {
                 animate = Main.tileFrame[Type] * animationFrameHeight;
             }
-            Main.spriteBatch.Draw(texture, new Vector2((i * 16) - (int)Main.screenPosition.X, (j * 16) - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY + animate, 16, height), Lighting.GetColor(i, j), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
-            Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/MoonAltarA_Glow"), new Vector2((i * 16) - (int)Main.screenPosition.X, (j * 16) - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY + animate, 16, height), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+            Main.spriteBatch.Draw(texture,
+                new Vector2((i * 16) - (int) Main.screenPosition.X, (j * 16) - (int) Main.screenPosition.Y) + zero,
+                new Rectangle(tile.frameX, tile.frameY + animate, 16, height), Lighting.GetColor(i, j), 0f,
+                default(Vector2), 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/MoonAltarA_Glow"),
+                new Vector2((i * 16) - (int) Main.screenPosition.X, (j * 16) - (int) Main.screenPosition.Y) + zero,
+                new Rectangle(tile.frameX, tile.frameY + animate, 16, height), Color.White, 0f, Vector2.Zero, 1f,
+                SpriteEffects.None, 0f);
             return false;
         }
 
@@ -100,6 +109,7 @@ namespace AAMod.Tiles
                     {
                         Main.tile[l, m] = new Tile();
                     }
+
                     if (Main.tile[l, m].active() && Main.tile[l, m].type == Type)
                     {
                         if (Main.tile[l, m].frameY < 56)
@@ -113,6 +123,7 @@ namespace AAMod.Tiles
                     }
                 }
             }
+
             if (Wiring.running)
             {
                 Wiring.SkipWire(x, y);
@@ -122,6 +133,7 @@ namespace AAMod.Tiles
                 Wiring.SkipWire(x + 1, y + 1);
                 Wiring.SkipWire(x + 1, y + 2);
             }
+
             NetMessage.SendTileSquare(-1, x, y + 1, 3);
         }
     }

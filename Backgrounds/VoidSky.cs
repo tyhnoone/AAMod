@@ -6,6 +6,7 @@ using Terraria.Graphics;
 using Terraria.Graphics.Effects;
 using Terraria.Utilities;
 using BaseMod;
+
 //using AAMod.NPCs.Bosses.Infinity;
 
 namespace AAMod.Backgrounds
@@ -52,7 +53,7 @@ namespace AAMod.Backgrounds
             LB = TextureManager.Load("Backgrounds/LB");
             boltTexture = TextureManager.Load("Backgrounds/VoidBolt");
             flashTexture = TextureManager.Load("Backgrounds/VoidFlash");
-            Stars =  TextureManager.Load("Backgrounds/Void_Starfield");
+            Stars = TextureManager.Load("Backgrounds/Void_Starfield");
         }
 
         public override void Update(GameTime gameTime)
@@ -71,6 +72,7 @@ namespace AAMod.Backgrounds
             {
                 Intensity = Math.Max(0f, Intensity - 0.01f);
             }
+
             if (NPC.downedMoonlord) //NPC.downedMoonlord)
             {
                 if (ticksUntilNextBolt <= 0)
@@ -81,12 +83,14 @@ namespace AAMod.Backgrounds
                     {
                         num++;
                     }
+
                     bolts[num].IsAlive = true;
-                    bolts[num].Position.X = random.NextFloat() * ((float)Main.maxTilesX * 16f + 4000f) - 2000f;
+                    bolts[num].Position.X = random.NextFloat() * ((float) Main.maxTilesX * 16f + 4000f) - 2000f;
                     bolts[num].Position.Y = random.NextFloat() * 500f;
                     bolts[num].Depth = random.NextFloat() * 8f + 2f;
                     bolts[num].Life = 30;
                 }
+
                 ticksUntilNextBolt--;
                 for (int i = 0; i < bolts.Length; i++)
                 {
@@ -102,7 +106,6 @@ namespace AAMod.Backgrounds
                     }
                 }
             }
-            
         }
 
         public override Color OnTileColor(Color inColor)
@@ -110,6 +113,7 @@ namespace AAMod.Backgrounds
             Vector4 value = inColor.ToVector4();
             return new Color(Vector4.Lerp(value, Vector4.One, Intensity * 0.5f));
         }
+
         public float asteroidPercent1 = 0f;
         public float asteroidPercent2 = 0f;
         public float asteroidPercent3 = 0f;
@@ -119,6 +123,7 @@ namespace AAMod.Backgrounds
 
 
         public Color infinityGlowRed = new Color(233, 53, 53);
+
         public Color GetGlowAlpha(bool aura)
         {
             return (aura ? infinityGlowRed : Color.White) * (Main.mouseTextColor / 255f);
@@ -126,12 +131,12 @@ namespace AAMod.Backgrounds
 
         public Color GetAlpha(Color newColor, float alph)
         {
-            int alpha = 255 - (int)(255 * alph);
-            float alphaDiff = (float)(255 - alpha) / 255f;
-            int newR = (int)((float)newColor.R * alphaDiff);
-            int newG = (int)((float)newColor.G * alphaDiff);
-            int newB = (int)((float)newColor.B * alphaDiff);
-            int newA = (int)newColor.A - alpha;
+            int alpha = 255 - (int) (255 * alph);
+            float alphaDiff = (float) (255 - alpha) / 255f;
+            int newR = (int) ((float) newColor.R * alphaDiff);
+            int newG = (int) ((float) newColor.G * alphaDiff);
+            int newB = (int) ((float) newColor.B * alphaDiff);
+            int newA = (int) newColor.A - alpha;
             if (newA < 0) newA = 0;
             if (newA > 255) newA = 255;
             return new Color(newR, newG, newB, newA);
@@ -139,7 +144,6 @@ namespace AAMod.Backgrounds
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-
             if (maxDepth >= 3.40282347E+38f && minDepth < 3.40282347E+38f)
             {
                 var planetPos = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
@@ -150,41 +154,55 @@ namespace AAMod.Backgrounds
                 asteroidPercent1 += 0.004f;
                 asteroidPercent2 += 0.005f;
                 asteroidPercent3 += 0.006f;
-				if(asteroidPercent1 > (float)Math.PI) asteroidPercent1 = 0f;
-				if(asteroidPercent2 > (float)Math.PI) asteroidPercent2 = 0f;
-				if(asteroidPercent3 > (float)Math.PI) asteroidPercent3 = 0f;
+                if (asteroidPercent1 > (float) Math.PI) asteroidPercent1 = 0f;
+                if (asteroidPercent2 > (float) Math.PI) asteroidPercent2 = 0f;
+                if (asteroidPercent3 > (float) Math.PI) asteroidPercent3 = 0f;
                 Rotation -= .0008f;
                 LBRotation += .0005f;
-                Asteroidpos1.Y += (float)Math.Sin(asteroidPercent1) * 16f;
-                Asteroidpos2.Y += (float)Math.Sin(asteroidPercent2) * -30f;
-                Asteroidpos3.Y += (float)Math.Sin(asteroidPercent3) * 20f;
+                Asteroidpos1.Y += (float) Math.Sin(asteroidPercent1) * 16f;
+                Asteroidpos2.Y += (float) Math.Sin(asteroidPercent2) * -30f;
+                Asteroidpos3.Y += (float) Math.Sin(asteroidPercent3) * 20f;
                 if (!AAWorld.downedZero)
                 {
-                    spriteBatch.Draw(Stars, planetPos, null, Color.White, 0, new Vector2(Stars.Width >> 1, Stars.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    spriteBatch.Draw(Stars, planetPos, null, Color.White, 0,
+                        new Vector2(Stars.Width >> 1, Stars.Height >> 1), 1f, SpriteEffects.None, 1f);
                 }
                 else
                 {
                     Color VortexColor = GetAlpha(Color.White, Alpha);
-                    spriteBatch.Draw(SkyTexture, planetPos, null, Color.Black, 0, new Vector2(SkyTexture.Width >> 1, SkyTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
-                    spriteBatch.Draw(PlanetTexture, planetPos, null, Color.White * 0.9f * Intensity, Rotation, new Vector2(PlanetTexture.Width >> 1, PlanetTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
-                    float lightningIntensity = BaseUtility.MultiLerp(((float)Main.player[Main.myPlayer].miscCounter % 100f) / 100f, 0.2f, 0.8f, 0.2f);
-                    spriteBatch.Draw(LB, planetPos, null, Color.White * 0.9f * Intensity * lightningIntensity, LBRotation, new Vector2(LB.Width >> 1, LB.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    spriteBatch.Draw(SkyTexture, planetPos, null, Color.Black, 0,
+                        new Vector2(SkyTexture.Width >> 1, SkyTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    spriteBatch.Draw(PlanetTexture, planetPos, null, Color.White * 0.9f * Intensity, Rotation,
+                        new Vector2(PlanetTexture.Width >> 1, PlanetTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    float lightningIntensity =
+                        BaseUtility.MultiLerp(((float) Main.player[Main.myPlayer].miscCounter % 100f) / 100f, 0.2f,
+                            0.8f, 0.2f);
+                    spriteBatch.Draw(LB, planetPos, null, Color.White * 0.9f * Intensity * lightningIntensity,
+                        LBRotation, new Vector2(LB.Width >> 1, LB.Height >> 1), 1f, SpriteEffects.None, 1f);
                     if (AAWorld.downedZero)
                     {
                         if (!AAWorld.downedIZ)
                         {
-                            spriteBatch.Draw(Echo, echoPos, null, GetGlowAlpha(true), 0f, new Vector2(Echo.Width >> 1, Echo.Height >> 1), AAWorld.downedAllAncients ? 0.4f : .3f, SpriteEffects.None, 1f);
+                            spriteBatch.Draw(Echo, echoPos, null, GetGlowAlpha(true), 0f,
+                                new Vector2(Echo.Width >> 1, Echo.Height >> 1), AAWorld.downedAllAncients ? 0.4f : .3f,
+                                SpriteEffects.None, 1f);
                         }
                     }
                 }
-				Color astroGlow = Color.White * MathHelper.Lerp(0.7f, 1f, (float)(Main.mouseTextColor / 255f));
-				astroGlow.A = (byte)(255f * Intensity);
-                spriteBatch.Draw(Asteroids1, Asteroidpos1, null, NPC.downedMoonlord ? astroGlow : Color.White, 0f, new Vector2(Asteroids1.Width >> 1, Asteroids1.Height >> 1), 1f, SpriteEffects.None, 1f);
-                spriteBatch.Draw(Asteroids2, Asteroidpos2, null, NPC.downedMoonlord ? astroGlow : Color.White, 0f, new Vector2(Asteroids2.Width >> 1, Asteroids2.Height >> 1), 1f, SpriteEffects.None, 1f);
-                spriteBatch.Draw(Asteroids3, Asteroidpos3, null, NPC.downedMoonlord ? astroGlow : Color.White, 0f, new Vector2(Asteroids3.Width >> 1, Asteroids3.Height >> 1), 1f, SpriteEffects.None, 1f);
+
+                Color astroGlow = Color.White * MathHelper.Lerp(0.7f, 1f, (float) (Main.mouseTextColor / 255f));
+                astroGlow.A = (byte) (255f * Intensity);
+                spriteBatch.Draw(Asteroids1, Asteroidpos1, null, NPC.downedMoonlord ? astroGlow : Color.White, 0f,
+                    new Vector2(Asteroids1.Width >> 1, Asteroids1.Height >> 1), 1f, SpriteEffects.None, 1f);
+                spriteBatch.Draw(Asteroids2, Asteroidpos2, null, NPC.downedMoonlord ? astroGlow : Color.White, 0f,
+                    new Vector2(Asteroids2.Width >> 1, Asteroids2.Height >> 1), 1f, SpriteEffects.None, 1f);
+                spriteBatch.Draw(Asteroids3, Asteroidpos3, null, NPC.downedMoonlord ? astroGlow : Color.White, 0f,
+                    new Vector2(Asteroids3.Width >> 1, Asteroids3.Height >> 1), 1f, SpriteEffects.None, 1f);
             }
+
             float scale = Math.Min(1f, (Main.screenPosition.Y - 1000f) / 1000f);
-            Vector2 value3 = Main.screenPosition + new Vector2((float)(Main.screenWidth >> 1), (float)(Main.screenHeight >> 1));
+            Vector2 value3 = Main.screenPosition +
+                             new Vector2((float) (Main.screenWidth >> 1), (float) (Main.screenHeight >> 1));
             Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
             for (int i = 0; i < bolts.Length; i++)
             {
@@ -192,7 +210,7 @@ namespace AAMod.Backgrounds
                 {
                     Vector2 value4 = new Vector2(1f / bolts[i].Depth, 0.9f / bolts[i].Depth);
                     Vector2 position = (bolts[i].Position - value3) * value4 + value3 - Main.screenPosition;
-                    if (rectangle.Contains((int)position.X, (int)position.Y))
+                    if (rectangle.Contains((int) position.X, (int) position.Y))
                     {
                         Texture2D texture = boltTexture;
                         int life = bolts[i].Life;
@@ -200,8 +218,10 @@ namespace AAMod.Backgrounds
                         {
                             texture = flashTexture;
                         }
-                        float scale2 = (float)life / 30f;
-                        spriteBatch.Draw(texture, position, null, Color.White * scale * scale2 * Intensity, 0f, Vector2.Zero, value4.X * 5f, SpriteEffects.None, 0f);
+
+                        float scale2 = (float) life / 30f;
+                        spriteBatch.Draw(texture, position, null, Color.White * scale * scale2 * Intensity, 0f,
+                            Vector2.Zero, value4.X * 5f, SpriteEffects.None, 0f);
                     }
                 }
             }

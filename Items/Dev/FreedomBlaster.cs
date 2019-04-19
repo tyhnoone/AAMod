@@ -21,7 +21,6 @@ namespace AAMod.Items.Dev
 
         public override void SetDefaults()
         {
-            
         }
     }
 }

@@ -11,7 +11,6 @@ namespace AAMod.Items.BossSummons
 {
     public class IntimidatingMushroom : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Intimidating Looking Mushroom");
@@ -35,7 +34,7 @@ Can only be used during the day in a red mushroom biome");
         public override bool UseItem(Player player)
         {
             SpawnBoss(player, "MushroomMonarch", "The Mushroom Monarch");
-            Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+            Main.PlaySound(15, (int) player.position.X, (int) player.position.Y, 0);
             return true;
         }
 
@@ -43,14 +42,19 @@ Can only be used during the day in a red mushroom biome");
         {
             if (!Main.dayTime)
             {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The mushroom just glares at you and gives you chills just looking at it.", new Color(216, 110, 40), false);
+                if (player.whoAmI == Main.myPlayer)
+                    BaseUtility.Chat("The mushroom just glares at you and gives you chills just looking at it.",
+                        new Color(216, 110, 40), false);
                 return false;
             }
+
             if (NPC.AnyNPCs(mod.NPCType<MushroomMonarch>()))
             {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The mushroom Monarch keeps trying to stomp you", new Color(216, 110, 40), false);
+                if (player.whoAmI == Main.myPlayer)
+                    BaseUtility.Chat("The mushroom Monarch keeps trying to stomp you", new Color(216, 110, 40), false);
                 return false;
             }
+
             return true;
         }
 
@@ -59,14 +63,24 @@ Can only be used during the day in a red mushroom biome");
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 1600f);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(-100f, 100f, (float) Main.rand.NextDouble()),
+                                             1600f);
                 Main.npc[npcID].netUpdate2 = true;
-                string npcName = (!string.IsNullOrEmpty(Main.npc[npcID].GivenName) ? Main.npc[npcID].GivenName : displayName);
-                if (Main.netMode == 0) { Main.NewText(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
-                else
-                if (Main.netMode == 2)
+                string npcName = (!string.IsNullOrEmpty(Main.npc[npcID].GivenName)
+                    ? Main.npc[npcID].GivenName
+                    : displayName);
+                if (Main.netMode == 0)
+                {
+                    Main.NewText(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false);
+                }
+                else if (Main.netMode == 2)
                 {
                     NetMessage.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", new object[]
                     {
@@ -75,10 +89,18 @@ Can only be used during the day in a red mushroom biome");
                 }
             }
         }
-        
 
-        public override void UseStyle(Player p) { BaseMod.BaseUseStyle.SetStyleBoss(p, item, true, true); }
-        public override bool UseItemFrame(Player p) { BaseMod.BaseUseStyle.SetFrameBoss(p, item); return true; }
+
+        public override void UseStyle(Player p)
+        {
+            BaseMod.BaseUseStyle.SetStyleBoss(p, item, true, true);
+        }
+
+        public override bool UseItemFrame(Player p)
+        {
+            BaseMod.BaseUseStyle.SetFrameBoss(p, item);
+            return true;
+        }
 
         public override void AddRecipes()
         {

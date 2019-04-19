@@ -28,7 +28,7 @@ namespace AAMod.Items.Blocks
         }
 
         public override void AddRecipes()
-        { 
+        {
             {
                 ModRecipe recipe = new ModRecipe(mod);
                 recipe.AddIngredient(ItemID.HallowedBar, 10);

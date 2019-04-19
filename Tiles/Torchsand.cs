@@ -16,7 +16,7 @@ namespace AAMod.Tiles
             Main.tileBlockLight[Type] = true;
             Main.tileBlendAll[this.Type] = true;
             dustType = mod.DustType("RazewoodDust");
-            drop = mod.ItemType("Torchsand");   //put your CustomBlock name
+            drop = mod.ItemType("Torchsand"); //put your CustomBlock name
             AddMapEntry(new Color(50, 35, 22));
         }
 

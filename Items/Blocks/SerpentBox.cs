@@ -8,29 +8,30 @@ using Terraria.ID;
 namespace AAMod.Items.Blocks
 {
     public class SerpentBox : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Subzero Serpent Music Box");
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Subzero Serpent Music Box");
             Tooltip.SetDefault(@"Plays 'Burrowing Down' by Charlie Debnam");
         }
-        
+
 
         public override void SetDefaults()
-		{
-			item.useStyle = 1;
-			item.useTurn = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.autoReuse = true;
-			item.consumable = true;
-			item.createTile = mod.TileType("SerpentBox");
-			item.width = 24;
-			item.height = 24;
-			item.rare = 3;
-			item.value = 10000;
-			item.accessory = true;
-		}
+        {
+            item.useStyle = 1;
+            item.useTurn = true;
+            item.useAnimation = 15;
+            item.useTime = 10;
+            item.autoReuse = true;
+            item.consumable = true;
+            item.createTile = mod.TileType("SerpentBox");
+            item.width = 24;
+            item.height = 24;
+            item.rare = 3;
+            item.value = 10000;
+            item.accessory = true;
+        }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

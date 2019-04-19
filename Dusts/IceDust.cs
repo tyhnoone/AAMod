@@ -5,12 +5,13 @@ using Terraria.ModLoader;
 namespace AAMod.Dusts
 {
     public class IceDust : ModDust
-	{
+    {
         public override bool Update(Dust dust)
         {
             dust.alpha = 50;
             return true;
         }
+
         public override bool MidUpdate(Dust dust)
         {
             dust.rotation += dust.velocity.X / 3f;
@@ -19,8 +20,8 @@ namespace AAMod.Dusts
                 dust.scale *= 0.9f;
                 dust.velocity *= 0.10f;
             }
+
             return false;
         }
-        
     }
 }

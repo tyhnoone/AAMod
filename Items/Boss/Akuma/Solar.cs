@@ -9,8 +9,6 @@ namespace AAMod.Items.Boss.Akuma
 {
     public class Solar : ModItem
     {
-
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Solar");
@@ -21,7 +19,7 @@ Inflicts daybreak");
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.Terrarian);
-            item.damage = 250;                            
+            item.damage = 250;
             item.value = Item.buyPrice(1, 0, 0, 0);
             item.rare = 2;
             item.knockBack = 1;
@@ -29,10 +27,11 @@ Inflicts daybreak");
             item.useStyle = 5;
             item.useAnimation = 15;
             item.useTime = 15;
-            item.shoot = mod.ProjectileType("Solar");  
-		}
+            item.shoot = mod.ProjectileType("Solar");
+        }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -64,7 +63,7 @@ Inflicts daybreak");
             }
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DaybreakIncinerite", 5);
@@ -74,6 +73,5 @@ Inflicts daybreak");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
 }

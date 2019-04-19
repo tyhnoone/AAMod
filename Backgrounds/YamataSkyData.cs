@@ -19,6 +19,7 @@ namespace AAMod.Backgrounds
             {
                 return;
             }
+
             YamataIndex = -1;
             for (int i = 0; i < Main.npc.Length; i++)
             {
@@ -37,6 +38,7 @@ namespace AAMod.Backgrounds
             {
                 UseTargetPosition(Main.npc[YamataIndex].Center);
             }
+
             base.Apply();
         }
     }

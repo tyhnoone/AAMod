@@ -3,12 +3,10 @@ using Terraria.ModLoader;
 
 namespace AAMod.Projectiles.Tools
 {
-
     public class DarkmatterJackhammerPro : ModProjectile
     {
         public override void SetDefaults()
         {
-
             projectile.width = 22;
             projectile.height = 52;
             projectile.aiStyle = 20;

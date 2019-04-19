@@ -3,10 +3,10 @@ using Terraria.ModLoader;
 namespace AAMod.Dusts
 {
     public class OrderSolution : ModDust
-	{
-		public override void SetDefaults()
-		{
-			updateType = 110;
-		}
-	}
+    {
+        public override void SetDefaults()
+        {
+            updateType = 110;
+        }
+    }
 }

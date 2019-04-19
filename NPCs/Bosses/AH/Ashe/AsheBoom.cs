@@ -8,8 +8,8 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dayfire");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 7;     //The recording mode
+            DisplayName.SetDefault("Dayfire"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 7; //The recording mode
         }
 
         public override void SetDefaults()
@@ -37,12 +37,11 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                 if (++projectile.frame >= 6)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -54,6 +53,5 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
         {
             projectile.timeLeft = 0;
         }
-
     }
 }

@@ -32,11 +32,12 @@ Increases maximum mana by 100
         {
             return body.type == mod.ItemType("TrueHallowedPlate") && legs.type == mod.ItemType("TrueHallowedGreaves");
         }
-        
+
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = @"20% Chance not to Consume Ammo, reduced mana usage, increased melee, and movement speed";
+            player.setBonus =
+                @"20% Chance not to Consume Ammo, reduced mana usage, increased melee, and movement speed";
 
             player.meleeSpeed *= 1.2f;
             player.ammoCost80 = true;
@@ -64,13 +65,15 @@ Increases maximum mana by 100
             recipe.AddRecipe();
         }
 
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D Glow = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw(Glow, position, null, AAColor.Hallow, 0, origin, scale, SpriteEffects.None, 0f);
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

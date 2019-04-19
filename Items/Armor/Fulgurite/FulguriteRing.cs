@@ -8,7 +8,6 @@ namespace AAMod.Items.Armor.Fulgurite
 {
     public class FulguriteRing : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[projectile.type] = 4;
@@ -50,14 +49,13 @@ namespace AAMod.Items.Armor.Fulgurite
                 }
             }
         }
-        
+
 
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(SoundID.Item94, projectile.position);
         }
 
-        
 
         public override bool PreDraw(SpriteBatch sb, Color lightColor)
         {
@@ -71,6 +69,7 @@ namespace AAMod.Items.Armor.Fulgurite
                     projectile.frame = 0;
                 }
             }
+
             return true;
         }
     }

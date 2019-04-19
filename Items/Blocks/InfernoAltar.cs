@@ -1,4 +1,6 @@
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 
@@ -6,10 +8,8 @@ namespace AAMod.Items.Blocks
 {
     public class InfernoAltar : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Dragon Altar");
         }
 
@@ -31,7 +31,8 @@ namespace AAMod.Items.Blocks
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -63,4 +64,3 @@ namespace AAMod.Items.Blocks
         }
     }
 }
-

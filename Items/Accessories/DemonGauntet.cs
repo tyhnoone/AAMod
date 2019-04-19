@@ -7,21 +7,18 @@ using Terraria.ID;
 
 namespace AAMod.Items.Accessories
 {
-
     [AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
     public class DemonGauntlet : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Demon Gauntlet");
             Tooltip.SetDefault(
-@"Enemies are more likely to target you
+                @"Enemies are more likely to target you
 14% Increased Melee Damage and Speed
 Increased Melee Knockback
 Melee Attacks Inflict a different debuff depending on your world evil
 Inflicts Ichor in Crimson Worlds/Cursed Flame in Corruption worlds");
-            
         }
 
         public override void SetDefaults()
@@ -32,7 +29,6 @@ Inflicts Ichor in Crimson Worlds/Cursed Flame in Corruption worlds");
             item.rare = 7;
             item.accessory = true;
             item.defense = 8;
-            
         }
 
         public override void UpdateEquip(Player player)
@@ -42,7 +38,8 @@ Inflicts Ichor in Crimson Worlds/Cursed Flame in Corruption worlds");
             player.aggro += 5;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
 
@@ -51,6 +48,7 @@ Inflicts Ichor in Crimson Worlds/Cursed Flame in Corruption worlds");
             {
                 GlowColor = AAColor.Ichor;
             }
+
             spriteBatch.Draw
             (
                 texture,
@@ -69,7 +67,8 @@ Inflicts Ichor in Crimson Worlds/Cursed Flame in Corruption worlds");
             );
         }
 
-        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D texture = Main.itemTexture[item.type];
 
@@ -80,11 +79,13 @@ Inflicts Ichor in Crimson Worlds/Cursed Flame in Corruption worlds");
             {
                 GlowColor = AAColor.Ichor;
             }
+
             for (int i = 0; i < 4; i++)
             {
                 spriteBatch.Draw(texture, position, null, drawColor, 0, origin, scale, SpriteEffects.None, 0f);
                 spriteBatch.Draw(texture, position, null, GlowColor, 0, origin, scale, SpriteEffects.None, 0f);
             }
+
             return true;
         }
 
@@ -116,6 +117,5 @@ Inflicts Ichor in Crimson Worlds/Cursed Flame in Corruption worlds");
                 recipe.AddRecipe();
             }
         }
-
     }
 }

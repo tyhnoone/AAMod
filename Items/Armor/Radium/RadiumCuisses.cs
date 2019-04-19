@@ -6,32 +6,31 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Radium
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class RadiumCuisses : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Radium Cuisses");
-			Tooltip.SetDefault(@"30% increased movement speed
+    public class RadiumCuisses : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Radium Cuisses");
+            Tooltip.SetDefault(@"30% increased movement speed
 Shines with the light of a starry night sky");
+        }
 
-		}
+        public override void SetDefaults()
+        {
+            item.width = 22;
+            item.height = 18;
+            item.value = 300000;
+            item.rare = 11;
+            item.defense = 20;
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 22;
-			item.height = 18;
-			item.value = 300000;
-			item.rare = 11;
-			item.defense = 20;
-		}
-
-		public override void UpdateEquip(Player player)
-		{
-			player.moveSpeed += 0.3f;
+        public override void UpdateEquip(Player player)
+        {
+            player.moveSpeed += 0.3f;
             player.AddBuff(BuffID.Shine, 2);
         }
 
-		public override void AddRecipes()
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "RadiumBar", 27);
@@ -40,5 +39,5 @@ Shines with the light of a starry night sky");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

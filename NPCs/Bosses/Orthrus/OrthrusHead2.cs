@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 namespace AAMod.NPCs.Bosses.Orthrus
 {
     [AutoloadBossHead]

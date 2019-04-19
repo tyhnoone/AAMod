@@ -11,7 +11,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[projectile.type] = 4;      //The recording mode
+            Main.projFrames[projectile.type] = 4; //The recording mode
         }
 
         public override void SetDefaults()
@@ -27,7 +27,6 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             projectile.timeLeft = 100;
             projectile.magic = true;
             projectile.ignoreWater = true;
-            
         }
 
         public override void AI()
@@ -42,39 +41,48 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     projectile.frame = 0;
                 }
             }
+
             if (projectile.velocity.X < 0f)
             {
                 projectile.spriteDirection = -1;
-                projectile.rotation = (float)Math.Atan2((double)(-(double)projectile.velocity.Y), (double)(-(double)projectile.velocity.X));
+                projectile.rotation = (float) Math.Atan2((double) (-(double) projectile.velocity.Y),
+                    (double) (-(double) projectile.velocity.X));
             }
             else
             {
                 projectile.spriteDirection = 1;
-                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);
+                projectile.rotation =
+                    (float) Math.Atan2((double) projectile.velocity.Y, (double) projectile.velocity.X);
             }
 
-            int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, mod.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
+            int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width,
+                projectile.height + 5, mod.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
                 projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
             Main.dust[dustId].noGravity = true;
-            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, mod.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
+            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width,
+                projectile.height + 5, mod.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
                 projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
             Main.dust[dustId3].noGravity = true;
         }
 
         public override void Kill(int timeleft)
         {
-            Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 20);
+            Main.PlaySound(2, (int) projectile.position.X, (int) projectile.position.Y, 20);
             for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188));
                 Main.dust[num469].velocity *= 2f;
             }
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("FlareA"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+
+            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("FlareA"),
+                projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
         }
     }
 }

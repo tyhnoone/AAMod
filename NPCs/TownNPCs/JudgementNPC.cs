@@ -9,13 +9,12 @@ namespace AAMod.NPCs.TownNPCs
 {
     public class JudgementNPC : ModProjectile
     {
-    	
-    	public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Judgement");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Judgement");
             Main.projFrames[projectile.type] = 4;
-		}
-    	
+        }
+
         public override void SetDefaults()
         {
             projectile.width = 10;
@@ -38,21 +37,30 @@ namespace AAMod.NPCs.TownNPCs
             {
                 projectile.tileCollide = true;
             }
-            if ((double)projectile.position.Y < Main.worldSurface * 16.0)
+
+            if ((double) projectile.position.Y < Main.worldSurface * 16.0)
             {
                 projectile.tileCollide = true;
             }
+
             projectile.rotation = projectile.velocity.ToRotation() - 1.57079637f;
             Vector2 position = projectile.Center + (Vector2.Normalize(projectile.velocity) * 10f);
-            Dust dust20 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.JudgementDust>(), 0f, 0f, 0, default(Color), 1f)];
+            Dust dust20 =
+                Main.dust[
+                    Dust.NewDust(projectile.position, projectile.width, projectile.height,
+                        mod.DustType<Dusts.JudgementDust>(), 0f, 0f, 0, default(Color), 1f)];
             dust20.position = position;
-            dust20.velocity = (projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * 0.33f) + (projectile.velocity / 4f);
+            dust20.velocity = (projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * 0.33f) +
+                              (projectile.velocity / 4f);
             dust20.position += projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2));
             dust20.fadeIn = 0.5f;
             dust20.noGravity = true;
-            dust20 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.JudgementDust>(), 0f, 0f, 0, default(Color), 1f)];
+            dust20 = Main.dust[
+                Dust.NewDust(projectile.position, projectile.width, projectile.height,
+                    mod.DustType<Dusts.JudgementDust>(), 0f, 0f, 0, default(Color), 1f)];
             dust20.position = position;
-            dust20.velocity = (projectile.velocity.RotatedBy(-1.5707963705062866, default(Vector2)) * 0.33f) + (projectile.velocity / 4f);
+            dust20.velocity = (projectile.velocity.RotatedBy(-1.5707963705062866, default(Vector2)) * 0.33f) +
+                              (projectile.velocity / 4f);
             dust20.position += projectile.velocity.RotatedBy(-1.5707963705062866, default(Vector2));
             dust20.fadeIn = 0.5f;
             dust20.noGravity = true;
@@ -65,11 +73,13 @@ namespace AAMod.NPCs.TownNPCs
             double deltaAngle = spread / 8f;
             for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.JudgementDust>(), -projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.JudgementDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 0, default(Color), 1f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.JudgementDust>(), -projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.JudgementDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 0, default(Color), 1f);
                 Main.dust[num469].velocity *= 2f;
             }
@@ -85,6 +95,7 @@ namespace AAMod.NPCs.TownNPCs
                 if (projectile.frame > 3)
                     projectile.frame = 0;
             }
+
             return true;
         }
     }

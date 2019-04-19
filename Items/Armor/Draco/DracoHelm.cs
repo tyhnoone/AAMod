@@ -9,26 +9,26 @@ using System.Collections.Generic;
 namespace AAMod.Items.Armor.Draco
 {
     [AutoloadEquip(EquipType.Head)]
-	public class DracoHelm : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Draconian Sun Kabuto");
-			Tooltip.SetDefault(@"20% increased melee critical chance
+    public class DracoHelm : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Draconian Sun Kabuto");
+            Tooltip.SetDefault(@"20% increased melee critical chance
 10% increased damage resistance
 The blazing fury of the Inferno rests in this armor");
+        }
 
-		}
+        public override void SetDefaults()
+        {
+            item.width = 24;
+            item.height = 22;
+            item.value = 3000000;
+            item.defense = 37;
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 24;
-			item.height = 22;
-			item.value = 3000000;
-			item.defense = 37;
-		}
-
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -50,10 +50,10 @@ The blazing fury of the Inferno rests in this armor");
         }
 
         public override void UpdateEquip(Player player)
-		{
-			player.meleeCrit += 20;
+        {
+            player.meleeCrit += 20;
             player.endurance *= 1.1f;
-		}
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
@@ -67,14 +67,13 @@ The blazing fury of the Inferno rests in this armor");
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return body.type == mod.ItemType("DracoPlate") && legs.type == mod.ItemType("DracoLeggings");
-		}
+        {
+            return body.type == mod.ItemType("DracoPlate") && legs.type == mod.ItemType("DracoLeggings");
+        }
 
-		public override void UpdateArmorSet(Player player)
-		{
-			
-			player.setBonus = @"'Blazing fury consumes you'
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = @"'Blazing fury consumes you'
 You are immune to all ice-related debuffs
 You glow like the blazing fire in your soul
 Your Melee attacks inflict Daybreak on your target";
@@ -83,17 +82,17 @@ Your Melee attacks inflict Daybreak on your target";
             player.buffImmune[47] = true;
             player.AddBuff(BuffID.Shine, 2);
             player.GetModPlayer<AAPlayer>(mod).dracoSet = true;
-		}
+        }
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DaybreakIncinerite", 15);
             recipe.AddIngredient(null, "CrucibleScale", 5);
             recipe.AddIngredient(null, "KindledKabuto", 1);
             recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+            recipe.AddRecipe();
+        }
+    }
 }

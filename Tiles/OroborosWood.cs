@@ -9,10 +9,10 @@ namespace AAMod.Tiles
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
-			Main.tileMergeDirt[Type] = true;
+            Main.tileMergeDirt[Type] = true;
             //true for block to emit light
             soundType = 21;
-            drop = mod.ItemType("OroborosWood");   //put your CustomBlock name
+            drop = mod.ItemType("OroborosWood"); //put your CustomBlock name
             dustType = mod.DustType("DoomDust");
             AddMapEntry(new Color(60, 60, 60));
         }

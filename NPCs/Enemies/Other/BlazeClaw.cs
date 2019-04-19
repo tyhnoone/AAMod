@@ -12,6 +12,7 @@ namespace AAMod.NPCs.Enemies.Other
             DisplayName.SetDefault("Blaze Claw");
             Main.npcFrameCount[npc.type] = 5;
         }
+
         public override void SetDefaults()
         {
             npc.width = 28;
@@ -34,12 +35,13 @@ namespace AAMod.NPCs.Enemies.Other
             if (npc.velocity.X > 0f)
             {
                 npc.spriteDirection = 1;
-                npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X);
+                npc.rotation = (float) Math.Atan2((double) npc.velocity.Y, (double) npc.velocity.X);
             }
+
             if (npc.velocity.X < 0f)
             {
                 npc.spriteDirection = -1;
-                npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X) + 3.14f;
+                npc.rotation = (float) Math.Atan2((double) npc.velocity.Y, (double) npc.velocity.X) + 3.14f;
             }
 
             npc.frameCounter++;
@@ -61,12 +63,13 @@ namespace AAMod.NPCs.Enemies.Other
             {
                 return SpawnCondition.OverworldNightMonster.Chance * 0.04f;
             }
+
             return 0;
         }
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            if (npc.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
+            if (npc.life <= 0) //this make so when the npc has 0 life(dead) he will spawn this
             {
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/HydraClawGore1"), 1f);
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/HydraClawGore2"), 1f);
@@ -82,7 +85,8 @@ namespace AAMod.NPCs.Enemies.Other
 
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DaybreakIncineriteOre"));
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                mod.ItemType("DaybreakIncineriteOre"));
         }
     }
 }

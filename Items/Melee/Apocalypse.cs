@@ -10,15 +10,15 @@ namespace AAMod.Items.Melee
     public class Apocalypse : BaseAAItem
     {
         public override void SetStaticDefaults()
-		{
+        {
             DisplayName.SetDefault("Apocalypse");
             Tooltip.SetDefault(@"The Flaming Jacks travel towards the sunset, where
 souls travel to reach the afterlife.
 Horseman's Blade EX");
         }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.melee = true;
             item.damage = 200;
             item.useStyle = 1;
@@ -26,29 +26,31 @@ Horseman's Blade EX");
             item.UseSound = SoundID.Item1;
             item.shootSpeed = 20f;
             item.width = 54;
-			item.height = 54;    
+            item.height = 54;
             item.knockBack = 6.5f;
             item.useTime = 17;
-			item.useAnimation = 17;
-			item.value = 1000000;
+            item.useAnimation = 17;
+            item.value = 1000000;
             item.expert = true;
 
-			glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
-			glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
-			glowmaskDrawColor = Color.White;  //glowmask draw color
-		}
+            glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
+            glowmaskDrawType =
+                BaseAAItem
+                    .GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
+            glowmaskDrawColor = Color.White; //glowmask draw color
+        }
 
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.TheHorsemansBlade);
-			recipe.AddIngredient(mod, "EXSoul", 1);
-			recipe.AddTile(null, "QuantumFusionAccelerator");
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-		
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.TheHorsemansBlade);
+            recipe.AddIngredient(mod, "EXSoul", 1);
+            recipe.AddTile(null, "QuantumFusionAccelerator");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             float screenX = Main.screenPosition.X;
             if (player.direction < 0)
@@ -65,13 +67,15 @@ Horseman's Blade EX");
             velocityX += Main.rand.Next(-50, 51) * 0.1f;
             velocityY += Main.rand.Next(-50, 51) * 0.1f;
             int num5 = 24;
-            float num6 = (float)Math.Sqrt(velocityX * velocityX + velocityY * velocityY);
+            float num6 = (float) Math.Sqrt(velocityX * velocityX + velocityY * velocityY);
             num6 = num5 / num6;
             velocityX *= num6;
             velocityY *= num6;
-            Projectile p = Projectile.NewProjectileDirect(new Vector2(screenX, screenY), new Vector2(velocityX, velocityY), mod.ProjectileType<Projectiles.Apocalypse>(), damage, 0f, player.whoAmI);
+            Projectile p = Projectile.NewProjectileDirect(new Vector2(screenX, screenY),
+                new Vector2(velocityX, velocityY), mod.ProjectileType<Projectiles.Apocalypse>(), damage, 0f,
+                player.whoAmI);
             p.tileCollide = false;
             target.AddBuff(BuffID.OnFire, 400);
         }
-	}
+    }
 }

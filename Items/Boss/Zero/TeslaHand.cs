@@ -9,16 +9,14 @@ namespace AAMod.Items.Boss.Zero
 {
     public class TeslaHand : ModItem
     {
-        
         public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Broken Zero Weapon");
+        {
+            DisplayName.SetDefault("Broken Zero Weapon");
             Tooltip.SetDefault("Just swing it around and it'll shock whatever's in front of you");
         }
 
         public override void SetDefaults()
         {
-            
             item.width = 36;
             item.height = 42;
             item.damage = 240;
@@ -35,10 +33,11 @@ namespace AAMod.Items.Boss.Zero
             item.value = Item.buyPrice(1, 0, 0, 0);
             item.shootSpeed = 20f;
             item.shoot = mod.ProjectileType("Teslashock");
-		}
+        }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -60,36 +59,38 @@ namespace AAMod.Items.Boss.Zero
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.overrideColor = AAColor.Zero;
-	            }
-	        }
-	    }
+        {
+            foreach (TooltipLine line2 in list)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = AAColor.Zero;
+                }
+            }
+        }
 
         // How can I make the shots appear out of the muzzle exactly?
         // Also, when I do this, how do I prevent shooting through tiles?
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
-			return true;
-		}
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+
+            return true;
+        }
 
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ApocalyptitePlate", 5);
-			recipe.AddIngredient(null, "UnstableSingularity", 5);
-	        recipe.AddTile(null, "ACS");
-	        recipe.SetResult(this);
-	        recipe.AddRecipe();
-		}
-	}
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "ApocalyptitePlate", 5);
+            recipe.AddIngredient(null, "UnstableSingularity", 5);
+            recipe.AddTile(null, "ACS");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

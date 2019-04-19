@@ -26,15 +26,15 @@ namespace AAMod.Projectiles.AH
             projectile.ranged = true;
             projectile.ignoreWater = true;
             projectile.extraUpdates = 2;
-			projectile.penetrate = 10;
-			projectile.usesLocalNPCImmunity = true;
-			projectile.localNPCHitCooldown = -1;
-			projectile.tileCollide = false;
+            projectile.penetrate = 10;
+            projectile.usesLocalNPCImmunity = true;
+            projectile.localNPCHitCooldown = -1;
+            projectile.tileCollide = false;
         }
 
         public override void AI()
         {
-			if (++projectile.frameCounter >= 5)
+            if (++projectile.frameCounter >= 5)
             {
                 projectile.frameCounter = 0;
                 if (++projectile.frame >= 2)
@@ -42,10 +42,13 @@ namespace AAMod.Projectiles.AH
                     projectile.frame = 0;
                 }
             }
+
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
             for (int i = 0; i < 1; i++)
             {
-                int d = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType("CthulhuAuraDust"), projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+                int d = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType("CthulhuAuraDust"), projectile.velocity.X * 0.2f,
+                    projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
                 if (Main.rand.Next(6) != 0)
                 {
                     Main.dust[d].noGravity = true;
@@ -58,7 +61,10 @@ namespace AAMod.Projectiles.AH
                     Main.dust[d].velocity.X *= 1.2f;
                     Main.dust[d].velocity.Y *= 1.2f;
                 }
-                int e = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType("CthulhuAuraDust"), projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+
+                int e = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType("CthulhuAuraDust"), projectile.velocity.X * 0.2f,
+                    projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
                 if (Main.rand.Next(6) != 0)
                 {
                     Main.dust[e].noGravity = true;
@@ -72,10 +78,12 @@ namespace AAMod.Projectiles.AH
                     Main.dust[e].velocity.Y *= 1.2f;
                 }
             }
+
             const int aislotHomingCooldown = 0;
             const int homingDelay = 0;
             const float desiredFlySpeedInPixelsPerFrame = 15;
-            const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
+            const float
+                amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
 
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
@@ -87,7 +95,8 @@ namespace AAMod.Projectiles.AH
                 {
                     NPC n = Main.npc[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    projectile.velocity =
+                        Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
         }
@@ -105,11 +114,12 @@ namespace AAMod.Projectiles.AH
                 {
                     float distance = projectile.Distance(n.Center);
                     if (distance <= homingMaximumRangeInPixels &&
-                    (
-                        selectedTarget == -1 || //there is no selected target
-                        projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                        (
+                            selectedTarget == -1 || //there is no selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance
+                        ) //or we are closer to this target than the already selected target
                     )
-                    selectedTarget = i;
+                        selectedTarget = i;
                 }
             }
 
@@ -117,8 +127,8 @@ namespace AAMod.Projectiles.AH
         }
 
         public override void Kill(int timeLeft)
-		{
-			Main.PlaySound(SoundID.NPCDeath52.WithVolume(.4f), projectile.position);
+        {
+            Main.PlaySound(SoundID.NPCDeath52.WithVolume(.4f), projectile.position);
             projectile.position = projectile.Center;
             projectile.width = (projectile.height = 160);
             projectile.Center = projectile.position;
@@ -131,18 +141,28 @@ namespace AAMod.Projectiles.AH
             for (int num85 = 0; num85 < 4; num85++)
             {
                 int num86 = Dust.NewDust(position, num84, height3, 240, 0f, 0f, 100, default(Color), 1.5f);
-                Main.dust[num86].position = projectile.Center + (Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)num84 / 2f);
+                Main.dust[num86].position = projectile.Center +
+                                            (Vector2.UnitY.RotatedByRandom(3.1415927410125732) *
+                                             (float) Main.rand.NextDouble() * (float) num84 / 2f);
             }
+
             for (int num87 = 0; num87 < 20; num87++)
             {
-                int num88 = Dust.NewDust(position, num84, height3, mod.DustType<Dusts.CthulhuAuraDust>(), 0f, 0f, 200, default(Color), 3.7f);
-                Main.dust[num88].position = projectile.Center + (Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)num84 / 2f);
+                int num88 = Dust.NewDust(position, num84, height3, mod.DustType<Dusts.CthulhuAuraDust>(), 0f, 0f, 200,
+                    default(Color), 3.7f);
+                Main.dust[num88].position = projectile.Center +
+                                            (Vector2.UnitY.RotatedByRandom(3.1415927410125732) *
+                                             (float) Main.rand.NextDouble() * (float) num84 / 2f);
                 Main.dust[num88].noGravity = true;
                 Main.dust[num88].noLight = true;
                 Main.dust[num88].velocity *= 3f;
-                Main.dust[num88].velocity += projectile.DirectionTo(Main.dust[num88].position) * (2f + (Main.rand.NextFloat() * 4f));
-                num88 = Dust.NewDust(position, num84, height3, mod.DustType<Dusts.CthulhuAuraDust>(), 0f, 0f, 100, default(Color), 1.5f);
-                Main.dust[num88].position = projectile.Center + (Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)num84 / 2f);
+                Main.dust[num88].velocity += projectile.DirectionTo(Main.dust[num88].position) *
+                                             (2f + (Main.rand.NextFloat() * 4f));
+                num88 = Dust.NewDust(position, num84, height3, mod.DustType<Dusts.CthulhuAuraDust>(), 0f, 0f, 100,
+                    default(Color), 1.5f);
+                Main.dust[num88].position = projectile.Center +
+                                            (Vector2.UnitY.RotatedByRandom(3.1415927410125732) *
+                                             (float) Main.rand.NextDouble() * (float) num84 / 2f);
                 Main.dust[num88].velocity *= 2f;
                 Main.dust[num88].noGravity = true;
                 Main.dust[num88].fadeIn = 1f;
@@ -150,19 +170,28 @@ namespace AAMod.Projectiles.AH
                 Main.dust[num88].noLight = true;
                 Main.dust[num88].velocity += projectile.DirectionTo(Main.dust[num88].position) * 8f;
             }
+
             for (int num89 = 0; num89 < 20; num89++)
             {
-                int num90 = Dust.NewDust(position, num84, height3, mod.DustType<Dusts.CthulhuAuraDust>(), 0f, 0f, 0, default(Color), 2.7f);
-                Main.dust[num90].position = projectile.Center + (Vector2.UnitX.RotatedByRandom(3.1415927410125732).RotatedBy((double)projectile.velocity.ToRotation(), default(Vector2)) * (float)num84 / 2f);
+                int num90 = Dust.NewDust(position, num84, height3, mod.DustType<Dusts.CthulhuAuraDust>(), 0f, 0f, 0,
+                    default(Color), 2.7f);
+                Main.dust[num90].position = projectile.Center +
+                                            (Vector2.UnitX.RotatedByRandom(3.1415927410125732)
+                                                 .RotatedBy((double) projectile.velocity.ToRotation(),
+                                                     default(Vector2)) * (float) num84 / 2f);
                 Main.dust[num90].noGravity = true;
                 Main.dust[num90].noLight = true;
                 Main.dust[num90].velocity *= 3f;
                 Main.dust[num90].velocity += projectile.DirectionTo(Main.dust[num90].position) * 2f;
             }
+
             for (int num91 = 0; num91 < 70; num91++)
             {
                 int num92 = Dust.NewDust(position, num84, height3, 240, 0f, 0f, 0, default(Color), 1.5f);
-                Main.dust[num92].position = projectile.Center + (Vector2.UnitX.RotatedByRandom(3.1415927410125732).RotatedBy((double)projectile.velocity.ToRotation(), default(Vector2)) * (float)num84 / 2f);
+                Main.dust[num92].position = projectile.Center +
+                                            (Vector2.UnitX.RotatedByRandom(3.1415927410125732)
+                                                 .RotatedBy((double) projectile.velocity.ToRotation(),
+                                                     default(Vector2)) * (float) num84 / 2f);
                 Main.dust[num92].noGravity = true;
                 Main.dust[num92].velocity *= 3f;
                 Main.dust[num92].velocity += projectile.DirectionTo(Main.dust[num92].position) * 3f;

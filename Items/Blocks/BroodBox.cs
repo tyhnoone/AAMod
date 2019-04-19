@@ -1,36 +1,37 @@
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 
 namespace AAMod.Items.Blocks
 {
-	public class BroodBox : ModItem
-	{
-            
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Broodmother Music Box");
+    public class BroodBox : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Broodmother Music Box");
             Tooltip.SetDefault(@"Plays 'Blazing Fury' by Spectral Aves");
         }
 
-		public override void SetDefaults()
-		{
-			item.useStyle = 1;
-			item.useTurn = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.autoReuse = true;
-			item.consumable = true;
-			item.createTile = mod.TileType("BroodBox");
-			item.width = 24;
-			item.height = 24;
-			item.rare = 4;
-			item.value = 10000;
-			item.accessory = true;
-            
-		}
+        public override void SetDefaults()
+        {
+            item.useStyle = 1;
+            item.useTurn = true;
+            item.useAnimation = 15;
+            item.useTime = 10;
+            item.autoReuse = true;
+            item.consumable = true;
+            item.createTile = mod.TileType("BroodBox");
+            item.width = 24;
+            item.height = 24;
+            item.rare = 4;
+            item.value = 10000;
+            item.accessory = true;
+        }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

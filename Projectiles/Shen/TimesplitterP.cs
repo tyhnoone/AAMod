@@ -45,8 +45,8 @@ namespace AAMod.Projectiles.Shen
             projectile.direction = projOwner.direction;
             projOwner.heldProj = projectile.whoAmI;
             projOwner.itemTime = projOwner.itemAnimation;
-            projectile.position.X = ownerMountedCenter.X - (float)(projectile.width / 2);
-            projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
+            projectile.position.X = ownerMountedCenter.X - (float) (projectile.width / 2);
+            projectile.position.Y = ownerMountedCenter.Y - (float) (projectile.height / 2);
             // As long as the player isn't frozen, the spear can move
             if (!projOwner.frozen)
             {
@@ -55,7 +55,9 @@ namespace AAMod.Projectiles.Shen
                     MovementFactor = 3f; // Make sure the spear moves forward when initially thrown out
                     projectile.netUpdate = true; // Make sure to netUpdate this spear
                 }
-                if (projOwner.itemAnimation < projOwner.itemAnimationMax / 3) // Somewhere along the item animation, make sure the spear moves back
+
+                if (projOwner.itemAnimation < projOwner.itemAnimationMax / 3
+                ) // Somewhere along the item animation, make sure the spear moves back
                 {
                     MovementFactor -= 2.4f;
                 }
@@ -64,6 +66,7 @@ namespace AAMod.Projectiles.Shen
                     MovementFactor += 2.1f;
                 }
             }
+
             // Change the spear position based off of the velocity and the movementFactor
             projectile.position += projectile.velocity * MovementFactor;
             // When we reach the end of the animation, we can kill the spear projectile
@@ -71,6 +74,7 @@ namespace AAMod.Projectiles.Shen
             {
                 projectile.Kill();
             }
+
             // Apply proper rotation, with an offset of 135 degrees due to the sprite's rotation, notice the usage of MathHelper, use this class!
             // MathHelper.ToRadians(xx degrees here)
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
@@ -83,8 +87,8 @@ namespace AAMod.Projectiles.Shen
 
         public override void OnHitNPC(NPC target, int damage, float knockBack, bool crit)
         {
-			target.AddBuff(BuffID.Daybreak, 600);
-			target.AddBuff(mod.BuffType("Moonraze"), 600);
+            target.AddBuff(BuffID.Daybreak, 600);
+            target.AddBuff(mod.BuffType("Moonraze"), 600);
             Player player = Main.player[projectile.owner];
             float screenX = Main.screenPosition.X;
             if (player.direction < 0)
@@ -101,11 +105,12 @@ namespace AAMod.Projectiles.Shen
             velocityX += Main.rand.Next(-50, 51) * 0.1f;
             velocityY += Main.rand.Next(-50, 51) * 0.1f;
             int num5 = 24;
-            float num6 = (float)Math.Sqrt(velocityX * velocityX + velocityY * velocityY);
+            float num6 = (float) Math.Sqrt(velocityX * velocityX + velocityY * velocityY);
             num6 = num5 / num6;
             velocityX *= num6;
             velocityY *= num6;
-            Projectile p = Projectile.NewProjectileDirect(new Vector2(screenX, screenY), new Vector2(velocityX, velocityY), mod.ProjectileType<CosmicBlow>(), damage*4, 0f, player.whoAmI);
+            Projectile p = Projectile.NewProjectileDirect(new Vector2(screenX, screenY),
+                new Vector2(velocityX, velocityY), mod.ProjectileType<CosmicBlow>(), damage * 4, 0f, player.whoAmI);
             p.tileCollide = false;
         }
     }

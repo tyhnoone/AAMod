@@ -37,7 +37,6 @@ namespace AAMod.Items.Armor.Uranium
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = @"Enemies near you are burned by radiation emitted by your armor";
 
 

@@ -30,6 +30,7 @@ namespace AAMod.Items.Ranged
             item.value = 3000;
             item.ranged = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

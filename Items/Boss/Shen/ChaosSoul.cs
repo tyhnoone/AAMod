@@ -11,7 +11,6 @@ namespace AAMod.Items.Boss.Shen
 {
     public class ChaosSoul : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chaos Soul");
@@ -19,7 +18,6 @@ namespace AAMod.Items.Boss.Shen
             // ticksperframe, frameCount
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 4));
             ItemID.Sets.ItemNoGravity[item.type] = true;
-
         }
 
         // TODO -- Velocity Y smaller, post NewItem?

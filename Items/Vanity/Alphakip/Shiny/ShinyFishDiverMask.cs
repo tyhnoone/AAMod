@@ -5,15 +5,14 @@ using System.Collections.Generic;
 namespace AAMod.Items.Vanity.Alphakip.Shiny
 {
     [AutoloadEquip(EquipType.Head)]
-	public class ShinyFishDiverMask : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class ShinyFishDiverMask : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Alphakip's Diving Mask");
             Tooltip.SetDefault(@"So I heard you like mudkips
 'Great for impersonating Ancients Awakened Devs!'");
-
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -34,6 +33,7 @@ namespace AAMod.Items.Vanity.Alphakip.Shiny
             item.rare = 9;
             item.vanity = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

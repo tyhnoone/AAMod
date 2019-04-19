@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Summoning.Minions
 {
     public class MadnessElemental : ModProjectile
-	{
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Madness Elemental");
@@ -16,7 +16,6 @@ namespace AAMod.Items.Summoning.Minions
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
-
         }
 
         public override void SetDefaults()
@@ -36,15 +35,17 @@ namespace AAMod.Items.Summoning.Minions
         public override bool PreAI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = (AAPlayer)player.GetModPlayer(mod, "AAPlayer");
+            AAPlayer modPlayer = (AAPlayer) player.GetModPlayer(mod, "AAPlayer");
             if (player.dead)
             {
                 modPlayer.MadnessElemental = false;
             }
+
             if (modPlayer.MadnessElemental)
             {
                 projectile.timeLeft = 2;
             }
+
             return true;
         }
 
@@ -58,6 +59,7 @@ namespace AAMod.Items.Summoning.Minions
                 projectile.frameCounter = 0;
                 projectile.frame += 1;
             }
+
             if (projectile.frame > 4)
             {
                 projectile.frame = 0;
@@ -74,28 +76,34 @@ namespace AAMod.Items.Summoning.Minions
                 int num501 = 20;
                 for (int num502 = 0; num502 < num501; num502++)
                 {
-                    int num503 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 16f), projectile.width, projectile.height - 16, mod.DustType<Dusts.InfinityOverloadR>(), 0f, 0f, 0, Color.White, 1f);
+                    int num503 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 16f),
+                        projectile.width, projectile.height - 16, mod.DustType<Dusts.InfinityOverloadR>(), 0f, 0f, 0,
+                        Color.White, 1f);
                     Main.dust[num503].velocity *= 2f;
                 }
             }
+
             projectile.frameCounter++;
             if (projectile.frameCounter > 8)
             {
                 projectile.frame++;
                 projectile.frameCounter = 0;
             }
+
             if (projectile.frame > 4)
             {
                 projectile.frame = 0;
             }
-            float num = (float)Main.rand.Next(90, 111) * 0.01f;
+
+            float num = (float) Main.rand.Next(90, 111) * 0.01f;
             num *= Main.essScale;
             Lighting.AddLight(projectile.Center, 1f * num, 0f * num, 0.15f * num);
             projectile.rotation = projectile.velocity.X * 0.04f;
-            if ((double)Math.Abs(projectile.velocity.X) > 0.2)
+            if ((double) Math.Abs(projectile.velocity.X) > 0.2)
             {
                 projectile.spriteDirection = -projectile.direction;
             }
+
             float num633 = 700f;
             float num634 = 800f;
             float num635 = 1200f;
@@ -104,7 +112,10 @@ namespace AAMod.Items.Summoning.Minions
             for (int num638 = 0; num638 < 1000; num638++)
             {
                 bool flag23 = (Main.projectile[num638].type == mod.ProjectileType("MadnessElemental"));
-                if (num638 != projectile.whoAmI && Main.projectile[num638].active && Main.projectile[num638].owner == projectile.owner && flag23 && Math.Abs(projectile.position.X - Main.projectile[num638].position.X) + Math.Abs(projectile.position.Y - Main.projectile[num638].position.Y) < (float)projectile.width)
+                if (num638 != projectile.whoAmI && Main.projectile[num638].active &&
+                    Main.projectile[num638].owner == projectile.owner && flag23 &&
+                    Math.Abs(projectile.position.X - Main.projectile[num638].position.X) +
+                    Math.Abs(projectile.position.Y - Main.projectile[num638].position.Y) < (float) projectile.width)
                 {
                     if (projectile.position.X < Main.projectile[num638].position.X)
                     {
@@ -114,6 +125,7 @@ namespace AAMod.Items.Summoning.Minions
                     {
                         projectile.velocity.X = projectile.velocity.X + num637;
                     }
+
                     if (projectile.position.Y < Main.projectile[num638].position.Y)
                     {
                         projectile.velocity.Y = projectile.velocity.Y - num637;
@@ -124,6 +136,7 @@ namespace AAMod.Items.Summoning.Minions
                     }
                 }
             }
+
             bool flag24 = false;
             if (projectile.ai[0] == 2f)
             {
@@ -142,27 +155,35 @@ namespace AAMod.Items.Summoning.Minions
                     flag24 = true;
                 }
             }
+
             if (flag24)
             {
                 return;
             }
+
             Vector2 vector46 = projectile.position;
             bool flag25 = false;
             if (projectile.ai[0] != 1f)
             {
                 projectile.tileCollide = false;
             }
-            if (projectile.tileCollide && WorldGen.SolidTile(Framing.GetTileSafely((int)projectile.Center.X / 16, (int)projectile.Center.Y / 16)))
+
+            if (projectile.tileCollide &&
+                WorldGen.SolidTile(
+                    Framing.GetTileSafely((int) projectile.Center.X / 16, (int) projectile.Center.Y / 16)))
             {
                 projectile.tileCollide = false;
             }
+
             for (int num645 = 0; num645 < 200; num645++)
             {
                 NPC nPC2 = Main.npc[num645];
                 if (nPC2.CanBeChasedBy(projectile, false))
                 {
                     float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
-                    if (((Vector2.Distance(projectile.Center, vector46) > num646 && num646 < num633) || !flag25) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, nPC2.position, nPC2.width, nPC2.height))
+                    if (((Vector2.Distance(projectile.Center, vector46) > num646 && num646 < num633) || !flag25) &&
+                        Collision.CanHitLine(projectile.position, projectile.width, projectile.height, nPC2.position,
+                            nPC2.width, nPC2.height))
                     {
                         num633 = num646;
                         vector46 = nPC2.Center;
@@ -170,17 +191,20 @@ namespace AAMod.Items.Summoning.Minions
                     }
                 }
             }
+
             float num647 = num634;
             if (flag25)
             {
                 num647 = num635;
             }
+
             if (Vector2.Distance(player.Center, projectile.Center) > num647)
             {
                 projectile.ai[0] = 1f;
                 projectile.tileCollide = false;
                 projectile.netUpdate = true;
             }
+
             if (flag25 && projectile.ai[0] == 0f)
             {
                 Vector2 vector47 = vector46 - projectile.Center;
@@ -206,11 +230,13 @@ namespace AAMod.Items.Summoning.Minions
                 {
                     flag26 = (projectile.ai[0] == 1f);
                 }
+
                 float num650 = 5f; //6
                 if (flag26)
                 {
                     num650 = 12f; //15
                 }
+
                 Vector2 center2 = projectile.Center;
                 Vector2 vector48 = player.Center - center2 + new Vector2(0f, -30f); //-60
                 float num651 = vector48.Length();
@@ -218,17 +244,21 @@ namespace AAMod.Items.Summoning.Minions
                 {
                     num650 = 6.5f; //8
                 }
-                if (num651 < num636 && flag26 && !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
+
+                if (num651 < num636 && flag26 &&
+                    !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
                 {
                     projectile.ai[0] = 0f;
                     projectile.netUpdate = true;
                 }
+
                 if (num651 > 2000f)
                 {
-                    projectile.position.X = Main.player[projectile.owner].Center.X - (float)(projectile.width / 2);
-                    projectile.position.Y = Main.player[projectile.owner].Center.Y - (float)(projectile.height / 2);
+                    projectile.position.X = Main.player[projectile.owner].Center.X - (float) (projectile.width / 2);
+                    projectile.position.Y = Main.player[projectile.owner].Center.Y - (float) (projectile.height / 2);
                     projectile.netUpdate = true;
                 }
+
                 if (num651 > 70f)
                 {
                     vector48.Normalize();
@@ -241,15 +271,18 @@ namespace AAMod.Items.Summoning.Minions
                     projectile.velocity.Y = -0.1f;
                 }
             }
+
             if (projectile.ai[1] > 0f)
             {
-                projectile.ai[1] += (float)Main.rand.Next(1, 4);
+                projectile.ai[1] += (float) Main.rand.Next(1, 4);
             }
+
             if (projectile.ai[1] > 80f)
             {
                 projectile.ai[1] = 0f;
                 projectile.netUpdate = true;
             }
+
             if (projectile.ai[0] == 0f)
             {
                 float scaleFactor3 = 24f;
@@ -257,12 +290,14 @@ namespace AAMod.Items.Summoning.Minions
                 if (flag25 && projectile.ai[1] == 0f)
                 {
                     projectile.ai[1] += 1f;
-                    if (Main.myPlayer == projectile.owner && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, vector46, 0, 0))
+                    if (Main.myPlayer == projectile.owner && Collision.CanHitLine(projectile.position, projectile.width,
+                            projectile.height, vector46, 0, 0))
                     {
                         Vector2 value19 = vector46 - projectile.Center;
                         value19.Normalize();
                         value19 *= scaleFactor3;
-                        int num659 = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, value19.X, value19.Y, num658, projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+                        int num659 = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, value19.X,
+                            value19.Y, num658, projectile.damage, 0f, Main.myPlayer, 0f, 0f);
                         Main.projectile[num659].timeLeft = 300;
                         projectile.netUpdate = true;
                     }

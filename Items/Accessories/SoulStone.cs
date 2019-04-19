@@ -12,14 +12,14 @@ namespace AAMod.Items.Accessories
     [AutoloadEquip(EquipType.Face)]
     public class SoulStone : ModItem
     {
-        
         public static ModItem _ref;
         public static Texture2D _glow;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Stone");
             Tooltip.SetDefault(
-@"+6 max minions
+                @"+6 max minions
 Allows you to detect the souls of creatures, detect valuable resources, and see traps
 'I have lost more than you can imagine'");
         }
@@ -31,8 +31,6 @@ Allows you to detect the souls of creatures, detect valuable resources, and see 
             item.value = Item.sellPrice(0, 0, 0, 0);
             item.rare = 11;
             item.accessory = true;
-            
-
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -70,28 +68,34 @@ Allows you to detect the souls of creatures, detect valuable resources, and see 
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<MindStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<InfinityGauntlet>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<RealityStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<TimeStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SpaceStone>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

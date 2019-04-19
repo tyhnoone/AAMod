@@ -1,4 +1,3 @@
-
 using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Yamata.Awakened
@@ -8,8 +7,8 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
     {
         public override void SetDefaults()
         {
-			base.SetDefaults();
-			leftHead = true;
+            base.SetDefaults();
+            leftHead = true;
         }
-	}
+    }
 }

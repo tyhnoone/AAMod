@@ -8,33 +8,31 @@ using System;
 namespace AAMod.Items.Ranged
 {
     public class TrueDeathlyLongbow : BaseAAItem
-	{
-        
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("True Deathly Longbow");
             Tooltip.SetDefault("Replaces Arrows with Reaper Arrows");
-
         }
 
         public override void SetDefaults()
-		{
-			item.damage = 75;
-			item.ranged = true;
-			item.width = 46;
-			item.height = 86;
-			item.useTime = 16;
-			item.useAnimation = 16;
-			item.useStyle = 5;
-			item.noMelee = true; //so the item's animation doesn't do damage
-			item.knockBack = 0;
+        {
+            item.damage = 75;
+            item.ranged = true;
+            item.width = 46;
+            item.height = 86;
+            item.useTime = 16;
+            item.useAnimation = 16;
+            item.useStyle = 5;
+            item.noMelee = true; //so the item's animation doesn't do damage
+            item.knockBack = 0;
             item.value = Item.sellPrice(0, 7, 0, 0);
             item.rare = 8;
-			item.UseSound = SoundID.Item5;
-			item.autoReuse = true;
-			item.shoot = 10; //idk why but all the guns in the vanilla source have this
-			item.shootSpeed = 10f;
-			item.useAmmo = AmmoID.Arrow;
+            item.UseSound = SoundID.Item5;
+            item.autoReuse = true;
+            item.shoot = 10; //idk why but all the guns in the vanilla source have this
+            item.shootSpeed = 10f;
+            item.useAmmo = AmmoID.Arrow;
         }
 
         public override Vector2? HoldoutOffset()
@@ -48,18 +46,21 @@ namespace AAMod.Items.Ranged
             player.HealEffect(damage / 8);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             float spread = 45f * 0.0174f;
-            float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));
+            float baseSpeed = (float) Math.Sqrt((speedX * speedX) + (speedY * speedY));
             double startAngle = Math.Atan2(speedX, speedY) - .1d;
             double deltaAngle = spread / 6f;
             double offsetAngle;
             for (int i = 0; i < 3; i++)
             {
                 offsetAngle = startAngle + (deltaAngle * i);
-                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("ReaperArrow"), damage, knockBack, player.whoAmI, 0f, 0f);
+                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("ReaperArrow"),
+                    damage, knockBack, player.whoAmI, 0f, 0f);
             }
+
             return false;
         }
 

@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using ReLogic.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -17,29 +16,29 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
     [AutoloadBossHead]
     public class FeudalFungus : ModNPC
     {
-		public override void SendExtraAI(BinaryWriter writer)
-		{
-			base.SendExtraAI(writer);
-			if((Main.netMode == 2 || Main.dedServ))
-			{
-				writer.Write((float)internalAI[0]);
-				writer.Write((float)internalAI[1]);
-                writer.Write((float)internalAI[2]);
-                writer.Write((float)internalAI[3]);
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            if ((Main.netMode == 2 || Main.dedServ))
+            {
+                writer.Write((float) internalAI[0]);
+                writer.Write((float) internalAI[1]);
+                writer.Write((float) internalAI[2]);
+                writer.Write((float) internalAI[3]);
             }
-		}
+        }
 
-		public override void ReceiveExtraAI(BinaryReader reader)
-		{
-			base.ReceiveExtraAI(reader);
-			if(Main.netMode == 1)
-			{
-				internalAI[0] = reader.ReadFloat();
-				internalAI[1] = reader.ReadFloat();
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            if (Main.netMode == 1)
+            {
+                internalAI[0] = reader.ReadFloat();
+                internalAI[1] = reader.ReadFloat();
                 internalAI[2] = reader.ReadFloat();
                 internalAI[3] = reader.ReadFloat();
-            }	
-		}	
+            }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -49,10 +48,10 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
 
         public override void SetDefaults()
         {
-            npc.lifeMax = 1200;   //boss life
-            npc.damage = 12;  //boss damage
-            npc.defense = 12;    //boss defense
-            npc.knockBackResist = 0f;   //this boss will behavior like the DemonEye  //boss frame/animation 
+            npc.lifeMax = 1200; //boss life
+            npc.damage = 12; //boss damage
+            npc.defense = 12; //boss defense
+            npc.knockBackResist = 0f; //this boss will behavior like the DemonEye  //boss frame/animation 
             npc.value = Item.buyPrice(0, 0, 75, 45);
             npc.aiStyle = 26;
             npc.width = 74;
@@ -80,13 +79,13 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         }
 
         public static int AISTATE_HOVER = 0, AISTATE_FLIER = 1, AISTATE_SHOOT = 2;
-		public float[] internalAI = new float[4];
+        public float[] internalAI = new float[4];
         bool HasStopped = false;
-		
+
         public override void AI()
         {
             Player player = Main.player[npc.target];
-             
+
             if ((Main.dayTime && player.position.Y < Main.worldSurface) || !player.ZoneGlowshroom)
             {
                 npc.velocity *= 0;
@@ -95,6 +94,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                 {
                     npc.velocity.X = 0;
                 }
+
                 if (npc.velocity.Y <= .1f && npc.velocity.Y >= -.1f)
                 {
                     npc.velocity.Y = 0;
@@ -106,13 +106,16 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                 {
                     npc.active = false;
                 }
+
                 return;
             }
+
             npc.alpha -= 10;
             if (npc.alpha < 0)
             {
                 npc.alpha = 0;
             }
+
             npc.frameCounter++;
             if (npc.frameCounter >= 10)
             {
@@ -125,14 +128,15 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                 }
             }
 
-            if (!Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
+            if (!Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position,
+                Main.player[npc.target].width, Main.player[npc.target].height))
             {
                 internalAI[0]++;
                 MoveToPoint(new Vector2(player.Center.X, player.Center.Y - 170f));
             }
 
             if (Main.netMode != 1 && internalAI[1] != AISTATE_SHOOT)
-			{
+            {
                 internalAI[0]++;
                 if (internalAI[0] >= 180)
                 {
@@ -142,22 +146,23 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                     npc.netUpdate = true;
                 }
             }
-			if(internalAI[1] == AISTATE_HOVER) 
+
+            if (internalAI[1] == AISTATE_HOVER)
             {
                 BaseAI.AISpaceOctopus(npc, ref npc.ai, player.Center, 0.15f, 4f, 170, 56f, FireMagic);
             }
-            else if (internalAI[1] == AISTATE_FLIER) 
+            else if (internalAI[1] == AISTATE_FLIER)
             {
-                BaseAI.AIFlier(npc, ref npc.ai, true, 0.1f,0.04f, 5f, 3f, false, 1);
+                BaseAI.AIFlier(npc, ref npc.ai, true, 0.1f, 0.04f, 5f, 3f, false, 1);
             }
             else if (internalAI[1] == AISTATE_SHOOT)
             {
-
                 if (HasStopped)
                 {
                     internalAI[0]++;
                     npc.rotation = 0;
                 }
+
                 if (internalAI[0] >= 60)
                 {
                     int attack = Main.rand.Next(4);
@@ -173,10 +178,12 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                 {
                     npc.velocity.X = 0;
                 }
+
                 if (npc.velocity.Y <= .1f && npc.velocity.Y >= -.1f)
                 {
                     npc.velocity.Y = 0;
                 }
+
                 if (npc.velocity == new Vector2(0, 0))
                 {
                     HasStopped = true;
@@ -190,27 +197,32 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         public void FireMagic(NPC npc, Vector2 velocity)
         {
             Player player = Main.player[npc.target];
-            BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjType("Mushshot"), ref shootAI[0], 5, (int)(npc.damage * (Main.expertMode ? 0.25f : 0.5f)), 8f, true, new Vector2(20f, 15f));
+            BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjType("Mushshot"),
+                ref shootAI[0], 5, (int) (npc.damage * (Main.expertMode ? 0.25f : 0.5f)), 8f, true,
+                new Vector2(20f, 15f));
         }
 
         public override void BossLoot(ref string name, ref int potionType)
-        {   //boss drops
+        {
+            //boss drops
             AAWorld.downedFungus = true;
-            Projectile.NewProjectile(npc.Center, npc.velocity, mod.ProjectileType("FungusIGoNow"), 0, 0, 255, npc.scale);
+            Projectile.NewProjectile(npc.Center, npc.velocity, mod.ProjectileType("FungusIGoNow"), 0, 0, 255,
+                npc.scale);
             if (Main.expertMode == true)
             {
                 npc.DropBossBags();
             }
             else
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GlowingMushium"), Main.rand.Next(25, 35));
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                    mod.ItemType("GlowingMushium"), Main.rand.Next(25, 35));
             }
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);  //boss life scale in expertmode
-            npc.damage = (int)(npc.damage * 1.1f);  //boss damage increase in expermode
+            npc.lifeMax = (int) (npc.lifeMax * 0.6f * bossLifeScale); //boss life scale in expertmode
+            npc.damage = (int) (npc.damage * 1.1f); //boss damage increase in expermode
         }
 
         public void FungusAttack(int Attack)
@@ -223,17 +235,19 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                 {
                     for (int i = 0; i < (Main.expertMode ? 3 : 2); i++)
                     {
-                        NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<Mushling>());
+                        NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, mod.NPCType<Mushling>());
                     }
                 }
                 else
-                { Attack = 2; }
+                {
+                    Attack = 2;
+                }
             }
             else if (Attack == 1)
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<FungusFlier>());
+                    NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, mod.NPCType<FungusFlier>());
                 }
             }
             else if (Attack == 2)
@@ -245,14 +259,16 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                 for (int i = 0; i < (Main.expertMode ? 5 : 4); i++)
                 {
                     offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, (float)(Math.Sin(offsetAngle) * 6f), (float)(Math.Cos(offsetAngle) * 6f), mod.ProjectileType("FungusCloud"), npc.damage / 2, 0, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, (float) (Math.Sin(offsetAngle) * 6f),
+                        (float) (Math.Cos(offsetAngle) * 6f), mod.ProjectileType("FungusCloud"), npc.damage / 2, 0,
+                        Main.myPlayer, 0f, 0f);
                 }
             }
             else
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<FungusSpore>(), 0, i);
+                    NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, mod.NPCType<FungusSpore>(), 0, i);
                 }
             }
         }
@@ -268,18 +284,22 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
             }
+
             if (length < 200f)
             {
                 moveSpeed *= 0.5f;
             }
+
             if (length < 100f)
             {
                 moveSpeed *= 0.5f;
             }
+
             if (length < 50f)
             {
                 moveSpeed *= 0.5f;
             }
+
             npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
@@ -288,13 +308,11 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
         {
             Texture2D glowTex = mod.GetTexture("Glowmasks/FeudalFungus_Glow");
-            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 8, npc.frame, npc.GetAlpha(dColor), true);
-            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 8, npc.frame, AAColor.Glow, true);
+            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc.position, npc.width, npc.height,
+                npc.scale, npc.rotation, 0, 8, npc.frame, npc.GetAlpha(dColor), true);
+            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc.position, npc.width, npc.height, npc.scale,
+                npc.rotation, 0, 8, npc.frame, AAColor.Glow, true);
             return false;
         }
     }
-
-    
 }
-
-

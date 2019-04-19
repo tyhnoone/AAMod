@@ -26,6 +26,7 @@ namespace AAMod.Items.Blocks
             item.value = 10000;
             item.accessory = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

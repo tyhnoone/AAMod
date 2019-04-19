@@ -11,16 +11,15 @@ namespace AAMod.Items.Boss.Equinox
 {
     public class Equinox : ModItem
     {
-
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Equinox");
             Tooltip.SetDefault(
-@"Gives immensely increased stats
+                @"Gives immensely increased stats
 'True balance'");
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
+
         public override void SetDefaults()
         {
             item.width = 32;
@@ -32,7 +31,8 @@ namespace AAMod.Items.Boss.Equinox
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -70,13 +70,14 @@ namespace AAMod.Items.Boss.Equinox
             player.thrownDamage += 0.35f;
             player.thrownCrit += 5;
         }
-        
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.nightVision = true;
             player.GetModPlayer<AAPlayer>(mod).RStar = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

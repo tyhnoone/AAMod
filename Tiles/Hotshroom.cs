@@ -6,8 +6,8 @@ using Terraria.ObjectData;
 
 namespace AAMod.Tiles
 {
-	public class Hotshroom : ModTile
-	{
+    public class Hotshroom : ModTile
+    {
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -30,11 +30,10 @@ namespace AAMod.Tiles
         {
             return false;
         }
-        
+
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = 10;
         }
     }
-
 }

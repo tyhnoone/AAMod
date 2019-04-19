@@ -8,8 +8,8 @@ namespace AAMod.NPCs.Bosses.Toad
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Boom");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 7;     //The recording mode
+            DisplayName.SetDefault("Boom"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 7; //The recording mode
         }
 
         public override void SetDefaults()
@@ -33,12 +33,11 @@ namespace AAMod.NPCs.Bosses.Toad
                 if (++projectile.frame >= 6)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -50,6 +49,5 @@ namespace AAMod.NPCs.Bosses.Toad
         {
             projectile.timeLeft = 0;
         }
-
     }
 }

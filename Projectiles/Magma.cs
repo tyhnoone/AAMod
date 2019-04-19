@@ -17,8 +17,8 @@ namespace AAMod.Projectiles
         {
             DisplayName.SetDefault("Magma");
         }
-	
-	public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 1000);
         }

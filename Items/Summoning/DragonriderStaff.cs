@@ -35,12 +35,14 @@ namespace AAMod.Items.Summoning
             item.summon = true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             //to fix tail disapearing meme
             float slotsUsed = 0;
 
-            Main.projectile.Where(x => x.active && x.owner == player.whoAmI && x.minionSlots > 0).ToList().ForEach(x => { slotsUsed += x.minionSlots; });
+            Main.projectile.Where(x => x.active && x.owner == player.whoAmI && x.minionSlots > 0).ToList()
+                .ForEach(x => { slotsUsed += x.minionSlots; });
 
             if (player.maxMinions - slotsUsed < 1) return false;
 
@@ -61,17 +63,20 @@ namespace AAMod.Items.Summoning
             //initial spawn
             if (headCheck == -1 && tailCheck == -1)
             {
-                int current = Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("DragonHead"), damage, knockBack, player.whoAmI, 0f, 0f);
+                int current = Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("DragonHead"),
+                    damage, knockBack, player.whoAmI, 0f, 0f);
 
                 int previous = 0;
 
                 for (int i = 0; i < 1; i++)
                 {
-                    current = Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("DragonBody"), damage, knockBack, player.whoAmI, current, 0f);
+                    current = Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("DragonBody"),
+                        damage, knockBack, player.whoAmI, current, 0f);
                     previous = current;
                 }
 
-                current = Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("DragonTail"), damage, knockBack, player.whoAmI, current, 0f);
+                current = Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("DragonTail"),
+                    damage, knockBack, player.whoAmI, current, 0f);
 
                 Main.projectile[previous].localAI[1] = current;
                 Main.projectile[previous].netUpdate = true;
@@ -84,7 +89,8 @@ namespace AAMod.Items.Summoning
 
                 for (int i = 0; i < 4; i++)
                 {
-                    current = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("DragonBody"), damage, knockBack, player.whoAmI,
+                    current = Projectile.NewProjectile(position.X, position.Y, speedX, speedY,
+                        mod.ProjectileType("DragonBody"), damage, knockBack, player.whoAmI,
                         Projectile.GetByUUID(Main.myPlayer, previous), 0f);
 
                     previous = current;

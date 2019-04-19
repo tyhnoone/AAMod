@@ -7,22 +7,22 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Ranged
 {
     public class SharkLauncher : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Shark Launcher");
-			Tooltip.SetDefault("Launches latching deadly shark"
-			+"\nPiranha Gun EX");
-		}
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Shark Launcher");
+            Tooltip.SetDefault("Launches latching deadly shark"
+                               + "\nPiranha Gun EX");
+        }
 
-		public override void SetDefaults()
-		{
-			item.CloneDefaults(ItemID.PiranhaGun);
-			item.damage = 110;
-			item.shoot = mod.ProjectileType("SharkLauncherP");
-		}
-		
-		public override void AddRecipes()
+        public override void SetDefaults()
+        {
+            item.CloneDefaults(ItemID.PiranhaGun);
+            item.damage = 110;
+            item.shoot = mod.ProjectileType("SharkLauncherP");
+        }
+
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.PiranhaGun);
@@ -31,10 +31,10 @@ namespace AAMod.Items.Ranged
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-		
-		public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-6, 0);
-		}
-	}
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-6, 0);
+        }
+    }
 }

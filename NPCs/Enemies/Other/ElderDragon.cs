@@ -17,6 +17,7 @@ namespace AAMod.NPCs.Enemies.Other
             DisplayName.SetDefault("Elder Dragon");
             Main.npcFrameCount[npc.type] = 5;
         }
+
         public override void SetDefaults()
         {
             npc.width = 38;
@@ -47,6 +48,7 @@ namespace AAMod.NPCs.Enemies.Other
             {
                 npc.spriteDirection = -1;
             }
+
             npc.frameCounter++;
             if (npc.frameCounter >= 10)
             {
@@ -59,21 +61,26 @@ namespace AAMod.NPCs.Enemies.Other
                 }
             }
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.playerSafe || !Main.hardMode)
             {
                 return 0f;
             }
+
             return SpawnCondition.Sky.Chance * 0.10f;
         }
+
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
             target.AddBuff(BuffID.OnFire, 180);
         }
+
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DragonSpirit"));
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                mod.ItemType("DragonSpirit"));
         }
     }
 }

@@ -1,30 +1,31 @@
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using System.Collections.Generic;
 
 namespace AAMod.Items.Boss.Yamata
 {
     public class MidnightWrath : ModItem
-	{
-		public override void SetDefaults()
-		{
-
-            item.damage = 130;            
+    {
+        public override void SetDefaults()
+        {
+            item.damage = 130;
             item.ranged = true;
             item.width = 20;
             item.height = 20;
-			item.useTime = 8;
-			item.useAnimation = 8;
+            item.useTime = 8;
+            item.useAnimation = 8;
             item.noUseGraphic = true;
             item.useStyle = 1;
-			item.knockBack = 0;
-			item.value = Item.buyPrice(1, 0, 0, 0);
-			item.shootSpeed = 20f;
-			item.shoot = mod.ProjectileType ("MidnightWrath");
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-		}
+            item.knockBack = 0;
+            item.value = Item.buyPrice(1, 0, 0, 0);
+            item.shootSpeed = 20f;
+            item.shoot = mod.ProjectileType("MidnightWrath");
+            item.UseSound = SoundID.Item1;
+            item.autoReuse = true;
+        }
 
         public override void SetStaticDefaults()
         {
@@ -39,12 +40,14 @@ namespace AAMod.Items.Boss.Yamata
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata; ;
+                    line2.overrideColor = AAColor.Yamata;
+                    ;
                 }
             }
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -64,15 +67,16 @@ namespace AAMod.Items.Boss.Yamata
                 0f
             );
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "EventideAbyssium", 5);
             recipe.AddIngredient(null, "DreadScale", 5);
             recipe.AddIngredient(null, "DarkmatterKunai", 999);
-		    recipe.AddTile(null, "QuantumFusionAccelerator");
+            recipe.AddTile(null, "QuantumFusionAccelerator");
             recipe.SetResult(this);
             recipe.AddRecipe();
-		}
+        }
     }
 }

@@ -53,6 +53,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 projectile.velocity.Normalize();
                 projectile.velocity *= scaleFactor2;
             }
+
             if (projectile.ai[0] < 0f)
             {
                 if (projectile.velocity.Length() < 18f)
@@ -60,8 +61,10 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                     projectile.velocity *= 1.02f;
                 }
             }
-            projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
-            Lighting.AddLight(projectile.Center, ((255 - projectile.alpha) * 0.5f) / 255f, ((255 - projectile.alpha) * 0f) / 255f, ((255 - projectile.alpha) * 0.15f) / 255f);
+
+            projectile.rotation = (float) Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
+            Lighting.AddLight(projectile.Center, ((255 - projectile.alpha) * 0.5f) / 255f,
+                ((255 - projectile.alpha) * 0f) / 255f, ((255 - projectile.alpha) * 0.15f) / 255f);
         }
 
 
@@ -79,27 +82,35 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             {
                 for (int m = 0; m < 6; m++)
                 {
-                    int dustID = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
-                    -projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+                    int dustID = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                        projectile.height, mod.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
+                        -projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
                     Main.dust[dustID].noGravity = true;
-                    Main.dust[dustID].velocity = new Vector2(MathHelper.Lerp(-1f, 1f, (float)Main.rand.NextDouble()), MathHelper.Lerp(-1f, 1f, (float)Main.rand.NextDouble()));
+                    Main.dust[dustID].velocity = new Vector2(MathHelper.Lerp(-1f, 1f, (float) Main.rand.NextDouble()),
+                        MathHelper.Lerp(-1f, 1f, (float) Main.rand.NextDouble()));
                 }
-                Main.PlaySound(4, (int)projectile.Center.X, (int)projectile.Center.Y, 3);
+
+                Main.PlaySound(4, (int) projectile.Center.X, (int) projectile.Center.Y, 3);
             }
 
-            Main.PlaySound(mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Sounds/Glitch"), (int)projectile.Center.X, (int)projectile.Center.Y);
-            Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType<GlitchBoom>(), projectile.damage, 1, projectile.owner);
+            Main.PlaySound(mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Sounds/Glitch"),
+                (int) projectile.Center.X, (int) projectile.Center.Y);
+            Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType<GlitchBoom>(),
+                projectile.damage, 1, projectile.owner);
         }
+
         public override bool PreDraw(SpriteBatch sb, Color lightColor) //this is where the animation happens
         {
             projectile.frameCounter++; //increase the frameCounter by one
-            if (projectile.frameCounter >= 5) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
+            if (projectile.frameCounter >= 5
+            ) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
             {
                 projectile.frame++; //go to the next frame
                 projectile.frameCounter = 0; //reset the counter
                 if (projectile.frame > 2) //if past the last frame
                     projectile.frame = 0; //go back to the first frame
             }
+
             return true;
         }
     }

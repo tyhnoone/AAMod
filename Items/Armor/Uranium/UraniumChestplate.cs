@@ -21,7 +21,7 @@ namespace AAMod.Items.Armor.Uranium
             item.rare = 4;
             item.defense = 16;
         }
-        
+
 
         public override void AddRecipes()
         {

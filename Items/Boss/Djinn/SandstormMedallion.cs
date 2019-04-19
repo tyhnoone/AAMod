@@ -1,6 +1,6 @@
 using Terraria;
-using Microsoft.Xna.Framework; 
-using Microsoft.Xna.Framework.Graphics; 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Djinn
@@ -12,6 +12,7 @@ namespace AAMod.Items.Boss.Djinn
             DisplayName.SetDefault("Sandstorm Medallion");
             Tooltip.SetDefault(@"Doubles your stats during a Sandstorm");
         }
+
         public override void SetDefaults()
         {
             item.width = 26;
@@ -23,19 +24,20 @@ namespace AAMod.Items.Boss.Djinn
 
         public override void UpdateEquip(Player p)
         {
-			if(p.ZoneSandstorm)
-			{
-				p.meleeDamage += 1f;
-				p.rangedDamage += 1f;
-				p.magicDamage += 1f;
-				p.minionDamage += 1f;
-				p.thrownDamage += 1f;
-				p.meleeCrit *= 2;
-				p.rangedCrit *= 2;
-				p.magicCrit *= 2;
-				p.thrownCrit *= 2;
-			}
+            if (p.ZoneSandstorm)
+            {
+                p.meleeDamage += 1f;
+                p.rangedDamage += 1f;
+                p.magicDamage += 1f;
+                p.minionDamage += 1f;
+                p.thrownDamage += 1f;
+                p.meleeCrit *= 2;
+                p.rangedCrit *= 2;
+                p.magicCrit *= 2;
+                p.thrownCrit *= 2;
+            }
         }
+
         public override bool CanEquipAccessory(Player player, int slot)
         {
             if (slot < 10)
@@ -49,6 +51,7 @@ namespace AAMod.Items.Boss.Djinn
                     }
                 }
             }
+
             return true;
         }
     }

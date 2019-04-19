@@ -1,16 +1,18 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria.ID;
 
 namespace AAMod.Items.Materials
 {
     public class UraniumBar : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Uranium Bar");
         }
+
         public override void SetDefaults()
         {
             item.width = 30;
@@ -27,9 +29,10 @@ namespace AAMod.Items.Materials
         }
 
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Uranium", 4);              //example of how to craft with a modded item
+            recipe.AddIngredient(null, "Uranium", 4); //example of how to craft with a modded item
             recipe.AddTile(TileID.Hellforge);
             recipe.SetResult(this);
             recipe.AddRecipe();

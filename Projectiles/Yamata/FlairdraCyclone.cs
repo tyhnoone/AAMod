@@ -6,10 +6,11 @@ namespace AAMod.Projectiles.Yamata
 {
     public class FlairdraCyclone : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Cyclone");
-		}
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Cyclone");
+        }
+
         public override void SetDefaults()
         {
             projectile.width = 14;
@@ -29,7 +30,7 @@ namespace AAMod.Projectiles.Yamata
         }
 
         public override void AI()
-		{
+        {
             if (projectile.ai[0] == 0f)
             {
                 projectile.rotation += projectile.velocity.X * 0.1f;
@@ -38,7 +39,8 @@ namespace AAMod.Projectiles.Yamata
                 for (int num691 = 0; num691 < 200; num691++)
                 {
                     NPC nPC5 = Main.npc[num691];
-                    if (nPC5.CanBeChasedBy(this, false) && Collision.CanHit(projectile.position, projectile.width, projectile.height, nPC5.position, nPC5.width, nPC5.height))
+                    if (nPC5.CanBeChasedBy(this, false) && Collision.CanHit(projectile.position, projectile.width,
+                            projectile.height, nPC5.position, nPC5.width, nPC5.height))
                     {
                         float num692 = (nPC5.Center - projectile.Center).Length();
                         if (num692 < num689)
@@ -48,21 +50,28 @@ namespace AAMod.Projectiles.Yamata
                         }
                     }
                 }
-                projectile.ai[0] = (float)(num690 + 1);
+
+                projectile.ai[0] = (float) (num690 + 1);
                 if (projectile.ai[0] == 0f)
                 {
                     projectile.ai[0] = -15f;
                 }
+
                 if (projectile.ai[0] > 0f)
                 {
-                    float scaleFactor5 = (float)Main.rand.Next(35, 75) / 30f;
-                    projectile.velocity = (projectile.velocity * 20f + Vector2.Normalize(Main.npc[(int)projectile.ai[0] - 1].Center - projectile.Center + new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101))) * scaleFactor5) / 21f;
+                    float scaleFactor5 = (float) Main.rand.Next(35, 75) / 30f;
+                    projectile.velocity = (projectile.velocity * 20f +
+                                           Vector2.Normalize(Main.npc[(int) projectile.ai[0] - 1].Center -
+                                                             projectile.Center +
+                                                             new Vector2((float) Main.rand.Next(-100, 101),
+                                                                 (float) Main.rand.Next(-100, 101))) * scaleFactor5) /
+                                          21f;
                     projectile.netUpdate = true;
                 }
             }
             else if (projectile.ai[0] > 0f)
             {
-                Vector2 value23 = Vector2.Normalize(Main.npc[(int)projectile.ai[0] - 1].Center - projectile.Center);
+                Vector2 value23 = Vector2.Normalize(Main.npc[(int) projectile.ai[0] - 1].Center - projectile.Center);
                 projectile.velocity = (projectile.velocity * 40f + value23 * 12f) / 41f;
             }
             else
@@ -73,34 +82,38 @@ namespace AAMod.Projectiles.Yamata
                 {
                     projectile.alpha = 50;
                 }
+
                 projectile.velocity *= 0.95f;
             }
+
             if (projectile.ai[1] == 0f)
             {
-                projectile.ai[1] = (float)Main.rand.Next(80, 121) / 100f;
+                projectile.ai[1] = (float) Main.rand.Next(80, 121) / 100f;
                 projectile.netUpdate = true;
             }
+
             projectile.scale = projectile.ai[1];
             return;
         }
-		
-		public override void OnHitNPC (NPC target, int damage, float knockback, bool crit)
-		{
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
             target.AddBuff(mod.BuffType("Moonraze"), 600);
         }
-		
-		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
         {
             width = 30;
             height = 30;
             return true;
         }
-		public override bool OnTileCollide (Vector2 oldVelocity)
-		{
-			//projectile.tileCollide = false;
-			//projectile.timeLeft = 20;
-			projectile.ai[0] = 1f;
-			return false;
-		}
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            //projectile.tileCollide = false;
+            //projectile.timeLeft = 20;
+            projectile.ai[0] = 1f;
+            return false;
+        }
     }
 }

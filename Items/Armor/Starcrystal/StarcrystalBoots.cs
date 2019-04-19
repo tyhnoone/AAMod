@@ -9,7 +9,6 @@ namespace AAMod.Items.Armor.Starcrystal
     {
         public override void SetDefaults()
         {
-
             item.width = 18;
             item.height = 18;
 
@@ -19,20 +18,20 @@ namespace AAMod.Items.Armor.Starcrystal
             item.defense = 4;
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Starcrystal Leggings");
-      Tooltip.SetDefault(@"+20 Mana");
-    }
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Starcrystal Leggings");
+            Tooltip.SetDefault(@"+20 Mana");
+        }
 
 
         public override void UpdateEquip(Player player)
         {
-            player.statManaMax2 += 20;  //player movement speed incresed 0.05f = 5%
+            player.statManaMax2 += 20; //player movement speed incresed 0.05f = 5%
         }
 
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.ManaCrystal, 2);

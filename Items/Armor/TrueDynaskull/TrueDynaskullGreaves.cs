@@ -6,30 +6,29 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.TrueDynaskull
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class TrueDynaskullGreaves : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("True Dynaskull Greaves");
+    public class TrueDynaskullGreaves : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("True Dynaskull Greaves");
             Tooltip.SetDefault(@"20% Increased ranged critical chance
 +12% movement speed");
-
         }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.width = 30;
-			item.height = 28;
-			item.value = 100000;
-			item.rare = 7;
-			item.defense = 12;
-		}
+            item.height = 28;
+            item.value = 100000;
+            item.rare = 7;
+            item.defense = 12;
+        }
 
-		public override void UpdateEquip(Player player)
-		{
-			player.thrownCrit += 20;
+        public override void UpdateEquip(Player player)
+        {
+            player.thrownCrit += 20;
             player.moveSpeed *= 1.12f;
-		}
+        }
 
         public override void AddRecipes()
         {

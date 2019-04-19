@@ -1,6 +1,6 @@
 using Terraria;
-using Microsoft.Xna.Framework; 
-using Microsoft.Xna.Framework.Graphics; 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Serpent
@@ -12,6 +12,7 @@ namespace AAMod.Items.Boss.Serpent
             DisplayName.SetDefault("Arctic Medallion");
             Tooltip.SetDefault(@"Doubles your stats during a Blizzard");
         }
+
         public override void SetDefaults()
         {
             item.width = 26;
@@ -23,18 +24,18 @@ namespace AAMod.Items.Boss.Serpent
 
         public override void UpdateEquip(Player p)
         {
-			if(p.ZoneRain && p.ZoneSnow)
-			{
-				p.meleeDamage *= 2f;
-				p.rangedDamage *= 2f;
-				p.magicDamage *= 2f;
-				p.minionDamage *= 2f;
-				p.thrownDamage *= 2f;
-				p.meleeCrit *= 2;
-				p.rangedCrit *= 2;
-				p.magicCrit += 2;
-				p.thrownCrit *= 2;	
-			}
+            if (p.ZoneRain && p.ZoneSnow)
+            {
+                p.meleeDamage *= 2f;
+                p.rangedDamage *= 2f;
+                p.magicDamage *= 2f;
+                p.minionDamage *= 2f;
+                p.thrownDamage *= 2f;
+                p.meleeCrit *= 2;
+                p.rangedCrit *= 2;
+                p.magicCrit += 2;
+                p.thrownCrit *= 2;
+            }
         }
 
         public override bool CanEquipAccessory(Player player, int slot)
@@ -50,6 +51,7 @@ namespace AAMod.Items.Boss.Serpent
                     }
                 }
             }
+
             return true;
         }
     }

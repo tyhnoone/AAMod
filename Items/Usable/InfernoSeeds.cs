@@ -1,6 +1,6 @@
-using System; using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -9,14 +9,15 @@ using BaseMod;
 
 namespace AAMod.Items.Usable
 {
-	public class InfernoSeeds : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class InfernoSeeds : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Scorched Seeds");
-            Tooltip.SetDefault("Plants Inferno grass"); ;	
-		}		
-		
+            Tooltip.SetDefault("Plants Inferno grass");
+            ;
+        }
+
         public override void SetDefaults()
         {
             item.width = 16;
@@ -31,26 +32,27 @@ namespace AAMod.Items.Usable
             item.autoReuse = true;
             item.useTurn = true;
             item.createTile = mod.TileType("InfernoGrass");
-            item.consumable = true;		
+            item.consumable = true;
         }
 
-		public override bool CanUseItem(Player p)
-		{
-			Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
-			if(tile != null && tile.active() && tile.type == TileID.Dirt)
-			{
-				WorldGen.destroyObject = true;
-				TileID.Sets.BreakableWhenPlacing[TileID.Dirt] = true;
-				return base.CanUseItem(p);				
-			}
-			return false;
-		}
+        public override bool CanUseItem(Player p)
+        {
+            Tile tile = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
+            if (tile != null && tile.active() && tile.type == TileID.Dirt)
+            {
+                WorldGen.destroyObject = true;
+                TileID.Sets.BreakableWhenPlacing[TileID.Dirt] = true;
+                return base.CanUseItem(p);
+            }
 
-		public override bool UseItem(Player p)
-		{
-			WorldGen.destroyObject = false;
-			TileID.Sets.BreakableWhenPlacing[TileID.Dirt] = false;		
-			return base.UseItem(p);
-		}
-	}
+            return false;
+        }
+
+        public override bool UseItem(Player p)
+        {
+            WorldGen.destroyObject = false;
+            TileID.Sets.BreakableWhenPlacing[TileID.Dirt] = false;
+            return base.UseItem(p);
+        }
+    }
 }

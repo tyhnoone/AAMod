@@ -11,17 +11,17 @@ namespace AAMod.Tiles
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
-			Main.tileMergeDirt[Type] = true;
+            Main.tileMergeDirt[Type] = true;
             Main.tileSpelunker[Type] = true;
             Main.tileMerge[Type][TileID.Stone] = true;
             soundType = 21;
             Main.tileLighted[Type] = true;
-            drop = mod.ItemType("Prism");   //put your CustomBlock name
+            drop = mod.ItemType("Prism"); //put your CustomBlock name
             dustType = DustID.Stone;
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Yttrium Ore");
             AddMapEntry(new Color(100, 100, 100), name);
-			minPick = 65;
+            minPick = 65;
         }
 
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
@@ -32,8 +32,13 @@ namespace AAMod.Tiles
             {
                 zero = Vector2.Zero;
             }
+
             int height = tile.frameY == 36 ? 18 : 16;
-            Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/PrismOre_Glow"), new Vector2((i * 16) - (int)Main.screenPosition.X, (j * 16) - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, height), new Color(Main.DiscoR / 3, Main.DiscoG / 3, Main.DiscoB / 3), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/PrismOre_Glow"),
+                new Vector2((i * 16) - (int) Main.screenPosition.X, (j * 16) - (int) Main.screenPosition.Y) + zero,
+                new Rectangle(tile.frameX, tile.frameY, 16, height),
+                new Color(Main.DiscoR / 3, Main.DiscoG / 3, Main.DiscoB / 3), 0f, Vector2.Zero, 1f, SpriteEffects.None,
+                0f);
         }
     }
 }

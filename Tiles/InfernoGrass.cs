@@ -30,8 +30,8 @@ namespace AAMod.Tiles
             {
                 PlaceObject(i, j - 1, mod.TileType("Hotshroom"));
                 NetMessage.SendObjectPlacment(-1, i, j - 1, mod.TileType("Hotshroom"), 0, 0, -1, -1);
-
             }
+
             if (!Framing.GetTileSafely(i, j - 1).active() && Main.rand.Next(40) == 0)
             {
                 switch (Main.rand.Next(5))
@@ -61,18 +61,21 @@ namespace AAMod.Tiles
             }
         }
 
-        public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0, int random = -1, int direction = -1)
+        public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0,
+            int random = -1, int direction = -1)
         {
             TileObject toBePlaced;
             if (!TileObject.CanPlace(x, y, type, style, direction, out toBePlaced, false))
             {
                 return false;
             }
+
             toBePlaced.random = random;
             if (TileObject.Place(toBePlaced) && !mute)
             {
                 WorldGen.SquareTileFrame(x, y, true);
             }
+
             return false;
         }
 

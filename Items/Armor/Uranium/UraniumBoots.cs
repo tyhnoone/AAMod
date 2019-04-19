@@ -6,8 +6,8 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Uranium
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class UraniumBoots : ModItem
-	{
+    public class UraniumBoots : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Uranium Boots");

@@ -9,16 +9,17 @@ namespace AAMod.Tiles
     {
         public Texture2D glowTex;
         public bool glow = true;
+
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = false;
             //true for block to emit light
             soundType = 21;
-            drop = mod.ItemType("FulguritePlating");   //put your CustomBlock name
+            drop = mod.ItemType("FulguritePlating"); //put your CustomBlock name
             dustType = mod.DustType("FulguriteDust");
             AddMapEntry(new Color(90, 20, 120));
-			minPick = 200;
+            minPick = 200;
         }
 
         public override bool CanKillTile(int i, int j, ref bool blockDamaged)

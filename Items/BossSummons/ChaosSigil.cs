@@ -11,7 +11,6 @@ namespace AAMod.Items.BossSummons
 {
     public class ChaosSigil : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chaos Sigil");
@@ -45,17 +44,22 @@ Summons the chaos emperor");
         // We use the CanUseItem hook to prevent a player from using this item while the boss is present in the world.
         public override bool CanUseItem(Player player)
         {
-            
             if (NPC.AnyNPCs(mod.NPCType<ShenDoragon>()))
             {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("HAH! I WISH there were two of me to smash you into the ground!", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B, false);
+                if (player.whoAmI == Main.myPlayer)
+                    BaseUtility.Chat("HAH! I WISH there were two of me to smash you into the ground!",
+                        Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B, false);
                 return false;
             }
+
             if (NPC.AnyNPCs(mod.NPCType<ShenA>()))
             {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("HAH! I WISH there were two of me to smash you into the ground!", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B, false);
+                if (player.whoAmI == Main.myPlayer)
+                    BaseUtility.Chat("HAH! I WISH there were two of me to smash you into the ground!",
+                        Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B, false);
                 return false;
             }
+
             /*if (!AAWorld.downedShen)
             {
                 if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The Chaos Sigil glows, and imagery of the chaos pedestals flash through your mind", Color.DarkMagenta, false);
@@ -68,11 +72,13 @@ Summons the chaos emperor");
                 {
                     return false;
                 }
+
                 if (p != null && p.active && p.type == mod.ProjectileType("ShenSpawn"))
                 {
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -80,10 +86,15 @@ Summons the chaos emperor");
         {
             if (AAWorld.ShenSummoned)
             {
-                Main.NewText(AAWorld.downedShen ? "Big mistake, child..." : "Hmpf...Again..? Alright, let's just get this done and overwith.", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B);
+                Main.NewText(
+                    AAWorld.downedShen
+                        ? "Big mistake, child..."
+                        : "Hmpf...Again..? Alright, let's just get this done and overwith.", Color.DarkMagenta.R,
+                    Color.DarkMagenta.G, Color.DarkMagenta.B);
 
                 SpawnBoss(player, "ShenDoragon", "Shen Doragon; Draconian Doomsayer");
             }
+
             if (!AAWorld.ShenSummoned)
             {
                 SpawnBoss(player, "ShenSpawn", "Shen Doragon; Draconian Doomsayer");
@@ -99,9 +110,15 @@ Summons the chaos emperor");
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 100f);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(-100f, 100f, (float) Main.rand.NextDouble()),
+                                             100f);
                 Main.npc[npcID].netUpdate2 = true;
             }
         }
@@ -111,10 +128,15 @@ Summons the chaos emperor");
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
                 Main.npc[npcID].ai[0] = -1;
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 600);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(-100f, 100f, (float) Main.rand.NextDouble()), 600);
                 Main.npc[npcID].netUpdate2 = true;
             }
         }

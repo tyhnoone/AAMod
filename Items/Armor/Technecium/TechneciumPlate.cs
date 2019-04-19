@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Armor.Technecium
 {
-	[AutoloadEquip(EquipType.Body)]
-	public class TechneciumPlate : ModItem
-	{
+    [AutoloadEquip(EquipType.Body)]
+    public class TechneciumPlate : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Technecium Plate");

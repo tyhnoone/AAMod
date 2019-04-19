@@ -10,6 +10,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Doomite Bar");
             Tooltip.SetDefault("Unsettling energy radiates from this bar");
         }
+
         public override void SetDefaults()
         {
             item.width = 16;

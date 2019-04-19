@@ -5,15 +5,14 @@ using System.Collections.Generic;
 namespace AAMod.Items.Vanity.Aves
 {
     [AutoloadEquip(EquipType.Head)]
-	public class DJDuckHead : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class DJDuckHead : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("DJ Duck Mask");
             Tooltip.SetDefault(@"'Quek'
 'Great for impersonating Ancients Awakened Devs!'");
-
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -34,5 +33,5 @@ namespace AAMod.Items.Vanity.Aves
             item.rare = 9;
             item.vanity = true;
         }
-	}
+    }
 }

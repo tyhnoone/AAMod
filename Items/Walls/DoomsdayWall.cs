@@ -1,4 +1,6 @@
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria;
 
 namespace AAMod.Items.Walls
@@ -7,7 +9,6 @@ namespace AAMod.Items.Walls
     {
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 16;
             item.maxStack = 999;
@@ -20,11 +21,12 @@ namespace AAMod.Items.Walls
             item.createWall = mod.WallType("DoomsdayWall"); //put your CustomBlock Tile name
         }
 
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Doomsday Curcuit Wall");
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -34,7 +36,8 @@ namespace AAMod.Items.Walls
             recipe.AddRecipe();
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

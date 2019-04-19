@@ -1,6 +1,6 @@
-using System; using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -9,13 +9,13 @@ using BaseMod;
 
 namespace AAMod.Items.Usable
 {
-	public class TreasureRadar : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-		    DisplayName.SetDefault("Treasure Hunter");
-            BaseUtility.AddTooltips(item, new string[] { "200 Tile Range", "Lights up chests on the map" });			
-		}
+    public class TreasureRadar : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Treasure Hunter");
+            BaseUtility.AddTooltips(item, new string[] {"200 Tile Range", "Lights up chests on the map"});
+        }
 
         public override void SetDefaults()
         {
@@ -34,7 +34,8 @@ namespace AAMod.Items.Usable
         {
             if (Main.myPlayer == p.whoAmI && Main.netMode != 2)
             {
-                int cX = (int)(p.Center.X / 16f); int cY = (int)(p.Center.Y / 16f);
+                int cX = (int) (p.Center.X / 16f);
+                int cY = (int) (p.Center.Y / 16f);
                 int range = 200;
                 int topX = Math.Max(10, cX - range);
                 int topY = Math.Max(10, cY - range);
@@ -45,25 +46,42 @@ namespace AAMod.Items.Usable
                 {
                     for (int y = topY; y < bottomY; y++)
                     {
-                        if (Main.tile[x, y] == null) { continue; }
+                        if (Main.tile[x, y] == null)
+                        {
+                            continue;
+                        }
+
                         Tile tile = Main.tile[x, y];
                         if (tile.active() && (Main.tileContainer[tile.type] == true))
                         {
-                            if (Main.Map.UpdateLighting(x, y, (byte)Math.Max(Main.Map[x, y].Light, (byte)255))) updateMap = true;
+                            if (Main.Map.UpdateLighting(x, y, (byte) Math.Max(Main.Map[x, y].Light, (byte) 255)))
+                                updateMap = true;
                         }
                     }
                 }
+
                 if (updateMap)
                 {
-                    Main.mapMinX = topX; Main.mapMinY = topY;
-                    Main.mapMaxX = bottomX; Main.mapMaxY = bottomY;
+                    Main.mapMinX = topX;
+                    Main.mapMinY = topY;
+                    Main.mapMaxX = bottomX;
+                    Main.mapMaxY = bottomY;
                     Main.updateMap = Main.refreshMap = true;
                 }
             }
-            return true;
-		}
 
-		public override void UseStyle(Player p) { BaseMod.BaseUseStyle.SetStyleBoss(p, item, false, false); }
-        public override bool UseItemFrame(Player p) { BaseMod.BaseUseStyle.SetFrameBoss(p, item); return true; }
-	}
+            return true;
+        }
+
+        public override void UseStyle(Player p)
+        {
+            BaseMod.BaseUseStyle.SetStyleBoss(p, item, false, false);
+        }
+
+        public override bool UseItemFrame(Player p)
+        {
+            BaseMod.BaseUseStyle.SetFrameBoss(p, item);
+            return true;
+        }
+    }
 }

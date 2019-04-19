@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework; 
-using Microsoft.Xna.Framework.Graphics; 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Vanity.Dallin
 {
@@ -20,7 +20,7 @@ namespace AAMod.Items.Vanity.Dallin
             item.consumable = true;
             item.width = 32;
             item.height = 32;
-            item.expert = true;  
+            item.expert = true;
         }
 
         public override bool CanRightClick()
@@ -28,12 +28,12 @@ namespace AAMod.Items.Vanity.Dallin
             return true;
         }
 
- 		public override void RightClick(Player player)
-		{
-			player.QuickSpawnItem(ItemID.Fez);	
-			player.QuickSpawnItem(ItemID.TheDoctorsShirt);		
-			player.QuickSpawnItem(ItemID.TheDoctorsPants);
-			player.QuickSpawnItem(ItemID.ReflectiveDye, 3);			
+        public override void RightClick(Player player)
+        {
+            player.QuickSpawnItem(ItemID.Fez);
+            player.QuickSpawnItem(ItemID.TheDoctorsShirt);
+            player.QuickSpawnItem(ItemID.TheDoctorsPants);
+            player.QuickSpawnItem(ItemID.ReflectiveDye, 3);
         }
     }
 }

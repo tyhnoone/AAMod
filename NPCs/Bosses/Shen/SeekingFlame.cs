@@ -38,6 +38,7 @@ namespace AAMod.NPCs.Bosses.Shen
             {
                 projectile.timeLeft--;
             }
+
             if (projectile.timeLeft == 0)
             {
                 projectile.Kill();
@@ -53,7 +54,8 @@ namespace AAMod.NPCs.Bosses.Shen
                     projectile.frame = 0;
                 }
             }
-            projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
+
+            projectile.rotation = (float) Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             const int aislotHomingCooldown = 0;
             const int homingDelay = 0;
             const float desiredFlySpeedInPixelsPerFrame = 10;
@@ -69,11 +71,11 @@ namespace AAMod.NPCs.Bosses.Shen
                 {
                     Player target = Main.player[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(target.Center) * desiredFlySpeedInPixelsPerFrame;
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    projectile.velocity =
+                        Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
         }
-
 
 
         private int HomeOnTarget()
@@ -89,8 +91,8 @@ namespace AAMod.NPCs.Bosses.Shen
                 {
                     float distance = projectile.Distance(target.Center);
                     if (distance <= homingMaximumRangeInPixels &&
-                    (
-                        selectedTarget == -1 || projectile.Distance(Main.npc[selectedTarget].Center) > distance) 
+                        (
+                            selectedTarget == -1 || projectile.Distance(Main.npc[selectedTarget].Center) > distance)
                     )
                         selectedTarget = i;
                 }
@@ -109,11 +111,15 @@ namespace AAMod.NPCs.Bosses.Shen
         {
             for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.Discord>(), -projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.Discord>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 0, default(Color), 1f);
                 Main.dust[num469].velocity *= 2f;
             }
-            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("ShenBoom"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+
+            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X,
+                projectile.velocity.Y, mod.ProjectileType("ShenBoom"), projectile.damage, projectile.knockBack,
+                projectile.owner, 0f, 0f);
         }
     }
 }

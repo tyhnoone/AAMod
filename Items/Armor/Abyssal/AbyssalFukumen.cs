@@ -5,9 +5,9 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Abyssal
 {
     [AutoloadEquip(EquipType.Head)]
-	public class AbyssalFukumen : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class AbyssalFukumen : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Abyssal Fukumen");
@@ -16,14 +16,14 @@ namespace AAMod.Items.Armor.Abyssal
 Weightless as shadow itself");
         }
 
-		public override void SetDefaults()
-		{
-			item.width = 20;
-			item.height = 20;
-			item.value = 10000;
-			item.rare = 3;
-			item.defense = 5;
-		}
+        public override void SetDefaults()
+        {
+            item.width = 20;
+            item.height = 20;
+            item.value = 10000;
+            item.rare = 3;
+            item.defense = 5;
+        }
 
         public override void UpdateEquip(Player player)
         {
@@ -32,12 +32,12 @@ Weightless as shadow itself");
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return body.type == mod.ItemType("AbyssalGi") && legs.type == mod.ItemType("AbyssalHakama");
-		}
+        {
+            return body.type == mod.ItemType("AbyssalGi") && legs.type == mod.ItemType("AbyssalHakama");
+        }
 
-		public override void UpdateArmorSet(Player player)
-		{
+        public override void UpdateArmorSet(Player player)
+        {
             player.setBonus = @"Your ranged attacks are imbued with the poisonous properties of hydra venom
 20% decreased ammo consumption
 Enemies are less likely to target you";

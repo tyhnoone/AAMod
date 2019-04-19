@@ -9,33 +9,32 @@ namespace AAMod.Items.Boss.Zero
 {
     public class RiftShredder : ModItem
     {
-        
         public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Rift Shredder");
-			Tooltip.SetDefault("Sharp enough to slice through reality itself");
+        {
+            DisplayName.SetDefault("Rift Shredder");
+            Tooltip.SetDefault("Sharp enough to slice through reality itself");
         }
 
-		public override void SetDefaults()
-		{
-            
-			item.damage = 300;
-			item.melee = true;
-			item.width = 94;
-			item.height = 70;
-			item.useTime = 15;
+        public override void SetDefaults()
+        {
+            item.damage = 300;
+            item.melee = true;
+            item.width = 94;
+            item.height = 70;
+            item.useTime = 15;
             item.shoot = mod.ProjectileType("Rift");
             item.shootSpeed = 14f;
             item.useAnimation = 15;
-			item.useStyle = 1;
-			item.knockBack = 3;
-			item.value = Item.buyPrice(1, 0, 0, 0);
+            item.useStyle = 1;
+            item.knockBack = 3;
+            item.value = Item.buyPrice(1, 0, 0, 0);
             item.UseSound = new LegacySoundStyle(2, 15, Terraria.Audio.SoundType.Sound);
-			item.autoReuse = true;
-		}
+            item.autoReuse = true;
+        }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -82,8 +81,9 @@ namespace AAMod.Items.Boss.Zero
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             Dust dust;
-            dust = Terraria.Dust.NewDustDirect(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 46, default(Color), 1.25f);
-			dust.noGravity = true;
+            dust = Terraria.Dust.NewDustDirect(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height,
+                mod.DustType<Dusts.VoidDust>(), 0f, 0f, 46, default(Color), 1.25f);
+            dust.noGravity = true;
         }
-	}
+    }
 }

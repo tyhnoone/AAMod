@@ -9,11 +9,8 @@ namespace AAMod.Items.Boss.Zero
 {
     public class Vortex : ModItem
     {
-
-        
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Vortex");
             Tooltip.SetDefault(@"Spins fast enough to drag all enemies into its gravitational pull");
         }
@@ -21,7 +18,7 @@ namespace AAMod.Items.Boss.Zero
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.Terrarian);
-            item.damage = 250;                            
+            item.damage = 250;
             item.value = Item.buyPrice(1, 0, 0, 0);
             item.rare = 2;
             item.knockBack = 1;
@@ -29,10 +26,11 @@ namespace AAMod.Items.Boss.Zero
             item.useStyle = 5;
             item.useAnimation = 15;
             item.useTime = 15;
-            item.shoot = mod.ProjectileType("Vortex");  
-		}
+            item.shoot = mod.ProjectileType("Vortex");
+        }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -64,7 +62,7 @@ namespace AAMod.Items.Boss.Zero
             }
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "ApocalyptitePlate", 5);
@@ -74,6 +72,5 @@ namespace AAMod.Items.Boss.Zero
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
 }

@@ -8,6 +8,7 @@ namespace AAMod.Projectiles
     public class PerfectChaosE : ModProjectile
     {
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -17,13 +18,15 @@ namespace AAMod.Projectiles
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/Toxibomb_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             projectile.glowMask = customGlowMask;
-            DisplayName.SetDefault("Discordian Fury");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 7;     //The recording mode
+            DisplayName.SetDefault("Discordian Fury"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 7; //The recording mode
         }
 
         public override void SetDefaults()
@@ -48,12 +51,11 @@ namespace AAMod.Projectiles
                 if (++projectile.frame >= 6)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -66,6 +68,5 @@ namespace AAMod.Projectiles
         {
             projectile.timeLeft = 0;
         }
-
     }
 }

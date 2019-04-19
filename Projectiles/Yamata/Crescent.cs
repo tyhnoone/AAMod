@@ -3,15 +3,13 @@ using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
-namespace AAMod.Projectiles.Yamata   //The directory for your .cs and .png; Example: TutorialMOD/Projectiles
+namespace AAMod.Projectiles.Yamata //The directory for your .cs and .png; Example: TutorialMOD/Projectiles
 {
-    public class Crescent : ModProjectile   //make sure the sprite file is named like the class name (CustomYoyoProjectile)
+    public class
+        Crescent : ModProjectile //make sure the sprite file is named like the class name (CustomYoyoProjectile)
     {
-
-        
         public override void SetStaticDefaults()
         {
-
             DisplayName.SetDefault("Crescent");
         }
 
@@ -19,9 +17,9 @@ namespace AAMod.Projectiles.Yamata   //The directory for your .cs and .png; Exam
         {
             projectile.extraUpdates = 0;
             projectile.width = 16;
-            projectile.height = 16; 
+            projectile.height = 16;
             projectile.aiStyle = 99;
-            projectile.friendly = true; 
+            projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.melee = true;
             ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = 30f;
@@ -30,11 +28,9 @@ namespace AAMod.Projectiles.Yamata   //The directory for your .cs and .png; Exam
         }
 
 
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(mod.BuffType("Moonraze"), 600);
         }
-
     }
 }

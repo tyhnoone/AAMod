@@ -11,7 +11,7 @@ namespace AAMod.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileLighted[Type] = true;
-            drop = mod.ItemType("Bogwood");   //put your CustomBlock name
+            drop = mod.ItemType("Bogwood"); //put your CustomBlock name
             AddMapEntry(new Color(0, 0, 51));
             dustType = mod.DustType("BogwoodDust");
         }

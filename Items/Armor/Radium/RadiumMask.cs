@@ -5,38 +5,37 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Radium
 {
     [AutoloadEquip(EquipType.Head)]
-	public class RadiumMask : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Radium Mask");
-			Tooltip.SetDefault(@"12% increased magic damage
+    public class RadiumMask : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Radium Mask");
+            Tooltip.SetDefault(@"12% increased magic damage
 Shines with the light of a starry night sky");
-
-		}
-
-		public override void SetDefaults()
-		{
-			item.width = 20;
-			item.height = 18;
-			item.value = 300000;
-			item.rare = 11;
-			item.defense = 18;
-		}
-		
-		public override void UpdateEquip(Player player)
-		{
-			player.magicDamage += 0.12f;
         }
 
-		public override bool IsArmorSet(Item head, Item body, Item legs)
+        public override void SetDefaults()
+        {
+            item.width = 20;
+            item.height = 18;
+            item.value = 300000;
+            item.rare = 11;
+            item.defense = 18;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.magicDamage += 0.12f;
+        }
+
+        public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == mod.ItemType("RadiumPlatemail") && legs.type == mod.ItemType("RadiumCuisses");
         }
 
-		public override void UpdateArmorSet(Player player)
-		{
-			player.setBonus = @"200 increased maximum mana
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = @"200 increased maximum mana
 20% reduced mana usage
 Being hit causes stars from the heavans to fall around you and increases your movement speed
 30% increased movement speed during the day";
@@ -44,6 +43,7 @@ Being hit causes stars from the heavans to fall around you and increases your mo
             {
                 player.moveSpeed += .3f;
             }
+
             player.GetModPlayer<AAPlayer>(mod).Radium = true;
             player.statManaMax2 += 200;
             player.manaCost *= 0.80f;
@@ -51,7 +51,7 @@ Being hit causes stars from the heavans to fall around you and increases your mo
             player.starCloak = true;
         }
 
-		public override void AddRecipes()
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "RadiumBar", 25);
@@ -60,5 +60,5 @@ Being hit causes stars from the heavans to fall around you and increases your mo
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

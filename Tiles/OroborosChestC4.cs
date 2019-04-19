@@ -25,20 +25,23 @@ namespace AAMod.Tiles
             TileID.Sets.HasOutlines[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
-            TileObjectData.newTile.HookCheck = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.FindEmptyChest), -1, 0, true);
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.AfterPlacement_Hook), -1, 0, false);
-            TileObjectData.newTile.AnchorInvalidTiles = new int[] { 127 };
+            TileObjectData.newTile.CoordinateHeights = new int[] {16, 18};
+            TileObjectData.newTile.HookCheck =
+                new PlacementHook(new Func<int, int, int, int, int, int>(Chest.FindEmptyChest), -1, 0, true);
+            TileObjectData.newTile.HookPostPlaceMyPlayer =
+                new PlacementHook(new Func<int, int, int, int, int, int>(Chest.AfterPlacement_Hook), -1, 0, false);
+            TileObjectData.newTile.AnchorInvalidTiles = new int[] {127};
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.LavaDeath = false;
-            TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
+            TileObjectData.newTile.AnchorBottom = new AnchorData(
+                AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
             TileObjectData.addTile(Type);
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Oroboros Chest");
             dustType = mod.DustType("DoomDust");
             AddMapEntry(new Color(70, 0, 10), name, MapChestName);
             disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Containers };
+            adjTiles = new int[] {TileID.Containers};
             chest = "Oroboros Chest";
             chestDrop = mod.ItemType("OroborosChest");
         }
@@ -57,10 +60,12 @@ namespace AAMod.Tiles
             {
                 left--;
             }
+
             if (tile.frameY != 0)
             {
                 top--;
             }
+
             int chest = Chest.FindChest(left, top);
             if (Main.chest[chest].name == "")
             {
@@ -99,7 +104,6 @@ namespace AAMod.Tiles
 						 {
 							 player.inventory[num66] = new Item();
 						 } */
-
                 }
             }
 
@@ -111,10 +115,12 @@ namespace AAMod.Tiles
             {
                 left--;
             }
+
             if (tile.frameY != 0)
             {
                 top--;
             }
+
             if (player.sign >= 0)
             {
                 Main.PlaySound(SoundID.MenuClose);
@@ -122,17 +128,21 @@ namespace AAMod.Tiles
                 Main.editSign = false;
                 Main.npcChatText = "";
             }
+
             if (Main.editChest)
             {
                 Main.PlaySound(SoundID.MenuTick);
                 Main.editChest = false;
                 Main.npcChatText = "";
             }
+
             if (player.editedChestName)
             {
-                NetMessage.SendData(33, -1, -1, NetworkText.FromLiteral(Main.chest[player.chest].name), player.chest, 1f, 0f, 0f, 0, 0, 0);
+                NetMessage.SendData(33, -1, -1, NetworkText.FromLiteral(Main.chest[player.chest].name), player.chest,
+                    1f, 0f, 0f, 0, 0, 0);
                 player.editedChestName = false;
             }
+
             if (Main.netMode == 1)
             {
                 if (left == player.chestX && top == player.chestY && player.chest >= 0)
@@ -167,6 +177,7 @@ namespace AAMod.Tiles
                         player.chestY = top;
                         Main.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
                     }
+
                     Recipe.FindRecipes();
                 }
             }
@@ -182,10 +193,12 @@ namespace AAMod.Tiles
             {
                 left--;
             }
+
             if (tile.frameY != 0)
             {
                 top--;
             }
+
             int chest = Chest.FindChest(left, top);
             player.showItemIcon2 = -1;
             if (chest < 0)
@@ -201,9 +214,11 @@ namespace AAMod.Tiles
                     player.showItemIconText = "";
                 }
             }
+
             player.noThrow = 2;
             player.showItemIcon = true;
         }
+
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Main.tile[i, j];
@@ -216,21 +231,31 @@ namespace AAMod.Tiles
             {
                 texture = Main.tileTexture[Type];
             }
+
             Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
             if (Main.drawToScreen)
             {
                 zero = Vector2.Zero;
             }
+
             int height = tile.frameY == 36 ? 18 : 16;
             int animate = 0;
             if (tile.frameY >= 56)
             {
                 animate = Main.tileFrame[Type] * animationFrameHeight;
             }
-            Main.spriteBatch.Draw(texture, new Vector2((i * 16) - (int)Main.screenPosition.X, (j * 16) - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY + animate, 16, height), Lighting.GetColor(i, j), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
-            Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/OroborosChest_Glow"), new Vector2((i * 16) - (int)Main.screenPosition.X, (j * 16) - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY + animate, 16, height), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+            Main.spriteBatch.Draw(texture,
+                new Vector2((i * 16) - (int) Main.screenPosition.X, (j * 16) - (int) Main.screenPosition.Y) + zero,
+                new Rectangle(tile.frameX, tile.frameY + animate, 16, height), Lighting.GetColor(i, j), 0f,
+                default(Vector2), 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/OroborosChest_Glow"),
+                new Vector2((i * 16) - (int) Main.screenPosition.X, (j * 16) - (int) Main.screenPosition.Y) + zero,
+                new Rectangle(tile.frameX, tile.frameY + animate, 16, height), Color.White, 0f, Vector2.Zero, 1f,
+                SpriteEffects.None, 0f);
             return false;
         }
+
         public override void MouseOverFar(int i, int j)
         {
             MouseOver(i, j);

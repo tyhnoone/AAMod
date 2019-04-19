@@ -12,10 +12,10 @@ namespace AAMod.Items.Melee
             item.width = 42;
             item.height = 42;
             item.useTime = 28;
-            item.useAnimation = 28;     
+            item.useAnimation = 28;
             item.useStyle = 3;
             item.knockBack = 1;
-            item.value = 1000;        
+            item.value = 1000;
             item.rare = 2;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
@@ -27,11 +27,11 @@ namespace AAMod.Items.Melee
             DisplayName.SetDefault("Harmony Shortsword");
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes() //How to craft this sword
         {
-            ModRecipe recipe = new ModRecipe(mod);      
+            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "TerraShard", 10);
-            recipe.AddTile(TileID.Anvils);  
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

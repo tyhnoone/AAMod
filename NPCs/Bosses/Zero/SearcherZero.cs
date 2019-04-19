@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -11,12 +10,12 @@ using BaseMod;
 
 namespace AAMod.NPCs.Bosses.Zero
 {
-	public class SearcherZero : ModNPC
-	{
-		public override void SetStaticDefaults()
-		{
-            DisplayName.SetDefault("Searcher");	
-		}		
+    public class SearcherZero : ModNPC
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Searcher");
+        }
 
         public override void SetDefaults()
         {
@@ -31,8 +30,7 @@ namespace AAMod.NPCs.Bosses.Zero
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.knockBackResist = 0.5f;
-			npc.noGravity = true;
-            
+            npc.noGravity = true;
         }
 
         public override void HitEffect(int hitDirection, double damage)
@@ -41,11 +39,13 @@ namespace AAMod.NPCs.Bosses.Zero
             for (int m = 0; m < (isDead ? 25 : 5); m++)
             {
                 int dustType = (mod.DustType<Dusts.VoidDust>());
-                Dust.NewDust(npc.position, npc.width, npc.height, dustType, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, (isDead ? 2f : 1.1f));
+                Dust.NewDust(npc.position, npc.width, npc.height, dustType, npc.velocity.X * 0.2f,
+                    npc.velocity.Y * 0.2f, 100, Color.White, (isDead ? 2f : 1.1f));
             }
         }
 
         float shootAI = 0;
+
         public override void AI()
         {
             BaseMod.BaseAI.AISkull(npc, ref npc.ai, false, 6f, 350f, 0.1f, 0.15f);
@@ -59,8 +59,9 @@ namespace AAMod.NPCs.Bosses.Zero
                 {
                     shootAI = 0;
                     int projType = mod.ProjType("DeathLaser");
-                    if (Collision.CanHit(npc.position, npc.width, npc.height, player.position, player.width, player.height))
-                        BaseAI.FireProjectile(player.Center, npc, projType, (int)(npc.damage * 0.25f), 0f, 2f);
+                    if (Collision.CanHit(npc.position, npc.width, npc.height, player.position, player.width,
+                        player.height))
+                        BaseAI.FireProjectile(player.Center, npc, projType, (int) (npc.damage * 0.25f), 0f, 2f);
                 }
             }
         }
@@ -75,12 +76,22 @@ namespace AAMod.NPCs.Bosses.Zero
             {
                 glowTex = mod.GetTexture("Glowmasks/SearcherZero_Glow");
             }
-            if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
-            else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
+
+            if (auraDirection)
+            {
+                auraPercent += 0.1f;
+                auraDirection = auraPercent < 1f;
+            }
+            else
+            {
+                auraPercent -= 0.1f;
+                auraDirection = auraPercent <= 0f;
+            }
+
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
             BaseDrawing.DrawAura(spritebatch, glowTex, 0, npc, auraPercent, 1f, 0f, 0f, Color.Red);
             BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, Color.Red);
             return false;
         }
-	}
+    }
 }

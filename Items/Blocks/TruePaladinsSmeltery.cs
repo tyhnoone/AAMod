@@ -7,13 +7,11 @@ namespace AAMod.Items.Blocks
 {
     public class TruePaladinsSmeltery : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("True Paladin's Smeltery");
             Tooltip.SetDefault(
-@"A superforge meant for only the worthiest of smiths
+                @"A superforge meant for only the worthiest of smiths
 Functions as most nececary crafting stations");
         }
 
@@ -34,7 +32,8 @@ Functions as most nececary crafting stations");
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

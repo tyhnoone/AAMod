@@ -8,36 +8,34 @@ using Terraria.Audio;
 namespace AAMod.Items.Boss.Zero
 {
     public class Neutralizer : ModItem
-	{
-        
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Neutralizer");
             Tooltip.SetDefault("Fires bouncing lasers that get more powerful as they bounce off walls");
-            
         }
 
         public override void SetDefaults()
-		{
-			item.damage = 320;
-			item.ranged = true;
-			item.width = 34;
-			item.height = 58;
-			item.useTime = 13;
-			item.useAnimation = 13;
-			item.useStyle = 5;
-			item.noMelee = true; //so the item's animation doesn't do damage
-			item.knockBack = 0;
+        {
+            item.damage = 320;
+            item.ranged = true;
+            item.width = 34;
+            item.height = 58;
+            item.useTime = 13;
+            item.useAnimation = 13;
+            item.useStyle = 5;
+            item.noMelee = true; //so the item's animation doesn't do damage
+            item.knockBack = 0;
             item.value = Item.buyPrice(1, 0, 0, 0);
             item.UseSound = new LegacySoundStyle(2, 75, Terraria.Audio.SoundType.Sound);
             item.autoReuse = true;
             item.shoot = mod.ProjectileType("Neutralizer");
-			item.shootSpeed = 8f;
-            
-		}
+            item.shootSpeed = 8f;
+        }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

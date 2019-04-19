@@ -5,12 +5,11 @@ namespace AAMod.Items.Melee
 {
     public class Void : ModItem
     {
-
         public override void SetDefaults()
         {
-			item.useTime = 25;
+            item.useTime = 25;
             item.CloneDefaults(ItemID.Terrarian);
-            item.damage = 190;                            
+            item.damage = 190;
             item.value = 1000000;
             item.rare = 9;
             item.knockBack = 1;
@@ -19,12 +18,12 @@ namespace AAMod.Items.Melee
             item.useAnimation = 12;
             item.useTime = 12;
             item.rare = 11;
-            item.shoot = mod.ProjectileType("Void");  
-		}
+            item.shoot = mod.ProjectileType("Void");
+        }
 
         public override void SetStaticDefaults()
         {
-             DisplayName.SetDefault("Void");
+            DisplayName.SetDefault("Void");
             Tooltip.SetDefault("Made out of pure Dark Matter");
         }
 
@@ -36,6 +35,5 @@ namespace AAMod.Items.Melee
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
 }

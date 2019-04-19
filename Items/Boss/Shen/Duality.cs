@@ -89,10 +89,12 @@ Grants effects of the Discordian Rampart");
             {
                 player.moveSpeed *= 1.5f;
             }
+
             if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno)
             {
                 item.defense = 18;
             }
+
             if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno && player.GetModPlayer<AAPlayer>(mod).ZoneMire)
             {
                 player.meleeDamage *= 1.3f;
@@ -114,7 +116,7 @@ Grants effects of the Discordian Rampart");
             }
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "TaiyangBaolei", 1);

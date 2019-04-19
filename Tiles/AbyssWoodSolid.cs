@@ -8,8 +8,8 @@ namespace AAMod.Tiles
 {
     public class AbyssWoodSolid : ModTile
     {
+        public bool glow = true;
 
-        public bool glow = true; 
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;

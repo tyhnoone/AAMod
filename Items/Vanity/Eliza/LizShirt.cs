@@ -16,7 +16,6 @@ namespace AAMod.Items.Vanity.Eliza
         }
 
 
-
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)

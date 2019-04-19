@@ -13,6 +13,7 @@ namespace AAMod.Projectiles.Akuma
 
             Main.projFrames[projectile.type] = 7;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 10;
@@ -40,7 +41,6 @@ namespace AAMod.Projectiles.Akuma
                 projectile.ai[1] = -1f;
                 projectile.netUpdate = true;
             }
-
         }
 
         public override void AI()
@@ -49,17 +49,27 @@ namespace AAMod.Projectiles.Akuma
             {
                 projectile.tileCollide = true;
             }
+
             if (projectile.position.HasNaNs())
             {
                 projectile.Kill();
                 return;
             }
-            bool flag5 = WorldGen.SolidTile(Framing.GetTileSafely((int)projectile.position.X / 16, (int)projectile.position.Y / 16));
-            Dust dust19 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default(Color), 1f)];
+
+            bool flag5 =
+                WorldGen.SolidTile(Framing.GetTileSafely((int) projectile.position.X / 16,
+                    (int) projectile.position.Y / 16));
+            Dust dust19 =
+                Main.dust[
+                    Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                        projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default(Color), 1f)];
             dust19.position = projectile.Center;
             dust19.velocity = Vector2.Zero;
             dust19.noGravity = true;
-            Dust dust18 = Main.dust[Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default(Color), 1f)];
+            Dust dust18 =
+                Main.dust[
+                    Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                        projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default(Color), 1f)];
             dust18.position = projectile.Center;
             dust18.velocity = Vector2.Zero;
             dust18.noGravity = true;
@@ -68,6 +78,7 @@ namespace AAMod.Projectiles.Akuma
                 dust19.noLight = true;
                 dust18.noLight = true;
             }
+
             if (projectile.ai[1] == -1f)
             {
                 projectile.ai[0] += 1f;
@@ -82,17 +93,21 @@ namespace AAMod.Projectiles.Akuma
                 {
                     projectile.alpha = 0;
                 }
+
                 if (++projectile.frameCounter >= projectile.MaxUpdates * 3)
                 {
                     projectile.frameCounter = 0;
                     projectile.frame++;
                 }
-                if (projectile.ai[0] >= (float)(Main.projFrames[projectile.type] * projectile.MaxUpdates * 3))
+
+                if (projectile.ai[0] >= (float) (Main.projFrames[projectile.type] * projectile.MaxUpdates * 3))
                 {
                     projectile.Kill();
                 }
+
                 return;
             }
+
             projectile.alpha = 255;
             if (projectile.numUpdates == 0)
             {
@@ -111,6 +126,7 @@ namespace AAMod.Projectiles.Akuma
                         }
                     }
                 }
+
                 if (num185 != -1)
                 {
                     projectile.ai[0] = 0f;
@@ -130,22 +146,28 @@ namespace AAMod.Projectiles.Akuma
 
         public override void Kill(int timeLeft)
         {
-            bool flag = WorldGen.SolidTile(Framing.GetTileSafely((int)projectile.position.X / 16, (int)projectile.position.Y / 16));
+            bool flag = WorldGen.SolidTile(Framing.GetTileSafely((int) projectile.position.X / 16,
+                (int) projectile.position.Y / 16));
 
             for (int num58 = 0; num58 < 4; num58++)
             {
-                Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 100, default(Color), 1.5f);
+                Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 100, default(Color), 1.5f);
             }
+
             for (int num59 = 0; num59 < 4; num59++)
             {
-                int num60 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default(Color), 2.5f);
+                int num60 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default(Color), 2.5f);
                 Main.dust[num60].noGravity = true;
                 Main.dust[num60].velocity *= 3f;
                 if (flag)
                 {
                     Main.dust[num60].noLight = true;
                 }
-                num60 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 100, default(Color), 1.5f);
+
+                num60 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 100, default(Color), 1.5f);
                 Main.dust[num60].velocity *= 2f;
                 Main.dust[num60].noGravity = true;
                 if (flag)

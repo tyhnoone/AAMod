@@ -28,8 +28,9 @@ namespace AAMod.Projectiles
         {
             for (int num189 = 0; num189 < 1; num189++)
             {
-                int num190 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 0, default(Color), 1f);
-                
+                int num190 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 0, default(Color), 1f);
+
                 Main.dust[num190].scale *= 1.3f;
                 Main.dust[num190].fadeIn = 1f;
                 Main.dust[num190].noGravity = true;
@@ -38,19 +39,23 @@ namespace AAMod.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("SingularityVortex"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X,
+                projectile.velocity.Y, mod.ProjectileType("SingularityVortex"), projectile.damage, projectile.knockBack,
+                projectile.owner, 0f, 0f);
         }
 
         public override bool PreDraw(SpriteBatch sb, Color lightColor) //this is where the animation happens
         {
             projectile.frameCounter++; //increase the frameCounter by one
-            if (projectile.frameCounter >= 5) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
+            if (projectile.frameCounter >= 5
+            ) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
             {
                 projectile.frame++; //go to the next frame
                 projectile.frameCounter = 0; //reset the counter
                 if (projectile.frame > 3) //if past the last frame
                     projectile.frame = 0; //go back to the first frame
             }
+
             return true;
         }
     }

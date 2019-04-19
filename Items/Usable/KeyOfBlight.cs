@@ -6,11 +6,11 @@ namespace AAMod.Items.Usable
 {
     public class KeyOfBlight : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Key of Blight");
-			Tooltip.SetDefault("'Charged with carnal energy'");
-		}
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Key of Blight");
+            Tooltip.SetDefault("'Charged with carnal energy'");
+        }
 
         public override void SetDefaults()
         {

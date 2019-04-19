@@ -18,6 +18,7 @@ namespace AAMod.Backgrounds
             {
                 return;
             }
+
             DataIndex = -1;
         }
 

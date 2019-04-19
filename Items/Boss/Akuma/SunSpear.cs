@@ -9,10 +9,8 @@ namespace AAMod.Items.Boss.Akuma
 {
     public class SunSpear : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Sun Partisan");
             Tooltip.SetDefault(@"One of two legendary spears used to divide time into day and night
 Inflicts daybroken");
@@ -32,15 +30,16 @@ Inflicts daybroken");
             item.noMelee = true;
             item.noUseGraphic = true;
             item.useTurn = true;
-			item.autoReuse = true;
+            item.autoReuse = true;
             item.useStyle = 5;
             item.value = Item.sellPrice(1, 0, 0, 0);
             item.rare = 3;
-            item.shoot = mod.ProjectileType("SunSpear");  //put your Spear projectile name
+            item.shoot = mod.ProjectileType("SunSpear"); //put your Spear projectile name
             item.shootSpeed = 7f;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -74,10 +73,11 @@ Inflicts daybroken");
 
 
         public override bool CanUseItem(Player player)
-		{
-			return player.ownedProjectileCounts[item.shoot] < 1; // This is to ensure the spear doesn't bug out when using autoReuse = true
-		}
-
+        {
+            return
+                player.ownedProjectileCounts[item.shoot] <
+                1; // This is to ensure the spear doesn't bug out when using autoReuse = true
+        }
 
 
         public override void AddRecipes()

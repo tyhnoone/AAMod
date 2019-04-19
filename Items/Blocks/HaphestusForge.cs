@@ -1,17 +1,18 @@
 using Terraria.ID;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria;
 
 namespace AAMod.Items.Blocks
 {
     public class HaphestusForge : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hephaestus Forge");
             Tooltip.SetDefault(
-@"*Slaps top of forge* This baby can fit so many crafting stations in it
+                @"*Slaps top of forge* This baby can fit so many crafting stations in it
 Functions as a Hellforge, Hellstone Anvil, Alchemy Table, Demon Altar, Tinkerer's Workshop, and a Table and Chair");
         }
 
@@ -32,7 +33,8 @@ Functions as a Hellforge, Hellstone Anvil, Alchemy Table, Demon Altar, Tinkerer'
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

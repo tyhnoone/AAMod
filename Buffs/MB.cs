@@ -20,6 +20,7 @@ namespace AAMod.Buffs
             {
                 modPlayer.MoonBee = true;
             }
+
             if (!modPlayer.MoonBee)
             {
                 player.DelBuff(buffIndex);

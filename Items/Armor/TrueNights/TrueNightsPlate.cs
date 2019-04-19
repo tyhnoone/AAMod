@@ -12,7 +12,6 @@ namespace AAMod.Items.Armor.TrueNights
         {
             DisplayName.SetDefault("True Night's Plate");
             Tooltip.SetDefault("14% increased melee speed");
-
         }
 
         public override void SetDefaults()

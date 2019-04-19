@@ -6,10 +6,10 @@ using Terraria.ModLoader;
 
 namespace AAMod.Mounts
 {
-	public class BegPony : ModMountData
-	{
-		public override void SetDefaults()
-		{
+    public class BegPony : ModMountData
+    {
+        public override void SetDefaults()
+        {
             mountData.spawnDust = DustID.Smoke;
             mountData.buff = mod.BuffType<Buffs.PrettyPony>();
             mountData.heightBoost = 44;
@@ -26,6 +26,7 @@ namespace AAMod.Mounts
             {
                 array[num6] = 28;
             }
+
             array[3] += 2;
             array[4] += 2;
             array[7] += 2;
@@ -71,13 +72,14 @@ namespace AAMod.Mounts
             }
         }
 
-		public override void UpdateEffects(Player player)
-		{
+        public override void UpdateEffects(Player player)
+        {
             player.doubleJumpUnicorn = true;
             if (Math.Abs(player.velocity.X) > player.mount.DashSpeed - player.mount.RunSpeed / 2f)
             {
                 player.noKnockback = true;
             }
+
             if (player.dashDelay > 0)
             {
                 player.dashDelay--;
@@ -94,6 +96,7 @@ namespace AAMod.Mounts
                 {
                     player.dashTime++;
                 }
+
                 if (player.controlRight && player.releaseRight)
                 {
                     if (player.dashTime > 0)
@@ -120,18 +123,23 @@ namespace AAMod.Mounts
                         player.dashTime = -15;
                     }
                 }
+
                 if (flag)
                 {
                     player.velocity.X = 16.9f * num4;
-                    Point point = Utils.ToTileCoordinates(player.Center + new Vector2((num4 * player.width / 2 + 2), player.gravDir * -player.height / 2f + player.gravDir * 2f));
-                    Point point2 = Utils.ToTileCoordinates(player.Center + new Vector2((num4 * player.width / 2 + 2), 0f));
+                    Point point = Utils.ToTileCoordinates(player.Center + new Vector2((num4 * player.width / 2 + 2),
+                                                              player.gravDir * -player.height / 2f +
+                                                              player.gravDir * 2f));
+                    Point point2 =
+                        Utils.ToTileCoordinates(player.Center + new Vector2((num4 * player.width / 2 + 2), 0f));
                     if (WorldGen.SolidOrSlopedTile(point.X, point.Y) || WorldGen.SolidOrSlopedTile(point2.X, point2.Y))
                     {
                         player.velocity.X = player.velocity.X / 2f;
                     }
+
                     player.dashDelay = 300;
                 }
             }
         }
-	}
+    }
 }

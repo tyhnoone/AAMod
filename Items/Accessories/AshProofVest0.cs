@@ -36,6 +36,7 @@ namespace AAMod.Items.Accessories
                     item.TurnToAir();
                 }
             }
+
             if (item.accessory)
             {
                 player.buffImmune[mod.BuffType("BurningAsh")] = true;

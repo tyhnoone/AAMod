@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Usable
 {
     public class AshJar : ModItem
-	{
+    {
         public override void SetDefaults()
         {
             item.width = 22;

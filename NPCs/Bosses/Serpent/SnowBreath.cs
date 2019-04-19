@@ -31,6 +31,7 @@ namespace AAMod.NPCs.Bosses.Serpent
             {
                 projectile.timeLeft = 60;
             }
+
             if (projectile.ai[0] > 7f)
             {
                 float num296 = 1f;
@@ -46,6 +47,7 @@ namespace AAMod.NPCs.Bosses.Serpent
                 {
                     num296 = 0.75f;
                 }
+
                 projectile.ai[0] += 1f;
                 int num297 = mod.DustType<Dusts.SnowDustLight>();
                 if (projectile.ai[1] == 1)
@@ -55,24 +57,26 @@ namespace AAMod.NPCs.Bosses.Serpent
 
                 if (projectile.ai[1] == 2)
                 {
-
                     num297 = DustID.GoldFlame;
                 }
 
                 if (projectile.ai[1] == 3)
                 {
-                    num297 = mod.DustType<Dusts. BroodmotherDust>();
+                    num297 = mod.DustType<Dusts.BroodmotherDust>();
                 }
 
                 if (projectile.ai[1] == 4)
                 {
                     num297 = mod.DustType<Dusts.AcidDust>();
                 }
+
                 if (Main.rand.Next(2) == 0)
                 {
                     for (int num298 = 0; num298 < 3; num298++)
                     {
-                        int num299 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, num297, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, mod.DustType<Dusts.SnowDustLight>(), default(Color), 1f);
+                        int num299 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y),
+                            projectile.width, projectile.height, num297, projectile.velocity.X * 0.2f,
+                            projectile.velocity.Y * 0.2f, mod.DustType<Dusts.SnowDustLight>(), default(Color), 1f);
                         if (Main.rand.Next(3) == 0)
                         {
                             Main.dust[num299].noGravity = true;
@@ -82,6 +86,7 @@ namespace AAMod.NPCs.Bosses.Serpent
                             Dust expr_DD7D_cp_0 = Main.dust[num299];
                             expr_DD7D_cp_0.velocity.Y = expr_DD7D_cp_0.velocity.Y * 2f;
                         }
+
                         Main.dust[num299].scale *= 1f;
                         Dust expr_DDE2_cp_0 = Main.dust[num299];
                         expr_DDE2_cp_0.velocity.X = expr_DDE2_cp_0.velocity.X * 1.2f;
@@ -100,24 +105,28 @@ namespace AAMod.NPCs.Bosses.Serpent
             {
                 projectile.ai[0] += 1f;
             }
-            projectile.rotation += 0.3f * (float)projectile.direction;
+
+            projectile.rotation += 0.3f * (float) projectile.direction;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Chilled, 300);
-            if  (projectile.ai[1] == 1)
+            if (projectile.ai[1] == 1)
             {
                 target.AddBuff(BuffID.CursedInferno, 180);
             }
+
             if (projectile.ai[1] == 2)
             {
                 target.AddBuff(BuffID.Ichor, 180);
             }
+
             if (projectile.ai[1] == 3)
             {
                 target.AddBuff(BuffID.OnFire, 180);
             }
+
             if (projectile.ai[1] == 4)
             {
                 target.AddBuff(BuffID.Poisoned, 180);

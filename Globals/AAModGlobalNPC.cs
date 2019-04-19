@@ -28,7 +28,7 @@ using AAMod.NPCs.Bosses.Yamata;
 namespace AAMod
 {
     public class AAModGlobalNPC : GlobalNPC
-	{
+    {
         //debuffs
         public bool TimeFrozen = false;
         public bool infinityOverload = false;
@@ -47,15 +47,12 @@ namespace AAMod
         public static int Brain = -1;
 
         public override bool InstancePerEntity
-		{
-			get
-			{
-				return true;
-			}
-		}
+        {
+            get { return true; }
+        }
 
-		public override void ResetEffects(NPC npc)
-		{
+        public override void ResetEffects(NPC npc)
+        {
             infinityOverload = false;
             terraBlaze = false;
             TimeFrozen = false;
@@ -74,7 +71,7 @@ namespace AAMod
         {
             if (AAWorld.downedShen == true)
             {
-                if (npc.type == NPCID.GoblinSummoner)   //this is where you choose the npc you want
+                if (npc.type == NPCID.GoblinSummoner) //this is where you choose the npc you want
                 {
                     npc.damage = 130;
                     npc.defense = 70;
@@ -103,13 +100,14 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
+
                 npc.lifeRegen -= 60;
                 if (damage < 40)
                 {
                     damage = 40;
                 }
             }
-            
+
             if (InfinityScorch)
             {
                 drain = true;
@@ -117,12 +115,14 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
+
                 npc.lifeRegen -= 80;
                 if (damage < 40)
                 {
                     damage = 40;
                 }
             }
+
             if (npc.type == NPCID.KingSlime || npc.type == NPCID.Plantera)
             {
                 if (npc.onFire)
@@ -131,6 +131,7 @@ namespace AAMod
                     {
                         npc.lifeRegen = 0;
                     }
+
                     npc.lifeRegen -= 20;
                 }
             }
@@ -142,16 +143,19 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
+
                 npc.lifeRegen = 0;
                 if (RiftTimer >= 120)
                 {
                     RiftDamage += 10;
                     RiftTimer = 0;
                 }
+
                 if (RiftDamage >= 80)
                 {
                     RiftDamage = 80;
                 }
+
                 npc.lifeRegen -= RiftDamage;
             }
             else
@@ -170,6 +174,7 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
+
                 if (npc.type == mod.NPCType<ShenDoragon>() || npc.type == mod.NPCType<ShenA>())
                 {
                     npc.lifeRegen -= 48;
@@ -178,6 +183,7 @@ namespace AAMod
                 {
                     npc.lifeRegen -= 16;
                 }
+
                 if (damage < 2)
                 {
                     damage = 2;
@@ -190,12 +196,14 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
+
                 int num7 = 0;
                 int num8 = 4;
                 if (num7 == 0)
                 {
                     num7 = 1;
                 }
+
                 npc.lifeRegen -= num7 * 2 * 100;
                 if (num < num7 * 100 / num8)
                 {
@@ -209,6 +217,7 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
+
                 npc.lifeRegen -= 8;
                 if (npc.velocity.X >= 0 || npc.velocity.X <= 0)
                 {
@@ -224,6 +233,7 @@ namespace AAMod
                 {
                     npc.velocity.X *= 0.8f;
                 }
+
                 if (npc.velocity.Y < -2f || npc.velocity.Y > 2f)
                 {
                     npc.velocity.Y *= 0.8f;
@@ -232,7 +242,7 @@ namespace AAMod
 
             if (BrokenArmor)
             {
-               npc.defense *= (int).8f;
+                npc.defense *= (int) .8f;
             }
 
             if (Dragonfire)
@@ -247,14 +257,16 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
-                npc.lifeRegen -= (int)(npc.velocity.X);
-            }
 
+                npc.lifeRegen -= (int) (npc.velocity.X);
+            }
         }
 
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback,
+            ref bool crit)
         {
-            if (npc.type == NPCID.Golem || npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead)
+            if (npc.type == NPCID.Golem || npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight ||
+                npc.type == NPCID.GolemHead)
             {
                 if (item.pick > 0)
                 {
@@ -271,25 +283,34 @@ namespace AAMod
         {
             if (npc.type == NPCID.FireImp)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DevilSilk"), Main.rand.Next(2, 3));
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                    mod.ItemType("DevilSilk"), Main.rand.Next(2, 3));
             }
+
             if (npc.type == NPCID.Demon)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DevilSilk"), Main.rand.Next(4, 5));
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                    mod.ItemType("DevilSilk"), Main.rand.Next(4, 5));
             }
+
             if (npc.type == NPCID.VoodooDemon)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DevilSilk"), Main.rand.Next(5, 6));
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                    mod.ItemType("DevilSilk"), Main.rand.Next(5, 6));
             }
+
             if (npc.type == NPCID.Plantera)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PlanteraPetal"), Main.rand.Next(30, 40));
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                    mod.ItemType("PlanteraPetal"), Main.rand.Next(30, 40));
             }
+
             if (npc.type == NPCID.GreekSkeleton)
             {
                 if (Main.rand.NextFloat() < 0.1f)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GladiatorsGlory"));
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("GladiatorsGlory"));
                 }
             }
 
@@ -297,7 +318,8 @@ namespace AAMod
             {
                 if (Main.rand.NextFloat() < 0.1f)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Seashroom"));
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("Seashroom"));
                 }
             }
 
@@ -305,7 +327,7 @@ namespace AAMod
             {
                 if (Main.rand.NextFloat() < 0.1f)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.Excalibur);
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, ItemID.Excalibur);
                 }
             }
 
@@ -313,7 +335,8 @@ namespace AAMod
             {
                 if (Main.rand.NextFloat() < 0.1f)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.BloodLustCluster);
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        ItemID.BloodLustCluster);
                 }
             }
 
@@ -321,64 +344,82 @@ namespace AAMod
             {
                 if (Main.rand.NextFloat() < 0.1f)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Shadowban"));
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("Shadowban"));
                 }
             }
 
-            if (Main.rand.Next(4096) == 0)   //item rarity
+            if (Main.rand.Next(4096) == 0) //item rarity
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ShinyCharm")); //Item spawn
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                    mod.ItemType("ShinyCharm")); //Item spawn
             }
 
             if (AAWorld.downedShen == true)
             {
-                if (npc.type == NPCID.GoblinSummoner)   //this is where you choose the npc you want
+                if (npc.type == NPCID.GoblinSummoner) //this is where you choose the npc you want
                 {
-                    if (Main.rand.Next(4) == 0) //this is the item rarity, so 4 is 1 in 5 chance that the npc will drop the item.
+                    if (Main.rand.Next(4) == 0
+                    ) //this is the item rarity, so 4 is 1 in 5 chance that the npc will drop the item.
                     {
                         {
-                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GoblinDoll"), 1);
+                            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                                mod.ItemType("GoblinDoll"), 1);
                         }
                     }
                 }
             }
+
             if (NPC.downedPlantBoss == true)
             {
-                if (npc.type == NPCID.RedDevil)   //this is where you choose the npc you want
+                if (npc.type == NPCID.RedDevil) //this is where you choose the npc you want
                 {
-                    if (Main.rand.Next(4) == 0) //this is the item rarity, so 4 is 1 in 5 chance that the npc will drop the item.
+                    if (Main.rand.Next(4) == 0
+                    ) //this is the item rarity, so 4 is 1 in 5 chance that the npc will drop the item.
                     {
                         {
-                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PureEvil"), 1);
+                            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                                mod.ItemType("PureEvil"), 1);
                         }
                     }
                 }
             }
-            if (npc.type == NPCID.EyeofCthulhu)   //this is where you choose the npc you want
+
+            if (npc.type == NPCID.EyeofCthulhu) //this is where you choose the npc you want
             {
-                if (Main.rand.Next(4) == 0) //this is the item rarity, so 4 is 1 in 5 chance that the npc will drop the item.
+                if (Main.rand.Next(4) == 0
+                ) //this is the item rarity, so 4 is 1 in 5 chance that the npc will drop the item.
                 {
                     {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CthulhusBlade"), 1); //this is where you set what item to drop, mod.ItemType("CustomSword") is an example of how to add your custom item. and 1 is the amount
+                        Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                            mod.ItemType("CthulhusBlade"),
+                            1); //this is where you set what item to drop, mod.ItemType("CustomSword") is an example of how to add your custom item. and 1 is the amount
                     }
                 }
             }
-            if (npc.type == NPCID.GiantFlyingFox)   //this is where you choose the npc you want
+
+            if (npc.type == NPCID.GiantFlyingFox) //this is where you choose the npc you want
             {
-                if (Main.rand.Next(4) == 0) //this is the item rarity, so 4 is 1 in 5 chance that the npc will drop the item.
+                if (Main.rand.Next(4) == 0
+                ) //this is the item rarity, so 4 is 1 in 5 chance that the npc will drop the item.
                 {
                     {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TheFox"), 1); //this is where you set what item to drop, mod.ItemType("CustomSword") is an example of how to add your custom item. and 1 is the amount
+                        Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                            mod.ItemType("TheFox"),
+                            1); //this is where you set what item to drop, mod.ItemType("CustomSword") is an example of how to add your custom item. and 1 is the amount
                     }
                 }
             }
+
             if (npc.type == NPCID.Necromancer)
             {
                 if (Main.rand.NextFloat() < 0.1f)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Exorcist"));
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("Exorcist"));
                 }
             }
+
             if (npc.type == NPCID.AngryBones ||
                 npc.type == NPCID.AngryBonesBig ||
                 npc.type == NPCID.AngryBonesBigHelmet ||
@@ -386,9 +427,11 @@ namespace AAMod
             {
                 if (Main.rand.NextFloat() < 0.1f)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("AncientPoker"));
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("AncientPoker"));
                 }
             }
+
             if (npc.type == NPCID.Paladin)
             {
                 if (Main.rand.NextFloat() < .17f)
@@ -398,11 +441,13 @@ namespace AAMod
                     Item.NewItem(npc.getRect(), mod.ItemType("Paladin_Boots"));
                 }
             }
+
             //Probes (Lil destroyer laser shits)
             if (npc.type == NPCID.Probe)
             {
                 Item.NewItem(npc.getRect(), mod.ItemType("Energy_Cell"), Main.rand.Next(3, 12));
             }
+
             //The Destroyer
             if (npc.type == NPCID.TheDestroyer)
             {
@@ -412,6 +457,7 @@ namespace AAMod
                     Item.NewItem(npc.getRect(), mod.ItemType("Laser_Rifle"));
                 }
             }
+
             //Skeletrono Primeus (Skeletron Prime)
             if (npc.type == NPCID.SkeletronPrime)
             {
@@ -421,6 +467,7 @@ namespace AAMod
                     Item.NewItem(npc.getRect(), mod.ItemType("Laser_Rifle"));
                 }
             }
+
             //Wall Of Flesh
             if (npc.type == NPCID.WallofFlesh)
             {
@@ -430,6 +477,7 @@ namespace AAMod
                     Item.NewItem(npc.getRect(), mod.ItemType("HK_MP5"));
                 }
             }
+
             //Mothership
             if (npc.type == NPCID.MartianSaucerCore)
             {
@@ -437,11 +485,13 @@ namespace AAMod
                 {
                     Item.NewItem(npc.getRect(), mod.ItemType("Alien_Rifle"));
                 }
+
                 if (Main.rand.NextFloat() < .03f)
                 {
                     Item.NewItem(npc.getRect(), mod.ItemType("Energy_Conduit"));
                 }
             }
+
             if (npc.type == NPCID.CursedSkull)
             {
                 if (Main.rand.NextFloat() < .12f)
@@ -449,10 +499,12 @@ namespace AAMod
                     Item.NewItem(npc.getRect(), mod.ItemType("SkullStaff"));
                 }
             }
+
             if (npc.type == NPCID.Vulture)
             {
                 Item.NewItem(npc.getRect(), mod.ItemType("vulture_feather"), Main.rand.Next(1, 3));
             }
+
             //Drippler
             if (npc.type == NPCID.Drippler)
             {
@@ -461,31 +513,35 @@ namespace AAMod
                     Item.NewItem(npc.getRect(), mod.ItemType("Bloody_Mary"));
                 }
             }
-			if (npc.type == NPCID.AngryBones || npc.type == NPCID.DarkCaster)
+
+            if (npc.type == NPCID.AngryBones || npc.type == NPCID.DarkCaster)
             {
                 if (Main.rand.Next(200) == 0)
                 {
                     Item.NewItem(npc.getRect(), mod.ItemType("M79Parts"));
                 }
             }
+
             if (npc.type == NPCID.QueenBee)
             {
                 if (Main.rand.NextFloat() < .01f)
                 {
                     Item.NewItem(npc.getRect(), mod.ItemType("BugSwatter"));
                 }
+
                 Item.NewItem(npc.getRect(), ItemID.Stinger, Main.rand.Next(14, 20));
             }
 
             if (npc.type == NPCID.Plantera)
             {
-                Item.NewItem(npc.getRect(),  ItemID.ChlorophyteOre, Main.rand.Next(50, 80));
+                Item.NewItem(npc.getRect(), ItemID.ChlorophyteOre, Main.rand.Next(50, 80));
             }
 
             if (npc.type == NPCID.SkeletronHand)
             {
                 Item.NewItem(npc.getRect(), ItemID.Bone, Main.rand.Next(4, 8));
             }
+
             if (npc.type == NPCID.SkeletronHead)
             {
                 Item.NewItem(npc.getRect(), ItemID.Bone, Main.rand.Next(30, 45));
@@ -495,58 +551,67 @@ namespace AAMod
             {
                 Item.NewItem(npc.getRect(), mod.ItemType("Everleaf"), Main.rand.Next(1, 2));
             }
-            
+
             if ((npc.type == NPCID.GoblinArcher
-                || npc.type == NPCID.GoblinPeon
-                || npc.type == NPCID.GoblinScout
-                || npc.type == NPCID.GoblinSorcerer
-                || npc.type == NPCID.GoblinSummoner
-                || npc.type == NPCID.GoblinThief
-                || npc.type == NPCID.GoblinWarrior
-                || npc.type == NPCID.DD2GoblinBomberT1
-                || npc.type == NPCID.DD2GoblinBomberT2
-                || npc.type == NPCID.DD2GoblinBomberT3
-                || npc.type == NPCID.DD2GoblinT1
-                || npc.type == NPCID.DD2GoblinT2
-                || npc.type == NPCID.DD2GoblinBomberT3
-                || npc.type == NPCID.BoundGoblin
-                || npc.type == NPCID.GoblinTinkerer) 
+                 || npc.type == NPCID.GoblinPeon
+                 || npc.type == NPCID.GoblinScout
+                 || npc.type == NPCID.GoblinSorcerer
+                 || npc.type == NPCID.GoblinSummoner
+                 || npc.type == NPCID.GoblinThief
+                 || npc.type == NPCID.GoblinWarrior
+                 || npc.type == NPCID.DD2GoblinBomberT1
+                 || npc.type == NPCID.DD2GoblinBomberT2
+                 || npc.type == NPCID.DD2GoblinBomberT3
+                 || npc.type == NPCID.DD2GoblinT1
+                 || npc.type == NPCID.DD2GoblinT2
+                 || npc.type == NPCID.DD2GoblinBomberT3
+                 || npc.type == NPCID.BoundGoblin
+                 || npc.type == NPCID.GoblinTinkerer)
                 && NPC.downedGoblins)
             {
                 if (Main.rand.Next(20) == 0)
                 {
                     Item.NewItem(npc.getRect(), mod.ItemType("GoblinSoul"), Main.rand.Next(1, 2));
                 }
-                
             }
 
-            if ((Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod).ZoneMire) && Main.hardMode)
+            if ((Main.player[(int) Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod)
+                    .ZoneMire) && Main.hardMode)
             {
                 if (Main.rand.Next(0, 100) >= 80)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SoulOfSpite"), 1);
-                }
-            }
-            if ((Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod).ZoneInferno) && Main.hardMode)
-            {
-                if (Main.rand.Next(0, 100) >= 80)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SoulOfSmite"), 1);
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("SoulOfSpite"), 1);
                 }
             }
 
-            if ((Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod).ZoneMire) && Main.hardMode)
+            if ((Main.player[(int) Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod)
+                    .ZoneInferno) && Main.hardMode)
             {
-                if (Main.rand.Next(0, 2499) == 0)
+                if (Main.rand.Next(0, 100) >= 80)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MireKey"), 1);
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("SoulOfSmite"), 1);
                 }
             }
-            if ((Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod).ZoneInferno) && Main.hardMode)
+
+            if ((Main.player[(int) Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod)
+                    .ZoneMire) && Main.hardMode)
             {
                 if (Main.rand.Next(0, 2499) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("InfernoKey"), 1);
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("MireKey"), 1);
+                }
+            }
+
+            if ((Main.player[(int) Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod)
+                    .ZoneInferno) && Main.hardMode)
+            {
+                if (Main.rand.Next(0, 2499) == 0)
+                {
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("InfernoKey"), 1);
                 }
             }
         }
@@ -560,15 +625,16 @@ namespace AAMod
             }
         }
 
-		public override void DrawEffects(NPC npc, ref Color drawColor)
-		{
+        public override void DrawEffects(NPC npc, ref Color drawColor)
+        {
             Rectangle hitbox = npc.Hitbox;
             if (Electrified)
             {
                 if (Main.rand.Next(4) < 3)
                 {
-                    Lighting.AddLight((int)npc.Center.X / 16, (int)npc.Center.Y / 16, 0.3f, 0.8f, 1.1f);
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustID.Electric, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    Lighting.AddLight((int) npc.Center.X / 16, (int) npc.Center.Y / 16, 0.3f, 0.8f, 1.1f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4,
+                        DustID.Electric, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -579,11 +645,14 @@ namespace AAMod
                     }
                 }
             }
+
             if (infinityOverload)
             {
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadB"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4,
+                        mod.DustType("InfinityOverloadB"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100,
+                        default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -593,10 +662,13 @@ namespace AAMod
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
+
                 Lighting.AddLight(npc.position, 0.1f, 0.3f, 0.7f);
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadR"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4,
+                        mod.DustType("InfinityOverloadR"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100,
+                        default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -606,10 +678,13 @@ namespace AAMod
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
+
                 Lighting.AddLight(npc.position, 0.7f, 0.2f, 0.2f);
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadG"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4,
+                        mod.DustType("InfinityOverloadG"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100,
+                        default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -619,10 +694,13 @@ namespace AAMod
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
+
                 Lighting.AddLight(npc.position, 0.1f, 0.7f, 0.1f);
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadY"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4,
+                        mod.DustType("InfinityOverloadY"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100,
+                        default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -632,10 +710,13 @@ namespace AAMod
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
+
                 Lighting.AddLight(npc.position, 0.5f, 0.5f, 0.1f);
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadP"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4,
+                        mod.DustType("InfinityOverloadP"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100,
+                        default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -645,10 +726,13 @@ namespace AAMod
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
+
                 Lighting.AddLight(npc.position, 0.6f, 0.1f, 0.6f);
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadO"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4,
+                        mod.DustType("InfinityOverloadO"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100,
+                        default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -658,6 +742,7 @@ namespace AAMod
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
+
                 Lighting.AddLight(npc.position, 0.8f, 0.5f, 0.1f);
             }
 
@@ -666,7 +751,8 @@ namespace AAMod
                 int dustCount = Math.Max(1, Math.Min(5, (Math.Max(npc.width, npc.height) / 10)));
                 for (int i = 0; i < dustCount; i++)
                 {
-                    int num4 = Dust.NewDust(hitbox.TopLeft(), npc.width, npc.height, mod.DustType<Dusts.Moonraze>(), 0f, 1f, 0, default(Color), 1f);
+                    int num4 = Dust.NewDust(hitbox.TopLeft(), npc.width, npc.height, mod.DustType<Dusts.Moonraze>(), 0f,
+                        1f, 0, default(Color), 1f);
                     if (Main.dust[num4].velocity.Y > 0) Main.dust[num4].velocity.Y *= -1;
                     Main.dust[num4].noGravity = true;
                     Main.dust[num4].scale += Main.rand.NextFloat();
@@ -678,19 +764,22 @@ namespace AAMod
                 int Loops = RiftDamage / 10;
                 for (int i = 0; i < Loops; i++)
                 {
-                    int num4 = Dust.NewDust(hitbox.TopLeft(), npc.width, npc.height, mod.DustType<Dusts.CthulhuAuraDust>(), 0f, 1f, 0, default(Color), 1f);
+                    int num4 = Dust.NewDust(hitbox.TopLeft(), npc.width, npc.height,
+                        mod.DustType<Dusts.CthulhuAuraDust>(), 0f, 1f, 0, default(Color), 1f);
                     if (Main.dust[num4].velocity.Y > 0) Main.dust[num4].velocity.Y *= -1;
                     Main.dust[num4].noGravity = true;
                     Main.dust[num4].scale += Main.rand.NextFloat();
                 }
-                Lighting.AddLight((int)(npc.Center.X / 16f), (int)(npc.Center.Y / 16f), 0f, 0.45f, 0.45f);
+
+                Lighting.AddLight((int) (npc.Center.X / 16f), (int) (npc.Center.Y / 16f), 0f, 0.45f, 0.45f);
             }
 
             if (DiscordInferno)
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    int num4 = Dust.NewDust(hitbox.TopLeft(), npc.width, npc.height, mod.DustType<Dusts.Discord>(), 0f, -2.5f, 0, default(Color), 1f);
+                    int num4 = Dust.NewDust(hitbox.TopLeft(), npc.width, npc.height, mod.DustType<Dusts.Discord>(), 0f,
+                        -2.5f, 0, default(Color), 1f);
                     Main.dust[num4].alpha = 100;
                     Main.dust[num4].noGravity = true;
                     Main.dust[num4].scale += Main.rand.NextFloat();
@@ -701,7 +790,8 @@ namespace AAMod
             {
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 107, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 107, default(Color), 3.5f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 107,
+                        npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 107, default(Color), 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -711,6 +801,7 @@ namespace AAMod
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
+
                 Lighting.AddLight(npc.position, 0.1f, 0.7f, 0.2f);
             }
 
@@ -718,7 +809,9 @@ namespace AAMod
             {
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 107, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, mod.DustType<Dusts.VoidDust>(), default(Color), 3.5f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 107,
+                        npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, mod.DustType<Dusts.VoidDust>(), default(Color),
+                        3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -728,9 +821,9 @@ namespace AAMod
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
+
                 Lighting.AddLight(npc.position, 0.7f, 0.2f, 0.1f);
             }
-
         }
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
@@ -756,7 +849,7 @@ namespace AAMod
                 NPC.AnyNPCs(mod.NPCType<Ashe>()) ||
                 NPC.AnyNPCs(mod.NPCType<Haruka>()) ||
                 NPC.AnyNPCs(mod.NPCType<ShenDoragon>()) ||
-                NPC.AnyNPCs(mod.NPCType<ShenA>())) 
+                NPC.AnyNPCs(mod.NPCType<ShenA>()))
             {
                 spawnRate = 0;
                 maxSpawns = 0;
@@ -766,7 +859,7 @@ namespace AAMod
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
             Player player = Main.player[Main.myPlayer];
-            
+
 
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneStars)
             {
@@ -813,10 +906,12 @@ namespace AAMod
                         }
                     }
                 }
+
                 if (AAWorld.downedGripsS)
                 {
                     pool.Add(mod.NPCType("BlazeClaw"), .6f);
                 }
+
                 if (AAWorld.downedAkuma)
                 {
                     pool.Add(mod.NPCType("Lung"), .2f);
@@ -855,6 +950,7 @@ namespace AAMod
                         }
                     }
                 }
+
                 if (AAWorld.downedGripsS)
                 {
                     pool.Add(mod.NPCType("AbyssClaw"), .8f);
@@ -869,11 +965,13 @@ namespace AAMod
                 {
                     pool.Add(mod.NPCType("SagittariusMini"), .05f);
                 }
+
                 if (NPC.downedPlantBoss)
                 {
                     pool.Add(mod.NPCType("Vortex"), 0.3f);
                     pool.Add(mod.NPCType("Scout"), .05f);
                 }
+
                 if (NPC.downedMoonlord)
                 {
                     pool.Add(mod.NPCType("Searcher"), .05f);
@@ -905,8 +1003,8 @@ namespace AAMod
         }
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
-		{
-			if (type == NPCID.Demolitionist && !Main.dayTime)
+        {
+            if (type == NPCID.Demolitionist && !Main.dayTime)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("M79Round"));
                 nextSlot++;
@@ -929,12 +1027,14 @@ namespace AAMod
             }
         }
     }
+
     public abstract class AANPC : ParentNPC
     {
         public virtual bool CanSpawn(int x, int y, int type, Player player, NPCSpawnInfo info)
         {
             return CanSpawn(x, y, type, player);
         }
+
         public virtual bool CanSpawn(int x, int y, int type, Player player)
         {
             return false;

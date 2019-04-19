@@ -6,11 +6,11 @@ using Terraria.ModLoader;
 namespace AAMod.Walls
 {
     public class DoomstoneBrickWall : ModWall
-	{
-		public override void SetDefaults()
-		{
-			dustType = mod.DustType("DoomDust");
-			AddMapEntry(new Color(10, 10, 10));
+    {
+        public override void SetDefaults()
+        {
+            dustType = mod.DustType("DoomDust");
+            AddMapEntry(new Color(10, 10, 10));
             soundType = 21;
             drop = mod.ItemType("DoomstoneBrickWall");
             Main.wallHouse[Type] = true;
@@ -25,13 +25,15 @@ namespace AAMod.Walls
             {
                 zero = Vector2.Zero;
             }
+
             int height = tile.frameY == 36 ? 18 : 16;
-            BaseMod.BaseDrawing.DrawWallTexture(spriteBatch, mod.GetTexture("Glowmasks/DoomstoneBrickWall_Glow"), i, j, false, AAGlobalTile.GetZeroColorDim);
+            BaseMod.BaseDrawing.DrawWallTexture(spriteBatch, mod.GetTexture("Glowmasks/DoomstoneBrickWall_Glow"), i, j,
+                false, AAGlobalTile.GetZeroColorDim);
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
+        {
+            num = fail ? 1 : 3;
+        }
     }
 }

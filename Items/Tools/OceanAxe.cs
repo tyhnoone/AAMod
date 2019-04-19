@@ -7,7 +7,6 @@ namespace AAMod.Items.Tools
     {
         public override void SetDefaults()
         {
-
             item.damage = 12;
             item.melee = true;
             item.width = 44;
@@ -15,7 +14,7 @@ namespace AAMod.Items.Tools
 
             item.useTime = 12;
             item.useAnimation = 20;
-            item.axe = 10;    //pickaxe power
+            item.axe = 10; //pickaxe power
             item.useStyle = 1;
             item.knockBack = 3;
             item.value = 10;
@@ -31,13 +30,13 @@ namespace AAMod.Items.Tools
             Tooltip.SetDefault("the axe made from the Ocean");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Coral, 6);   //you need 10 Wood
-			recipe.AddIngredient(ItemID.IronAxe, 1);
-            recipe.AddTile(TileID.WorkBenches);   //at work bench
-            recipe.SetResult(this);  
+            recipe.AddIngredient(ItemID.Coral, 6); //you need 10 Wood
+            recipe.AddIngredient(ItemID.IronAxe, 1);
+            recipe.AddTile(TileID.WorkBenches); //at work bench
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }

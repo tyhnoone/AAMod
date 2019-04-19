@@ -1,6 +1,6 @@
 using Terraria;
-using Microsoft.Xna.Framework; 
-using Microsoft.Xna.Framework.Graphics; 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using Terraria.ID;
 
@@ -13,6 +13,7 @@ namespace AAMod.Items.Boss
             DisplayName.SetDefault("Fire Frost Medallion");
             Tooltip.SetDefault(@"Doubles your stats during a Blizzard or Sandstorm");
         }
+
         public override void SetDefaults()
         {
             item.width = 26;
@@ -24,18 +25,18 @@ namespace AAMod.Items.Boss
 
         public override void UpdateEquip(Player p)
         {
-			if(p.ZoneSandstorm || (p.ZoneRain && p.ZoneSnow))
-			{
-				p.meleeDamage *= 2f;
-				p.rangedDamage *= 2f;
-				p.magicDamage *= 2f;
-				p.minionDamage *= 2f;
-				p.thrownDamage *= 2f;
-				p.meleeCrit *= 2;
-				p.rangedCrit *= 2;
-				p.magicCrit += 2;
-				p.thrownCrit *= 2;
-			}
+            if (p.ZoneSandstorm || (p.ZoneRain && p.ZoneSnow))
+            {
+                p.meleeDamage *= 2f;
+                p.rangedDamage *= 2f;
+                p.magicDamage *= 2f;
+                p.minionDamage *= 2f;
+                p.thrownDamage *= 2f;
+                p.meleeCrit *= 2;
+                p.rangedCrit *= 2;
+                p.magicCrit += 2;
+                p.thrownCrit *= 2;
+            }
         }
 
         public override void AddRecipes()
@@ -47,6 +48,7 @@ namespace AAMod.Items.Boss
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool CanEquipAccessory(Player player, int slot)
         {
             if (slot < 10)
@@ -58,12 +60,14 @@ namespace AAMod.Items.Boss
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Serpent.ArcticMedallion>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

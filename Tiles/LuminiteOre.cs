@@ -11,7 +11,7 @@ namespace AAMod.Tiles
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
-			Main.tileMergeDirt[Type] = false;
+            Main.tileMergeDirt[Type] = false;
             Main.tileSpelunker[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
@@ -21,10 +21,10 @@ namespace AAMod.Tiles
             dustType = mod.DustType<Dusts.LuminiteDust>();
             soundType = 21;
             AddMapEntry(new Color(0, 90, 60), name);
-			minPick = 225;
+            minPick = 225;
         }
 
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)   //light colors
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) //light colors
         {
             r = 0;
             g = .90f;

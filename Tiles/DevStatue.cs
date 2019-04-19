@@ -5,40 +5,40 @@ using Terraria.ObjectData;
 
 namespace AAMod.Tiles
 {
-	public class DevStatue : ModTile
-	{
-		public override void SetDefaults()
-		{
-			Main.tileFrameImportant[Type] = true;
-			Main.tileLavaDeath[Type] = true;
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
-			TileObjectData.newTile.StyleHorizontal = true;
-			TileObjectData.newTile.StyleWrapLimit = 36;
-			TileObjectData.addTile(Type);
-			dustType = 2;
-			disableSmartCursor = true;
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Statue");
-			AddMapEntry(new Color(120, 120, 120), name);
-		}
+    public class DevStatue : ModTile
+    {
+        public override void SetDefaults()
+        {
+            Main.tileFrameImportant[Type] = true;
+            Main.tileLavaDeath[Type] = true;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.StyleWrapLimit = 36;
+            TileObjectData.addTile(Type);
+            dustType = 2;
+            disableSmartCursor = true;
+            ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Statue");
+            AddMapEntry(new Color(120, 120, 120), name);
+        }
 
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
-		{
-			int item = 0;
-			switch (frameX / 36)
-			{
-				case 0:
-					item = mod.ItemType("AlphakipStatue");
-					break;
-				case 1:
-					item = mod.ItemType("LizStatue");
-					break;
-				case 2:
-					item = mod.ItemType("HallamStatue");
-					break;
-				case 3:
-					item = mod.ItemType("FazerStatue");
-					break;
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            int item = 0;
+            switch (frameX / 36)
+            {
+                case 0:
+                    item = mod.ItemType("AlphakipStatue");
+                    break;
+                case 1:
+                    item = mod.ItemType("LizStatue");
+                    break;
+                case 2:
+                    item = mod.ItemType("HallamStatue");
+                    break;
+                case 3:
+                    item = mod.ItemType("FazerStatue");
+                    break;
                 case 4:
                     item = mod.ItemType("DallinStatue");
                     break;
@@ -79,10 +79,11 @@ namespace AAMod.Tiles
                     item = mod.ItemType("EnderStatue");
                     break;
             }
-			if (item > 0)
-			{
-				Item.NewItem(i * 16, j * 16, 48, 48, item);
-			}
-		}
-	}
+
+            if (item > 0)
+            {
+                Item.NewItem(i * 16, j * 16, 48, 48, item);
+            }
+        }
+    }
 }

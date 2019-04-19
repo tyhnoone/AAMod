@@ -5,12 +5,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AAMod.Items.Melee     //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+namespace AAMod.Items.
+    Melee //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class ScytheOfDecay : BaseAAItem
     {
-
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Scythe of Evil");
@@ -21,24 +20,23 @@ Death Sickle EX");
 
         public override void SetDefaults()
         {
+            item.damage = 400;
+            item.melee = true;
+            item.width = 80;
+            item.height = 72;
 
-            item.damage = 400;  
-            item.melee = true; 
-            item.width = 80;    
-            item.height = 72; 
-
-            item.useTime = 6; 
+            item.useTime = 6;
             item.useAnimation = 6;
             item.channel = true;
-            item.useStyle = 100;  
-            item.knockBack = 2f; 
-            item.value = Item.buyPrice(1, 0, 0, 0); 
+            item.useStyle = 100;
+            item.knockBack = 2f;
+            item.value = Item.buyPrice(1, 0, 0, 0);
             item.rare = 9;
             item.expert = true;
-            item.shoot = mod.ProjectileType("DecayScythe"); 
-            item.noUseGraphic = true; 
+            item.shoot = mod.ProjectileType("DecayScythe");
+            item.noUseGraphic = true;
 
-            glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; 
+            glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow";
             glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_NONE;
             glowmaskDrawColor = Color.White;
         }
@@ -52,8 +50,8 @@ Death Sickle EX");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
- 
-        public override bool UseItemFrame(Player player)  
+
+        public override bool UseItemFrame(Player player)
         {
             player.bodyFrame.Y = 3 * player.bodyFrame.Height;
             return true;

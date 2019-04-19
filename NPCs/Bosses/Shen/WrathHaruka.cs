@@ -14,7 +14,6 @@ namespace AAMod.NPCs.Bosses.Shen
     [AutoloadBossHead]
     public class WrathHaruka : ModNPC
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Wrath Haruka");
@@ -36,6 +35,7 @@ namespace AAMod.NPCs.Bosses.Shen
             {
                 npc.buffImmune[k] = true;
             }
+
             npc.lavaImmune = true;
             npc.netAlways = true;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/ShenA");
@@ -77,7 +77,8 @@ namespace AAMod.NPCs.Bosses.Shen
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, mod.DustType<Dusts.AcidDust>(), npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
+            Dust.NewDust(npc.position + npc.velocity, npc.width, npc.height, mod.DustType<Dusts.AcidDust>(),
+                npc.velocity.X * 0.5f, npc.velocity.Y * 0.5f);
         }
 
         private bool DontSayDeathLine = false;
@@ -92,14 +93,15 @@ namespace AAMod.NPCs.Bosses.Shen
             {
                 Main.NewText("Ngh...sorry father...I can't carry on...", new Color(72, 78, 117));
             }
+
             npc.value = 0f;
             npc.boss = false;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);
-            npc.damage = (int)(npc.damage * 0.6f);
+            npc.lifeMax = (int) (npc.lifeMax * 0.6f * bossLifeScale);
+            npc.damage = (int) (npc.damage * 0.6f);
         }
 
         public override bool CheckActive()
@@ -132,24 +134,31 @@ namespace AAMod.NPCs.Bosses.Shen
 
             Vector2 wantedVelocity = player.Center - new Vector2(pos, 0);
 
-            if (player.dead || !player.active || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+            if (player.dead || !player.active ||
+                Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f ||
+                Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
             {
                 npc.TargetClosest(false);
-                if (player.dead || !player.active || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+                if (player.dead || !player.active ||
+                    Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f ||
+                    Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
                 {
                     if (internalAI[2] > 3)
                     {
                         internalAI[1] = 0;
                         internalAI[2] = 0;
                     }
+
                     npc.alpha += 4;
                     if (npc.alpha > 255)
                     {
                         npc.active = false;
                     }
+
                     return;
                 }
             }
+
             if (Invisible)
             {
                 if (npc.alpha < 255)
@@ -189,12 +198,14 @@ namespace AAMod.NPCs.Bosses.Shen
 
                 InvisTimer2 = 1100;
             }
+
             if (npc.life < npc.lifeMax * .33f)
             {
                 InvisTimer1 = 600;
 
                 InvisTimer2 = 900;
             }
+
             if (internalAI[5] > InvisTimer1)
             {
                 if (!Invisible)
@@ -203,13 +214,13 @@ namespace AAMod.NPCs.Bosses.Shen
                     npc.netUpdate = true;
                 }
             }
+
             if (internalAI[5] > InvisTimer2)
             {
                 Invisible = false;
                 internalAI[5] = 0;
                 npc.netUpdate = true;
             }
-
 
 
             if (ProjectileShoot == 0 || internalAI[0] == AISTATE_SLASH)
@@ -257,6 +268,7 @@ namespace AAMod.NPCs.Bosses.Shen
                     ProjectileShoot = Main.rand.Next(2);
                     npc.netUpdate = true;
                 }
+
                 if (ProjectileShoot == 0)
                 {
                     if (internalAI[2] == 5 && internalAI[1] == 3)
@@ -268,11 +280,13 @@ namespace AAMod.NPCs.Bosses.Shen
                         BaseAI.FireProjectile(targetCenter, fireTarget, projType, npc.damage, 0f, 20f);
                         npc.netUpdate = true;
                     }
+
                     if (internalAI[2] < 4 || internalAI[2] > 6)
                     {
                         internalAI[1] = 0;
                         internalAI[2] = 4;
                     }
+
                     if (repeat <= 0)
                     {
                         internalAI[0] = 3;
@@ -292,6 +306,7 @@ namespace AAMod.NPCs.Bosses.Shen
                     {
                         isSlashing = true;
                     }
+
                     if (isSlashing)
                     {
                         if (internalAI[2] < 7 || internalAI[2] > 9) //Sets to frame 16
@@ -308,6 +323,7 @@ namespace AAMod.NPCs.Bosses.Shen
                             internalAI[2] = 0;
                         }
                     }
+
                     if (internalAI[2] == 8 && internalAI[1] == 4)
                     {
                         Vector2 targetCenter = player.position + new Vector2(player.width * 0.5f, player.height * 0.5f);
@@ -315,11 +331,13 @@ namespace AAMod.NPCs.Bosses.Shen
                         int projType = mod.ProjectileType<HarukaProj>();
                         BaseAI.FireProjectile(targetCenter, fireTarget, projType, npc.damage, 0f, 14f);
                     }
+
                     if (isSlashing && internalAI[2] > 9)
                     {
                         isSlashing = false;
                         npc.netUpdate = true;
                     }
+
                     if (internalAI[3] > 300)
                     {
                         internalAI[0] = 3;
@@ -343,12 +361,14 @@ namespace AAMod.NPCs.Bosses.Shen
                     internalAI[1] = 0;
                     internalAI[2] = 17;
                 }
+
                 if (internalAI[2] > 26)
                 {
                     internalAI[1] = 0;
                     internalAI[2] = 17;
                     internalAI[4] += 1;
                 }
+
                 if (internalAI[4] > 5)
                 {
                     internalAI[0] = 3;
@@ -367,6 +387,7 @@ namespace AAMod.NPCs.Bosses.Shen
                     internalAI[1] = 0;
                     internalAI[2] = 10;
                 }
+
                 if (internalAI[2] > 16)
                 {
                     internalAI[1] = 0;
@@ -425,6 +446,7 @@ namespace AAMod.NPCs.Bosses.Shen
             {
                 MoveToPoint(npc.Center);
             }
+
             npc.rotation = 0;
 
             npc.noTileCollide = true;
@@ -441,6 +463,7 @@ namespace AAMod.NPCs.Bosses.Shen
                     {
                         pos = 250;
                     }
+
                     npc.direction = 1;
                 }
                 else //If NPC's X position is lower than the player's
@@ -449,6 +472,7 @@ namespace AAMod.NPCs.Bosses.Shen
                     {
                         pos = -250;
                     }
+
                     npc.direction = -1;
                 }
             }
@@ -465,10 +489,12 @@ namespace AAMod.NPCs.Bosses.Shen
             {
                 moveSpeed = 14;
             }
+
             if (internalAI[0] == AISTATE_SLASH || internalAI[0] == AISTATE_SPIN)
             {
                 moveSpeed = 18f;
             }
+
             if (moveSpeed == 0f || npc.Center == point) return;
             float velMultiplier = 1f;
             Vector2 dist = point - npc.Center;
@@ -477,18 +503,22 @@ namespace AAMod.NPCs.Bosses.Shen
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
             }
+
             if (length < 200f)
             {
                 moveSpeed *= 0.5f;
             }
+
             if (length < 100f)
             {
                 moveSpeed *= 0.5f;
             }
+
             if (length < 50f)
             {
                 moveSpeed *= 0.5f;
             }
+
             npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
@@ -506,15 +536,21 @@ namespace AAMod.NPCs.Bosses.Shen
 
             if (internalAI[0] == AISTATE_SPIN)
             {
-                BaseDrawing.DrawAfterimage(spritebatch, Main.npcTexture[npc.type], 0, npc, 1.5f, 1f, 3, false, 0f, 0f, Color.Red);
+                BaseDrawing.DrawAfterimage(spritebatch, Main.npcTexture[npc.type], 0, npc, 1.5f, 1f, 3, false, 0f, 0f,
+                    Color.Red);
             }
 
             Texture2D Slash = mod.GetTexture("NPCs/Bosses/AH/Haruka/HarukaSlash");
 
-            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, new Vector2(npc.position.X, npc.position.Y + 10), npc.width, npc.height, npc.scale, npc.rotation, npc.spriteDirection, 27, npc.frame, npc.GetAlpha(dColor), false);
-            BaseDrawing.DrawTexture(spritebatch, Slash, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.spriteDirection, 27, npc.frame, dColor, false);
-            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, new Vector2 (npc.position.X, npc.position.Y + 10), npc.width, npc.height, npc.scale, npc.rotation, npc.spriteDirection, 27, npc.frame, Color.White, false);
-            BaseDrawing.DrawAfterimage(spritebatch, glowTex, 0, npc, 0.8f, 1f, 4, true, 0f, 0f, Color.White, npc.frame, 27);
+            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0,
+                new Vector2(npc.position.X, npc.position.Y + 10), npc.width, npc.height, npc.scale, npc.rotation,
+                npc.spriteDirection, 27, npc.frame, npc.GetAlpha(dColor), false);
+            BaseDrawing.DrawTexture(spritebatch, Slash, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation,
+                npc.spriteDirection, 27, npc.frame, dColor, false);
+            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, new Vector2(npc.position.X, npc.position.Y + 10),
+                npc.width, npc.height, npc.scale, npc.rotation, npc.spriteDirection, 27, npc.frame, Color.White, false);
+            BaseDrawing.DrawAfterimage(spritebatch, glowTex, 0, npc, 0.8f, 1f, 4, true, 0f, 0f, Color.White, npc.frame,
+                27);
             return false;
         }
     }

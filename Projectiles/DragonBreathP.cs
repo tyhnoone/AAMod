@@ -3,18 +3,19 @@ using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
-namespace AAMod.Projectiles   //The directory for your .cs and .png; Example: TutorialMOD/Projectiles
+namespace AAMod.Projectiles //The directory for your .cs and .png; Example: TutorialMOD/Projectiles
 {
-    public class DragonBreathP : ModProjectile   //make sure the sprite file is named like the class name (CustomYoyoProjectile)
+    public class
+        DragonBreathP : ModProjectile //make sure the sprite file is named like the class name (CustomYoyoProjectile)
     {
- 
         public override void SetDefaults()
         {
             projectile.extraUpdates = 0;
-            projectile.width = 14;//Set the projectile hitbox width
+            projectile.width = 14; //Set the projectile hitbox width
             projectile.height = 14; //Set the projectile hitbox height            
-            projectile.aiStyle = 99; // aiStyle 99 is used for all yoyos, and is Extremely suggested, as yoyo are extremely difficult without them
-            projectile.friendly = true;  //Tells the game whether it is friendly to players/friendly npcs or not
+            projectile.aiStyle =
+                99; // aiStyle 99 is used for all yoyos, and is Extremely suggested, as yoyo are extremely difficult without them
+            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed. -1 = never
             projectile.melee = true; //Tells the game whether it is a melee projectile or not        
             // The following sets are only applicable to yoyo that use aiStyle 99.
@@ -30,6 +31,7 @@ namespace AAMod.Projectiles   //The directory for your .cs and .png; Example: Tu
         }
 
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -39,15 +41,17 @@ namespace AAMod.Projectiles   //The directory for your .cs and .png; Example: Tu
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             projectile.glowMask = customGlowMask;
 
             DisplayName.SetDefault("Dragon's Breath");
         }
-                //dust = Main.dust[Terraria.Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 15, 0f, 0f, 46, new Color(255, 75, 0), 1.381579f)];
 
+        //dust = Main.dust[Terraria.Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 15, 0f, 0f, 46, new Color(255, 75, 0), 1.381579f)];
     }
 }

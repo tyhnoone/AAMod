@@ -30,12 +30,14 @@ namespace AAMod.Items.Melee
             item.value = Item.sellPrice(0, 2, 40, 0);
             item.rare = 2;
             item.shootSpeed = 5f;
-            item.shoot = mod.ProjectileType("HydraSpear");  //put your Spear projectile name
+            item.shoot = mod.ProjectileType("HydraSpear"); //put your Spear projectile name
         }
 
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[item.shoot] < 1; // This is to ensure the spear doesn't bug out when using autoReuse = true
+            return
+                player.ownedProjectileCounts[item.shoot] <
+                1; // This is to ensure the spear doesn't bug out when using autoReuse = true
         }
     }
 }

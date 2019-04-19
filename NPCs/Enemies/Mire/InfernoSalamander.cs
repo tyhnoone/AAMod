@@ -7,10 +7,8 @@ using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Enemies.Mire
 {
-
     public class MireSkulker : ModNPC
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Skulker");
@@ -32,7 +30,6 @@ namespace AAMod.NPCs.Enemies.Mire
             npc.lavaImmune = true;
             npc.noGravity = false;
             npc.noTileCollide = false;
-
         }
 
         private bool Shell = false;
@@ -71,6 +68,7 @@ namespace AAMod.NPCs.Enemies.Mire
                     Shell = true;
                     npc.netUpdate = true;
                 }
+
                 if (npc.frameCounter++ > 9)
                 {
                     npc.frame.Y += 40;
@@ -80,6 +78,7 @@ namespace AAMod.NPCs.Enemies.Mire
                         npc.frame.Y = 0;
                     }
                 }
+
                 BaseAI.AIZombie(npc, ref npc.ai, true, true, -1, 0.08f, 1f, 2, 3, 120);
             }
             else
@@ -125,9 +124,7 @@ namespace AAMod.NPCs.Enemies.Mire
 
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MirePod"));
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, mod.ItemType("MirePod"));
         }
     }
 }
-
-

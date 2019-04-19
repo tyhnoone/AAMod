@@ -18,6 +18,7 @@ namespace AAMod.NPCs.Bosses.Retriever
             DisplayName.SetDefault("The Retriever");
             Main.npcFrameCount[npc.type] = 14;
         }
+
         public override void SetDefaults()
         {
             npc.aiStyle = -1;
@@ -44,15 +45,16 @@ namespace AAMod.NPCs.Bosses.Retriever
         }
 
         public float[] customAI = new float[4];
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((short)customAI[0]);
-                writer.Write((short)customAI[1]);
-                writer.Write((short)customAI[2]);
-                writer.Write((short)customAI[3]);
+                writer.Write((short) customAI[0]);
+                writer.Write((short) customAI[1]);
+                writer.Write((short) customAI[2]);
+                writer.Write((short) customAI[3]);
             }
         }
 
@@ -79,7 +81,10 @@ namespace AAMod.NPCs.Bosses.Retriever
                 glowTex = mod.GetTexture("Glowmasks/Retriever_Glow1");
                 glowTex1 = mod.GetTexture("Glowmasks/Retriever_Glow2");
             }
-            color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
+
+            color = BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet,
+                BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
             BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, color);
             BaseDrawing.DrawTexture(spritebatch, glowTex1, 0, npc, Color.White);
@@ -97,37 +102,43 @@ namespace AAMod.NPCs.Bosses.Retriever
 
             if (Main.rand.Next(10) == 0)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RetrieverTrophy"));
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                    mod.ItemType("RetrieverTrophy"));
             }
+
             if (Main.expertMode)
             {
                 npc.DropBossBags();
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.SoulofSight, Main.rand.Next(20, 40));
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, ItemID.SoulofSight,
+                    Main.rand.Next(20, 40));
             }
             else
             {
-
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.SoulofSight, Main.rand.Next(25, 40));
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, ItemID.SoulofSight,
+                    Main.rand.Next(25, 40));
                 if (Main.rand.Next(10) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RetrieverMask"));
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("RetrieverMask"));
                 }
+
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FulguriteBar"), Main.rand.Next(30, 64));
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("FulguriteBar"), Main.rand.Next(30, 64));
                 }
             }
         }
 
         public override void BossLoot(ref string name, ref int potionType)
         {
-            potionType = ItemID.GreaterHealingPotion;   //boss drops
+            potionType = ItemID.GreaterHealingPotion; //boss drops
             AAWorld.downedRetriever = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);  //boss life scale in expertmode
-            npc.damage = (int)(npc.damage * 0.8f);  //boss damage increase in expermode
+            npc.lifeMax = (int) (npc.lifeMax * 0.6f * bossLifeScale); //boss life scale in expertmode
+            npc.damage = (int) (npc.damage * 0.8f); //boss damage increase in expermode
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
@@ -140,6 +151,7 @@ namespace AAMod.NPCs.Bosses.Retriever
         {
             rotation = npc.rotation;
         }
+
         public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
         {
             spriteEffects = (npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
@@ -156,22 +168,30 @@ namespace AAMod.NPCs.Bosses.Retriever
         {
             Player targetPlayer = Main.player[npc.target];
 
-            if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+            if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f ||
+                Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
             {
                 npc.TargetClosest();
-                if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+                if (Main.player[npc.target].dead ||
+                    Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f ||
+                    Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
                 {
                     npc.active = false;
                     return;
                 }
             }
-            
+
             customAI[0]--;
 
             if (Main.dayTime)
             {
                 npc.velocity.Y -= 4;
-                if (npc.position.Y + npc.velocity.Y <= 0f && Main.netMode != 1) { BaseAI.KillNPC(npc); npc.netUpdate2 = true; }
+                if (npc.position.Y + npc.velocity.Y <= 0f && Main.netMode != 1)
+                {
+                    BaseAI.KillNPC(npc);
+                    npc.netUpdate2 = true;
+                }
+
                 return;
             }
 
@@ -226,15 +246,18 @@ namespace AAMod.NPCs.Bosses.Retriever
                         npc.frameCounter = 0;
                         npc.frame.Y += 100;
                     }
+
                     if (npc.frame.Y > (100 * 13))
                     {
                         npc.frame.Y = 100 * 11;
                     }
+
                     npc.defense = 999;
 
                     Player player = Main.player[npc.target];
 
-                    BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjectileType<RetrieverShot>(), ref customAI[3], 5, npc.damage / 2, 12);
+                    BaseAI.ShootPeriodic(npc, player.position, player.width, player.height,
+                        mod.ProjectileType<RetrieverShot>(), ref customAI[3], 5, npc.damage / 2, 12);
                     return;
                 }
                 else if (customAI[0] >= 59)
@@ -255,7 +278,6 @@ namespace AAMod.NPCs.Bosses.Retriever
             }
             else
             {
-
                 npc.frameCounter++;
                 npc.defense = 30;
                 if (npc.frameCounter >= 10)
@@ -283,6 +305,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                 if (npc.ai[3] > stopValue) npc.ai[3] = stopValue;
                 forceChange = npc.ai[3] >= stopValue;
             }
+
             if (npc.ai[0] == 1) //move to starting charge position
             {
                 moveSpeed = 11f;
@@ -296,10 +319,10 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.ai[3] = 0;
                     npc.netUpdate = true;
                 }
+
                 BaseAI.LookAt(targetPlayer.Center, npc, 0, 0f, 0.1f, false);
             }
-            else
-            if (npc.ai[0] == 2) //dive down
+            else if (npc.ai[0] == 2) //dive down
             {
                 moveSpeed = DiveSpeed;
                 Vector2 targetCenter = new Vector2(npc.ai[1], npc.ai[2]);
@@ -315,10 +338,10 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.ai[3] = 0;
                     npc.netUpdate = true;
                 }
+
                 BaseAI.Look(npc, 0, 0f, 0.1f, false);
             }
-            else
-            if (npc.ai[0] == 3) //dive up
+            else if (npc.ai[0] == 3) //dive up
             {
                 moveSpeed = DiveSpeed;
                 Vector2 targetCenter = new Vector2(npc.ai[1], npc.ai[2]);
@@ -332,10 +355,10 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.ai[3] = 0;
                     npc.netUpdate = true;
                 }
+
                 BaseAI.Look(npc, 0, 0f, 0.1f, false);
             }
-            else
-            if (npc.ai[0] == 4) //dive down
+            else if (npc.ai[0] == 4) //dive down
             {
                 moveSpeed = DiveSpeed;
                 Vector2 targetCenter = new Vector2(npc.ai[1], npc.ai[2]);
@@ -349,10 +372,10 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.ai[3] = 0;
                     npc.netUpdate = true;
                 }
+
                 BaseAI.Look(npc, 0, 0f, 0.1f, false);
             }
-            else
-            if (npc.ai[0] == 5) //dive up
+            else if (npc.ai[0] == 5) //dive up
             {
                 moveSpeed = DiveSpeed;
                 Vector2 targetCenter = new Vector2(npc.ai[1], npc.ai[2]);
@@ -366,6 +389,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.ai[3] = 0;
                     npc.netUpdate = true;
                 }
+
                 BaseAI.Look(npc, 0, 0f, 0.1f, false);
             }
             else //standard movement
@@ -394,12 +418,11 @@ namespace AAMod.NPCs.Bosses.Retriever
                         npc.netUpdate = true;
                     }
                 }
+
                 BaseAI.LookAt(targetPlayer.Center, npc, 0, 0f, 0.1f, false);
             }
         }
-        
-        
-            
+
 
         public void MoveToPoint(Vector2 point, bool goUpFirst = false)
         {
@@ -411,18 +434,22 @@ namespace AAMod.NPCs.Bosses.Retriever
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
             }
+
             if (length < 200f)
             {
                 moveSpeed *= 0.5f;
             }
+
             if (length < 100f)
             {
                 moveSpeed *= 0.5f;
             }
+
             if (length < 50f)
             {
                 moveSpeed *= 0.5f;
             }
+
             npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;

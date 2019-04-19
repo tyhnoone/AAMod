@@ -4,18 +4,15 @@ using Terraria.ModLoader;
 namespace AAMod.Tiles
 {
     public class Bogtus : ModCactus
-	{
-		private Mod mod
-		{
-			get
-			{
-				return ModLoader.GetMod("AAMod");
-			}
-		}
+    {
+        private Mod mod
+        {
+            get { return ModLoader.GetMod("AAMod"); }
+        }
 
-		public override Texture2D GetTexture()
-		{
-			return mod.GetTexture("Tiles/Bogtus");
-		}
+        public override Texture2D GetTexture()
+        {
+            return mod.GetTexture("Tiles/Bogtus");
+        }
     }
 }

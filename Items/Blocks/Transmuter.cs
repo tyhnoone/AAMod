@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-
 using System.Collections.Generic;
 using BaseMod;
 using Terraria.Localization;
@@ -13,7 +12,6 @@ namespace AAMod.Items.Blocks
 {
     public class Transmuter : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Material Transmuter");
@@ -36,7 +34,7 @@ namespace AAMod.Items.Blocks
             item.expert = true;
             item.createTile = mod.TileType("Transmuter");
         }
-        
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

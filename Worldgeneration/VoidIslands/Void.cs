@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using Terraria;
 using Terraria.Utilities;
 using Terraria.DataStructures;
@@ -15,7 +13,7 @@ using BaseMod;
 using AAMod.Tiles;
 
 namespace AAMod.Worldgeneration
-{ 
+{
     public class VoidIslands : MicroBiome
     {
         public override bool Place(Point origin, StructureMap structures)
@@ -37,8 +35,8 @@ namespace AAMod.Worldgeneration
 
             TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/BOTE"), colorToTile);
 
-			int newOriginX = origin.X - (gen.width / 2);
-			int newOriginY = origin.Y - (gen.height / 2) + 10;
+            int newOriginX = origin.X - (gen.width / 2);
+            int newOriginY = origin.Y - (gen.height / 2) + 10;
             gen.Generate(newOriginX, newOriginY, true, true);
             return true;
         }

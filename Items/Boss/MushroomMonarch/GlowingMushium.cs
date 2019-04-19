@@ -22,7 +22,8 @@ namespace AAMod.Items.Boss.MushroomMonarch
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.White, lightColor, lightColor, Color.White);
+            return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.White,
+                lightColor, lightColor, Color.White);
         }
     }
 }

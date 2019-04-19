@@ -8,7 +8,6 @@ namespace AAMod.Projectiles.GemShot
 {
     public class PrismBolt : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Prism Bolt");
@@ -37,19 +36,26 @@ namespace AAMod.Projectiles.GemShot
 
         public override void AI()
         {
-            Lighting.AddLight(projectile.Center, ((Main.DiscoR - projectile.alpha) * 0.8f) / 255f, ((Main.DiscoG - projectile.alpha) * 0.4f) / 255f, ((Main.DiscoB - projectile.alpha) * 0f) / 255f);
+            Lighting.AddLight(projectile.Center, ((Main.DiscoR - projectile.alpha) * 0.8f) / 255f,
+                ((Main.DiscoG - projectile.alpha) * 0.4f) / 255f, ((Main.DiscoB - projectile.alpha) * 0f) / 255f);
             for (int num339 = 0; num339 < 4; num339++)
             {
                 Dust dust1;
                 Vector2 position = projectile.position;
-                dust1 = Main.dust[Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.AbyssDust>(), 0, 0, 0, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1f)];
+                dust1 = Main.dust[
+                    Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                        projectile.height, mod.DustType<Dusts.AbyssDust>(), 0, 0, 0,
+                        new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1f)];
                 dust1.noGravity = true;
             }
-            projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+
+            projectile.rotation = (float) Math.Atan2((double) projectile.velocity.Y, (double) projectile.velocity.X) +
+                                  1.57f;
             const int aislotHomingCooldown = 0;
             const int homingDelay = 10;
             const float desiredFlySpeedInPixelsPerFrame = 10;
-            const float amountOfFramesToLerpBy = 30; // minimum of 1, please keep in full numbers even though it's a float!
+            const float
+                amountOfFramesToLerpBy = 30; // minimum of 1, please keep in full numbers even though it's a float!
 
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
@@ -61,7 +67,8 @@ namespace AAMod.Projectiles.GemShot
                 {
                     NPC n = Main.npc[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    projectile.velocity =
+                        Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
         }
@@ -81,7 +88,8 @@ namespace AAMod.Projectiles.GemShot
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance
+                        ) //or we are closer to this target than the already selected target
                     )
                         selectedTarget = i;
                 }
@@ -92,14 +100,17 @@ namespace AAMod.Projectiles.GemShot
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 27);
+            Main.PlaySound(2, (int) projectile.position.X, (int) projectile.position.Y, 27);
             for (int num506 = 0; num506 < 15; num506++)
             {
                 Dust dust1;
                 Vector2 position = projectile.position;
-                dust1 = Main.dust[Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.AbyssDust>(), 0, 0, 0, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1f)];
+                dust1 = Main.dust[
+                    Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                        projectile.height, mod.DustType<Dusts.AbyssDust>(), 0, 0, 0,
+                        new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 1f)];
                 dust1.noGravity = true;
             }
         }
-	}
+    }
 }

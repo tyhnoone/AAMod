@@ -1,13 +1,12 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AAMod.Items.Melee   //where is located
+namespace AAMod.Items.Melee //where is located
 {
     public class UraniumSword : ModItem
     {
         public override void SetDefaults()
         {
-
             item.useStyle = 1;
             item.useAnimation = 30;
             item.useTime = 30;
@@ -28,14 +27,13 @@ namespace AAMod.Items.Melee   //where is located
             Tooltip.SetDefault("");
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes() //How to craft this sword
         {
-            ModRecipe recipe = new ModRecipe(mod);      
-			recipe.AddIngredient(mod, "UraniumBar", 10);
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod, "UraniumBar", 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
         }
     }
 }

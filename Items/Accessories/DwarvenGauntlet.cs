@@ -28,14 +28,14 @@ namespace AAMod.Items.Accessories
         {
             DisplayName.SetDefault("Dwarven Gauntlet");
             Tooltip.SetDefault(
-@"Enemies are much more likely to target you
+                @"Enemies are much more likely to target you
 18% Increased Melee Damage and Speed
 Increased Melee Knockback
 Having this gauntlet allows you to handle the infinity stones without overloading
 'Fine. I'll do it myself.'");
         }
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<AAPlayer>().dwarvenGauntlet = true;
         }
@@ -56,6 +56,5 @@ Having this gauntlet allows you to handle the infinity stones without overloadin
                 recipe.AddRecipe();
             }
         }
-
     }
 }

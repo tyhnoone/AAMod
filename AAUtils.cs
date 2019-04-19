@@ -12,10 +12,7 @@ namespace AAMod
         //COLORS
         public static Color COLOR_GLOWPULSE //a pulsing white glow
         {
-            get
-            {
-                return new Color(255, 255, 255) * ((float)Main.mouseTextColor / 255f);
-            }
+            get { return new Color(255, 255, 255) * ((float) Main.mouseTextColor / 255f); }
         }
 
         public static void MoveToPoint(Entity entity, Vector2 point, float moveSpeed)
@@ -27,6 +24,7 @@ namespace AAMod
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
             }
+
             entity.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
             entity.velocity *= moveSpeed;
             entity.velocity *= velMultiplier;
@@ -37,36 +35,42 @@ namespace AAMod
     {
         public static void DropLoot(this Entity ent, int type, int stack = 1)
         {
-            Item.NewItem((int)ent.position.X, (int)ent.position.Y, ent.width, ent.height, type, stack);
+            Item.NewItem((int) ent.position.X, (int) ent.position.Y, ent.width, ent.height, type, stack);
         }
 
         public static void DropLoot(this Entity ent, int type, float chance)
         {
             if (Main.rand.NextDouble() < chance)
-                Item.NewItem((int)ent.position.X, (int)ent.position.Y, ent.width, ent.height, type);
+                Item.NewItem((int) ent.position.X, (int) ent.position.Y, ent.width, ent.height, type);
         }
 
         public static void DropLoot(this Entity ent, int type, int min, int max)
         {
-            Item.NewItem((int)ent.position.X, (int)ent.position.Y, ent.width, ent.height, type, Main.rand.Next(min, max));
+            Item.NewItem((int) ent.position.X, (int) ent.position.Y, ent.width, ent.height, type,
+                Main.rand.Next(min, max));
         }
     }
+
     public class AAUtils : ModPlayer
     {
         public static void DrawNPCGlowMask(SpriteBatch spriteBatch, NPC npc, Texture2D texture)
         {
             var effects = npc.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             spriteBatch.Draw(texture, npc.Center - Main.screenPosition + new Vector2(0, npc.gfxOffY), npc.frame,
-                             Color.White, npc.rotation, npc.frame.Size() / 2, npc.scale, effects, 0);
+                Color.White, npc.rotation, npc.frame.Size() / 2, npc.scale, effects, 0);
         }
 
         public static void DrawItemGlowMask(Texture2D texture, PlayerDrawInfo info)
         {
             Item item = info.drawPlayer.HeldItem;
-            if (info.shadow != 0f || info.drawPlayer.frozen || ((info.drawPlayer.itemAnimation <= 0 || item.useStyle == 0) && (item.holdStyle <= 0 || info.drawPlayer.pulley))/*||item.type<=0*/|| info.drawPlayer.dead || item.noUseGraphic || (info.drawPlayer.wet && item.noWet))
+            if (info.shadow != 0f || info.drawPlayer.frozen ||
+                ((info.drawPlayer.itemAnimation <= 0 || item.useStyle == 0) &&
+                 (item.holdStyle <= 0 || info.drawPlayer.pulley)) /*||item.type<=0*/ || info.drawPlayer.dead ||
+                item.noUseGraphic || (info.drawPlayer.wet && item.noWet))
             {
                 return;
             }
+
             Vector2 offset = new Vector2();
             float rotOffset = 0;
             Vector2 origin = new Vector2();
@@ -75,9 +79,14 @@ namespace AAMod
                 if (Item.staff[item.type])
                 {
                     rotOffset = 0.785f * info.drawPlayer.direction;
-                    if (info.drawPlayer.gravDir == -1f) { rotOffset -= 1.57f * info.drawPlayer.direction; }
-                    origin = new Vector2(texture.Width * 0.5f * (1 - info.drawPlayer.direction), (info.drawPlayer.gravDir == -1f) ? 0 : texture.Height);
-                    int num86 = -(int)origin.X;
+                    if (info.drawPlayer.gravDir == -1f)
+                    {
+                        rotOffset -= 1.57f * info.drawPlayer.direction;
+                    }
+
+                    origin = new Vector2(texture.Width * 0.5f * (1 - info.drawPlayer.direction),
+                        (info.drawPlayer.gravDir == -1f) ? 0 : texture.Height);
+                    int num86 = -(int) origin.X;
                     ItemLoader.HoldoutOrigin(info.drawPlayer, ref origin);
                     offset = new Vector2(origin.X + num86, 0);
                 }
@@ -90,13 +99,16 @@ namespace AAMod
                     {
                         origin.X = texture.Width + offset.X;
                     }
+
                     offset = new Vector2(texture.Width / 2, offset.Y);
                 }
             }
             else
             {
-                origin = new Vector2(texture.Width * 0.5f * (1 - info.drawPlayer.direction), (info.drawPlayer.gravDir == -1f) ? 0 : texture.Height);
+                origin = new Vector2(texture.Width * 0.5f * (1 - info.drawPlayer.direction),
+                    (info.drawPlayer.gravDir == -1f) ? 0 : texture.Height);
             }
+
             Main.playerDrawData.Add
             (
                 new DrawData
@@ -112,7 +124,8 @@ namespace AAMod
             );
         }
 
-        public static void DrawItemGlowMaskWorld(SpriteBatch spriteBatch, Item item, Texture2D texture, float rotation, float scale)
+        public static void DrawItemGlowMaskWorld(SpriteBatch spriteBatch, Item item, Texture2D texture, float rotation,
+            float scale)
         {
             Main.spriteBatch.Draw
             (
@@ -128,7 +141,6 @@ namespace AAMod
                 scale, SpriteEffects.None, 0f
             );
         }
-
     }
 }
 

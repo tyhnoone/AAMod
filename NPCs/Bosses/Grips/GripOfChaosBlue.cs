@@ -12,13 +12,13 @@ namespace AAMod.NPCs.Bosses.Grips
     {
         public override void SetDefaults()
         {
-			base.SetDefaults();
-			npc.lifeMax = 1400;
+            base.SetDefaults();
+            npc.lifeMax = 1400;
             npc.damage = 30;
-            npc.defense = 10;		
-            npc.buffImmune[BuffID.Poisoned] = true;	
+            npc.defense = 10;
+            npc.buffImmune[BuffID.Poisoned] = true;
 
-			offsetBasePoint = new Vector2(240f, 0f);
+            offsetBasePoint = new Vector2(240f, 0f);
         }
 
         public override void HitEffect(int hitDirection, double damage)
@@ -37,13 +37,16 @@ namespace AAMod.NPCs.Bosses.Grips
             int redGripExists = NPC.CountNPCS(mod.NPCType("GripOfChaosRed"));
             if (Main.rand.Next(10) == 0)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GripTrophyBlue"));
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                    mod.ItemType("GripTrophyBlue"));
             }
+
             if (redGripExists == 0)
             {
                 if (Main.rand.Next(4) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ClawBaton"));
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("ClawBaton"));
                 }
 
                 AAWorld.downedGrips = true;
@@ -51,23 +54,29 @@ namespace AAMod.NPCs.Bosses.Grips
                 {
                     npc.DropBossBags();
                 }
-            } else
+            }
+            else
             {
                 if (Main.rand.Next(10) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GripMaskBlue"));
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        mod.ItemType("GripMaskBlue"));
                 }
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Abyssium"), Main.rand.Next(30, 44));
-                
+
+                Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                    mod.ItemType("Abyssium"), Main.rand.Next(30, 44));
             }
         }
 
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
-            if (Main.rand.Next(2) == 0 || (Main.expertMode && Main.rand.Next(0) == 0))       //Chances for it to inflict the debuff
+            if (Main.rand.Next(2) == 0 || (Main.expertMode && Main.rand.Next(0) == 0)
+            ) //Chances for it to inflict the debuff
             {
-                target.AddBuff(BuffID.Poisoned, Main.rand.Next(180, 250));       //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
+                target.AddBuff(BuffID.Poisoned,
+                    Main.rand.Next(180,
+                        250)); //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
             }
-        }		
+        }
     }
 }

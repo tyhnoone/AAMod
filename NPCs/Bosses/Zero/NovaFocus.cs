@@ -11,12 +11,12 @@ namespace AAMod.NPCs.Bosses.Zero
 {
     public class NovaFocus : ModNPC
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Nova Focus");
             Main.npcFrameCount[npc.type] = 2;
         }
+
         public override void SetDefaults()
         {
             npc.width = 40;
@@ -47,22 +47,25 @@ namespace AAMod.NPCs.Bosses.Zero
             {
                 return false;
             }
+
             return true;
         }
 
         public float[] internalAI = new float[4];
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((short)npc.localAI[0]);
-                writer.Write((float)internalAI[0]);
-                writer.Write((float)internalAI[1]);
-                writer.Write((float)internalAI[2]);
-                writer.Write((float)internalAI[3]);
+                writer.Write((short) npc.localAI[0]);
+                writer.Write((float) internalAI[0]);
+                writer.Write((float) internalAI[1]);
+                writer.Write((float) internalAI[2]);
+                writer.Write((float) internalAI[3]);
             }
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             base.ReceiveExtraAI(reader);
@@ -77,19 +80,20 @@ namespace AAMod.NPCs.Bosses.Zero
         }
 
 
-
         public override void HitEffect(int hitDirection, double damage)
         {
             bool flag = (npc.life <= 0 || (!npc.active && NPC.AnyNPCs(mod.NPCType<Zero>())));
             if (flag && Main.netMode != 1)
             {
-                int ind = NPC.NewNPC((int)(npc.position.X + (double)(npc.width / 2)), (int)npc.position.Y + (npc.height / 2), mod.NPCType("TeslaHand"), npc.whoAmI, -1.5f, npc.ai[1], 0f, 0f, byte.MaxValue);
+                int ind = NPC.NewNPC((int) (npc.position.X + (double) (npc.width / 2)),
+                    (int) npc.position.Y + (npc.height / 2), mod.NPCType("TeslaHand"), npc.whoAmI, -1.5f, npc.ai[1], 0f,
+                    0f, byte.MaxValue);
                 Main.npc[ind].life = 1;
                 Main.npc[ind].rotation = npc.rotation;
                 Main.npc[ind].velocity = npc.velocity;
                 Main.npc[ind].netUpdate = true;
-                Main.npc[(int)npc.ai[1]].ai[3]++;
-                Main.npc[(int)npc.ai[1]].netUpdate = true;
+                Main.npc[(int) npc.ai[1]].ai[3]++;
+                Main.npc[(int) npc.ai[1]].netUpdate = true;
             }
         }
 
@@ -98,8 +102,8 @@ namespace AAMod.NPCs.Bosses.Zero
 
         public override void AI()
         {
-            npc.spriteDirection = -(int)npc.ai[0];
-            if (!Main.npc[(int)npc.ai[1]].active)
+            npc.spriteDirection = -(int) npc.ai[0];
+            if (!Main.npc[(int) npc.ai[1]].active)
             {
                 npc.ai[2] += 10f;
                 if (npc.ai[2] > 50.0 || Main.netMode != 2)
@@ -109,14 +113,15 @@ namespace AAMod.NPCs.Bosses.Zero
                     npc.active = false;
                 }
             }
+
             if (npc.ai[2] == 0.0 || npc.ai[2] == 3.0)
             {
-                if (Main.npc[(int)npc.ai[1]].ai[1] == 3.0 && npc.timeLeft > 10)
+                if (Main.npc[(int) npc.ai[1]].ai[1] == 3.0 && npc.timeLeft > 10)
                     npc.timeLeft = 10;
-                if (Main.npc[(int)npc.ai[1]].ai[1] != 0f)
+                if (Main.npc[(int) npc.ai[1]].ai[1] != 0f)
                 {
                     npc.localAI[0] += 3f;
-                    if (npc.position.Y > Main.npc[(int)npc.ai[1]].position.Y - 100.0)
+                    if (npc.position.Y > Main.npc[(int) npc.ai[1]].position.Y - 100.0)
                     {
                         if (npc.velocity.Y > 0.0)
                             npc.velocity.Y *= 0.96f;
@@ -124,7 +129,7 @@ namespace AAMod.NPCs.Bosses.Zero
                         if (npc.velocity.Y > 6.0)
                             npc.velocity.Y = 6f;
                     }
-                    else if (npc.position.Y < Main.npc[(int)npc.ai[1]].position.Y - 100.0)
+                    else if (npc.position.Y < Main.npc[(int) npc.ai[1]].position.Y - 100.0)
                     {
                         if (npc.velocity.Y < 0.0)
                             npc.velocity.Y *= 0.96f;
@@ -132,7 +137,9 @@ namespace AAMod.NPCs.Bosses.Zero
                         if (npc.velocity.Y < -6.0)
                             npc.velocity.Y = -6f;
                     }
-                    if (npc.position.X + (double)(npc.width / 2) > Main.npc[(int)npc.ai[1]].position.X + (double)(Main.npc[(int)npc.ai[1]].width / 2) - (120.0 * npc.ai[0]))
+
+                    if (npc.position.X + (double) (npc.width / 2) > Main.npc[(int) npc.ai[1]].position.X +
+                        (double) (Main.npc[(int) npc.ai[1]].width / 2) - (120.0 * npc.ai[0]))
                     {
                         if (npc.velocity.X > 0.0)
                             npc.velocity.X *= 0.96f;
@@ -140,7 +147,9 @@ namespace AAMod.NPCs.Bosses.Zero
                         if (npc.velocity.X > 8.0)
                             npc.velocity.X = 8f;
                     }
-                    if (npc.position.X + (double)(npc.width / 2) < Main.npc[(int)npc.ai[1]].position.X + (double)(Main.npc[(int)npc.ai[1]].width / 2) - (120.0 * npc.ai[0]))
+
+                    if (npc.position.X + (double) (npc.width / 2) < Main.npc[(int) npc.ai[1]].position.X +
+                        (double) (Main.npc[(int) npc.ai[1]].width / 2) - (120.0 * npc.ai[0]))
                     {
                         if (npc.velocity.X < 0.0)
                             npc.velocity.X *= 0.96f;
@@ -158,7 +167,8 @@ namespace AAMod.NPCs.Bosses.Zero
                         npc.ai[3] = 0.0f;
                         npc.netUpdate = true;
                     }
-                    if (npc.position.Y > Main.npc[(int)npc.ai[1]].position.Y - 100.0)
+
+                    if (npc.position.Y > Main.npc[(int) npc.ai[1]].position.Y - 100.0)
                     {
                         if (npc.velocity.Y > 0.0)
                             npc.velocity.Y *= 0.96f;
@@ -166,7 +176,7 @@ namespace AAMod.NPCs.Bosses.Zero
                         if (npc.velocity.Y > 3.0)
                             npc.velocity.Y = 3f;
                     }
-                    else if (npc.position.Y < Main.npc[(int)npc.ai[1]].position.Y - 100.0)
+                    else if (npc.position.Y < Main.npc[(int) npc.ai[1]].position.Y - 100.0)
                     {
                         if (npc.velocity.Y < 0.0)
                             npc.velocity.Y *= 0.96f;
@@ -174,7 +184,9 @@ namespace AAMod.NPCs.Bosses.Zero
                         if (npc.velocity.Y < -3.0)
                             npc.velocity.Y = -3f;
                     }
-                    if (npc.position.X + (double)(npc.width / 2) > Main.npc[(int)npc.ai[1]].position.X + (double)(Main.npc[(int)npc.ai[1]].width / 2) - (180.0 * npc.ai[0]))
+
+                    if (npc.position.X + (double) (npc.width / 2) > Main.npc[(int) npc.ai[1]].position.X +
+                        (double) (Main.npc[(int) npc.ai[1]].width / 2) - (180.0 * npc.ai[0]))
                     {
                         if (npc.velocity.X > 0.0)
                             npc.velocity.X *= 0.96f;
@@ -182,7 +194,9 @@ namespace AAMod.NPCs.Bosses.Zero
                         if (npc.velocity.X > 8.0)
                             npc.velocity.X = 8f;
                     }
-                    if (npc.position.X + (double)(npc.width / 2) < Main.npc[(int)npc.ai[1]].position.X + (double)(Main.npc[(int)npc.ai[1]].width / 2) - (180.0 * npc.ai[0]))
+
+                    if (npc.position.X + (double) (npc.width / 2) < Main.npc[(int) npc.ai[1]].position.X +
+                        (double) (Main.npc[(int) npc.ai[1]].width / 2) - (180.0 * npc.ai[0]))
                     {
                         if (npc.velocity.X < 0.0)
                             npc.velocity.X *= 0.96f;
@@ -191,12 +205,14 @@ namespace AAMod.NPCs.Bosses.Zero
                             npc.velocity.X = -8f;
                     }
                 }
+
                 npc.TargetClosest(true);
-                Vector2 vector2 = new Vector2(npc.position.X + (npc.width * 0.5f), npc.position.Y + (npc.height * 0.5f));
+                Vector2 vector2 = new Vector2(npc.position.X + (npc.width * 0.5f),
+                    npc.position.Y + (npc.height * 0.5f));
                 float num1 = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - vector2.X;
                 float num2 = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - vector2.Y;
-                float num3 = (float)Math.Sqrt((num1 * (double)num1) + (num2 * (double)num2));
-                float NewRotation = (float)Math.Atan2(num2, num1);
+                float num3 = (float) Math.Sqrt((num1 * (double) num1) + (num2 * (double) num2));
+                float NewRotation = (float) Math.Atan2(num2, num1);
                 npc.rotation = MathHelper.Lerp(npc.rotation, NewRotation, 1f / 20f);
                 ++npc.localAI[0];
                 if (npc.localAI[0] <= 200.0)
@@ -206,6 +222,7 @@ namespace AAMod.NPCs.Bosses.Zero
                     npc.localAI[0] = 0.0f;
                     LaserTime = 0;
                 }
+
                 LaserTime++;
                 if (LaserTime >= 600)
                 {
@@ -215,16 +232,16 @@ namespace AAMod.NPCs.Bosses.Zero
                 else if (LaserTime >= 300)
                 {
                     internalAI[1] = 100;
-
                 }
                 else if (LaserTime > 120)
                 {
                     internalAI[1] -= 400 / 180;
-
                 }
                 else if (LaserTime == 120 && Main.netMode != 1)
                 {
-                    laser = Main.projectile[Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, mod.ProjectileType<NovaRay>(), (int)(npc.damage * 0.75f), 3f, Main.myPlayer, npc.whoAmI, 420)];
+                    laser = Main.projectile[
+                        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, mod.ProjectileType<NovaRay>(),
+                            (int) (npc.damage * 0.75f), 3f, Main.myPlayer, npc.whoAmI, 420)];
                 }
                 else
                 {
@@ -237,6 +254,7 @@ namespace AAMod.NPCs.Bosses.Zero
                 {
                     return;
                 }
+
                 ++npc.ai[3];
                 if (npc.ai[3] >= 200.0)
                 {
@@ -245,42 +263,52 @@ namespace AAMod.NPCs.Bosses.Zero
                     npc.ai[3] = 0.0f;
                     npc.netUpdate = true;
                 }
-                Vector2 vector2 = new Vector2(npc.position.X + (npc.width * 0.5f), npc.position.Y + (npc.height * 0.5f));
-                float num1 = (float)(Main.player[npc.target].position.X + (double)(Main.player[npc.target].width / 2) - 350.0) - vector2.X;
-                float num2 = (float)(Main.player[npc.target].position.Y + (double)(Main.player[npc.target].height / 2) - 20.0) - vector2.Y;
-                float num3 = 7f / (float)Math.Sqrt((num1 * (double)num1) + (num2 * (double)num2));
+
+                Vector2 vector2 = new Vector2(npc.position.X + (npc.width * 0.5f),
+                    npc.position.Y + (npc.height * 0.5f));
+                float num1 =
+                    (float) (Main.player[npc.target].position.X + (double) (Main.player[npc.target].width / 2) -
+                             350.0) - vector2.X;
+                float num2 =
+                    (float) (Main.player[npc.target].position.Y + (double) (Main.player[npc.target].height / 2) -
+                             20.0) - vector2.Y;
+                float num3 = 7f / (float) Math.Sqrt((num1 * (double) num1) + (num2 * (double) num2));
                 float num4 = num1 * num3;
                 float num5 = num2 * num3;
-                if (npc.velocity.X > (double)num4)
+                if (npc.velocity.X > (double) num4)
                 {
                     if (npc.velocity.X > 0.0)
                         npc.velocity.X *= 0.9f;
                     npc.velocity.X -= 0.1f;
                 }
-                if (npc.velocity.X < (double)num4)
+
+                if (npc.velocity.X < (double) num4)
                 {
                     if (npc.velocity.X < 0.0)
                         npc.velocity.X *= 0.9f;
                     npc.velocity.X += 0.1f;
                 }
-                if (npc.velocity.Y > (double)num5)
+
+                if (npc.velocity.Y > (double) num5)
                 {
                     if (npc.velocity.Y > 0.0)
                         npc.velocity.Y *= 0.9f;
                     npc.velocity.Y -= 0.03f;
                 }
-                if (npc.velocity.Y < (double)num5)
+
+                if (npc.velocity.Y < (double) num5)
                 {
                     if (npc.velocity.Y < 0.0)
                         npc.velocity.Y *= 0.9f;
                     npc.velocity.Y += 0.03f;
                 }
+
                 npc.TargetClosest(true);
                 vector2 = new Vector2(npc.position.X + (npc.width * 0.5f), npc.position.Y + (npc.height * 0.5f));
                 float num6 = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - vector2.X;
                 float num7 = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - vector2.Y;
-                float num8 = (float)Math.Sqrt((num6 * (double)num6) + (num7 * (double)num7));
-                float NewRotation = (float)Math.Atan2(num7, num6);
+                float num8 = (float) Math.Sqrt((num6 * (double) num6) + (num7 * (double) num7));
+                float NewRotation = (float) Math.Atan2(num7, num6);
                 npc.rotation = MathHelper.Lerp(npc.rotation, NewRotation, 1f / 20f);
                 if (Main.netMode != 1)
                     return;
@@ -292,6 +320,7 @@ namespace AAMod.NPCs.Bosses.Zero
                     npc.localAI[0] = 0.0f;
                     LaserTime = 0;
                 }
+
                 LaserTime++;
                 if (LaserTime >= 600)
                 {
@@ -301,16 +330,16 @@ namespace AAMod.NPCs.Bosses.Zero
                 else if (LaserTime >= 300)
                 {
                     internalAI[1] = 100;
-
                 }
                 else if (LaserTime > 120)
                 {
                     internalAI[1] -= 400 / 180;
-
                 }
                 else if (LaserTime == 120 && Main.netMode != 1)
                 {
-                    laser = Main.projectile[Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, mod.ProjectileType<NovaRay>(), (int)(npc.damage * 0.75f), 3f, Main.myPlayer, npc.whoAmI, 420)];
+                    laser = Main.projectile[
+                        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, mod.ProjectileType<NovaRay>(),
+                            (int) (npc.damage * 0.75f), 3f, Main.myPlayer, npc.whoAmI, 420)];
                     laser.velocity = BaseUtility.RotateVector(default(Vector2), new Vector2(14f, 0f), laser.rotation);
                 }
                 else
@@ -331,6 +360,5 @@ namespace AAMod.NPCs.Bosses.Zero
             Texture2D glowTex = mod.GetTexture("Glowmasks/NovaFocus_Glow");
             BaseMod.BaseDrawing.DrawTexture(spriteBatch, glowTex, 0, npc, GenericUtils.COLOR_GLOWPULSE);
         }
-
     }
 }

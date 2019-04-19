@@ -9,6 +9,7 @@ namespace AAMod.Tiles
     {
         public Texture2D glowTex;
         public bool glow = true;
+
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
@@ -17,15 +18,17 @@ namespace AAMod.Tiles
             soundType = 21;
             dustType = mod.DustType("FulguriteDust");
             AddMapEntry(new Color(70, 20, 90
-                ));
-			minPick = 200;
+            ));
+            minPick = 200;
         }
 
         public override void ModifyLight(int x, int y, ref float r, ref float g, ref float b)
         {
             if (!glow) return;
             Color color = BaseMod.BaseUtility.ColorMult(Color.Violet, 0.7f);
-            r = (color.R / 255f); g = (color.G / 255f); b = (color.B / 255f);
+            r = (color.R / 255f);
+            g = (color.G / 255f);
+            b = (color.B / 255f);
         }
 
         public override bool CanKillTile(int i, int j, ref bool blockDamaged)
@@ -44,7 +47,8 @@ namespace AAMod.Tiles
             if (glow && (tile != null && tile.active() && tile.type == this.Type))
             {
                 if (glowTex == null) glowTex = mod.GetTexture("Glowmasks/FulguriteBrick_Glow");
-                BaseMod.BaseDrawing.DrawTileTexture(spriteBatch, glowTex, x, y, true, false, false, null, AAGlobalTile.GetstormColorDim);
+                BaseMod.BaseDrawing.DrawTileTexture(spriteBatch, glowTex, x, y, true, false, false, null,
+                    AAGlobalTile.GetstormColorDim);
             }
         }
     }

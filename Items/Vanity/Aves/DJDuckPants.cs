@@ -5,16 +5,16 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Vanity.Aves
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class DJDuckPants : ModItem
-	{
-		public override void SetStaticDefaults()
-       
-		{
+    public class DJDuckPants : ModItem
+    {
+        public override void SetStaticDefaults()
+
+        {
             base.SetStaticDefaults();
             DisplayName.SetDefault("DJ Duck Pants");
             Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Devs!'");
-		}
-        
+        }
+
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
@@ -25,6 +25,7 @@ namespace AAMod.Items.Vanity.Aves
                 }
             }
         }
+
         public override void SetDefaults()
         {
             item.width = 22;

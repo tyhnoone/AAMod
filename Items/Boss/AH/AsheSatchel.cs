@@ -33,9 +33,12 @@ namespace AAMod.Items.Boss.AH
         {
             byte pre = item.prefix;
             item.TurnToAir();
-            int itemID = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("WitchHood"), 1, false, 0, false, false);
-            int itemID1 = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("WitchRobe"), 1, false, 0, false, false);
-            int itemID2 = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("WitchBoots"), 1, false, 0, false, false);
+            int itemID = Item.NewItem((int) player.position.X, (int) player.position.Y, player.width, player.height,
+                mod.ItemType("WitchHood"), 1, false, 0, false, false);
+            int itemID1 = Item.NewItem((int) player.position.X, (int) player.position.Y, player.width, player.height,
+                mod.ItemType("WitchRobe"), 1, false, 0, false, false);
+            int itemID2 = Item.NewItem((int) player.position.X, (int) player.position.Y, player.width, player.height,
+                mod.ItemType("WitchBoots"), 1, false, 0, false, false);
             if (Main.netMode == 1)
             {
                 NetMessage.SendData(21, -1, -1, null, itemID, 1f, 0f, 0f, 0, 0, 0);

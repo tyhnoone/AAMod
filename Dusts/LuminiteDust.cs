@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Dusts
 {
     public class LuminiteDust : ModDust
-	{
+    {
         public override bool MidUpdate(Dust dust)
         {
             dust.rotation += dust.velocity.X / 3f;
@@ -16,13 +16,16 @@ namespace AAMod.Dusts
                 {
                     strength = 1f;
                 }
+
                 Lighting.AddLight(dust.position, 0f * strength, 0.5f * strength, 0.3f * strength);
             }
+
             if (Collision.SolidCollision(dust.position - Vector2.One * 5f, 10, 10) && dust.fadeIn == 0f)
             {
                 dust.scale *= 0.9f;
                 dust.velocity *= 0.10f;
             }
+
             return false;
         }
 

@@ -41,7 +41,6 @@ namespace AAMod.Items.Armor.Paints
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = @"+3 Minion slots";
             player.maxMinions += 3;
         }

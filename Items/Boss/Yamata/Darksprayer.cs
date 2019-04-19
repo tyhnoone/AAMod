@@ -13,7 +13,7 @@ namespace AAMod.Items.Boss.Yamata
         {
             DisplayName.SetDefault("Darksprayer");
             Tooltip.SetDefault(@"'Spouts of dark, leaves it's mark'
-Inflicts Moonrazed");           
+Inflicts Moonrazed");
         }
 
         public override void SetDefaults()
@@ -24,17 +24,18 @@ Inflicts Moonrazed");
             item.width = 44;
             item.height = 34;
             item.useTime = 20;
-            item.useAnimation = 20;     
+            item.useAnimation = 20;
             item.useStyle = 5;
             item.useAmmo = AmmoID.Rocket;
             item.knockBack = 8f;
             item.value = Item.buyPrice(1, 0, 0, 0);
-            item.UseSound = SoundID.Item38;      //1 is the sound of the sword
-            item.autoReuse = true;   //if it's capable of autoswing.
+            item.UseSound = SoundID.Item38; //1 is the sound of the sword
+            item.autoReuse = true; //if it's capable of autoswing.
             item.shootSpeed = 20f;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             /*Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -53,7 +54,7 @@ Inflicts Moonrazed");
                 SpriteEffects.None,
                 0f
             );*/
-		}
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
@@ -61,7 +62,8 @@ Inflicts Moonrazed");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata;;
+                    line2.overrideColor = AAColor.Yamata;
+                    ;
                 }
             }
         }
@@ -70,7 +72,7 @@ Inflicts Moonrazed");
         {
             target.AddBuff(mod.BuffType("Moonraze"), 600);
         }*/
-	
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

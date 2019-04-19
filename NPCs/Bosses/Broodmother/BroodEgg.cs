@@ -15,6 +15,7 @@ namespace AAMod.NPCs.Bosses.Broodmother
         {
             DisplayName.SetDefault("Dragon Egg");
         }
+
         public override void SetDefaults()
         {
             npc.width = 34;
@@ -34,21 +35,24 @@ namespace AAMod.NPCs.Bosses.Broodmother
 
         public override void HitEffect(int hitDirection, double damage)
         {
-			bool isDead = npc.life <= 0;
+            bool isDead = npc.life <= 0;
             if (isDead)
             {
-				for(int m = 0; m < 4; m++)
-				{
-					Vector2 offset = new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height));
-					Gore.NewGore(npc.position + offset, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/BroodGore3"), 1f); //reused brood gore, it looks right for the egg
-				}
+                for (int m = 0; m < 4; m++)
+                {
+                    Vector2 offset = new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height));
+                    Gore.NewGore(npc.position + offset, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/BroodGore3"),
+                        1f); //reused brood gore, it looks right for the egg
+                }
             }
-			for (int m = 0; m < (isDead ? 20 : 5); m++)
-			{
-				Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, 1.3f);
-			}
+
+            for (int m = 0; m < (isDead ? 20 : 5); m++)
+            {
+                Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, npc.velocity.X * 0.2f,
+                    npc.velocity.Y * 0.2f, 100, Color.White, 1.3f);
+            }
         }
-        
+
         public override void AI()
         {
             if (npc.velocity.Y == 0f)
@@ -61,29 +65,34 @@ namespace AAMod.NPCs.Bosses.Broodmother
                 npc.velocity.X = npc.velocity.X * 0.99f;
                 npc.rotation += npc.velocity.X * 0.04f;
             }
+
             int hatchTimer = 900;
             if (Main.expertMode)
             {
                 hatchTimer = 600;
             }
+
             if (npc.justHit)
             {
-                npc.ai[3] -= (float)Main.rand.Next(10, 21);
+                npc.ai[3] -= (float) Main.rand.Next(10, 21);
                 if (!Main.expertMode)
                 {
-                    npc.ai[3] -= (float)Main.rand.Next(10, 21);
+                    npc.ai[3] -= (float) Main.rand.Next(10, 21);
                 }
             }
+
             npc.ai[3] += 1f;
             if (npc.ai[3] >= hatchTimer)
             {
                 npc.Transform(mod.NPCType("Broodmini"));
             }
-            if (Main.netMode != 1 && npc.velocity.Y == 0f && (double)Math.Abs(npc.velocity.X) < 0.2 && (double)npc.ai[3] >= (double)hatchTimer * 0.75)
+
+            if (Main.netMode != 1 && npc.velocity.Y == 0f && (double) Math.Abs(npc.velocity.X) < 0.2 &&
+                (double) npc.ai[3] >= (double) hatchTimer * 0.75)
             {
-                float wiggleAmount = npc.ai[3] - ((float)hatchTimer * 0.75f);
-                wiggleAmount /= (float)hatchTimer * 0.25f;
-                if ((float)Main.rand.Next(-10, 120) < wiggleAmount * 100f)
+                float wiggleAmount = npc.ai[3] - ((float) hatchTimer * 0.75f);
+                wiggleAmount /= (float) hatchTimer * 0.25f;
+                if ((float) Main.rand.Next(-10, 120) < wiggleAmount * 100f)
                 {
                     npc.velocity.Y = npc.velocity.Y - (Main.rand.Next(20, 40) * 0.025f);
                     npc.velocity.X = npc.velocity.X + (Main.rand.Next(-20, 20) * 0.025f);
@@ -94,14 +103,14 @@ namespace AAMod.NPCs.Bosses.Broodmother
             }
         }
 
-		public Color GetGlowAlpha()
-		{
-			return GenericUtils.COLOR_GLOWPULSE;// new Color(255, 255, 255) * ((float)Main.mouseTextColor / 255f);
-		}
+        public Color GetGlowAlpha()
+        {
+            return GenericUtils.COLOR_GLOWPULSE; // new Color(255, 255, 255) * ((float)Main.mouseTextColor / 255f);
+        }
 
         public override void PostDraw(SpriteBatch sb, Color dColor)
         {
-			BaseDrawing.DrawTexture(sb, mod.GetTexture("Glowmasks/BroodEgg_Glow"), 0, npc, GetGlowAlpha());
-        }		
+            BaseDrawing.DrawTexture(sb, mod.GetTexture("Glowmasks/BroodEgg_Glow"), 0, npc, GetGlowAlpha());
+        }
     }
 }

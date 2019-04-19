@@ -8,6 +8,7 @@ namespace AAMod.Items.Materials
         {
             DisplayName.SetDefault("Mire Pod");
         }
+
         public override void SetDefaults()
         {
             item.width = 20;

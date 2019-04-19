@@ -13,18 +13,17 @@ namespace AAMod.Items.Accessories
     [AutoloadEquip(EquipType.Face)]
     public class TimeStone : ModItem
     {
-        
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Time Stone");
             Tooltip.SetDefault(
-@"Respawn time cut by 80%
+                @"Respawn time cut by 80%
 'Dread it. Run from it. Destiny still arives.'");
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 16));
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
+
         public override void SetDefaults()
         {
             item.width = 54;
@@ -50,11 +49,11 @@ namespace AAMod.Items.Accessories
             }
         }
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<AAPlayer>().Time = true;
         }
-        
+
         public override bool CanEquipAccessory(Player player, int slot)
         {
             if (slot < 10)
@@ -66,28 +65,34 @@ namespace AAMod.Items.Accessories
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<MindStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SoulStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<RealityStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<InfinityGauntlet>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SpaceStone>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

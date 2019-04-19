@@ -7,7 +7,6 @@ namespace AAMod.Items.Tools
     {
         public override void SetDefaults()
         {
-
             item.damage = 90;
             item.melee = true;
             item.width = 40;
@@ -30,13 +29,13 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("True Nightaxe");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod, "Nightaxe");
             recipe.AddIngredient(mod, "CorruptionCrystal");
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);  
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }

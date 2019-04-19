@@ -21,7 +21,7 @@ namespace AAMod.Items.Armor.Oroboros
             item.rare = 3;
             item.defense = 4;
         }
-        
+
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {

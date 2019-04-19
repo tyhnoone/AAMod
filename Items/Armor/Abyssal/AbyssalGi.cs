@@ -5,29 +5,29 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Abyssal
 {
     [AutoloadEquip(EquipType.Body)]
-	public class AbyssalGi : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			DisplayName.SetDefault("Abyssal Gi");
-			Tooltip.SetDefault(@"40% increased movement speed
+    public class AbyssalGi : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("Abyssal Gi");
+            Tooltip.SetDefault(@"40% increased movement speed
 Weightless as shadow itself");
-		}
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 18;
-			item.height = 18;
-			item.value = 10000;
-			item.rare = 3;
-			item.defense = 5;
-		}
+        public override void SetDefaults()
+        {
+            item.width = 18;
+            item.height = 18;
+            item.value = 10000;
+            item.rare = 3;
+            item.defense = 5;
+        }
 
-		public override void UpdateEquip(Player player)
-		{
+        public override void UpdateEquip(Player player)
+        {
             player.moveSpeed += .40f;
-		}
+        }
 
         public override void AddRecipes()
         {

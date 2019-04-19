@@ -9,10 +9,8 @@ namespace AAMod.Items.Boss.Zero
 {
     public class VoidStar : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Void Star");
             Tooltip.SetDefault("Fires a dark, spinning vortex that homes in on enemies");
             Item.staff[item.type] = true;
@@ -37,7 +35,8 @@ namespace AAMod.Items.Boss.Zero
             item.noUseGraphic = true;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -68,6 +67,7 @@ namespace AAMod.Items.Boss.Zero
                 }
             }
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

@@ -38,8 +38,8 @@ namespace AAMod.Items.Dev
         {
             DisplayName.SetDefault("Time Teller");
             Tooltip.SetDefault("Slows time for enemies hit \n" +
-                "Time to Die \n" +
-                "-Dallin");
+                               "Time to Die \n" +
+                               "-Dallin");
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -61,11 +61,12 @@ namespace AAMod.Items.Dev
 
         public int Damage()
         {
-            double num4 = (float)Main.time;
+            double num4 = (float) Main.time;
             if (!Main.dayTime)
             {
                 num4 += 54000.0;
             }
+
             num4 = num4 / 86400.0 * 24.0;
             double num5 = 7.5;
             num4 = num4 - num5 - 12.0;
@@ -73,6 +74,7 @@ namespace AAMod.Items.Dev
             {
                 num4 += 24.0;
             }
+
             if (num4 == 1)
             {
                 return 30;
@@ -170,6 +172,5 @@ namespace AAMod.Items.Dev
                 return 360;
             }
         }
-
     }
 }

@@ -8,16 +8,14 @@ namespace AAMod.Projectiles
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.LightDisc);
-            projectile.penetrate = 1;  
+            projectile.penetrate = 1;
             projectile.width = 32;
             projectile.height = 32;
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("HellBallP");
-    }
-
-
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("HellBallP");
+        }
     }
 }

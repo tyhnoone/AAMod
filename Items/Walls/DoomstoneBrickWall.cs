@@ -1,4 +1,6 @@
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria;
 
 namespace AAMod.Items.Walls
@@ -7,7 +9,6 @@ namespace AAMod.Items.Walls
     {
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 16;
             item.maxStack = 999;
@@ -20,11 +21,12 @@ namespace AAMod.Items.Walls
             item.createWall = mod.WallType("DoomstoneBrickWall"); //put your CustomBlock Tile name
         }
 
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Doomsday Brick Wall");
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

@@ -5,8 +5,8 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Imp
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class ImpBoots : ModItem
-	{
+    public class ImpBoots : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Imp Boots");

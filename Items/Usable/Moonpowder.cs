@@ -5,8 +5,8 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Usable
 {
     public class Moonpowder : ModItem
-	{
-		public override void SetDefaults()
+    {
+        public override void SetDefaults()
         {
             item.shoot = mod.ProjectileType("Moonpowder");
             item.useStyle = 1;
@@ -22,11 +22,11 @@ namespace AAMod.Items.Usable
             item.value = 75;
         }
 
-		public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault(@"Cleanses the Inferno");
-		}
-        
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault(@"Cleanses the Inferno");
+        }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

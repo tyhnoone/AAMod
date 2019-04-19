@@ -7,7 +7,6 @@ namespace AAMod.Items.Tools
     {
         public override void SetDefaults()
         {
-
             item.damage = 70;
             item.melee = true;
             item.width = 44;
@@ -30,12 +29,12 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Radium Hammaxe");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "RadiumBar", 12);
-            recipe.AddTile(null, "QuantumFusionAccelerator");   //at work bench
-            recipe.SetResult(this);  
+            recipe.AddTile(null, "QuantumFusionAccelerator"); //at work bench
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }

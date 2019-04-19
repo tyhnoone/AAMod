@@ -8,11 +8,9 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Boss.Zero
 {
     public class ZeroArrow : ModItem
-	{
-        
+    {
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Singularity Arrow");
             Tooltip.SetDefault(@"The only thing faster than light is the void that devours it
 Non-consumable");
@@ -30,21 +28,22 @@ Non-consumable");
         }
 
         public override void SetDefaults()
-		{
-			item.damage = 28;
-			item.ranged = true;
-			item.width = 14;
-			item.height = 40;
-			item.consumable = false;             //You need to set the item consumable so that the ammo would automatically consumed
-			item.knockBack = 7f;
-			item.value = Item.buyPrice(1, 0, 0, 0);
+        {
+            item.damage = 28;
+            item.ranged = true;
+            item.width = 14;
+            item.height = 40;
+            item.consumable = false; //You need to set the item consumable so that the ammo would automatically consumed
+            item.knockBack = 7f;
+            item.value = Item.buyPrice(1, 0, 0, 0);
             item.rare = 6;
-			item.shoot = mod.ProjectileType("Neutralizer");         //The speed of the projectile
-			item.ammo = AmmoID.Arrow;              //The ammo class this ammo belongs to.
-		}
+            item.shoot = mod.ProjectileType("Neutralizer"); //The speed of the projectile
+            item.ammo = AmmoID.Arrow; //The ammo class this ammo belongs to.
+        }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -66,14 +65,14 @@ Non-consumable");
         }
 
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.MoonlordArrow, 999);
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.MoonlordArrow, 999);
             recipe.AddIngredient(null, "ApocalyptitePlate", 1);
             recipe.AddIngredient(null, "UnstableSingularity", 1);
             recipe.AddTile(null, "ACS");
-			recipe.SetResult(this, 1);
-			recipe.AddRecipe();
-		}
-	}
+            recipe.SetResult(this, 1);
+            recipe.AddRecipe();
+        }
+    }
 }

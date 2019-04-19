@@ -6,8 +6,9 @@ using Terraria.ModLoader;
 namespace AAMod.Projectiles.Zero
 {
     public class ZeroArrow : ModProjectile
-	{
+    {
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -17,19 +18,21 @@ namespace AAMod.Projectiles.Zero
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
-            projectile.glowMask = customGlowMask;
-            DisplayName.SetDefault("Singularity Arrow");    //The recording mode
-		}
 
-		public override void SetDefaults()
-		{
-			projectile.width = 14;               //The width of projectile hitbox
-			projectile.height = 40;              //The height of projectile hitbox
-			projectile.aiStyle = 1;             //The ai style of the projectile, please reference the source code of Terraria
+            projectile.glowMask = customGlowMask;
+            DisplayName.SetDefault("Singularity Arrow"); //The recording mode
+        }
+
+        public override void SetDefaults()
+        {
+            projectile.width = 14; //The width of projectile hitbox
+            projectile.height = 40; //The height of projectile hitbox
+            projectile.aiStyle = 1; //The ai style of the projectile, please reference the source code of Terraria
             projectile.friendly = true;
             projectile.ranged = true;
             projectile.MaxUpdates = 2;
@@ -38,7 +41,6 @@ namespace AAMod.Projectiles.Zero
             projectile.usesLocalNPCImmunity = true;
             projectile.penetrate = 4;
             projectile.alpha = 0;
-            
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -47,14 +49,16 @@ namespace AAMod.Projectiles.Zero
             {
                 projectile.position.X = projectile.position.X + projectile.velocity.X;
                 projectile.velocity.X = -oldVelocity.X;
-                projectile.damage = (int)(projectile.damage * 1.2);
+                projectile.damage = (int) (projectile.damage * 1.2);
             }
+
             if (projectile.velocity.Y != oldVelocity.Y)
             {
                 projectile.position.Y = projectile.position.Y + projectile.velocity.Y;
                 projectile.velocity.Y = -oldVelocity.Y;
-                projectile.damage = (int)(projectile.damage * 1.2);
+                projectile.damage = (int) (projectile.damage * 1.2);
             }
+
             return false; // return false because we are handling collision
         }
 
@@ -68,7 +72,9 @@ namespace AAMod.Projectiles.Zero
                     Vector2 vector33 = projectile.position;
                     vector33 -= projectile.velocity * (num447 * 0.25f);
                     projectile.alpha = 255;
-                    int num448 = Dust.NewDust(vector33, projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 200, default(Color), 1f); //Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 200, default(Color), 1f);;
+                    int num448 = Dust.NewDust(vector33, projectile.width, projectile.height,
+                        mod.DustType<Dusts.VoidDust>(), 0f, 0f, 200, default(Color),
+                        1f); //Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 200, default(Color), 1f);;
                     Main.dust[num448].position = vector33;
                     Main.dust[num448].scale = Main.rand.Next(70, 110) * 0.013f;
                     Main.dust[num448].velocity *= 0.2f;

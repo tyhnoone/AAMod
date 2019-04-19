@@ -29,12 +29,12 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Uranium Logger");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod, "UraniumBar", 10);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);  
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }

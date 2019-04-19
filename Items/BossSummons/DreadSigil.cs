@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Localization;
@@ -9,8 +8,7 @@ using BaseMod;
 namespace AAMod.Items.BossSummons
 {
     public class DreadSigil : ModItem
-	{
-
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dread Moon Sigil");
@@ -18,6 +16,7 @@ namespace AAMod.Items.BossSummons
 Summons Yamata
 Only Usable at night");
         }
+
         public override void SetDefaults()
         {
             item.width = 20;
@@ -35,7 +34,8 @@ Only Usable at night");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata;;
+                    line2.overrideColor = AAColor.Yamata;
+                    ;
                 }
             }
         }
@@ -51,45 +51,57 @@ Only Usable at night");
         }
 
         public override bool UseItem(Player player)
-		{
-			SpawnBoss(player, "Yamata", "Yamata; Dread Nightmare");
+        {
+            SpawnBoss(player, "Yamata", "Yamata; Dread Nightmare");
             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/YamataRoar"), player.position);
             if (!AAWorld.downedYamata)
             {
-                Main.NewText("You DARE enter my territory, Terrarian?! NYEHEHEHEHEH..! Big mistake..!", new Color(45, 46, 70));
+                Main.NewText("You DARE enter my territory, Terrarian?! NYEHEHEHEHEH..! Big mistake..!",
+                    new Color(45, 46, 70));
             }
+
             if (AAWorld.downedYamata)
             {
-                Main.NewText("Back for more..?! This time you won’t be so lucky you little whelp..!", new Color(45, 46, 70));
+                Main.NewText("Back for more..?! This time you won’t be so lucky you little whelp..!",
+                    new Color(45, 46, 70));
             }
 
             return true;
-		}
+        }
 
-		public override bool CanUseItem(Player player)
-		{
+        public override bool CanUseItem(Player player)
+        {
             if (Main.dayTime)
             {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("NO! I DON'T WANNA FIGHT NOW! I NEED MY BEAUTY SLEEP! COME BACK AT NIGHT!", new Color(45, 46, 70), false);
+                if (player.whoAmI == Main.myPlayer)
+                    BaseUtility.Chat("NO! I DON'T WANNA FIGHT NOW! I NEED MY BEAUTY SLEEP! COME BACK AT NIGHT!",
+                        new Color(45, 46, 70), false);
                 return false;
             }
+
             if (player.GetModPlayer<AAPlayer>(mod).ZoneMire)
-			{
+            {
                 /*if (!AAWorld.downedYamata)
                 {
                     if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("You NEED to use that sigil on the altar at the center of the mire! Trust me, nothing bad will happen!", new Color(45, 46, 70), false);
                     return false;
                 }*/
-				if (NPC.AnyNPCs(mod.NPCType("Yamata")))
-				{
-					if(player.whoAmI == Main.myPlayer) BaseUtility.Chat("WHAT THE HELL ARE YOU DOING?! I'M ALREADY HERE!!!", new Color(45, 46, 70), false);
-					return false;
-				}
-                if (NPC.AnyNPCs(mod.NPCType("YamataA")))
+                if (NPC.AnyNPCs(mod.NPCType("Yamata")))
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("WHAT THE HELL ARE YOU DOING?! I'M ALREADY HERE!!!", new Color(146, 30, 68), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat("WHAT THE HELL ARE YOU DOING?! I'M ALREADY HERE!!!", new Color(45, 46, 70),
+                            false);
                     return false;
                 }
+
+                if (NPC.AnyNPCs(mod.NPCType("YamataA")))
+                {
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat("WHAT THE HELL ARE YOU DOING?! I'M ALREADY HERE!!!", new Color(146, 30, 68),
+                            false);
+                    return false;
+                }
+
                 for (int m = 0; m < Main.maxProjectiles; m++)
                 {
                     Projectile p = Main.projectile[m];
@@ -98,26 +110,40 @@ Only Usable at night");
                         return false;
                     }
                 }
-                return true;
-			}
-			if(player.whoAmI == Main.myPlayer) BaseUtility.Chat("Hey Dumbo! Mire is that way!", new Color(45, 46, 70), false);			
-			return false;
-		}
 
-		public void SpawnBoss(Player player, string name, string displayName)
-		{
-			if (Main.netMode != 1)
-			{
-				int bossType = mod.NPCType(name);
-				if(NPC.AnyNPCs(bossType)){ return; } //don't spawn if there's already a boss!
-				int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
+                return true;
+            }
+
+            if (player.whoAmI == Main.myPlayer)
+                BaseUtility.Chat("Hey Dumbo! Mire is that way!", new Color(45, 46, 70), false);
+            return false;
+        }
+
+        public void SpawnBoss(Player player, string name, string displayName)
+        {
+            if (Main.netMode != 1)
+            {
+                int bossType = mod.NPCType(name);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
                 Main.npc[npcID].Center = player.Center - new Vector2(0f, 100f);
                 Main.npc[npcID].netUpdate2 = true;
-				
-			}
-		}	
+            }
+        }
 
-		public override void UseStyle(Player p) { BaseMod.BaseUseStyle.SetStyleBoss(p, item, true, true); }
-		public override bool UseItemFrame(Player p) { BaseMod.BaseUseStyle.SetFrameBoss(p, item); return true; }		
-	}
+        public override void UseStyle(Player p)
+        {
+            BaseMod.BaseUseStyle.SetStyleBoss(p, item, true, true);
+        }
+
+        public override bool UseItemFrame(Player p)
+        {
+            BaseMod.BaseUseStyle.SetFrameBoss(p, item);
+            return true;
+        }
+    }
 }

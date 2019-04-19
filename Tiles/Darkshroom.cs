@@ -6,8 +6,8 @@ using Terraria.ObjectData;
 
 namespace AAMod.Tiles
 {
-	public class Darkshroom : ModTile
-	{
+    public class Darkshroom : ModTile
+    {
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -37,5 +37,4 @@ namespace AAMod.Tiles
             num = 10;
         }
     }
-
 }

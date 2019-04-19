@@ -11,13 +11,13 @@ namespace AAMod.NPCs.Bosses.Sagittarius
 {
     [AutoloadBossHead]
     public class Sagittarius : ModNPC
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Sagittarius");
-		}
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Sagittarius");
+        }
 
-		public override void SetDefaults()
+        public override void SetDefaults()
         {
             npc.lifeMax = 6000;
             npc.boss = true;
@@ -37,6 +37,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
         public static float[] MovementType = new float[2];
         public float[] shootAI = new float[1];
         public float[] internalAI = new float[7];
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
@@ -88,14 +89,17 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 {
                     for (int m = 0; m < ProbeCount; m++)
                     {
-                        int npcID = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("SagittariusOrbiter"), 0);
+                        int npcID = NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y,
+                            mod.NPCType("SagittariusOrbiter"), 0);
                         Main.npc[npcID].Center = npc.Center;
-                        Main.npc[npcID].velocity = new Vector2(MathHelper.Lerp(-1f, 1f, (float)Main.rand.NextDouble()), MathHelper.Lerp(-1f, 1f, (float)Main.rand.NextDouble()));
+                        Main.npc[npcID].velocity = new Vector2(MathHelper.Lerp(-1f, 1f, (float) Main.rand.NextDouble()),
+                            MathHelper.Lerp(-1f, 1f, (float) Main.rand.NextDouble()));
                         Main.npc[npcID].velocity *= 8f;
                         Main.npc[npcID].ai[0] = m;
                         Main.npc[npcID].netUpdate2 = true;
                     }
                 }
+
                 internalAI[0] = 1;
             }
 
@@ -116,6 +120,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                     npc.netUpdate = true;
                 }
             }
+
             if (MovementType[0] == 1)
             {
                 internalAI[6]++;
@@ -127,6 +132,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                     npc.netUpdate = true;
                 }
             }
+
             if (MovementType[0] == 2)
             {
                 MovementType[1] += 5;
@@ -136,6 +142,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                     npc.netUpdate = true;
                 }
             }
+
             if (MovementType[0] == 3)
             {
                 MovementType[1] -= 5;
@@ -143,7 +150,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 {
                     MovementType[1] = 0;
                 }
-                
+
                 internalAI[6]++;
 
                 if (internalAI[6] > 360)
@@ -152,7 +159,6 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                     MovementType[0] = 5;
                     npc.netUpdate = true;
                 }
-
             }
             else if (MovementType[0] == 4 || MovementType[0] == 5)
             {
@@ -168,6 +174,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             {
                 internalAI[4]++;
             }
+
             if (!NPC.AnyNPCs(mod.NPCType<SagittariusOrbiter>()) && internalAI[4] >= 60)
             {
                 npc.Transform(mod.NPCType<SagittariusFree>());
@@ -184,10 +191,12 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                     }
                 }
             }
-            else if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 5000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 5000f || !modPlayer.ZoneVoid)
+            else if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 5000f ||
+                     Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 5000f || !modPlayer.ZoneVoid)
             {
                 npc.TargetClosest(true);
-                if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 5000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 5000f)
+                if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 5000f ||
+                    Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 5000f)
                 {
                     if (internalAI[3] != 1f || internalAI[3] != 3f)
                     {
@@ -215,7 +224,10 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 {
                     npc.active = false;
                 }
-                if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+
+                if (Main.player[npc.target].dead ||
+                    Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f ||
+                    Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
                 {
                     npc.TargetClosest(true);
 
@@ -229,6 +241,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 {
                     npc.alpha -= 10;
                 }
+
                 if (npc.alpha <= 0)
                 {
                     npc.alpha = 0;
@@ -246,7 +259,6 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             }
 
 
-            
             if (internalAI[2] == 1) //Chaase down the target
             {
                 BaseAI.AIElemental(npc, ref npc.ai, null, 120, false, false, 10, 10, 10, 2.5f);
@@ -267,12 +279,14 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             {
                 int dust1 = mod.DustType<Dusts.VoidDust>();
                 int dust2 = mod.DustType<Dusts.VoidDust>();
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0,
+                    default(Color), 1f);
                 Main.dust[dust1].velocity *= 0.5f;
                 Main.dust[dust1].scale *= 1.3f;
                 Main.dust[dust1].fadeIn = 1f;
                 Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0,
+                    default(Color), 1f);
                 Main.dust[dust2].velocity *= 0.5f;
                 Main.dust[dust2].scale *= 1.3f;
                 Main.dust[dust2].fadeIn = 1f;
@@ -283,7 +297,8 @@ namespace AAMod.NPCs.Bosses.Sagittarius
         public override bool PreDraw(SpriteBatch sb, Color dColor)
         {
             BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, dColor);
-            BaseDrawing.DrawTexture(sb, mod.GetTexture("Glowmasks/Sagittarius_Glow"), 0, npc, GenericUtils.COLOR_GLOWPULSE);
+            BaseDrawing.DrawTexture(sb, mod.GetTexture("Glowmasks/Sagittarius_Glow"), 0, npc,
+                GenericUtils.COLOR_GLOWPULSE);
             return false;
         }
 
@@ -292,6 +307,5 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             AAWorld.downedSag = true;
             Item.NewItem(npc.Center, mod.ItemType<Items.Materials.Doomite>(), Main.rand.Next(30, 40));
         }
-        
     }
 }

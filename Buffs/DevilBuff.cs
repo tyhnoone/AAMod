@@ -20,6 +20,7 @@ namespace AAMod.Buffs
             {
                 modPlayer.ImpSlave = true;
             }
+
             if (!modPlayer.trueDemon)
             {
                 player.DelBuff(buffIndex);

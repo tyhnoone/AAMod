@@ -12,6 +12,7 @@ namespace AAMod.Projectiles
         {
             DisplayName.SetDefault("Sand");
         }
+
         public override void SetDefaults()
         {
             projectile.width = 14;
@@ -41,10 +42,11 @@ namespace AAMod.Projectiles
                 projectile.Kill();
             }
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Collision.HitTiles(projectile.position, oldVelocity, projectile.width, projectile.height);
-            Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1);
+            Main.PlaySound(0, (int) projectile.position.X, (int) projectile.position.Y, 1);
             return true;
         }
     }

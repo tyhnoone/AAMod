@@ -4,17 +4,17 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Tools
 {
     public class Hellfisher : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Hellfisher");
-		}
+        }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.CloneDefaults(ItemID.HotlineFishingHook);
             item.shoot = mod.ProjectileType<Hellfisher_Bob>();
-		}
+        }
 
         public override void AddRecipes()
         {
@@ -26,5 +26,5 @@ namespace AAMod.Items.Tools
                 recipe.AddRecipe();
             }
         }
-	}
+    }
 }

@@ -9,8 +9,8 @@ namespace AAMod.Projectiles.Akuma
 {
     public class SunSpear : ModProjectile
     {
-
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -20,10 +20,12 @@ namespace AAMod.Projectiles.Akuma
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             projectile.glowMask = customGlowMask;
 
             DisplayName.SetDefault("Sun Partisan");
@@ -45,7 +47,6 @@ namespace AAMod.Projectiles.Akuma
             projectile.hide = true;
         }
 
-        
 
         public float MovementFactor // Change this value to alter how fast the spear moves
         {
@@ -57,22 +58,27 @@ namespace AAMod.Projectiles.Akuma
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Daybreak, 600);
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
-			int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, 0f, 0f, mod.ProjectileType("AkumaExp"), projectile.damage*2, projectile.knockBack, projectile.owner);
-			Main.projectile[p].melee = true;
-			Main.projectile[p].friendly = true;
-			Main.projectile[p].hostile = false;
-			Main.projectile[p].usesLocalNPCImmunity = true;
-			Main.projectile[p].localNPCHitCooldown = 6;
+            Main.PlaySound(2, (int) projectile.position.X, (int) projectile.position.Y, 14);
+            int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, 0f, 0f, mod.ProjectileType("AkumaExp"),
+                projectile.damage * 2, projectile.knockBack, projectile.owner);
+            Main.projectile[p].melee = true;
+            Main.projectile[p].friendly = true;
+            Main.projectile[p].hostile = false;
+            Main.projectile[p].usesLocalNPCImmunity = true;
+            Main.projectile[p].localNPCHitCooldown = 6;
         }
 
         public override void AI()
         {
             //dust!
-            int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width / 2, projectile.height + 5, mod.DustType<Dusts.AkumaADust>(), projectile.velocity.X * 0.2f,
+            int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f),
+                projectile.width / 2, projectile.height + 5, mod.DustType<Dusts.AkumaADust>(),
+                projectile.velocity.X * 0.2f,
                 projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
             Main.dust[dustId].noGravity = true;
-            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width / 2, projectile.height + 5, mod.DustType<Dusts.AkumaADust>(), projectile.velocity.X * 0.2f,
+            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f),
+                projectile.width / 2, projectile.height + 5, mod.DustType<Dusts.AkumaADust>(),
+                projectile.velocity.X * 0.2f,
                 projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
             Main.dust[dustId3].noGravity = true;
 
@@ -93,7 +99,8 @@ namespace AAMod.Projectiles.Akuma
                     projectile.netUpdate = true; // Make sure to netUpdate this spear
                 }
 
-                if (projOwner.itemAnimation < projOwner.itemAnimationMax / 3) // Somewhere along the item animation, make sure the spear moves back
+                if (projOwner.itemAnimation < projOwner.itemAnimationMax / 3
+                ) // Somewhere along the item animation, make sure the spear moves back
                     MovementFactor -= 2.4f;
                 else // Otherwise, increase the movement factor
                     MovementFactor += 2.1f;
@@ -105,7 +112,8 @@ namespace AAMod.Projectiles.Akuma
             if (projOwner.itemAnimation == 0) projectile.Kill();
             // Apply proper rotation, with an offset of 135 degrees due to the sprite's rotation, notice the usage of MathHelper, use this class!
             // MathHelper.ToRadians(xx degrees here)
-            projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + MathHelper.ToRadians(135f);
+            projectile.rotation = (float) Math.Atan2(projectile.velocity.Y, projectile.velocity.X) +
+                                  MathHelper.ToRadians(135f);
             // Offset by 90 degrees here
             if (projectile.spriteDirection == -1) projectile.rotation -= MathHelper.ToRadians(90f);
             if (Main.player[projectile.owner].itemAnimation < Main.player[projectile.owner].itemAnimationMax / 3)
@@ -117,13 +125,18 @@ namespace AAMod.Projectiles.Akuma
                     //Projectile.NewProjectile(projectile.Center.X + (projectile.velocity.X * projectile.ai[0]), projectile.Center.Y + (projectile.velocity.Y * projectile.ai[0]), projectile.velocity.X * 1.4f, projectile.velocity.Y * 1.4f, mod.ProjectileType("SunSpearShot"), (int)((double)projectile.damage * 0.85f), projectile.knockBack * 0.85f, projectile.owner, 0f, 0f);
                 }
             }
+
             if (Main.rand.NextFloat() < 1f)
             {
                 Dust dust1;
                 Dust dust2;
                 Vector2 position = projectile.position;
-                dust1 = Main.dust[Dust.NewDust(position, 0, 0, mod.DustType<Dusts.AkumaDust>(), 4.736842f, 0f, 46, default(Color), 1f)];
-                dust2 = Main.dust[Dust.NewDust(position, 0, 0, mod.DustType<Dusts.AkumaADust>(), 4.736842f, 0f, 46, default(Color), 1f)];
+                dust1 = Main.dust[
+                    Dust.NewDust(position, 0, 0, mod.DustType<Dusts.AkumaDust>(), 4.736842f, 0f, 46, default(Color),
+                        1f)];
+                dust2 = Main.dust[
+                    Dust.NewDust(position, 0, 0, mod.DustType<Dusts.AkumaADust>(), 4.736842f, 0f, 46, default(Color),
+                        1f)];
                 dust1.noGravity = true;
                 dust2.noGravity = true;
             }

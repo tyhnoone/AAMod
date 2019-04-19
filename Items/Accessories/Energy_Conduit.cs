@@ -6,18 +6,18 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Accessories
 {
     public class Energy_Conduit : ModItem
-	{
-		public override void SetDefaults()
-		{
-			item.width = 20;
-			item.height = 24;
-			item.value = Item.sellPrice(0, 6, 0, 0);
-			item.rare = 8;
-			item.accessory = true;
-            
+    {
+        public override void SetDefaults()
+        {
+            item.width = 20;
+            item.height = 24;
+            item.value = Item.sellPrice(0, 6, 0, 0);
+            item.rare = 8;
+            item.accessory = true;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -39,16 +39,15 @@ namespace AAMod.Items.Accessories
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
-		{
+        {
             player.moveSpeed += 1.5f;
-		}
-		
-		
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Energy Conduit");
-			Tooltip.SetDefault("50% increased movement speed");
-			
-		}
-	}
+        }
+
+
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Energy Conduit");
+            Tooltip.SetDefault("50% increased movement speed");
+        }
+    }
 }

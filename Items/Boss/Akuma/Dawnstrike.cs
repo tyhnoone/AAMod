@@ -9,8 +9,6 @@ namespace AAMod.Items.Boss.Akuma
 {
     public class Dawnstrike : ModItem
     {
-        
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dawnstrike");
@@ -19,7 +17,6 @@ namespace AAMod.Items.Boss.Akuma
 
         public override void SetDefaults()
         {
-
             item.damage = 100;
             item.noMelee = true;
             item.ranged = true;
@@ -30,7 +27,7 @@ namespace AAMod.Items.Boss.Akuma
             item.useStyle = 5;
             item.shoot = mod.ProjectileType("Dawnstrike");
             item.knockBack = 0;
-            item.value = Item.buyPrice( 1, 0, 0, 0);
+            item.value = Item.buyPrice(1, 0, 0, 0);
             item.rare = 0;
             item.UseSound = SoundID.Item20;
             item.autoReuse = true;
@@ -38,7 +35,8 @@ namespace AAMod.Items.Boss.Akuma
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -59,13 +57,15 @@ namespace AAMod.Items.Boss.Akuma
             );
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
+
             return true;
         }
 
@@ -80,7 +80,7 @@ namespace AAMod.Items.Boss.Akuma
             }
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DaybreakIncinerite", 5);

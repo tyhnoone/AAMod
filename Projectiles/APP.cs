@@ -26,6 +26,7 @@ namespace AAMod.Projectiles
         {
             DisplayName.SetDefault("APP");
         }
+
         public float MovementFactor // Change this value to alter how fast the spear moves
         {
             get { return projectile.ai[0]; }
@@ -43,8 +44,8 @@ namespace AAMod.Projectiles
             projectile.direction = projOwner.direction;
             projOwner.heldProj = projectile.whoAmI;
             projOwner.itemTime = projOwner.itemAnimation;
-            projectile.position.X = ownerMountedCenter.X - (float)(projectile.width / 2);
-            projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
+            projectile.position.X = ownerMountedCenter.X - (float) (projectile.width / 2);
+            projectile.position.Y = ownerMountedCenter.Y - (float) (projectile.height / 2);
             // As long as the player isn't frozen, the spear can move
             if (!projOwner.frozen)
             {
@@ -53,7 +54,9 @@ namespace AAMod.Projectiles
                     MovementFactor = 3f; // Make sure the spear moves forward when initially thrown out
                     projectile.netUpdate = true; // Make sure to netUpdate this spear
                 }
-                if (projOwner.itemAnimation < projOwner.itemAnimationMax / 3) // Somewhere along the item animation, make sure the spear moves back
+
+                if (projOwner.itemAnimation < projOwner.itemAnimationMax / 3
+                ) // Somewhere along the item animation, make sure the spear moves back
                 {
                     MovementFactor -= 2.4f;
                 }
@@ -62,6 +65,7 @@ namespace AAMod.Projectiles
                     MovementFactor += 2.1f;
                 }
             }
+
             // Change the spear position based off of the velocity and the movementFactor
             projectile.position += projectile.velocity * MovementFactor;
             // When we reach the end of the animation, we can kill the spear projectile
@@ -69,6 +73,7 @@ namespace AAMod.Projectiles
             {
                 projectile.Kill();
             }
+
             // Apply proper rotation, with an offset of 135 degrees due to the sprite's rotation, notice the usage of MathHelper, use this class!
             // MathHelper.ToRadians(xx degrees here)
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);

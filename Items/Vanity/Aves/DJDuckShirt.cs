@@ -14,7 +14,7 @@ namespace AAMod.Items.Vanity.Aves
             DisplayName.SetDefault("DJ Duck Shirt");
             Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Devs!'");
         }
-        
+
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)

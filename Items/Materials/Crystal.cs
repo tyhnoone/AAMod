@@ -10,7 +10,10 @@ namespace AAMod.Items.Materials
 {
     public class Crystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -52,8 +55,11 @@ namespace AAMod.Items.Materials
 
     public class CrimsonCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
-        
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crimson Prism");
@@ -113,7 +119,10 @@ namespace AAMod.Items.Materials
 
     public class CorruptionCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -174,7 +183,10 @@ namespace AAMod.Items.Materials
 
     public class DungeonCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -227,7 +239,10 @@ namespace AAMod.Items.Materials
 
     public class HallowCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -279,7 +294,10 @@ namespace AAMod.Items.Materials
 
     public class HellCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -379,7 +397,10 @@ namespace AAMod.Items.Materials
 
     public class OceanCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -408,6 +429,7 @@ namespace AAMod.Items.Materials
         {
             Lighting.AddLight(item.Center, AAColor.Ocean.ToVector3() * 0.55f * Main.essScale);
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -422,7 +444,10 @@ namespace AAMod.Items.Materials
 
     public class IceCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -465,7 +490,10 @@ namespace AAMod.Items.Materials
 
     public class DesertCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -510,7 +538,10 @@ namespace AAMod.Items.Materials
 
     public class JungleCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -555,7 +586,10 @@ namespace AAMod.Items.Materials
 
     public class InfernoCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -608,7 +642,10 @@ namespace AAMod.Items.Materials
 
     public class MireCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -661,7 +698,10 @@ namespace AAMod.Items.Materials
 
     public class TerraCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -706,7 +746,10 @@ namespace AAMod.Items.Materials
 
     public class ChaosCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -735,7 +778,7 @@ namespace AAMod.Items.Materials
         {
             Lighting.AddLight(item.Center, AAColor.Shen3.ToVector3() * 0.55f * Main.essScale);
         }
-        
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -749,7 +792,10 @@ namespace AAMod.Items.Materials
 
     public class VoidCrystal : ModItem
     {
-        public override string Texture { get { return "AAMod/Items/Materials/Crystal"; } }
+        public override string Texture
+        {
+            get { return "AAMod/Items/Materials/Crystal"; }
+        }
 
         public override void SetStaticDefaults()
         {

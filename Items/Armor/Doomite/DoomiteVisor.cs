@@ -44,9 +44,11 @@ A void searcher fights by your side";
                 {
                     player.AddBuff(mod.BuffType("Searcher"), 3600, true);
                 }
+
                 if (player.ownedProjectileCounts[mod.ProjectileType("Searcher")] < 1)
                 {
-                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, mod.ProjectileType("Searcher"), 30, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, mod.ProjectileType("Searcher"),
+                        30, 0f, Main.myPlayer, 0f, 0f);
                 }
             }
         }
@@ -59,5 +61,5 @@ A void searcher fights by your side";
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

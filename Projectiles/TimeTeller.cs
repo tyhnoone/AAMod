@@ -4,11 +4,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AAMod.Projectiles   //The directory for your .cs and .png; Example: TutorialMOD/Projectiles
+namespace AAMod.Projectiles //The directory for your .cs and .png; Example: TutorialMOD/Projectiles
 {
-    public class TimeTeller : ModProjectile   //make sure the sprite file is named like the class name (CustomYoyoProjectile)
+    public class
+        TimeTeller : ModProjectile //make sure the sprite file is named like the class name (CustomYoyoProjectile)
     {
- 
         public override void SetDefaults()
         {
             projectile.extraUpdates = 0;
@@ -30,23 +30,26 @@ namespace AAMod.Projectiles   //The directory for your .cs and .png; Example: Tu
             {
                 float num3 = 400f;
                 Vector2 vector = projectile.velocity;
-                Vector2 vector2 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+                Vector2 vector2 = new Vector2((float) Main.rand.Next(-100, 101), (float) Main.rand.Next(-100, 101));
                 vector2.Normalize();
-                vector2 *= (float)Main.rand.Next(10, 41) * 0.1f;
+                vector2 *= (float) Main.rand.Next(10, 41) * 0.1f;
                 if (Main.rand.Next(3) == 0)
                 {
                     vector2 *= 2f;
                 }
+
                 vector *= 0.25f;
                 vector += vector2;
                 for (int j = 0; j < 200; j++)
                 {
                     if (Main.npc[j].CanBeChasedBy(this, false))
                     {
-                        float num4 = Main.npc[j].position.X + (float)(Main.npc[j].width / 2);
-                        float num5 = Main.npc[j].position.Y + (float)(Main.npc[j].height / 2);
-                        float num6 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num4) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num5);
-                        if (num6 < num3 && Collision.CanHit(projectile.position, projectile.width, projectile.height, Main.npc[j].position, Main.npc[j].width, Main.npc[j].height))
+                        float num4 = Main.npc[j].position.X + (float) (Main.npc[j].width / 2);
+                        float num5 = Main.npc[j].position.Y + (float) (Main.npc[j].height / 2);
+                        float num6 = Math.Abs(projectile.position.X + (float) (projectile.width / 2) - num4) +
+                                     Math.Abs(projectile.position.Y + (float) (projectile.height / 2) - num5);
+                        if (num6 < num3 && Collision.CanHit(projectile.position, projectile.width, projectile.height,
+                                Main.npc[j].position, Main.npc[j].width, Main.npc[j].height))
                         {
                             num3 = num6;
                             vector.X = num4;
@@ -57,8 +60,10 @@ namespace AAMod.Projectiles   //The directory for your .cs and .png; Example: Tu
                         }
                     }
                 }
+
                 vector *= 0.8f;
-                Projectile.NewProjectile(projectile.Center.X - vector.X, projectile.Center.Y - vector.Y, vector.X, vector.Y, 604, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center.X - vector.X, projectile.Center.Y - vector.Y, vector.X,
+                    vector.Y, 604, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
                 projectile.localAI[1] = 0f;
             }
         }

@@ -1,5 +1,4 @@
-﻿
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace AAMod.Dusts
@@ -18,13 +17,14 @@ namespace AAMod.Dusts
         {
             dust.position += dust.velocity;
             dust.rotation += dust.velocity.X;
-            Lighting.AddLight((int)(dust.position.X / 16f), (int)(dust.position.Y / 16f), 0.15f, 0.05f, 0.05f);
+            Lighting.AddLight((int) (dust.position.X / 16f), (int) (dust.position.Y / 16f), 0.15f, 0.05f, 0.05f);
             dust.scale -= 0.03f;
             if (dust.scale < 0.5f)
             {
                 dust.active = false;
             }
+
             return false;
-        } 
+        }
     }
 }

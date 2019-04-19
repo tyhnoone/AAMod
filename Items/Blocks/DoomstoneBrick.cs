@@ -10,7 +10,6 @@ namespace AAMod.Items.Blocks
     {
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 16;
             item.maxStack = 999;
@@ -23,6 +22,7 @@ namespace AAMod.Items.Blocks
             item.consumable = true;
             item.createTile = mod.TileType("DoomstoneBrick"); //put your CustomBlock Tile name
         }
+
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
@@ -38,8 +38,8 @@ namespace AAMod.Items.Blocks
         {
             DisplayName.SetDefault("Doomstone Brick");
             Tooltip.SetDefault("");
-           
         }
+
         public override void AddRecipes()
         {
             {

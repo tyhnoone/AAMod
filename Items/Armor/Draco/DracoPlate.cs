@@ -8,26 +8,27 @@ using System.Collections.Generic;
 namespace AAMod.Items.Armor.Draco
 {
     [AutoloadEquip(EquipType.Body)]
-	public class DracoPlate : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			DisplayName.SetDefault("Draconian Sun Dao");
-			Tooltip.SetDefault(@"25% increased melee damage
+    public class DracoPlate : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("Draconian Sun Dao");
+            Tooltip.SetDefault(@"25% increased melee damage
 10% increased damage resistance
 The blazing fury of the Inferno rests in this armor");
-		}
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 30;
-			item.height = 20;
-			item.value = 3000000;
-			item.defense = 49;
-		}
+        public override void SetDefaults()
+        {
+            item.width = 30;
+            item.height = 20;
+            item.value = 3000000;
+            item.defense = 49;
+        }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -60,20 +61,20 @@ The blazing fury of the Inferno rests in this armor");
         }
 
         public override void UpdateEquip(Player player)
-		{
-			player.meleeDamage *= 1.25f;
-			player.endurance *= 1.1f;
+        {
+            player.meleeDamage *= 1.25f;
+            player.endurance *= 1.1f;
         }
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DaybreakIncinerite", 20);
-			recipe.AddIngredient(null, "CrucibleScale", 5);
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "DaybreakIncinerite", 20);
+            recipe.AddIngredient(null, "CrucibleScale", 5);
             recipe.AddIngredient(null, "KindledDou", 1);
             recipe.AddTile(null, "ACS");
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

@@ -9,9 +9,9 @@ namespace AAMod.Projectiles
 {
     public class ChaosScythe : ModProjectile
     {
-    	public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Chaos Scythe");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Chaos Scythe");
         }
 
         bool NoScythes = false;
@@ -37,14 +37,17 @@ namespace AAMod.Projectiles
             const int aislotHomingCooldown = 0;
             const int homingDelay = 0;
             const float desiredFlySpeedInPixelsPerFrame = 20;
-            const float amountOfFramesToLerpBy = 10; // minimum of 1, please keep in full numbers even though it's a float!
+            const float
+                amountOfFramesToLerpBy = 10; // minimum of 1, please keep in full numbers even though it's a float!
             for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), 0, 0, mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 0, AAColor.Jevil, 1f);
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), 0, 0,
+                    mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 0, AAColor.Jevil, 1f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].alpha = 20;
             }
-                projectile.ai[aislotHomingCooldown]++;
+
+            projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
             {
                 projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
@@ -54,9 +57,11 @@ namespace AAMod.Projectiles
                 {
                     NPC n = Main.npc[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    projectile.velocity =
+                        Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
+
             if (projectile.timeLeft < 10)
             {
                 NoScythes = true;
@@ -76,11 +81,12 @@ namespace AAMod.Projectiles
                 {
                     float distance = projectile.Distance(n.Center);
                     if (distance <= homingMaximumRangeInPixels &&
-                    (
-                        selectedTarget == -1 || //there is no selected target
-                        projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                        (
+                            selectedTarget == -1 || //there is no selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance
+                        ) //or we are closer to this target than the already selected target
                     )
-                    selectedTarget = i;
+                        selectedTarget = i;
                 }
             }
 
@@ -92,10 +98,14 @@ namespace AAMod.Projectiles
             if (!NoScythes)
             {
                 Main.PlaySound(new LegacySoundStyle(2, 71, Terraria.Audio.SoundType.Sound), projectile.position);
-                Projectile.NewProjectile(projectile.Center.X + 250, projectile.Center.Y, -7, 0, mod.ProjectileType("ChaosScytheP"), 250, 1, projectile.owner, 0f, 0f);
-                Projectile.NewProjectile(projectile.Center.X - 250, projectile.Center.Y, 7, 0, mod.ProjectileType("ChaosScytheP"), 250, 1, projectile.owner, 0f, 0f);
-                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y + 250, 0, -7, mod.ProjectileType("ChaosScytheP"), 250, 1, projectile.owner, 0f, 0f);
-                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 250, 0, 7, mod.ProjectileType("ChaosScytheP"), 250, 1, projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center.X + 250, projectile.Center.Y, -7, 0,
+                    mod.ProjectileType("ChaosScytheP"), 250, 1, projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center.X - 250, projectile.Center.Y, 7, 0,
+                    mod.ProjectileType("ChaosScytheP"), 250, 1, projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y + 250, 0, -7,
+                    mod.ProjectileType("ChaosScytheP"), 250, 1, projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 250, 0, 7,
+                    mod.ProjectileType("ChaosScytheP"), 250, 1, projectile.owner, 0f, 0f);
             }
         }
 

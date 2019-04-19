@@ -7,18 +7,18 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Boss.AH
 {
     public class Masamune : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Masamune");
             Tooltip.SetDefault(@"Inflicts Moonraze");
-		}
+        }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.CloneDefaults(ItemID.Arkhalis);
             item.damage = 200;
-            item.width = 70; 
+            item.width = 70;
             item.height = 80;
             item.melee = true;
             item.noMelee = true;

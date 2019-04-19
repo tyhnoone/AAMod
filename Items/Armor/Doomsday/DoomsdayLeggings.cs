@@ -8,19 +8,19 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Doomsday
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class DoomsdayLeggings : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Doomsday Assault Greaves");
-			Tooltip.SetDefault(@"18% increased movement speed
+    public class DoomsdayLeggings : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Doomsday Assault Greaves");
+            Tooltip.SetDefault(@"18% increased movement speed
 25% decreased ammo consumption
 12% increased ranged damage
 The power to destroy entire planets rests in this armor");
+        }
 
-		}
-
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -42,17 +42,17 @@ The power to destroy entire planets rests in this armor");
         }
 
         public override void SetDefaults()
-		{
-			item.width = 26;
-			item.height = 18;
-			item.value = 3000000;
-			item.defense = 26;
-		}
+        {
+            item.width = 26;
+            item.height = 18;
+            item.value = 3000000;
+            item.defense = 26;
+        }
 
-		public override void UpdateEquip(Player player)
-		{
-			player.moveSpeed += 0.18f;
-			player.ammoCost75 = true;
+        public override void UpdateEquip(Player player)
+        {
+            player.moveSpeed += 0.18f;
+            player.ammoCost75 = true;
             player.rangedDamage += .12f;
         }
 

@@ -8,9 +8,9 @@ using Terraria.ModLoader;
 namespace AAMod.NPCs.Enemies.Void
 {
     public class Searcher : ModNPC
-	{
-		public int timer = 0;
-		public bool start = true;
+    {
+        public int timer = 0;
+        public bool start = true;
 
         public override void SetStaticDefaults()
         {
@@ -31,7 +31,6 @@ namespace AAMod.NPCs.Enemies.Void
             npc.DeathSound = SoundID.NPCDeath1;
             npc.knockBackResist = 0.5f;
             npc.noGravity = true;
-
         }
 
         public override void HitEffect(int hitDirection, double damage)
@@ -40,7 +39,8 @@ namespace AAMod.NPCs.Enemies.Void
             for (int m = 0; m < (isDead ? 25 : 5); m++)
             {
                 int dustType = (mod.DustType<Dusts.VoidDust>());
-                Dust.NewDust(npc.position, npc.width, npc.height, dustType, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, (isDead ? 2f : 1.1f));
+                Dust.NewDust(npc.position, npc.width, npc.height, dustType, npc.velocity.X * 0.2f,
+                    npc.velocity.Y * 0.2f, 100, Color.White, (isDead ? 2f : 1.1f));
             }
 
             if (npc.life <= 0)
@@ -51,6 +51,7 @@ namespace AAMod.NPCs.Enemies.Void
         }
 
         float shootAI = 0;
+
         public override void AI()
         {
             BaseMod.BaseAI.AISkull(npc, ref npc.ai, true, 6f, 350f, 0.1f, 0.15f);
@@ -64,8 +65,9 @@ namespace AAMod.NPCs.Enemies.Void
                 {
                     shootAI = 0;
                     int projType = mod.ProjType("DeathLaser");
-                    if (Collision.CanHit(npc.position, npc.width, npc.height, player.position, player.width, player.height))
-                        BaseAI.FireProjectile(player.Center, npc, projType, (int)(npc.damage * 0.25f), 0f, 2f);
+                    if (Collision.CanHit(npc.position, npc.width, npc.height, player.position, player.width,
+                        player.height))
+                        BaseAI.FireProjectile(player.Center, npc, projType, (int) (npc.damage * 0.25f), 0f, 2f);
                 }
             }
         }
@@ -80,8 +82,18 @@ namespace AAMod.NPCs.Enemies.Void
             {
                 glowTex = mod.GetTexture("Glowmasks/Searcher_Glow");
             }
-            if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
-            else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
+
+            if (auraDirection)
+            {
+                auraPercent += 0.1f;
+                auraDirection = auraPercent < 1f;
+            }
+            else
+            {
+                auraPercent -= 0.1f;
+                auraDirection = auraPercent <= 0f;
+            }
+
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
             BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, Color.Red);
             return false;
@@ -89,7 +101,8 @@ namespace AAMod.NPCs.Enemies.Void
 
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Apocalyptite"));
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                mod.ItemType("Apocalyptite"));
         }
     }
 }

@@ -8,6 +8,7 @@ namespace AAMod.Projectiles
     public class StormJavelin : ModProjectile
     {
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -17,10 +18,12 @@ namespace AAMod.Projectiles
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             projectile.glowMask = customGlowMask;
             DisplayName.SetDefault("Bolt Javelin");
             Main.projFrames[projectile.type] = 3;
@@ -33,10 +36,9 @@ namespace AAMod.Projectiles
             projectile.friendly = true;
             projectile.aiStyle = 1;
             projectile.ranged = true;
-            projectile.penetrate = -1;      //this is how many enemy this projectile penetrate before desapear
+            projectile.penetrate = -1; //this is how many enemy this projectile penetrate before desapear
             projectile.extraUpdates = 1;
             aiType = ProjectileID.BoneJavelin;
-            
         }
 
         public override void AI()
@@ -51,11 +53,12 @@ namespace AAMod.Projectiles
                     projectile.frame = 0;
                 }
             }
+
             projectile.ai[0] += 1f;
-            if (projectile.ai[0] >= 120f)       //how much time the projectile can travel before landing
+            if (projectile.ai[0] >= 120f) //how much time the projectile can travel before landing
             {
-                projectile.velocity.Y = projectile.velocity.Y + 0.15f;    // projectile fall velocity
-                projectile.velocity.X = projectile.velocity.X * 0.99f;    // projectile velocity
+                projectile.velocity.Y = projectile.velocity.Y + 0.15f; // projectile fall velocity
+                projectile.velocity.X = projectile.velocity.X * 0.99f; // projectile velocity
             }
         }
     }

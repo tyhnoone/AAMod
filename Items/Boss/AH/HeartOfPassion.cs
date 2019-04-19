@@ -1,5 +1,7 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.AH
 {
@@ -13,6 +15,7 @@ Magic attacks and Minions inflict 'On Fire!'
 Below 2/3 of your maximum life, Your mana regenerates much faster
 Below 1/3 of your maximum life, your magic attacks and minions inflict Daybroken instead of 'On Fire'");
         }
+
         public override void SetDefaults()
         {
             item.width = 66;
@@ -23,7 +26,7 @@ Below 1/3 of your maximum life, your magic attacks and minions inflict Daybroken
             item.expert = true;
             item.defense = 3;
         }
-        
+
 
         public override void UpdateEquip(Player player)
         {
@@ -31,7 +34,7 @@ Below 1/3 of your maximum life, your magic attacks and minions inflict Daybroken
             player.minionDamage += (1 - player.statLife / player.statLifeMax);
             player.GetModPlayer<AAPlayer>(mod).HeartP = true;
 
-            if (player.statLife > (player.statLifeMax * (2/3)))
+            if (player.statLife > (player.statLifeMax * (2 / 3)))
             {
                 player.manaRegenBonus += 6;
             }
@@ -50,6 +53,7 @@ Below 1/3 of your maximum life, your magic attacks and minions inflict Daybroken
                     }
                 }
             }
+
             return true;
         }
     }

@@ -5,11 +5,11 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Vanity.Moon
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class MoonBoots : ModItem
-	{
-		public override void SetStaticDefaults()
-       
-		{
+    public class MoonBoots : ModItem
+    {
+        public override void SetStaticDefaults()
+
+        {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Lunar Boots");
             Tooltip.SetDefault(@"The boots of a legendary lunar mage

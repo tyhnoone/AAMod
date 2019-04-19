@@ -7,14 +7,14 @@ using BaseMod;
 namespace AAMod.NPCs.Enemies.Mushroom
 {
     public class MushroomCrab : ModNPC
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Mushroom Crab");
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Mushroom Crab");
             Main.npcFrameCount[npc.type] = 5;
-		}
+        }
 
-		public override void SetDefaults()
+        public override void SetDefaults()
         {
             npc.width = 44;
             npc.height = 34;
@@ -33,20 +33,23 @@ namespace AAMod.NPCs.Enemies.Mushroom
 
         public override void AI()
         {
-            AAAI.InfernoFighterAI(npc, ref npc.ai, true, false, -1, 0.13f, 3f, 3, 4, 60, true, 10, 60, true, null, false);
+            AAAI.InfernoFighterAI(npc, ref npc.ai, true, false, -1, 0.13f, 3f, 3, 4, 60, true, 10, 60, true, null,
+                false);
         }
 
         public override void HitEffect(int hitDirection, double damage)
-		{
-
+        {
             int dust1 = mod.DustType<Dusts.MushDust>();
             if (npc.life <= 0)
-			{
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
+            {
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0,
+                    default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0,
+                    default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0,
+                    default(Color), 1f);
             }
-		}
+        }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -54,8 +57,8 @@ namespace AAMod.NPCs.Enemies.Mushroom
         }
 
         public override void NPCLoot()
-		{
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.Mushroom);
+        {
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, ItemID.Mushroom);
         }
-	}
+    }
 }

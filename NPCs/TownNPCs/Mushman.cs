@@ -7,26 +7,22 @@ using Terraria.Utilities;
 namespace AAMod.NPCs.TownNPCs
 {
     [AutoloadHead]
-	public class Mushman : ModNPC
-	{
+    public class Mushman : ModNPC
+    {
         public override string Texture
-		{
-			get
-			{
-				return "AAMod/NPCs/TownNPCs/Mushman";
-			}
-		}
+        {
+            get { return "AAMod/NPCs/TownNPCs/Mushman"; }
+        }
 
-        
 
-		public override bool Autoload(ref string name)
-		{
-			name = "Mushman";
-			return mod.Properties.Autoload;
-		}
+        public override bool Autoload(ref string name)
+        {
+            name = "Mushman";
+            return mod.Properties.Autoload;
+        }
 
-		public override void SetStaticDefaults()
-		{
+        public override void SetStaticDefaults()
+        {
             Main.npcFrameCount[npc.type] = 23;
             NPCID.Sets.ExtraFramesCount[npc.type] = 7;
             NPCID.Sets.AttackFrameCount[npc.type] = 3;
@@ -37,8 +33,8 @@ namespace AAMod.NPCs.TownNPCs
             NPCID.Sets.HatOffsetY[npc.type] = 2;
         }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             npc.townNPC = true;
             npc.friendly = true;
             npc.width = 18;
@@ -52,80 +48,87 @@ namespace AAMod.NPCs.TownNPCs
             npc.knockBackResist = 0.5f;
             animationType = NPCID.Truffle;
         }
-        
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
-		{
-			for (int k = 0; k < 255; k++)
-			{
-				Player player = Main.player[k];
-				if (player.active)
-				{
+
+        public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+        {
+            for (int k = 0; k < 255; k++)
+            {
+                Player player = Main.player[k];
+                if (player.active)
+                {
                     if (AAWorld.downedMonarch == true)
                     {
                         return true;
                     }
                 }
-			}
-			return false;
-		}
+            }
 
-		public override string TownNPCName()
-		{
-			switch (WorldGen.genRand.Next(4))
-			{
+            return false;
+        }
+
+        public override string TownNPCName()
+        {
+            switch (WorldGen.genRand.Next(4))
+            {
                 default:
-					return "Mushman";
-			}
-		}
+                    return "Mushman";
+            }
+        }
 
         public override string GetChat()
         {
             WeightedRandom<string> chat = new WeightedRandom<string>();
 
             int Truffle = NPC.FindFirstNPC(NPCID.Truffle);
-			if (Truffle >= 0 && Main.rand.Next(4) == 0)
-			{
+            if (Truffle >= 0 && Main.rand.Next(4) == 0)
+            {
                 chat.Add("Those glowing truffles are all just such downers.");
             }
+
             int WitchDoctor = NPC.FindFirstNPC(NPCID.WitchDoctor);
             if (WitchDoctor >= 0 && Main.rand.Next(4) == 0)
             {
-                return Main.npc[WitchDoctor].GivenName + " offered to let me get in his hot tub one time. I denied because I had better things to do";
+                return Main.npc[WitchDoctor].GivenName +
+                       " offered to let me get in his hot tub one time. I denied because I had better things to do";
             }
+
             chat.Add("The Mushroom Monarch isn't all he seems, you know.");
             chat.Add("Don't ask where I get the mushrooms for my potions.");
             chat.Add("I got potions, you got money. Wanna trade?");
             int Clothier = NPC.FindFirstNPC(NPCID.Clothier);
             if (Clothier >= 0 && Main.rand.Next(4) == 0)
             {
-                return Main.npc[Clothier].GivenName + " asked me one time if red truffles tasted as good as blue ones. Obviously not. Blue truffles are way saltier.";
+                return Main.npc[Clothier].GivenName +
+                       " asked me one time if red truffles tasted as good as blue ones. Obviously not. Blue truffles are way saltier.";
             }
-            return chat; // chat is implicitly cast to a string. You can also do "return chat.Get();" if that makes you feel better
+
+            return
+                chat; // chat is implicitly cast to a string. You can also do "return chat.Get();" if that makes you feel better
         }
 
-		public override void SetChatButtons(ref string button, ref string button2)
-		{
-			button = Language.GetTextValue("LegacyInterface.28");
-		}
+        public override void SetChatButtons(ref string button, ref string button2)
+        {
+            button = Language.GetTextValue("LegacyInterface.28");
+        }
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
-		{
-			if (firstButton)
-			{
-				shop = true;
-			}
-		}
+        public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+        {
+            if (firstButton)
+            {
+                shop = true;
+            }
+        }
 
-		public override void SetupShop(Chest shop, ref int nextSlot)
-		{
+        public override void SetupShop(Chest shop, ref int nextSlot)
+        {
             shop.item[nextSlot].SetDefaults(ItemID.Mushroom);
             nextSlot++;
             shop.item[nextSlot].SetDefaults(mod.ItemType("SporeSac"));
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.GlowingMushroom);
             nextSlot++;
-			shop.item[nextSlot].SetDefaults(ItemID.LesserHealingPotion);
+            shop.item[nextSlot].SetDefaults(ItemID.LesserHealingPotion);
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.LesserManaPotion);
 
@@ -136,6 +139,7 @@ namespace AAMod.NPCs.TownNPCs
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.ManaPotion);
             }
+
             if (Main.hardMode == true)
             {
                 nextSlot++;
@@ -143,6 +147,7 @@ namespace AAMod.NPCs.TownNPCs
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.GreaterManaPotion);
             }
+
             if (NPC.downedMoonlord == true)
             {
                 nextSlot++;
@@ -150,6 +155,7 @@ namespace AAMod.NPCs.TownNPCs
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.SuperManaPotion);
             }
+
             if (AAWorld.downedAncient == true)
             {
                 nextSlot++;
@@ -157,6 +163,7 @@ namespace AAMod.NPCs.TownNPCs
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("GrandManaPotion"));
             }
+
             if (AAWorld.downedSAncient == true)
             {
                 nextSlot++;
@@ -164,22 +171,22 @@ namespace AAMod.NPCs.TownNPCs
             }
         }
 
-		public override void NPCLoot()
-		{
-			Item.NewItem(npc.getRect(), ItemID.Mushroom);
-		}
+        public override void NPCLoot()
+        {
+            Item.NewItem(npc.getRect(), ItemID.Mushroom);
+        }
 
-		public override void TownNPCAttackStrength(ref int damage, ref float knockback)
-		{
-			damage = 20;
-			knockback = 4f;
-		}
+        public override void TownNPCAttackStrength(ref int damage, ref float knockback)
+        {
+            damage = 20;
+            knockback = 4f;
+        }
 
-		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
-		{
-			cooldown = 20;
-			randExtraCooldown = 20;
-		}
+        public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
+        {
+            cooldown = 20;
+            randExtraCooldown = 20;
+        }
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
@@ -187,13 +194,13 @@ namespace AAMod.NPCs.TownNPCs
             attackDelay = 1;
         }
 
-        public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
+        public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection,
+            ref float randomOffset)
 
         {
             multiplier = 4f;
 
             randomOffset = 2f;
-
         }
     }
 }

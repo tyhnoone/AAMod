@@ -34,18 +34,22 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             {
                 projectile.ai[0] = 1;
             }
+
             if (projectile.ai[0] == 1)
             {
                 projectile.Kill();
             }
+
             if (projectile.ai[0] == 1)
             {
                 projectile.alpha += 5;
             }
+
             if (projectile.alpha >= 255)
             {
                 projectile.Kill();
             }
+
             projectile.frameCounter++;
             if (projectile.frameCounter > 6)
             {
@@ -56,9 +60,11 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                     projectile.frame = 0;
                 }
             }
+
             for (int num189 = 0; num189 < 1; num189++)
             {
-                int num190 = Dust.NewDust(projectile.Center, projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 0, default(Color), 1f);
+                int num190 = Dust.NewDust(projectile.Center, projectile.width, projectile.height,
+                    mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 0, default(Color), 1f);
 
                 Main.dust[num190].scale *= 1.3f;
                 Main.dust[num190].fadeIn = 1f;
@@ -75,8 +81,12 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             for (int i = 0; i < 4; i++)
             {
                 double offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
-                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)(Math.Sin(offsetAngle) * 3f), (float)(Math.Cos(offsetAngle) * 3f), mod.ProjectileType("AsheSpark"), 40, projectile.knockBack, projectile.owner, 0f, 0f);
-                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)(-Math.Sin(offsetAngle) * 3f), (float)(-Math.Cos(offsetAngle) * 3f), mod.ProjectileType("AsheSpark"), 40, projectile.knockBack, projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float) (Math.Sin(offsetAngle) * 3f),
+                    (float) (Math.Cos(offsetAngle) * 3f), mod.ProjectileType("AsheSpark"), 40, projectile.knockBack,
+                    projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y,
+                    (float) (-Math.Sin(offsetAngle) * 3f), (float) (-Math.Cos(offsetAngle) * 3f),
+                    mod.ProjectileType("AsheSpark"), 40, projectile.knockBack, projectile.owner, 0f, 0f);
             }
         }
 

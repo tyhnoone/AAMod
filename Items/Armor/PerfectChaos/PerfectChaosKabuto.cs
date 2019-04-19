@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Armor.PerfectChaos
 {
-	[AutoloadEquip(EquipType.Head)]
+    [AutoloadEquip(EquipType.Head)]
     public class PerfectChaosKabuto : ModItem
     {
         public override void SetStaticDefaults()
@@ -21,18 +21,18 @@ The power of discordian rage radiates from this armor");
         }
 
         public override void SetDefaults()
-		{
-			item.width = 20;
-			item.height = 24;
-			item.value = Item.sellPrice(3, 0, 0, 0);
-			item.rare = 10;
-			item.defense = 44;
-		}
+        {
+            item.width = 20;
+            item.height = 24;
+            item.value = Item.sellPrice(3, 0, 0, 0);
+            item.rare = 10;
+            item.defense = 44;
+        }
 
-		public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return body.type == mod.ItemType("PerfectChaosPlate") && legs.type == mod.ItemType("PerfectChaosGreaves");
-		}
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == mod.ItemType("PerfectChaosPlate") && legs.type == mod.ItemType("PerfectChaosGreaves");
+        }
 
         private bool I1 = false;
         private bool I2 = false;
@@ -57,6 +57,7 @@ Your attacks raze your oponents with the flames of Chaos";
                 player.endurance *= 1;
                 player.meleeDamage *= 1;
             }
+
             if (player.statLife <= player.statLife * .6f && !I2)
             {
                 I2 = true;
@@ -69,6 +70,7 @@ Your attacks raze your oponents with the flames of Chaos";
                 player.endurance *= 1;
                 player.meleeDamage *= 1;
             }
+
             if (player.statLife <= player.statLife * .4f && !I3)
             {
                 I3 = true;
@@ -81,6 +83,7 @@ Your attacks raze your oponents with the flames of Chaos";
                 player.endurance *= 1;
                 player.meleeDamage *= 1;
             }
+
             if (player.statLife <= player.statLife * .2f && !I4)
             {
                 I4 = true;
@@ -115,13 +118,15 @@ Your attacks raze your oponents with the flames of Chaos";
             recipe.AddRecipe();
         }
 
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D Glow = mod.GetTexture("Glowmasks/PerfectChaosKabuto_Glow");
             spriteBatch.Draw(Glow, position, null, AAColor.Shen3, 0, origin, scale, SpriteEffects.None, 0f);
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

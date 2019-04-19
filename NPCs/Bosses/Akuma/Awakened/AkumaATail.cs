@@ -43,11 +43,11 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 
         public override bool PreAI()
         {
-            Vector2 chasePosition = Main.npc[(int)npc.ai[1]].Center;
+            Vector2 chasePosition = Main.npc[(int) npc.ai[1]].Center;
             Vector2 directionVector = chasePosition - npc.Center;
             npc.spriteDirection = ((directionVector.X > 0f) ? 1 : -1);
             if (npc.ai[3] > 0)
-                npc.realLife = (int)npc.ai[3];
+                npc.realLife = (int) npc.ai[3];
             if (npc.target < 0 || npc.target == byte.MaxValue || Main.player[npc.target].dead)
                 npc.TargetClosest(true);
             if (Main.player[npc.target].dead && npc.timeLeft > 300)
@@ -57,11 +57,13 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                 {
-                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("AkumaADust"), 0f, 0f, 100, default(Color), 2f);
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height,
+                        mod.DustType("AkumaADust"), 0f, 0f, 100, default(Color), 2f);
                     Main.dust[num935].noGravity = true;
                     Main.dust[num935].noLight = true;
                 }
             }
+
             npc.alpha -= 12;
             if (npc.alpha < 0)
             {
@@ -70,7 +72,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 
             if (Main.netMode != 1)
             {
-                if (!Main.npc[(int)npc.ai[1]].active || Main.npc[(int)npc.ai[3]].type != mod.NPCType("AkumaA"))
+                if (!Main.npc[(int) npc.ai[1]].active || Main.npc[(int) npc.ai[3]].type != mod.NPCType("AkumaA"))
                 {
                     npc.life = 0;
                     npc.HitEffect(0, 10.0);
@@ -79,21 +81,23 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 }
             }
 
-            if (npc.ai[1] < (double)Main.npc.Length)
+            if (npc.ai[1] < (double) Main.npc.Length)
             {
-                Vector2 npcCenter = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                float dirX = Main.npc[(int)npc.ai[1]].position.X + (float)(Main.npc[(int)npc.ai[1]].width / 2) - npcCenter.X;
-                float dirY = Main.npc[(int)npc.ai[1]].position.Y + (float)(Main.npc[(int)npc.ai[1]].height / 2) - npcCenter.Y;
-                npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                float dist = (length - (float)npc.width) / length;
+                Vector2 npcCenter = new Vector2(npc.position.X + (float) npc.width * 0.5f,
+                    npc.position.Y + (float) npc.height * 0.5f);
+                float dirX = Main.npc[(int) npc.ai[1]].position.X + (float) (Main.npc[(int) npc.ai[1]].width / 2) -
+                             npcCenter.X;
+                float dirY = Main.npc[(int) npc.ai[1]].position.Y + (float) (Main.npc[(int) npc.ai[1]].height / 2) -
+                             npcCenter.Y;
+                npc.rotation = (float) Math.Atan2(dirY, dirX) + 1.57f;
+                float length = (float) Math.Sqrt(dirX * dirX + dirY * dirY);
+                float dist = (length - (float) npc.width) / length;
                 float posX = dirX * dist;
                 float posY = dirY * dist;
 
                 if (dirX < 0f)
                 {
                     npc.spriteDirection = 1;
-
                 }
                 else
                 {
@@ -110,15 +114,17 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 npc.TargetClosest(true);
             }
+
             npc.netUpdate = true;
             return false;
         }
 
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback,
+            ref bool crit, ref int hitDirection)
         {
             if (projectile.penetrate > 1)
             {
-                damage = (int)(damage * .5f);
+                damage = (int) (damage * .5f);
             }
         }
 
@@ -138,6 +144,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 return false;
             }
+
             return true;
         }
     }

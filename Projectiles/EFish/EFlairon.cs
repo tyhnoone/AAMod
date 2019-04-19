@@ -13,39 +13,42 @@ namespace AAMod.Projectiles.EFish
         {
             DisplayName.SetDefault("Emperor Flairon");
         }
+
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.Flairon);
         }
-		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			for (int h = 0; h < 6; h++)
-			{
-				Vector2 vel = new Vector2(0, -1);
-				float rand = Main.rand.NextFloat() * 6.3f;
-				vel = vel.RotatedBy(rand);
-				vel *= 4f;
-				int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, 405, projectile.damage, 0, Main.myPlayer);
-			}
-		}
 
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			for (int h = 0; h < 6; h++)
-			{
-				Vector2 vel = new Vector2(0, -1);
-				float rand = Main.rand.NextFloat() * 6.3f;
-				vel = vel.RotatedBy(rand);
-				vel *= 4f;
-				int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, 405, projectile.damage, 0, Main.myPlayer);
-			}
-			return true;
-		}
-		
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            for (int h = 0; h < 6; h++)
+            {
+                Vector2 vel = new Vector2(0, -1);
+                float rand = Main.rand.NextFloat() * 6.3f;
+                vel = vel.RotatedBy(rand);
+                vel *= 4f;
+                int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, 405,
+                    projectile.damage, 0, Main.myPlayer);
+            }
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            for (int h = 0; h < 6; h++)
+            {
+                Vector2 vel = new Vector2(0, -1);
+                float rand = Main.rand.NextFloat() * 6.3f;
+                vel = vel.RotatedBy(rand);
+                vel *= 4f;
+                int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, 405,
+                    projectile.damage, 0, Main.myPlayer);
+            }
+
+            return true;
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             Texture2D texture = ModLoader.GetTexture("AAMod/Projectiles/EFish/EFlairon_Chain");
 
             Vector2 position = projectile.Center;
@@ -54,7 +57,7 @@ namespace AAMod.Projectiles.EFish
             Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
             float num1 = texture.Height;
             Vector2 vector24 = mountedCenter - position;
-            float rotation = (float)Math.Atan2(vector24.Y, vector24.X) - 1.57f;
+            float rotation = (float) Math.Atan2(vector24.Y, vector24.X) - 1.57f;
             bool flag = true;
             if (float.IsNaN(position.X) && float.IsNaN(position.Y))
                 flag = false;
@@ -72,13 +75,14 @@ namespace AAMod.Projectiles.EFish
                     vector21.Normalize();
                     position += vector21 * num1;
                     vector24 = mountedCenter - position;
-                    Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
+                    Color color2 = Lighting.GetColor((int) position.X / 16, (int) (position.Y / 16.0));
                     color2 = projectile.GetAlpha(color2);
-                    Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1.35f, SpriteEffects.None, 0.0f);
+                    Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation,
+                        origin, 1.35f, SpriteEffects.None, 0.0f);
                 }
             }
+
             return true;
         }
-
     }
 }

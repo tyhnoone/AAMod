@@ -8,16 +8,14 @@ namespace AAMod.Projectiles
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.NightBeam);
-            projectile.penetrate = 3;  
+            projectile.penetrate = 3;
             projectile.width = 24;
             projectile.height = 24;
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("CGP");
-    }
-
-
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("CGP");
+        }
     }
 }

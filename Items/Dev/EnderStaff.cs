@@ -8,9 +8,9 @@ namespace AAMod.Items.Dev
 {
     //imported from my tAPI mod because I'm lazy
     public class EnderStaff : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Conflagrate Staff");
             Tooltip.SetDefault(@"Summons a spinning construct that shreds through enemies
 I thought the sky was purple
@@ -19,27 +19,28 @@ I thought the sky was purple
             Item.staff[item.type] = true;
         }
 
-		public override void SetDefaults()
-		{
-			item.damage = 180;
-			item.summon = true;
-			item.mana = 20;
-			item.width = 64;
-			item.height = 64;
-			item.useTime = 26;
-			item.useAnimation = 26;
-			item.useStyle = 1;
-			item.noMelee = true;
-			item.knockBack = 3;
-			item.value = Item.buyPrice(0, 20, 0, 0);
-			item.rare = 8;
+        public override void SetDefaults()
+        {
+            item.damage = 180;
+            item.summon = true;
+            item.mana = 20;
+            item.width = 64;
+            item.height = 64;
+            item.useTime = 26;
+            item.useAnimation = 26;
+            item.useStyle = 1;
+            item.noMelee = true;
+            item.knockBack = 3;
+            item.value = Item.buyPrice(0, 20, 0, 0);
+            item.rare = 8;
             item.expert = true;
-			item.UseSound = SoundID.Item44;
-			item.shoot = mod.ProjectileType("EnderMinion");
-			item.shootSpeed = 7f;
-			item.buffType = mod.BuffType("EnderMinionBuff");	//The buff added to player after used the item
+            item.UseSound = SoundID.Item44;
+            item.shoot = mod.ProjectileType("EnderMinion");
+            item.shootSpeed = 7f;
+            item.buffType = mod.BuffType("EnderMinionBuff"); //The buff added to player after used the item
             item.buffTime = 18000;
-		}
+        }
+
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
@@ -50,23 +51,26 @@ I thought the sky was purple
                 }
             }
         }
+
         public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			return player.altFunctionUse != 2;
-		}
-		
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
+        {
+            return true;
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
+        {
+            return player.altFunctionUse != 2;
+        }
+
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+
+            return base.UseItem(player);
+        }
     }
 }

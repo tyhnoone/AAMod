@@ -7,9 +7,8 @@ namespace AAMod.Projectiles.Akuma
 {
     public class SunSpearRain : ModProjectile
     {
-
-
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -19,10 +18,12 @@ namespace AAMod.Projectiles.Akuma
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             projectile.glowMask = customGlowMask;
             DisplayName.SetDefault("Ashes");
 
@@ -40,14 +41,18 @@ namespace AAMod.Projectiles.Akuma
             projectile.melee = true;
             projectile.tileCollide = false;
         }
-		
-		public override void AI()
-		{
-            if (WorldGen.SolidTile((int)projectile.position.X / 16, (int)(projectile.position.Y + projectile.velocity.Y) / 16 + 1) || WorldGen.SolidTile((int)(projectile.position.X + (float)projectile.width) / 16, (int)(projectile.position.Y + projectile.velocity.Y) / 16 + 1))
+
+        public override void AI()
+        {
+            if (WorldGen.SolidTile((int) projectile.position.X / 16,
+                    (int) (projectile.position.Y + projectile.velocity.Y) / 16 + 1) || WorldGen.SolidTile(
+                    (int) (projectile.position.X + (float) projectile.width) / 16,
+                    (int) (projectile.position.Y + projectile.velocity.Y) / 16 + 1))
             {
                 projectile.Kill();
                 return;
             }
+
             projectile.localAI[1] += 1f;
             if (projectile.localAI[1] > 5f)
             {
@@ -57,16 +62,19 @@ namespace AAMod.Projectiles.Akuma
                     projectile.alpha = 0;
                 }
             }
-            projectile.frame = (int)projectile.ai[1];
+
+            projectile.frame = (int) projectile.ai[1];
             if (projectile.localAI[1] > 20f)
             {
                 projectile.localAI[1] = 20f;
                 projectile.velocity.Y = projectile.velocity.Y + 0.15f;
             }
+
             projectile.rotation += Main.windSpeed * 0.2f;
             projectile.velocity.X = projectile.velocity.X + Main.windSpeed * 0.1f;
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Daybreak, 600);
         }

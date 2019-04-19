@@ -10,6 +10,7 @@ namespace AAMod.Items.Boss.Akuma
     public class TaiyangBaolei : ModItem
     {
         private int Defense;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Taiyang Baolei");
@@ -28,7 +29,8 @@ During the day, you gain 20% damage resistance and your melee & magic attacks in
             item.defense = 8;
         }
 
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            ref float rotation, ref float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Items/Boss/Akuma/TaiyangBaolei");
             Texture2D textureGlow = mod.GetTexture("Glowmasks/TaiyangBaolei_Glow");
@@ -110,7 +112,8 @@ During the day, you gain 20% damage resistance and your melee & magic attacks in
             }
         }
 
-        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D texture = mod.GetTexture("Items/Boss/Akuma/TaiyangBaolei");
             Texture2D texture2 = mod.GetTexture("Items/Boss/Akuma/TaiyangBaoleiA");
@@ -122,6 +125,7 @@ During the day, you gain 20% damage resistance and your melee & magic attacks in
             {
                 spriteBatch.Draw(texture2, position, null, drawColor, 0, origin, scale, SpriteEffects.None, 0f);
             }
+
             return false;
         }
 

@@ -24,7 +24,6 @@ namespace AAMod.Items.Boss.EFish
         }
 
 
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

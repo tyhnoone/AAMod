@@ -10,6 +10,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Eventide Abyssium");
             Tooltip.SetDefault("Cold as the evening moon");
         }
+
         public override void SetDefaults()
         {
             item.width = 30;
@@ -24,8 +25,10 @@ namespace AAMod.Items.Materials
             item.consumable = true;
             item.createTile = mod.TileType("EventideAbyssiumBar");
         }
+
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "EventideAbyssiumOre", 5);
             recipe.AddIngredient(null, "DeepAbyssium", 1);

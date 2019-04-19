@@ -39,7 +39,8 @@ namespace AAMod.NPCs.Enemies.Void
 
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("VoidEnergy"), Main.rand.Next(4));
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, mod.ItemType("VoidEnergy"),
+                Main.rand.Next(4));
         }
 
         public override void AI()
@@ -65,10 +66,15 @@ namespace AAMod.NPCs.Enemies.Void
             Texture2D GlowTex = mod.GetTexture("Glowmasks/Vortex_Glow");
             Texture2D BladeGlowTex = mod.GetTexture("Glowmasks/VortexBlades_Glow");
 
-            BaseDrawing.DrawTexture(spriteBatch, BladeTex, 0, npc.position, npc.width, npc.height, npc.scale, Rotation, 0, 1, new Rectangle(0, 0, BladeTex.Width, BladeTex.Height), drawColor, true);
-            BaseDrawing.DrawTexture(spriteBatch, texture2D13, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), drawColor, true);
-            BaseDrawing.DrawTexture(spriteBatch, BladeGlowTex, 0, npc.position, npc.width, npc.height, npc.scale, Rotation, 0, 1, new Rectangle(0, 0, BladeTex.Width, BladeTex.Height), AAColor.ZeroShield, true);
-            BaseDrawing.DrawTexture(spriteBatch, GlowTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, 0, 1, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), AAColor.ZeroShield, true);
+            BaseDrawing.DrawTexture(spriteBatch, BladeTex, 0, npc.position, npc.width, npc.height, npc.scale, Rotation,
+                0, 1, new Rectangle(0, 0, BladeTex.Width, BladeTex.Height), drawColor, true);
+            BaseDrawing.DrawTexture(spriteBatch, texture2D13, 0, npc.position, npc.width, npc.height, npc.scale,
+                npc.rotation, 0, 1, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), drawColor, true);
+            BaseDrawing.DrawTexture(spriteBatch, BladeGlowTex, 0, npc.position, npc.width, npc.height, npc.scale,
+                Rotation, 0, 1, new Rectangle(0, 0, BladeTex.Width, BladeTex.Height), AAColor.ZeroShield, true);
+            BaseDrawing.DrawTexture(spriteBatch, GlowTex, 0, npc.position, npc.width, npc.height, npc.scale,
+                npc.rotation, 0, 1, new Rectangle(0, 0, texture2D13.Width, texture2D13.Height), AAColor.ZeroShield,
+                true);
             return false;
         }
     }

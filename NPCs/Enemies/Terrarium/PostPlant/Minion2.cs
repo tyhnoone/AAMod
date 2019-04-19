@@ -8,16 +8,16 @@ using Terraria.ModLoader;
 namespace AAMod.NPCs.Enemies.Terrarium.PostPlant
 {
     public class Minion2 : ModNPC
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Terra Crawler");
-			Main.npcFrameCount[npc.type] = 5;
-		}
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Terra Crawler");
+            Main.npcFrameCount[npc.type] = 5;
+        }
 
-		public override void SetDefaults()
-		{
-            npc.lifeMax =  350;
+        public override void SetDefaults()
+        {
+            npc.lifeMax = 350;
             npc.defense = 20;
             npc.damage = 50;
             npc.width = 26;
@@ -35,16 +35,19 @@ namespace AAMod.NPCs.Enemies.Terrarium.PostPlant
             {
                 for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                 {
-                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("SummonDust"), 0f, 0f, 100, default(Color), 2f);
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height,
+                        mod.DustType("SummonDust"), 0f, 0f, 100, default(Color), 2f);
                     Main.dust[num935].noGravity = true;
                     Main.dust[num935].noLight = true;
                 }
             }
+
             npc.alpha -= 12;
             if (npc.alpha < 0)
             {
                 npc.alpha = 0;
             }
+
             BaseAI.AIZombie(npc, ref npc.ai, false, false, 0, 0.07f, 3f, 3, 4, 60, true, 10, 60, true, null, false);
             if (npc.frameCounter >= 10)
             {

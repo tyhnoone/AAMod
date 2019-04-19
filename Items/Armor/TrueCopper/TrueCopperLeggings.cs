@@ -8,19 +8,19 @@ using Terraria.ID;
 namespace AAMod.Items.Armor.TrueCopper
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class TrueCopperLeggings : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("True Copper Greaves");
-			Tooltip.SetDefault(@"10% increased damage
+    public class TrueCopperLeggings : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("True Copper Greaves");
+            Tooltip.SetDefault(@"10% increased damage
 +12% Melee Speed
 25% reduced ammo consumption
 'And you thought copper was worthless.'");
+        }
 
-		}
-
-        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             Texture2D texture2 = Main.itemTexture[item.type];
@@ -29,10 +29,12 @@ namespace AAMod.Items.Armor.TrueCopper
             {
                 spriteBatch.Draw(texture, position, null, Main.DiscoColor, 0, origin, scale, SpriteEffects.None, 0f);
             }
+
             return false;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -54,14 +56,14 @@ namespace AAMod.Items.Armor.TrueCopper
         }
 
         public override void SetDefaults()
-		{
-			item.width = 26;
-			item.height = 18;
-			item.value = 3000000;
-			item.defense = 11;
-		}
+        {
+            item.width = 26;
+            item.height = 18;
+            item.value = 3000000;
+            item.defense = 11;
+        }
 
-		public override void UpdateEquip(Player player)
+        public override void UpdateEquip(Player player)
         {
             player.meleeDamage += .1f;
             player.rangedDamage += .1f;

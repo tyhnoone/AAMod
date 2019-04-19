@@ -9,7 +9,6 @@ namespace AAMod.Items.Blocks
     {
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 16;
             item.maxStack = 999;
@@ -22,12 +21,14 @@ namespace AAMod.Items.Blocks
             item.createTile = mod.TileType("DoomsdayPlating"); //put your CustomBlock Tile name
         }
 
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Doomsday Circuit Plating");
         }
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -47,6 +48,7 @@ namespace AAMod.Items.Blocks
                 0f
             );
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

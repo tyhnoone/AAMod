@@ -6,7 +6,6 @@ namespace AAMod.Items.Boss.Serpent
 {
     public class Icepick : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Icepick");
@@ -14,7 +13,6 @@ namespace AAMod.Items.Boss.Serpent
 
         public override void SetDefaults()
         {
-
             item.damage = 10;
             item.melee = true;
             item.width = 46;

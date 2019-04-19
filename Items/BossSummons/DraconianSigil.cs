@@ -12,7 +12,6 @@ namespace AAMod.Items.BossSummons
 {
     public class DraconianSigil : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Draconian Sun Sigil");
@@ -49,9 +48,12 @@ Only Usable during the day");
         {
             if (!Main.dayTime)
             {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Geez, kid. Can't a dragon get a little shut-eye? Come back in the morning.", new Color(180, 41, 32), false);
+                if (player.whoAmI == Main.myPlayer)
+                    BaseUtility.Chat("Geez, kid. Can't a dragon get a little shut-eye? Come back in the morning.",
+                        new Color(180, 41, 32), false);
                 return false;
             }
+
             if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno)
             {
                 /*if (!AAWorld.downedAkuma)
@@ -61,14 +63,20 @@ Only Usable during the day");
                 }*/
                 if (NPC.AnyNPCs(mod.NPCType<Akuma>()))
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Hey kid, that Sigil only works once, ya know.", new Color(180, 41, 32), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat("Hey kid, that Sigil only works once, ya know.", new Color(180, 41, 32),
+                            false);
                     return false;
                 }
+
                 if (NPC.AnyNPCs(mod.NPCType<AkumaA>()))
                 {
-                    if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Hey kid, that Sigil only works once, ya know.", new Color(0, 191, 255), false);
+                    if (player.whoAmI == Main.myPlayer)
+                        BaseUtility.Chat("Hey kid, that Sigil only works once, ya know.", new Color(0, 191, 255),
+                            false);
                     return false;
                 }
+
                 for (int m = 0; m < Main.maxProjectiles; m++)
                 {
                     Projectile p = Main.projectile[m];
@@ -77,22 +85,28 @@ Only Usable during the day");
                         return false;
                     }
                 }
+
                 return true;
             }
-            if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("You can only use that Sigil in the Inferno, kid.", new Color(180, 41, 32), false);
+
+            if (player.whoAmI == Main.myPlayer)
+                BaseUtility.Chat("You can only use that Sigil in the Inferno, kid.", new Color(180, 41, 32), false);
             return false;
         }
 
         public override bool UseItem(Player player)
         {
-
             if (!AAWorld.downedAkuma)
             {
-                Main.NewText("Heh, I hope you’re ready to feel the fury of the blazing sun kid.", new Color(180, 41, 32));
+                Main.NewText("Heh, I hope you’re ready to feel the fury of the blazing sun kid.",
+                    new Color(180, 41, 32));
             }
+
             if (AAWorld.downedAkuma)
             {
-                Main.NewText("Back for more, kid? Don’t you have better things to do? You already beat me once.  Alright, but I won’t go easy on you.", new Color(180, 41, 32));
+                Main.NewText(
+                    "Back for more, kid? Don’t you have better things to do? You already beat me once.  Alright, but I won’t go easy on you.",
+                    new Color(180, 41, 32));
             }
 
             SpawnBoss(player, "Akuma", "Akuma; Draconian Demon");
@@ -105,9 +119,15 @@ Only Usable during the day");
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-2000, 2000, (float)Main.rand.NextDouble()), 1200f);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(-2000, 2000, (float) Main.rand.NextDouble()),
+                                             1200f);
                 Main.npc[npcID].netUpdate2 = true;
             }
         }

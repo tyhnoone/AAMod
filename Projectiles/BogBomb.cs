@@ -28,7 +28,6 @@ namespace AAMod.Projectiles
             projectile.ignoreWater = true;
             projectile.tileCollide = true;
             aiType = ProjectileID.WoodenArrowFriendly;
-
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -38,18 +37,23 @@ namespace AAMod.Projectiles
 
         public override void Kill(int timeleft)
         {
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
+            Main.PlaySound(2, (int) projectile.position.X, (int) projectile.position.Y, 14);
             for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.AcidDust>(), -projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AcidDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.AcidDust>(), -projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AcidDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188));
                 Main.dust[num469].velocity *= 2f;
             }
-            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("BogBoom"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+
+            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X,
+                projectile.velocity.Y, mod.ProjectileType("BogBoom"), projectile.damage, projectile.knockBack,
+                projectile.owner, 0f, 0f);
         }
     }
 }

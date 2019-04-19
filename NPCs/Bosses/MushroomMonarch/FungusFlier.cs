@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using ReLogic.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -16,7 +15,6 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
 {
     public class FungusFlier : ModNPC
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fungus Flier");
@@ -63,5 +61,3 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         }
     }
 }
-
-

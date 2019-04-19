@@ -9,6 +9,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Hydra Claw");
             Tooltip.SetDefault("Don't prick yourself");
         }
+
         public override void SetDefaults()
         {
             item.width = 22;

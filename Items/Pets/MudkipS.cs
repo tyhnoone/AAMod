@@ -39,6 +39,7 @@ namespace AAMod.Items.Pets
             {
                 modPlayer.MudkipS = false;
             }
+
             if (!modPlayer.MudkipS)
             {
                 projectile.active = false;
@@ -46,5 +47,3 @@ namespace AAMod.Items.Pets
         }
     }
 }
-
-

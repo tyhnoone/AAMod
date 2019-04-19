@@ -13,6 +13,7 @@ namespace AAMod.NPCs.Bosses.Shen
         {
             DisplayName.SetDefault("Discord");
         }
+
         public override void SetDefaults()
         {
             npc.width = 100;
@@ -44,15 +45,17 @@ namespace AAMod.NPCs.Bosses.Shen
                     Dust dust2;
                     Vector2 position1 = new Vector2(npc.Center.X + 50, npc.Center.Y);
                     Vector2 position2 = new Vector2(npc.Center.X - 50, npc.Center.Y);
-                    dust1 = Main.dust[Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust1 = Main.dust[
+                        Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
                     dust1.noGravity = false;
-                    dust2 = Main.dust[Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust2 = Main.dust[
+                        Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
                     dust2.noGravity = true;
                     dust2.scale *= 1.3f;
                     dust2.velocity.Y -= 6;
                 }
             }
-            
+
             if (npc.ai[0] == 180)
             {
                 Main.NewText("Surprised to see us again, Kid?", new Color(180, 41, 32));
@@ -60,17 +63,23 @@ namespace AAMod.NPCs.Bosses.Shen
 
             if (npc.ai[0] == 360)
             {
-                Main.NewText("NYEHEHEHEHEH..! Yes..! Must be shocking to see us here..! But this time, we have a little tricksie up our sleeves..!", new Color(45, 46, 70));
+                Main.NewText(
+                    "NYEHEHEHEHEH..! Yes..! Must be shocking to see us here..! But this time, we have a little tricksie up our sleeves..!",
+                    new Color(45, 46, 70));
             }
 
             if (npc.ai[0] == 540)
             {
-                Main.NewText("That Sigil you just used gave us back our full power, which will let us reach our true, powerful form..!", new Color(180, 41, 32));
+                Main.NewText(
+                    "That Sigil you just used gave us back our full power, which will let us reach our true, powerful form..!",
+                    new Color(180, 41, 32));
             }
 
             if (npc.ai[0] == 720)
             {
-                Main.NewText("We used to be the same being..! But then a Terrarian wretch like you split our soul in half..! But now...heheheh…", new Color(45, 46, 70));
+                Main.NewText(
+                    "We used to be the same being..! But then a Terrarian wretch like you split our soul in half..! But now...heheheh…",
+                    new Color(45, 46, 70));
             }
 
             if (npc.ai[0] == 900)
@@ -83,9 +92,11 @@ namespace AAMod.NPCs.Bosses.Shen
                     Dust dust2;
                     Vector2 position1 = new Vector2(npc.Center.X + 40, npc.Center.Y);
                     Vector2 position2 = new Vector2(npc.Center.X - 40, npc.Center.Y);
-                    dust1 = Main.dust[Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust1 = Main.dust[
+                        Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
                     dust1.noGravity = false;
-                    dust2 = Main.dust[Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust2 = Main.dust[
+                        Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
                     dust2.noGravity = true;
                     dust2.scale *= 1.3f;
                     dust2.velocity.Y -= 6;
@@ -100,9 +111,11 @@ namespace AAMod.NPCs.Bosses.Shen
                     Dust dust2;
                     Vector2 position1 = new Vector2(npc.Center.X + 35, npc.Center.Y);
                     Vector2 position2 = new Vector2(npc.Center.X - 35, npc.Center.Y);
-                    dust1 = Main.dust[Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust1 = Main.dust[
+                        Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
                     dust1.noGravity = false;
-                    dust2 = Main.dust[Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust2 = Main.dust[
+                        Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
                     dust2.noGravity = true;
                     dust2.scale *= 1.3f;
                     dust2.velocity.Y -= 6;
@@ -117,9 +130,11 @@ namespace AAMod.NPCs.Bosses.Shen
                     Dust dust2;
                     Vector2 position1 = new Vector2(npc.Center.X + 30, npc.Center.Y);
                     Vector2 position2 = new Vector2(npc.Center.X - 30, npc.Center.Y);
-                    dust1 = Main.dust[Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust1 = Main.dust[
+                        Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
                     dust1.noGravity = false;
-                    dust2 = Main.dust[Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust2 = Main.dust[
+                        Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
                     dust2.noGravity = true;
                     dust2.scale *= 1.3f;
                     dust2.velocity.Y -= 6;
@@ -134,9 +149,11 @@ namespace AAMod.NPCs.Bosses.Shen
                     Dust dust2;
                     Vector2 position1 = new Vector2(npc.Center.X + 25, npc.Center.Y);
                     Vector2 position2 = new Vector2(npc.Center.X - 25, npc.Center.Y);
-                    dust1 = Main.dust[Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust1 = Main.dust[
+                        Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
                     dust1.noGravity = false;
-                    dust2 = Main.dust[Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust2 = Main.dust[
+                        Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
                     dust2.noGravity = true;
                     dust2.scale *= 1.3f;
                     dust2.velocity.Y -= 6;
@@ -151,9 +168,11 @@ namespace AAMod.NPCs.Bosses.Shen
                     Dust dust2;
                     Vector2 position1 = new Vector2(npc.Center.X + 15, npc.Center.Y);
                     Vector2 position2 = new Vector2(npc.Center.X - 15, npc.Center.Y);
-                    dust1 = Main.dust[Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust1 = Main.dust[
+                        Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
                     dust1.noGravity = false;
-                    dust2 = Main.dust[Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust2 = Main.dust[
+                        Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
                     dust2.noGravity = true;
                     dust2.scale *= 1.3f;
                     dust2.velocity.Y -= 6;
@@ -166,9 +185,11 @@ namespace AAMod.NPCs.Bosses.Shen
                 Dust dust2;
                 Vector2 position1 = new Vector2(npc.Center.X + 10, npc.Center.Y);
                 Vector2 position2 = new Vector2(npc.Center.X - 10, npc.Center.Y);
-                dust1 = Main.dust[Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
+                dust1 = Main.dust[
+                    Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
                 dust1.noGravity = false;
-                dust2 = Main.dust[Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
+                dust2 = Main.dust[
+                    Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
                 dust2.noGravity = true;
                 dust2.scale *= 1.3f;
                 dust2.velocity.Y -= 6;
@@ -182,9 +203,11 @@ namespace AAMod.NPCs.Bosses.Shen
                     Dust dust2;
                     Vector2 position1 = new Vector2(npc.Center.X + 5, npc.Center.Y);
                     Vector2 position2 = new Vector2(npc.Center.Y - 5, npc.Center.Y);
-                    dust1 = Main.dust[Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust1 = Main.dust[
+                        Dust.NewDust(position1, 1, 1, mod.DustType<Dusts.AkumaDust>(), 0, 0, 0, default(Color), 1f)];
                     dust1.noGravity = false;
-                    dust2 = Main.dust[Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
+                    dust2 = Main.dust[
+                        Dust.NewDust(position2, 1, 1, mod.DustType<Dusts.YamataDust>(), 0, 0, 0, default(Color), 1f)];
                     dust2.noGravity = true;
                     dust2.scale *= 1.3f;
                     dust2.velocity.Y -= 6;
@@ -197,7 +220,8 @@ namespace AAMod.NPCs.Bosses.Shen
                 {
                     Dust dust1;
                     Vector2 position1 = npc.Center;
-                    dust1 = Main.dust[Dust.NewDust(position1, 20, 20, mod.DustType<Dusts.Discord>(), 0, 0, 0, default(Color), 1f)];
+                    dust1 = Main.dust[
+                        Dust.NewDust(position1, 20, 20, mod.DustType<Dusts.Discord>(), 0, 0, 0, default(Color), 1f)];
                     dust1.noGravity = false;
                     dust1.scale *= 1.3f;
                     dust1.velocity.Y -= 6;
@@ -211,7 +235,8 @@ namespace AAMod.NPCs.Bosses.Shen
 
             if (npc.ai[0] == 1460)
             {
-                Main.NewText("You've made a grave mistake, child...", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B);
+                Main.NewText("You've made a grave mistake, child...", Color.DarkMagenta.R, Color.DarkMagenta.G,
+                    Color.DarkMagenta.B);
             }
 
             if (npc.ai[0] == 1640)
@@ -226,14 +251,14 @@ namespace AAMod.NPCs.Bosses.Shen
 
             if (npc.ai[0] == 1640)
             {
-                Main.NewText("I AM SHEN DORAGON, EMPEROR OF CHAOS AND ANARCHY!", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B);
-
+                Main.NewText("I AM SHEN DORAGON, EMPEROR OF CHAOS AND ANARCHY!", Color.DarkMagenta.R,
+                    Color.DarkMagenta.G, Color.DarkMagenta.B);
             }
 
             if (npc.ai[0] == 1820)
             {
-                Main.NewText("And you, my child, will face the wrath and fury of chaos itself..!", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B);
-
+                Main.NewText("And you, my child, will face the wrath and fury of chaos itself..!", Color.DarkMagenta.R,
+                    Color.DarkMagenta.G, Color.DarkMagenta.B);
             }
 
             if (npc.ai[0] >= 2000)
@@ -248,7 +273,7 @@ namespace AAMod.NPCs.Bosses.Shen
         {
             if (Main.netMode != 1)
             {
-                int npcID = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("ShenDoragon"));
+                int npcID = NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, mod.NPCType("ShenDoragon"));
                 Main.npc[npcID].ai[0] = -1;
                 Main.npc[npcID].Center = npc.Center;
                 Main.npc[npcID].netUpdate = true;
@@ -259,15 +284,24 @@ namespace AAMod.NPCs.Bosses.Shen
         {
             return new Color(233, 0, 233) * (Main.mouseTextColor / 255f);
         }
-        
+
         public float auraPercent = 0f;
         public bool auraDirection = true;
         public bool saythelinezero = false;
 
         public override bool PreDraw(SpriteBatch sb, Color dColor)
         {
-            if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
-            else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
+            if (auraDirection)
+            {
+                auraPercent += 0.1f;
+                auraDirection = auraPercent < 1f;
+            }
+            else
+            {
+                auraPercent -= 0.1f;
+                auraDirection = auraPercent <= 0f;
+            }
+
             if (npc.alpha <= 0)
             {
                 BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, Color.White);
@@ -275,6 +309,7 @@ namespace AAMod.NPCs.Bosses.Shen
                 BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, GetColorAlpha());
                 return false;
             }
+
             return true;
         }
     }

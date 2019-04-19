@@ -8,11 +8,9 @@ namespace AAMod.Items.Materials
     {
         public override void SetDefaults()
         {
-
             item.width = 32;
             item.height = 30;
             item.maxStack = 99;
-			
         }
 
         public override void SetStaticDefaults()
@@ -33,9 +31,10 @@ namespace AAMod.Items.Materials
         }
 
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Apocalyptite", 5);              //example of how to craft with a modded item
+            recipe.AddIngredient(null, "Apocalyptite", 5); //example of how to craft with a modded item
             recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -10,11 +10,11 @@ using BaseMod;
 
 namespace AAMod.Items.Boss.Shen
 {
-	public class ChaosSlayer : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Chaos Slayer");
+    public class ChaosSlayer : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Chaos Slayer");
             Tooltip.SetDefault("Unleashes blades of chaos to smite your foes\n'Shatter all sanity'");
         }
 
@@ -31,9 +31,9 @@ namespace AAMod.Items.Boss.Shen
             item.knockBack = 12;
             item.melee = true;
             item.autoReuse = true;
-			item.shoot = mod.ProjectileType("ChaosSlayerSword");
-			item.shootSpeed = 5;
-            item.useTurn = true;	
+            item.shoot = mod.ProjectileType("ChaosSlayerSword");
+            item.shootSpeed = 5;
+            item.useTurn = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -48,7 +48,8 @@ namespace AAMod.Items.Boss.Shen
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -69,17 +70,22 @@ namespace AAMod.Items.Boss.Shen
             );
         }
 
-        public override bool Shoot(Player player, ref Vector2 shootPos, ref float speedX, ref float speedY, ref int projType, ref int damage, ref float knockback)
+        public override bool Shoot(Player player, ref Vector2 shootPos, ref float speedX, ref float speedY,
+            ref int projType, ref int damage, ref float knockback)
         {
-			Projectile.NewProjectile(shootPos.X, shootPos.Y, speedX, speedY, projType, damage, knockback, player.whoAmI);
-			for (int m = 0; m < 2; m++)
-			{
-				Projectile.NewProjectile(shootPos.X, shootPos.Y, speedX * 1f, speedY * 1f, (m == 0 ? mod.ProjectileType("ChaosSlayerSwordRed") : mod.ProjectileType("ChaosSlayerSwordBlue")), damage, knockback, player.whoAmI);
-			}
-			return false;
-		}
+            Projectile.NewProjectile(shootPos.X, shootPos.Y, speedX, speedY, projType, damage, knockback,
+                player.whoAmI);
+            for (int m = 0; m < 2; m++)
+            {
+                Projectile.NewProjectile(shootPos.X, shootPos.Y, speedX * 1f, speedY * 1f,
+                    (m == 0 ? mod.ProjectileType("ChaosSlayerSwordRed") : mod.ProjectileType("ChaosSlayerSwordBlue")),
+                    damage, knockback, player.whoAmI);
+            }
 
-        public override void AddRecipes()  //How to craft this sword
+            return false;
+        }
+
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "ReignOfFire", 1);

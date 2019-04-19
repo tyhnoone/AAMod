@@ -6,13 +6,14 @@ using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.MushroomMonarch
 {
-    public class FungusIGoNow: ModProjectile
+    public class FungusIGoNow : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Feudal Fungus");
             Main.projFrames[projectile.type] = 4;
         }
+
         public override void SetDefaults()
         {
             projectile.damage = 24;
@@ -26,6 +27,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             projectile.timeLeft = 900;
             projectile.alpha = 0;
         }
+
         public override void AI()
         {
             projectile.scale = projectile.ai[0];
@@ -37,6 +39,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                     projectile.frame = 0;
                 }
             }
+
             projectile.velocity *= 0;
             projectile.alpha -= 10;
             if (projectile.alpha >= 255)
@@ -50,7 +53,9 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             Texture2D glowTex = mod.GetTexture("Glowmasks/FeudalFungusIGoNow_Glow");
             Texture2D tex = mod.GetTexture("NPCs/Bosses/MushroomMonarch/FungusIGoNow");
             BaseDrawing.DrawTexture(spritebatch, tex, 0, projectile, projectile.GetAlpha(dColor));
-            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 4, new Rectangle(0, 0, glowTex.Width, glowTex.Height), projectile.GetAlpha(AAColor.Glow), true);
+            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, projectile.position, projectile.width, projectile.height,
+                projectile.scale, projectile.rotation, 0, 4, new Rectangle(0, 0, glowTex.Width, glowTex.Height),
+                projectile.GetAlpha(AAColor.Glow), true);
             return false;
         }
     }

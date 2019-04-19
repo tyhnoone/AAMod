@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using ReLogic.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -17,15 +16,16 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
     public class FungusSpore : ModNPC
     {
         public float[] internalAI = new float[4];
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((float)internalAI[0]);
-                writer.Write((float)internalAI[1]);
-                writer.Write((float)internalAI[2]);
-                writer.Write((float)internalAI[3]);
+                writer.Write((float) internalAI[0]);
+                writer.Write((float) internalAI[1]);
+                writer.Write((float) internalAI[2]);
+                writer.Write((float) internalAI[3]);
             }
         }
 
@@ -76,19 +76,16 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             {
                 npc.velocity.X = 4;
                 npc.velocity.Y = 2.5F;
-
             }
             else if (npc.ai[0] == 3 && npc.ai[1] == 0)
             {
                 npc.velocity.X = -4;
                 npc.velocity.Y = 2.5f;
             }
+
             npc.ai[1] = 1;
-            
+
             BaseAI.AISpore(npc, ref internalAI, 0.1f, 0.02f, 5f, 1f);
-            
         }
     }
 }
-
-

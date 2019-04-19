@@ -8,11 +8,8 @@ namespace AAMod.Items.Usable
 {
     public class GoblinDoll : ModItem
     {
-        
-
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 28;
             item.rare = 0;

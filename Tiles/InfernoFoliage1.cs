@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+
 namespace AAMod.Tiles
 {
     public class InfernoFoliage1 : ModTile

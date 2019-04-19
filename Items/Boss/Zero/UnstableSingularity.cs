@@ -10,7 +10,6 @@ namespace AAMod.Items.Boss.Zero
 {
     public class UnstableSingularity : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Unstable Singularity");
@@ -40,7 +39,6 @@ namespace AAMod.Items.Boss.Zero
         // TODO -- Velocity Y smaller, post NewItem?
         public override void SetDefaults()
         {
-            
             item.width = 22;
             item.height = 24;
             item.maxStack = 999;
@@ -48,7 +46,7 @@ namespace AAMod.Items.Boss.Zero
         }
 
         // The following 2 methods are purely to show off these 2 hooks. Don't use them in your own code.
-        
+
 
         public override void PostUpdate()
         {

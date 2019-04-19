@@ -11,15 +11,17 @@ namespace AAMod.Projectiles
         {
             Main.projFrames[projectile.type] = 12;
         }
+
         public override void SetDefaults()
         {
-            projectile.penetrate = -1;  
+            projectile.penetrate = -1;
             projectile.width = 20;
             projectile.height = 22;
-			projectile.friendly = true;
-			projectile.hostile = false;
+            projectile.friendly = true;
+            projectile.hostile = false;
             projectile.timeLeft = 150;
         }
+
         private Color Gold = Color.Goldenrod;
         public bool AM;
         public bool PM;
@@ -61,17 +63,20 @@ namespace AAMod.Projectiles
             {
                 if (Main.dayTime)
                 {
-                    Lighting.AddLight(projectile.Center, new Vector3(Color.OrangeRed.R / 255f, Color.OrangeRed.G / 255, Color.OrangeRed.B / 255f));
+                    Lighting.AddLight(projectile.Center,
+                        new Vector3(Color.OrangeRed.R / 255f, Color.OrangeRed.G / 255, Color.OrangeRed.B / 255f));
                 }
                 else
                 {
-                    Lighting.AddLight(projectile.Center, new Vector3(Color.Indigo.R / 255f, Color.Indigo.G / 255, Color.Indigo.B / 255f));
+                    Lighting.AddLight(projectile.Center,
+                        new Vector3(Color.Indigo.R / 255f, Color.Indigo.G / 255, Color.Indigo.B / 255f));
                 }
             }
             else
             {
                 Lighting.AddLight(projectile.Center, new Vector3(Gold.R / 255f, Gold.G / 255f, Gold.B / 255f));
             }
+
             projectile.velocity *= 0.985f;
             projectile.ai[1] += 1f;
             if (projectile.ai[1] > 30f)
@@ -88,11 +93,12 @@ namespace AAMod.Projectiles
 
         public void FindFrame()
         {
-            double num4 = (float)Main.time;
+            double num4 = (float) Main.time;
             if (!Main.dayTime)
             {
                 num4 += 54000.0;
             }
+
             num4 = num4 / 86400.0 * 24.0;
             double num5 = 7.5;
             num4 = num4 - num5 - 12.0;
@@ -100,6 +106,7 @@ namespace AAMod.Projectiles
             {
                 num4 += 24.0;
             }
+
             if (num4 > 1)
             {
                 projectile.frame = 0;
@@ -200,18 +207,20 @@ namespace AAMod.Projectiles
 
         public static Color TimeColor()
         {
-            double num4 = (float)Main.time;
+            double num4 = (float) Main.time;
             if (!Main.dayTime)
             {
                 num4 += 54000.0;
             }
+
             num4 = num4 / 86400.0 * 24.0;
             double num5 = 7.5;
             num4 = num4 - num5 - 12.0;
-            if (num4< 0.0)
+            if (num4 < 0.0)
             {
                 num4 += 24.0;
             }
+
             if (num4 >= 12.0)
             {
                 return Color.Indigo;
@@ -221,6 +230,5 @@ namespace AAMod.Projectiles
                 return Color.OrangeRed;
             }
         }
-
     }
 }

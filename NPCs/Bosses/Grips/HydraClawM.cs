@@ -11,9 +11,10 @@ namespace AAMod.NPCs.Bosses.Grips
             DisplayName.SetDefault("Hydra Claw");
             Main.npcFrameCount[npc.type] = 5;
         }
+
         public override void SetDefaults()
         {
-            aiType = NPCID.DemonEye;  //npc behavior
+            aiType = NPCID.DemonEye; //npc behavior
             animationType = NPCID.DemonEye;
             npc.width = 28;
             npc.height = 24;
@@ -40,12 +41,13 @@ namespace AAMod.NPCs.Bosses.Grips
                     npc.active = false;
                 }
             }
+
             AAAI.AIClaw(npc, ref npc.ai, false, true, 0.1f, 0.04f, 5.5f, 2.5f, 1f, 1f);
         }
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            if (npc.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
+            if (npc.life <= 0) //this make so when the npc has 0 life(dead) he will spawn this
             {
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/HydraClawGore1"), 1f);
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/HydraClawGore2"), 1f);
@@ -53,6 +55,7 @@ namespace AAMod.NPCs.Bosses.Grips
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/HydraClawGore4"), 1f);
             }
         }
+
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 180);

@@ -38,12 +38,12 @@ namespace AAMod.Items.Armor.Paints
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return body.type == mod.ItemType<Technecium.TechneciumPlate>() && legs.type == mod.ItemType<Technecium.TechneciumGreaves>();
+            return body.type == mod.ItemType<Technecium.TechneciumPlate>() &&
+                   legs.type == mod.ItemType<Technecium.TechneciumGreaves>();
         }
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = @"+4 Minion slots
 Enemies that hit you are electrified";
 

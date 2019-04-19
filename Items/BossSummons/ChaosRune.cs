@@ -13,7 +13,6 @@ namespace AAMod.Items.BossSummons
 {
     public class ChaosRune : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chaos Rune");
@@ -43,12 +42,12 @@ Summons Shen Doragon's true awakened form");
             }
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
-            
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
-                (
+            (
                 texture,
                 new Vector2
                 (
@@ -62,10 +61,11 @@ Summons Shen Doragon's true awakened form");
                 scale,
                 SpriteEffects.None,
                 0f
-                );
+            );
         }
 
-        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             Texture2D texture2 = Main.itemTexture[item.type];
@@ -74,7 +74,6 @@ Summons Shen Doragon's true awakened form");
             {
                 //Vector2 offsetPositon = Vector2.UnitY.RotatedBy(MathHelper.PiOver2 * i) * 2;
                 spriteBatch.Draw(texture, position, null, AAColor.Shen2, 0, origin, scale, SpriteEffects.None, 0f);
-
             }
 
             return false;
@@ -88,16 +87,23 @@ Summons Shen Doragon's true awakened form");
             {
                 return false;
             }
+
             if (NPC.AnyNPCs(mod.NPCType<ShenDoragon>()))
             {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("HAH! I WISH there were two of me to smash you into the ground!", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B, false);
+                if (player.whoAmI == Main.myPlayer)
+                    BaseUtility.Chat("HAH! I WISH there were two of me to smash you into the ground!",
+                        Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B, false);
                 return false;
             }
+
             if (NPC.AnyNPCs(mod.NPCType<ShenA>()))
             {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("HAH! I WISH there were two of me to smash you into the ground!", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B, false);
+                if (player.whoAmI == Main.myPlayer)
+                    BaseUtility.Chat("HAH! I WISH there were two of me to smash you into the ground!",
+                        Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B, false);
                 return false;
             }
+
             for (int m = 0; m < Main.maxProjectiles; m++)
             {
                 Projectile p = Main.projectile[m];
@@ -111,12 +117,14 @@ Summons Shen Doragon's true awakened form");
                     return false;
                 }
             }
+
             return true;
         }
 
         public override bool UseItem(Player player)
         {
-            Main.NewText("Time to face true, uniyielding chaos, child...", Color.DarkMagenta.R, Color.DarkMagenta.G, Color.DarkMagenta.B);
+            Main.NewText("Time to face true, uniyielding chaos, child...", Color.DarkMagenta.R, Color.DarkMagenta.G,
+                Color.DarkMagenta.B);
             NPC.SpawnOnPlayer(item.owner, mod.NPCType<ShenA>());
             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/ShenRoar"), player.position);
             return true;
@@ -127,9 +135,15 @@ Summons Shen Doragon's true awakened form");
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 800f);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(-100f, 100f, (float) Main.rand.NextDouble()),
+                                             800f);
                 Main.npc[npcID].netUpdate2 = true;
             }
         }

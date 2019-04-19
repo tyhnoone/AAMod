@@ -11,7 +11,6 @@ namespace AAMod.Projectiles.Djinn
 {
     class Sandstorm : ModProjectile
     {
-
         public override void SetDefaults()
         {
             projectile.width = 60;
@@ -33,8 +32,10 @@ namespace AAMod.Projectiles.Djinn
             if (projectile.soundDelay == 0)
             {
                 projectile.soundDelay = -1;
-                projectile.localAI[1] = Main.PlayTrackedSound(SoundID.DD2_BookStaffTwisterLoop, projectile.Center).ToFloat();
+                projectile.localAI[1] =
+                    Main.PlayTrackedSound(SoundID.DD2_BookStaffTwisterLoop, projectile.Center).ToFloat();
             }
+
             ActiveSound activeSound = Main.GetActiveSound(SlotId.FromFloat(projectile.localAI[1]));
             if (activeSound != null)
             {
@@ -45,15 +46,18 @@ namespace AAMod.Projectiles.Djinn
             {
                 projectile.localAI[1] = SlotId.Invalid.ToFloat();
             }
+
             if (projectile.localAI[0] >= 16f && projectile.ai[0] < num - 15f)
             {
                 projectile.ai[0] = num - 15f;
             }
+
             projectile.ai[0] += 1f;
             if (projectile.ai[0] >= num)
             {
                 projectile.Kill();
             }
+
             Vector2 top = projectile.Top;
             Vector2 bottom = projectile.Bottom;
             Vector2 value = Vector2.Lerp(top, bottom, 0.5f);
@@ -63,13 +67,15 @@ namespace AAMod.Projectiles.Djinn
             int num3 = 160;
             for (int i = 0; i < 1; i++)
             {
-                Vector2 position = new Vector2(projectile.Center.X - (float)(num2 / 2), projectile.position.Y + (float)projectile.height - (float)num3);
+                Vector2 position = new Vector2(projectile.Center.X - (float) (num2 / 2),
+                    projectile.position.Y + (float) projectile.height - (float) num3);
                 if (Collision.SolidCollision(position, num2, num3) || Collision.WetCollision(position, num2, num3))
                 {
                     if (projectile.velocity.Y > 0f)
                     {
                         projectile.velocity.Y = 0f;
                     }
+
                     if (projectile.velocity.Y > -4f)
                     {
                         projectile.velocity.Y = projectile.velocity.Y - 2f;
@@ -79,6 +85,7 @@ namespace AAMod.Projectiles.Djinn
                         projectile.velocity.Y = projectile.velocity.Y - 4f;
                         projectile.localAI[0] += 2f;
                     }
+
                     if (projectile.velocity.Y < -16f)
                     {
                         projectile.velocity.Y = -16f;
@@ -91,10 +98,12 @@ namespace AAMod.Projectiles.Djinn
                     {
                         projectile.localAI[0] = 0f;
                     }
+
                     if (projectile.velocity.Y < 0f)
                     {
                         projectile.velocity.Y = 0f;
                     }
+
                     if (projectile.velocity.Y < 4f)
                     {
                         projectile.velocity.Y = projectile.velocity.Y + 2f;
@@ -103,12 +112,14 @@ namespace AAMod.Projectiles.Djinn
                     {
                         projectile.velocity.Y = projectile.velocity.Y + 4f;
                     }
+
                     if (projectile.velocity.Y > 16f)
                     {
                         projectile.velocity.Y = 16f;
                     }
                 }
             }
+
             if (projectile.ai[0] < num - 30f)
             {
                 for (int j = 0; j < 1; j++)
@@ -116,7 +127,8 @@ namespace AAMod.Projectiles.Djinn
                     float value3 = -1f;
                     float value4 = 0.9f;
                     float amount = Main.rand.NextFloat();
-                    Vector2 value5 = new Vector2(MathHelper.Lerp(0.1f, 1f, Main.rand.NextFloat()), MathHelper.Lerp(value3, value4, amount));
+                    Vector2 value5 = new Vector2(MathHelper.Lerp(0.1f, 1f, Main.rand.NextFloat()),
+                        MathHelper.Lerp(value3, value4, amount));
                     value5.X *= MathHelper.Lerp(2.2f, 0.6f, amount);
                     value5.X *= -1f;
                     Vector2 value6 = new Vector2(6f, 10f);
@@ -130,6 +142,7 @@ namespace AAMod.Projectiles.Djinn
                     {
                         dust.velocity.X = 1f + Main.rand.NextFloat();
                     }
+
                     dust.noGravity = true;
                     dust.velocity.Y = Main.rand.NextFloat() * -0.5f - 1.3f;
                     Dust expr_49A_cp_0 = dust;
@@ -137,53 +150,67 @@ namespace AAMod.Projectiles.Djinn
                     dust.noLight = true;
                 }
             }
+
             Vector2 position3 = projectile.Bottom + new Vector2(-25f, -25f);
             for (int k = 0; k < 4; k++)
             {
-                Dust dust2 = Dust.NewDustDirect(position3, 50, 25, 269, projectile.velocity.X, -2f, 100, default(Color), 1f);
+                Dust dust2 = Dust.NewDustDirect(position3, 50, 25, 269, projectile.velocity.X, -2f, 100, default(Color),
+                    1f);
                 dust2.fadeIn = 1.1f;
                 dust2.noGravity = true;
             }
+
             for (int l = 0; l < 1; l++)
             {
                 if (Main.rand.Next(5) == 0)
                 {
-                    Gore gore = Gore.NewGoreDirect(projectile.TopLeft + Main.rand.NextVector2Square(0f, 1f) * projectile.Size, new Vector2(projectile.velocity.X * 1.5f, -Main.rand.NextFloat() * 16f), Utils.SelectRandom<int>(Main.rand, new int[]
-                    {
-                        1007,
-                        1008,
-                        1008
-                    }), 1f);
+                    Gore gore = Gore.NewGoreDirect(
+                        projectile.TopLeft + Main.rand.NextVector2Square(0f, 1f) * projectile.Size,
+                        new Vector2(projectile.velocity.X * 1.5f, -Main.rand.NextFloat() * 16f),
+                        Utils.SelectRandom<int>(Main.rand, new int[]
+                        {
+                            1007,
+                            1008,
+                            1008
+                        }), 1f);
                     gore.timeLeft = 60;
                     gore.alpha = 50;
                     Gore expr_5FA_cp_0 = gore;
                     expr_5FA_cp_0.velocity.X = expr_5FA_cp_0.velocity.X + projectile.velocity.X;
                 }
             }
+
             for (int m = 0; m < 1; m++)
             {
                 if (Main.rand.Next(7) == 0)
                 {
-                    Gore gore2 = Gore.NewGoreDirect(projectile.TopLeft + Main.rand.NextVector2Square(0f, 1f) * projectile.Size, new Vector2(projectile.velocity.X * 1.5f, -Main.rand.NextFloat() * 16f), Utils.SelectRandom<int>(Main.rand, new int[]
-                    {
-                        1007,
-                        1008,
-                        1008
-                    }), 1f);
+                    Gore gore2 = Gore.NewGoreDirect(
+                        projectile.TopLeft + Main.rand.NextVector2Square(0f, 1f) * projectile.Size,
+                        new Vector2(projectile.velocity.X * 1.5f, -Main.rand.NextFloat() * 16f),
+                        Utils.SelectRandom<int>(Main.rand, new int[]
+                        {
+                            1007,
+                            1008,
+                            1008
+                        }), 1f);
                     gore2.timeLeft = 0;
                     gore2.alpha = 80;
                 }
             }
+
             for (int n = 0; n < 1; n++)
             {
                 if (Main.rand.Next(7) == 0)
                 {
-                    Gore gore3 = Gore.NewGoreDirect(projectile.TopLeft + Main.rand.NextVector2Square(0f, 1f) * projectile.Size, new Vector2(projectile.velocity.X * 1.5f, -Main.rand.NextFloat() * 16f), Utils.SelectRandom<int>(Main.rand, new int[]
-                    {
-                        1007,
-                        1008,
-                        1008
-                    }), 1f);
+                    Gore gore3 = Gore.NewGoreDirect(
+                        projectile.TopLeft + Main.rand.NextVector2Square(0f, 1f) * projectile.Size,
+                        new Vector2(projectile.velocity.X * 1.5f, -Main.rand.NextFloat() * 16f),
+                        Utils.SelectRandom<int>(Main.rand, new int[]
+                        {
+                            1007,
+                            1008,
+                            1008
+                        }), 1f);
                     gore3.timeLeft = 0;
                     gore3.alpha = 80;
                 }
@@ -199,6 +226,5 @@ namespace AAMod.Projectiles.Djinn
                 activeSound.Stop();
             }
         }
-        
     }
 }

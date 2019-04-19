@@ -8,12 +8,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Armor.PerfectChaos
 {
-	[AutoloadEquip(EquipType.Legs)]
-	public class PerfectChaosGreaves : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Chaos Slayer Greaves");
+    [AutoloadEquip(EquipType.Legs)]
+    public class PerfectChaosGreaves : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Chaos Slayer Greaves");
             Tooltip.SetDefault(@"30% increased Melee damage & critical strike chance
 15% increased damage resistance
 15% increased melee speed
@@ -21,8 +21,8 @@ namespace AAMod.Items.Armor.PerfectChaos
 The power of discordian rage radiates from this armor");
         }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.width = 22;
             item.height = 16;
             item.value = Item.sellPrice(3, 0, 0, 0);
@@ -51,13 +51,15 @@ The power of discordian rage radiates from this armor");
             recipe.AddRecipe();
         }
 
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D Glow = mod.GetTexture("Glowmasks/PerfectChaosGreaves_Glow");
             spriteBatch.Draw(Glow, position, null, AAColor.Shen3, 0, origin, scale, SpriteEffects.None, 0f);
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

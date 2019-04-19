@@ -6,11 +6,11 @@ namespace AAMod.Projectiles
 {
     public class AmphibiousProjectile : ModProjectile
     {
-    	public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Mudkip");
-		}
-    	
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Mudkip");
+        }
+
         public override void SetDefaults()
         {
             projectile.width = 26;
@@ -30,13 +30,14 @@ namespace AAMod.Projectiles
         {
             if (Main.rand.Next(3) == 0)
             {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 186, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 186,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
             }
         }
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
+            Main.PlaySound(2, (int) projectile.position.X, (int) projectile.position.Y, 10);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

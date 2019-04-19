@@ -7,25 +7,25 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Pets
 {
     public class Seashroom : ModItem
-	{
-        
+    {
         public override void SetStaticDefaults()
-		{
-			// DisplayName and Tooltip are automatically set from the .lang files, but below is how it is done normally.
-			DisplayName.SetDefault("Seashroom");
+        {
+            // DisplayName and Tooltip are automatically set from the .lang files, but below is how it is done normally.
+            DisplayName.SetDefault("Seashroom");
 
-			Tooltip.SetDefault("It smells like fish");
+            Tooltip.SetDefault("It smells like fish");
         }
 
-		public override void SetDefaults()
-		{
-			item.CloneDefaults(ItemID.ZephyrFish);
-			item.shoot = mod.ProjectileType("Sharkron");
-            
-            item.buffType = mod.BuffType("Sharkron");
-		}
+        public override void SetDefaults()
+        {
+            item.CloneDefaults(ItemID.ZephyrFish);
+            item.shoot = mod.ProjectileType("Sharkron");
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+            item.buffType = mod.BuffType("Sharkron");
+        }
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -47,11 +47,11 @@ namespace AAMod.Items.Pets
         }
 
         public override void UseStyle(Player player)
-		{
-			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
-			{
-				player.AddBuff(item.buffType, 3600, true);
-			}
-		}
-	}
+        {
+            if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+            {
+                player.AddBuff(item.buffType, 3600, true);
+            }
+        }
+    }
 }

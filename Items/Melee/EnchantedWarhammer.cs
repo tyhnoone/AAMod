@@ -7,7 +7,6 @@ namespace AAMod.Items.Melee
     {
         public override void SetDefaults()
         {
-
             item.damage = 113;
             item.melee = true;
             item.width = 48;
@@ -21,25 +20,24 @@ namespace AAMod.Items.Melee
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
             item.useTurn = true;
- 
- 
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Enchanted Warhammer");
-      Tooltip.SetDefault("Cannot be used as a hammer!");
-    }
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Enchanted Warhammer");
+            Tooltip.SetDefault("Cannot be used as a hammer!");
+        }
 
- 
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.EnchantedSword, 1);
-            recipe.AddIngredient(ItemID.HallowedBar, 15);  //in this example you see how to add your custom item to the crafting recipe
-            recipe.AddTile(TileID.MythrilAnvil);     //in this example you see how to add your custom craftingbench
+            recipe.AddIngredient(ItemID.HallowedBar,
+                15); //in this example you see how to add your custom item to the crafting recipe
+            recipe.AddTile(TileID.MythrilAnvil); //in this example you see how to add your custom craftingbench
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

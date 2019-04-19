@@ -10,7 +10,6 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
 {
     public class StaticSphere : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[projectile.type] = 5;
@@ -40,6 +39,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             {
                 projectile.timeLeft--;
             }
+
             if (projectile.timeLeft == 0)
             {
                 projectile.Kill();
@@ -55,11 +55,13 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                     projectile.frame = 0;
                 }
             }
-            projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
+
+            projectile.rotation = (float) Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             const int aislotHomingCooldown = 0;
             const int homingDelay = 0;
             const float desiredFlySpeedInPixelsPerFrame = 10;
-            const float amountOfFramesToLerpBy = 30; // minimum of 1, please keep in full numbers even though it's a float!
+            const float
+                amountOfFramesToLerpBy = 30; // minimum of 1, please keep in full numbers even though it's a float!
 
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
@@ -71,7 +73,8 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 {
                     Player target = Main.player[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(target.Center) * desiredFlySpeedInPixelsPerFrame;
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    projectile.velocity =
+                        Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
         }
@@ -83,7 +86,6 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 target.AddBuff(mod.BuffType<Buffs.Unstable>(), 180);
             }
         }
-
 
 
         private int HomeOnTarget()
@@ -101,7 +103,8 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance
+                        ) //or we are closer to this target than the already selected target
                     )
                         selectedTarget = i;
                 }
@@ -112,7 +115,8 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Glitch"), (int)projectile.Center.X, (int)projectile.Center.Y);
+            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Glitch"), (int) projectile.Center.X,
+                (int) projectile.Center.Y);
             float spread = 12f * 0.0174f;
             double startAngle = Math.Atan2(projectile.velocity.X, projectile.velocity.Y) - spread / 2;
             double Angle = spread / 3f;
@@ -123,11 +127,16 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 for (i = 0; i < 3; i++)
                 {
                     offsetAngle = (startAngle + Angle * (i + i * i) / 2f) + 32f * i;
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)(Math.Sin(offsetAngle) * 2f), (float)(Math.Cos(offsetAngle) * 6f), mod.ProjectileType("Static"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)(-Math.Sin(offsetAngle) * 2f), (float)(-Math.Cos(offsetAngle) * 6f), mod.ProjectileType("Static"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y,
+                        (float) (Math.Sin(offsetAngle) * 2f), (float) (Math.Cos(offsetAngle) * 6f),
+                        mod.ProjectileType("Static"), projectile.damage, projectile.knockBack, projectile.owner, 0f,
+                        0f);
+                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y,
+                        (float) (-Math.Sin(offsetAngle) * 2f), (float) (-Math.Cos(offsetAngle) * 6f),
+                        mod.ProjectileType("Static"), projectile.damage, projectile.knockBack, projectile.owner, 0f,
+                        0f);
                 }
             }
-
         }
 
         public override bool PreDraw(SpriteBatch sb, Color lightColor)
@@ -140,6 +149,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 if (projectile.frame > 4)
                     projectile.frame = 0;
             }
+
             return true;
         }
     }

@@ -19,7 +19,7 @@ namespace AAMod.Tiles
             dustType = mod.DustType("AbyssiumDust");
             Main.tileLavaDeath[Type] = false;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
+            TileObjectData.newTile.CoordinateHeights = new int[] {16, 16, 16};
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.addTile(Type);
@@ -98,8 +98,10 @@ namespace AAMod.Tiles
             Texture2D Sphere = mod.GetTexture("Glowmasks/ChaosCrucible_Sphere");
             int frameY = (tile != null && tile.active() ? tile.frameY + (Main.tileFrame[Type] * 54) : 0);
 
-            BaseDrawing.DrawTileTexture(sb, glowTex, x, y, 16, 16, tile.frameX, frameY, false, false, false, null, White);
-            BaseDrawing.DrawTileTexture(sb, Sphere, x, y, 16, 16, tile.frameX, frameY, false, false, false, null, AAGlobalTile.GetShenColorBright);
+            BaseDrawing.DrawTileTexture(sb, glowTex, x, y, 16, 16, tile.frameX, frameY, false, false, false, null,
+                White);
+            BaseDrawing.DrawTileTexture(sb, Sphere, x, y, 16, 16, tile.frameX, frameY, false, false, false, null,
+                AAGlobalTile.GetShenColorBright);
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

@@ -10,16 +10,16 @@ namespace AAMod.Tiles
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
-            Main.tileBlockLight[Type] = true;  //true for block to emit light
+            Main.tileBlockLight[Type] = true; //true for block to emit light
             Main.tileLighted[Type] = true;
-            drop = mod.ItemType("TechneciumOre");   //put your CustomBlock name
+            drop = mod.ItemType("TechneciumOre"); //put your CustomBlock name
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Technecium Ore");
             AddMapEntry(new Color(100, 200, 200), name);
-			minPick = 150;
+            minPick = 150;
         }
-      
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)   //light colors
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) //light colors
         {
             r = 0.2f;
             g = 0.5f;

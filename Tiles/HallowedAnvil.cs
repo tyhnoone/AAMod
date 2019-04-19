@@ -17,7 +17,7 @@ namespace AAMod.Tiles
             Main.tileLavaDeath[Type] = false;
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
+            TileObjectData.newTile.CoordinateHeights = new int[] {16, 18};
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.addTile(Type);
@@ -26,8 +26,13 @@ namespace AAMod.Tiles
             dustType = mod.DustType("DaybreakIncineriteDust");
             AddMapEntry(new Color(50, 50, 50), name);
             disableSmartCursor = true;
-            adjTiles = new int[] { TileID.WorkBenches, TileID.MythrilAnvil, TileID.Anvils, TileID.CrystalBall, TileID.HeavyWorkBench, TileID.Autohammer};
+            adjTiles = new int[]
+            {
+                TileID.WorkBenches, TileID.MythrilAnvil, TileID.Anvils, TileID.CrystalBall, TileID.HeavyWorkBench,
+                TileID.Autohammer
+            };
         }
+
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("HallowedAnvil"));

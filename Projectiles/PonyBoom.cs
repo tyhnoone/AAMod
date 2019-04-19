@@ -42,9 +42,9 @@ namespace AAMod.Projectiles
                 if (++projectile.frame >= 6)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
         }
@@ -53,6 +53,5 @@ namespace AAMod.Projectiles
         {
             projectile.timeLeft = 0;
         }
-
     }
 }

@@ -9,12 +9,11 @@ namespace AAMod.NPCs.Enemies.Desert
 {
     public class DjinnMagic1 : ModProjectile
     {
-    	
-    	public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Magic Blast");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Magic Blast");
             Main.projFrames[projectile.type] = 4;
-		}
+        }
 
         public override void SetDefaults()
         {
@@ -35,10 +34,10 @@ namespace AAMod.NPCs.Enemies.Desert
 
         public override void AI()
         {
-
-            projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+            projectile.rotation = (float) Math.Atan2((double) projectile.velocity.Y, (double) projectile.velocity.X) +
+                                  1.57f;
             projectile.localAI[0] += 1f;
-            projectile.alpha = (int)projectile.localAI[0] * 2;
+            projectile.alpha = (int) projectile.localAI[0] * 2;
 
 
             Vector2 position = projectile.Center + (Vector2.One * -20f);
@@ -47,8 +46,11 @@ namespace AAMod.NPCs.Enemies.Desert
 
             for (int num85 = 0; num85 < 4; num85++)
             {
-                int num86 = Dust.NewDust(position, num84, height3, mod.DustType<Dusts.InfinityOverloadB>(), 0f, 0f, 100, default(Color), 1.2f);
-                Main.dust[num86].position = projectile.Center + (Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)num84 / 2f);
+                int num86 = Dust.NewDust(position, num84, height3, mod.DustType<Dusts.InfinityOverloadB>(), 0f, 0f, 100,
+                    default(Color), 1.2f);
+                Main.dust[num86].position = projectile.Center +
+                                            (Vector2.UnitY.RotatedByRandom(3.1415927410125732) *
+                                             (float) Main.rand.NextDouble() * (float) num84 / 2f);
                 Main.dust[num86].noGravity = true;
             }
 
@@ -56,22 +58,26 @@ namespace AAMod.NPCs.Enemies.Desert
             {
                 projectile.Kill();
             }
-
         }
 
         public override void Kill(int timeleft)
         {
             for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, default(Color));
                 Main.dust[num469].velocity *= 2f;
             }
-            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("DjinnBurst1"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+
+            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X,
+                projectile.velocity.Y, mod.ProjectileType("DjinnBurst1"), projectile.damage, projectile.knockBack,
+                projectile.owner, 0f, 0f);
         }
 
         public override bool PreDraw(SpriteBatch sb, Color lightColor)
@@ -84,6 +90,7 @@ namespace AAMod.NPCs.Enemies.Desert
                 if (projectile.frame > 3)
                     projectile.frame = 0;
             }
+
             return false;
         }
 
@@ -91,6 +98,5 @@ namespace AAMod.NPCs.Enemies.Desert
         {
             target.AddBuff(BuffID.Chilled, 600);
         }
-
     }
 }

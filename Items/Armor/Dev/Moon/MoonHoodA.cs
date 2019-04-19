@@ -6,16 +6,15 @@ using Terraria;
 namespace AAMod.Items.Armor.Dev.Moon
 {
     [AutoloadEquip(EquipType.Head)]
-	public class MoonHoodA : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class MoonHoodA : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Lunar Mage Hood");
             Tooltip.SetDefault(@"24% increased Magic damage & critical strike chance
 +200 Max Mana
 15% decreased mana consumption");
-
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -52,23 +51,24 @@ namespace AAMod.Items.Armor.Dev.Moon
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = @"'Stings, doesn't it?'
 You glow like the moon in the sky
 Magic attacks inflict Moonraze on your target
 You have a lunar friend to assist you";
-            
+
             player.GetModPlayer<AAPlayer>(mod).MoonSet = true;
-            
+
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.FindBuffIndex(mod.BuffType("MB")) == -1)
                 {
                     player.AddBuff(mod.BuffType("MB"), 3600, true);
                 }
+
                 if (player.ownedProjectileCounts[mod.ProjectileType("MoonBeeMinion")] < 1)
                 {
-                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, mod.ProjectileType("MoonBeeMinion"), 100, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f,
+                        mod.ProjectileType("MoonBeeMinion"), 100, 0f, Main.myPlayer, 0f, 0f);
                 }
             }
         }

@@ -6,23 +6,23 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Accessories.Wings
 {
     [AutoloadEquip(EquipType.Wings)]
-	public class DarkmatterJetpack : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    public class DarkmatterJetpack : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Darkmatter Booster");
             Tooltip.SetDefault("Allows flight and slow fall");
         }
 
-		public override void SetDefaults()
+        public override void SetDefaults()
         {
             item.width = 32;
             item.height = 24;
             item.value = 300000;
             item.rare = 11;
             item.accessory = true;
-            
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.wingTimeMax = 200;
@@ -44,7 +44,8 @@ namespace AAMod.Items.Accessories.Wings
             acceleration *= 3f;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -64,7 +65,6 @@ namespace AAMod.Items.Accessories.Wings
                 0f
             );
         }
-
 
 
         public override void AddRecipes()

@@ -10,6 +10,7 @@ namespace AAMod.Items.Boss.Shen
     public class ChaosScale : ModItem
     {
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -19,10 +20,12 @@ namespace AAMod.Items.Boss.Shen
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             DisplayName.SetDefault("Chaos Scale");
             Tooltip.SetDefault("Chaos radiates from this blazing scale");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 6));

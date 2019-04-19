@@ -5,35 +5,35 @@ using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
-namespace AAMod.Items.Boss.Yamata        //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+namespace AAMod.Items.Boss.
+    Yamata //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class Toxibomb : ModItem
     {
         public override void SetDefaults()
         {
-
-            item.damage = 200;                      
-            item.magic = true;  
-            item.width = 32;     
-            item.height = 28;    
-            item.useTime = 26; 
-            item.useAnimation = 26; 
-            item.useStyle = 5;        
-            item.noMelee = true;   
-            item.knockBack = 1; 
+            item.damage = 200;
+            item.magic = true;
+            item.width = 32;
+            item.height = 28;
+            item.useTime = 26;
+            item.useAnimation = 26;
+            item.useStyle = 5;
+            item.noMelee = true;
+            item.knockBack = 1;
             item.value = Item.buyPrice(1, 0, 0, 0);
             item.mana = 9;
-            item.UseSound = SoundID.Item1; 
-            item.autoReuse = true; 
-            item.shoot = mod.ProjectileType("Toxibomb");  
-            item.shootSpeed = 20f;    
+            item.UseSound = SoundID.Item1;
+            item.autoReuse = true;
+            item.shoot = mod.ProjectileType("Toxibomb");
+            item.shootSpeed = 20f;
         }
 
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Abyssal Bomb");
-			Tooltip.SetDefault("Fires off explosive spirit bombs");
-		}
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Abyssal Bomb");
+            Tooltip.SetDefault("Fires off explosive spirit bombs");
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
@@ -41,13 +41,15 @@ namespace AAMod.Items.Boss.Yamata        //We need this to basically indicate th
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata;;
+                    line2.overrideColor = AAColor.Yamata;
+                    ;
                 }
             }
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

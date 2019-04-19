@@ -17,10 +17,11 @@ namespace AAMod.Items.ReforgeSouls
         {
             DisplayName.SetDefault("Mythical Soul");
             Tooltip.SetDefault(
-@"Gives a weapon the ''Mythical'' prefix if it is possible
+                @"Gives a weapon the ''Mythical'' prefix if it is possible
 Right-click weapon with the soul to set prefix
 Consumes in process");
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

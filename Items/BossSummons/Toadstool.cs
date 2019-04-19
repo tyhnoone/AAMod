@@ -11,7 +11,6 @@ namespace AAMod.Items.BossSummons
 {
     public class Toadstool : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Toadstool");
@@ -31,11 +30,11 @@ Can only be used in a surface glowing mushroom biome");
             item.useStyle = 4;
             item.consumable = true;
         }
-        
+
         public override bool UseItem(Player player)
         {
             SpawnBoss(player, "TruffleToad", "The Truffle Toad");
-            Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
+            Main.PlaySound(15, (int) player.position.X, (int) player.position.Y, 0);
             return true;
         }
 
@@ -46,11 +45,13 @@ Can only be used in a surface glowing mushroom biome");
                 if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The toadstool croaks", Color.Blue, false);
                 return false;
             }
+
             if (NPC.AnyNPCs(mod.NPCType<TruffleToad>()))
             {
                 if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The Truffle Toad Croaks", Color.Blue, false);
                 return false;
             }
+
             return true;
         }
 
@@ -59,14 +60,23 @@ Can only be used in a surface glowing mushroom biome");
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(60f, 60f, (float)Main.rand.NextDouble()), 0f);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(60f, 60f, (float) Main.rand.NextDouble()), 0f);
                 Main.npc[npcID].netUpdate2 = true;
-                string npcName = (!string.IsNullOrEmpty(Main.npc[npcID].GivenName) ? Main.npc[npcID].GivenName : displayName);
-                if (Main.netMode == 0) { Main.NewText(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
-                else
-                if (Main.netMode == 2)
+                string npcName = (!string.IsNullOrEmpty(Main.npc[npcID].GivenName)
+                    ? Main.npc[npcID].GivenName
+                    : displayName);
+                if (Main.netMode == 0)
+                {
+                    Main.NewText(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false);
+                }
+                else if (Main.netMode == 2)
                 {
                     NetMessage.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", new object[]
                     {
@@ -76,8 +86,16 @@ Can only be used in a surface glowing mushroom biome");
             }
         }
 
-        public override void UseStyle(Player p) { BaseMod.BaseUseStyle.SetStyleBoss(p, item, true, true); }
-        public override bool UseItemFrame(Player p) { BaseMod.BaseUseStyle.SetFrameBoss(p, item); return true; }
+        public override void UseStyle(Player p)
+        {
+            BaseMod.BaseUseStyle.SetStyleBoss(p, item, true, true);
+        }
+
+        public override bool UseItemFrame(Player p)
+        {
+            BaseMod.BaseUseStyle.SetFrameBoss(p, item);
+            return true;
+        }
 
         public override void AddRecipes()
         {

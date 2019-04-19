@@ -10,8 +10,8 @@ namespace AAMod.NPCs.Bosses.Akuma
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dayfire");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 7;     //The recording mode
+            DisplayName.SetDefault("Dayfire"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 7; //The recording mode
         }
 
         public override void SetDefaults()
@@ -34,12 +34,11 @@ namespace AAMod.NPCs.Bosses.Akuma
                 if (++projectile.frame >= 6)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -55,11 +54,15 @@ namespace AAMod.NPCs.Bosses.Akuma
 
         public override bool PreDraw(SpriteBatch spriteBatch, Microsoft.Xna.Framework.Color lightColor)
         {
-            int shader = Terraria.Graphics.Shaders.GameShaders.Armor.GetShaderIdFromItemId(Terraria.ID.ItemID.LivingFlameDye);
+            int shader =
+                Terraria.Graphics.Shaders.GameShaders.Armor.GetShaderIdFromItemId(Terraria.ID.ItemID.LivingFlameDye);
             Vector2 Drawpos = projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY);
-            Rectangle frame = BaseDrawing.GetFrame(6, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 7, 0, 2);
+            Rectangle frame = BaseDrawing.GetFrame(6, Main.projectileTexture[projectile.type].Width,
+                Main.projectileTexture[projectile.type].Height / 7, 0, 2);
 
-            BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], shader, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 7, frame, Color.White, true);
+            BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], shader, projectile.position,
+                projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 7, frame, Color.White,
+                true);
             return false;
         }
     }

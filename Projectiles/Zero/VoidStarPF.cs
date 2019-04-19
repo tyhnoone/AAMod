@@ -34,11 +34,13 @@ namespace AAMod.Projectiles.Zero
             bool flag17 = false;
             for (int num475 = 0; num475 < 200; num475++)
             {
-                if (Main.npc[num475].CanBeChasedBy(projectile, false) && Collision.CanHit(projectile.Center, 1, 1, Main.npc[num475].Center, 1, 1))
+                if (Main.npc[num475].CanBeChasedBy(projectile, false) &&
+                    Collision.CanHit(projectile.Center, 1, 1, Main.npc[num475].Center, 1, 1))
                 {
-                    float num476 = Main.npc[num475].position.X + (float)(Main.npc[num475].width / 2);
-                    float num477 = Main.npc[num475].position.Y + (float)(Main.npc[num475].height / 2);
-                    float num478 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num476) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num477);
+                    float num476 = Main.npc[num475].position.X + (float) (Main.npc[num475].width / 2);
+                    float num477 = Main.npc[num475].position.Y + (float) (Main.npc[num475].height / 2);
+                    float num478 = Math.Abs(projectile.position.X + (float) (projectile.width / 2) - num476) +
+                                   Math.Abs(projectile.position.Y + (float) (projectile.height / 2) - num477);
                     if (num478 < num474)
                     {
                         num474 = num478;
@@ -48,13 +50,15 @@ namespace AAMod.Projectiles.Zero
                     }
                 }
             }
+
             if (flag17)
             {
                 float num483 = 20f;
-                Vector2 vector35 = new Vector2(projectile.position.X + ((float)projectile.width * 0.5f), projectile.position.Y + ((float)projectile.height * 0.5f));
+                Vector2 vector35 = new Vector2(projectile.position.X + ((float) projectile.width * 0.5f),
+                    projectile.position.Y + ((float) projectile.height * 0.5f));
                 float num484 = num472 - vector35.X;
                 float num485 = num473 - vector35.Y;
-                float num486 = (float)Math.Sqrt((double)((num484 * num484) + (num485 * num485)));
+                float num486 = (float) Math.Sqrt((double) ((num484 * num484) + (num485 * num485)));
                 num486 = num483 / num486;
                 num484 *= num486;
                 num485 *= num486;
@@ -73,13 +77,18 @@ namespace AAMod.Projectiles.Zero
                         projectile.ai[0] = 200f;
                     }
                 }
+
                 for (int num257 = 0; num257 < 2; num257++)
                 {
-                    int num258 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 100, new Color(120, 0, 30), 1f);
+                    int num258 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y),
+                        projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 100,
+                        new Color(120, 0, 30), 1f);
                     Main.dust[num258].noGravity = true;
                 }
+
                 return;
             }
+
             projectile.rotation += 0.3f;
             projectile.ai[0] += 1f;
             if (projectile.ai[0] >= 30f)
@@ -93,9 +102,11 @@ namespace AAMod.Projectiles.Zero
                     projectile.ai[0] = 200f;
                 }
             }
+
             for (int num257 = 0; num257 < 2; num257++)
             {
-                int num258 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 100, new Color(120, 0, 30), 1f);
+                int num258 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 100, new Color(120, 0, 30), 1f);
                 Main.dust[num258].noGravity = true;
             }
         }

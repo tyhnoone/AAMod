@@ -9,12 +9,12 @@ namespace AAMod.Projectiles
 {
     public class SoulSiphon : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Siphon");
             Main.projFrames[projectile.type] = 3;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 30;
@@ -45,11 +45,13 @@ namespace AAMod.Projectiles
             bool flag17 = false;
             for (int num475 = 0; num475 < 200; num475++)
             {
-                if (Main.npc[num475].CanBeChasedBy(projectile, false) && Collision.CanHit(projectile.Center, 1, 1, Main.npc[num475].Center, 1, 1))
+                if (Main.npc[num475].CanBeChasedBy(projectile, false) &&
+                    Collision.CanHit(projectile.Center, 1, 1, Main.npc[num475].Center, 1, 1))
                 {
-                    float num476 = Main.npc[num475].position.X + (float)(Main.npc[num475].width / 2);
-                    float num477 = Main.npc[num475].position.Y + (float)(Main.npc[num475].height / 2);
-                    float num478 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num476) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num477);
+                    float num476 = Main.npc[num475].position.X + (float) (Main.npc[num475].width / 2);
+                    float num477 = Main.npc[num475].position.Y + (float) (Main.npc[num475].height / 2);
+                    float num478 = Math.Abs(projectile.position.X + (float) (projectile.width / 2) - num476) +
+                                   Math.Abs(projectile.position.Y + (float) (projectile.height / 2) - num477);
                     if (num478 < num474)
                     {
                         num474 = num478;
@@ -59,13 +61,15 @@ namespace AAMod.Projectiles
                     }
                 }
             }
+
             if (flag17)
             {
                 float num483 = 20f;
-                Vector2 vector35 = new Vector2(projectile.position.X + ((float)projectile.width * 0.5f), projectile.position.Y + ((float)projectile.height * 0.5f));
+                Vector2 vector35 = new Vector2(projectile.position.X + ((float) projectile.width * 0.5f),
+                    projectile.position.Y + ((float) projectile.height * 0.5f));
                 float num484 = num472 - vector35.X;
                 float num485 = num473 - vector35.Y;
-                float num486 = (float)Math.Sqrt((double)((num484 * num484) + (num485 * num485)));
+                float num486 = (float) Math.Sqrt((double) ((num484 * num484) + (num485 * num485)));
                 num486 = num483 / num486;
                 num484 *= num486;
                 num485 *= num486;
@@ -84,13 +88,17 @@ namespace AAMod.Projectiles
                         projectile.ai[0] = 200f;
                     }
                 }
+
                 for (int num257 = 0; num257 < 2; num257++)
                 {
-                    int num258 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 183, 0f, 0f, 100, new Color(90, 0, 120), 1f);
+                    int num258 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y),
+                        projectile.width, projectile.height, 183, 0f, 0f, 100, new Color(90, 0, 120), 1f);
                     Main.dust[num258].noGravity = true;
                 }
+
                 return;
             }
+
             projectile.rotation += projectile.direction * 0.8f;
             projectile.ai[0] += 1f;
             if (projectile.ai[0] >= 30f)
@@ -104,9 +112,11 @@ namespace AAMod.Projectiles
                     projectile.ai[0] = 200f;
                 }
             }
+
             for (int num257 = 0; num257 < 2; num257++)
             {
-                int num258 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 183, 0f, 0f, 100, new Color(30, 6, 49), 1f);
+                int num258 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, 183, 0f, 0f, 100, new Color(30, 6, 49), 1f);
                 Main.dust[num258].noGravity = true;
             }
         }
@@ -117,18 +127,22 @@ namespace AAMod.Projectiles
             {
                 return;
             }
+
             float Heal = damage * 0.075f;
-            if ((int)Heal == 0)
+            if ((int) Heal == 0)
             {
                 return;
             }
+
             if (Main.player[Main.myPlayer].lifeSteal <= 0f)
             {
                 return;
             }
+
             Main.player[Main.myPlayer].lifeSteal -= Heal;
             int num2 = projectile.owner;
-            Projectile.NewProjectile(target.position.X, target.position.Y, 0f, 0f, mod.ProjectileType("SoulSiphonHeal"), 0, 0f, projectile.owner, (float)num2, Heal);
+            Projectile.NewProjectile(target.position.X, target.position.Y, 0f, 0f, mod.ProjectileType("SoulSiphonHeal"),
+                0, 0f, projectile.owner, (float) num2, Heal);
         }
     }
 }

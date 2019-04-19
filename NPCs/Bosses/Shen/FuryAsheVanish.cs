@@ -12,8 +12,8 @@ namespace AAMod.NPCs.Bosses.Shen
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ashe Akuma");     //The English name of the projectile
-            Main.npcFrameCount[npc.type] = 17;     //The recording mode
+            DisplayName.SetDefault("Ashe Akuma"); //The English name of the projectile
+            Main.npcFrameCount[npc.type] = 17; //The recording mode
         }
 
         public override void SetDefaults()
@@ -24,7 +24,7 @@ namespace AAMod.NPCs.Bosses.Shen
             npc.immortal = true;
             npc.dontTakeDamage = true;
         }
-        
+
         public override void AI()
         {
             npc.velocity.X *= 0.97f;
@@ -39,7 +39,6 @@ namespace AAMod.NPCs.Bosses.Shen
                     if (npc.frame.Y > (92 * 2))
                     {
                         npc.frame.Y = 0;
-
                     }
                 }
                 else
@@ -47,11 +46,9 @@ namespace AAMod.NPCs.Bosses.Shen
                     if (npc.frame.Y > (92 * 13))
                     {
                         npc.active = false;
-
                     }
                 }
             }
-
         }
 
         public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
@@ -63,10 +60,14 @@ namespace AAMod.NPCs.Bosses.Shen
             int red = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingFlameDye);
             int purple = GameShaders.Armor.GetShaderIdFromItemId(mod.ItemType<Items.Dyes.DiscordianDye>());
 
-            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 17, npc.frame, npc.GetAlpha(dColor), true);
-            BaseDrawing.DrawTexture(spritebatch, glowTex, purple, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 17, npc.frame, Color.White, true);
-            BaseDrawing.DrawTexture(spritebatch, eyeTex, blue, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 17, npc.frame, Color.White, true);
-            BaseDrawing.DrawAfterimage(spritebatch, eyeTex, blue, npc, 0.8f, 1f, 4, true, 0f, 0f, Color.White, npc.frame, 17);
+            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc.position, npc.width, npc.height,
+                npc.scale, npc.rotation, npc.direction, 17, npc.frame, npc.GetAlpha(dColor), true);
+            BaseDrawing.DrawTexture(spritebatch, glowTex, purple, npc.position, npc.width, npc.height, npc.scale,
+                npc.rotation, npc.direction, 17, npc.frame, Color.White, true);
+            BaseDrawing.DrawTexture(spritebatch, eyeTex, blue, npc.position, npc.width, npc.height, npc.scale,
+                npc.rotation, npc.direction, 17, npc.frame, Color.White, true);
+            BaseDrawing.DrawAfterimage(spritebatch, eyeTex, blue, npc, 0.8f, 1f, 4, true, 0f, 0f, Color.White,
+                npc.frame, 17);
             return false;
         }
     }

@@ -13,10 +13,10 @@ namespace AAMod.Tiles
             Main.tileMergeDirt[Type] = false;
             Main.tileBlendAll[this.Type] = false;
             Main.tileMerge[TileID.Mud][Type] = true;
-            Main.tileBlockLight[Type] = true;  //true for block to emit light
+            Main.tileBlockLight[Type] = true; //true for block to emit light
             Main.tileLighted[Type] = false;
             dustType = mod.DustType("RazewoodDust");
-            drop = mod.ItemType("Razewood");   //put your CustomBlock name
+            drop = mod.ItemType("Razewood"); //put your CustomBlock name
             AddMapEntry(new Color(40, 40, 40));
             minPick = 0;
         }

@@ -8,8 +8,8 @@ namespace AAMod.Backgrounds
 {
     public class FogHandler : ModWorld
     {
-		ScreenFog mireFog = new ScreenFog(false);
-        
+        ScreenFog mireFog = new ScreenFog(false);
+
         public static OverlayManager Scene = new OverlayManager();
 
         public override void PostDrawTiles()

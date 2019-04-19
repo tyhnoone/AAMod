@@ -8,16 +8,14 @@ namespace AAMod.Projectiles
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.PossessedHatchet);
-            projectile.penetrate = 6;  
+            projectile.penetrate = 6;
             projectile.width = 32;
             projectile.height = 32;
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("SpookerangP");
-    }
-
-
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("SpookerangP");
+        }
     }
 }

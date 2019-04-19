@@ -8,7 +8,6 @@ namespace AAMod.Items.Ranged
 {
     public class TheVulcano : BaseAAItem
     {
-        
         public override void SetDefaults()
         {
             item.damage = 44;
@@ -30,8 +29,10 @@ namespace AAMod.Items.Ranged
             item.ammo = AmmoID.Gel;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
-            glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_GUN; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
-            glowmaskDrawColor = Color.White;  //glowmask draw color
+            glowmaskDrawType =
+                BaseAAItem
+                    .GLOWMASKTYPE_GUN; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
+            glowmaskDrawColor = Color.White; //glowmask draw color
         }
 
         public override void SetStaticDefaults()
@@ -40,13 +41,15 @@ namespace AAMod.Items.Ranged
             Tooltip.SetDefault("Consumes Gel");
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
+
             return true;
         }
 
@@ -54,8 +57,8 @@ namespace AAMod.Items.Ranged
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Obsidian, 40);
-			recipe.AddIngredient(ItemID.HellstoneBar, 20);
-			recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.HellstoneBar, 20);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

@@ -34,7 +34,7 @@ namespace AAMod.Items.Usable
 
         public override void RightClick(Player player)
         {
-            if(Main.rand.Next(6) == 0)
+            if (Main.rand.Next(6) == 0)
             {
                 int item = Main.rand.Next(4);
 
@@ -54,8 +54,10 @@ namespace AAMod.Items.Usable
                         break;
                 }
 
-                int index = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, item, 1, false, -1, false, false);
-                int index1 = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("IncineriteBar"), Main.rand.Next(0, 12));
+                int index = Item.NewItem((int) player.position.X, (int) player.position.Y, player.width, player.height,
+                    item, 1, false, -1, false, false);
+                int index1 = Item.NewItem((int) player.position.X, (int) player.position.Y, player.width, player.height,
+                    mod.ItemType("IncineriteBar"), Main.rand.Next(0, 12));
 
                 if (Main.netMode == 1)
                 {
@@ -63,7 +65,7 @@ namespace AAMod.Items.Usable
                     NetMessage.SendData(21, -1, -1, null, index1, 1f, 0f, 0f, 0, 0, 0);
                 }
             }
-            
+
             //bypass all checks and spawn defaults
             player.openCrate(4000);
         }

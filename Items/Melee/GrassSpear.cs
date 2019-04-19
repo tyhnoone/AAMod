@@ -8,7 +8,6 @@ namespace AAMod.Items.Melee
     {
         public override void SetDefaults()
         {
-
             item.damage = 30;
             item.melee = true;
             item.width = 132;
@@ -22,31 +21,34 @@ namespace AAMod.Items.Melee
             item.noMelee = true;
             item.noUseGraphic = true;
             item.useTurn = true;
-			item.autoReuse = true;
+            item.autoReuse = true;
             item.useStyle = 5;
             item.value = Item.sellPrice(0, 2, 40, 0);
             item.rare = 3;
-            item.shoot = mod.ProjectileType("GSP");  //put your Spear projectile name
+            item.shoot = mod.ProjectileType("GSP"); //put your Spear projectile name
             item.shootSpeed = 5f;
         }
-		public override bool CanUseItem(Player player)
-		{
-			return player.ownedProjectileCounts[item.shoot] < 1; // This is to ensure the spear doesn't bug out when using autoReuse = true
-		}
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Grass Spear");
-      Tooltip.SetDefault("");
-    }
+        public override bool CanUseItem(Player player)
+        {
+            return
+                player.ownedProjectileCounts[item.shoot] <
+                1; // This is to ensure the spear doesn't bug out when using autoReuse = true
+        }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Grass Spear");
+            Tooltip.SetDefault("");
+        }
+
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Everleaf", 10);   //you need 1 DirtBlock
+            recipe.AddIngredient(null, "Everleaf", 10); //you need 1 DirtBlock
             recipe.AddIngredient(ItemID.Stinger, 4);
             recipe.AddIngredient(ItemID.JungleSpores, 4);
-            recipe.AddTile(TileID.Anvils);   //at work bench
+            recipe.AddTile(TileID.Anvils); //at work bench
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

@@ -17,6 +17,7 @@ namespace AAMod.NPCs.Enemies.Other
             DisplayName.SetDefault("Madness Flier");
             Main.npcFrameCount[npc.type] = 4;
         }
+
         public override void SetDefaults()
         {
             npc.width = 30;
@@ -44,6 +45,7 @@ namespace AAMod.NPCs.Enemies.Other
             {
                 npc.velocity *= 1.1f;
             }
+
             npc.frameCounter++;
             if (npc.frameCounter >= 8)
             {
@@ -64,18 +66,20 @@ namespace AAMod.NPCs.Enemies.Other
             {
                 npc.spriteDirection = 1;
             }
-
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.playerSafe || Main.hardMode)
             {
                 return 0f;
             }
+
             if (!Main.dayTime)
             {
                 return SpawnCondition.OverworldNightMonster.Chance * 0.1f;
             }
+
             return SpawnCondition.Underground.Chance * 0.1f;
         }
 
@@ -83,21 +87,28 @@ namespace AAMod.NPCs.Enemies.Other
         {
             for (int k = 0; k < 3; k++)
             {
-                Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? mod.DustType<Dusts.InfinityOverloadR>() : mod.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0, default(Color), 1f);
+                Dust.NewDust(npc.position, npc.width, npc.height,
+                    Main.rand.Next(2) == 0
+                        ? mod.DustType<Dusts.InfinityOverloadR>()
+                        : mod.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0, default(Color), 1f);
             }
+
             if (npc.life <= 0)
             {
                 for (int k = 0; k < 15; k++)
                 {
-                    Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? mod.DustType<Dusts.InfinityOverloadR>() : mod.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0, default(Color), 1f);
+                    Dust.NewDust(npc.position, npc.width, npc.height,
+                        Main.rand.Next(2) == 0
+                            ? mod.DustType<Dusts.InfinityOverloadR>()
+                            : mod.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0, default(Color), 1f);
                 }
             }
         }
 
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MadnessFragment"), Main.rand.Next(2,3));
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                mod.ItemType("MadnessFragment"), Main.rand.Next(2, 3));
         }
-
     }
 }

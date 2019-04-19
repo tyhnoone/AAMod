@@ -9,12 +9,11 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
 {
     public class AsheShot : ModProjectile
     {
-    	
-    	public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Dayfire");
-		}
-    	
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Dayfire");
+        }
+
         public override void SetDefaults()
         {
             projectile.width = 10;
@@ -30,6 +29,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
         {
             projectile.rotation = projectile.velocity.ToRotation() + 1.57079637f;
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return new Color(Color.White.R, Color.White.G, Color.White.B, projectile.alpha);
@@ -41,7 +41,8 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             float spread = 45f * 0.0174f;
             double startAngle = Math.Atan2(projectile.velocity.X, projectile.velocity.Y) - (spread / 2);
             double deltaAngle = spread / 8f;
-            Projectile.NewProjectile(projectile.Center, new Vector2(0, 0), mod.ProjectileType<AsheBoom>(), projectile.damage, 2);
+            Projectile.NewProjectile(projectile.Center, new Vector2(0, 0), mod.ProjectileType<AsheBoom>(),
+                projectile.damage, 2);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

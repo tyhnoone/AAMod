@@ -1,11 +1,12 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Serpent
 {
     public class SerpentBag : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Treasure Bag");
@@ -20,7 +21,6 @@ namespace AAMod.Items.Boss.Serpent
             item.height = 32;
             item.expert = true;
             bossBagNPC = mod.NPCType("SerpentHead");
-            
         }
 
         public override bool CanRightClick()
@@ -34,13 +34,19 @@ namespace AAMod.Items.Boss.Serpent
             {
                 player.QuickSpawnItem(mod.ItemType("SerpentMask"));
             }
+
             if (Main.rand.NextFloat() < 0.01f)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PHMDevArmor();
             }
+
             player.QuickSpawnItem(mod.ItemType("SnowMana"), Main.rand.Next(15, 20));
-            string[] lootTable = { "BlizardBuster", "SerpentSpike", "Icepick", "SerpentSting", "Sickle", "SickleShot", "SnakeStaff", "SubzeroSlasher" };
+            string[] lootTable =
+            {
+                "BlizardBuster", "SerpentSpike", "Icepick", "SerpentSting", "Sickle", "SickleShot", "SnakeStaff",
+                "SubzeroSlasher"
+            };
             int loot = Main.rand.Next(lootTable.Length);
             if (Main.rand.Next(9) == 0)
             {
@@ -50,7 +56,8 @@ namespace AAMod.Items.Boss.Serpent
             {
                 player.QuickSpawnItem(mod.ItemType(lootTable[loot]));
             }
-			player.QuickSpawnItem(mod.ItemType("ArcticMedallion"));			
+
+            player.QuickSpawnItem(mod.ItemType("ArcticMedallion"));
         }
     }
 }

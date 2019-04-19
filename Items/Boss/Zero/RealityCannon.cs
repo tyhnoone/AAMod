@@ -10,16 +10,14 @@ namespace AAMod.Items.Boss.Zero
 {
     public class RealityCannon : ModItem
     {
-        
         public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Reality Cannon");
+        {
+            DisplayName.SetDefault("Reality Cannon");
             Tooltip.SetDefault("Rapidly Fires a spread of dark lasers");
         }
 
         public override void SetDefaults()
         {
-            
             item.useStyle = 5;
             item.useAnimation = 7;
             item.useTime = 7;
@@ -39,7 +37,8 @@ namespace AAMod.Items.Boss.Zero
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -71,30 +70,33 @@ namespace AAMod.Items.Boss.Zero
             }
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             float spread = 12f * 0.0174f;
-            float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));
+            float baseSpeed = (float) Math.Sqrt((speedX * speedX) + (speedY * speedY));
             double startAngle = Math.Atan2(speedX, speedY) - .1d;
             double deltaAngle = spread / 6f;
             double offsetAngle;
             for (int i = 0; i < 3; i++)
             {
                 offsetAngle = startAngle + (deltaAngle * i);
-                Terraria.Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
+                Terraria.Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float) Math.Sin(offsetAngle),
+                    baseSpeed * (float) Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
             }
+
             return false;
         }
-        
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ApocalyptitePlate", 5);
-			recipe.AddIngredient(null, "UnstableSingularity", 5);
-			recipe.AddIngredient(ItemID.StarCannon);
-	        recipe.AddTile(null, "ACS");
-	        recipe.SetResult(this);
-	        recipe.AddRecipe();
-		}
-	}
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "ApocalyptitePlate", 5);
+            recipe.AddIngredient(null, "UnstableSingularity", 5);
+            recipe.AddIngredient(ItemID.StarCannon);
+            recipe.AddTile(null, "ACS");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

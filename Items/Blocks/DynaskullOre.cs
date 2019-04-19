@@ -1,5 +1,7 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Blocks
 {
@@ -7,7 +9,6 @@ namespace AAMod.Items.Blocks
     {
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 16;
             item.maxStack = 999;
@@ -22,7 +23,8 @@ namespace AAMod.Items.Blocks
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -45,7 +47,6 @@ namespace AAMod.Items.Blocks
 
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Dynaskull Fossil");
             Tooltip.SetDefault("The energy of millions of years pulsates through this ancient fossil");
         }

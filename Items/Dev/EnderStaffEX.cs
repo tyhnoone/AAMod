@@ -8,11 +8,9 @@ namespace AAMod.Items.Dev
 {
     //imported from my tAPI mod because I'm lazy
     public class EnderStaffEX : BaseAAItem
-	{
-        
+    {
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Conflagrate Scythe");
             Tooltip.SetDefault(@"Summons a spinning construct that shreds through enemies
 Conflagrate Staff EX");
@@ -20,30 +18,32 @@ Conflagrate Staff EX");
             Item.staff[item.type] = true;
         }
 
-		public override void SetDefaults()
-		{
-			item.damage = 400;
-			item.summon = true;
-			item.mana = 20;
-			item.width = 64;
-			item.height = 64;
-			item.useTime = 26;
-			item.useAnimation = 26;
-			item.useStyle = 1;
-			item.noMelee = true;
-			item.knockBack = 3;
-			item.value = Item.buyPrice(0, 20, 0, 0);
+        public override void SetDefaults()
+        {
+            item.damage = 400;
+            item.summon = true;
+            item.mana = 20;
+            item.width = 64;
+            item.height = 64;
+            item.useTime = 26;
+            item.useAnimation = 26;
+            item.useStyle = 1;
+            item.noMelee = true;
+            item.knockBack = 3;
+            item.value = Item.buyPrice(0, 20, 0, 0);
             item.shoot = mod.ProjectileType("EnderMinionEX");
             item.buffType = mod.BuffType("EnderMinionBuffEX");
             item.rare = 8;
             item.expert = true;
-			item.UseSound = SoundID.Item44;
-			item.shootSpeed = 7f;	//The buff added to player after used the item
+            item.UseSound = SoundID.Item44;
+            item.shootSpeed = 7f; //The buff added to player after used the item
             item.buffTime = 18000;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
-            glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
-            glowmaskDrawColor = Color.White;  //glowmask draw color
+            glowmaskDrawType =
+                BaseAAItem
+                    .GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
+            glowmaskDrawColor = Color.White; //glowmask draw color
         }
 
         public override void AddRecipes()
@@ -62,7 +62,8 @@ Conflagrate Staff EX");
             return true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             return player.altFunctionUse != 2;
         }
@@ -73,6 +74,7 @@ Conflagrate Staff EX");
             {
                 player.MinionNPCTargetAim();
             }
+
             return base.UseItem(player);
         }
     }

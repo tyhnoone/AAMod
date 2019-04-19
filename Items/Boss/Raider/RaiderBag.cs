@@ -1,29 +1,30 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Raider
 {
     public class RaiderBag : ModItem
-	{
-        
+    {
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Treasure Bag");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-		}
+            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+        }
 
-		public override void SetDefaults()
-		{
-			item.maxStack = 999;
-			item.consumable = true;
-			item.width = 36;
-			item.height = 32;
-			item.expert = true;
-			bossBagNPC = mod.NPCType("Raider");
-		}
-        
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void SetDefaults()
+        {
+            item.maxStack = 999;
+            item.consumable = true;
+            item.width = 36;
+            item.height = 32;
+            item.expert = true;
+            bossBagNPC = mod.NPCType("Raider");
+        }
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -45,27 +46,30 @@ namespace AAMod.Items.Boss.Raider
         }
 
         public override bool CanRightClick()
-		{
-			return true;
-		}
+        {
+            return true;
+        }
 
-		public override void OpenBossBag(Player player)
-		{
+        public override void OpenBossBag(Player player)
+        {
             if (Main.rand.Next(7) == 0)
             {
                 //player.QuickSpawnItem(mod.ItemType("ZeroMask"));
             }
+
             if (Main.rand.Next(7) == 0)
             {
                 player.QuickSpawnItem(mod.ItemType("RaidEgg"));
             }
+
             if (Main.rand.NextFloat() < 0.01f)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.HMDevArmor();
             }
+
             player.QuickSpawnItem(mod.ItemType("FulguriteBar"), Main.rand.Next(40, 76));
             player.QuickSpawnItem(mod.ItemType("HoloCape"));
         }
-	}
+    }
 }

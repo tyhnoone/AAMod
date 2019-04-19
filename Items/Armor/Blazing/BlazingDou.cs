@@ -6,31 +6,31 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Blazing
 {
     [AutoloadEquip(EquipType.Body)]
-	public class BlazingDou : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			base.SetStaticDefaults();
-			DisplayName.SetDefault("Blazing Dao");
-			Tooltip.SetDefault(@"2% increased damage resistance
+    public class BlazingDou : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("Blazing Dao");
+            Tooltip.SetDefault(@"2% increased damage resistance
 Forged in the flames of the blazing sun");
-		}
-
-		public override void SetDefaults()
-		{
-			item.width = 30;
-			item.height = 24;
-			item.value = 60000;
-			item.rare = 4;
-			item.defense = 8;
-		}
-
-		public override void UpdateEquip(Player player)
-		{
-			player.endurance += 0.02f;
         }
 
-		public override void AddRecipes()
+        public override void SetDefaults()
+        {
+            item.width = 30;
+            item.height = 24;
+            item.value = 60000;
+            item.rare = 4;
+            item.defense = 8;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.endurance += 0.02f;
+        }
+
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("KindledDou"));
@@ -41,5 +41,5 @@ Forged in the flames of the blazing sun");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

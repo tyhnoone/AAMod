@@ -33,37 +33,45 @@ namespace AAMod.Projectiles
             {
                 projectile.Kill();
             }
+
             if (projectile.ai[1] == 0f)
             {
                 projectile.ai[1] = 1f;
                 for (int num62 = 0; num62 < 30; num62++)
                 {
-                    Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, projectile.velocity.X, projectile.velocity.Y, 50, default(Color), 1f);
+                    Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType,
+                        projectile.velocity.X, projectile.velocity.Y, 50, default(Color), 1f);
                 }
             }
-            int num63 = (int)(projectile.position.X / 16f) - 1;
-            int num64 = (int)((projectile.position.X + (float)projectile.width) / 16f) + 2;
-            int num65 = (int)(projectile.position.Y / 16f) - 1;
-            int num66 = (int)((projectile.position.Y + (float)projectile.height) / 16f) + 2;
+
+            int num63 = (int) (projectile.position.X / 16f) - 1;
+            int num64 = (int) ((projectile.position.X + (float) projectile.width) / 16f) + 2;
+            int num65 = (int) (projectile.position.Y / 16f) - 1;
+            int num66 = (int) ((projectile.position.Y + (float) projectile.height) / 16f) + 2;
             if (num63 < 0)
             {
                 num63 = 0;
             }
+
             if (num64 > Main.maxTilesX)
             {
                 num64 = Main.maxTilesX;
             }
+
             if (num65 < 0)
             {
                 num65 = 0;
             }
+
             if (num66 > Main.maxTilesY)
             {
                 num66 = Main.maxTilesY;
             }
+
             if (projectile.owner == Main.myPlayer)
             {
-                Convert((int)(projectile.position.X + (float)(projectile.width / 2)) / 16, (int)(projectile.position.Y + (float)(projectile.height / 2)) / 16);
+                Convert((int) (projectile.position.X + (float) (projectile.width / 2)) / 16,
+                    (int) (projectile.position.Y + (float) (projectile.height / 2)) / 16);
             }
         }
 
@@ -73,23 +81,24 @@ namespace AAMod.Projectiles
             {
                 for (int l = j - size; l <= j + size; l++)
                 {
-                    if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt(size * size + size * size))
+                    if (WorldGen.InWorld(k, l, 1) &&
+                        Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt(size * size + size * size))
                     {
                         int type = Main.tile[k, l].type;
                         int wall = Main.tile[k, l].wall;
-                        if (type == (ushort)mod.WallType<DepthstoneWall>())
+                        if (type == (ushort) mod.WallType<DepthstoneWall>())
                         {
                             Main.tile[k, l].wall = WallID.Stone;
                             WorldGen.SquareWallFrame(k, l, true);
                             NetMessage.SendTileSquare(-1, k, l, 1);
                         }
-                        else if (type == (ushort)mod.WallType<DepthsandstoneWall>())
+                        else if (type == (ushort) mod.WallType<DepthsandstoneWall>())
                         {
                             Main.tile[k, l].wall = WallID.Sandstone;
                             WorldGen.SquareWallFrame(k, l, true);
                             NetMessage.SendTileSquare(-1, k, l, 1);
                         }
-                        else if (type == (ushort)mod.WallType<DepthsandHardenedWall>())
+                        else if (type == (ushort) mod.WallType<DepthsandHardenedWall>())
                         {
                             Main.tile[k, l].wall = WallID.HardenedSand;
                             WorldGen.SquareWallFrame(k, l, true);

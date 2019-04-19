@@ -9,6 +9,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Lunar Mushroom");
             Tooltip.SetDefault("Only grows at night");
         }
+
         public override void SetDefaults()
         {
             item.width = 22;

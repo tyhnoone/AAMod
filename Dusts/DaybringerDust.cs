@@ -12,13 +12,14 @@ namespace AAMod.Dusts
         {
             dust.position += dust.velocity;
             dust.rotation += dust.velocity.X;
-			BaseDrawing.AddLight(dust.position, new Color(43, 178, 245));
+            BaseDrawing.AddLight(dust.position, new Color(43, 178, 245));
             dust.scale -= 0.03f;
             if (dust.scale < 0.5f)
             {
                 dust.active = false;
             }
+
             return false;
-        } 
+        }
     }
 }

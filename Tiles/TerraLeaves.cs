@@ -8,7 +8,6 @@ namespace AAMod.Tiles
 {
     public class TerraLeaves : ModTile
     {
-
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
@@ -30,7 +29,7 @@ namespace AAMod.Tiles
         {
             return false;
         }
-        
+
         Texture2D glowTex = null;
 
         public override void PostDraw(int x, int y, SpriteBatch sb)
@@ -40,11 +39,12 @@ namespace AAMod.Tiles
             if (glow && (tile != null && tile.active() && tile.type == this.Type))
             {
                 if (glowTex == null) glowTex = mod.GetTexture("Tiles/TerraLeaves");
-                BaseMod.BaseDrawing.DrawTileTexture(sb, glowTex, x, y, true, false, false, null, AAGlobalTile.GetTerra2ColorDim);
+                BaseMod.BaseDrawing.DrawTileTexture(sb, glowTex, x, y, true, false, false, null,
+                    AAGlobalTile.GetTerra2ColorDim);
             }
         }
 
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)   //light colors
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) //light colors
         {
             r = Color.YellowGreen.R / 255;
             g = Color.YellowGreen.G / 255;

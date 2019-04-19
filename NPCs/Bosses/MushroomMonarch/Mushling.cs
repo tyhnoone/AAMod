@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using ReLogic.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -16,7 +15,6 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
 {
     public class Mushling : ModNPC
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mushling");
@@ -27,7 +25,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         {
             npc.lifeMax = 50;
             npc.damage = 12;
-            npc.defense = 5; 
+            npc.defense = 5;
             npc.knockBackResist = 1f;
             npc.value = Item.buyPrice(0, 0, 0, 0);
             npc.aiStyle = -1;
@@ -56,6 +54,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                     npc.frameCounter = 0;
                     npc.frame.Y += 44;
                 }
+
                 if (npc.frame.Y > 44 * 6)
                 {
                     npc.frame.Y = 0;
@@ -68,5 +67,3 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         }
     }
 }
-
-

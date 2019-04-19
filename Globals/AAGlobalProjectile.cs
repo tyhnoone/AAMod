@@ -15,6 +15,7 @@ namespace AAMod
                     num++;
                 }
             }
+
             return num;
         }
 
@@ -27,6 +28,7 @@ namespace AAMod
                     return true;
                 }
             }
+
             return false;
         }
     }

@@ -17,7 +17,7 @@ namespace AAMod.Tiles
             Main.tileTable[Type] = true;
             Main.tileLavaDeath[Type] = false;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
+            TileObjectData.newTile.CoordinateHeights = new int[] {16, 18};
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.addTile(Type);
@@ -27,11 +27,12 @@ namespace AAMod.Tiles
             AddMapEntry(new Color(50, 50, 50), name);
             disableSmartCursor = true;
             adjTiles = new int[]
-            { TileID.Hellforge,
-              TileID.Furnaces,
-              TileID.AdamantiteForge,
-              TileID.ImbuingStation
-              };
+            {
+                TileID.Hellforge,
+                TileID.Furnaces,
+                TileID.AdamantiteForge,
+                TileID.ImbuingStation
+            };
             animationFrameHeight = 38;
         }
 
@@ -43,8 +44,12 @@ namespace AAMod.Tiles
             {
                 zero = Vector2.Zero;
             }
+
             int height = tile.frameY == 36 ? 18 : 16;
-            Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/HallowedForge_Glow"), new Vector2((i * 16) - (int)Main.screenPosition.X, (j * 16) - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, height), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/HallowedForge_Glow"),
+                new Vector2((i * 16) - (int) Main.screenPosition.X, (j * 16) - (int) Main.screenPosition.Y) + zero,
+                new Rectangle(tile.frameX, tile.frameY, 16, height), Color.White, 0f, Vector2.Zero, 1f,
+                SpriteEffects.None, 0f);
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

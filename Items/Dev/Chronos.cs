@@ -35,8 +35,8 @@ namespace AAMod.Items.Dev
         {
             DisplayName.SetDefault("Chronos");
             Tooltip.SetDefault("Time Teller EX \n" +
-                "Time is big ball of wibbly-wobbly timey-wimey yo-yos. \n" +
-                "-Dallin");
+                               "Time is big ball of wibbly-wobbly timey-wimey yo-yos. \n" +
+                               "-Dallin");
         }
 
         public override void UpdateInventory(Player player)
@@ -44,23 +44,24 @@ namespace AAMod.Items.Dev
             if (player.accWatch < 3)
                 player.accWatch = 3;
         }
-		
+
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "TimeTeller");
-			recipe.AddIngredient(null, "EXSoul");
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "TimeTeller");
+            recipe.AddIngredient(null, "EXSoul");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 
         public int Damage()
         {
-            double num4 = (float)Main.time;
+            double num4 = (float) Main.time;
             if (!Main.dayTime)
             {
                 num4 += 54000.0;
             }
+
             num4 = num4 / 86400.0 * 24.0;
             double num5 = 7.5;
             num4 = num4 - num5 - 12.0;
@@ -68,6 +69,7 @@ namespace AAMod.Items.Dev
             {
                 num4 += 24.0;
             }
+
             if (num4 == 1)
             {
                 return 30;

@@ -35,7 +35,6 @@ namespace AAMod.Items.Armor.Imp
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = "Your minions set enemies ablaze";
 
             player.GetModPlayer<AAPlayer>(mod).impSet = true;

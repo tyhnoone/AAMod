@@ -6,14 +6,14 @@ namespace AAMod.Items.Tools
 {
     //ported from my tAPI mod because I don't want to make more artwork
     public class TechneciumDrill : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Technecium Terraformer");
-		}
+        }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.useStyle = 5;
             item.useAnimation = 25;
             item.useTime = 7;
@@ -31,7 +31,6 @@ namespace AAMod.Items.Tools
             item.noUseGraphic = true;
             item.melee = true;
             item.channel = true;
-            
         }
 
         public override void AddRecipes()

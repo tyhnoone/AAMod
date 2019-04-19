@@ -11,7 +11,6 @@ namespace AAMod.Items.Boss.Zero
 {
     public class BrokenCode : ModItem
     {
-        
         public int CodeCD = 0;
         public bool on = true;
 
@@ -31,7 +30,6 @@ While cooldown is occurring, your speed is increased, but you lose invincibility
         // TODO -- Velocity Y smaller, post NewItem?
         public override void SetDefaults()
         {
-            
             item.width = 60;
             item.height = 52;
             item.maxStack = 1;
@@ -60,12 +58,15 @@ While cooldown is occurring, your speed is increased, but you lose invincibility
                 {
                     vector32.Y = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
                 }
+
                 vector32.X -= player.width / 2;
-                if (vector32.X > 50f && vector32.X < (Main.maxTilesX * 16) - 50 && vector32.Y > 50f && vector32.Y < (Main.maxTilesY * 16) - 50)
+                if (vector32.X > 50f && vector32.X < (Main.maxTilesX * 16) - 50 && vector32.Y > 50f &&
+                    vector32.Y < (Main.maxTilesY * 16) - 50)
                 {
-                    int num246 = (int)(vector32.X / 16f);
-                    int num247 = (int)(vector32.Y / 16f);
-                    if ((Main.tile[num246, num247].wall != 87 || num247 <= Main.worldSurface || NPC.downedPlantBoss) && !Collision.SolidCollision(vector32, player.width, player.height))
+                    int num246 = (int) (vector32.X / 16f);
+                    int num247 = (int) (vector32.Y / 16f);
+                    if ((Main.tile[num246, num247].wall != 87 || num247 <= Main.worldSurface || NPC.downedPlantBoss) &&
+                        !Collision.SolidCollision(vector32, player.width, player.height))
                     {
                         player.Teleport(vector32, 1, 0);
                         NetMessage.SendData(65, -1, -1, null, 0, player.whoAmI, vector32.X, vector32.Y, 1, 0, 0);
@@ -74,6 +75,7 @@ While cooldown is occurring, your speed is increased, but you lose invincibility
                     }
                 }
             }
+
             if (CodeCD > 0)
             {
                 CodeCD--;
@@ -85,6 +87,7 @@ While cooldown is occurring, your speed is increased, but you lose invincibility
                 {
                     player.immuneNoBlink = false;
                 }
+
                 if (on)
                 {
                     on = false;
@@ -111,6 +114,7 @@ While cooldown is occurring, your speed is increased, but you lose invincibility
                     player.legPosition.X += 12f;
                 }
             }
+
             if (item.accessory)
             {
                 player.GetModPlayer<AAPlayer>().BrokenCode = true;

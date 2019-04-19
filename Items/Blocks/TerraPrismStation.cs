@@ -8,7 +8,6 @@ namespace AAMod.Items.Blocks
 {
     public class TerraPrismStation : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Terra Infuser");
@@ -29,7 +28,6 @@ namespace AAMod.Items.Blocks
             item.consumable = true;
             item.value = 100000;
             item.createTile = mod.TileType("TerraPrism");
-            
         }
 
         public override void AddRecipes()

@@ -5,16 +5,15 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Vanity.Eliza
 {
     [AutoloadEquip(EquipType.Neck)]
-	public class LizScarf : ModItem
-	{
-		public override void SetStaticDefaults()
-       
-		{
+    public class LizScarf : ModItem
+    {
+        public override void SetStaticDefaults()
+
+        {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Midnight Scarf");
             Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Devs!'");
-		}
-
+        }
 
 
         public override void ModifyTooltips(List<TooltipLine> list)

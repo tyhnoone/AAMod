@@ -22,7 +22,9 @@ namespace AAMod.Items.Armor.TrueCopper
             Player player = Main.player[projectile.owner];
 
             #region Damage
-            if (player.meleeDamage > player.rangedDamage && player.meleeDamage > player.magicDamage && player.meleeDamage > player.minionDamage && player.meleeDamage > player.thrownDamage)
+
+            if (player.meleeDamage > player.rangedDamage && player.meleeDamage > player.magicDamage &&
+                player.meleeDamage > player.minionDamage && player.meleeDamage > player.thrownDamage)
             {
                 projectile.ranged = false;
                 projectile.magic = false;
@@ -30,7 +32,8 @@ namespace AAMod.Items.Armor.TrueCopper
                 projectile.thrown = false;
                 projectile.melee = true;
             }
-            else if (player.rangedDamage > player.meleeDamage && player.rangedDamage > player.magicDamage && player.rangedDamage > player.minionDamage && player.rangedDamage > player.thrownDamage)
+            else if (player.rangedDamage > player.meleeDamage && player.rangedDamage > player.magicDamage &&
+                     player.rangedDamage > player.minionDamage && player.rangedDamage > player.thrownDamage)
             {
                 projectile.magic = false;
                 projectile.minion = false;
@@ -38,7 +41,8 @@ namespace AAMod.Items.Armor.TrueCopper
                 projectile.melee = false;
                 projectile.ranged = true;
             }
-            else if (player.magicDamage > player.meleeDamage && player.magicDamage > player.rangedDamage && player.magicDamage > player.minionDamage && player.magicDamage > player.thrownDamage)
+            else if (player.magicDamage > player.meleeDamage && player.magicDamage > player.rangedDamage &&
+                     player.magicDamage > player.minionDamage && player.magicDamage > player.thrownDamage)
             {
                 projectile.minion = false;
                 projectile.thrown = false;
@@ -46,7 +50,8 @@ namespace AAMod.Items.Armor.TrueCopper
                 projectile.ranged = false;
                 projectile.magic = true;
             }
-            else if (player.minionDamage > player.meleeDamage && player.minionDamage > player.magicDamage && player.minionDamage > player.rangedDamage && player.minionDamage > player.thrownDamage)
+            else if (player.minionDamage > player.meleeDamage && player.minionDamage > player.magicDamage &&
+                     player.minionDamage > player.rangedDamage && player.minionDamage > player.thrownDamage)
             {
                 projectile.magic = false;
                 projectile.thrown = false;
@@ -54,7 +59,8 @@ namespace AAMod.Items.Armor.TrueCopper
                 projectile.ranged = false;
                 projectile.minion = true;
             }
-            else if (player.thrownDamage > player.meleeDamage && player.thrownDamage > player.magicDamage && player.thrownDamage > player.minionDamage && player.thrownDamage > player.rangedDamage)
+            else if (player.thrownDamage > player.meleeDamage && player.thrownDamage > player.magicDamage &&
+                     player.thrownDamage > player.minionDamage && player.thrownDamage > player.rangedDamage)
             {
                 projectile.magic = false;
                 projectile.minion = false;
@@ -70,14 +76,17 @@ namespace AAMod.Items.Armor.TrueCopper
                 projectile.melee = false;
                 projectile.ranged = false;
             }
+
             #endregion
-            
-            Dust dust = Dust.NewDustDirect(projectile.Center, projectile.width, projectile.height, mod.DustType<Dusts.AbyssDust>(), 0, 0, 100, Main.DiscoColor, 1f);
+
+            Dust dust = Dust.NewDustDirect(projectile.Center, projectile.width, projectile.height,
+                mod.DustType<Dusts.AbyssDust>(), 0, 0, 100, Main.DiscoColor, 1f);
 
             const int aislotHomingCooldown = 0;
             const int homingDelay = 10;
             const float desiredFlySpeedInPixelsPerFrame = 60;
-            const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
+            const float
+                amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
 
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
@@ -89,7 +98,8 @@ namespace AAMod.Items.Armor.TrueCopper
                 {
                     NPC n = Main.npc[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    projectile.velocity =
+                        Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
         }
@@ -109,7 +119,8 @@ namespace AAMod.Items.Armor.TrueCopper
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance
+                        ) //or we are closer to this target than the already selected target
                     )
                         selectedTarget = i;
                 }
@@ -122,15 +133,20 @@ namespace AAMod.Items.Armor.TrueCopper
         {
             for (int m = 0; m < 20; m++)
             {
-                int dustID = Dust.NewDust(new Vector2(projectile.Center.X - 1, projectile.Center.Y - 1), 2, 2, mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 100, Main.DiscoColor, 1.6f);
-                Main.dust[dustID].velocity = BaseMod.BaseUtility.RotateVector(default(Vector2), new Vector2(6f, 0f), ((float)m / 20f) * 6.28f);
+                int dustID = Dust.NewDust(new Vector2(projectile.Center.X - 1, projectile.Center.Y - 1), 2, 2,
+                    mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 100, Main.DiscoColor, 1.6f);
+                Main.dust[dustID].velocity = BaseMod.BaseUtility.RotateVector(default(Vector2), new Vector2(6f, 0f),
+                    ((float) m / 20f) * 6.28f);
                 Main.dust[dustID].noLight = false;
                 Main.dust[dustID].noGravity = true;
             }
+
             for (int m = 0; m < 20; m++)
             {
-                int dustID = Dust.NewDust(new Vector2(projectile.Center.X - 1, projectile.Center.Y - 1), 2, 2, mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 100, Main.DiscoColor, 2f);
-                Main.dust[dustID].velocity = BaseMod.BaseUtility.RotateVector(default(Vector2), new Vector2(9f, 0f), ((float)m / 20f) * 6.28f);
+                int dustID = Dust.NewDust(new Vector2(projectile.Center.X - 1, projectile.Center.Y - 1), 2, 2,
+                    mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 100, Main.DiscoColor, 2f);
+                Main.dust[dustID].velocity = BaseMod.BaseUtility.RotateVector(default(Vector2), new Vector2(9f, 0f),
+                    ((float) m / 20f) * 6.28f);
                 Main.dust[dustID].noLight = false;
                 Main.dust[dustID].noGravity = true;
             }
@@ -140,6 +156,6 @@ namespace AAMod.Items.Armor.TrueCopper
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Copper Soul");
-		}
+        }
     }
 }

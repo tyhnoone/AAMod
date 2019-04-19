@@ -11,12 +11,11 @@ namespace AAMod.NPCs.Bosses.Akuma
 {
     public class AkumaMeteor : ModProjectile
     {
-    	
-    	public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Dayfire");
-		}
-    	
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Dayfire");
+        }
+
         public override void SetDefaults()
         {
             projectile.width = 10;
@@ -35,10 +34,12 @@ namespace AAMod.NPCs.Bosses.Akuma
             {
                 projectile.tileCollide = true;
             }
-            if ((double)projectile.position.Y < Main.worldSurface * 16.0)
+
+            if ((double) projectile.position.Y < Main.worldSurface * 16.0)
             {
                 projectile.tileCollide = true;
             }
+
             projectile.scale = projectile.ai[1];
             projectile.rotation = projectile.velocity.ToRotation() - 1.57079637f;
         }
@@ -49,14 +50,17 @@ namespace AAMod.NPCs.Bosses.Akuma
             float spread = 45f * 0.0174f;
             double startAngle = Math.Atan2(projectile.velocity.X, projectile.velocity.Y) - (spread / 2);
             double deltaAngle = spread / 8f;
-            Projectile.NewProjectile(projectile.Center, new Vector2(0, 0), mod.ProjectileType<AkumaBoom>(), projectile.damage, 2);
+            Projectile.NewProjectile(projectile.Center, new Vector2(0, 0), mod.ProjectileType<AkumaBoom>(),
+                projectile.damage, 2);
             for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 0, default(Color), 1f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 0, default(Color), 1f);
                 Main.dust[num469].velocity *= 2f;
             }
@@ -66,12 +70,14 @@ namespace AAMod.NPCs.Bosses.Akuma
         {
             target.AddBuff(mod.BuffType<Buffs.DragonFire>(), 200);
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingFlameDye);
             Vector2 Drawpos = projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY);
 
-            BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], shader, projectile, Color.White, true);
+            BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], shader, projectile,
+                Color.White, true);
             return false;
         }
     }

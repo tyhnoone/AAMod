@@ -8,10 +8,10 @@ namespace AAMod.Items.Melee
     {
         public override void SetDefaults()
         {
-			item.useTime = 25;
+            item.useTime = 25;
             item.CloneDefaults(ItemID.CorruptYoyo);
 
-            item.damage = 14;                            
+            item.damage = 14;
             item.value = 1000000;
             item.rare = 2;
             item.knockBack = 1;
@@ -19,8 +19,8 @@ namespace AAMod.Items.Melee
             item.useStyle = 5;
             item.useAnimation = 15;
             item.useTime = 15;
-            item.shoot = mod.ProjectileType("Depthwalker");  
-		}
+            item.shoot = mod.ProjectileType("Depthwalker");
+        }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
@@ -41,6 +41,5 @@ namespace AAMod.Items.Melee
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
 }

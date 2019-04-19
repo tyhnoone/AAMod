@@ -6,17 +6,16 @@ using Terraria.ModLoader;
 namespace AAMod.Walls
 {
     public class TorchsandHardenedWall : ModWall
-	{
-		public override void SetDefaults()
-		{
+    {
+        public override void SetDefaults()
+        {
             dustType = mod.DustType("IncineriteDust");
-			AddMapEntry(new Color(25, 12, 10));
-		}
+            AddMapEntry(new Color(25, 12, 10));
+        }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
-        
+        {
+            num = fail ? 1 : 3;
+        }
     }
 }

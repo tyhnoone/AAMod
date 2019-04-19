@@ -12,7 +12,8 @@ namespace AAMod.Items.Dyes
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Doomsday Dye");
-            BaseMod.BaseUtility.AddTooltips(item, new string[] { "Adds a glitchy-look to whatever this dye is applied to" });
+            BaseMod.BaseUtility.AddTooltips(item,
+                new string[] {"Adds a glitchy-look to whatever this dye is applied to"});
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 7));
         }
 
@@ -33,7 +34,7 @@ namespace AAMod.Items.Dyes
             item.height = 15;
             item.maxStack = 99;
             item.rare = 8;
-            item.dye = (byte)GameShaders.Armor.GetShaderIdFromItemId(item.type);
+            item.dye = (byte) GameShaders.Armor.GetShaderIdFromItemId(item.type);
             item.value = BaseUtility.CalcValue(0, 10, 0, 0);
         }
 

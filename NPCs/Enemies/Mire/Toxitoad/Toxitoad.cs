@@ -14,6 +14,7 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
             DisplayName.SetDefault("Toxitoad");
             Main.npcFrameCount[npc.type] = 7;
         }
+
         public override void SetDefaults()
         {
             npc.width = 64;
@@ -36,6 +37,7 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
             {
                 return SpawnCondition.OverworldNightMonster.Chance * 0.25f;
             }
+
             return 0f;
         }
 
@@ -54,20 +56,25 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
             {
                 if (Main.rand.Next(7) == 0 || Main.rand.Next(7) == 1)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.CopperCoin);       //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        ItemID.CopperCoin); //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
                 }
+
                 if (Main.rand.Next(7) == 2 || Main.rand.Next(7) == 3 || Main.rand.Next(7) == 4)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.SilverCoin);       //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        ItemID.SilverCoin); //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
                 }
+
                 if (Main.rand.Next(7) == 5 || Main.rand.Next(7) == 6)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.GoldCoin);       //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
+                    Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                        ItemID.GoldCoin); //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
                 }
             }
+
             if (npc.life >= 0)
             {
-
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/ToxitoadGoreHead"), 1f);
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/ToxitoadGoreFrontLeg"), 1f);
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/ToxitoadGoreFrontLeg"), 1f);
@@ -101,6 +108,7 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
                 npc.frameCounter = 0;
                 npc.frame.Y = 0;
             }
+
             if (player.Center.X > npc.Center.X)
             {
                 npc.spriteDirection = -1;
@@ -109,6 +117,7 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
             {
                 npc.spriteDirection = 1;
             }
+
             if (biteAttack == true)
             {
                 biteCounter++;
@@ -117,35 +126,42 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
                     biteFrame++;
                     biteCounter = 0;
                 }
+
                 if (biteFrame >= 3)
                 {
                     biteFrame = 0;
                 }
             }
+
             if (tongueAttack == true)
             {
                 if (tongueFrame < 8)
                 {
                     tongueCounter++;
                 }
+
                 if (tongueCounter > 5)
                 {
                     tongueFrame++;
                     tongueCounter = 0;
                 }
+
                 if (tongueFrame >= 8)
                 {
                     tongueFrame = 7;
                 }
             }
+
             float distance = npc.Distance(Main.player[npc.target].Center);
             if (distance <= 50) // so it only bites when the player is right next to it
             {
-                if (biteAttack == false && tongueAttack == false) // so it doesnt bite while its currently biting, and if its doing the tongue attack
+                if (biteAttack == false && tongueAttack == false
+                ) // so it doesnt bite while its currently biting, and if its doing the tongue attack
                 {
                     biteAttack = true;
                 }
             }
+
             if (biteAttack == true)
             {
                 biteTimer++;
@@ -159,9 +175,11 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
                     biteFrame = 0;
                 }
             }
+
             if (distance <= 150) // distance until it does the tongue attack
             {
-                if (Main.rand.Next(60) == 0) // so it wont do it repeatedly when the player is near. increase to lower the chance of it doing it
+                if (Main.rand.Next(60) == 0
+                ) // so it wont do it repeatedly when the player is near. increase to lower the chance of it doing it
                 {
                     if (tongueAttack == false && biteAttack == false)
                     {
@@ -169,6 +187,7 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
                     }
                 }
             }
+
             if (tongueAttack == true)
             {
                 tongueTimer++;
@@ -180,14 +199,19 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
                     if (npc.direction == -1)
                     {
                         //Main.PlaySound(SoundID.Item3, (int)npc.position.X, (int)npc.position.Y);
-                        Projectile.NewProjectile((new Vector2(npc.position.X + 17f, npc.position.Y + 18f)), new Vector2(-6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("AcidProj"), 15, 3);
+                        Projectile.NewProjectile((new Vector2(npc.position.X + 17f, npc.position.Y + 18f)),
+                            new Vector2(-6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-4, 0)),
+                            mod.ProjectileType("AcidProj"), 15, 3);
                     }
                     else
                     {
                         //Main.PlaySound(SoundID.Item3, (int)npc.position.X, (int)npc.position.Y);
-                        Projectile.NewProjectile((new Vector2(npc.position.X + 57f, npc.position.Y + 18f)), new Vector2(6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("AcidProj"), 15, 3);
+                        Projectile.NewProjectile((new Vector2(npc.position.X + 57f, npc.position.Y + 18f)),
+                            new Vector2(6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-4, 0)),
+                            mod.ProjectileType("AcidProj"), 15, 3);
                     }
                 }
+
                 if (tongueTimer >= 100)
                 {
                     tongueAttack = false;
@@ -196,35 +220,52 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
                     tongueFrame = 0;
                 }
             }
-            if (tongueAttack == false && biteAttack == false) // so it changes back to aiStyle 3 after the attacks are done
+
+            if (tongueAttack == false && biteAttack == false
+            ) // so it changes back to aiStyle 3 after the attacks are done
             {
                 npc.aiStyle = 3;
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             Texture2D texture = Main.npcTexture[npc.type];
             Texture2D biteAni = mod.GetTexture("NPCs/Enemies/Mire/Toxitoad/ToxitoadBite");
             Texture2D tongueAni = mod.GetTexture("NPCs/Enemies/Mire/Toxitoad/ToxitoadTongueAttack");
             var effects = npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            if (biteAttack == false && tongueAttack == false) // i think this is important for it to not do its usual walking cycle while its also doing those attacks
+            if (biteAttack == false && tongueAttack == false
+            ) // i think this is important for it to not do its usual walking cycle while its also doing those attacks
             {
-                spriteBatch.Draw(texture, npc.Center - Main.screenPosition, npc.frame, drawColor, npc.rotation, npc.frame.Size() / 2, npc.scale, npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
+                spriteBatch.Draw(texture, npc.Center - Main.screenPosition, npc.frame, drawColor, npc.rotation,
+                    npc.frame.Size() / 2, npc.scale,
+                    npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
             }
+
             if (biteAttack == true)
             {
                 Vector2 drawCenter = new Vector2(npc.Center.X, npc.Center.Y);
                 int num214 = biteAni.Height / 3; // 3 is the number of frames in the sprite sheet
                 int y6 = num214 * biteFrame;
-                Main.spriteBatch.Draw(biteAni, drawCenter - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, y6, biteAni.Width, num214)), drawColor, npc.rotation, new Vector2((float)biteAni.Width / 2f, (float)num214 / 2f), npc.scale, npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
+                Main.spriteBatch.Draw(biteAni, drawCenter - Main.screenPosition,
+                    new Microsoft.Xna.Framework.Rectangle?(
+                        new Microsoft.Xna.Framework.Rectangle(0, y6, biteAni.Width, num214)), drawColor, npc.rotation,
+                    new Vector2((float) biteAni.Width / 2f, (float) num214 / 2f), npc.scale,
+                    npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
             }
+
             if (tongueAttack == true)
             {
                 Vector2 drawCenter = new Vector2(npc.Center.X, npc.Center.Y);
                 int num214 = tongueAni.Height / 8;
                 int y6 = num214 * tongueFrame;
-                Main.spriteBatch.Draw(tongueAni, drawCenter - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, y6, tongueAni.Width, num214)), drawColor, npc.rotation, new Vector2((float)tongueAni.Width / 2f, (float)num214 / 2f), npc.scale, npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
+                Main.spriteBatch.Draw(tongueAni, drawCenter - Main.screenPosition,
+                    new Microsoft.Xna.Framework.Rectangle?(
+                        new Microsoft.Xna.Framework.Rectangle(0, y6, tongueAni.Width, num214)), drawColor, npc.rotation,
+                    new Vector2((float) tongueAni.Width / 2f, (float) num214 / 2f), npc.scale,
+                    npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
             }
+
             return false;
         }
     }

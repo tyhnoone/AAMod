@@ -3,9 +3,9 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Armor.Assassin
 {
-	[AutoloadEquip(EquipType.Body)]
-	class AssassinShirt : ModItem
-	{
+    [AutoloadEquip(EquipType.Body)]
+    class AssassinShirt : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Midnight Assassin Shirt");
@@ -15,14 +15,14 @@ A dark armor infused with the shadow of midnight");
         }
 
         public override void SetDefaults()
-		{
-			item.width = 14;
-			item.height = 14;
+        {
+            item.width = 14;
+            item.height = 14;
             item.rare = 11;
             item.value = 300000;
             item.defense = 29;
-		}
-        
+        }
+
         public override void UpdateEquip(Player player)
         {
             player.meleeCrit += 14;
@@ -32,9 +32,9 @@ A dark armor infused with the shadow of midnight");
             player.ammoCost80 = true;
         }
 
-		public override void DrawHands(ref bool drawHands, ref bool drawArms)
-		{
-			drawHands = true;
-		}
-	}
+        public override void DrawHands(ref bool drawHands, ref bool drawArms)
+        {
+            drawHands = true;
+        }
+    }
 }

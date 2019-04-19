@@ -28,7 +28,7 @@ namespace AAMod.Tiles
             Main.tileHammer[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
+            TileObjectData.newTile.CoordinateHeights = new int[] {16, 16};
             TileObjectData.addTile(Type);
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Hydra Pod");
@@ -86,19 +86,30 @@ namespace AAMod.Tiles
                 SpawnBoss(player, "Hydra", "The Hydra");
             }
         }
+
         public void SpawnBoss(Player player, string name, string displayName)
         {
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 800f);
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(-100f, 100f, (float) Main.rand.NextDouble()),
+                                             800f);
                 Main.npc[npcID].netUpdate2 = true;
-                string npcName = (!string.IsNullOrEmpty(Main.npc[npcID].GivenName) ? Main.npc[npcID].GivenName : displayName);
-                if (Main.netMode == 0) { Main.NewText(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
-                else
-                if (Main.netMode == 2)
+                string npcName = (!string.IsNullOrEmpty(Main.npc[npcID].GivenName)
+                    ? Main.npc[npcID].GivenName
+                    : displayName);
+                if (Main.netMode == 0)
+                {
+                    Main.NewText(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false);
+                }
+                else if (Main.netMode == 2)
                 {
                     NetMessage.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", new object[]
                     {

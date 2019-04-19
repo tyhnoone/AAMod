@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -12,18 +11,17 @@ using BaseMod;
 
 namespace AAMod.Walls
 {
-	public class FulgurGlassWall : ModWall
-	{
+    public class FulgurGlassWall : ModWall
+    {
         public Texture2D glowTex;
-		public bool glow = true;
+        public bool glow = true;
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             Main.wallHouse[this.Type] = true;
-			drop = mod.ItemType("Fulgurite Glass Wall");
-			AddMapEntry(new Color(40, 0, 50));
-            
-		}
+            drop = mod.ItemType("Fulgurite Glass Wall");
+            AddMapEntry(new Color(40, 0, 50));
+        }
 
         public override void KillWall(int i, int j, ref bool fail)
         {

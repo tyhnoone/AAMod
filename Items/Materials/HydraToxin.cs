@@ -9,6 +9,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Bogtoxin");
             Tooltip.SetDefault("Exceedingly errosive venom. Don't touch it for too long");
         }
+
         public override void SetDefaults()
         {
             item.width = 16;

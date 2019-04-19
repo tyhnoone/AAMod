@@ -8,6 +8,7 @@ namespace AAMod.Items.Materials
         {
             DisplayName.SetDefault("Dragon Scale");
         }
+
         public override void SetDefaults()
         {
             item.width = 20;

@@ -6,14 +6,14 @@ namespace AAMod.Items.Tools
 {
     //ported from my tAPI mod because I don't want to make more artwork
     public class YtriumDrill : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Yttrium Drill");
-		}
+        }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.useStyle = 5;
             item.useAnimation = 25;
             item.useTime = 13;

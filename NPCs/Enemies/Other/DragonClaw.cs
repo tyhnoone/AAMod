@@ -12,6 +12,7 @@ namespace AAMod.NPCs.Enemies.Other
             DisplayName.SetDefault("Dragon Claw");
             Main.npcFrameCount[npc.type] = 5;
         }
+
         public override void SetDefaults()
         {
             aiType = NPCID.DemonEye;
@@ -35,13 +36,15 @@ namespace AAMod.NPCs.Enemies.Other
             if (npc.velocity.X > 0f)
             {
                 npc.spriteDirection = 1;
-                npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X);
+                npc.rotation = (float) Math.Atan2((double) npc.velocity.Y, (double) npc.velocity.X);
             }
+
             if (npc.velocity.X < 0f)
             {
                 npc.spriteDirection = -1;
-                npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X) + 3.14f;
+                npc.rotation = (float) Math.Atan2((double) npc.velocity.Y, (double) npc.velocity.X) + 3.14f;
             }
+
             npc.frameCounter++;
             if (npc.frameCounter >= 8)
             {
@@ -54,13 +57,15 @@ namespace AAMod.NPCs.Enemies.Other
                 }
             }
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             return SpawnCondition.OverworldNightMonster.Chance * 0.05f;
         }
+
         public override void HitEffect(int hitDirection, double damage)
         {
-            if (npc.life <= 0)          //this make so when the npc has 0 life(dead) he will spawn this
+            if (npc.life <= 0) //this make so when the npc has 0 life(dead) he will spawn this
             {
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/DragonClawGore1"), 1f);
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/DragonClawGore2"), 1f);
@@ -68,13 +73,15 @@ namespace AAMod.NPCs.Enemies.Other
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/DragonClawGore4"), 1f);
             }
         }
+
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
             target.AddBuff(BuffID.OnFire, 180);
         }
+
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DragonClaw"));
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height, mod.ItemType("DragonClaw"));
         }
     }
 }

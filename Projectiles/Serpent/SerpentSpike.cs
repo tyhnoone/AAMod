@@ -7,7 +7,6 @@ namespace AAMod.Projectiles.Serpent
 {
     public class SerpentSpike : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Serpent Spike");
@@ -48,8 +47,8 @@ namespace AAMod.Projectiles.Serpent
             projectile.direction = projOwner.direction;
             projOwner.heldProj = projectile.whoAmI;
             projOwner.itemTime = projOwner.itemAnimation;
-            projectile.position.X = ownerMountedCenter.X - (float)(projectile.width / 2);
-            projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
+            projectile.position.X = ownerMountedCenter.X - (float) (projectile.width / 2);
+            projectile.position.Y = ownerMountedCenter.Y - (float) (projectile.height / 2);
 
             if (!projOwner.frozen)
             {
@@ -58,6 +57,7 @@ namespace AAMod.Projectiles.Serpent
                     MovementFactor = 3f;
                     projectile.netUpdate = true;
                 }
+
                 if (projOwner.itemAnimation < projOwner.itemAnimationMax / 3)
                 {
                     MovementFactor -= 2.4f;
@@ -67,9 +67,9 @@ namespace AAMod.Projectiles.Serpent
                     MovementFactor += 2.1f;
                 }
             }
-            
+
             projectile.position += projectile.velocity * MovementFactor;
-            
+
             if (projOwner.itemAnimation == 0)
             {
                 projectile.Kill();

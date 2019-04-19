@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace AAMod.Walls
 {
     public class TorchstoneWall : ModWall
-	{
+    {
         public Texture2D glowTex;
         public bool glow = true;
 

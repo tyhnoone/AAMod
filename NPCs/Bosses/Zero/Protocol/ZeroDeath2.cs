@@ -7,11 +7,13 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
     public class ZeroDeath2 : ModProjectile
     {
         bool slayer = false;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zero");
             Main.projFrames[projectile.type] = 30;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 1;
@@ -23,6 +25,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             projectile.ignoreWater = true;
             projectile.timeLeft = 1000;
         }
+
         public override void AI()
         {
             AAWorld.downedZero = true;
@@ -35,6 +38,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                     projectile.Kill();
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y += 0.00f;
             if (projectile.timeLeft == 913 && !AAWorld.downedIZ)
@@ -42,10 +46,10 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 Main.NewText("DISTRESS SIGNAL RECIEVED.", Color.Red.R, Color.Red.G, Color.Red.B);
             }
         }
+
         public override void Kill(int timeLeft)
         {
             AAMod.Slayer = false;
-            
         }
     }
 }

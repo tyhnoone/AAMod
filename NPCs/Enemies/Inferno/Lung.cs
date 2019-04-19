@@ -11,26 +11,28 @@ using System.IO;
 namespace AAMod.NPCs.Enemies.Inferno
 {
     public class Lung : ModNPC
-	{
-        public override string Texture { get { return "AAMod/NPCs/Enemies/Inferno/Lung"; } }
+    {
+        public override string Texture
+        {
+            get { return "AAMod/NPCs/Enemies/Inferno/Lung"; }
+        }
 
         public bool loludided;
         private bool weakness;
 
         public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ancient Lung");
-
+        {
+            DisplayName.SetDefault("Ancient Lung");
         }
 
         public override void SetDefaults()
-		{
-			npc.noTileCollide = true;
-			npc.height = 28;
-			npc.width = 28;
-			npc.aiStyle = -1;
-			npc.netAlways = true;
-			npc.knockBackResist = 0f;
+        {
+            npc.noTileCollide = true;
+            npc.height = 28;
+            npc.width = 28;
+            npc.aiStyle = -1;
+            npc.netAlways = true;
+            npc.knockBackResist = 0f;
             npc.damage = 50;
             npc.defense = 100;
             npc.lifeMax = 10000;
@@ -46,9 +48,11 @@ namespace AAMod.NPCs.Enemies.Inferno
             {
                 npc.buffImmune[k] = true;
             }
+
             npc.buffImmune[103] = false;
             npc.alpha = 255;
         }
+
         private int speed = 8;
 
         public override bool PreAI()
@@ -57,8 +61,8 @@ namespace AAMod.NPCs.Enemies.Inferno
 
             float speed = 18f;
             float acceleration = 0.09f;
-            
-            
+
+
             AAAI.DustOnNPCSpawn(npc, mod.DustType("AkumaADust"), 2, 12);
 
             npc.spriteDirection = npc.velocity.X > 0 ? -1 : 1;
@@ -91,13 +95,14 @@ namespace AAMod.NPCs.Enemies.Inferno
 
                     for (int i = 0; i < 9; ++i)
                     {
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("LungBody"), npc.whoAmI, 0, latestNPC);
+                        latestNPC = NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, mod.NPCType("LungBody"),
+                            npc.whoAmI, 0, latestNPC);
                         Main.npc[latestNPC].realLife = npc.whoAmI;
                         Main.npc[latestNPC].ai[3] = npc.whoAmI;
-                        
                     }
-                    
-                    latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("LungTail"), npc.whoAmI, 0, latestNPC);
+
+                    latestNPC = NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, mod.NPCType("LungTail"), npc.whoAmI,
+                        0, latestNPC);
                     Main.npc[latestNPC].realLife = npc.whoAmI;
                     Main.npc[latestNPC].ai[3] = npc.whoAmI;
 
@@ -106,10 +111,10 @@ namespace AAMod.NPCs.Enemies.Inferno
                 }
             }
 
-            int minTilePosX = (int)(npc.position.X / 16.0) - 1;
-            int maxTilePosX = (int)((npc.position.X + npc.width) / 16.0) + 2;
-            int minTilePosY = (int)(npc.position.Y / 16.0) - 1;
-            int maxTilePosY = (int)((npc.position.Y + npc.height) / 16.0) + 2;
+            int minTilePosX = (int) (npc.position.X / 16.0) - 1;
+            int maxTilePosX = (int) ((npc.position.X + npc.width) / 16.0) + 2;
+            int minTilePosY = (int) (npc.position.Y / 16.0) - 1;
+            int maxTilePosY = (int) ((npc.position.Y + npc.height) / 16.0) + 2;
             if (minTilePosX < 0)
                 minTilePosX = 0;
             if (maxTilePosX > Main.maxTilesX)
@@ -126,14 +131,14 @@ namespace AAMod.NPCs.Enemies.Inferno
             float targetXPos = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2);
             float targetYPos = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2);
 
-            float targetRoundedPosX = (float)((int)(targetXPos / 16.0) * 16);
-            float targetRoundedPosY = (float)((int)(targetYPos / 16.0) * 16);
-            npcCenter.X = (float)((int)(npcCenter.X / 16.0) * 16);
-            npcCenter.Y = (float)((int)(npcCenter.Y / 16.0) * 16);
+            float targetRoundedPosX = (float) ((int) (targetXPos / 16.0) * 16);
+            float targetRoundedPosY = (float) ((int) (targetYPos / 16.0) * 16);
+            npcCenter.X = (float) ((int) (npcCenter.X / 16.0) * 16);
+            npcCenter.Y = (float) ((int) (npcCenter.Y / 16.0) * 16);
             float dirX = targetRoundedPosX - npcCenter.X;
             float dirY = targetRoundedPosY - npcCenter.Y;
 
-            float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
+            float length = (float) Math.Sqrt(dirX * dirX + dirY * dirY);
             if (!collision)
             {
                 npc.TargetClosest(true);
@@ -171,14 +176,16 @@ namespace AAMod.NPCs.Enemies.Inferno
                         num1 = 10f;
                     if (num1 > 20.0)
                         num1 = 20f;
-                    npc.soundDelay = (int)num1;
+                    npc.soundDelay = (int) num1;
                 }
+
                 float absDirX = Math.Abs(dirX);
                 float absDirY = Math.Abs(dirY);
                 float newSpeed = speed / length;
                 dirX = dirX * newSpeed;
                 dirY = dirY * newSpeed;
-                if (npc.velocity.X > 0.0 && dirX > 0.0 || npc.velocity.X < 0.0 && dirX < 0.0 || (npc.velocity.Y > 0.0 && dirY > 0.0 || npc.velocity.Y < 0.0 && dirY < 0.0))
+                if (npc.velocity.X > 0.0 && dirX > 0.0 || npc.velocity.X < 0.0 && dirX < 0.0 ||
+                    (npc.velocity.Y > 0.0 && dirY > 0.0 || npc.velocity.Y < 0.0 && dirY < 0.0))
                 {
                     if (npc.velocity.X < dirX)
                         npc.velocity.X = npc.velocity.X + acceleration;
@@ -188,14 +195,17 @@ namespace AAMod.NPCs.Enemies.Inferno
                         npc.velocity.Y = npc.velocity.Y + acceleration;
                     else if (npc.velocity.Y > dirY)
                         npc.velocity.Y = npc.velocity.Y - acceleration;
-                    if (Math.Abs(dirY) < speed * 0.2 && (npc.velocity.X > 0.0 && dirX < 0.0 || npc.velocity.X < 0.0 && dirX > 0.0))
+                    if (Math.Abs(dirY) < speed * 0.2 &&
+                        (npc.velocity.X > 0.0 && dirX < 0.0 || npc.velocity.X < 0.0 && dirX > 0.0))
                     {
                         if (npc.velocity.Y > 0.0)
                             npc.velocity.Y = npc.velocity.Y + acceleration * 2f;
                         else
                             npc.velocity.Y = npc.velocity.Y - acceleration * 2f;
                     }
-                    if (Math.Abs(dirX) < speed * 0.2 && (npc.velocity.Y > 0.0 && dirY < 0.0 || npc.velocity.Y < 0.0 && dirY > 0.0))
+
+                    if (Math.Abs(dirX) < speed * 0.2 &&
+                        (npc.velocity.Y > 0.0 && dirY < 0.0 || npc.velocity.Y < 0.0 && dirY > 0.0))
                     {
                         if (npc.velocity.X > 0.0)
                             npc.velocity.X = npc.velocity.X + acceleration * 2f;
@@ -232,17 +242,22 @@ namespace AAMod.NPCs.Enemies.Inferno
                     }
                 }
             }
-            npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
+
+            npc.rotation = (float) Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
 
             if (!Main.dayTime)
             {
                 npc.velocity.Y = npc.velocity.Y - 1f;
-                if (npc.position.Y - npc.height - npc.velocity.Y >= Main.maxTilesY && Main.netMode != 1) { BaseAI.KillNPC(npc); npc.netUpdate2 = true; }
+                if (npc.position.Y - npc.height - npc.velocity.Y >= Main.maxTilesY && Main.netMode != 1)
+                {
+                    BaseAI.KillNPC(npc);
+                    npc.netUpdate2 = true;
+                }
             }
 
-            
 
-            if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+            if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f ||
+                Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
             {
                 npc.velocity.Y = npc.velocity.Y + 1f;
                 if (npc.position.Y < 0)
@@ -250,6 +265,7 @@ namespace AAMod.NPCs.Enemies.Inferno
                     npc.velocity.Y = npc.velocity.Y + 1f;
                     speed = 30f;
                 }
+
                 if (npc.position.Y < 0)
                 {
                     for (int num957 = 0; num957 < 200; num957++)
@@ -274,37 +290,41 @@ namespace AAMod.NPCs.Enemies.Inferno
                     npc.netUpdate = true;
                 npc.localAI[0] = 0.0f;
             }
-            if ((npc.velocity.X > 0.0 && npc.oldVelocity.X < 0.0 || npc.velocity.X < 0.0 && npc.oldVelocity.X > 0.0 || (npc.velocity.Y > 0.0 && npc.oldVelocity.Y < 0.0 || npc.velocity.Y < 0.0 && npc.oldVelocity.Y > 0.0)) && !npc.justHit)
+
+            if ((npc.velocity.X > 0.0 && npc.oldVelocity.X < 0.0 || npc.velocity.X < 0.0 && npc.oldVelocity.X > 0.0 ||
+                 (npc.velocity.Y > 0.0 && npc.oldVelocity.Y < 0.0 || npc.velocity.Y < 0.0 && npc.oldVelocity.Y > 0.0)
+                ) && !npc.justHit)
                 npc.netUpdate = true;
 
             return false;
         }
 
 
-
         public override void NPCLoot()
         {
-            BaseMod.BaseAI.DropItem(npc, mod.ItemType("CrucibleScale"), Main.expertMode ? 1 + Main.rand.Next(2) : Main.rand.Next(1), 3, 100, true);
+            BaseMod.BaseAI.DropItem(npc, mod.ItemType("CrucibleScale"),
+                Main.expertMode ? 1 + Main.rand.Next(2) : Main.rand.Next(1), 3, 100, true);
         }
-
 
 
         public override void HitEffect(int hitDirection, double damage)
         {
             if (npc.life <= 0)
             {
-                npc.position.X = npc.position.X + (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y + (float)(npc.height / 2);
-                npc.position.X = npc.position.X - (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y - (float)(npc.height / 2);
+                npc.position.X = npc.position.X + (float) (npc.width / 2);
+                npc.position.Y = npc.position.Y + (float) (npc.height / 2);
+                npc.position.X = npc.position.X - (float) (npc.width / 2);
+                npc.position.Y = npc.position.Y - (float) (npc.height / 2);
                 int dust1 = mod.DustType<Dusts.AkumaADust>();
                 int dust2 = mod.DustType<Dusts.AkumaADust>();
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0,
+                    default(Color), 1f);
                 Main.dust[dust1].velocity *= 0.5f;
                 Main.dust[dust1].scale *= 1.3f;
                 Main.dust[dust1].fadeIn = 1f;
                 Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0,
+                    default(Color), 1f);
                 Main.dust[dust2].velocity *= 0.5f;
                 Main.dust[dust2].scale *= 1.3f;
                 Main.dust[dust2].fadeIn = 1f;
@@ -314,18 +334,19 @@ namespace AAMod.NPCs.Enemies.Inferno
 
         public int roarTimer = 0; //if this is > 0, then use the roaring frame.
         public int roarTimerMax = 120; //default roar timer. only changed for fire breath as it's longer.
+
         public bool Roaring //wether or not he is roaring. only used clientside for frame visuals.
         {
-            get
-            {
-                return roarTimer > 0;
-            }
+            get { return roarTimer > 0; }
         }
     }
-    
+
     public class LungBody : Lung
     {
-        public override string Texture { get { return "AAMod/NPCs/Enemies/Inferno/LungBody"; } }
+        public override string Texture
+        {
+            get { return "AAMod/NPCs/Enemies/Inferno/LungBody"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -347,11 +368,11 @@ namespace AAMod.NPCs.Enemies.Inferno
 
         public override bool PreAI()
         {
-            Vector2 chasePosition = Main.npc[(int)npc.ai[1]].Center;
+            Vector2 chasePosition = Main.npc[(int) npc.ai[1]].Center;
             Vector2 directionVector = chasePosition - npc.Center;
             npc.spriteDirection = ((directionVector.X > 0f) ? 1 : -1);
             if (npc.ai[3] > 0)
-                npc.realLife = (int)npc.ai[3];
+                npc.realLife = (int) npc.ai[3];
             if (npc.target < 0 || npc.target == byte.MaxValue || Main.player[npc.target].dead)
                 npc.TargetClosest(true);
             if (Main.player[npc.target].dead && npc.timeLeft > 300)
@@ -360,7 +381,7 @@ namespace AAMod.NPCs.Enemies.Inferno
             AAAI.DustOnNPCSpawn(npc, mod.DustType("AkumaDust"), 2, 12);
             if (Main.netMode != 1)
             {
-                if (!Main.npc[(int)npc.ai[1]].active || Main.npc[(int)npc.ai[3]].type != mod.NPCType("Lung"))
+                if (!Main.npc[(int) npc.ai[1]].active || Main.npc[(int) npc.ai[3]].type != mod.NPCType("Lung"))
                 {
                     npc.life = 0;
                     npc.HitEffect(0, 10.0);
@@ -369,21 +390,23 @@ namespace AAMod.NPCs.Enemies.Inferno
                 }
             }
 
-            if (npc.ai[1] < (double)Main.npc.Length)
+            if (npc.ai[1] < (double) Main.npc.Length)
             {
-                Vector2 npcCenter = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                float dirX = Main.npc[(int)npc.ai[1]].position.X + (float)(Main.npc[(int)npc.ai[1]].width / 2) - npcCenter.X;
-                float dirY = Main.npc[(int)npc.ai[1]].position.Y + (float)(Main.npc[(int)npc.ai[1]].height / 2) - npcCenter.Y;
-                npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                float dist = (length - (float)npc.width) / length;
+                Vector2 npcCenter = new Vector2(npc.position.X + (float) npc.width * 0.5f,
+                    npc.position.Y + (float) npc.height * 0.5f);
+                float dirX = Main.npc[(int) npc.ai[1]].position.X + (float) (Main.npc[(int) npc.ai[1]].width / 2) -
+                             npcCenter.X;
+                float dirY = Main.npc[(int) npc.ai[1]].position.Y + (float) (Main.npc[(int) npc.ai[1]].height / 2) -
+                             npcCenter.Y;
+                npc.rotation = (float) Math.Atan2(dirY, dirX) + 1.57f;
+                float length = (float) Math.Sqrt(dirX * dirX + dirY * dirY);
+                float dist = (length - (float) npc.width) / length;
                 float posX = dirX * dist;
                 float posY = dirY * dist;
 
                 if (dirX < 0f)
                 {
                     npc.spriteDirection = 1;
-
                 }
                 else
                 {
@@ -400,6 +423,7 @@ namespace AAMod.NPCs.Enemies.Inferno
             {
                 npc.TargetClosest(true);
             }
+
             npc.netUpdate = true;
             return false;
         }
@@ -415,13 +439,17 @@ namespace AAMod.NPCs.Enemies.Inferno
             {
                 return false;
             }
+
             return true;
         }
     }
-    
+
     public class LungTail : Lung
     {
-        public override string Texture { get { return "AAMod/NPCs/Enemies/Inferno/LungTail"; } }
+        public override string Texture
+        {
+            get { return "AAMod/NPCs/Enemies/Inferno/LungTail"; }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -448,11 +476,11 @@ namespace AAMod.NPCs.Enemies.Inferno
 
         public override bool PreAI()
         {
-            Vector2 chasePosition = Main.npc[(int)npc.ai[1]].Center;
+            Vector2 chasePosition = Main.npc[(int) npc.ai[1]].Center;
             Vector2 directionVector = chasePosition - npc.Center;
             npc.spriteDirection = ((directionVector.X > 0f) ? 1 : -1);
             if (npc.ai[3] > 0)
-                npc.realLife = (int)npc.ai[3];
+                npc.realLife = (int) npc.ai[3];
             if (npc.target < 0 || npc.target == byte.MaxValue || Main.player[npc.target].dead)
                 npc.TargetClosest(true);
             if (Main.player[npc.target].dead && npc.timeLeft > 300)
@@ -461,7 +489,7 @@ namespace AAMod.NPCs.Enemies.Inferno
             AAAI.DustOnNPCSpawn(npc, mod.DustType("AkumaDust"), 2, 12);
             if (Main.netMode != 1)
             {
-                if (!Main.npc[(int)npc.ai[1]].active || Main.npc[(int)npc.ai[3]].type != mod.NPCType("Lung"))
+                if (!Main.npc[(int) npc.ai[1]].active || Main.npc[(int) npc.ai[3]].type != mod.NPCType("Lung"))
                 {
                     npc.life = 0;
                     npc.HitEffect(0, 10.0);
@@ -470,21 +498,23 @@ namespace AAMod.NPCs.Enemies.Inferno
                 }
             }
 
-            if (npc.ai[1] < (double)Main.npc.Length)
+            if (npc.ai[1] < (double) Main.npc.Length)
             {
-                Vector2 npcCenter = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
-                float dirX = Main.npc[(int)npc.ai[1]].position.X + (float)(Main.npc[(int)npc.ai[1]].width / 2) - npcCenter.X;
-                float dirY = Main.npc[(int)npc.ai[1]].position.Y + (float)(Main.npc[(int)npc.ai[1]].height / 2) - npcCenter.Y;
-                npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
-                float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
-                float dist = (length - (float)npc.width) / length;
+                Vector2 npcCenter = new Vector2(npc.position.X + (float) npc.width * 0.5f,
+                    npc.position.Y + (float) npc.height * 0.5f);
+                float dirX = Main.npc[(int) npc.ai[1]].position.X + (float) (Main.npc[(int) npc.ai[1]].width / 2) -
+                             npcCenter.X;
+                float dirY = Main.npc[(int) npc.ai[1]].position.Y + (float) (Main.npc[(int) npc.ai[1]].height / 2) -
+                             npcCenter.Y;
+                npc.rotation = (float) Math.Atan2(dirY, dirX) + 1.57f;
+                float length = (float) Math.Sqrt(dirX * dirX + dirY * dirY);
+                float dist = (length - (float) npc.width) / length;
                 float posX = dirX * dist;
                 float posY = dirY * dist;
 
                 if (dirX < 0f)
                 {
                     npc.spriteDirection = 1;
-
                 }
                 else
                 {
@@ -501,6 +531,7 @@ namespace AAMod.NPCs.Enemies.Inferno
             {
                 npc.TargetClosest(true);
             }
+
             npc.netUpdate = true;
             return false;
         }
@@ -521,6 +552,7 @@ namespace AAMod.NPCs.Enemies.Inferno
             {
                 return false;
             }
+
             return true;
         }
     }

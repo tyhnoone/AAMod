@@ -13,7 +13,6 @@ namespace AAMod.Items.Vanity.Tails
             DisplayName.SetDefault("Tails Helmet");
             Tooltip.SetDefault(@"A helmet made to resemble a certain two-tailed fox.
 'Great for impersonating Ancients Awakened Devs!'");
-
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)

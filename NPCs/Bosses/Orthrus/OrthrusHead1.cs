@@ -33,6 +33,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
                 npc.buffImmune[k] = true;
             }
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             return 0f;
@@ -48,6 +49,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
             {
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/OrthrusHeadGoreR"), 1f);
             }
+
             Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/OrthrusHeadGore1"), 1f);
             Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/OrthrusHeadGore2"), 1f);
             Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/OrthrusHeadGore3"), 1f);
@@ -55,13 +57,11 @@ namespace AAMod.NPCs.Bosses.Orthrus
         }
 
         public Orthrus Body
-		{
-			get
-			{
-				return ((bodyNPC != null && bodyNPC.modNPC is Orthrus) ? (Orthrus)bodyNPC.modNPC : null);
-			}
-		}
-		public NPC bodyNPC = null;	
+        {
+            get { return ((bodyNPC != null && bodyNPC.modNPC is Orthrus) ? (Orthrus) bodyNPC.modNPC : null); }
+        }
+
+        public NPC bodyNPC = null;
         public bool leftHead = false;
         public int damage = 0;
 
@@ -73,40 +73,49 @@ namespace AAMod.NPCs.Bosses.Orthrus
         {
             if (Body == null)
             {
-				int npcID = BaseMod.BaseAI.GetNPC(npc.Center, mod.NPCType("Orthrus"), 500f, null);
-				if(npcID != -1)
-					bodyNPC = Main.npc[npcID];              
-				return;
+                int npcID = BaseMod.BaseAI.GetNPC(npc.Center, mod.NPCType("Orthrus"), 500f, null);
+                if (npcID != -1)
+                    bodyNPC = Main.npc[npcID];
+                return;
             }
+
             if (!bodyNPC.active)
             {
                 if (npc.timeLeft > 10)
                 {
                     npc.timeLeft = 10;
                 }
+
                 return;
             }
+
             npc.realLife = bodyNPC.whoAmI;
-			npc.timeLeft = 100;
+            npc.timeLeft = 100;
 
             if (Main.expertMode)
             {
                 damage = npc.damage / 4;
                 //attackDelay = 180;
-            } else
+            }
+            else
             {
                 damage = npc.damage / 2;
             }
+
             if (npc.ai[0] == Orthrus.AISTATE_TURRET)
             {
                 npc.TargetClosest();
                 Player targetPlayer = Main.player[npc.target];
-                if (targetPlayer == null || !targetPlayer.active || targetPlayer.dead) targetPlayer = null; //deliberately set to null
+                if (targetPlayer == null || !targetPlayer.active || targetPlayer.dead)
+                    targetPlayer = null; //deliberately set to null
 
                 if (Main.netMode != 1)
                 {
                     npc.ai[1]++;
-                    int aiTimerFire = (npc.whoAmI % 3 == 0 ? 50 : npc.whoAmI % 2 == 0 ? 150 : 100); //aiTimerFire is different per head by using whoAmI (which is usually different) 
+                    int aiTimerFire =
+                        (npc.whoAmI % 3 == 0 ? 50 :
+                            npc.whoAmI % 2 == 0 ? 150 :
+                            100); //aiTimerFire is different per head by using whoAmI (which is usually different) 
                     aiTimerFire += 30;
                     if (targetPlayer != null && npc.ai[1] == aiTimerFire)
                     {
@@ -115,22 +124,22 @@ namespace AAMod.NPCs.Bosses.Orthrus
                             Vector2 dir = Vector2.Normalize(targetPlayer.Center - npc.Center);
                             if (leftHead)
                             {
-								dir *= 12f;
+                                dir *= 12f;
                                 for (int num468 = 0; num468 < 15; num468++)
                                 {
-                                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, mod.ProjectileType("OrthrusSpark"), (int)(damage * 1.3f), 0f, Main.myPlayer);
-
+                                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y,
+                                        mod.ProjectileType("OrthrusSpark"), (int) (damage * 1.3f), 0f, Main.myPlayer);
                                 }
                             }
                             else
                             {
-								//DONT CHANGE VELOCITY HERE OR IT WILL BREAK!
-                                Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, mod.ProjectileType("Shocking"), (int)(damage * 1.3f), 0f, Main.myPlayer);
+                                //DONT CHANGE VELOCITY HERE OR IT WILL BREAK!
+                                Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y,
+                                    mod.ProjectileType("Shocking"), (int) (damage * 1.3f), 0f, Main.myPlayer);
                             }
                         }
                     }
-                    else
-                    if (npc.ai[1] >= 200) //pick random spot to move head to
+                    else if (npc.ai[1] >= 200) //pick random spot to move head to
                     {
                         npc.ai[1] = 0;
                         npc.ai[2] = Main.rand.Next(-movementVariance, movementVariance);
@@ -138,31 +147,38 @@ namespace AAMod.NPCs.Bosses.Orthrus
                         npc.netUpdate = true;
                     }
                 }
-				Vector2 nextTarget = bodyNPC.Center + new Vector2(leftHead ? -distFromBodyX : distFromBodyX, -distFromBodyY) + new Vector2(npc.ai[2], npc.ai[3]);
-				if (Vector2.Distance(nextTarget, npc.Center) < 40f)
-				{
-					npc.velocity *= 0.9f;
-					if (Math.Abs(npc.velocity.X) < 0.05f) npc.velocity.X = 0f;
-					if (Math.Abs(npc.velocity.Y) < 0.05f) npc.velocity.Y = 0f;
-				}
-				else
-				{
-					npc.velocity = Vector2.Normalize(nextTarget - npc.Center);
-					npc.velocity *= 5f;
-				}
-				npc.position += (bodyNPC.oldPos[0] - bodyNPC.position);
-				npc.position += bodyNPC.velocity;	
-            }else
-			{
-				npc.velocity = default(Vector2);
-				npc.position += bodyNPC.velocity;
-			}
-	        npc.rotation = 1.57f;	
-			npc.spriteDirection = -1;	
-			BaseDrawing.AddLight(npc.Center, leftHead ? new Color(255, 84, 84) : new Color(48, 232, 232));
+
+                Vector2 nextTarget = bodyNPC.Center +
+                                     new Vector2(leftHead ? -distFromBodyX : distFromBodyX, -distFromBodyY) +
+                                     new Vector2(npc.ai[2], npc.ai[3]);
+                if (Vector2.Distance(nextTarget, npc.Center) < 40f)
+                {
+                    npc.velocity *= 0.9f;
+                    if (Math.Abs(npc.velocity.X) < 0.05f) npc.velocity.X = 0f;
+                    if (Math.Abs(npc.velocity.Y) < 0.05f) npc.velocity.Y = 0f;
+                }
+                else
+                {
+                    npc.velocity = Vector2.Normalize(nextTarget - npc.Center);
+                    npc.velocity *= 5f;
+                }
+
+                npc.position += (bodyNPC.oldPos[0] - bodyNPC.position);
+                npc.position += bodyNPC.velocity;
+            }
+            else
+            {
+                npc.velocity = default(Vector2);
+                npc.position += bodyNPC.velocity;
+            }
+
+            npc.rotation = 1.57f;
+            npc.spriteDirection = -1;
+            BaseDrawing.AddLight(npc.Center, leftHead ? new Color(255, 84, 84) : new Color(48, 232, 232));
         }
 
-        public float moveSpeed = 16f; 
+        public float moveSpeed = 16f;
+
         public void MoveToPoint(Vector2 point)
         {
             float velMultiplier = 1f;
@@ -172,6 +188,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
             }
+
             npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;

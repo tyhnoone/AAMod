@@ -9,10 +9,8 @@ namespace AAMod.Items.Boss.Yamata
 {
     public class Flairdra : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Flairdra");
             Tooltip.SetDefault(@"Rockets towards foes and leaves homing cyclones in its wake
 Inflicts Moonraze");
@@ -24,7 +22,8 @@ Inflicts Moonraze");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata;;
+                    line2.overrideColor = AAColor.Yamata;
+                    ;
                 }
             }
         }
@@ -48,7 +47,8 @@ Inflicts Moonraze");
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

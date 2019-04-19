@@ -26,10 +26,7 @@ namespace AAMod.Projectiles
 
         public override string Texture
         {
-            get
-            {
-                return "AAMod/Items/Usable/VoidBomb";
-            }
+            get { return "AAMod/Items/Usable/VoidBomb"; }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -41,15 +38,16 @@ namespace AAMod.Projectiles
         public override void Kill(int timeLeft)
         {
             Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Shatter, (int)position.X, (int)position.Y);
+            Main.PlaySound(SoundID.Shatter, (int) position.X, (int) position.Y);
 
             int radius = 100;
-            float[] speedX = { 0, 0, 5, 5, 5, -5, -5, -5 };
-            float[] speedY = { 5, -5, 0, 5, -5, 0, 5, -5 };
+            float[] speedX = {0, 0, 5, 5, 5, -5, -5, -5};
+            float[] speedY = {5, -5, 0, 5, -5, 0, 5, -5};
 
             for (int i = 0; i < 8; i++)
             {
-                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, speedX[i], speedY[i], mod.ProjectileType("IndigoSolution"), 0, 0, Main.myPlayer);
+                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, speedX[i], speedY[i],
+                    mod.ProjectileType("IndigoSolution"), 0, 0, Main.myPlayer);
             }
 
             int Size = 4;
@@ -58,27 +56,28 @@ namespace AAMod.Projectiles
             {
                 for (int j = -radius; j <= radius; j++)
                 {
-                    int xPosition = (int)(i + position.X / 16.0f);
-                    int yPosition = (int)(j + position.Y / 16.0f);
+                    int xPosition = (int) (i + position.X / 16.0f);
+                    int yPosition = (int) (j + position.Y / 16.0f);
 
-                    if (Math.Sqrt(i * i + j * j) <= radius + 0.5)   //circle
+                    if (Math.Sqrt(i * i + j * j) <= radius + 0.5) //circle
                     {
                         for (int k = i - Size; k <= i + Size; k++)
                         {
                             for (int l = j - Size; l <= j + Size; l++)
                             {
-                                if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt(Size * Size + Size * Size))
+                                if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) <
+                                    Math.Sqrt(Size * Size + Size * Size))
                                 {
                                     int type = Main.tile[k, l].type;
                                     if (TileID.Sets.Conversion.Stone[type])
                                     {
-                                        Main.tile[k, l].type = (ushort)mod.TileType<DoomstoneB>();
+                                        Main.tile[k, l].type = (ushort) mod.TileType<DoomstoneB>();
                                         WorldGen.SquareTileFrame(k, l, true);
                                         NetMessage.SendTileSquare(-1, k, l, 1);
                                     }
                                     else if (TileID.Sets.Conversion.Grass[type])
                                     {
-                                        Main.tile[k, l].type = (ushort)mod.TileType<Doomgrass>();
+                                        Main.tile[k, l].type = (ushort) mod.TileType<Doomgrass>();
                                         WorldGen.SquareTileFrame(k, l, true);
                                         NetMessage.SendTileSquare(-1, k, l, 1);
                                     }

@@ -9,7 +9,6 @@ namespace AAMod.Items.Blocks
 {
     public class VoidBox : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Void Music Box");
@@ -33,7 +32,8 @@ namespace AAMod.Items.Blocks
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -60,7 +60,6 @@ namespace AAMod.Items.Blocks
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-
                     line2.overrideColor = new Color(100, 0, 10);
 
                     line2.overrideColor = AAColor.Zero;
@@ -68,6 +67,7 @@ namespace AAMod.Items.Blocks
                 }
             }
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

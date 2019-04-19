@@ -29,7 +29,6 @@ namespace AAMod.Items.Summoning.Minions
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             return false;
         }
 
@@ -40,7 +39,8 @@ namespace AAMod.Items.Summoning.Minions
                 Vector2 vector31 = projectile.position;
                 vector31 -= projectile.velocity * (num443 * 0.25f);
                 projectile.alpha = 255;
-                int num444 = Dust.NewDust(vector31, 1, 1, mod.DustType<Dusts.HallowedDustT>(), 0f, 0f, 0, default(Color), 1f);
+                int num444 = Dust.NewDust(vector31, 1, 1, mod.DustType<Dusts.HallowedDustT>(), 0f, 0f, 0,
+                    default(Color), 1f);
                 Main.dust[num444].noGravity = true;
                 Main.dust[num444].position = vector31;
                 Dust expr_13D2C_cp_0 = Main.dust[num444];
@@ -58,7 +58,8 @@ namespace AAMod.Items.Summoning.Minions
             Main.PlaySound(SoundID.Item10, projectile.position);
             for (int num585 = 0; num585 < 20; num585++)
             {
-                int num586 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), 0f, 0f, 100, Main.DiscoColor, 2f);
+                int num586 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), 0f, 0f, 100, Main.DiscoColor, 2f);
                 Main.dust[num586].noGravity = true;
                 Main.dust[num586].velocity *= 4f;
             }

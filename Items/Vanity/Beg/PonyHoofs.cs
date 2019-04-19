@@ -5,14 +5,14 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Vanity.Beg
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class PonyHoofs : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    public class PonyHoofs : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Weird Horse Hoofs");
             Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Devs!'");
-		}
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {

@@ -62,7 +62,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Terraria, Version=1.3.5.1, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Terraria\Terraria.exe</HintPath>
+      <HintPath>..\..\..\..\..\..\tML-10.1.5\Terraria.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -810,17 +810,11 @@
     <Compile Include="Items\Boss\Zero\ZeroTerratool_Hammer.cs" />
     <Compile Include="Items\Boss\Zero\ZeroTrophy.cs" />
     <Compile Include="Items\Currency\GoblinSoul.cs" />
-    <Compile Include="Items\DevTools\AncientOreGenner.cs" />
     <Compile Include="Items\DevTools\Anticheat.cs" />
     <Compile Include="Items\DevTools\ChaosConverter.cs" />
-    <Compile Include="Items\DevTools\Minilake.cs" />
     <Compile Include="Items\DevTools\Noodle.cs" />
     <Compile Include="Items\DevTools\NoodleSword.cs" />
-    <Compile Include="Items\DevTools\OreGenerator.cs" />
-    <Compile Include="Items\DevTools\Smallcano.cs" />
     <Compile Include="Items\DevTools\DevRadar.cs" />
-    <Compile Include="Items\DevTools\TerrariumGenerator.cs" />
-    <Compile Include="Items\DevTools\VoidSpawner.cs" />
     <Compile Include="Items\Dev\SoulSiphon.cs" />
     <Compile Include="Items\Dev\AmphibianLongsword.cs" />
     <Compile Include="Items\Dev\AmphibianLongswordEX.cs" />
@@ -6279,6 +6273,6 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Steam\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac  "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"D:\tML-10.1.5\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac  "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

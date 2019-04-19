@@ -8,16 +8,14 @@ namespace AAMod.Projectiles
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.Starfury);
-            projectile.penetrate = 14;  
+            projectile.penetrate = 14;
             projectile.width = 14;
             projectile.height = 18;
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("CGP");
-    }
-
-
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("CGP");
+        }
     }
 }

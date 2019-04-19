@@ -1,16 +1,18 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Materials
 {
     public class DarkMatter : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dark Matter");
             Tooltip.SetDefault("The building blocks of physics itself");
         }
+
         public override void SetDefaults()
         {
             item.width = 30;
@@ -26,7 +28,8 @@ namespace AAMod.Items.Materials
             item.createTile = mod.TileType("Darkmatter");
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -48,9 +51,10 @@ namespace AAMod.Items.Materials
         }
 
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "DarkmatterOre", 5);              //example of how to craft with a modded item
+            recipe.AddIngredient(null, "DarkmatterOre", 5); //example of how to craft with a modded item
             recipe.AddTile(null, "QuantumFusionAccelerator");
             recipe.SetResult(this);
             recipe.AddRecipe();

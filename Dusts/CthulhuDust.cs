@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Dusts
 {
     public class CthulhuDust : ModDust
-	{
+    {
         public override void OnSpawn(Dust dust)
         {
         }
@@ -17,25 +17,28 @@ namespace AAMod.Dusts
                 Dust expr_1256_cp_0 = dust;
                 expr_1256_cp_0.velocity.Y = expr_1256_cp_0.velocity.Y + 0.05f;
             }
+
             if (dust.customData != null && dust.customData is NPC)
             {
-                NPC nPC = (NPC)dust.customData;
+                NPC nPC = (NPC) dust.customData;
                 dust.position += nPC.position - nPC.oldPos[1];
             }
             else if (dust.customData != null && dust.customData is Player)
             {
-                Player player5 = (Player)dust.customData;
+                Player player5 = (Player) dust.customData;
                 dust.position += player5.position - player5.oldPosition;
             }
             else if (dust.customData != null && dust.customData is Vector2)
             {
-                Vector2 vector2 = (Vector2)dust.customData - dust.position;
+                Vector2 vector2 = (Vector2) dust.customData - dust.position;
                 if (vector2 != Vector2.Zero)
                 {
                     vector2.Normalize();
                 }
+
                 dust.velocity = (dust.velocity * 4f + vector2 * dust.velocity.Length()) / 5f;
             }
+
             if (!dust.noLight)
             {
                 float num61 = dust.scale * 1.4f;
@@ -44,9 +47,11 @@ namespace AAMod.Dusts
                 {
                     num61 = 1f;
                 }
-                Lighting.AddLight((int)(dust.position.X / 16f), (int)(dust.position.Y / 16f), num61 * 0.3f, num61 * 0.3f, num61 * 0.7f);
-                
+
+                Lighting.AddLight((int) (dust.position.X / 16f), (int) (dust.position.Y / 16f), num61 * 0.3f,
+                    num61 * 0.3f, num61 * 0.7f);
             }
+
             return true;
         }
 
@@ -60,13 +65,16 @@ namespace AAMod.Dusts
                 {
                     strength = 1f;
                 }
+
                 Lighting.AddLight(dust.position, 0f * strength, 0.05f * strength, 0.1f * strength);
             }
+
             if (Collision.SolidCollision(dust.position - Vector2.One * 5f, 10, 10) && dust.fadeIn == 0f)
             {
                 dust.scale *= 0.9f;
                 dust.velocity *= 0.10f;
             }
+
             return false;
         }
 

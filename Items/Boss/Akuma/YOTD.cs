@@ -9,8 +9,6 @@ namespace AAMod.Items.Boss.Akuma
 {
     public class YOTD : ModItem
     {
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Year of the Dragon");
@@ -61,20 +59,26 @@ namespace AAMod.Items.Boss.Akuma
             );
         }*/
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
-            float num81 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
-            float num82 = (float)Main.mouseY + Main.screenPosition.Y - vector2.Y;
+            float num81 = (float) Main.mouseX + Main.screenPosition.X - vector2.X;
+            float num82 = (float) Main.mouseY + Main.screenPosition.Y - vector2.Y;
             for (int num211 = 0; num211 < 2; num211++)
             {
                 float num212 = num81;
                 float num213 = num82;
-                num212 += (float)Main.rand.Next(-40, 41) * 0.05f;
-                num213 += (float)Main.rand.Next(-40, 41) * 0.05f;
-                Vector2 vector22 = vector2 + Vector2.Normalize(new Vector2(num212, num213).RotatedBy((double)(-1.57079637f * (float)player.direction), default(Vector2))) * 6f;
-                Projectile.NewProjectile(vector22.X, vector22.Y, num212, num213, 167 + Main.rand.Next(4), item.damage, item.knockBack, Main.myPlayer, 0f, 1f);
+                num212 += (float) Main.rand.Next(-40, 41) * 0.05f;
+                num213 += (float) Main.rand.Next(-40, 41) * 0.05f;
+                Vector2 vector22 =
+                    vector2 + Vector2.Normalize(
+                        new Vector2(num212, num213).RotatedBy((double) (-1.57079637f * (float) player.direction),
+                            default(Vector2))) * 6f;
+                Projectile.NewProjectile(vector22.X, vector22.Y, num212, num213, 167 + Main.rand.Next(4), item.damage,
+                    item.knockBack, Main.myPlayer, 0f, 1f);
             }
+
             return false;
         }
 
@@ -89,7 +93,7 @@ namespace AAMod.Items.Boss.Akuma
             }
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DaybreakIncinerite", 5);

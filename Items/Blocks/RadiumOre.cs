@@ -6,7 +6,6 @@ namespace AAMod.Items.Blocks
     {
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 16;
             item.maxStack = 999;
@@ -25,6 +24,5 @@ namespace AAMod.Items.Blocks
             DisplayName.SetDefault("Radium Ore");
             Tooltip.SetDefault("Twinkles like the stars in the midnight skies");
         }
-
     }
 }

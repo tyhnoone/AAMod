@@ -38,12 +38,12 @@ namespace AAMod.Items.Armor.Paints
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return body.type == mod.ItemType<Uranium.UraniumChestplate>() && legs.type == mod.ItemType<Uranium.UraniumBoots>();
+            return body.type == mod.ItemType<Uranium.UraniumChestplate>() &&
+                   legs.type == mod.ItemType<Uranium.UraniumBoots>();
         }
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = @"+3 Minion slots
 Enemies near you are burned by radiation emitted by your armor";
 

@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AAMod.Items.Melee   //where is located
+namespace AAMod.Items.Melee //where is located
 {
     public class ChaosScythe : ModItem
     {
@@ -14,12 +14,12 @@ namespace AAMod.Items.Melee   //where is located
             item.noUseGraphic = true;
             item.useStyle = 1;
             item.damage = 250;
-            item.melee = true;           
-            item.width = 56;              
-            item.height = 56;          
+            item.melee = true;
+            item.width = 56;
+            item.height = 56;
             item.knockBack = 6;
             item.value = 10;
-            item.autoReuse = true;   //if it's capable of autoswing.
+            item.autoReuse = true; //if it's capable of autoswing.
             item.useTurn = false;
             item.expert = true;
             item.useAnimation = 25;
@@ -38,7 +38,7 @@ Legendary Weapon");
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             float Eggroll = Math.Abs(Main.GameUpdateCount) / 7f;
-            float Pie = 1f * (float)Math.Sin(Eggroll);
+            float Pie = 1f * (float) Math.Sin(Eggroll);
             Color color1 = Color.Lerp(new Color(85, 145, 93), new Color(64, 61, 99), Pie);
             foreach (TooltipLine line2 in list)
             {
@@ -54,13 +54,13 @@ Legendary Weapon");
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.DeathSickle, 1);
             recipe.AddIngredient(ItemID.IceSickle, 1);
-            recipe.AddIngredient(ItemID.Sickle, 1); ;
+            recipe.AddIngredient(ItemID.Sickle, 1);
+            ;
             recipe.AddIngredient(null, "Discord", 1);
             recipe.AddIngredient(null, "EXSoul", 1);
             recipe.AddTile(null, "QuantumFusionAccelerator");
             recipe.SetResult(this);
             recipe.AddRecipe();
-
         }
     }
 }

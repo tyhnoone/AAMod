@@ -8,16 +8,16 @@ using Terraria.ModLoader;
 namespace AAMod.NPCs.Enemies.Terrarium.PreHM
 {
     public class PuritySquid : ModNPC
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Terra Squid");
-			Main.npcFrameCount[npc.type] = 4;
-		}
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Terra Squid");
+            Main.npcFrameCount[npc.type] = 4;
+        }
 
-		public override void SetDefaults()
-		{
-            npc.lifeMax =  100;
+        public override void SetDefaults()
+        {
+            npc.lifeMax = 100;
             npc.defense = 20;
             npc.damage = 10;
             npc.width = 26;
@@ -30,7 +30,7 @@ namespace AAMod.NPCs.Enemies.Terrarium.PreHM
             npc.noTileCollide = false;
             npc.noGravity = true;
         }
-        
+
         public override Color? GetAlpha(Color drawColor)
         {
             return Color.White;
@@ -42,16 +42,19 @@ namespace AAMod.NPCs.Enemies.Terrarium.PreHM
             {
                 for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                 {
-                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 107, 0f, 0f, 100, default(Color), 2f);
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 107,
+                        0f, 0f, 100, default(Color), 2f);
                     Main.dust[num935].noGravity = true;
                     Main.dust[num935].noLight = true;
                 }
             }
+
             npc.alpha -= 12;
             if (npc.alpha < 0)
             {
                 npc.alpha = 0;
             }
+
             BaseAI.AIElemental(npc, ref npc.ai, null, 120, false, true, 800, 400, 180, 2);
 
             npc.rotation = npc.velocity.X / 15f;
@@ -73,21 +76,22 @@ namespace AAMod.NPCs.Enemies.Terrarium.PreHM
         {
             if (npc.life <= 0)
             {
-
-                npc.position.X = npc.position.X + (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y + (float)(npc.height / 2);
+                npc.position.X = npc.position.X + (float) (npc.width / 2);
+                npc.position.Y = npc.position.Y + (float) (npc.height / 2);
                 npc.width = 44;
                 npc.height = 78;
-                npc.position.X = npc.position.X - (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y - (float)(npc.height / 2);
+                npc.position.X = npc.position.X - (float) (npc.width / 2);
+                npc.position.Y = npc.position.Y - (float) (npc.height / 2);
                 int dust1 = 107;
                 int dust2 = 107;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0,
+                    default(Color), 1f);
                 Main.dust[dust1].velocity *= 0.5f;
                 Main.dust[dust1].scale *= 1.3f;
                 Main.dust[dust1].fadeIn = 1f;
                 Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0,
+                    default(Color), 1f);
                 Main.dust[dust2].velocity *= 0.5f;
                 Main.dust[dust2].scale *= 1.3f;
                 Main.dust[dust2].fadeIn = 1f;

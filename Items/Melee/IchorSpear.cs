@@ -28,25 +28,27 @@ namespace AAMod.Items.Melee
             item.noUseGraphic = true;
             item.useStyle = 5;
             item.value = Item.sellPrice(0, 5, 0, 0);
-			item.autoReuse = true;
+            item.autoReuse = true;
             item.rare = 3;
             item.shootSpeed = 5f;
-            item.shoot = mod.ProjectileType("IchorSpear");  //put your Spear projectile name
+            item.shoot = mod.ProjectileType("IchorSpear"); //put your Spear projectile name
         }
 
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[item.shoot] < 1; // This is to ensure the spear doesn't bug out when using autoReuse = true
+            return
+                player.ownedProjectileCounts[item.shoot] <
+                1; // This is to ensure the spear doesn't bug out when using autoReuse = true
         }
-		
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.CrimtaneBar, 12);
-			recipe.AddIngredient(ItemID.Ichor, 15);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.CrimtaneBar, 12);
+            recipe.AddIngredient(ItemID.Ichor, 15);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

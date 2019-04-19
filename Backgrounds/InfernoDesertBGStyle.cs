@@ -7,7 +7,8 @@ namespace AAMod.Backgrounds
     {
         public override bool ChooseBgStyle()
         {
-            return !Main.gameMenu && Main.LocalPlayer.GetModPlayer<AAPlayer>(mod).ZoneInferno && Main.LocalPlayer.ZoneDesert;
+            return !Main.gameMenu && Main.LocalPlayer.GetModPlayer<AAPlayer>(mod).ZoneInferno &&
+                   Main.LocalPlayer.ZoneDesert;
         }
 
         public override void ModifyFarFades(float[] fades, float transitionSpeed)
@@ -37,6 +38,5 @@ namespace AAMod.Backgrounds
         {
             return mod.GetBackgroundSlot("Backgrounds/InfernoDesertBG");
         }
-        
     }
 }

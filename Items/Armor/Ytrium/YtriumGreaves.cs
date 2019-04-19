@@ -6,8 +6,8 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Ytrium
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class YtriumGreaves : ModItem
-	{
+    public class YtriumGreaves : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Yttrium Greaves");

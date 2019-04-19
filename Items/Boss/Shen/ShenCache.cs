@@ -1,30 +1,31 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Shen
 {
     public class ShenCache : ModItem
-	{
-        
+    {
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Treasure Cache");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
         }
 
-		public override void SetDefaults()
-		{
-			item.maxStack = 999;
-			item.consumable = true;
-			item.width = 36;
-			item.height = 32;
-			item.expert = true;
-			bossBagNPC = mod.NPCType("ShenA");
-		}
+        public override void SetDefaults()
+        {
+            item.maxStack = 999;
+            item.consumable = true;
+            item.width = 36;
+            item.height = 32;
+            item.expert = true;
+            bossBagNPC = mod.NPCType("ShenA");
+        }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -46,26 +47,27 @@ namespace AAMod.Items.Boss.Shen
         }
 
         public override bool CanRightClick()
-		{
-			return true;
-		}
+        {
+            return true;
+        }
 
-		public override void OpenBossBag(Player player)
-		{
+        public override void OpenBossBag(Player player)
+        {
             if (Main.rand.NextFloat() < 0.01f)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.SADevArmor();
             }
+
             player.QuickSpawnItem(mod.ItemType("ChaosScale"), Main.rand.Next(30, 40));
             player.QuickSpawnItem(mod.ItemType("ChaosSoul"));
             player.QuickSpawnItem(mod.ItemType("EXSoul"));
-            string[] lootTable = 
+            string[] lootTable =
             {
                 "ChaosSlayer", "MeteorStrike", "Skyfall", "Astroid"
             };
             int loot = Main.rand.Next(lootTable.Length);
             player.QuickSpawnItem(mod.ItemType(lootTable[loot]));
         }
-	}
+    }
 }

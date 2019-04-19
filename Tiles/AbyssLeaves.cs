@@ -10,6 +10,7 @@ namespace AAMod.Tiles
     {
         public Texture2D glowTex;
         public bool glow = true;
+
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = false;
@@ -38,13 +39,14 @@ namespace AAMod.Tiles
             if (glow && (tile != null && tile.active() && tile.type == this.Type))
             {
                 if (glowTex == null) glowTex = mod.GetTexture("Tiles/AbyssLeaves");
-                BaseMod.BaseDrawing.DrawTileTexture(spriteBatch, glowTex, x, y, true, false, false, null, AAGlobalTile.GetYamataColorDim);
+                BaseMod.BaseDrawing.DrawTileTexture(spriteBatch, glowTex, x, y, true, false, false, null,
+                    AAGlobalTile.GetYamataColorDim);
             }
         }
 
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)   //light colors
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) //light colors
         {
-            r  = .05f;
+            r = .05f;
             g = 0f;
             b = 0f;
         }

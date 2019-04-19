@@ -12,21 +12,22 @@ namespace AAMod.Items.Materials
 
             item.width = 32;
             item.height = 32;
-			item.maxStack = 99;
+            item.maxStack = 99;
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Starcloud Bar");
-      Tooltip.SetDefault("");
-    }
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Starcloud Bar");
+            Tooltip.SetDefault("");
+        }
 
-		public override void AddRecipes()
-        {                                                   //How to craft this item
+        public override void AddRecipes()
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("AAMod:Gold");            //example of how to craft with a modded item
+            recipe.AddRecipeGroup("AAMod:Gold"); //example of how to craft with a modded item
             recipe.AddIngredient(ItemID.ManaCrystal, 1);
-			recipe.AddIngredient(ItemID.Cloud, 5);
+            recipe.AddIngredient(ItemID.Cloud, 5);
             recipe.AddTile(TileID.Furnaces);
             recipe.SetResult(this);
             recipe.AddRecipe();

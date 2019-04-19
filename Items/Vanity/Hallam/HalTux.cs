@@ -12,9 +12,10 @@ namespace AAMod.Items.Vanity.Hallam
             base.SetStaticDefaults();
             DisplayName.SetDefault("Hallam's Fancy Tux");
             Tooltip.SetDefault(
-@"This tux was woven with pure class
+                @"This tux was woven with pure class
 'Great for impersonating Ancients Awakened Devs!'");
         }
+
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
@@ -25,6 +26,7 @@ namespace AAMod.Items.Vanity.Hallam
                 }
             }
         }
+
         public override void SetDefaults()
         {
             item.width = 30;

@@ -33,6 +33,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 npc.buffImmune[k] = true;
             }
+
             npc.knockBackResist = 0f;
             npc.knockBackResist = 0f;
             npc.lavaImmune = true;
@@ -59,6 +60,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 return true;
             }
+
             return false;
         }
 
@@ -66,13 +68,15 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
         {
             npc.value = 0f;
             npc.boss = false;
-            int DeathAnim = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<AsheVanish>(), 0);
+            int DeathAnim = NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, mod.NPCType<AsheVanish>(), 0);
             Main.npc[DeathAnim].velocity = npc.velocity;
             if (!NPC.AnyNPCs(mod.NPCType<AkumaA>()))
             {
-                Main.NewText("Papa, NO! HEY! YOU! I'm gonna bake you alive next time we meet..!", new Color(102, 20, 48));
+                Main.NewText("Papa, NO! HEY! YOU! I'm gonna bake you alive next time we meet..!",
+                    new Color(102, 20, 48));
                 return;
             }
+
             npc.DropLoot(mod.ItemType<Items.Blocks.DaybreakIncineriteOre>(), Main.rand.Next(10, 25));
             Main.NewText("OW, you Jerk..! I'm out!", new Color(102, 20, 48));
         }
@@ -84,10 +88,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);  //boss life scale in expertmode
-            npc.damage = (int)(npc.damage * 1.3f);  //boss damage increase in expermode
+            npc.lifeMax = (int) (npc.lifeMax * 0.6f * bossLifeScale); //boss life scale in expertmode
+            npc.damage = (int) (npc.damage * 1.3f); //boss damage increase in expermode
         }
     }
 }
-
-

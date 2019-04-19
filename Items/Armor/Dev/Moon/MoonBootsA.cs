@@ -6,10 +6,10 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Dev.Moon
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class MoonBootsA : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    public class MoonBootsA : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Lunar Mage Boots");
             Tooltip.SetDefault(@"24% increased Magic damage & critical strike chance

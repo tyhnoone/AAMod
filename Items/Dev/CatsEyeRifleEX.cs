@@ -7,7 +7,6 @@ namespace AAMod.Items.Dev
 {
     public class CatsEyeRifleEX : BaseAAItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Silencer");
@@ -17,38 +16,41 @@ Cat's Eye Rifle EX");
         }
 
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
+
             return true;
         }
 
         public override void SetDefaults()
         {
-            
-            item.damage = 730; 
+            item.damage = 730;
             item.noMelee = true;
             item.ranged = true;
-            item.width = 86; 
-            item.height = 22; 
-            item.useTime = 30; 
-            item.useAnimation = 30;  
-            item.useStyle = 5; 
+            item.width = 86;
+            item.height = 22;
+            item.useTime = 30;
+            item.useAnimation = 30;
+            item.useStyle = 5;
             item.shoot = mod.ProjectileType("CatsEye");
-            item.knockBack = 12; 
+            item.knockBack = 12;
             item.value = Item.sellPrice(1, 0, 0, 0);
-            item.autoReuse = true; 
-            item.shootSpeed = 25f; 
+            item.autoReuse = true;
+            item.shootSpeed = 25f;
             item.crit = 5;
             item.expert = true;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
-            glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_GUN; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
-            glowmaskDrawColor = Color.White;  //glowmask draw color
+            glowmaskDrawType =
+                BaseAAItem
+                    .GLOWMASKTYPE_GUN; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
+            glowmaskDrawColor = Color.White; //glowmask draw color
         }
 
 

@@ -12,10 +12,8 @@ namespace AAMod.Items.Boss.Shen
 {
     public class ShenTerratool : ModItem
     {
-        
         public override void SetDefaults()
         {
-
             item.melee = true;
             item.width = 54;
             item.height = 60;
@@ -31,7 +29,6 @@ namespace AAMod.Items.Boss.Shen
             item.useTurn = true;
             item.damage = 120;
             item.pick = 270;
-
         }
 
         public override void SetStaticDefaults()
@@ -61,7 +58,8 @@ namespace AAMod.Items.Boss.Shen
         {
             byte pre = item.prefix;
             item.TurnToAir();
-            int itemID = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("ShenTerratool_Axe"), 1, false, pre, false, false);
+            int itemID = Item.NewItem((int) player.position.X, (int) player.position.Y, player.width, player.height,
+                mod.ItemType("ShenTerratool_Axe"), 1, false, pre, false, false);
             if (Main.netMode == 1)
             {
                 NetMessage.SendData(21, -1, -1, null, itemID, 1f, 0f, 0f, 0, 0, 0);

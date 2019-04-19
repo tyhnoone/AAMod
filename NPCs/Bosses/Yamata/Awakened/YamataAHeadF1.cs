@@ -24,13 +24,13 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             npc.lifeMax = 35000;
             npc.width = 46;
             npc.height = 46;
-			isAwakened = true;
+            isAwakened = true;
         }
 
         public override void FindFrame(int frameHeight)
         {
             npc.frameCounter++;
-            
+
             if (npc.frameCounter > 5)
             {
                 npc.frameCounter = 0;
@@ -40,12 +40,14 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
                     npc.frame.Y = 0;
                 }
             }
+
             if (fireAttack || YamataHead.EATTHELITTLEMAGGOT)
             {
                 if (npc.frameCounter < 5)
                 {
                     npc.frame.Y = frameHeight * 4;
                 }
+
                 if (npc.frameCounter > 10)
                 {
                     npc.frame.Y += frameHeight;
@@ -58,7 +60,8 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             }
         }
 
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback,
+            ref bool crit, ref int hitDirection)
         {
             Player player = Main.player[npc.target];
             if (player.vortexStealthActive && projectile.ranged)
@@ -66,19 +69,20 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
                 damage /= 2;
                 crit = false;
             }
+
             if (projectile.penetrate == -1 && !projectile.minion)
             {
-                projectile.damage *= (int).2;
+                projectile.damage *= (int) .2;
             }
             else if (projectile.penetrate >= 1)
             {
-                projectile.damage *= (int).2;
+                projectile.damage *= (int) .2;
             }
         }
 
-		public override bool PreNPCLoot()
+        public override bool PreNPCLoot()
         {
-            NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<YamataSoul>());
+            NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, mod.NPCType<YamataSoul>());
             BaseUtility.Chat("OWIE!!!", new Color(146, 30, 68));
             return false;
         }

@@ -1,38 +1,40 @@
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 
 namespace AAMod.Items.Blocks
 {
-	public class SGBox : ModItem
-	{
-        
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Sleeping Giant Music Box");
+    public class SGBox : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Sleeping Giant Music Box");
 
             Tooltip.SetDefault(@"Plays 'Sleeping Giant' by LordCakeSpy");
         }
 
-		public override void SetDefaults()
-		{
-			item.useStyle = 1;
-			item.useTurn = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.autoReuse = true;
-			item.consumable = true;
-			item.createTile = mod.TileType("SGBox");
+        public override void SetDefaults()
+        {
+            item.useStyle = 1;
+            item.useTurn = true;
+            item.useAnimation = 15;
+            item.useTime = 10;
+            item.autoReuse = true;
+            item.consumable = true;
+            item.createTile = mod.TileType("SGBox");
             item.width = 72;
-			item.height = 36;
-			item.rare = 4;
-			item.value = 10000;
-			item.accessory = true;
+            item.height = 36;
+            item.rare = 4;
+            item.value = 10000;
+            item.accessory = true;
             item.rare = 11;
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/IZBox_Glow1");
             spriteBatch.Draw

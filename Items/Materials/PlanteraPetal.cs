@@ -9,6 +9,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Plantera Petal");
             Tooltip.SetDefault("It's very pink");
         }
+
         public override void SetDefaults()
         {
             item.width = 20;

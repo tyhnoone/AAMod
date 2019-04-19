@@ -5,21 +5,23 @@ using System;
 
 namespace AAMod
 {
-	public class AAColor
+    public class AAColor
     {
         public static Color Lantern
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(224, 213, 94), new Color(130, 104, 41), new Color(224, 213, 94));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(224, 213, 94), new Color(130, 104, 41), new Color(224, 213, 94));
             }
         }
-        
+
         public static Color Mushroom
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.LightCoral, Color.Coral, Color.LightCoral);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.LightCoral, Color.Coral, Color.LightCoral);
             }
         }
 
@@ -27,7 +29,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Orange, Color.DarkOrange, Color.Orange);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Orange, Color.DarkOrange, Color.Orange);
             }
         }
 
@@ -35,7 +38,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.DarkSlateBlue, Color.Indigo, Color.DarkSlateBlue);
+                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.DarkSlateBlue, Color.Indigo, Color.DarkSlateBlue);
             }
         }
 
@@ -43,7 +47,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.White, Color.Transparent, Color.Transparent, Color.White);
+                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.White,
+                    Color.Transparent, Color.Transparent, Color.White);
             }
         }
 
@@ -51,7 +56,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.HotPink, Color.Transparent, Color.Transparent, Color.HotPink);
+                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.HotPink,
+                    Color.Transparent, Color.Transparent, Color.HotPink);
             }
         }
 
@@ -59,7 +65,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.DeepSkyBlue, Color.Transparent, Color.Transparent, Color.DeepSkyBlue);
+                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.DeepSkyBlue, Color.Transparent, Color.Transparent, Color.DeepSkyBlue);
             }
         }
 
@@ -67,63 +74,56 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Transparent, Color.White, Color.Transparent, Color.White, Color.Transparent, Color.Transparent, Color.Transparent);
+                return BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Transparent, Color.White, Color.Transparent, Color.White, Color.Transparent,
+                    Color.Transparent, Color.Transparent);
             }
         }
 
         public static Color Akuma
         {
-            get
-            {
-                return new Color(146, 37, 30);
-            }
+            get { return new Color(146, 37, 30); }
         }
 
         public static Color Yamata
         {
-            get
-            {
-                return new Color(53, 57, 126);
-            }
+            get { return new Color(53, 57, 126); }
         }
 
         public static Color AkumaA
         {
-            get
-            {
-                return Color.DeepSkyBlue;
-            }
+            get { return Color.DeepSkyBlue; }
         }
 
-        public static Color YamataA 
+        public static Color YamataA
         {
-            get
-            {
-                return new Color(146, 30, 68);
-            }
+            get { return new Color(146, 30, 68); }
         }
 
         public static Color Zero
-		{
-			get
-			{
-				return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Red, Color.DarkRed, Color.Red);
-			}
-		}
+        {
+            get
+            {
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Red, Color.DarkRed, Color.Red);
+            }
+        }
 
-		public static Color Shen
-		{
-			get
-			{
-				return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Magenta, Color.DarkMagenta, Color.Magenta);
-			}
-		}
+        public static Color Shen
+        {
+            get
+            {
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Magenta, Color.DarkMagenta, Color.Magenta);
+            }
+        }
 
         public static Color Shen2
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.OrangeRed, Color.Indigo, Color.Indigo, Color.OrangeRed);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.OrangeRed, Color.Indigo, Color.Indigo, Color.OrangeRed);
             }
         }
 
@@ -131,50 +131,55 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.OrangeRed, Color.Magenta, Color.Indigo, Color.Indigo, Color.Magenta, Color.OrangeRed);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.OrangeRed, Color.Magenta, Color.Indigo, Color.Indigo, Color.Magenta, Color.OrangeRed);
             }
         }
 
         public static Color IZ
-        { 
-			get
-			{
-				return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.DarkGray, Color.Gray, Color.DarkGray);
-			}
-		}
+        {
+            get
+            {
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.DarkGray, Color.Gray, Color.DarkGray);
+            }
+        }
 
         public static Color Cthulhu
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Cyan, Color.DarkCyan, Color.Cyan);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Cyan, Color.DarkCyan, Color.Cyan);
             }
         }
 
-        public static Color Cthulhu2 
+        public static Color Cthulhu2
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(10, 22, 28), Color.White, new Color(10, 22, 28));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(10, 22, 28), Color.White, new Color(10, 22, 28));
             }
         }
 
         public static Color Oblivion
-		{
-			get
-			{
+        {
+            get
+            {
                 float Eggroll = Math.Abs(Main.GameUpdateCount) / 0.5f;
-                float Pie = 1f * (float)Math.Sin(Eggroll);
+                float Pie = 1f * (float) Math.Sin(Eggroll);
                 Color color1 = Color.Lerp(Color.Red, Color.Black, Pie);
                 return color1;
             }
-		}
+        }
 
         public static Color Snow
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(0, 140, 128), new Color(0, 117, 128), new Color(0, 140, 128));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(0, 140, 128), new Color(0, 117, 128), new Color(0, 140, 128));
             }
         }
 
@@ -182,7 +187,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(227, 159, 0), new Color(176, 88, 0), new Color(227, 159, 0));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(227, 159, 0), new Color(176, 88, 0), new Color(227, 159, 0));
             }
         }
 
@@ -190,7 +196,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(112, 255, 243), new Color(27, 178, 191), new Color(112, 255, 243));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(112, 255, 243), new Color(27, 178, 191), new Color(112, 255, 243));
             }
         }
 
@@ -198,7 +205,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(179, 75, 0), new Color(128, 43, 0), new Color(179, 75, 0));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(179, 75, 0), new Color(128, 43, 0), new Color(179, 75, 0));
             }
         }
 
@@ -206,7 +214,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(214, 36, 0), new Color(153, 13, 0), new Color(214, 36, 0));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(214, 36, 0), new Color(153, 13, 0), new Color(214, 36, 0));
             }
         }
 
@@ -214,7 +223,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(57, 0, 156), new Color(26, 0, 128), new Color(57, 0, 156));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(57, 0, 156), new Color(26, 0, 128), new Color(57, 0, 156));
             }
         }
 
@@ -222,7 +232,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(232, 36, 102), new Color(33, 31, 77), new Color(232, 36, 102));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(232, 36, 102), new Color(33, 31, 77), new Color(232, 36, 102));
             }
         }
 
@@ -230,7 +241,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(117, 0, 140), new Color(75, 0, 102), new Color(117, 0, 140));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(117, 0, 140), new Color(75, 0, 102), new Color(117, 0, 140));
             }
         }
 
@@ -238,7 +250,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(140, 0, 2), new Color(102, 0, 2), new Color(140, 0, 2));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(140, 0, 2), new Color(102, 0, 2), new Color(140, 0, 2));
             }
         }
 
@@ -246,7 +259,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(124, 140, 2), new Color(56, 102, 0), new Color(124, 140, 2));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(124, 140, 2), new Color(56, 102, 0), new Color(124, 140, 2));
             }
         }
 
@@ -254,7 +268,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(0, 138, 166), new Color(0, 99, 148), new Color(0, 138, 166));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(0, 138, 166), new Color(0, 99, 148), new Color(0, 138, 166));
             }
         }
 
@@ -262,7 +277,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, new Color(122, 47, 24), new Color(77, 22, 15), new Color(122, 47, 24));
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    new Color(122, 47, 24), new Color(77, 22, 15), new Color(122, 47, 24));
             }
         }
 
@@ -270,7 +286,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Cyan, Color.Pink, Color.Cyan);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Cyan, Color.Pink, Color.Cyan);
             }
         }
 
@@ -278,24 +295,19 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.DarkGreen, Color.Green, Color.DarkGreen);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.DarkGreen, Color.Green, Color.DarkGreen);
             }
         }
 
         public static Color Daybringer
         {
-            get
-            {
-                return new Color(47, 31, 108);
-            }
+            get { return new Color(47, 31, 108); }
         }
 
         public static Color Nightcrawler
         {
-            get
-            {
-                return new Color(42, 7, 74);
-            }
+            get { return new Color(42, 7, 74); }
         }
 
         public static Color Celestial
@@ -304,12 +316,15 @@ namespace AAMod
             {
                 if (Main.dayTime && Celestial != Daybringer)
                 {
-                    return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Nightcrawler, Daybringer);
+                    return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                        Nightcrawler, Daybringer);
                 }
                 else if (!Main.dayTime && Celestial != Nightcrawler)
                 {
-                    return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Daybringer, Nightcrawler);
+                    return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                        Daybringer, Nightcrawler);
                 }
+
                 if (Main.dayTime)
                 {
                     return Daybringer;
@@ -325,16 +340,18 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.DarkViolet, Color.DarkViolet, Color.DarkViolet, Color.DarkViolet, Color.DarkViolet, Color.Violet, Color.DarkViolet, Color.Violet, Color.DarkViolet);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.DarkViolet, Color.DarkViolet, Color.DarkViolet, Color.DarkViolet, Color.DarkViolet,
+                    Color.Violet, Color.DarkViolet, Color.Violet, Color.DarkViolet);
             }
         }
-        
+
         public static Color Storm2
         {
             get
             {
                 float Eggroll = Math.Abs(Main.GameUpdateCount) / 0.5f;
-                float Pie = 1f * (float)Math.Sin(Eggroll);
+                float Pie = 1f * (float) Math.Sin(Eggroll);
                 Color color1 = Color.Lerp(new Color(86, 50, 125), Color.Black, Pie);
                 return color1;
             }
@@ -344,23 +361,26 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.SandyBrown, Color.Sienna, Color.SandyBrown);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.SandyBrown, Color.Sienna, Color.SandyBrown);
             }
         }
-        
+
         public static Color Serpent
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.CornflowerBlue, Color.CadetBlue, Color.CornflowerBlue);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.CornflowerBlue, Color.CadetBlue, Color.CornflowerBlue);
             }
         }
-        
+
         public static Color TODE
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.DodgerBlue, Color.CornflowerBlue, Color.DodgerBlue);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.DodgerBlue, Color.CornflowerBlue, Color.DodgerBlue);
             }
         }
 
@@ -368,7 +388,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Violet, Color.ForestGreen, Color.ForestGreen, Color.Violet);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Violet, Color.ForestGreen, Color.ForestGreen, Color.Violet);
             }
         }
 
@@ -376,7 +397,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.SeaGreen, Color.DarkSeaGreen, Color.SeaGreen);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.SeaGreen, Color.DarkSeaGreen, Color.SeaGreen);
             }
         }
 
@@ -384,7 +406,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Red, Color.DarkRed, Color.DarkRed, Color.Red);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Red, Color.DarkRed, Color.DarkRed, Color.Red);
             }
         }
 
@@ -392,7 +415,8 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Lime, Color.LimeGreen, Color.Lime);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Lime, Color.LimeGreen, Color.Lime);
             }
         }
 
@@ -400,18 +424,20 @@ namespace AAMod
         {
             get
             {
-                return BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Gold, Color.DarkGoldenrod, Color.Gold);
+                return BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.Gold, Color.DarkGoldenrod, Color.Gold);
             }
         }
 
         public static Color COLOR_WHITEFADE1
-		{
-			get
-			{
-				Color c = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.White, Color.White * 0.7f, Color.White);
-				c.A = 255;
-				return c;
-			}
-		}
-	}
+        {
+            get
+            {
+                Color c = BaseUtility.MultiLerpColor((float) (Main.player[Main.myPlayer].miscCounter % 100) / 100f,
+                    Color.White, Color.White * 0.7f, Color.White);
+                c.A = 255;
+                return c;
+            }
+        }
+    }
 }

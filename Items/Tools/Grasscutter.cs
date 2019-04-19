@@ -7,7 +7,6 @@ namespace AAMod.Items.Tools
     {
         public override void SetDefaults()
         {
-
             item.damage = 5;
             item.melee = true;
             item.width = 32;
@@ -30,14 +29,14 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Grasscutter");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Vine, 2);
             recipe.AddIngredient(ItemID.Stinger, 2);
             recipe.AddIngredient(ItemID.JungleSpores, 5);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);  
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }

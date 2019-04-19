@@ -7,9 +7,9 @@ using Terraria.ID;
 namespace AAMod.Items.Armor.Dev.Alphakip.Shiny
 {
     [AutoloadEquip(EquipType.Head)]
-	public class SFishDiverMaskA : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class SFishDiverMaskA : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Shiny Fish Diver's Mask");

@@ -9,11 +9,12 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Dragon Claw");
             Tooltip.SetDefault("Don't prick yourself");
         }
+
         public override void SetDefaults()
         {
             item.width = 22;
             item.height = 20;
-			item.maxStack = 99;
+            item.maxStack = 99;
         }
     }
 }

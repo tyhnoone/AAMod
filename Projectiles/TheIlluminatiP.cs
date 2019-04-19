@@ -9,14 +9,12 @@ namespace AAMod.Projectiles
         {
             projectile.width = 16;
             projectile.height = 16;
-			projectile.CloneDefaults(ProjectileID.ValkyrieYoyo);
+            projectile.CloneDefaults(ProjectileID.ValkyrieYoyo);
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("illuminatiP");
-    }
-
-
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("illuminatiP");
+        }
     }
 }

@@ -5,8 +5,8 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Oroboros
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class OroborosBoots : ModItem
-	{
+    public class OroborosBoots : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Oroboros Wood Boots");

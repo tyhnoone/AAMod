@@ -36,6 +36,7 @@ namespace AAMod.Items.Pets
             {
                 modPlayer.RoyalKitten = false;
             }
+
             if (modPlayer.RoyalKitten)
             {
                 projectile.timeLeft = 2;
@@ -43,5 +44,3 @@ namespace AAMod.Items.Pets
         }
     }
 }
-
-

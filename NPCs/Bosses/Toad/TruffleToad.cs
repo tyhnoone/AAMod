@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using ReLogic.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -20,28 +19,28 @@ namespace AAMod.NPCs.Bosses.Toad
         public float bossLife;
 
         public override void SendExtraAI(BinaryWriter writer)
-		{
-			base.SendExtraAI(writer);
-			if((Main.netMode == 2 || Main.dedServ))
-			{
-				writer.Write((float)internalAI[0]);
-				writer.Write((float)internalAI[1]);
-                writer.Write((float)internalAI[2]);
-                writer.Write((float)internalAI[3]);
+        {
+            base.SendExtraAI(writer);
+            if ((Main.netMode == 2 || Main.dedServ))
+            {
+                writer.Write((float) internalAI[0]);
+                writer.Write((float) internalAI[1]);
+                writer.Write((float) internalAI[2]);
+                writer.Write((float) internalAI[3]);
             }
-		}
+        }
 
-		public override void ReceiveExtraAI(BinaryReader reader)
-		{
-			base.ReceiveExtraAI(reader);
-			if(Main.netMode == 1)
-			{
-				internalAI[0] = reader.ReadFloat();
-				internalAI[1] = reader.ReadFloat();
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            if (Main.netMode == 1)
+            {
+                internalAI[0] = reader.ReadFloat();
+                internalAI[1] = reader.ReadFloat();
                 internalAI[2] = reader.ReadFloat();
                 internalAI[3] = reader.ReadFloat();
-            }	
-		}	
+            }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -51,10 +50,10 @@ namespace AAMod.NPCs.Bosses.Toad
 
         public override void SetDefaults()
         {
-            npc.lifeMax = 14000;   //boss life
-            npc.damage = 30;  //boss damage
-            npc.defense = 20;    //boss defense
-            npc.knockBackResist = 0f;   //this boss will behavior like the DemonEye  //boss frame/animation 
+            npc.lifeMax = 14000; //boss life
+            npc.damage = 30; //boss damage
+            npc.defense = 20; //boss defense
+            npc.knockBackResist = 0f; //this boss will behavior like the DemonEye  //boss frame/animation 
             npc.value = Item.buyPrice(0, 1, 0, 0);
             npc.aiStyle = -1;
             npc.width = 98;
@@ -67,9 +66,9 @@ namespace AAMod.NPCs.Bosses.Toad
             npc.netAlways = true;
             bossBag = mod.ItemType("ToadBag");
         }
-      
-		public static int AISTATE_JUMP = 0, AISTATE_BARF = 1, AISTATE_TONGUE = 2;
-		public float[] internalAI = new float[4];
+
+        public static int AISTATE_JUMP = 0, AISTATE_BARF = 1, AISTATE_TONGUE = 2;
+        public float[] internalAI = new float[4];
         public int NOM = 0;
         public bool tonguespawned = false;
         public bool TongueAttack = false;
@@ -96,6 +95,7 @@ namespace AAMod.NPCs.Bosses.Toad
                 {
                     internalAI[1]++;
                 }
+
                 if (internalAI[1] >= 180)
                 {
                     internalAI[1] = 0;
@@ -116,14 +116,19 @@ namespace AAMod.NPCs.Bosses.Toad
                         internalAI[2] = 0;
                         if (npc.direction == -1)
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(-6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("ToadBomb"), 35, 3);
+                            Projectile.NewProjectile(npc.Center,
+                                new Vector2(-6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-4, 0)),
+                                mod.ProjectileType("ToadBomb"), 35, 3);
                         }
                         else
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("ToadBomb"), 35, 3);
+                            Projectile.NewProjectile(npc.Center,
+                                new Vector2(6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-4, 0)),
+                                mod.ProjectileType("ToadBomb"), 35, 3);
                         }
                     }
                 }
+
                 if (internalAI[1] >= 100)
                 {
                     internalAI[0] = AISTATE_JUMP;
@@ -173,7 +178,6 @@ namespace AAMod.NPCs.Bosses.Toad
                         }
                     }
                 }*/
-                
             }
         }
 
@@ -215,16 +219,13 @@ namespace AAMod.NPCs.Bosses.Toad
             }
             else
             {
-
             }
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);  //boss life scale in expertmode
-            npc.damage = (int)(npc.damage * 1.1f);  //boss damage increase in expermode
+            npc.lifeMax = (int) (npc.lifeMax * 0.6f * bossLifeScale); //boss life scale in expertmode
+            npc.damage = (int) (npc.damage * 1.1f); //boss damage increase in expermode
         }
     }
 }
-
-

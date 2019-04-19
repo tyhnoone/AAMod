@@ -6,13 +6,13 @@ namespace AAMod.Items.Tools
 {
     //ported from my tAPI mod because I don't want to make more artwork
     public class UraniumChainsaw : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Uranium Chainsaw");
-		}
+        }
 
-		public override void SetDefaults()
+        public override void SetDefaults()
         {
             item.useStyle = 5;
             item.useAnimation = 29;
@@ -30,8 +30,8 @@ namespace AAMod.Items.Tools
             item.value = 81000;
             item.melee = true;
             item.shoot = mod.ProjectileType("UraniumChainsaw");
-			item.shootSpeed = 40f;
-		}
+            item.shootSpeed = 40f;
+        }
 
         public override void AddRecipes()
         {

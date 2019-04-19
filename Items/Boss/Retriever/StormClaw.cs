@@ -1,5 +1,7 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Retriever
 {
@@ -15,17 +17,18 @@ namespace AAMod.Items.Boss.Retriever
             item.expert = true;
             item.accessory = true;
         }
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Storm Claw");
             Tooltip.SetDefault(
-@"For every hit you land on an enemy, 20 true damage (damage unassigned to any class) is dealt
+                @"For every hit you land on an enemy, 20 true damage (damage unassigned to any class) is dealt
 Your non-autoswinging weapons are lightning fast");
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -48,7 +51,7 @@ Your non-autoswinging weapons are lightning fast");
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.GetModPlayer<AAPlayer>().StormClaw = true;
+            player.GetModPlayer<AAPlayer>().StormClaw = true;
         }
 
         public override bool CanEquipAccessory(Player player, int slot)
@@ -62,12 +65,14 @@ Your non-autoswinging weapons are lightning fast");
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Grips.ClawOfChaos>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

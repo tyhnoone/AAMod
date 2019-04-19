@@ -3,13 +3,14 @@ using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.MushroomMonarch
 {
-    public class MonarchRUNAWAY: ModProjectile
+    public class MonarchRUNAWAY : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mushroom Monarch");
             Main.projFrames[projectile.type] = 4;
         }
+
         public override void SetDefaults()
         {
             projectile.damage = 24;
@@ -22,6 +23,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             projectile.ignoreWater = true;
             projectile.timeLeft = 900;
         }
+
         public override void AI()
         {
             if (++projectile.frameCounter >= 4)
@@ -32,6 +34,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                     projectile.frame = 0;
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y -= .1f;
         }

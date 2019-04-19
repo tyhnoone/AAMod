@@ -10,7 +10,8 @@ namespace AAMod.Items.Dyes
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Blazing Fury Dye");
-            BaseMod.BaseUtility.AddTooltips(item, new string[] { "Gives a blazing touch to whatever this dye is applied to" });
+            BaseMod.BaseUtility.AddTooltips(item,
+                new string[] {"Gives a blazing touch to whatever this dye is applied to"});
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -30,7 +31,7 @@ namespace AAMod.Items.Dyes
             item.height = 15;
             item.maxStack = 99;
             item.rare = 8;
-            item.dye = (byte)GameShaders.Armor.GetShaderIdFromItemId(item.type);
+            item.dye = (byte) GameShaders.Armor.GetShaderIdFromItemId(item.type);
             item.value = BaseUtility.CalcValue(0, 10, 0, 0);
         }
 

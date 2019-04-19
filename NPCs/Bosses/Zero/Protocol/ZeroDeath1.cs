@@ -11,6 +11,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             DisplayName.SetDefault("Zero");
             Main.projFrames[projectile.type] = 9;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 1;
@@ -21,43 +22,51 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
         }
+
         public bool linesaid = false;
+
         public override void AI()
         {
             if (Main.expertMode && !AAWorld.downedZero && !linesaid && !AAWorld.downedIZ)
             {
-                Main.NewText("MISSI0N FAILED. SENDING DISTRESS SIGNAL T0 H0ME BASE", Color.Red.R, Color.Red.G, Color.Red.B);
+                Main.NewText("MISSI0N FAILED. SENDING DISTRESS SIGNAL T0 H0ME BASE", Color.Red.R, Color.Red.G,
+                    Color.Red.B);
                 linesaid = true;
             }
+
             if (Main.expertMode && AAWorld.downedZero && !linesaid && !AAWorld.downedIZ)
             {
                 Main.NewText("MISSI0N FAILED. ATTEMPTING DISTRESS SIGNAL AGAIN", Color.Red.R, Color.Red.G, Color.Red.B);
                 linesaid = true;
             }
+
             if (!AAWorld.downedIZ)
             {
                 AAMod.Slayer = true;
             }
+
             if (++projectile.frameCounter >= 7)
             {
                 projectile.frameCounter = 0;
                 if (++projectile.frame >= 9)
                 {
                     projectile.Kill();
-                   
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y += 0.00f;
-           
         }
+
         public override void Kill(int timeLeft)
         {
             if (!AAWorld.downedZero && Main.expertMode && !AAWorld.downedIZ)
             {
                 Main.NewText("SENDING...", Color.Red.R, Color.Red.G, Color.Red.B);
             }
-            Projectile.NewProjectile((new Vector2(projectile.Center.X, projectile.Center.Y)), (new Vector2(0f, 0f)), mod.ProjectileType("ZeroDeath2"), 0, 0);
+
+            Projectile.NewProjectile((new Vector2(projectile.Center.X, projectile.Center.Y)), (new Vector2(0f, 0f)),
+                mod.ProjectileType("ZeroDeath2"), 0, 0);
         }
     }
 }

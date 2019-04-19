@@ -10,8 +10,8 @@ namespace AAMod.NPCs.Enemies.Desert
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Djinn Burst");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 7;     //The recording mode
+            DisplayName.SetDefault("Djinn Burst"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 7; //The recording mode
         }
 
         public override void SetDefaults()
@@ -39,12 +39,11 @@ namespace AAMod.NPCs.Enemies.Desert
                 if (++projectile.frame >= 6)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void Kill(int timeLeft)
@@ -62,6 +61,7 @@ namespace AAMod.NPCs.Enemies.Desert
                 if (projectile.frame > 3)
                     projectile.frame = 0;
             }
+
             return false;
         }
 
@@ -69,6 +69,5 @@ namespace AAMod.NPCs.Enemies.Desert
         {
             target.AddBuff(BuffID.Chilled, 600);
         }
-
     }
 }

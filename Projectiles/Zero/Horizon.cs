@@ -10,10 +10,9 @@ namespace AAMod.Projectiles.Zero
 {
     // to investigate: Projectile.Damage, (8843)
     class Horizon : ModProjectile
-	{
+    {
         public override void SetDefaults()
-		{
-            
+        {
             projectile.width = 64;
             projectile.height = 64;
             projectile.alpha = 100;
@@ -27,10 +26,11 @@ namespace AAMod.Projectiles.Zero
             projectile.timeLeft = 300;
             projectile.scale = .1f;
         }
+
         float RotValue = .1f;
+
         public override void AI()
         {
-            
             if (projectile.ai[0] == 0)
             {
                 projectile.scale *= 1.1f;
@@ -41,6 +41,7 @@ namespace AAMod.Projectiles.Zero
                     projectile.ai[0] = 1f;
                 }
             }
+
             if (projectile.ai[0] == 1)
             {
                 projectile.scale *= .9f;
@@ -55,8 +56,11 @@ namespace AAMod.Projectiles.Zero
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D tex = Main.projectileTexture[projectile.type];
-            BaseDrawing.DrawTexture(spriteBatch, tex, 0, projectile.position, projectile.width, projectile.height, projectile.scale, -RotValue, -1, 1, new Rectangle(0, 0, tex.Width, tex.Height), AAColor.Yamata, true);
-            BaseDrawing.DrawTexture(spriteBatch, tex, 0, projectile.position, projectile.width, projectile.height, projectile.scale, RotValue, projectile.direction, 1, new Rectangle(0, 0, tex.Width, tex.Height), AAColor.ZeroShield, true);
+            BaseDrawing.DrawTexture(spriteBatch, tex, 0, projectile.position, projectile.width, projectile.height,
+                projectile.scale, -RotValue, -1, 1, new Rectangle(0, 0, tex.Width, tex.Height), AAColor.Yamata, true);
+            BaseDrawing.DrawTexture(spriteBatch, tex, 0, projectile.position, projectile.width, projectile.height,
+                projectile.scale, RotValue, projectile.direction, 1, new Rectangle(0, 0, tex.Width, tex.Height),
+                AAColor.ZeroShield, true);
             return false;
         }
     }

@@ -11,16 +11,16 @@ namespace AAMod.Projectiles
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.LightBeam);
-            projectile.penetrate = 4;  
+            projectile.penetrate = 4;
             projectile.width = 42;
             projectile.height = 42;
-			projectile.friendly = true;
-			projectile.hostile = false;
+            projectile.friendly = true;
+            projectile.hostile = false;
             projectile.timeLeft = 900;
         }
-		
-		public override void AI()
-		{
+
+        public override void AI()
+        {
             if (Main.rand.NextFloat() < 1f)
             {
                 Dust dust;
@@ -29,6 +29,7 @@ namespace AAMod.Projectiles
                 dust.noGravity = true;
                 dust.fadeIn = 1.421053f;
             }
+
             {
                 Dust dust;
                 Vector2 position = projectile.position;
@@ -46,6 +47,7 @@ namespace AAMod.Projectiles
         }
 
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -55,13 +57,16 @@ namespace AAMod.Projectiles
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             DisplayName.SetDefault("Dawn Ray");
-		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 500);
         }

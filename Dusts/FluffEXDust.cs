@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Dusts
 {
     public class FluffEXDust : ModDust
-	{
+    {
         public override bool MidUpdate(Dust dust)
         {
             dust.rotation += dust.velocity.X / 3f;
@@ -14,6 +14,7 @@ namespace AAMod.Dusts
                 dust.scale *= 0.9f;
                 dust.velocity *= 0.10f;
             }
+
             return false;
         }
     }

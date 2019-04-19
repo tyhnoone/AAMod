@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Armor.PerfectChaos
 {
-	[AutoloadEquip(EquipType.Body)]
-	public class PerfectChaosPlate : ModItem
-	{
+    [AutoloadEquip(EquipType.Body)]
+    public class PerfectChaosPlate : ModItem
+    {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -23,24 +23,23 @@ The power of discordian rage radiates from this armor");
 
 
         public override void SetDefaults()
-		{
-			item.width = 26;
-			item.height = 20;
-			item.value = Item.sellPrice(3, 0, 0, 0);
-			item.rare = 10;
-			item.defense = 60;
-		}
+        {
+            item.width = 26;
+            item.height = 20;
+            item.value = Item.sellPrice(3, 0, 0, 0);
+            item.rare = 10;
+            item.defense = 60;
+        }
 
-		public override void UpdateEquip(Player player)
-		{
-
+        public override void UpdateEquip(Player player)
+        {
             player.meleeDamage *= 1.3f;
             player.meleeCrit += 30;
             player.endurance *= 1.15f;
             player.meleeSpeed *= 1.15f;
         }
-		
-		public override void AddRecipes()
+
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DracoPlate", 1);
@@ -52,13 +51,15 @@ The power of discordian rage radiates from this armor");
             recipe.AddRecipe();
         }
 
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D Glow = mod.GetTexture("Glowmasks/PerfectChaosPlate_Glow");
             spriteBatch.Draw(Glow, position, null, AAColor.Shen3, 0, origin, scale, SpriteEffects.None, 0f);
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

@@ -8,10 +8,9 @@ namespace AAMod.Items.Tools
 {
     public class FulguritePitchet : ModItem
     {
-        
         public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Fulgurite Pitchet");
+        {
+            DisplayName.SetDefault("Fulgurite Pitchet");
         }
 
 
@@ -21,7 +20,7 @@ namespace AAMod.Items.Tools
             item.height = 48;
             item.value = Item.sellPrice(0, 3, 0, 0);
             item.rare = 4;
-		    item.pick = 200;
+            item.pick = 200;
             item.axe = 40;
             item.tileBoost += 1;
 
@@ -36,10 +35,12 @@ namespace AAMod.Items.Tools
             item.useTurn = true;
             item.autoReuse = true;
 
-            
+
             item.UseSound = SoundID.Item1;
         }
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

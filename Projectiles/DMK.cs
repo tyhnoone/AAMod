@@ -7,8 +7,8 @@ namespace AAMod.Projectiles
 {
     public class DMK : ModProjectile
     {
-
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -18,10 +18,12 @@ namespace AAMod.Projectiles
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             projectile.glowMask = customGlowMask;
 
             DisplayName.SetDefault("Darkmatter Kunai");
@@ -42,7 +44,8 @@ namespace AAMod.Projectiles
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D tex = Main.projectileTexture[projectile.type];
-            spriteBatch.Draw(tex, projectile.Center - Main.screenPosition, null, projectile.GetAlpha(lightColor), projectile.rotation, tex.Size() / 2f, projectile.scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(tex, projectile.Center - Main.screenPosition, null, projectile.GetAlpha(lightColor),
+                projectile.rotation, tex.Size() / 2f, projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
 
@@ -50,7 +53,8 @@ namespace AAMod.Projectiles
         {
             if (Main.rand.Next(2) == 0)
             {
-                Item.NewItem((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height, mod.ItemType("DarkmatterKunai"));
+                Item.NewItem((int) projectile.position.X, (int) projectile.position.Y, projectile.width,
+                    projectile.height, mod.ItemType("DarkmatterKunai"));
             }
         }
 
@@ -58,6 +62,5 @@ namespace AAMod.Projectiles
         {
             target.AddBuff(mod.BuffType("Electrified"), 500);
         }
-
     }
 }

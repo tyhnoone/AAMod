@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -10,7 +9,6 @@ using Terraria.ModLoader;
 using BaseMod;
 using AAMod;
 using Terraria.Graphics.Shaders;
-
 
 
 namespace AAMod.Projectiles.Akuma.Lung
@@ -47,13 +45,17 @@ namespace AAMod.Projectiles.Akuma.Lung
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num214 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
             int y6 = num214 * projectile.frame;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle(0, y6, texture2D13.Width, num214),
-                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f), projectile.scale,
+            Main.spriteBatch.Draw(texture2D13,
+                projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
+                new Rectangle(0, y6, texture2D13.Width, num214),
+                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f),
+                projectile.scale,
                 projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
             return false;
         }
@@ -63,7 +65,7 @@ namespace AAMod.Projectiles.Akuma.Lung
             Player player = Main.player[projectile.owner];
             AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
 
-            if ((int)Main.time % 120 == 0) projectile.netUpdate = true;
+            if ((int) Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
             {
                 projectile.active = false;
@@ -138,7 +140,8 @@ namespace AAMod.Projectiles.Akuma.Lung
                 }
 
                 float num1046 = 30f;
-                if (projectile.velocity.Length() > num1046) projectile.velocity = Vector2.Normalize(projectile.velocity) * num1046;
+                if (projectile.velocity.Length() > num1046)
+                    projectile.velocity = Vector2.Normalize(projectile.velocity) * num1046;
             }
             else
             {
@@ -148,8 +151,12 @@ namespace AAMod.Projectiles.Akuma.Lung
                 if (vector133.Length() < 140f) num1047 = 0.06f;
                 if (vector133.Length() > 100f)
                 {
-                    if (Math.Abs(center.X - projectile.Center.X) > 20f) projectile.velocity.X = projectile.velocity.X + num1047 * Math.Sign(center.X - projectile.Center.X);
-                    if (Math.Abs(center.Y - projectile.Center.Y) > 10f) projectile.velocity.Y = projectile.velocity.Y + num1047 * Math.Sign(center.Y - projectile.Center.Y);
+                    if (Math.Abs(center.X - projectile.Center.X) > 20f)
+                        projectile.velocity.X =
+                            projectile.velocity.X + num1047 * Math.Sign(center.X - projectile.Center.X);
+                    if (Math.Abs(center.Y - projectile.Center.Y) > 10f)
+                        projectile.velocity.Y =
+                            projectile.velocity.Y + num1047 * Math.Sign(center.Y - projectile.Center.Y);
                 }
                 else if (projectile.velocity.Length() > 2f)
                 {
@@ -158,7 +165,8 @@ namespace AAMod.Projectiles.Akuma.Lung
 
                 if (Math.Abs(projectile.velocity.Y) < 1f) projectile.velocity.Y = projectile.velocity.Y - 0.1f;
                 float num1048 = 15f;
-                if (projectile.velocity.Length() > num1048) projectile.velocity = Vector2.Normalize(projectile.velocity) * num1048;
+                if (projectile.velocity.Length() > num1048)
+                    projectile.velocity = Vector2.Normalize(projectile.velocity) * num1048;
             }
 
             projectile.rotation = projectile.velocity.ToRotation() + 1.57079637f;
@@ -168,7 +176,7 @@ namespace AAMod.Projectiles.Akuma.Lung
             float num1049 = MathHelper.Clamp(projectile.localAI[0], 0f, 50f);
             projectile.position = projectile.Center;
             projectile.scale = 1f + num1049 * 0.01f;
-            projectile.width = projectile.height = (int)(num1038 * projectile.scale);
+            projectile.width = projectile.height = (int) (num1038 * projectile.scale);
             projectile.Center = projectile.position;
             if (projectile.alpha > 0)
             {
@@ -200,15 +208,19 @@ namespace AAMod.Projectiles.Akuma.Lung
             projectile.timeLeft *= 5;
             projectile.minionSlots = 1f;
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
         }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Lung");
         }
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles,
+
+        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles,
+            List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles,
             List<int> drawCacheProjsOverWiresUI)
         {
             drawCacheProjsBehindProjectiles.Add(index);
@@ -219,8 +231,11 @@ namespace AAMod.Projectiles.Akuma.Lung
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num214 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
             int y6 = num214 * projectile.frame;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle(0, y6, texture2D13.Width, num214),
-                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f), projectile.scale,
+            Main.spriteBatch.Draw(texture2D13,
+                projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
+                new Rectangle(0, y6, texture2D13.Width, num214),
+                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f),
+                projectile.scale,
                 projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
             return false;
         }
@@ -230,7 +245,7 @@ namespace AAMod.Projectiles.Akuma.Lung
             Player player = Main.player[projectile.owner];
             AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
 
-            if ((int)Main.time % 120 == 0) projectile.netUpdate = true;
+            if ((int) Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
             {
                 projectile.active = false;
@@ -267,7 +282,7 @@ namespace AAMod.Projectiles.Akuma.Lung
                 projectile.netUpdate = true;
             }
 
-            int byUUID = Projectile.GetByUUID(projectile.owner, (int)projectile.ai[0]);
+            int byUUID = Projectile.GetByUUID(projectile.owner, (int) projectile.ai[0]);
             if (byUUID >= 0 && Main.projectile[byUUID].active)
             {
                 flag67 = true;
@@ -279,14 +294,16 @@ namespace AAMod.Projectiles.Akuma.Lung
                 scaleFactor16 = 16f;
                 int arg_2D9AD_0 = Main.projectile[byUUID].alpha;
                 Main.projectile[byUUID].localAI[0] = projectile.localAI[0] + 1f;
-                if (Main.projectile[byUUID].type != mod.ProjectileType("LungHead")) Main.projectile[byUUID].localAI[1] = projectile.whoAmI;
+                if (Main.projectile[byUUID].type != mod.ProjectileType("LungHead"))
+                    Main.projectile[byUUID].localAI[1] = projectile.whoAmI;
             }
 
             if (!flag67) return;
             if (projectile.alpha > 0)
                 for (int num1054 = 0; num1054 < 2; num1054++)
                 {
-                    int num1055 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f, 100, default(Color), 2f);
+                    int num1055 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f,
+                        100, default(Color), 2f);
                     Main.dust[num1055].noGravity = true;
                     Main.dust[num1055].noLight = true;
                 }
@@ -304,9 +321,10 @@ namespace AAMod.Projectiles.Akuma.Lung
             projectile.rotation = vector134.ToRotation() + 1.57079637f;
             projectile.position = projectile.Center;
             projectile.scale = scaleFactor17;
-            projectile.width = projectile.height = (int)(num1038 * projectile.scale);
+            projectile.width = projectile.height = (int) (num1038 * projectile.scale);
             projectile.Center = projectile.position;
-            if (vector134 != Vector2.Zero) projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
+            if (vector134 != Vector2.Zero)
+                projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
             projectile.spriteDirection = vector134.X > 0f ? 1 : -1;
         }
 
@@ -319,8 +337,9 @@ namespace AAMod.Projectiles.Akuma.Lung
                 if (byUUID != -1)
                 {
                     Projectile projectile1 = Main.projectile[byUUID];
-                    if (projectile1.type != mod.ProjectileType("LungHead")) projectile1.localAI[1] = projectile.localAI[1];
-                    projectile1 = Main.projectile[(int)projectile.localAI[1]];
+                    if (projectile1.type != mod.ProjectileType("LungHead"))
+                        projectile1.localAI[1] = projectile.localAI[1];
+                    projectile1 = Main.projectile[(int) projectile.localAI[1]];
                     projectile1.ai[0] = projectile.ai[0];
                     projectile1.ai[1] = 1f;
                     projectile1.netUpdate = true;
@@ -347,16 +366,20 @@ namespace AAMod.Projectiles.Akuma.Lung
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             projectile.timeLeft *= 5;
         }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
         }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Lung");
         }
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles,
-           List<int> drawCacheProjsOverWiresUI)
+
+        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles,
+            List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles,
+            List<int> drawCacheProjsOverWiresUI)
         {
             drawCacheProjsBehindProjectiles.Add(index);
         }
@@ -366,8 +389,11 @@ namespace AAMod.Projectiles.Akuma.Lung
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num214 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
             int y6 = num214 * projectile.frame;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle(0, y6, texture2D13.Width, num214),
-                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f), projectile.scale,
+            Main.spriteBatch.Draw(texture2D13,
+                projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
+                new Rectangle(0, y6, texture2D13.Width, num214),
+                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f),
+                projectile.scale,
                 projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
             return false;
         }
@@ -377,7 +403,7 @@ namespace AAMod.Projectiles.Akuma.Lung
             Player player = Main.player[projectile.owner];
             AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
 
-            if ((int)Main.time % 120 == 0) projectile.netUpdate = true;
+            if ((int) Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
             {
                 projectile.active = false;
@@ -415,7 +441,7 @@ namespace AAMod.Projectiles.Akuma.Lung
                 projectile.netUpdate = true;
             }
 
-            int byUUID = Projectile.GetByUUID(projectile.owner, (int)projectile.ai[0]);
+            int byUUID = Projectile.GetByUUID(projectile.owner, (int) projectile.ai[0]);
             if (byUUID >= 0 && Main.projectile[byUUID].active)
             {
                 flag67 = true;
@@ -427,7 +453,8 @@ namespace AAMod.Projectiles.Akuma.Lung
                 scaleFactor16 = 16f;
                 int arg_2D9AD_0 = Main.projectile[byUUID].alpha;
                 Main.projectile[byUUID].localAI[0] = projectile.localAI[0] + 1f;
-                if (Main.projectile[byUUID].type != mod.ProjectileType("LungHead")) Main.projectile[byUUID].localAI[1] = projectile.whoAmI;
+                if (Main.projectile[byUUID].type != mod.ProjectileType("LungHead"))
+                    Main.projectile[byUUID].localAI[1] = projectile.whoAmI;
                 if (projectile.owner == player.whoAmI && Main.projectile[byUUID].type == mod.ProjectileType("LungHead"))
                 {
                     Main.projectile[byUUID].Kill();
@@ -440,7 +467,8 @@ namespace AAMod.Projectiles.Akuma.Lung
             if (projectile.alpha > 0)
                 for (int num1054 = 0; num1054 < 2; num1054++)
                 {
-                    int num1055 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f, 100, default(Color), 2f);
+                    int num1055 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f,
+                        100, default(Color), 2f);
                     Main.dust[num1055].noGravity = true;
                     Main.dust[num1055].noLight = true;
                 }
@@ -458,9 +486,10 @@ namespace AAMod.Projectiles.Akuma.Lung
             projectile.rotation = vector134.ToRotation() + 1.57079637f;
             projectile.position = projectile.Center;
             projectile.scale = scaleFactor17;
-            projectile.width = projectile.height = (int)(num1038 * projectile.scale);
+            projectile.width = projectile.height = (int) (num1038 * projectile.scale);
             projectile.Center = projectile.position;
-            if (vector134 != Vector2.Zero) projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
+            if (vector134 != Vector2.Zero)
+                projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
             projectile.spriteDirection = vector134.X > 0f ? 1 : -1;
         }
     }

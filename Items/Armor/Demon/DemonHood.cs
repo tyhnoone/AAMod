@@ -37,7 +37,6 @@ namespace AAMod.Items.Armor.Demon
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = @"Your minions set enemies ablaze
 You Always have a small Imp servant by your side
 Imp isn't counted in your max minion count";
@@ -50,9 +49,11 @@ Imp isn't counted in your max minion count";
                 {
                     player.AddBuff(mod.BuffType("DemonBuff"), 3600, true);
                 }
+
                 if (player.ownedProjectileCounts[mod.ProjectileType("ImpMinion")] < 1)
                 {
-                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, mod.ProjectileType("ImpMinion"), 20, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, mod.ProjectileType("ImpMinion"),
+                        20, 0f, Main.myPlayer, 0f, 0f);
                 }
             }
         }

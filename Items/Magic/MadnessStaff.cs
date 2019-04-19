@@ -31,7 +31,7 @@ namespace AAMod.Items.Magic
             item.shootSpeed = 6f;
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "MadnessFragment", 5);

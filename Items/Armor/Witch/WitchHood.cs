@@ -4,29 +4,28 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Armor.Witch
 {
-	[AutoloadEquip(EquipType.Head)]
-	public class WitchHood : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    [AutoloadEquip(EquipType.Head)]
+    public class WitchHood : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Fury Witch's Cowl");
-			Tooltip.SetDefault(@"+120 Max Mana
+            Tooltip.SetDefault(@"+120 Max Mana
 Reduced mana consumption by 20%
 +2 Max Minions
 10% increased magic/minion damage 
 10% increased magic critical strike chance
 A hood enchanted with the firey spirit of a supreme dragon acolyte");
-		}
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 16;
-			item.height = 16;
+        public override void SetDefaults()
+        {
+            item.width = 16;
+            item.height = 16;
             item.value = 300000;
             item.rare = 11;
-			item.defense = 24;
-		}
-
+            item.defense = 24;
+        }
 
 
         public override void UpdateEquip(Player player)
@@ -40,13 +39,13 @@ A hood enchanted with the firey spirit of a supreme dragon acolyte");
 
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return body.type == mod.ItemType("WitchRobe") && legs.type == mod.ItemType("WitchBoots");
+        {
+            return body.type == mod.ItemType("WitchRobe") && legs.type == mod.ItemType("WitchBoots");
         }
 
-		public override void UpdateArmorSet(Player player)
-		{
-			player.setBonus = @"Scorch and Burn.
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = @"Scorch and Burn.
 20% Increased Magic and Minion damage
 +4 max minions
 A Fire spirit protects you
@@ -63,12 +62,13 @@ The Fire spirit becomes more powerful the less mana you have";
                 {
                     player.AddBuff(mod.BuffType("FlameSoul"), 3600, true);
                 }
+
                 if (player.ownedProjectileCounts[mod.ProjectileType("FlameSoul")] < 1)
                 {
-                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, mod.ProjectileType("FlameSoul"), 60, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, mod.ProjectileType("FlameSoul"),
+                        60, 0f, Main.myPlayer, 0f, 0f);
                 }
             }
         }
-        
-	}
+    }
 }

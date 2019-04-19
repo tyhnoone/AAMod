@@ -13,14 +13,16 @@ namespace AAMod.Projectiles
             projectile.width = 12;
             projectile.height = 24;
             projectile.friendly = true;
-            projectile.penetrate = -1;                       //this is the projectile penetration
-            Main.projFrames[projectile.type] = 4;           //this is projectile frames
+            projectile.penetrate = -1; //this is the projectile penetration
+            Main.projFrames[projectile.type] = 4; //this is projectile frames
             projectile.hostile = false;
-            projectile.ranged = true;                        //this make the projectile do magic damage
-            projectile.tileCollide = false;                 //this make that the projectile does not go thru walls
+            projectile.ranged = true; //this make the projectile do magic damage
+            projectile.tileCollide = false; //this make that the projectile does not go thru walls
             projectile.ignoreWater = true;
         }
+
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -30,10 +32,12 @@ namespace AAMod.Projectiles
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             DisplayName.SetDefault("Top Hat");
         }
 
@@ -41,26 +45,28 @@ namespace AAMod.Projectiles
         public override void AI()
         {
             //this make that the projectile faces the right way
-            projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
+            projectile.rotation = (float) Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             projectile.localAI[0] += 1f;
-            projectile.alpha = (int)projectile.localAI[0] * 2;
+            projectile.alpha = (int) projectile.localAI[0] * 2;
 
             if (projectile.localAI[0] > 600f) //projectile time left before disappears
             {
                 projectile.Kill();
             }
-
         }
+
         public override bool PreDraw(SpriteBatch sb, Color lightColor) //this is where the animation happens
         {
             projectile.frameCounter++; //increase the frameCounter by one
-            if (projectile.frameCounter >= 10) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
+            if (projectile.frameCounter >= 10
+            ) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
             {
                 projectile.frame++; //go to the next frame
                 projectile.frameCounter = 0; //reset the counter
                 if (projectile.frame > 3) //if past the last frame
                     projectile.frame = 0; //go back to the first frame
             }
+
             return true;
         }
     }

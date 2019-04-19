@@ -17,17 +17,21 @@ namespace AAMod.Items.Boss.Grips
             item.accessory = true;
             item.defense = 3;
         }
+
         public override void SetStaticDefaults()
-        {            DisplayName.SetDefault("Bulwark Of Chaos");
+        {
+            DisplayName.SetDefault("Bulwark Of Chaos");
             Tooltip.SetDefault(
-@"For every hit you land on an enemy, 5 true damage (damage unassigned to any class) is dealt
+                @"For every hit you land on an enemy, 5 true damage (damage unassigned to any class) is dealt
 Allows you to dash into enemies, damaging them");
         }
-		public override void UpdateAccessory(Player player, bool hideVisual)
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.GetModPlayer<AAPlayer>().clawsOfChaos = true;
+            player.GetModPlayer<AAPlayer>().clawsOfChaos = true;
             player.dash = 2;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -37,6 +41,7 @@ Allows you to dash into enemies, damaging them");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool CanEquipAccessory(Player player, int slot)
         {
             if (slot < 10)
@@ -48,12 +53,14 @@ Allows you to dash into enemies, damaging them");
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<ClawOfChaos>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

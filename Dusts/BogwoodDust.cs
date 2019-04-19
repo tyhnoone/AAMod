@@ -1,5 +1,4 @@
-﻿
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace AAMod.Dusts
@@ -23,6 +22,7 @@ namespace AAMod.Dusts
             {
                 dust.active = false;
             }
+
             return false;
         }
     }

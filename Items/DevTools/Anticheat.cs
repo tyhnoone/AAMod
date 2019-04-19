@@ -1,6 +1,6 @@
-using System; using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -9,12 +9,12 @@ using BaseMod;
 
 namespace AAMod.Items.DevTools
 {
-	public class Anticheat : ModItem
-	{
+    public class Anticheat : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("[DEV] Anticheat Disabler");
-            BaseMod.BaseUtility.AddTooltips(item, new string[] { "For testers or pussies." });
+            BaseMod.BaseUtility.AddTooltips(item, new string[] {"For testers or pussies."});
         }
 
         public override void SetDefaults()
@@ -41,6 +41,7 @@ namespace AAMod.Items.DevTools
                 AAWorld.Anticheat = true;
                 runOnce += 1;
             }
+
             if (AAWorld.Anticheat == true && runOnce == 0)
             {
                 runOnce += 1;

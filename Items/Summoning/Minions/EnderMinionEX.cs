@@ -29,7 +29,6 @@ namespace AAMod.Items.Summoning.Minions
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
-
         }
 
         /*public override void AI()         // If you want dust to spawn from it
@@ -45,25 +44,29 @@ namespace AAMod.Items.Summoning.Minions
             {
                 projectile.velocity.X = oldVelocity.X;
             }
+
             if (projectile.velocity.Y != oldVelocity.Y)
             {
                 projectile.velocity.Y = oldVelocity.Y;
             }
+
             return false;
         }
 
         public override bool PreAI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = (AAPlayer)player.GetModPlayer(mod, "AAPlayer");
+            AAPlayer modPlayer = (AAPlayer) player.GetModPlayer(mod, "AAPlayer");
             if (player.dead)
             {
                 modPlayer.enderMinionEX = false;
             }
+
             if (modPlayer.enderMinionEX)
             {
                 projectile.timeLeft = 2;
             }
+
             return true;
         }
     }

@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Equinox
 {
@@ -38,17 +40,18 @@ namespace AAMod.Items.Boss.Equinox
             }
         }
 
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Radiant Star");
             Tooltip.SetDefault(
-@"Gives immensely increased stats at night
+                @"Gives immensely increased stats at night
 'Dark and spooky'");
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -73,6 +76,5 @@ namespace AAMod.Items.Boss.Equinox
         {
             player.nightVision = true;
         }
-
     }
 }

@@ -11,6 +11,7 @@ namespace AAMod.NPCs.Enemies.Desert
     public class MiniDjinn : ModNPC
     {
         private bool Shooty = false;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Djinn");
@@ -34,7 +35,10 @@ namespace AAMod.NPCs.Enemies.Desert
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return Main.dayTime && spawnInfo.player.ZoneDesert && !spawnInfo.player.ZoneBeach && NPC.downedBoss3 && !spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneTower ? .2f : 0f;
+            return Main.dayTime && spawnInfo.player.ZoneDesert && !spawnInfo.player.ZoneBeach && NPC.downedBoss3 &&
+                   !spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneTower
+                ? .2f
+                : 0f;
         }
 
         public float[] shootAI = new float[4];
@@ -44,12 +48,12 @@ namespace AAMod.NPCs.Enemies.Desert
             if (npc.velocity.X < 0f)
             {
                 npc.spriteDirection = -1;
-
             }
             else
             {
                 npc.spriteDirection = 1;
             }
+
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
             BaseAI.AIFloater(npc, ref npc.ai, true, 0.2f, 3, 1.5f, .05f, 1.3f, 4);
@@ -60,7 +64,7 @@ namespace AAMod.NPCs.Enemies.Desert
                 FireMagic(npc, npc.velocity);
                 npc.ai[3] = 0;
             }
-            
+
             npc.frameCounter++;
             if (npc.frameCounter >= 10)
             {
@@ -72,7 +76,8 @@ namespace AAMod.NPCs.Enemies.Desert
                     {
                         npc.frame.Y = 66 * 8;
                     }
-                    if (npc.frame.Y > (66 * 15) )
+
+                    if (npc.frame.Y > (66 * 15))
                     {
                         npc.frameCounter = 0;
                         npc.frame.Y = 0;
@@ -105,26 +110,28 @@ namespace AAMod.NPCs.Enemies.Desert
                     break;
             }
 
-            BaseAI.FireProjectile(player.Center, npc, Shoot, (int)(npc.damage * 0.25f), 0f, 2f);
+            BaseAI.FireProjectile(player.Center, npc, Shoot, (int) (npc.damage * 0.25f), 0f, 2f);
         }
 
         public override void HitEffect(int hitDirection, double damage)
         {
             if (npc.life <= 0)
             {
-                npc.position.X = npc.position.X + (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y + (float)(npc.height / 2);
+                npc.position.X = npc.position.X + (float) (npc.width / 2);
+                npc.position.Y = npc.position.Y + (float) (npc.height / 2);
                 npc.width = 42;
                 npc.height = 66;
-                npc.position.X = npc.position.X - (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y - (float)(npc.height / 2);
+                npc.position.X = npc.position.X - (float) (npc.width / 2);
+                npc.position.Y = npc.position.Y - (float) (npc.height / 2);
                 int dust1 = mod.DustType<Dusts.SandDust>();
                 int dust2 = mod.DustType<Dusts.SandDust>();
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0,
+                    default(Color), 1f);
                 Main.dust[dust1].velocity.X *= 0f;
                 Main.dust[dust1].scale *= 1.3f;
                 Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0,
+                    default(Color), 1f);
                 Main.dust[dust2].velocity.X *= 0f;
                 Main.dust[dust2].scale *= 1.3f;
                 Main.dust[dust2].noGravity = false;

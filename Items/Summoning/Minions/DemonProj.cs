@@ -22,6 +22,5 @@ namespace AAMod.Items.Summoning.Minions
             projectile.magic = false;
             projectile.minion = true;
         }
-
     }
 }

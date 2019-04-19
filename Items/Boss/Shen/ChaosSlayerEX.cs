@@ -10,11 +10,11 @@ using BaseMod;
 
 namespace AAMod.Items.Boss.Shen
 {
-	public class ChaosSlayerEX : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ikari");
+    public class ChaosSlayerEX : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ikari");
             Tooltip.SetDefault(@"Unleashes explosive piercing blades of chaos to smite your foes
 Chaos Slayer EX");
         }
@@ -33,9 +33,9 @@ Chaos Slayer EX");
             item.melee = true;
             item.expert = true;
             item.autoReuse = true;
-			item.shoot = mod.ProjectileType("ChaosSlayerSwordEX");
-			item.shootSpeed = 7;
-            item.useTurn = true;	
+            item.shoot = mod.ProjectileType("ChaosSlayerSwordEX");
+            item.shootSpeed = 7;
+            item.useTurn = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -49,17 +49,23 @@ Chaos Slayer EX");
             }
         }
 
-        public override bool Shoot(Player player, ref Vector2 shootPos, ref float speedX, ref float speedY, ref int projType, ref int damage, ref float knockback)
+        public override bool Shoot(Player player, ref Vector2 shootPos, ref float speedX, ref float speedY,
+            ref int projType, ref int damage, ref float knockback)
         {
-			Projectile.NewProjectile(shootPos.X, shootPos.Y, speedX, speedY, projType, damage, knockback, player.whoAmI);
-			for (int m = 0; m < 2; m++)
-			{
-				Projectile.NewProjectile(shootPos.X, shootPos.Y, speedX * 1f, speedY * 1f, (m == 0 ? mod.ProjectileType("ChaosSlayerSwordRedEX") : mod.ProjectileType("ChaosSlayerSwordBlueEX")), damage, knockback, player.whoAmI);
-			}
-			return false;
-		}
+            Projectile.NewProjectile(shootPos.X, shootPos.Y, speedX, speedY, projType, damage, knockback,
+                player.whoAmI);
+            for (int m = 0; m < 2; m++)
+            {
+                Projectile.NewProjectile(shootPos.X, shootPos.Y, speedX * 1f, speedY * 1f,
+                    (m == 0
+                        ? mod.ProjectileType("ChaosSlayerSwordRedEX")
+                        : mod.ProjectileType("ChaosSlayerSwordBlueEX")), damage, knockback, player.whoAmI);
+            }
 
-        public override void AddRecipes()  //How to craft this sword
+            return false;
+        }
+
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "ChaosSlayer");

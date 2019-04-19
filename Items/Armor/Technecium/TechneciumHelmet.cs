@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Armor.Technecium
 {
-	[AutoloadEquip(EquipType.Head)]
-	public class TechneciumHelmet : ModItem
-	{
+    [AutoloadEquip(EquipType.Head)]
+    public class TechneciumHelmet : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Technecium Helmet");
@@ -43,7 +43,6 @@ namespace AAMod.Items.Armor.Technecium
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = @"Enemies that hit you are electrified";
 
 

@@ -11,6 +11,7 @@ namespace AAMod.Items.Materials
             Tooltip.SetDefault(@"It's worthless
 ...or is it?");
         }
+
         public override void SetDefaults()
         {
             item.width = 16;

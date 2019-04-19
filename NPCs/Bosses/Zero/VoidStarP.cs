@@ -41,6 +41,7 @@ namespace AAMod.NPCs.Bosses.Zero
                 projectile.velocity.Y -= projectile.ai[0];
                 projectile.ai[1] = 1.0f;
             }
+
             projectile.velocity *= 1.03f;
         }
 
@@ -57,13 +58,16 @@ namespace AAMod.NPCs.Bosses.Zero
                 {
                     projectile.velocity.X = -oldVelocity.X;
                 }
+
                 if (projectile.velocity.Y != oldVelocity.Y)
                 {
                     projectile.velocity.Y = -oldVelocity.Y;
                 }
+
                 projectile.velocity *= 0.75f;
                 Main.PlaySound(SoundID.Item10, projectile.position);
             }
+
             return false;
         }
 

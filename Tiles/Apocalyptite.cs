@@ -9,6 +9,7 @@ namespace AAMod.Tiles
     {
         public Texture2D glowTex;
         public bool glow = true;
+
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
@@ -16,19 +17,21 @@ namespace AAMod.Tiles
             Main.tileMergeDirt[Type] = false;
             SetModTree(new OroborosTree());
             soundType = 21;
-            drop = mod.ItemType("Apocalyptite");   //put your CustomBlock name
+            drop = mod.ItemType("Apocalyptite"); //put your CustomBlock name
             dustType = mod.DustType("DoomDust");
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Apocalyptite Ore");
             AddMapEntry(new Color(70, 20, 20), name);
-			minPick = 225;
+            minPick = 225;
         }
 
         public override void ModifyLight(int x, int y, ref float r, ref float g, ref float b)
         {
             if (!glow) return;
             Color color = BaseMod.BaseUtility.ColorMult(AAPlayer.ZeroColor, 0.7f);
-            r = (color.R / 255f); g = (color.G / 255f); b = (color.B / 255f);
+            r = (color.R / 255f);
+            g = (color.G / 255f);
+            b = (color.B / 255f);
         }
 
         public override void PostDraw(int x, int y, SpriteBatch sb)
@@ -37,7 +40,8 @@ namespace AAMod.Tiles
             if (glow && (tile != null && tile.active() && tile.type == this.Type))
             {
                 if (glowTex == null) glowTex = mod.GetTexture("Glowmasks/ApocalyptiteTile_Glow");
-                BaseMod.BaseDrawing.DrawTileTexture(sb, glowTex, x, y, true, false, false, null, AAGlobalTile.GetZeroColorDim);
+                BaseMod.BaseDrawing.DrawTileTexture(sb, glowTex, x, y, true, false, false, null,
+                    AAGlobalTile.GetZeroColorDim);
             }
         }
 

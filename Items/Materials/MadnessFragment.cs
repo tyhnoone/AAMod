@@ -8,6 +8,7 @@ namespace AAMod.Items.Materials
         {
             DisplayName.SetDefault("Madness Fragment");
         }
+
         public override void SetDefaults()
         {
             item.width = 16;

@@ -38,7 +38,7 @@ namespace AAMod.Items.Boss.Akuma
         }
 
         // The following 2 methods are purely to show off these 2 hooks. Don't use them in your own code.
-        
+
 
         public override void PostUpdate()
         {

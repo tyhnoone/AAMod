@@ -1,13 +1,14 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Materials
 {
     public class Stardust : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
@@ -16,6 +17,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Radiant Photon");
             Tooltip.SetDefault("A shard of the heavenly cosmos");
         }
+
         public override void SetDefaults()
         {
             item.width = 48;

@@ -10,8 +10,6 @@ namespace AAMod.NPCs.Bosses.Retriever
 {
     public class RetrieverShot : ModProjectile
     {
-       
-
         public override void SetDefaults()
         {
             projectile.width = 18;
@@ -38,6 +36,7 @@ namespace AAMod.NPCs.Bosses.Retriever
             {
                 targetHitbox.Inflate(-targetHitbox.Width / 8, -targetHitbox.Height / 8);
             }
+
             return projHitbox.Intersects(targetHitbox);
         }
 
@@ -47,7 +46,8 @@ namespace AAMod.NPCs.Bosses.Retriever
 
             if (Main.rand.Next(1) == 0)
             {
-                int dustnumber = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.FulguriteDust>(), 0f, 0f, 200, default(Color), 0.8f);
+                int dustnumber = Dust.NewDust(projectile.position, projectile.width, projectile.height,
+                    mod.DustType<Dusts.FulguriteDust>(), 0f, 0f, 200, default(Color), 0.8f);
                 Main.dust[dustnumber].velocity *= 0.3f;
             }
         }
@@ -57,7 +57,7 @@ namespace AAMod.NPCs.Bosses.Retriever
             Main.projFrames[projectile.type] = 5;
         }
 
-        
+
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.Violet;
@@ -66,15 +66,16 @@ namespace AAMod.NPCs.Bosses.Retriever
         public override bool PreDraw(SpriteBatch sb, Color lightColor) //this is where the animation happens
         {
             projectile.frameCounter++;
-            if (projectile.frameCounter >= 5) 
+            if (projectile.frameCounter >= 5)
             {
-                projectile.frame++; 
+                projectile.frame++;
                 projectile.frameCounter = 0;
                 if (projectile.frame > 4)
                 {
                     projectile.frame = 0;
                 }
             }
+
             return true;
         }
     }

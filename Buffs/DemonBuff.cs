@@ -20,6 +20,7 @@ namespace AAMod.Buffs
             {
                 modPlayer.ImpServant = true;
             }
+
             if (!modPlayer.demonSet)
             {
                 player.DelBuff(buffIndex);

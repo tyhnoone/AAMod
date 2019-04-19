@@ -16,26 +16,26 @@ using Terraria.ID;
 namespace AAMod.Tiles
 {
     class DracoAltar : ModTile
-	{
+    {
         Texture2D SunTexture = null;
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileTable[Type] = true;
             Main.tileLavaDeath[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
-            TileObjectData.newTile.CoordinateHeights = new[] { 16, 16 };
+            TileObjectData.newTile.CoordinateHeights = new[] {16, 16};
             ModTranslation name = CreateMapEntryName();
             TileObjectData.addTile(Type);
             minPick = 200;
             mineResist = 3f;
             disableSmartCursor = true;
-			name.SetDefault("Draconian Sun Pedestal");
+            name.SetDefault("Draconian Sun Pedestal");
             dustType = mod.DustType("AkumaDust");
             AddMapEntry(new Color(200, 50, 0), name);
-		}
+        }
 
         public override bool CanExplode(int i, int j)
         {
@@ -47,11 +47,16 @@ namespace AAMod.Tiles
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, bossType, 0);
-                Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 400f);
-                Main.npc[npcID].netUpdate2 = true;
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
 
+                int npcID = NPC.NewNPC((int) player.Center.X, (int) player.Center.Y, bossType, 0);
+                Main.npc[npcID].Center = player.Center -
+                                         new Vector2(MathHelper.Lerp(-100f, 100f, (float) Main.rand.NextDouble()),
+                                             400f);
+                Main.npc[npcID].netUpdate2 = true;
             }
         }
 
@@ -74,28 +79,34 @@ namespace AAMod.Tiles
                     SunTexture = mod.GetTexture("Tiles/DiscordianEclipse");
                 }
             }
-            Vector2 zero = new Vector2((float)Main.offScreenRange, (float)Main.offScreenRange);
+
+            Vector2 zero = new Vector2((float) Main.offScreenRange, (float) Main.offScreenRange);
             if (Main.drawToScreen)
             {
                 zero = Vector2.Zero;
             }
+
             int num3 = 0;
             int num8 = 16;
             for (int num301 = 0; num301 < num3; num301++)
             {
                 int num302 = Main.specX[num301];
                 int num303 = Main.specY[num301];
-                Vector2 SunVector1 = new Vector2((num302 * 16) - (int)Main.screenPosition.X + (num8 / 2f), (num303 * 16) - (int)Main.screenPosition.Y - 36) + zero;
+                Vector2 SunVector1 = new Vector2((num302 * 16) - (int) Main.screenPosition.X + (num8 / 2f),
+                                         (num303 * 16) - (int) Main.screenPosition.Y - 36) + zero;
                 Rectangle source = new Rectangle(0, 0, SunTexture.Width, SunTexture.Height);
                 Color color = new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, 0);
-                Vector2 origin = new Vector2((float)(SunTexture.Width / 2), (float)(SunTexture.Height / 2));
+                Vector2 origin = new Vector2((float) (SunTexture.Width / 2), (float) (SunTexture.Height / 2));
                 if (NPC.downedMoonlord && !AAWorld.downedAllAncients)
                 {
-                    Main.spriteBatch.Draw(SunTexture, SunVector1, new Rectangle?(source), color, Main.sunCircle, origin, 1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(SunTexture, SunVector1, new Rectangle?(source), color, Main.sunCircle, origin,
+                        1f, SpriteEffects.None, 0f);
                 }
+
                 if (NPC.downedMoonlord && AAWorld.downedAllAncients)
                 {
-                    Main.spriteBatch.Draw(SunTexture, SunVector1, new Rectangle?(source), color, Main.sunCircle, origin, 1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(SunTexture, SunVector1, new Rectangle?(source), color, Main.sunCircle, origin,
+                        1f, SpriteEffects.None, 0f);
                 }
             }
         }
@@ -116,23 +127,31 @@ namespace AAMod.Tiles
             {
                 for (int num66 = 0; num66 < 58; num66++)
                 {
-                    if (player.selectedItem == mod.ItemType<Items.BossSummons.DraconianSigil>() && player.inventory[player.selectedItem].stack > 0)
+                    if (player.selectedItem == mod.ItemType<Items.BossSummons.DraconianSigil>() &&
+                        player.inventory[player.selectedItem].stack > 0)
                     {
                         if (!Main.dayTime)
                         {
-                            BaseUtility.Chat("Geez, kid. Can't a dragon get a little shut-eye? Come back in the morning.", new Color(180, 41, 32), false);
+                            BaseUtility.Chat(
+                                "Geez, kid. Can't a dragon get a little shut-eye? Come back in the morning.",
+                                new Color(180, 41, 32), false);
                             return;
                         }
+
                         if (NPC.AnyNPCs(mod.NPCType<Akuma>()))
                         {
-                            BaseUtility.Chat("Hey kid, that Sigil only works once, ya know.", new Color(180, 41, 32), false);
+                            BaseUtility.Chat("Hey kid, that Sigil only works once, ya know.", new Color(180, 41, 32),
+                                false);
                             return;
                         }
+
                         if (NPC.AnyNPCs(mod.NPCType<AkumaA>()))
                         {
-                            BaseUtility.Chat("Hey kid, that Sigil only works once, ya know.", new Color(0, 191, 255), false);
+                            BaseUtility.Chat("Hey kid, that Sigil only works once, ya know.", new Color(0, 191, 255),
+                                false);
                             return;
                         }
+
                         for (int m = 0; m < Main.maxProjectiles; m++)
                         {
                             Projectile p = Main.projectile[m];
@@ -141,13 +160,18 @@ namespace AAMod.Tiles
                                 return;
                             }
                         }
+
                         if (!AAWorld.downedAkuma)
                         {
-                            Main.NewText("Heh, I hope you’re ready to feel the fury of the blazing sun kid.", new Color(180, 41, 32));
+                            Main.NewText("Heh, I hope you’re ready to feel the fury of the blazing sun kid.",
+                                new Color(180, 41, 32));
                         }
+
                         if (AAWorld.downedAkuma)
                         {
-                            Main.NewText("Back for more, kid? Don’t you have better things to do? You already beat me once.  Alright, but I won’t go easy on you.", new Color(180, 41, 32));
+                            Main.NewText(
+                                "Back for more, kid? Don’t you have better things to do? You already beat me once.  Alright, but I won’t go easy on you.",
+                                new Color(180, 41, 32));
                         }
 
                         SpawnBoss(player, "Akuma", "Akuma; Draconian Demon");
@@ -155,7 +179,7 @@ namespace AAMod.Tiles
                         return;
                     }
                 }
-            }   
+            }
         }
     }
 }

@@ -5,14 +5,14 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Tools
 {
     public class TechneciumChainsaw : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Technecium Holosaw");
-		}
+        }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.useStyle = 5;
             item.useAnimation = 25;
             item.useTime = 6;
@@ -30,7 +30,7 @@ namespace AAMod.Items.Tools
             item.noUseGraphic = true;
             item.melee = true;
             item.channel = true;
-		}
+        }
 
         public override void AddRecipes()
         {

@@ -41,6 +41,5 @@ namespace AAMod.Items.Melee
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
 }

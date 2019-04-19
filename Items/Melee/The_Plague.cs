@@ -5,39 +5,39 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Melee
 {
     public class The_Plague : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("The Plague");
-			ItemID.Sets.Yoyo[item.type] = true;
-			ItemID.Sets.GamepadExtraRange[item.type] = 15;
-			ItemID.Sets.GamepadSmartQuickReach[item.type] = true;
-		}
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("The Plague");
+            ItemID.Sets.Yoyo[item.type] = true;
+            ItemID.Sets.GamepadExtraRange[item.type] = 15;
+            ItemID.Sets.GamepadSmartQuickReach[item.type] = true;
+        }
 
-		public override void SetDefaults()
-		{
-			item.useStyle = 5;
-			item.width = 30;
-			item.height = 26;
-			item.useAnimation = 25;
-			item.useTime = 25;
-			item.shootSpeed = 16f;
-			item.knockBack = 2.5f;
-			item.damage = 400;
-			item.rare = 10;
-			item.melee = true;
-			item.channel = true;
-			item.noMelee = true;
-			item.noUseGraphic = true;
-			item.UseSound = SoundID.Item1;
-			item.value = Item.sellPrice(silver: 1);
-			item.shoot = mod.ProjectileType("The_Plague_Pro");
-		}
+        public override void SetDefaults()
+        {
+            item.useStyle = 5;
+            item.width = 30;
+            item.height = 26;
+            item.useAnimation = 25;
+            item.useTime = 25;
+            item.shootSpeed = 16f;
+            item.knockBack = 2.5f;
+            item.damage = 400;
+            item.rare = 10;
+            item.melee = true;
+            item.channel = true;
+            item.noMelee = true;
+            item.noUseGraphic = true;
+            item.UseSound = SoundID.Item1;
+            item.value = Item.sellPrice(silver: 1);
+            item.shoot = mod.ProjectileType("The_Plague_Pro");
+        }
 
-		/*public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.WoodYoyo);
+        /*public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.WoodYoyo);
             recipe.AddIngredient(ItemID.Rally);
             recipe.AddIngredient(ItemID.CorruptYoyo);
             recipe.AddIngredient(ItemID.CrimsonYoyo);
@@ -58,8 +58,8 @@ namespace AAMod.Items.Melee
             recipe.AddIngredient(ItemID.TheEyeOfCthulhu);
             recipe.AddIngredient(ItemID.Terrarian);
             recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}*/
-	}
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }*/
+    }
 }

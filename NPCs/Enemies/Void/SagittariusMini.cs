@@ -7,19 +7,18 @@ using Terraria.ModLoader;
 namespace AAMod.NPCs.Enemies.Void
 {
     public class SagittariusMini : ModNPC
-	{
-		
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Shadow Scout");
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Shadow Scout");
             Main.npcFrameCount[npc.type] = 12;
         }
-		
-		public override void SetDefaults()
-		{
+
+        public override void SetDefaults()
+        {
             npc.noGravity = true;
             npc.noTileCollide = true;
-			npc.aiStyle = -1;
+            npc.aiStyle = -1;
             npc.width = 24;
             npc.height = 40;
             npc.damage = 20;
@@ -33,14 +32,14 @@ namespace AAMod.NPCs.Enemies.Void
             npc.noGravity = true;
         }
 
-		public int frameCount = 0;
-		public int frameCounter = 0;
+        public int frameCount = 0;
+        public int frameCounter = 0;
         public int IdleTimer = 0;
 
-		public override void PostAI()
-		{
-			npc.spriteDirection = (npc.velocity.X > 0 ? -1 : 1);
-		}
+        public override void PostAI()
+        {
+            npc.spriteDirection = (npc.velocity.X > 0 ? -1 : 1);
+        }
 
         public override void AI()
         {
@@ -58,6 +57,7 @@ namespace AAMod.NPCs.Enemies.Void
                     {
                         npc.frame.Y = 44 * 3;
                     }
+
                     if (npc.frame.Y > 44 * 8)
                     {
                         npc.frame.Y = 44 * 6;
@@ -69,7 +69,8 @@ namespace AAMod.NPCs.Enemies.Void
                     {
                         npc.frame.Y = 44 * 9;
                     }
-                    if (npc.frame.Y > 44 * 11 || npc.frame.Y == 44 * 3 )
+
+                    if (npc.frame.Y > 44 * 11 || npc.frame.Y == 44 * 3)
                     {
                         npc.frame.Y = 0;
                     }
@@ -81,15 +82,15 @@ namespace AAMod.NPCs.Enemies.Void
         public override bool PreDraw(SpriteBatch sb, Color dColor)
         {
             BaseMod.BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, dColor);
-            BaseMod.BaseDrawing.DrawTexture(sb, mod.GetTexture("Glowmasks/SagittariusMini_Glow"), 0, npc, AAColor.ZeroShield);
+            BaseMod.BaseDrawing.DrawTexture(sb, mod.GetTexture("Glowmasks/SagittariusMini_Glow"), 0, npc,
+                AAColor.ZeroShield);
             return false;
         }
 
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DeactivatedDoomite"), 1);
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                mod.ItemType("DeactivatedDoomite"), 1);
         }
-
-        
     }
 }

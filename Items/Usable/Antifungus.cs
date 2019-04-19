@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Usable
 {
     public class Antifungus : ModItem
-	{
+    {
         public override void SetDefaults()
         {
             item.width = 22;

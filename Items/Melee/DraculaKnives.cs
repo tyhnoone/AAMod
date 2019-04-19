@@ -8,9 +8,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Melee
 {
     public class DraculaKnives : BaseAAItem
-	{
-
-        
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dracula Knives");
@@ -18,7 +16,7 @@ namespace AAMod.Items.Melee
         }
 
         public override void SetDefaults()
-		{
+        {
             item.autoReuse = true;
             item.useStyle = 1;
             item.shootSpeed = 15f;
@@ -37,22 +35,27 @@ namespace AAMod.Items.Melee
             item.expert = true;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
-            glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
-            glowmaskDrawColor = Color.White;  //glowmask draw color
+            glowmaskDrawType =
+                BaseAAItem
+                    .GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
+            glowmaskDrawColor = Color.White; //glowmask draw color
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             float spread = 25f * 0.0174f;
-            float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));
+            float baseSpeed = (float) Math.Sqrt((speedX * speedX) + (speedY * speedY));
             double startAngle = Math.Atan2(speedX, speedY) - .1d;
             double deltaAngle = spread / 6f;
             double offsetAngle;
             for (int i = 0; i < 5; i++)
             {
                 offsetAngle = startAngle + (deltaAngle * i);
-                Terraria.Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
+                Terraria.Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float) Math.Sin(offsetAngle),
+                    baseSpeed * (float) Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
             }
+
             return true;
             /*Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
             Vector2 value = Vector2.UnitX.RotatedBy((double)player.fullRotation, default(Vector2));
@@ -108,9 +111,9 @@ namespace AAMod.Items.Melee
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.VampireKnives);
             recipe.AddIngredient(null, "EXSoul");
-		    recipe.AddTile(null, "QuantumFusionAccelerator");
+            recipe.AddTile(null, "QuantumFusionAccelerator");
             recipe.SetResult(this);
             recipe.AddRecipe();
-		}
+        }
     }
 }

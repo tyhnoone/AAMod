@@ -7,8 +7,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dayfire");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 4;     //The recording mode
+            DisplayName.SetDefault("Dayfire"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 4; //The recording mode
         }
 
         public override void SetDefaults()
@@ -31,12 +31,11 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 if (++projectile.frame > 3)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -46,9 +45,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 20);
+            Main.PlaySound(2, (int) projectile.position.X, (int) projectile.position.Y, 20);
             projectile.timeLeft = 0;
         }
-
     }
 }

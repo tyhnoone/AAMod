@@ -34,6 +34,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             {
                 npc.buffImmune[k] = true;
             }
+
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.lavaImmune = true;
@@ -58,6 +59,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             {
                 return true;
             }
+
             return false;
         }
 
@@ -65,13 +67,15 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
         {
             npc.value = 0f;
             npc.boss = false;
-            int DeathAnim = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<HarukaVanish>(), 0);
+            int DeathAnim = NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, mod.NPCType<HarukaVanish>(), 0);
             Main.npc[DeathAnim].velocity = npc.velocity;
             if (!NPC.AnyNPCs(mod.NPCType<YamataA>()))
             {
-                Main.NewText("Dad, you idiot..! Whatever, Can't really say I didn't see it coming.", new Color(72, 78, 117));
+                Main.NewText("Dad, you idiot..! Whatever, Can't really say I didn't see it coming.",
+                    new Color(72, 78, 117));
                 return;
             }
+
             npc.DropLoot(mod.ItemType<Items.Blocks.EventideAbyssiumOre>(), Main.rand.Next(10, 25));
             Main.NewText("That's it. I'm done, YOU deal with them, dad.", new Color(72, 78, 117));
         }
@@ -83,10 +87,8 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);  //boss life scale in expertmode
-            npc.damage = (int)(npc.damage * 1.3f);  //boss damage increase in expermode
+            npc.lifeMax = (int) (npc.lifeMax * 0.6f * bossLifeScale); //boss life scale in expertmode
+            npc.damage = (int) (npc.damage * 1.3f); //boss damage increase in expermode
         }
     }
 }
-
-

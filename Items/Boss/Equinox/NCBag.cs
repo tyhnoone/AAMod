@@ -1,11 +1,12 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Equinox
 {
     public class NCBag : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Treasure Bag");
@@ -29,7 +30,8 @@ namespace AAMod.Items.Boss.Equinox
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -56,11 +58,13 @@ namespace AAMod.Items.Boss.Equinox
             {
                 player.QuickSpawnItem(mod.ItemType("NCMask"));
             }
+
             if (Main.rand.NextFloat() < 0.01f)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PMLDevArmor();
             }
+
             player.QuickSpawnItem(mod.ItemType("DarkEnergy"), Main.rand.Next(40, 90));
             player.QuickSpawnItem(mod.ItemType("DarkVoid"));
         }

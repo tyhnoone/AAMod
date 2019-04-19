@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -31,7 +30,7 @@ namespace AAMod
 
         public static Texture2D GetMapBackgroundImage()
         {
-            return (forceBlackMapBG ? Main.mapTexture : (Texture2D)null);
+            return (forceBlackMapBG ? Main.mapTexture : (Texture2D) null);
         }
 
         public static void SetupSupport()
@@ -47,9 +46,11 @@ namespace AAMod
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
-            if (!ModSupport.ModInstalled(crossoverModName)) //this is to give a warning if they have the item and the mod is not enabled
+            if (!ModSupport.ModInstalled(crossoverModName)
+            ) //this is to give a warning if they have the item and the mod is not enabled
             {
-                TooltipLine error = new TooltipLine(mod, "Error", "WARNING: ITEM WILL NOT FUNCTION WITHOUT " + crossoverModName.ToUpper() + " ENABLED!");
+                TooltipLine error = new TooltipLine(mod, "Error",
+                    "WARNING: ITEM WILL NOT FUNCTION WITHOUT " + crossoverModName.ToUpper() + " ENABLED!");
                 error.overrideColor = new Color(255, 50, 50);
                 list.Add(error);
             }
@@ -59,15 +60,17 @@ namespace AAMod
     public class ModSupportPlayer : ModPlayer
     {
         #region thorium variables
+
         public float thorium_radiantBoost
         {
             get
             {
                 if (ModSupport.thorium != null)
                 {
-                    float? boost = (float?)ModSupport.thorium.Call("GetRadiantBoost", player.whoAmI);
-                    if (boost != null) return (float)boost;
+                    float? boost = (float?) ModSupport.thorium.Call("GetRadiantBoost", player.whoAmI);
+                    if (boost != null) return (float) boost;
                 }
+
                 return 1f;
             }
             set
@@ -78,15 +81,17 @@ namespace AAMod
                 }
             }
         }
+
         public int thorium_radiantCrit
         {
             get
             {
                 if (ModSupport.thorium != null)
                 {
-                    int? boost = (int?)ModSupport.thorium.Call("GetRadiantCrit", player.whoAmI);
-                    if (boost != null) return (int)boost;
+                    int? boost = (int?) ModSupport.thorium.Call("GetRadiantCrit", player.whoAmI);
+                    if (boost != null) return (int) boost;
                 }
+
                 return 0;
             }
             set
@@ -97,15 +102,17 @@ namespace AAMod
                 }
             }
         }
+
         public int thorium_healBonus
         {
             get
             {
                 if (ModSupport.thorium != null)
                 {
-                    int? boost = (int?)ModSupport.thorium.Call("GetHealBonus", player.whoAmI);
-                    if (boost != null) return (int)boost;
+                    int? boost = (int?) ModSupport.thorium.Call("GetHealBonus", player.whoAmI);
+                    if (boost != null) return (int) boost;
                 }
+
                 return 0;
             }
             set
@@ -116,6 +123,7 @@ namespace AAMod
                 }
             }
         }
+
         #endregion
     }
 }

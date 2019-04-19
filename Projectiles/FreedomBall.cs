@@ -33,7 +33,7 @@ namespace AAMod.Projectiles
             float maxTime = 180f;
             projectile.ai[0] += 1f;
 
-            if(projectile.ai[0] >= 180f)
+            if (projectile.ai[0] >= 180f)
             {
                 projectile.Kill();
             }

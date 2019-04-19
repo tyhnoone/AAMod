@@ -7,10 +7,8 @@ namespace AAMod.Items.Ranged
 {
     public class HydraTrishot : ModItem
     {
-
         public override void SetDefaults()
         {
-
             item.damage = 10;
             item.noMelee = true;
             item.ranged = true;
@@ -26,7 +24,6 @@ namespace AAMod.Items.Ranged
             item.rare = 2;
             item.UseSound = SoundID.Item11;
             item.shootSpeed = 12f;
-
         }
 
         public override void SetStaticDefaults()
@@ -35,20 +32,23 @@ namespace AAMod.Items.Ranged
             Tooltip.SetDefault("");
         }
 
-		public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-		    float spread = 45f * 0.0174f;
-		    float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));
+        public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX,
+            ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            float spread = 45f * 0.0174f;
+            float baseSpeed = (float) Math.Sqrt((speedX * speedX) + (speedY * speedY));
             double startAngle = Math.Atan2(speedX, speedY) - .1d;
-		    double deltaAngle = spread / 6f;
-		    double offsetAngle;
-		    for (int i = 0; i < 3; i++)
-		    {
-		    	offsetAngle = startAngle + (deltaAngle * i);
-		    	Terraria.Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
-		    }
-		    return false;
-		}
+            double deltaAngle = spread / 6f;
+            double offsetAngle;
+            for (int i = 0; i < 3; i++)
+            {
+                offsetAngle = startAngle + (deltaAngle * i);
+                Terraria.Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float) Math.Sin(offsetAngle),
+                    baseSpeed * (float) Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
+            }
+
+            return false;
+        }
 
         public override void AddRecipes()
         {

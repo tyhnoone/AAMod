@@ -7,10 +7,8 @@ namespace AAMod.Items.Ranged
 {
     public class ShootingStar : ModItem
     {
-
         public override void SetDefaults()
         {
-
             item.damage = 100;
             item.noMelee = true;
             item.ranged = true;
@@ -27,26 +25,27 @@ namespace AAMod.Items.Ranged
             item.UseSound = SoundID.Item5;
             item.autoReuse = true;
             item.shootSpeed = 22f;
-
-
         }
 
-        public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX,
+            ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             float spread = 12f * 0.0174f;
-            float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));
+            float baseSpeed = (float) Math.Sqrt((speedX * speedX) + (speedY * speedY));
             double startAngle = Math.Atan2(speedX, speedY) - .1d;
             double deltaAngle = spread / 6f;
             double offsetAngle;
             for (int i = 0; i < 3; i++)
             {
                 offsetAngle = startAngle + (deltaAngle * i);
-                Terraria.Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType("RadiumArrow"), damage, knockBack, item.owner);
+                Terraria.Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float) Math.Sin(offsetAngle),
+                    baseSpeed * (float) Math.Cos(offsetAngle), mod.ProjectileType("RadiumArrow"), damage, knockBack,
+                    item.owner);
             }
+
             return true;
         }
 
-        
 
         public override void SetStaticDefaults()
         {

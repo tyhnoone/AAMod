@@ -1,23 +1,25 @@
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Materials
 {
     public class IncineriteBar : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Incinerite Bar");
             Tooltip.SetDefault("Careful. It's hot.");
         }
+
         public override void SetDefaults()
         {
             item.width = 30;
             item.height = 24;
-			item.maxStack = 99;
-			item.useTurn = true;
+            item.maxStack = 99;
+            item.useTurn = true;
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
@@ -27,7 +29,9 @@ namespace AAMod.Items.Materials
             item.consumable = true;
             item.createTile = mod.TileType("IncineriteBar");
         }
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -49,7 +53,8 @@ namespace AAMod.Items.Materials
         }
 
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "Incinerite", 3);
             recipe.AddTile(TileID.Furnaces);

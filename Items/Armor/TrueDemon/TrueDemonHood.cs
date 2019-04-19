@@ -49,9 +49,11 @@ Imp army doesn't affect minion count";
                 {
                     player.AddBuff(mod.BuffType("DevilBuff"), 3600, true);
                 }
+
                 if (player.ownedProjectileCounts[mod.ProjectileType("ImpSlave")] < 5)
                 {
-                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, mod.ProjectileType("ImpSlave"), 40, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -1f, mod.ProjectileType("ImpSlave"),
+                        40, 0f, Main.myPlayer, 0f, 0f);
                 }
             }
         }

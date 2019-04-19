@@ -12,18 +12,17 @@ namespace AAMod.Items.Accessories
     [AutoloadEquip(EquipType.Face, EquipType.Wings)]
     public class RealityStone : ModItem
     {
-        
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Reality Stone");
             Tooltip.SetDefault(
-@"Grants you control over reality around you allowing long flight, insane speed, and uninhibited movement
+                @"Grants you control over reality around you allowing long flight, insane speed, and uninhibited movement
 'Now...reality can be whatever I want it to be...'");
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 13));
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
+
         public override void SetDefaults()
         {
             item.width = 40;
@@ -31,8 +30,6 @@ namespace AAMod.Items.Accessories
             item.value = Item.sellPrice(0, 0, 0, 0);
             item.rare = 11;
             item.accessory = true;
-            
-
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -93,28 +90,34 @@ namespace AAMod.Items.Accessories
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<MindStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SoulStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<InfinityGauntlet>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<TimeStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SpaceStone>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

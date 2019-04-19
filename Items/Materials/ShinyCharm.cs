@@ -9,6 +9,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Shiny Charm");
             Tooltip.SetDefault("A rare charm that allows you to make certain weapons shiny");
         }
+
         public override void SetDefaults()
         {
             item.width = 22;

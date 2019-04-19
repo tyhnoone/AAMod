@@ -8,11 +8,11 @@ namespace AAMod.Items.DevTools
 {
     public class Noodle : ModProjectile
     {
-    	public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("[DEV] Noodle");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("[DEV] Noodle");
         }
-    	
+
         public override void SetDefaults()
         {
             projectile.width = 30;
@@ -31,18 +31,29 @@ namespace AAMod.Items.DevTools
             if (projectile.velocity.X < 0f)
             {
                 projectile.spriteDirection = -1;
-                projectile.rotation = (float)Math.Atan2((double)(-(double)projectile.velocity.Y), (double)(-(double)projectile.velocity.X));
+                projectile.rotation = (float) Math.Atan2((double) (-(double) projectile.velocity.Y),
+                    (double) (-(double) projectile.velocity.X));
             }
             else
             {
                 projectile.spriteDirection = 1;
-                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);
+                projectile.rotation =
+                    (float) Math.Atan2((double) projectile.velocity.Y, (double) projectile.velocity.X);
             }
+
             int num557 = 8;
             //dust!
-            int dustId = Dust.NewDust(new Vector2(projectile.position.X + (float)num557, projectile.position.Y + (float)num557), projectile.width - num557 * 2, projectile.height - num557 * 2, DustID.AncientLight, 0f, 0f, 0, default(Color), 1f);
+            int dustId =
+                Dust.NewDust(
+                    new Vector2(projectile.position.X + (float) num557, projectile.position.Y + (float) num557),
+                    projectile.width - num557 * 2, projectile.height - num557 * 2, DustID.AncientLight, 0f, 0f, 0,
+                    default(Color), 1f);
             Main.dust[dustId].noGravity = true;
-            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X + (float)num557, projectile.position.Y + (float)num557), projectile.width - num557 * 2, projectile.height - num557 * 2, DustID.AncientLight, 0f, 0f, 0, default(Color), 1f);
+            int dustId3 =
+                Dust.NewDust(
+                    new Vector2(projectile.position.X + (float) num557, projectile.position.Y + (float) num557),
+                    projectile.width - num557 * 2, projectile.height - num557 * 2, DustID.AncientLight, 0f, 0f, 0,
+                    default(Color), 1f);
             Main.dust[dustId3].noGravity = true;
         }
 
@@ -50,10 +61,14 @@ namespace AAMod.Items.DevTools
         {
             for (int num579 = 0; num579 < 20; num579++)
             {
-                int num580 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.AncientLight, -projectile.velocity.X * 0.2f, -projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
+                int num580 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, DustID.AncientLight, -projectile.velocity.X * 0.2f,
+                    -projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
                 Main.dust[num580].noGravity = true;
                 Main.dust[num580].velocity *= 2f;
-                num580 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.AncientLight, -projectile.velocity.X * 0.2f, -projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+                num580 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, DustID.AncientLight, -projectile.velocity.X * 0.2f,
+                    -projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
                 Main.dust[num580].velocity *= 2f;
             }
         }

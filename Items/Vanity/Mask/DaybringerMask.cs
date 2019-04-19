@@ -6,13 +6,13 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Vanity.Mask
 {
     [AutoloadEquip(EquipType.Head)]
-	public class DaybringerMask : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class DaybringerMask : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Daybringer Mask");
-		}
+        }
 
         public override void SetDefaults()
         {
@@ -22,7 +22,8 @@ namespace AAMod.Items.Vanity.Mask
             item.vanity = true;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

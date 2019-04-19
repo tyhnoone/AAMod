@@ -11,7 +11,7 @@ namespace AAMod.Projectiles.Akuma
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[projectile.type] = 4;      //The recording mode
+            Main.projFrames[projectile.type] = 4; //The recording mode
         }
 
         public override void SetDefaults()
@@ -26,7 +26,6 @@ namespace AAMod.Projectiles.Akuma
             projectile.timeLeft = 600;
             projectile.magic = true;
             projectile.ignoreWater = true;
-            
         }
 
         public override void AI()
@@ -41,28 +40,34 @@ namespace AAMod.Projectiles.Akuma
                     projectile.frame = 0;
                 }
             }
+
             if (projectile.velocity.X < 0f)
             {
                 projectile.spriteDirection = -1;
-                projectile.rotation = (float)Math.Atan2((double)(-(double)projectile.velocity.Y), (double)(-(double)projectile.velocity.X));
+                projectile.rotation = (float) Math.Atan2((double) (-(double) projectile.velocity.Y),
+                    (double) (-(double) projectile.velocity.X));
             }
             else
             {
                 projectile.spriteDirection = 1;
-                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);
+                projectile.rotation =
+                    (float) Math.Atan2((double) projectile.velocity.Y, (double) projectile.velocity.X);
             }
 
-            int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, mod.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
+            int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width,
+                projectile.height + 5, mod.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
                 projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
             Main.dust[dustId].noGravity = true;
-            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, mod.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
+            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width,
+                projectile.height + 5, mod.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
                 projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
             Main.dust[dustId3].noGravity = true;
 
             const int aislotHomingCooldown = 0;
             const int homingDelay = 10;
             const float desiredFlySpeedInPixelsPerFrame = 60;
-            const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
+            const float
+                amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
 
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
@@ -74,7 +79,8 @@ namespace AAMod.Projectiles.Akuma
                 {
                     NPC n = Main.npc[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    projectile.velocity =
+                        Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
         }
@@ -94,7 +100,8 @@ namespace AAMod.Projectiles.Akuma
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance
+                        ) //or we are closer to this target than the already selected target
                     )
                         selectedTarget = i;
                 }
@@ -107,11 +114,13 @@ namespace AAMod.Projectiles.Akuma
         {
             for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188));
                 Main.dust[num469].velocity *= 2f;
             }

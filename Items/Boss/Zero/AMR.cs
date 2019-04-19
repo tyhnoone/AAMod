@@ -10,7 +10,6 @@ namespace AAMod.Items.Boss.Zero
 {
     public class AMR : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Anti-matter Rifle");
@@ -21,15 +20,14 @@ Doesn't require ammo");
 
         public override void SetDefaults()
         {
-            
             item.damage = 380;
             item.noMelee = true;
             item.ranged = true;
             item.width = 74;
             item.height = 24;
             item.useTime = 26;
-            item.useAnimation = 26; 
-            item.useStyle = 5; 
+            item.useAnimation = 26;
+            item.useStyle = 5;
             item.shoot = mod.ProjectileType("Antimatter");
             item.knockBack = 12;
             item.value = Item.sellPrice(1, 0, 0, 0);
@@ -37,8 +35,9 @@ Doesn't require ammo");
             item.UseSound = new LegacySoundStyle(2, 75, Terraria.Audio.SoundType.Sound);
             item.autoReuse = true;
             item.shootSpeed = 8f;
-            item.crit = 5; 
+            item.crit = 5;
         }
+
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
@@ -51,7 +50,8 @@ Doesn't require ammo");
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -72,13 +72,15 @@ Doesn't require ammo");
             );
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
+
             return true;
         }
 

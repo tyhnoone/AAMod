@@ -6,11 +6,12 @@ using Terraria.ModLoader;
 namespace AAMod.Projectiles
 {
     public class EnderSickle : ModProjectile
-    {public short customGlowMask = 0;
-        
+    {
+        public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
-		    DisplayName.SetDefault("Ender Sickle");
+            DisplayName.SetDefault("Ender Sickle");
             if (Main.netMode != 2)
             {
                 Texture2D[] glowMasks = new Microsoft.Xna.Framework.Graphics.Texture2D[Main.glowMaskTexture.Length + 1];
@@ -18,8 +19,9 @@ namespace AAMod.Projectiles
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
         }
@@ -27,14 +29,12 @@ namespace AAMod.Projectiles
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.DeathSickle);
-            projectile.penetrate = -1;  
+            projectile.penetrate = -1;
             projectile.width = 50;
             projectile.height = 54;
-			projectile.friendly = true;
-			projectile.hostile = false;
+            projectile.friendly = true;
+            projectile.hostile = false;
             projectile.timeLeft = 900;
-
-            
         }
     }
 }

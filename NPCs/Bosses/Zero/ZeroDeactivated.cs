@@ -8,67 +8,69 @@ using BaseMod;
 
 namespace AAMod.NPCs.Bosses.Zero
 {
-	public class ZeroDeactivated : ModNPC
-	{
+    public class ZeroDeactivated : ModNPC
+    {
         public static int ZeroShieldStrength = 0;
+
         public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Strange Machine");
-		}
-		public override void SetDefaults()
-		{
-			npc.aiStyle = -1;
-			npc.lifeMax = 20000;
-			npc.damage = 0;
-			npc.defense = 20;
-			npc.knockBackResist = 0f;
-			npc.width = 110;
-			npc.height = 138;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath1;
-			npc.noGravity = true;
-			npc.noTileCollide = true;
-			npc.alpha = 0;
-			npc.dontTakeDamage = true;
-			npc.boss = false;
-		}
+        {
+            DisplayName.SetDefault("Strange Machine");
+        }
 
-		public override bool CheckActive()
-		{
-			return false;
-		}		
+        public override void SetDefaults()
+        {
+            npc.aiStyle = -1;
+            npc.lifeMax = 20000;
+            npc.damage = 0;
+            npc.defense = 20;
+            npc.knockBackResist = 0f;
+            npc.width = 110;
+            npc.height = 138;
+            npc.HitSound = SoundID.NPCHit1;
+            npc.DeathSound = SoundID.NPCDeath1;
+            npc.noGravity = true;
+            npc.noTileCollide = true;
+            npc.alpha = 0;
+            npc.dontTakeDamage = true;
+            npc.boss = false;
+        }
 
-		public override void AI()
-		{
+        public override bool CheckActive()
+        {
+            return false;
+        }
 
+        public override void AI()
+        {
             RingRoatation += .01f;
             if (Main.netMode != 1 && AAWorld.zeroUS == true)
             {
-				AAWorld.zeroUS = false;
-                NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Zero"));
+                AAWorld.zeroUS = false;
+                NPC.NewNPC((int) npc.Center.X, (int) npc.Center.Y, mod.NPCType("Zero"));
                 npc.active = false;
-				npc.netUpdate = true;
-				return;
+                npc.netUpdate = true;
+                return;
             }
+
             npc.timeLeft = 10;
-			if(npc.ai[0] == 0)
-			{
-				npc.velocity.Y += 0.005f;	
-				if(npc.velocity.Y > .5f)
-				{
-					npc.ai[0] = 1f;
-					npc.netUpdate = true;
-				}	
-			}else
-			if(npc.ai[0] == 1)
-			{
-				npc.velocity.Y -= 0.005f;	
-				if(npc.velocity.Y < -.5f)
-				{
-					npc.ai[0] = 0f;
-					npc.netUpdate = true;
-				}				
-			}
+            if (npc.ai[0] == 0)
+            {
+                npc.velocity.Y += 0.005f;
+                if (npc.velocity.Y > .5f)
+                {
+                    npc.ai[0] = 1f;
+                    npc.netUpdate = true;
+                }
+            }
+            else if (npc.ai[0] == 1)
+            {
+                npc.velocity.Y -= 0.005f;
+                if (npc.velocity.Y < -.5f)
+                {
+                    npc.ai[0] = 0f;
+                    npc.netUpdate = true;
+                }
+            }
         }
 
         public float auraPercent = 0f;
@@ -89,17 +91,31 @@ namespace AAMod.NPCs.Bosses.Zero
             Texture2D Ring = mod.GetTexture("NPCs/Bosses/Zero/ZeroShieldRing");
             Texture2D RingGlow = mod.GetTexture("Glowmasks/ZeroShieldRing_Glow");
 
-            if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
-            else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
+            if (auraDirection)
+            {
+                auraPercent += 0.1f;
+                auraDirection = auraPercent < 1f;
+            }
+            else
+            {
+                auraPercent -= 0.1f;
+                auraDirection = auraPercent <= 0f;
+            }
+
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, drawColor);
             if (NPC.downedMoonlord)
             {
-                BaseDrawing.DrawTexture(spritebatch, mod.GetTexture("Glowmasks/ZeroDeactivated_Glow"), 0, npc, GetGlowAlpha());
+                BaseDrawing.DrawTexture(spritebatch, mod.GetTexture("Glowmasks/ZeroDeactivated_Glow"), 0, npc,
+                    GetGlowAlpha());
             }
-            BaseDrawing.DrawTexture(spritebatch, Shield, 0, npc.position, npc.width, npc.height, ShieldScale, 0, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), GetGlowAlpha(), true);
-            BaseDrawing.DrawTexture(spritebatch, Ring, 0, npc.position, npc.width, npc.height, 1, RingRoatation, 0, 1, new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), drawColor, true);
-            BaseDrawing.DrawTexture(spritebatch, RingGlow, 0, npc.position, npc.width, npc.height, 1, RingRoatation, 0, 1, new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), GetGlowAlpha(), true);
-            
+
+            BaseDrawing.DrawTexture(spritebatch, Shield, 0, npc.position, npc.width, npc.height, ShieldScale, 0, 0, 1,
+                new Rectangle(0, 0, Shield.Width, Shield.Height), GetGlowAlpha(), true);
+            BaseDrawing.DrawTexture(spritebatch, Ring, 0, npc.position, npc.width, npc.height, 1, RingRoatation, 0, 1,
+                new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), drawColor, true);
+            BaseDrawing.DrawTexture(spritebatch, RingGlow, 0, npc.position, npc.width, npc.height, 1, RingRoatation, 0,
+                1, new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), GetGlowAlpha(), true);
+
             return false;
         }
     }
@@ -124,18 +140,19 @@ namespace AAMod.NPCs.Bosses.Zero
                 tag.Add("ZX", ZX);
                 tag.Add("ZY", ZY);
             }
+
             return tag;
         }
 
         public override void Load(TagCompound tag)
         {
-			Reset(); //reset it so it doesn't fuck up between world loads	
+            Reset(); //reset it so it doesn't fuck up between world loads	
             if (tag.ContainsKey("ZX"))
             {
                 ZX = tag.GetInt("ZX");
                 ZY = tag.GetInt("ZY");
-				if(!AAWorld.downedZero)			
-					NPC.NewNPC(ZX, ZY, mod.NPCType("ZeroDeactivated"));
+                if (!AAWorld.downedZero)
+                    NPC.NewNPC(ZX, ZY, mod.NPCType("ZeroDeactivated"));
             }
         }
 
@@ -147,30 +164,31 @@ namespace AAMod.NPCs.Bosses.Zero
             }
         }
 
-		public void Reset()
-		{
-			ZX = -1;
-			ZY = -1;
-		}
+        public void Reset()
+        {
+            ZX = -1;
+            ZY = -1;
+        }
 
         public void SpawnDeactivatedZero()
         {
-			int whoAmI = -1;
-			int VoidHeight = 140;
-			
-			Point spawnTilePos = new Point((Main.maxTilesX / 15 * 14) + (Main.maxTilesX / 15 / 2) - 100, VoidHeight);				
-			Vector2 spawnPos = new Vector2(spawnTilePos.X * 16, spawnTilePos.Y * 16);
-			bool anyZerosExist = NPC.AnyNPCs(mod.NPCType("ZeroDeactivated")) || NPC.AnyNPCs(mod.NPCType("Zero")) || NPC.AnyNPCs(mod.NPCType("ZeroAwakened"));			
-			if (!anyZerosExist)
-			{
-				whoAmI = NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, mod.NPCType<ZeroDeactivated>());
-				ZX = (int)spawnPos.X;
-				ZY = (int)spawnPos.Y;				
-				if (Main.netMode == 2 && whoAmI != -1 && whoAmI < 200)
-				{					
-					NetMessage.SendData(MessageID.SyncNPC, number: whoAmI);
-				}			
-			}
+            int whoAmI = -1;
+            int VoidHeight = 140;
+
+            Point spawnTilePos = new Point((Main.maxTilesX / 15 * 14) + (Main.maxTilesX / 15 / 2) - 100, VoidHeight);
+            Vector2 spawnPos = new Vector2(spawnTilePos.X * 16, spawnTilePos.Y * 16);
+            bool anyZerosExist = NPC.AnyNPCs(mod.NPCType("ZeroDeactivated")) || NPC.AnyNPCs(mod.NPCType("Zero")) ||
+                                 NPC.AnyNPCs(mod.NPCType("ZeroAwakened"));
+            if (!anyZerosExist)
+            {
+                whoAmI = NPC.NewNPC((int) spawnPos.X, (int) spawnPos.Y, mod.NPCType<ZeroDeactivated>());
+                ZX = (int) spawnPos.X;
+                ZY = (int) spawnPos.Y;
+                if (Main.netMode == 2 && whoAmI != -1 && whoAmI < 200)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, number: whoAmI);
+                }
+            }
         }
     }
 }

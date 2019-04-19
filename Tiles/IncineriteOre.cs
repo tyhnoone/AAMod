@@ -13,18 +13,18 @@ namespace AAMod.Tiles
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
-			Main.tileMergeDirt[Type] = true;
+            Main.tileMergeDirt[Type] = true;
             Main.tileSpelunker[Type] = true;
             Main.tileMerge[Type][mod.TileType("Torchstone")] = true;
-            Main.tileBlockLight[Type] = true;  //true for block to emit light
+            Main.tileBlockLight[Type] = true; //true for block to emit light
             Main.tileLighted[Type] = true;
             soundType = 21;
-            drop = mod.ItemType("Incinerite");   //put your CustomBlock name
+            drop = mod.ItemType("Incinerite"); //put your CustomBlock name
             dustType = mod.DustType("IncineriteDust");
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Incinerite Ore");
             AddMapEntry(new Color(204, 102, 0), name);
-			minPick = 65;
+            minPick = 65;
         }
 
 
@@ -37,7 +37,9 @@ namespace AAMod.Tiles
         {
             if (!glow) return;
             Color color = BaseMod.BaseUtility.ColorMult(AAPlayer.IncineriteColor, 0.7f);
-            r = (color.R / 255f); g = (color.G / 255f); b = (color.B / 255f);
+            r = (color.R / 255f);
+            g = (color.G / 255f);
+            b = (color.B / 255f);
         }
 
         public override void PostDraw(int x, int y, SpriteBatch sb)
@@ -46,9 +48,9 @@ namespace AAMod.Tiles
             if (glow && (tile != null && tile.active() && tile.type == this.Type))
             {
                 if (glowTex == null) glowTex = mod.GetTexture("Glowmasks/IncineriteOre_glow");
-                BaseMod.BaseDrawing.DrawTileTexture(sb, glowTex, x, y, true, false, false, null, AAGlobalTile.GetIncineriteColorDim);
+                BaseMod.BaseDrawing.DrawTileTexture(sb, glowTex, x, y, true, false, false, null,
+                    AAGlobalTile.GetIncineriteColorDim);
             }
         }
-        
     }
 }

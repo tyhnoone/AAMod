@@ -7,7 +7,6 @@ namespace AAMod.Items.Tools
     {
         public override void SetDefaults()
         {
-
             item.damage = 15;
             item.melee = true;
             item.width = 64;
@@ -30,7 +29,7 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Nightaxe");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.NightmarePickaxe);
@@ -38,7 +37,7 @@ namespace AAMod.Items.Tools
             recipe.AddIngredient(mod, "Toothpick");
             recipe.AddIngredient(ItemID.MoltenPickaxe);
             recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);  
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }

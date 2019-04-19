@@ -20,8 +20,9 @@ namespace AAMod.Items.Ranged
             item.ranged = true; //This causes your bow to do ranged damage
             item.width = 22; //Hitbox width
             item.height = 64; //Hitbox height
-            item.useTime = 23; //How long it takes to use the weapon. If this is shorter than the useAnimation it will fire twice in one click.
-            item.useAnimation = 23;  //The animations time length
+            item.useTime =
+                23; //How long it takes to use the weapon. If this is shorter than the useAnimation it will fire twice in one click.
+            item.useAnimation = 23; //The animations time length
             item.useStyle = 5; //The style in which the item gets used. 5 for bows.
             item.shoot = 1; //Makes the bow shoot arrows
             item.useAmmo = AmmoID.Arrow;
@@ -33,6 +34,7 @@ namespace AAMod.Items.Ranged
             item.shootSpeed = 8f; //The arrows speed when shot
             item.crit = 0; //Crit chance
         }
+
         public override void AddRecipes()
         {
             {
@@ -56,16 +58,19 @@ namespace AAMod.Items.Ranged
                 recipe.AddRecipe();
             }
         }
+
         /*public override Vector2? HoldoutOffset()
         {
             return new Vector2(-1, 0);
         }*/
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             if (type == ProjectileID.WoodenArrowFriendly)
             {
                 type = ProjectileID.BoneArrow;
             }
+
             return true; // return true to allow tmodloader to call Projectile.NewProjectile as normal
         }
     }

@@ -19,6 +19,7 @@ namespace AAMod.Backgrounds
             {
                 return;
             }
+
             ShenIndex = -1;
             for (int i = 0; i < Main.npc.Length; i++)
             {
@@ -37,6 +38,7 @@ namespace AAMod.Backgrounds
             {
                 UseTargetPosition(Main.npc[ShenIndex].Center);
             }
+
             base.Apply();
         }
     }

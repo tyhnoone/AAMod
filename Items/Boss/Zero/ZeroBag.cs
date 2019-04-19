@@ -1,30 +1,31 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Zero
 {
     public class ZeroBag : ModItem
-	{
-        
+    {
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Treasure Bag");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-		}
+            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+        }
 
-		public override void SetDefaults()
-		{
-			item.maxStack = 999;
-			item.consumable = true;
-			item.width = 36;
-			item.height = 32;
-			item.expert = true;
-			bossBagNPC = mod.NPCType("Zero");
-		}
+        public override void SetDefaults()
+        {
+            item.maxStack = 999;
+            item.consumable = true;
+            item.width = 36;
+            item.height = 32;
+            item.expert = true;
+            bossBagNPC = mod.NPCType("Zero");
+        }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -46,24 +47,26 @@ namespace AAMod.Items.Boss.Zero
         }
 
         public override bool CanRightClick()
-		{
-			return true;
-		}
+        {
+            return true;
+        }
 
-		public override void OpenBossBag(Player player)
-		{
+        public override void OpenBossBag(Player player)
+        {
             if (Main.rand.Next(7) == 0)
             {
                 player.QuickSpawnItem(mod.ItemType("ZeroMask"));
             }
+
             if (Main.rand.NextFloat() < 0.01f)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PMLDevArmor();
             }
+
             player.QuickSpawnItem(mod.ItemType("UnstableSingularity"), Main.rand.Next(30, 40));
             player.QuickSpawnItem(mod.ItemType("BrokenCode"));
-            string[] lootTable = 
+            string[] lootTable =
             {
                 "Battery",
                 "ZeroArrow",
@@ -86,5 +89,5 @@ namespace AAMod.Items.Boss.Zero
                 AAWorld.RealityDropped = true;
             }
         }
-	}
+    }
 }

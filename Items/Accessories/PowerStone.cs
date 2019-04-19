@@ -13,17 +13,16 @@ namespace AAMod.Items.Accessories
     [AutoloadEquip(EquipType.Face)]
     public class PowerStone : ModItem
     {
-        
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Power Stone");
             Tooltip.SetDefault(
-@"Multiplies your attack power by 40%
+                @"Multiplies your attack power by 40%
 'Fun isn’t something one considers when balancing the universe'");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 8));
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
+
         public override void SetDefaults()
         {
             item.width = 66;
@@ -31,7 +30,6 @@ namespace AAMod.Items.Accessories
             item.value = Item.sellPrice(0, 0, 0, 0);
             item.rare = 11;
             item.accessory = true;
-            
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -58,12 +56,13 @@ namespace AAMod.Items.Accessories
             player.thrownDamage += .40f;
             player.minionDamage += .40f;
         }
-		public override void UpdateAccessory(Player player, bool hideVisual)
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<AAPlayer>().Power = true;
         }
 
-        
+
         public override bool CanEquipAccessory(Player player, int slot)
         {
             if (slot < 10)
@@ -75,30 +74,35 @@ namespace AAMod.Items.Accessories
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<MindStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SoulStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<RealityStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<TimeStone>())
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<SpaceStone>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }
-    
 }

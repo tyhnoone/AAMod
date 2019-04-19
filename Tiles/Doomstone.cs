@@ -15,10 +15,10 @@ namespace AAMod.Tiles
             SetModTree(new OroborosTree());
             soundType = 21;
             Main.tileBlockLight[Type] = true;
-            drop = mod.ItemType("Doomstone");   //put your CustomBlock name
+            drop = mod.ItemType("Doomstone"); //put your CustomBlock name
             dustType = mod.DustType("DoomDust");
             AddMapEntry(new Color(21, 21, 31));
-			minPick = 225;
+            minPick = 225;
         }
 
         public override void PostDraw(int x, int y, SpriteBatch sb)
@@ -29,7 +29,8 @@ namespace AAMod.Tiles
             if (glow && (tile != null && tile.active() && tile.type == Type))
             {
                 if (glowTex == null) glowTex = mod.GetTexture("Glowmasks/Doomstone_Glow");
-                BaseMod.BaseDrawing.DrawTileTexture(sb, glowTex, x, y, true, false, false, null, AAGlobalTile.GetZeroColorDim);
+                BaseMod.BaseDrawing.DrawTileTexture(sb, glowTex, x, y, true, false, false, null,
+                    AAGlobalTile.GetZeroColorDim);
             }
         }
 
@@ -38,19 +39,22 @@ namespace AAMod.Tiles
             return AAWorld.downedZero;
         }
 
-        public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0, int random = -1, int direction = -1)
+        public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0,
+            int random = -1, int direction = -1)
         {
             TileObject toBePlaced;
             if (!TileObject.CanPlace(x, y, type, style, direction, out toBePlaced, false))
             {
                 return false;
             }
+
             toBePlaced.random = random;
             if (TileObject.Place(toBePlaced) && !mute)
             {
                 WorldGen.SquareTileFrame(x, y, true);
                 //   Main.PlaySound(0, x * 16, y * 16, 1, 1f, 0f);
             }
+
             return false;
         }
 

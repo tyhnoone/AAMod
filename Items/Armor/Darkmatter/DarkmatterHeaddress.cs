@@ -7,28 +7,26 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Darkmatter
 {
     [AutoloadEquip(EquipType.Head)]
-	public class DarkmatterHeaddress : ModItem
-	{
-        
+    public class DarkmatterHeaddress : ModItem
+    {
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Darkmatter Headress");
-			Tooltip.SetDefault(@"25% increased minion damage
+            Tooltip.SetDefault(@"25% increased minion damage
 Dark, yet still barely visible");
+        }
 
-		}
+        public override void SetDefaults()
+        {
+            item.width = 20;
+            item.height = 24;
+            item.value = 300000;
+            item.rare = 11;
+            item.defense = 20;
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 20;
-			item.height = 24;
-			item.value = 300000;
-			item.rare = 11;
-			item.defense = 20;
-		}
-
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -50,18 +48,17 @@ Dark, yet still barely visible");
         }
 
         public override void UpdateEquip(Player player)
-		{
-			player.minionDamage += 0.25f;
+        {
+            player.minionDamage += 0.25f;
         }
 
-		public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return body.type == mod.ItemType("DarkmatterBreastplate") && legs.type == mod.ItemType("DarkmatterGreaves");
-		}
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == mod.ItemType("DarkmatterBreastplate") && legs.type == mod.ItemType("DarkmatterGreaves");
+        }
 
-		public override void UpdateArmorSet(Player player)
-		{
-
+        public override void UpdateArmorSet(Player player)
+        {
             player.setBonus = @"Increases max number of minions by 6
 Your minions electrocute enemies
 8% increased damage resistance at night";
@@ -69,12 +66,13 @@ Your minions electrocute enemies
             {
                 player.endurance += .08f;
             }
+
             player.maxMinions += 6;
             player.GetModPlayer<AAPlayer>(mod).darkmatterSetSu = true;
             player.armorEffectDrawShadowLokis = true;
         }
 
-		public override void AddRecipes()
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DarkMatter", 25);
@@ -83,5 +81,5 @@ Your minions electrocute enemies
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-	}
+    }
 }

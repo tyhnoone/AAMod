@@ -29,33 +29,37 @@ namespace AAMod.Items.Summoning.Minions
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
-
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (projectile.velocity.X != oldVelocity.X)
             {
                 projectile.velocity.X = oldVelocity.X;
             }
+
             if (projectile.velocity.Y != oldVelocity.Y)
             {
                 projectile.velocity.Y = oldVelocity.Y;
             }
+
             return false;
         }
 
         public override bool PreAI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = (AAPlayer)player.GetModPlayer(mod, "AAPlayer");
+            AAPlayer modPlayer = (AAPlayer) player.GetModPlayer(mod, "AAPlayer");
             if (player.dead)
             {
                 modPlayer.enderMinion = false;
             }
+
             if (modPlayer.enderMinion)
             {
                 projectile.timeLeft = 2;
             }
+
             return true;
         }
     }

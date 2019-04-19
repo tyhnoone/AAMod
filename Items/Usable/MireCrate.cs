@@ -52,8 +52,10 @@ namespace AAMod.Items.Usable
                         break;
                 }
 
-                int index = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, item, 1, false, -1, false, false);
-                int index1 = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("AbyssiumBar"), Main.rand.Next(0, 12));
+                int index = Item.NewItem((int) player.position.X, (int) player.position.Y, player.width, player.height,
+                    item, 1, false, -1, false, false);
+                int index1 = Item.NewItem((int) player.position.X, (int) player.position.Y, player.width, player.height,
+                    mod.ItemType("AbyssiumBar"), Main.rand.Next(0, 12));
 
                 if (Main.netMode == 1)
                 {

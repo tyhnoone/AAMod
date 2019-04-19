@@ -12,7 +12,6 @@ namespace AAMod.Items.Armor.Nights
         {
             DisplayName.SetDefault("Night's Plate");
             Tooltip.SetDefault("9% increased melee speed");
-
         }
 
         public override void SetDefaults()
@@ -28,17 +27,18 @@ namespace AAMod.Items.Armor.Nights
         {
             player.meleeSpeed += 0.09f;
         }
+
         public override void AddRecipes()
         {
-            { 
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.ShadowScalemail, 1);
-            recipe.AddIngredient(ItemID.JungleShirt, 1);
-            recipe.AddIngredient(ItemID.NecroBreastplate, 1);
-            recipe.AddIngredient(null, "ImpGarb", 1);
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            {
+                ModRecipe recipe = new ModRecipe(mod);
+                recipe.AddIngredient(ItemID.ShadowScalemail, 1);
+                recipe.AddIngredient(ItemID.JungleShirt, 1);
+                recipe.AddIngredient(ItemID.NecroBreastplate, 1);
+                recipe.AddIngredient(null, "ImpGarb", 1);
+                recipe.AddTile(TileID.DemonAltar);
+                recipe.SetResult(this);
+                recipe.AddRecipe();
             }
         }
     }

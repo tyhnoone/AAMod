@@ -12,10 +12,8 @@ namespace AAMod.Items.Boss.Shen
 {
     public class Astroid : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Asteroid");
             Tooltip.SetDefault(@"Crashes into enemies with the force of an astroid crashing into earth
 Inflicts Discordian Inferno");
@@ -36,7 +34,8 @@ Inflicts Discordian Inferno");
         {
             item.width = 20;
             item.height = 20;
-            item.value = Item.buyPrice(1, 0, 0, 0); ;
+            item.value = Item.buyPrice(1, 0, 0, 0);
+            ;
             item.rare = 1;
 
             item.noMelee = true;
@@ -53,7 +52,7 @@ Inflicts Discordian Inferno");
             item.autoReuse = true;
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "Daycrusher", 1);

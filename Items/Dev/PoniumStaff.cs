@@ -8,37 +8,38 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Dev
 {
     public class PoniumStaff : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Ponium Staff");
             Tooltip.SetDefault(@"'That’s a fucking REEEEEEEEE if I’ve ever seen one'
 -Beg");
-			Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-		}
+            Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
+        }
 
-		public override void SetDefaults()
-		{
-			item.damage = 170;
-			item.magic = true;
-			item.mana = 7;
-			item.width = 88;
-			item.height = 88;
-			item.useTime = 27;
-			item.useAnimation = 27;
-			item.useStyle = 5;
-			item.noMelee = true; //so the item's animation doesn't do damage
-			item.knockBack = 3;
-			item.value = 1000000;
-			item.rare = 11;
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
-			item.shoot = mod.ProjectileType("PonyShot");
-			item.shootSpeed = 9f;
+        public override void SetDefaults()
+        {
+            item.damage = 170;
+            item.magic = true;
+            item.mana = 7;
+            item.width = 88;
+            item.height = 88;
+            item.useTime = 27;
+            item.useAnimation = 27;
+            item.useStyle = 5;
+            item.noMelee = true; //so the item's animation doesn't do damage
+            item.knockBack = 3;
+            item.value = 1000000;
+            item.rare = 11;
+            item.UseSound = SoundID.Item20;
+            item.autoReuse = true;
+            item.shoot = mod.ProjectileType("PonyShot");
+            item.shootSpeed = 9f;
             item.expert = true;
-		}
+        }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -59,7 +60,8 @@ namespace AAMod.Items.Dev
             );
         }
 
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw(texture, position, null, AAColor.Hallow, 0, origin, scale, SpriteEffects.None, 0f);

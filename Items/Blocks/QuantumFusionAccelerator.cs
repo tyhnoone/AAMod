@@ -1,17 +1,18 @@
 using Terraria.ID;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using Terraria;
 
 namespace AAMod.Items.Blocks
 {
     public class QuantumFusionAccelerator : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Quantum Fusion Accelerator");
             Tooltip.SetDefault(
-@"Launching particles at the speed of sound
+                @"Launching particles at the speed of sound
 Allows you to work with Dark Matter and Radium");
         }
 
@@ -32,7 +33,8 @@ Allows you to work with Dark Matter and Radium");
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

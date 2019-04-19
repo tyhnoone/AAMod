@@ -11,21 +11,21 @@ using Terraria.ObjectData;
 namespace AAMod.Tiles
 {
     public class ChaosAltar2 : ModTile
-	{
-		public override void SetDefaults()
-		{
-			Main.tileFrameImportant[Type] = true;
-			Main.tileLavaDeath[Type] = true;
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
+    {
+        public override void SetDefaults()
+        {
+            Main.tileFrameImportant[Type] = true;
+            Main.tileLavaDeath[Type] = true;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
             TileObjectData.newTile.Origin = new Point16(0, 0);
             TileObjectData.addTile(Type);
             Main.tileHammer[Type] = true;
-			disableSmartCursor = true;
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Dragon Altar");
+            disableSmartCursor = true;
+            ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Dragon Altar");
             dustType = mod.DustType("IncineriteDust");
             AddMapEntry(new Color(160, 100, 0), name);
-            adjTiles = new int[] { TileID.DemonAltar };
+            adjTiles = new int[] {TileID.DemonAltar};
         }
 
         public override bool CanKillTile(int i, int j, ref bool blockDamaged)
@@ -39,6 +39,7 @@ namespace AAMod.Tiles
                     DamagePlayer(player);
                     blockDamaged = false;
                 }
+
                 return false;
             }
             else
@@ -52,9 +53,9 @@ namespace AAMod.Tiles
             AAWorld.SmashAltar(mod, i, j);
         }
 
-        public void DamagePlayer (Player player)
+        public void DamagePlayer(Player player)
         {
             player.statLife -= player.statLifeMax / 10;
         }
-	}
+    }
 }

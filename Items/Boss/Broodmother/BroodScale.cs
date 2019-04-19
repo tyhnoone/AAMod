@@ -1,5 +1,7 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Broodmother
 {
@@ -7,15 +9,13 @@ namespace AAMod.Items.Boss.Broodmother
     {
         public override void SetDefaults()
         {
-
             item.width = 22;
             item.height = 24;
             item.maxStack = 99;
             item.rare = 1;
-			
         }
 
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Scorched Scale");
@@ -23,7 +23,8 @@ namespace AAMod.Items.Boss.Broodmother
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

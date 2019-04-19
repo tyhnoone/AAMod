@@ -9,16 +9,14 @@ namespace AAMod.Items.Boss.Zero
 {
     public class DoomRay : ModItem
     {
-        
         public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Doom Ray");
+        {
+            DisplayName.SetDefault("Doom Ray");
             Tooltip.SetDefault("Fires a insanely powerful death laser");
         }
 
         public override void SetDefaults()
         {
-
             item.useStyle = 5;
             item.useAnimation = 7;
             item.useTime = 7;
@@ -39,11 +37,12 @@ namespace AAMod.Items.Boss.Zero
         }
 
         public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-45, -3);
-		}
+        {
+            return new Vector2(-45, -3);
+        }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -74,16 +73,16 @@ namespace AAMod.Items.Boss.Zero
                 }
             }
         }
-        
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "ApocalyptitePlate", 5);
-			recipe.AddIngredient(null, "UnstableSingularity", 5);
-			recipe.AddIngredient(ItemID.StarCannon);
-	        recipe.AddTile(null, "ACS");
-	        recipe.SetResult(this);
-	        recipe.AddRecipe();
-		}
-	}
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "ApocalyptitePlate", 5);
+            recipe.AddIngredient(null, "UnstableSingularity", 5);
+            recipe.AddIngredient(ItemID.StarCannon);
+            recipe.AddTile(null, "ACS");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

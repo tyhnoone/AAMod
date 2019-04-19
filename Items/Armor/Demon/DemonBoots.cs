@@ -6,8 +6,8 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Demon
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class DemonBoots : ModItem
-	{
+    public class DemonBoots : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Demon Hoofs");
@@ -35,7 +35,8 @@ namespace AAMod.Items.Armor.Demon
                 recipe.AddIngredient(null, "ImpBoots", 1);
                 recipe.AddIngredient(ItemID.NecroGreaves, 1);
                 recipe.AddIngredient(ItemID.JunglePants, 1);
-                recipe.AddIngredient(ItemID.CrimsonGreaves, 1); ;
+                recipe.AddIngredient(ItemID.CrimsonGreaves, 1);
+                ;
                 recipe.AddTile(TileID.DemonAltar);
                 recipe.SetResult(this);
                 recipe.AddRecipe();

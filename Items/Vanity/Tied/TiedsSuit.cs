@@ -5,25 +5,27 @@ using System.Collections.Generic;
 
 namespace AAMod.Items.Vanity.Tied
 {
-	[AutoloadEquip(EquipType.Body)]
-	class TiedsSuit : ModItem
-	{
+    [AutoloadEquip(EquipType.Body)]
+    class TiedsSuit : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spooky Suit");
             Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Devs!'");
         }
+
         public override void SetDefaults()
-		{
-			item.width = 34;
-			item.height = 22;
-			item.rare = 9;
-			item.vanity = true;
-		}
+        {
+            item.width = 34;
+            item.height = 22;
+            item.rare = 9;
+            item.vanity = true;
+        }
+
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
-		{
-			drawHands = false;
-		}
+        {
+            drawHands = false;
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {

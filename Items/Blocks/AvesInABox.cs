@@ -37,4 +37,3 @@ namespace AAMod.Items.Blocks
         }
     }*/
 }
-

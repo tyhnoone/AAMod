@@ -16,14 +16,13 @@ namespace AAMod.Projectiles
             projectile.tileCollide = true;
         }
 
-		public override void SetStaticDefaults()
-		{
-		DisplayName.SetDefault("");
-		}
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("");
+        }
 
         public override void AI()
         {
-            
         }
 
         public void Kill()
@@ -35,7 +34,7 @@ namespace AAMod.Projectiles
         {
             int x = Main.rand.Next(0, Main.maxTilesX);
             int y = Main.maxTilesY;
-            int[] tileIDs = { mod.TileType("LuminiteOre") };
+            int[] tileIDs = {mod.TileType("LuminiteOre")};
             if (Main.tile[x, y].type <= 0)
             {
                 y++;

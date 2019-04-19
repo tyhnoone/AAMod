@@ -41,7 +41,6 @@ namespace AAMod.Items.Armor.Paints
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = @"Flower petals will fall on your target for extra damage
 +2 Minion slots";
             player.maxMinions += 2;

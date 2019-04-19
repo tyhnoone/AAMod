@@ -9,7 +9,6 @@ namespace AAMod.Items.Boss.Shen
 {
     public class Timesplitter : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Timesplitter");
@@ -31,11 +30,11 @@ Inflicts Daybroken and Moonraze");
             item.noMelee = true;
             item.noUseGraphic = true;
             item.useTurn = true;
-			item.autoReuse = true;
+            item.autoReuse = true;
             item.useStyle = 5;
             item.value = Item.sellPrice(1, 0, 0, 0);
             item.rare = 8;
-            item.shoot = mod.ProjectileType("TimesplitterP");  //put your Spear projectile name
+            item.shoot = mod.ProjectileType("TimesplitterP"); //put your Spear projectile name
             item.shootSpeed = 7f;
         }
 
@@ -51,18 +50,19 @@ Inflicts Daybroken and Moonraze");
         }
 
 
-
         public override bool CanUseItem(Player player)
-		{
-			return player.ownedProjectileCounts[item.shoot] < 1; // This is to ensure the spear doesn't bug out when using autoReuse = true
-		}
+        {
+            return
+                player.ownedProjectileCounts[item.shoot] <
+                1; // This is to ensure the spear doesn't bug out when using autoReuse = true
+        }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("RealityBar"), 5);
             recipe.AddIngredient(mod.ItemType("AbyssalYari"));
-			recipe.AddIngredient(mod.ItemType("SunSpear"));
+            recipe.AddIngredient(mod.ItemType("SunSpear"));
             recipe.AddTile(mod.TileType("ACS"));
             recipe.SetResult(this);
             recipe.AddRecipe();

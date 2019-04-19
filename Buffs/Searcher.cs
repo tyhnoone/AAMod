@@ -20,6 +20,7 @@ namespace AAMod.Buffs
             {
                 modPlayer.Searcher = true;
             }
+
             if (!modPlayer.doomite)
             {
                 player.DelBuff(buffIndex);

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
-namespace AAMod.Items.Boss.Djinn   //where is located
+namespace AAMod.Items.Boss.Djinn //where is located
 {
     /*public class Sandstorm : ModItem
     {

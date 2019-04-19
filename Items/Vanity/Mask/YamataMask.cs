@@ -6,15 +6,15 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Vanity.Mask
 {
     [AutoloadEquip(EquipType.Head)]
-	public class YamataMask : ModItem
-	{
+    public class YamataMask : ModItem
+    {
         public static int type;
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Yamata Mask");
-		}
+        }
 
         public override void SetDefaults()
         {

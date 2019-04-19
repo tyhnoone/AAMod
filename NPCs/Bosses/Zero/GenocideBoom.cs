@@ -7,8 +7,8 @@ namespace AAMod.NPCs.Bosses.Zero
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Genocide");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 5;     //The recording mode
+            DisplayName.SetDefault("Genocide"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 5; //The recording mode
         }
 
         public override void SetDefaults()
@@ -31,18 +31,16 @@ namespace AAMod.NPCs.Bosses.Zero
                 if (++projectile.frame >= 6)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void Kill(int timeLeft)
         {
             projectile.timeLeft = 0;
         }
-
     }
 }

@@ -7,7 +7,6 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 {
     internal class AFireProjHostile : ModProjectile
     {
-        
         public override void SetStaticDefaults()
         {
             Main.projFrames[projectile.type] = 4;
@@ -38,6 +37,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 projectile.timeLeft--;
             }
+
             if (projectile.timeLeft == 0)
             {
                 projectile.Kill();
@@ -54,9 +54,11 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     projectile.frame = 0;
                 }
             }
+
             for (int num189 = 0; num189 < 1; num189++)
             {
-                int num190 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default(Color), 1f);
+                int num190 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default(Color), 1f);
 
                 Main.dust[num190].scale *= 1.3f;
                 Main.dust[num190].fadeIn = 1f;
@@ -70,14 +72,21 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             Kill(0);
         }
 
-        public override bool PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Microsoft.Xna.Framework.Color lightColor)
+        public override bool PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch,
+            Microsoft.Xna.Framework.Color lightColor)
         {
-            int shader = Terraria.Graphics.Shaders.GameShaders.Armor.GetShaderIdFromItemId(Terraria.ID.ItemID.LivingOceanDye);
-            Microsoft.Xna.Framework.Vector2 Drawpos = projectile.Center - Main.screenPosition + new Microsoft.Xna.Framework.Vector2(0, projectile.gfxOffY);
+            int shader =
+                Terraria.Graphics.Shaders.GameShaders.Armor.GetShaderIdFromItemId(Terraria.ID.ItemID.LivingOceanDye);
+            Microsoft.Xna.Framework.Vector2 Drawpos = projectile.Center - Main.screenPosition +
+                                                      new Microsoft.Xna.Framework.Vector2(0, projectile.gfxOffY);
 
-            Rectangle frame = BaseMod.BaseDrawing.GetFrame(projectile.frame, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 4, 0, 2);
+            Rectangle frame = BaseMod.BaseDrawing.GetFrame(projectile.frame,
+                Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 4, 0,
+                2);
 
-            BaseMod.BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], shader, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 4, frame, Color.White, true);
+            BaseMod.BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], shader,
+                projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 4,
+                frame, Color.White, true);
             return false;
         }
 
@@ -92,8 +101,12 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             for (i = 0; i < 15; i++)
             {
                 offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
-                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)(Math.Sin(offsetAngle) * 6f), (float)(Math.Cos(offsetAngle) * 6f), mod.ProjectileType("FireshotA"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
-                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)(-Math.Sin(offsetAngle) * 6f), (float)(-Math.Cos(offsetAngle) * 6f), mod.ProjectileType("FireshotA"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float) (Math.Sin(offsetAngle) * 6f),
+                    (float) (Math.Cos(offsetAngle) * 6f), mod.ProjectileType("FireshotA"), projectile.damage,
+                    projectile.knockBack, projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y,
+                    (float) (-Math.Sin(offsetAngle) * 6f), (float) (-Math.Cos(offsetAngle) * 6f),
+                    mod.ProjectileType("FireshotA"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
             }
         }
     }

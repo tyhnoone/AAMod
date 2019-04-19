@@ -7,10 +7,7 @@ namespace AAMod.Tiles
     {
         private Mod mod
         {
-            get
-            {
-                return ModLoader.GetMod("AAMod");
-            }
+            get { return ModLoader.GetMod("AAMod"); }
         }
 
         public override int DropWood()
@@ -28,7 +25,8 @@ namespace AAMod.Tiles
             return mod.GetTexture("Tiles/BogwoodBranches");
         }
 
-        public override Texture2D GetTopTextures(int i, int j, ref int frame, ref int frameWidth, ref int frameHeight, ref int xOffsetLeft, ref int yOffset)
+        public override Texture2D GetTopTextures(int i, int j, ref int frame, ref int frameWidth, ref int frameHeight,
+            ref int xOffsetLeft, ref int yOffset)
         {
             frameWidth = 114;
             frameHeight = 98;

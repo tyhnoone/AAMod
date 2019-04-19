@@ -5,9 +5,9 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.TrueAbyssal
 {
     [AutoloadEquip(EquipType.Head)]
-	public class TrueAbyssalFukumen : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class TrueAbyssalFukumen : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("True Abyssal Fukumen");
@@ -15,14 +15,14 @@ namespace AAMod.Items.Armor.TrueAbyssal
 20% increased ranged damage");
         }
 
-		public override void SetDefaults()
-		{
-			item.width = 20;
-			item.height = 20;
-			item.value = 50000;
-			item.rare = 7;
-			item.defense = 15;
-		}
+        public override void SetDefaults()
+        {
+            item.width = 20;
+            item.height = 20;
+            item.value = 50000;
+            item.rare = 7;
+            item.defense = 15;
+        }
 
         public override void UpdateEquip(Player player)
         {
@@ -31,12 +31,12 @@ namespace AAMod.Items.Armor.TrueAbyssal
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return body.type == mod.ItemType("TrueAbyssalGi") && legs.type == mod.ItemType("TrueAbyssalHakama");
-		}
+        {
+            return body.type == mod.ItemType("TrueAbyssalGi") && legs.type == mod.ItemType("TrueAbyssalHakama");
+        }
 
-		public override void UpdateArmorSet(Player player)
-		{
+        public override void UpdateArmorSet(Player player)
+        {
             player.setBonus = @"Your minions are imbued with the venomous properties of bogtoxin
 Enemies are less likely to target you
 7% reduced ammo consumption
@@ -44,17 +44,17 @@ When hiding in shadow, you enter stealth mode";
             player.GetModPlayer<AAPlayer>(mod).trueAbyssal = true;
             player.ammoCost75 = true;
             player.nightVision = true;
-			player.detectCreature = true;
+            player.detectCreature = true;
         }
 
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("AbyssalFukumen"));
-			recipe.AddIngredient(null, "MireCrystal", 1);
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("AbyssalFukumen"));
+            recipe.AddIngredient(null, "MireCrystal", 1);
             recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

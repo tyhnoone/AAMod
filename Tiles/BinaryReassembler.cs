@@ -20,7 +20,7 @@ namespace AAMod.Tiles
             dustType = mod.DustType("DoomDust");
             Main.tileLavaDeath[Type] = false;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 18 };
+            TileObjectData.newTile.CoordinateHeights = new int[] {16, 16, 18};
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.addTile(Type);
@@ -108,7 +108,8 @@ namespace AAMod.Tiles
             Texture2D glowTex = mod.GetTexture("Glowmasks/BinaryReassemblerTile_Glow");
             int frameY = (tile != null && tile.active() ? tile.frameY + (Main.tileFrame[Type] * 54) : 0);
 
-            BaseDrawing.DrawTileTexture(sb, glowTex, x, y, 16, 16, tile.frameX, frameY, false, false, false, null, White);
+            BaseDrawing.DrawTileTexture(sb, glowTex, x, y, 16, 16, tile.frameX, frameY, false, false, false, null,
+                White);
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

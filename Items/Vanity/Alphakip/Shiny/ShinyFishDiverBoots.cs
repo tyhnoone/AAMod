@@ -5,16 +5,16 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Vanity.Alphakip.Shiny
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class ShinyFishDiverBoots : ModItem
-	{
-		public override void SetStaticDefaults()
-       
-		{
+    public class ShinyFishDiverBoots : ModItem
+    {
+        public override void SetStaticDefaults()
+
+        {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Alphakip's Flippers");
             Tooltip.SetDefault(@"Not actually flippers
 'Great for impersonating Ancients Awakened Devs!'");
-		}
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
@@ -34,6 +34,7 @@ namespace AAMod.Items.Vanity.Alphakip.Shiny
             item.rare = 9;
             item.vanity = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

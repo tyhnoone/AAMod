@@ -8,8 +8,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dayfire");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 5;     //The recording mode
+            DisplayName.SetDefault("Dayfire"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 5; //The recording mode
         }
 
         public override void SetDefaults()
@@ -32,12 +32,11 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 if (++projectile.frame >= 5)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -50,17 +49,22 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             projectile.timeLeft = 0;
         }
 
-        public override bool PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Microsoft.Xna.Framework.Color lightColor)
+        public override bool PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch,
+            Microsoft.Xna.Framework.Color lightColor)
         {
-            int shader = Terraria.Graphics.Shaders.GameShaders.Armor.GetShaderIdFromItemId(Terraria.ID.ItemID.LivingOceanDye);
-            Vector2 Drawpos = projectile.Center - Main.screenPosition + new Microsoft.Xna.Framework.Vector2(0, projectile.gfxOffY);
+            int shader =
+                Terraria.Graphics.Shaders.GameShaders.Armor.GetShaderIdFromItemId(Terraria.ID.ItemID.LivingOceanDye);
+            Vector2 Drawpos = projectile.Center - Main.screenPosition +
+                              new Microsoft.Xna.Framework.Vector2(0, projectile.gfxOffY);
 
-            Rectangle frame = BaseMod.BaseDrawing.GetFrame(projectile.frame, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 5, 0, 2);
+            Rectangle frame = BaseMod.BaseDrawing.GetFrame(projectile.frame,
+                Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 5, 0,
+                2);
 
-            BaseMod.BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], shader, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 5, frame, Color.White, true);
+            BaseMod.BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], shader,
+                projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 5,
+                frame, Color.White, true);
             return false;
         }
-
-
     }
 }

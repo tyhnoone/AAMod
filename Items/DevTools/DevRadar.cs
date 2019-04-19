@@ -1,6 +1,6 @@
-using System; using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -9,13 +9,13 @@ using BaseMod;
 
 namespace AAMod.Items.DevTools
 {
-	public class DevRadar : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-		    DisplayName.SetDefault("Chest Finder");
-            BaseUtility.AddTooltips(item, new string[] { "Lights up all chests on the map" });			
-		}
+    public class DevRadar : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Chest Finder");
+            BaseUtility.AddTooltips(item, new string[] {"Lights up all chests on the map"});
+        }
 
         public override void SetDefaults()
         {
@@ -43,10 +43,19 @@ namespace AAMod.Items.DevTools
                     }
                 }
             }
-            return true;
-		}
 
-		public override void UseStyle(Player p) { BaseMod.BaseUseStyle.SetStyleBoss(p, item, false, false); }
-        public override bool UseItemFrame(Player p) { BaseMod.BaseUseStyle.SetFrameBoss(p, item); return true; }
-	}
+            return true;
+        }
+
+        public override void UseStyle(Player p)
+        {
+            BaseMod.BaseUseStyle.SetStyleBoss(p, item, false, false);
+        }
+
+        public override bool UseItemFrame(Player p)
+        {
+            BaseMod.BaseUseStyle.SetFrameBoss(p, item);
+            return true;
+        }
+    }
 }

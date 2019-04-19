@@ -31,7 +31,7 @@ namespace AAMod.Items.Boss.Yamata
             item.value = Item.sellPrice(0, 2, 40, 0); //idk
             item.rare = 2; //idk
             item.shootSpeed = 5f;
-            item.shoot = mod.ProjectileType("AbyssalYariP");  
+            item.shoot = mod.ProjectileType("AbyssalYariP");
             item.autoReuse = true;
         }
 
@@ -48,7 +48,9 @@ namespace AAMod.Items.Boss.Yamata
 
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[item.shoot] < 1; // This is to ensure the spear doesn't bug out when using autoReuse = true
+            return
+                player.ownedProjectileCounts[item.shoot] <
+                1; // This is to ensure the spear doesn't bug out when using autoReuse = true
         }
     }
 }

@@ -10,6 +10,7 @@ namespace AAMod.Items.Materials
             DisplayName.SetDefault("Everleaf");
             Tooltip.SetDefault("Full of magical photosynthetic energy");
         }
+
         public override void SetDefaults()
         {
             item.width = 32;

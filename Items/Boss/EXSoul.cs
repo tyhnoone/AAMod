@@ -1,7 +1,9 @@
 ﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 using BaseMod;
 
 namespace AAMod.Items.Boss
@@ -17,7 +19,6 @@ namespace AAMod.Items.Boss
             // ticksperframe, frameCount
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 4));
             ItemID.Sets.ItemNoGravity[item.type] = true;
-
         }
 
         // TODO -- Velocity Y smaller, post NewItem?
@@ -31,7 +32,6 @@ namespace AAMod.Items.Boss
             item.value = 1000000;
             item.rare = 11;
             item.expert = true;
-            
         }
 
         public override Color? GetAlpha(Color lightColor)

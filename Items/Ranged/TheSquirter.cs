@@ -7,10 +7,8 @@ namespace AAMod.Items.Ranged
 {
     public class TheSquirter : ModItem
     {
-
         public override void SetDefaults()
         {
-
             item.damage = 84;
             item.noMelee = true;
 
@@ -20,23 +18,24 @@ namespace AAMod.Items.Ranged
             item.useTime = 13;
             item.useAnimation = 13;
             item.useStyle = 5;
-            item.shoot = mod.ProjectileType ("Squirt");
+            item.shoot = mod.ProjectileType("Squirt");
             item.knockBack = 0;
             item.value = 1000;
             item.rare = 6;
             item.UseSound = SoundID.Item34;
             item.autoReuse = false;
             item.shootSpeed = 14f;
-
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
+
             return true;
         }
 

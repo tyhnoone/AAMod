@@ -12,9 +12,9 @@ namespace AAMod.Tiles
             Main.tileBlendAll[this.Type] = true;
             Main.tileLighted[Type] = false;
             dustType = mod.DustType("DeepAbyssiumDust");
-            drop = mod.ItemType("Depthsandstone");   //put your CustomBlock name
+            drop = mod.ItemType("Depthsandstone"); //put your CustomBlock name
             AddMapEntry(new Color(0, 20, 127));
-			minPick = 65;
+            minPick = 65;
         }
     }
 }

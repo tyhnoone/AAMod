@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Retriever
 {
@@ -17,24 +19,25 @@ namespace AAMod.Items.Boss.Retriever
             item.accessory = true;
             item.defense = 6;
         }
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Storm Riot Shield");
             Tooltip.SetDefault(
-@"For every hit you land on an enemy, 45 true damage (damage unassigned to any class) is dealt
+                @"For every hit you land on an enemy, 45 true damage (damage unassigned to any class) is dealt
 Allows you to dash into enemies, damaging them
 Non-autoswing weapons can be swung faster");
         }
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.GetModPlayer<AAPlayer>().clawsOfChaos = true;
+            player.GetModPlayer<AAPlayer>().clawsOfChaos = true;
             player.GetModPlayer<AAPlayer>().StormClaw = true;
             player.dash = 2;
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -76,12 +79,14 @@ Non-autoswing weapons can be swung faster");
                     {
                         return false;
                     }
+
                     if (slot != i && player.armor[i].type == mod.ItemType<Grips.ClawOfChaos>())
                     {
                         return false;
                     }
                 }
             }
+
             return true;
         }
     }

@@ -9,12 +9,11 @@ namespace AAMod.Items.Dev
     [AutoloadEquip(EquipType.Shield)]
     public class DragonShell : BaseAAItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dragon Turtle Shell");
             Tooltip.SetDefault(
-@"Allows you to dash into enemies, damaging them
+                @"Allows you to dash into enemies, damaging them
 Enemies that hit you take 1.5 times the damage done to you and are inflicted with daybroken
 Spiked Turtle Shell EX");
         }
@@ -29,8 +28,10 @@ Spiked Turtle Shell EX");
             item.defense = 30;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
-            glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_NONE; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
-            glowmaskDrawColor = Color.White;  //glowmask draw color
+            glowmaskDrawType =
+                BaseAAItem
+                    .GLOWMASKTYPE_NONE; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
+            glowmaskDrawColor = Color.White; //glowmask draw color
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)

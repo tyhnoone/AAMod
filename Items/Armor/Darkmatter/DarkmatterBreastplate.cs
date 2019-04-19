@@ -7,18 +7,17 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Darkmatter
 {
     [AutoloadEquip(EquipType.Body)]
-	public class DarkmatterBreastplate : ModItem
-	{
-        
+    public class DarkmatterBreastplate : ModItem
+    {
         public override void SetStaticDefaults()
         {
-            
-			DisplayName.SetDefault("Darkmatter Breastplate");
-			Tooltip.SetDefault(@"20% increased damage
+            DisplayName.SetDefault("Darkmatter Breastplate");
+            Tooltip.SetDefault(@"20% increased damage
 Dark, yet still barely visible");
-		}
+        }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -40,31 +39,31 @@ Dark, yet still barely visible");
         }
 
         public override void SetDefaults()
-		{
-			item.width = 30;
-			item.height = 20;
-			item.value = 300000;
-			item.rare = 11;
-			item.defense = 36;
-		}
+        {
+            item.width = 30;
+            item.height = 20;
+            item.value = 300000;
+            item.rare = 11;
+            item.defense = 36;
+        }
 
-		public override void UpdateEquip(Player player)
-		{
-			player.meleeDamage += .20f;
+        public override void UpdateEquip(Player player)
+        {
+            player.meleeDamage += .20f;
             player.rangedDamage += .20f;
             player.magicDamage += .20f;
             player.minionDamage += .20f;
             player.thrownDamage += .20f;
-		}
+        }
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "DarkMatter", 30);
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "DarkMatter", 30);
             recipe.AddIngredient(null, "DarkEnergy", 20);
             recipe.AddTile(null, "QuantumFusionAccelerator");
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

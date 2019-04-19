@@ -13,6 +13,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             DisplayName.SetDefault("Spirit of Wrath");
             Main.npcFrameCount[npc.type] = 4;
         }
+
         public override void SetDefaults()
         {
             npc.width = 100;
@@ -36,13 +37,13 @@ namespace AAMod.NPCs.Bosses.Yamata
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            BaseDrawing.DrawTexture(spriteBatch, Main.npcTexture[npc.type], 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 24, npc.frame, npc.GetAlpha(new Color(RVal, 0, BVal)), true);
+            BaseDrawing.DrawTexture(spriteBatch, Main.npcTexture[npc.type], 0, npc.position, npc.width, npc.height,
+                npc.scale, npc.rotation, npc.direction, 24, npc.frame, npc.GetAlpha(new Color(RVal, 0, BVal)), true);
             return false;
         }
 
         public override void AI()
         {
-
             Player player = Main.player[npc.target];
             MoveToPoint(player.Center - new Vector2(0, 300f));
 
@@ -51,12 +52,12 @@ namespace AAMod.NPCs.Bosses.Yamata
             if (npc.frameCounter >= 7)
             {
                 npc.frameCounter = 0;
-                npc.frame.Y += Main.npcTexture[npc.type].Height / 4 ;
+                npc.frame.Y += Main.npcTexture[npc.type].Height / 4;
             }
 
             if (npc.frame.Y > (Main.npcTexture[npc.type].Height / 4) * 3)
             {
-                npc.frame.Y = 0 ;
+                npc.frame.Y = 0;
             }
 
             if (npc.ai[0] > 375)
@@ -68,15 +69,17 @@ namespace AAMod.NPCs.Bosses.Yamata
                 }
             }
 
-            if (npc.ai[0] == 375)    
+            if (npc.ai[0] == 375)
             {
                 Main.NewText("NYEHEHEHEHEHEHEHEH~!", new Color(45, 46, 70));
                 AAMod.YamataMusic = true;
             }
+
             if (npc.ai[0] == 650)
             {
                 Main.NewText("You thought I was DONE..?!", new Color(45, 46, 70));
             }
+
             if (npc.ai[0] == 900)
             {
                 Main.NewText("HAH! AS IF!", new Color(45, 46, 70));
@@ -90,6 +93,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                 {
                     BVal = 90;
                 }
+
                 if (RVal >= 255)
                 {
                     RVal = 255;
@@ -100,6 +104,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 Main.NewText("The abyss hungers...", new Color(146, 30, 68));
             }
+
             if (npc.ai[0] >= 1455)
             {
                 SpawnBoss(npc.Center, "YamataA", "Yamata Awakened");
@@ -121,18 +126,22 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
             }
+
             if (length < 200f)
             {
                 moveSpeed *= 0.5f;
             }
+
             if (length < 100f)
             {
                 moveSpeed *= 0.5f;
             }
+
             if (length < 50f)
             {
                 moveSpeed *= 0.5f;
             }
+
             npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
@@ -143,12 +152,16 @@ namespace AAMod.NPCs.Bosses.Yamata
             if (Main.netMode != 1)
             {
                 int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)center.X, (int)center.Y, bossType, 0, 0, 0, 0, 0, npc.target);
-                Main.npc[npcID].Center = center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 0f);
-                Main.npc[npcID].netUpdate2 = true;			
+                if (NPC.AnyNPCs(bossType))
+                {
+                    return;
+                } //don't spawn if there's already a boss!
+
+                int npcID = NPC.NewNPC((int) center.X, (int) center.Y, bossType, 0, 0, 0, 0, 0, npc.target);
+                Main.npc[npcID].Center =
+                    center - new Vector2(MathHelper.Lerp(-100f, 100f, (float) Main.rand.NextDouble()), 0f);
+                Main.npc[npcID].netUpdate2 = true;
             }
         }
-
     }
 }

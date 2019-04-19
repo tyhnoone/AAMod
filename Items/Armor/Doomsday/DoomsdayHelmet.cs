@@ -9,16 +9,17 @@ using System.Collections.Generic;
 namespace AAMod.Items.Armor.Doomsday
 {
     [AutoloadEquip(EquipType.Head)]
-	public class DoomsdayHelmet : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Doomsday Assault Visor");
-			Tooltip.SetDefault(@"20% increased ranged damage and critical strike chance
+    public class DoomsdayHelmet : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Doomsday Assault Visor");
+            Tooltip.SetDefault(@"20% increased ranged damage and critical strike chance
 The power to destroy entire planets rests in this armor");
-		}
+        }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -40,16 +41,16 @@ The power to destroy entire planets rests in this armor");
         }
 
         public override void SetDefaults()
-		{
-			item.width = 18;
-			item.height = 18;
-			item.value = 3000000;
-			item.defense = 34;
-		}
-		
-		public override void UpdateEquip(Player player)
-		{
-			player.rangedCrit += 20;
+        {
+            item.width = 18;
+            item.height = 18;
+            item.value = 3000000;
+            item.defense = 34;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.rangedCrit += 20;
             player.rangedDamage += .2f;
         }
 
@@ -65,14 +66,13 @@ The power to destroy entire planets rests in this armor");
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return body.type == mod.ItemType("DoomsdayChestplate") && legs.type == mod.ItemType("DoomsdayLeggings");
-		}
+        {
+            return body.type == mod.ItemType("DoomsdayChestplate") && legs.type == mod.ItemType("DoomsdayLeggings");
+        }
 
-		public override void UpdateArmorSet(Player player)
-		{
-			
-			player.setBonus = @"Life termination systems activated
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = @"Life termination systems activated
 You detect all hostile life around you
 You can see in the dark much more easily
 Your ranged attacks are strong enough to weaken your enemies defense for a time";
@@ -81,16 +81,16 @@ Your ranged attacks are strong enough to weaken your enemies defense for a time"
             player.AddBuff(BuffID.Hunter, 2);
             player.AddBuff(BuffID.NightOwl, 2);
             player.GetModPlayer<AAPlayer>(mod).zeroSet = true;
-		}
+        }
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "ApocalyptitePlate", 15);
             recipe.AddIngredient(null, "UnstableSingularity", 5);
             recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+            recipe.AddRecipe();
+        }
+    }
 }

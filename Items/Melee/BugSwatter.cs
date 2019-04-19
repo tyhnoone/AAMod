@@ -5,28 +5,28 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Melee
 {
     public class BugSwatter : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Bug Swatter");
-			Tooltip.SetDefault(@"Does extra damage to creepy crawlies");
-		}
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Bug Swatter");
+            Tooltip.SetDefault(@"Does extra damage to creepy crawlies");
+        }
 
-		public override void SetDefaults()
-		{
-			item.damage = 30;
-			item.melee = true;
-			item.width = 64;
-			item.height = 64;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = 1;
-			item.knockBack = 2;
-			item.value = Item.sellPrice (0, 1, 0, 0);
-			item.rare = 3;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-		}
+        public override void SetDefaults()
+        {
+            item.damage = 30;
+            item.melee = true;
+            item.width = 64;
+            item.height = 64;
+            item.useTime = 20;
+            item.useAnimation = 20;
+            item.useStyle = 1;
+            item.knockBack = 2;
+            item.value = Item.sellPrice(0, 1, 0, 0);
+            item.rare = 3;
+            item.UseSound = SoundID.Item1;
+            item.autoReuse = true;
+        }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
@@ -64,5 +64,5 @@ namespace AAMod.Items.Melee
                 item.damage = 30;
             }
         }
-	}
+    }
 }

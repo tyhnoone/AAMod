@@ -5,15 +5,15 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Vanity.Fazer
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class FazerPants : ModItem
-	{
-		public override void SetStaticDefaults()
-       
-		{
+    public class FazerPants : ModItem
+    {
+        public override void SetStaticDefaults()
+
+        {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Sammy's Paws");
             Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Devs!'");
-		}
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {

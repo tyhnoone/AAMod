@@ -7,11 +7,10 @@ namespace AAMod.Items.Materials
     {
         public override void SetDefaults()
         {
-
             item.width = 30;
             item.height = 24;
             item.maxStack = 99;
-			item.useTurn = true;
+            item.useTurn = true;
             item.autoReuse = true;
             item.useAnimation = 15;
             item.value = 16000;
@@ -20,7 +19,6 @@ namespace AAMod.Items.Materials
             item.useStyle = 1;
             item.consumable = true;
             item.createTile = mod.TileType("AbyssiumBar");
-			
         }
 
         public override void SetStaticDefaults()
@@ -29,10 +27,11 @@ namespace AAMod.Items.Materials
             Tooltip.SetDefault("Solid Darkness");
         }
 
-		public override void AddRecipes()
-        {                                                   //How to craft this item
+        public override void AddRecipes()
+        {
+            //How to craft this item
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Abyssium", 3);              //example of how to craft with a modded item
+            recipe.AddIngredient(null, "Abyssium", 3); //example of how to craft with a modded item
             recipe.AddTile(TileID.Furnaces);
             recipe.SetResult(this);
             recipe.AddRecipe();

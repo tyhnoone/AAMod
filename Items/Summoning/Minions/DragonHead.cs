@@ -37,8 +37,11 @@ namespace AAMod.Items.Summoning.Minions
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num214 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
             int y6 = num214 * projectile.frame;
-            Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle(0, y6, texture2D13.Width, num214),
-                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f), projectile.scale,
+            Main.spriteBatch.Draw(texture2D13,
+                projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
+                new Rectangle(0, y6, texture2D13.Width, num214),
+                projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f),
+                projectile.scale,
                 projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
             return false;
         }
@@ -123,7 +126,8 @@ namespace AAMod.Items.Summoning.Minions
                 }
 
                 float num1046 = 30f;
-                if (projectile.velocity.Length() > num1046) projectile.velocity = Vector2.Normalize(projectile.velocity) * num1046;
+                if (projectile.velocity.Length() > num1046)
+                    projectile.velocity = Vector2.Normalize(projectile.velocity) * num1046;
             }
             else
             {
@@ -133,8 +137,12 @@ namespace AAMod.Items.Summoning.Minions
                 if (vector133.Length() < 140f) num1047 = 0.06f;
                 if (vector133.Length() > 100f)
                 {
-                    if (Math.Abs(center.X - projectile.Center.X) > 20f) projectile.velocity.X = projectile.velocity.X + num1047 * Math.Sign(center.X - projectile.Center.X);
-                    if (Math.Abs(center.Y - projectile.Center.Y) > 10f) projectile.velocity.Y = projectile.velocity.Y + num1047 * Math.Sign(center.Y - projectile.Center.Y);
+                    if (Math.Abs(center.X - projectile.Center.X) > 20f)
+                        projectile.velocity.X =
+                            projectile.velocity.X + num1047 * Math.Sign(center.X - projectile.Center.X);
+                    if (Math.Abs(center.Y - projectile.Center.Y) > 10f)
+                        projectile.velocity.Y =
+                            projectile.velocity.Y + num1047 * Math.Sign(center.Y - projectile.Center.Y);
                 }
                 else if (projectile.velocity.Length() > 2f)
                 {
@@ -143,7 +151,8 @@ namespace AAMod.Items.Summoning.Minions
 
                 if (Math.Abs(projectile.velocity.Y) < 1f) projectile.velocity.Y = projectile.velocity.Y - 0.1f;
                 float num1048 = 15f;
-                if (projectile.velocity.Length() > num1048) projectile.velocity = Vector2.Normalize(projectile.velocity) * num1048;
+                if (projectile.velocity.Length() > num1048)
+                    projectile.velocity = Vector2.Normalize(projectile.velocity) * num1048;
             }
 
             projectile.rotation = projectile.velocity.ToRotation() + 1.57079637f;

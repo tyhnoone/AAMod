@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 namespace AAMod.NPCs.Bosses.Hydra
 {
     [AutoloadBossHead]
@@ -12,8 +13,8 @@ namespace AAMod.NPCs.Bosses.Hydra
         {
             base.SetDefaults();
             leftHead = false;
-			middleHead = false;
-			distFromBodyY = 70;
+            middleHead = false;
+            distFromBodyY = 70;
         }
     }
 }

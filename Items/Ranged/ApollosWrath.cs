@@ -8,7 +8,6 @@ namespace AAMod.Items.Ranged
 {
     public class ApollosWrath : BaseAAItem
     {
-
         public override void SetDefaults()
         {
             item.damage = 78;
@@ -28,8 +27,10 @@ namespace AAMod.Items.Ranged
             item.shootSpeed = 8f;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
-            glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_GUN; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
-            glowmaskDrawColor = Color.White;  //glowmask draw color
+            glowmaskDrawType =
+                BaseAAItem
+                    .GLOWMASKTYPE_GUN; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
+            glowmaskDrawColor = Color.White; //glowmask draw color
         }
 
         public override void SetStaticDefaults()
@@ -45,7 +46,7 @@ Doesn't use Ammo");
             recipe.AddIngredient(null, "Apollo", 1);
             recipe.AddIngredient(ItemID.PulseBow, 1);
             recipe.AddIngredient(ItemID.SoulofMight, 20);
-			recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

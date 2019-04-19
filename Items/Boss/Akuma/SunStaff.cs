@@ -5,20 +5,18 @@ using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
-namespace AAMod.Items.Boss.Akuma   //where is located
+namespace AAMod.Items.Boss.Akuma //where is located
 {
     public class SunStaff : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Solar Staff");
             Tooltip.SetDefault(@"Rains fire and fury upon your foes
 Inflicts Daybroken");
-            
         }
 
-        
+
         public override void SetDefaults()
         {
             item.mana = 10;
@@ -36,11 +34,11 @@ Inflicts Daybroken");
             item.knockBack = 5f;
             item.summon = true;
             item.sentry = true;
-            
         }
 
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -61,19 +59,22 @@ Inflicts Daybroken");
             );
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             int i = Main.myPlayer;
             int num74 = item.shoot;
             int num76 = item.damage;
             float num77 = item.knockBack;
-            int num154 = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
-            int num155 = (int)((float)Main.mouseY + Main.screenPosition.Y) / 16;
+            int num154 = (int) ((float) Main.mouseX + Main.screenPosition.X) / 16;
+            int num155 = (int) ((float) Main.mouseY + Main.screenPosition.Y) / 16;
             if (player.gravDir == -1f)
             {
-                num155 = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16;
+                num155 = (int) (Main.screenPosition.Y + (float) Main.screenHeight - (float) Main.mouseY) / 16;
             }
-            Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num155 * 16 - 24), 0f, 15f, num74, num76, num77, i, 0f, 0f);
+
+            Projectile.NewProjectile((float) Main.mouseX + Main.screenPosition.X, (float) (num155 * 16 - 24), 0f, 15f,
+                num74, num76, num77, i, 0f, 0f);
             player.UpdateMaxTurrets();
 
             return false;
@@ -89,8 +90,8 @@ Inflicts Daybroken");
                 }
             }
         }
-        
-        public override void AddRecipes()  //How to craft this sword
+
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DaybreakIncinerite", 5);

@@ -35,46 +35,52 @@ namespace AAMod.Items.Summoning
             item.sentry = true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
             int i = Main.myPlayer;
             int num74 = item.shoot;
             int num76 = item.damage;
             float num77 = item.knockBack;
-            int num154 = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
-            int num155 = (int)((float)Main.mouseY + Main.screenPosition.Y) / 16;
+            int num154 = (int) ((float) Main.mouseX + Main.screenPosition.X) / 16;
+            int num155 = (int) ((float) Main.mouseY + Main.screenPosition.Y) / 16;
             if (player.gravDir == -1f)
             {
-                num155 = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16;
+                num155 = (int) (Main.screenPosition.Y + (float) Main.screenHeight - (float) Main.mouseY) / 16;
             }
-			if (player.ownedProjectileCounts[num74] < player.maxTurrets)
-			{
-				Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num155 * 16 - 24), 0f, 15f, num74, num76, num77, i, 0f, 0f);
-			}
-			if (player.ownedProjectileCounts[num74] == player.maxTurrets)
-			{
-				for(int g = 0; g < 1000; ++g)
-				{
-					if(Main.projectile[g].active && Main.projectile[g].type == num74)
-					{
-						Main.projectile[g].Kill();
-						break;
-					}
-				}
-				 Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num155 * 16 - 24), 0f, 15f, num74, num76, num77, i, 0f, 0f);
-			}
+
+            if (player.ownedProjectileCounts[num74] < player.maxTurrets)
+            {
+                Projectile.NewProjectile((float) Main.mouseX + Main.screenPosition.X, (float) (num155 * 16 - 24), 0f,
+                    15f, num74, num76, num77, i, 0f, 0f);
+            }
+
+            if (player.ownedProjectileCounts[num74] == player.maxTurrets)
+            {
+                for (int g = 0; g < 1000; ++g)
+                {
+                    if (Main.projectile[g].active && Main.projectile[g].type == num74)
+                    {
+                        Main.projectile[g].Kill();
+                        break;
+                    }
+                }
+
+                Projectile.NewProjectile((float) Main.mouseX + Main.screenPosition.X, (float) (num155 * 16 - 24), 0f,
+                    15f, num74, num76, num77, i, 0f, 0f);
+            }
 
             return false;
         }
 
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(1572);
-			recipe.AddIngredient(null, "EXSoul");
-			recipe.AddTile(null, "QuantumFusionAccelerator");
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(1572);
+            recipe.AddIngredient(null, "EXSoul");
+            recipe.AddTile(null, "QuantumFusionAccelerator");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

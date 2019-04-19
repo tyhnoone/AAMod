@@ -8,7 +8,6 @@ namespace AAMod.Items.Blocks
 {
     public class BinaryReassembler : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Binary Fragmentation Reassembler");
@@ -30,10 +29,10 @@ also acts as all vanilla crafting stations");
             item.consumable = true;
             item.value = 1000000;
             item.createTile = mod.TileType("BinaryReassembler");
-            
         }
-        
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -53,6 +52,7 @@ also acts as all vanilla crafting stations");
                 0f
             );
         }
+
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)

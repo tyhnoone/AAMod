@@ -10,17 +10,17 @@ namespace AAMod.Tiles
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
-            Main.tileBlockLight[Type] = false;  //true for block to emit light
+            Main.tileBlockLight[Type] = false; //true for block to emit light
             Main.tileLighted[Type] = true;
             drop = mod.ItemType("YtriumOre");
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Yttrium Ore");
             AddMapEntry(new Color(160, 150, 0), name);
             dustType = mod.DustType<Dusts.YtriumDust>();
-			minPick = 100;
+            minPick = 100;
         }
-      
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)   //light colors
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) //light colors
         {
             r = 0.5f;
             g = 0.5f;
@@ -31,6 +31,5 @@ namespace AAMod.Tiles
         {
             return false;
         }
-
     }
 }

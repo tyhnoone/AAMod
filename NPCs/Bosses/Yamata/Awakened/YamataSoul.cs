@@ -29,23 +29,26 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             npc.noGravity = true;
             npc.damage = 80;
             npc.alpha = 255;
-
         }
+
         public override void AI()
         {
             if (!NPC.AnyNPCs(mod.NPCType<YamataA>()))
             {
                 npc.life = 0;
             }
+
             if (npc.alpha != 0)
             {
                 for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                 {
-                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("YamataAuraDust"), 0f, 0f, 100, default(Color), 2f);
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height,
+                        mod.DustType("YamataAuraDust"), 0f, 0f, 100, default(Color), 2f);
                     Main.dust[num935].noGravity = true;
                     Main.dust[num935].noLight = true;
                 }
             }
+
             npc.alpha -= 12;
             if (npc.alpha < 0)
             {
@@ -55,7 +58,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
 
         public Color GetGlowAlpha()
         {
-            return new Color(200, 0, 50) * ((float)Main.mouseTextColor / 255f);
+            return new Color(200, 0, 50) * ((float) Main.mouseTextColor / 255f);
         }
 
         public static Texture2D glowTex = null, glowTex2 = null;
@@ -69,8 +72,18 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
                 glowTex = mod.GetTexture("NPCs/Bosses/Yamata/Awakened/YamataSoul");
                 glowTex2 = mod.GetTexture("NPCs/Bosses/Yamata/Awakened/YamataSoul");
             }
-            if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
-            else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
+
+            if (auraDirection)
+            {
+                auraPercent += 0.1f;
+                auraDirection = auraPercent < 1f;
+            }
+            else
+            {
+                auraPercent -= 0.1f;
+                auraDirection = auraPercent <= 0f;
+            }
+
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
             BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, GetGlowAlpha());
             BaseDrawing.DrawAfterimage(spritebatch, glowTex2, 0, npc, 0.8f, 1f, 4, false, 0f, 0f, Color.White);

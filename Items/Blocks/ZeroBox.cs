@@ -8,31 +8,31 @@ using System.Collections.Generic;
 namespace AAMod.Items.Blocks
 {
     public class ZeroBox : ModItem
-	{
-        
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zero Music Box");
             Tooltip.SetDefault("Plays 'Clockwork Catastrophe' by OmegaFerretMusic");
         }
 
-		public override void SetDefaults()
-		{
-			item.useStyle = 1;
-			item.useTurn = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.autoReuse = true;
-			item.consumable = true;
-			item.createTile = mod.TileType("ZeroBox");
-			item.width = 24;
-			item.height = 24;
-			item.rare = 4;
-			item.value = 10000;
-			item.accessory = true;
-		}
+        public override void SetDefaults()
+        {
+            item.useStyle = 1;
+            item.useTurn = true;
+            item.useAnimation = 15;
+            item.useTime = 10;
+            item.autoReuse = true;
+            item.consumable = true;
+            item.createTile = mod.TileType("ZeroBox");
+            item.width = 24;
+            item.height = 24;
+            item.rare = 4;
+            item.value = 10000;
+            item.accessory = true;
+        }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -63,6 +63,7 @@ namespace AAMod.Items.Blocks
                 }
             }
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

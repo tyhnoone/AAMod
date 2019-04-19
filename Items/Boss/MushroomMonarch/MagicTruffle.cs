@@ -5,12 +5,11 @@ namespace AAMod.Items.Boss.MushroomMonarch
 {
     public class MagicTruffle : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glowing Truffle");
             Tooltip.SetDefault(
-@"+30 Mana
+                @"+30 Mana
 Don't lick it.");
         }
 
@@ -29,6 +28,5 @@ Don't lick it.");
         {
             player.statManaMax2 += 30;
         }
-
     }
 }

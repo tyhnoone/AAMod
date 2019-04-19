@@ -6,7 +6,6 @@ namespace AAMod.Items.Blocks
     {
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 16;
             item.maxStack = 999;
@@ -19,11 +18,10 @@ namespace AAMod.Items.Blocks
             item.createTile = mod.TileType("TechneciumOre"); //put your CustomBlock Tile name
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Technecium Ore");
-      Tooltip.SetDefault("");
-    }
-
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Technecium Ore");
+            Tooltip.SetDefault("");
+        }
     }
 }

@@ -8,18 +8,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Armor.TrueHallowed
 {
-	[AutoloadEquip(EquipType.Legs)]
-	public class TrueHallowedGreaves : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("True Hallowed Greaves");
+    [AutoloadEquip(EquipType.Legs)]
+    public class TrueHallowedGreaves : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("True Hallowed Greaves");
             Tooltip.SetDefault(@"10% increased damage
 12% increased movement speed");
         }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.width = 22;
             item.height = 18;
             item.value = Item.sellPrice(0, 10, 0, 0);
@@ -47,13 +47,15 @@ namespace AAMod.Items.Armor.TrueHallowed
             recipe.AddRecipe();
         }
 
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame,
+            Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D Glow = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw(Glow, position, null, AAColor.Hallow, 0, origin, scale, SpriteEffects.None, 0f);
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

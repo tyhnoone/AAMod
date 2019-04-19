@@ -7,8 +7,6 @@ namespace AAMod.Tiles
 {
     public class Doomgrass : ModTile
     {
-
-
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;

@@ -9,16 +9,15 @@ namespace AAMod.Items.Armor.Witch
 {
     public class FlameSoul : ModProjectile
     {
-
         public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Flame Soul");
-			Main.projFrames[projectile.type] = 4;
+        {
+            DisplayName.SetDefault("Flame Soul");
+            Main.projFrames[projectile.type] = 4;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             ProjectileID.Sets.Homing[projectile.type] = true;
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
-    	
+
         public override void SetDefaults()
         {
             projectile.netImportant = true;
@@ -49,18 +48,23 @@ namespace AAMod.Items.Armor.Witch
                 {
                     modPlayer.FlameSoul = false;
                 }
+
                 if (modPlayer.FlameSoul)
                 {
                     projectile.timeLeft = 2;
                 }
             }
+
             FireDamage(player);
 
             float num8 = 0.1f;
             float num9 = projectile.width * 2f;
             for (int j = 0; j < 1000; j++)
             {
-                if (j != projectile.whoAmI && Main.projectile[j].active && Main.projectile[j].owner == projectile.owner && Main.projectile[j].type == projectile.type && Math.Abs(projectile.position.X - Main.projectile[j].position.X) + Math.Abs(projectile.position.Y - Main.projectile[j].position.Y) < num9)
+                if (j != projectile.whoAmI && Main.projectile[j].active &&
+                    Main.projectile[j].owner == projectile.owner && Main.projectile[j].type == projectile.type &&
+                    Math.Abs(projectile.position.X - Main.projectile[j].position.X) +
+                    Math.Abs(projectile.position.Y - Main.projectile[j].position.Y) < num9)
                 {
                     if (projectile.position.X < Main.projectile[j].position.X)
                     {
@@ -70,6 +74,7 @@ namespace AAMod.Items.Armor.Witch
                     {
                         projectile.velocity.X = projectile.velocity.X + num8;
                     }
+
                     if (projectile.position.Y < Main.projectile[j].position.Y)
                     {
                         projectile.velocity.Y = projectile.velocity.Y - num8;
@@ -80,9 +85,10 @@ namespace AAMod.Items.Armor.Witch
                     }
                 }
             }
+
             Vector2 vector = projectile.position;
             float num10 = 400f;
-            
+
             bool flag = false;
             int num11 = -1;
             projectile.tileCollide = false;
@@ -102,18 +108,22 @@ namespace AAMod.Items.Armor.Witch
                     projectile.alpha = 60;
                 }
             }
+
             Vector2 center = Main.player[projectile.owner].Center;
             Vector2 value = new Vector2(0.5f);
             if (projectile.type == 423)
             {
                 value.Y = 0f;
             }
+
             NPC ownerMinionAttackTargetNPC = projectile.OwnerMinionAttackTargetNPC;
             if (ownerMinionAttackTargetNPC != null && ownerMinionAttackTargetNPC.CanBeChasedBy(this, false))
             {
                 Vector2 vector2 = ownerMinionAttackTargetNPC.position + ownerMinionAttackTargetNPC.Size * value;
                 float num12 = Vector2.Distance(vector2, center);
-                if (((Vector2.Distance(center, vector) > num12 && num12 < num10) || !flag) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, ownerMinionAttackTargetNPC.position, ownerMinionAttackTargetNPC.width, ownerMinionAttackTargetNPC.height))
+                if (((Vector2.Distance(center, vector) > num12 && num12 < num10) || !flag) && Collision.CanHitLine(
+                        projectile.position, projectile.width, projectile.height, ownerMinionAttackTargetNPC.position,
+                        ownerMinionAttackTargetNPC.width, ownerMinionAttackTargetNPC.height))
                 {
                     num10 = num12;
                     vector = vector2;
@@ -121,6 +131,7 @@ namespace AAMod.Items.Armor.Witch
                     num11 = ownerMinionAttackTargetNPC.whoAmI;
                 }
             }
+
             if (!flag)
             {
                 for (int k = 0; k < 200; k++)
@@ -130,7 +141,9 @@ namespace AAMod.Items.Armor.Witch
                     {
                         Vector2 vector3 = nPC.position + nPC.Size * value;
                         float num13 = Vector2.Distance(vector3, center);
-                        if (((Vector2.Distance(center, vector) > num13 && num13 < num10) || !flag) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, nPC.position, nPC.width, nPC.height))
+                        if (((Vector2.Distance(center, vector) > num13 && num13 < num10) || !flag) &&
+                            Collision.CanHitLine(projectile.position, projectile.width, projectile.height, nPC.position,
+                                nPC.width, nPC.height))
                         {
                             num10 = num13;
                             vector = vector3;
@@ -140,21 +153,25 @@ namespace AAMod.Items.Armor.Witch
                     }
                 }
             }
+
             int num16 = 500;
             if (flag)
             {
                 num16 = 1200;
             }
+
             float num17 = Vector2.Distance(player.Center, projectile.Center);
-            if (num17 > (float)num16)
+            if (num17 > (float) num16)
             {
                 projectile.ai[0] = 1f;
                 projectile.netUpdate = true;
             }
+
             if (projectile.ai[0] == 1f)
             {
                 projectile.tileCollide = false;
             }
+
             if (flag && projectile.ai[0] == 0f)
             {
                 Vector2 vector4 = vector - projectile.Center;
@@ -170,6 +187,7 @@ namespace AAMod.Items.Armor.Witch
                 {
                     projectile.velocity *= 0.96f;
                 }
+
                 if (num18 > 200f)
                 {
                     float scaleFactor2 = 6f;
@@ -188,6 +206,7 @@ namespace AAMod.Items.Armor.Witch
                 {
                     projectile.ai[0] = 1f;
                 }
+
                 float num22 = 9f;
                 Vector2 center2 = projectile.Center;
                 Vector2 vector6 = player.Center - center2 + new Vector2(0f, -60f);
@@ -197,16 +216,20 @@ namespace AAMod.Items.Armor.Witch
                 {
                     num22 = 9f;
                 }
-                if (num24 < 100f && projectile.ai[0] == 1f && !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
+
+                if (num24 < 100f && projectile.ai[0] == 1f &&
+                    !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
                 {
                     projectile.ai[0] = 0f;
                     projectile.netUpdate = true;
                 }
+
                 if (num24 > 2000f)
                 {
-                    projectile.position.X = Main.player[projectile.owner].Center.X - (float)(projectile.width / 2);
-                    projectile.position.Y = Main.player[projectile.owner].Center.Y - (float)(projectile.width / 2);
+                    projectile.position.X = Main.player[projectile.owner].Center.X - (float) (projectile.width / 2);
+                    projectile.position.Y = Main.player[projectile.owner].Center.Y - (float) (projectile.width / 2);
                 }
+
                 if (Math.Abs(vector6.X) > 40f || Math.Abs(vector6.Y) > 10f)
                 {
                     vector6.Normalize();
@@ -221,9 +244,11 @@ namespace AAMod.Items.Armor.Witch
                         projectile.velocity.X = -0.15f;
                         projectile.velocity.Y = -0.05f;
                     }
+
                     projectile.velocity *= 1.01f;
                 }
             }
+
             projectile.rotation = projectile.velocity.X * 0.05f;
             projectile.frameCounter++;
             if (projectile.velocity.X > 0f)
@@ -234,6 +259,7 @@ namespace AAMod.Items.Armor.Witch
             {
                 projectile.spriteDirection = (projectile.direction = 1);
             }
+
             if (projectile.ai[1] > 0f)
             {
                 projectile.ai[1] += 1f;
@@ -242,16 +268,18 @@ namespace AAMod.Items.Armor.Witch
                     projectile.ai[1] += 1f;
                 }
             }
+
             if (projectile.ai[1] > 60f)
             {
                 projectile.ai[1] = 0f;
                 projectile.netUpdate = true;
             }
+
             if (projectile.ai[0] == 0f)
             {
                 float scaleFactor4 = 7f;
                 int num29 = mod.ProjectileType<FlameSoulShot>();
-                
+
                 if (flag)
                 {
                     if (Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
@@ -266,7 +294,8 @@ namespace AAMod.Items.Armor.Witch
                             Vector2 value4 = vector - projectile.Center;
                             value4.Normalize();
                             value4 *= scaleFactor4;
-                            int num33 = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, value4.X*1.5f, value4.Y*1.5f, num29, projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+                            int num33 = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y,
+                                value4.X * 1.5f, value4.Y * 1.5f, num29, projectile.damage, 0f, Main.myPlayer, 0f, 0f);
                             Main.projectile[num33].timeLeft = 300;
                             Main.projectile[num33].netUpdate = true;
                             projectile.netUpdate = true;
@@ -274,12 +303,14 @@ namespace AAMod.Items.Armor.Witch
                     }
                 }
             }
+
             projectile.frameCounter++;
             if (projectile.frameCounter >= 15)
             {
                 projectile.frame += 1;
                 projectile.frameCounter = 0;
             }
+
             if (projectile.frame >= 3)
             {
                 projectile.frame = 0;
@@ -294,7 +325,7 @@ namespace AAMod.Items.Armor.Witch
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return glowColor * ((float)Main.mouseTextColor / 255f);
+            return glowColor * ((float) Main.mouseTextColor / 255f);
         }
 
         public void FireDamage(Player player)
@@ -305,7 +336,8 @@ namespace AAMod.Items.Armor.Witch
             glowColorG = BaseMod.BaseUtility.MultiLerp(player.statLife / player.statLifeMax, glowColor.G, glowColor2.G);
             glowColorB = BaseMod.BaseUtility.MultiLerp(player.statLife / player.statLifeMax, glowColor.B, glowColor2.B);
 
-            projectile.scale = BaseMod.BaseUtility.MultiLerp(player.statLife / player.statLifeMax, .1f, .2f, .3f, .4f, .5f, .6f, .7f, .8f, .9f, 1f);
+            projectile.scale = BaseMod.BaseUtility.MultiLerp(player.statLife / player.statLifeMax, .1f, .2f, .3f, .4f,
+                .5f, .6f, .7f, .8f, .9f, 1f);
 
             if (player.statLife > (player.statLifeMax * .9f))
             {
@@ -313,54 +345,63 @@ namespace AAMod.Items.Armor.Witch
                 projectile.scale = .2f;
                 return;
             }
+
             if (player.statLife > (player.statLifeMax * .8f))
             {
                 projectile.damage = 60 + 5;
                 projectile.scale = .3f;
                 return;
             }
+
             if (player.statLife > (player.statLifeMax * .7f))
             {
                 projectile.damage = 60 + 10;
                 projectile.scale = .4f;
                 return;
             }
+
             if (player.statLife > (player.statLifeMax * .6f))
             {
                 projectile.damage = 60 + 15;
                 projectile.scale = .5f;
                 return;
             }
+
             if (player.statLife > (player.statLifeMax * .5f))
             {
                 projectile.damage = 60 + 20;
                 projectile.scale = .6f;
                 return;
             }
+
             if (player.statLife > (player.statLifeMax * .4f))
             {
                 projectile.damage = 60 + 25;
                 projectile.scale = .7f;
                 return;
             }
+
             if (player.statLife > (player.statLifeMax * .3f))
             {
                 projectile.damage = 60 + 30;
                 projectile.scale = .8f;
                 return;
             }
+
             if (player.statLife > (player.statLifeMax * .2f))
             {
                 projectile.damage = 60 + 35;
                 projectile.scale = .9f;
                 return;
             }
+
             if (player.statLife > (player.statLifeMax * .1f))
             {
                 projectile.damage = 60 + 40;
                 projectile.scale = .10f;
                 return;
             }
+
             projectile.damage = 60 + 60;
         }
     }

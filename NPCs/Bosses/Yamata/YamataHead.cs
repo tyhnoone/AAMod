@@ -13,8 +13,8 @@ namespace AAMod.NPCs.Bosses.Yamata
     [AutoloadBossHead]
     public class YamataHead : ModNPC
     {
-		public bool isAwakened = false;
-		
+        public bool isAwakened = false;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Yamata");
@@ -23,7 +23,7 @@ namespace AAMod.NPCs.Bosses.Yamata
 
         public override void SetDefaults()
         {
-			npc.life = npc.lifeMax = 100;
+            npc.life = npc.lifeMax = 100;
             npc.damage = 130;
             npc.defense = 80;
             npc.width = 78;
@@ -36,6 +36,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 npc.buffImmune[k] = true;
             }
+
             if (AAWorld.downedShen)
             {
                 npc.damage = 160;
@@ -55,7 +56,7 @@ namespace AAMod.NPCs.Bosses.Yamata
         public Yamata yamata = null;
         public bool HoriSwitch = false;
         public int f = 1;
-        public float TargetDirection = (float)Math.PI / 2;
+        public float TargetDirection = (float) Math.PI / 2;
         public float s = 1;
         public Projectile Breath;
         private int MouthFrame;
@@ -76,6 +77,7 @@ namespace AAMod.NPCs.Bosses.Yamata
         public static int HeadFrame = 0;
 
         public float[] internalAI = new float[4];
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
@@ -113,17 +115,19 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 damage = npc.damage / 2;
             }
-	        if (Body == null)
+
+            if (Body == null)
             {
-                NPC npcBody = Main.npc[(int)npc.ai[0]];
+                NPC npcBody = Main.npc[(int) npc.ai[0]];
                 if (npcBody.type == mod.NPCType<Yamata>() || npcBody.type == mod.NPCType<YamataA>())
                 {
                     Body = npcBody;
-					yamata = (Yamata)npcBody.modNPC;
+                    yamata = (Yamata) npcBody.modNPC;
                 }
             }
-			if(Body == null)
-				return;
+
+            if (Body == null)
+                return;
             if (!Body.active)
             {
                 if (Main.netMode != 1) //force a kill to prevent 'ghost hands'
@@ -132,20 +136,21 @@ namespace AAMod.NPCs.Bosses.Yamata
                     npc.checkDead();
                     npc.netUpdate = true;
                 }
+
                 return;
             }
-	
+
             npc.realLife = Body.whoAmI;
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
-		
+
             if (Yamata.TeleportMeBitch)
             {
                 Yamata.TeleportMeBitch = false;
                 npc.Center = yamata.npc.Center;
                 return;
             }
-            
+
             npc.alpha = Body.alpha;
             if (npc.alpha > 0)
             {
@@ -163,14 +168,17 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 num429 = -1;
             }
+
             Vector2 PlayerDistance = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
-            float PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) + (num429 * 180) - PlayerDistance.X;
-            float PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - PlayerDistance.Y;
-            float PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX) + (PlayerPosY * PlayerPosY));
+            float PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) +
+                               (num429 * 180) - PlayerDistance.X;
+            float PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) -
+                               PlayerDistance.Y;
+            float PlayerPos = (float) Math.Sqrt((PlayerPosX * PlayerPosX) + (PlayerPosY * PlayerPosY));
             float num433 = 6f;
             PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - PlayerDistance.X;
             PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - PlayerDistance.Y;
-            PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX + PlayerPosY * PlayerPosY));
+            PlayerPos = (float) Math.Sqrt((PlayerPosX * PlayerPosX + PlayerPosY * PlayerPosY));
             PlayerPos = num433 / PlayerPos;
             PlayerPosX *= PlayerPos;
             PlayerPosY *= PlayerPos;
@@ -185,20 +193,25 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 internalAI[2]++;
             }
+
             if (internalAI[2] == 399)
             {
                 QuoteSaid = false;
                 Main.PlaySound(roarSound, npc.Center);
                 int AttackType = 2;
                 int AwakenedAttackType = 4;
-                if (!isAwakened && (NPC.AnyNPCs(mod.NPCType<YamataHeadF1>()) || NPC.AnyNPCs(mod.NPCType<YamataHeadF2>())))
+                if (!isAwakened &&
+                    (NPC.AnyNPCs(mod.NPCType<YamataHeadF1>()) || NPC.AnyNPCs(mod.NPCType<YamataHeadF2>())))
                 {
                     AttackType = 4;
                 }
-                if (isAwakened && (NPC.AnyNPCs(mod.NPCType<YamataAHeadF1>()) || NPC.AnyNPCs(mod.NPCType<YamataAHeadF2>())))
+
+                if (isAwakened && (NPC.AnyNPCs(mod.NPCType<YamataAHeadF1>()) ||
+                                   NPC.AnyNPCs(mod.NPCType<YamataAHeadF2>())))
                 {
                     AwakenedAttackType = 6;
                 }
+
                 internalAI[1] = isAwakened ? Main.rand.Next(AwakenedAttackType) : Main.rand.Next(AttackType);
             }
 
@@ -221,6 +234,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                     attackFrame++;
                     attackCounter = 0;
                 }
+
                 if (attackFrame >= 3)
                 {
                     attackFrame = 2;
@@ -237,9 +251,11 @@ namespace AAMod.NPCs.Bosses.Yamata
                     {
                         npc.timeLeft = 10;
                     }
+
                     return;
                 }
             }
+
             fireTimer++;
             if (fireTimer >= 240 && npc.ai[3] == 0)
             {
@@ -247,6 +263,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                 npc.ai[3] = 1;
                 fireTimer = 0;
             }
+
             if (npc.ai[3] == 1)
             {
                 attackTimer++;
@@ -254,13 +271,16 @@ namespace AAMod.NPCs.Bosses.Yamata
                 {
                     if (attackTimer == 40)
                     {
-                        Main.PlaySound(2, (int)npc.Center.X, (int)npc.Center.Y, 20);
-                        int proj2 = Projectile.NewProjectile(npc.Center.X + Main.rand.Next(-20, 20), npc.Center.Y + Main.rand.Next(-20, 20), npc.velocity.X * 1.6f, npc.velocity.Y * 1.6f, mod.ProjectileType(isAwakened ? "YamataABomb" : "YamataBomb"), 20, 0, Main.myPlayer);
+                        Main.PlaySound(2, (int) npc.Center.X, (int) npc.Center.Y, 20);
+                        int proj2 = Projectile.NewProjectile(npc.Center.X + Main.rand.Next(-20, 20),
+                            npc.Center.Y + Main.rand.Next(-20, 20), npc.velocity.X * 1.6f, npc.velocity.Y * 1.6f,
+                            mod.ProjectileType(isAwakened ? "YamataABomb" : "YamataBomb"), 20, 0, Main.myPlayer);
                         Main.projectile[proj2].damage = npc.damage / 3;
                         attackTimer = 0;
                         attackFrame = 0;
                         attackCounter = 0;
                     }
+
                     if (attackTimer >= 80)
                     {
                         npc.ai[3] = 0;
@@ -268,18 +288,22 @@ namespace AAMod.NPCs.Bosses.Yamata
                 }
                 else
                 {
-                    if (attackTimer == 8 || attackTimer == 16 || attackTimer == 24 || attackTimer == 32 || attackTimer == 40 || attackTimer == 48 || attackTimer == 56 || attackTimer == 64 || attackTimer == 72 || attackTimer == 79)
+                    if (attackTimer == 8 || attackTimer == 16 || attackTimer == 24 || attackTimer == 32 ||
+                        attackTimer == 40 || attackTimer == 48 || attackTimer == 56 || attackTimer == 64 ||
+                        attackTimer == 72 || attackTimer == 79)
                     {
-                        Main.PlaySound(2, (int)npc.Center.X, (int)npc.Center.Y, 20);
+                        Main.PlaySound(2, (int) npc.Center.X, (int) npc.Center.Y, 20);
                         for (int i = 0; i < 5; ++i)
                         {
                             if (Main.netMode != 1)
                             {
-                                Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX, PlayerPosY, mod.ProjectileType(isAwakened ? "YamataABreath" : "YamataBreath"), (int)(damage * .8f), 0f, Main.myPlayer);
+                                Projectile.NewProjectile(PlayerDistance.X, PlayerDistance.Y, PlayerPosX, PlayerPosY,
+                                    mod.ProjectileType(isAwakened ? "YamataABreath" : "YamataBreath"),
+                                    (int) (damage * .8f), 0f, Main.myPlayer);
                             }
                         }
-                        
                     }
+
                     if (attackTimer >= 80)
                     {
                         npc.ai[3] = 0;
@@ -288,7 +312,6 @@ namespace AAMod.NPCs.Bosses.Yamata
                         attackCounter = 0;
                     }
                 }
-
             }
 
             Vector2 moveTo = new Vector2(Body.Center.X + npc.ai[1], Body.Center.Y - (130f + npc.ai[2])) - npc.Center;
@@ -296,7 +319,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             npc.rotation = 0;
             npc.position += Body.position - Body.oldPosition;
         }
-        
+
         public void Attacks(float AttackType)
         {
             Player player = Main.player[npc.target];
@@ -306,40 +329,64 @@ namespace AAMod.NPCs.Bosses.Yamata
                 {
                     if (!QuoteSaid)
                     {
-                        Main.NewText((!Quote1) ? "TASTE ACID YOU UNBEARABLE MAGGOT!!!" : "STOP MOVING AND LET ME MELT YOU!!!", new Color(45, 46, 70));
+                        Main.NewText(
+                            (!Quote1) ? "TASTE ACID YOU UNBEARABLE MAGGOT!!!" : "STOP MOVING AND LET ME MELT YOU!!!",
+                            new Color(45, 46, 70));
                         QuoteSaid = true;
                         Quote1 = true;
                     }
-                    BaseAI.ShootPeriodic(npc, new Vector2(player.position.X, player.position.Y), player.width, player.height, mod.ProjectileType<YamataVenom>(), ref internalAI[3], 6, (int)(npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
+
+                    BaseAI.ShootPeriodic(npc, new Vector2(player.position.X, player.position.Y), player.width,
+                        player.height, mod.ProjectileType<YamataVenom>(), ref internalAI[3], 6,
+                        (int) (npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
                 }
+
                 if (AttackType == 1f)
                 {
                     if (!QuoteSaid)
                     {
-                        Main.NewText((!Quote3) ? "Down Down DOWN THE VENOM GOES!!! When it will it stop? WHO KNOWS?! NYEHEHEHEHEHEH!!!" : "DIEDIEDIEDIEDIEDIEDIEDIIIIIIIIIIIIIIIE!!!", new Color(45, 46, 70));
+                        Main.NewText(
+                            (!Quote3)
+                                ? "Down Down DOWN THE VENOM GOES!!! When it will it stop? WHO KNOWS?! NYEHEHEHEHEHEH!!!"
+                                : "DIEDIEDIEDIEDIEDIEDIEDIIIIIIIIIIIIIIIE!!!", new Color(45, 46, 70));
                         QuoteSaid = true;
                         Quote3 = true;
                     }
-                    BaseAI.ShootPeriodic(npc, new Vector2(player.position.X, -4f), player.width, player.height, mod.ProjectileType<YamataStorm>(), ref internalAI[3], 40, (int)(npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
+
+                    BaseAI.ShootPeriodic(npc, new Vector2(player.position.X, -4f), player.width, player.height,
+                        mod.ProjectileType<YamataStorm>(), ref internalAI[3], 40,
+                        (int) (npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
                 }
+
                 if (AttackType == 2f)
                 {
                     if (!QuoteSaid)
                     {
-                        Main.NewText((!Quote3) ? "BAM! BOOM! I'LL BLOW YOU INTO NEXT SUNDAY!!!" : "NGAAAAAAAAAAAAAAAAAH!!!", new Color(45, 46, 70));
+                        Main.NewText(
+                            (!Quote3) ? "BAM! BOOM! I'LL BLOW YOU INTO NEXT SUNDAY!!!" : "NGAAAAAAAAAAAAAAAAAH!!!",
+                            new Color(45, 46, 70));
                         QuoteSaid = true;
                         Quote3 = true;
                     }
-                    BaseAI.ShootPeriodic(npc, new Vector2(player.position.X, player.position.Y), player.width, player.height, mod.ProjectileType<YamataBlast>(), ref internalAI[3], 15, (int)(npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
+
+                    BaseAI.ShootPeriodic(npc, new Vector2(player.position.X, player.position.Y), player.width,
+                        player.height, mod.ProjectileType<YamataBlast>(), ref internalAI[3], 15,
+                        (int) (npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
                 }
+
                 if (AttackType == 3f)
                 {
                     if (!QuoteSaid)
                     {
-                        Main.NewText((!Quote4) ? ("GET THEM! EAT THEM! JUST GET " + (player.Male ? "HIM" : "HER") + " OUT OF MY FACE!!!") : "I’VE EATEN RABBITS MORE INTIMIDATING THAN YOU!", new Color(45, 46, 70));
+                        Main.NewText(
+                            (!Quote4)
+                                ? ("GET THEM! EAT THEM! JUST GET " + (player.Male ? "HIM" : "HER") +
+                                   " OUT OF MY FACE!!!")
+                                : "I’VE EATEN RABBITS MORE INTIMIDATING THAN YOU!", new Color(45, 46, 70));
                         QuoteSaid = true;
                         Quote4 = true;
                     }
+
                     EATTHELITTLEMAGGOT = true;
                 }
             }
@@ -349,60 +396,98 @@ namespace AAMod.NPCs.Bosses.Yamata
                 {
                     if (!QuoteSaid)
                     {
-                        Main.NewText((!Quote1) ? "HOPE YOU BROUGHT YOUR UMBRELLA! BECAUSE IT’S RAINING PAIN!!! NYEHEHEHEHEHEHEHEH!!!" : "DOWN COMES THE VENOM!!!NYEHEHEHEHEHEHEHEH!", new Color(146, 30, 68));
+                        Main.NewText(
+                            (!Quote1)
+                                ? "HOPE YOU BROUGHT YOUR UMBRELLA! BECAUSE IT’S RAINING PAIN!!! NYEHEHEHEHEHEHEHEH!!!"
+                                : "DOWN COMES THE VENOM!!!NYEHEHEHEHEHEHEHEH!", new Color(146, 30, 68));
                         QuoteSaid = true;
                         Quote1 = true;
                     }
-                    BaseAI.ShootPeriodic(npc, new Vector2(Main.rand.Next(-2, 2), -1f), player.width, player.height, mod.ProjectileType<YamataStorm>(), ref internalAI[3], 30, (int)(npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
+
+                    BaseAI.ShootPeriodic(npc, new Vector2(Main.rand.Next(-2, 2), -1f), player.width, player.height,
+                        mod.ProjectileType<YamataStorm>(), ref internalAI[3], 30,
+                        (int) (npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
                 }
+
                 if (AttackType == 1f)
                 {
                     if (!QuoteSaid)
                     {
-                        Main.NewText((!Quote2) ? "EAT ECTOPLASM YOU LITTLE WRETCH" : "NYAAAAAAAAAAAH!!!", new Color(146, 30, 68));
+                        Main.NewText((!Quote2) ? "EAT ECTOPLASM YOU LITTLE WRETCH" : "NYAAAAAAAAAAAH!!!",
+                            new Color(146, 30, 68));
                         QuoteSaid = true;
                         Quote2 = true;
                     }
-                    BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjectileType<HomingSoul>(), ref internalAI[3], 15, (int)(npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
+
+                    BaseAI.ShootPeriodic(npc, player.position, player.width, player.height,
+                        mod.ProjectileType<HomingSoul>(), ref internalAI[3], 15,
+                        (int) (npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
                 }
+
                 if (AttackType == 2f)
                 {
                     if (!QuoteSaid)
                     {
-                        Main.NewText((!Quote3) ? "WHOOPS! DROPPED ACID! Hope you're not degradable..!" : "WHOOPS! DROPPED ACID AGAIN! NYEHEHEHEHEHEHEHEHEHEHEHEH", new Color(146, 30, 68));
+                        Main.NewText(
+                            (!Quote3)
+                                ? "WHOOPS! DROPPED ACID! Hope you're not degradable..!"
+                                : "WHOOPS! DROPPED ACID AGAIN! NYEHEHEHEHEHEHEHEHEHEHEHEH", new Color(146, 30, 68));
                         QuoteSaid = true;
                         Quote3 = true;
                     }
-                    BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjectileType<YamataShot>(), ref internalAI[3], 10, (int)(npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
+
+                    BaseAI.ShootPeriodic(npc, player.position, player.width, player.height,
+                        mod.ProjectileType<YamataShot>(), ref internalAI[3], 10,
+                        (int) (npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
                 }
+
                 if (AttackType == 3f)
                 {
                     if (!QuoteSaid)
                     {
-                        Main.NewText((!Quote4) ? "NYAAAAAAAH! YOU WON’T LIVE THROUGH THIS ONE!" : "COME ON!!! STAND STILL SO I CAN BLOW YOU TO MARS!", new Color(146, 30, 68));
+                        Main.NewText(
+                            (!Quote4)
+                                ? "NYAAAAAAAH! YOU WON’T LIVE THROUGH THIS ONE!"
+                                : "COME ON!!! STAND STILL SO I CAN BLOW YOU TO MARS!", new Color(146, 30, 68));
                         QuoteSaid = true;
                         Quote4 = true;
                     }
-                    BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjectileType<AbyssalThunder>(), ref internalAI[3], 20, (int)(npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
+
+                    BaseAI.ShootPeriodic(npc, player.position, player.width, player.height,
+                        mod.ProjectileType<AbyssalThunder>(), ref internalAI[3], 20,
+                        (int) (npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
                 }
+
                 if (AttackType == 4f)
                 {
                     if (!QuoteSaid)
                     {
-                        Main.NewText((!Quote5) ? "GRAAAAAAAAAAAAAAAAAAAH STAHP MOOOOOOOOVIIIIIIING!!!!!" : "HAVE A HEALTHY TASTE OF ACID!", new Color(146, 30, 68));
+                        Main.NewText(
+                            (!Quote5)
+                                ? "GRAAAAAAAAAAAAAAAAAAAH STAHP MOOOOOOOOVIIIIIIING!!!!!"
+                                : "HAVE A HEALTHY TASTE OF ACID!", new Color(146, 30, 68));
                         QuoteSaid = true;
                         Quote5 = true;
                     }
-                    BaseAI.ShootPeriodic(npc, new Vector2(player.position.X, player.position.Y), player.width, player.height, mod.ProjectileType<YamataAVenom>(), ref internalAI[3], 6, (int)(npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
+
+                    BaseAI.ShootPeriodic(npc, new Vector2(player.position.X, player.position.Y), player.width,
+                        player.height, mod.ProjectileType<YamataAVenom>(), ref internalAI[3], 6,
+                        (int) (npc.damage * (Main.expertMode ? 0.5f : 0.25f)), 10f, true, new Vector2(20f, 15f));
                 }
+
                 if (AttackType == 5f)
                 {
                     if (!QuoteSaid)
                     {
-                        Main.NewText((!Quote6) ? "I'M GONNA RIP YOU TO PIECES YOU LITTLE WRETCH!!!" : "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE!!!", new Color(146, 30, 68));
+                        Main.NewText(
+                            (!Quote6)
+                                ? "I'M GONNA RIP YOU TO PIECES YOU LITTLE WRETCH!!!"
+                                : "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE!!!",
+                            new Color(146, 30, 68));
                         QuoteSaid = true;
                         Quote6 = true;
                     }
+
                     EATTHELITTLEMAGGOT = true;
                 }
             }
@@ -422,12 +507,14 @@ namespace AAMod.NPCs.Bosses.Yamata
                         npc.frame.Y = 0;
                     }
                 }
+
                 if (npc.ai[3] == 1 || internalAI[2] > 400)
                 {
                     if (npc.frameCounter < 5)
                     {
                         npc.frame.Y = frameHeight * 3;
                     }
+
                     if (npc.frameCounter > 10)
                     {
                         npc.frame.Y += frameHeight;
@@ -454,14 +541,14 @@ namespace AAMod.NPCs.Bosses.Yamata
                 }
                 else
                 {
-
                     npc.frame.Y = 0 * frameHeight;
                     npc.frameCounter = 0;
                 }
             }
         }
 
-        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback,
+            ref bool crit, ref int hitDirection)
         {
             Player player = Main.player[npc.target];
             if (player.vortexStealthActive && projectile.ranged)
@@ -469,21 +556,23 @@ namespace AAMod.NPCs.Bosses.Yamata
                 damage /= 2;
                 crit = false;
             }
+
             if (projectile.penetrate == -1 && !projectile.minion)
             {
-                projectile.damage *= (int).2;
+                projectile.damage *= (int) .2;
             }
             else if (projectile.penetrate >= 1)
             {
-                projectile.damage *= (int).2;
+                projectile.damage *= (int) .2;
             }
         }
-        
+
 
         public override void BossHeadRotation(ref float rotation)
         {
             rotation = npc.rotation;
         }
+
         // We use this hook to prevent any loot from dropping. We do this because this is a multistage npc and it shouldn't drop anything until the final form is dead.
         public override bool PreNPCLoot()
         {
@@ -496,8 +585,8 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 return false;
             }
+
             return true;
         }
-
     }
 }

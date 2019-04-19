@@ -8,12 +8,11 @@ namespace AAMod.Items.Dev
     [AutoloadEquip(EquipType.Shield)]
     public class CharlieShell : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spiked Turtle Shell");
             Tooltip.SetDefault(
-@"Allows you to dash into enemies, damaging them
+                @"Allows you to dash into enemies, damaging them
 Enemies that hit you take full damage
 'I. Will. Smite. You.'
 -Charlie");
@@ -38,8 +37,8 @@ Enemies that hit you take full damage
                 }
             }
         }
-        
-		public override void UpdateAccessory(Player player, bool hideVisual)
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.thorns = 1f;
             player.turtleThorns = true;

@@ -7,10 +7,7 @@ namespace AAMod.Tiles
     {
         private Mod mod
         {
-            get
-            {
-                return ModLoader.GetMod("AAMod");
-            }
+            get { return ModLoader.GetMod("AAMod"); }
         }
 
         public override int DropWood()
@@ -20,7 +17,6 @@ namespace AAMod.Tiles
 
         public override Texture2D GetTexture()
         {
-
             return mod.GetTexture("Tiles/BogPalmTree");
         }
 

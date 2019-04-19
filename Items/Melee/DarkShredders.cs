@@ -7,7 +7,6 @@ namespace AAMod.Items.Melee
     {
         public override void SetDefaults()
         {
-
             item.damage = 115;
             item.melee = true;
             item.width = 80;
@@ -18,10 +17,11 @@ namespace AAMod.Items.Melee
             item.useStyle = 100;
             item.knockBack = 3f;
             item.value = Item.buyPrice(0, 3, 0, 0);
-            item.rare = 11;      
+            item.rare = 11;
             item.shoot = mod.ProjectileType("DarkShredders");
             item.noUseGraphic = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -37,7 +37,7 @@ namespace AAMod.Items.Melee
             Tooltip.SetDefault("Blades made out of Dark matter. Inflicts the Electified debuff");
         }
 
- 
+
         public override bool UseItemFrame(Player player)
         {
             player.bodyFrame.Y = 3 * player.bodyFrame.Height;

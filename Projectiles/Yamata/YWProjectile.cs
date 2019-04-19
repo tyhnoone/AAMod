@@ -8,9 +8,9 @@ namespace AAMod.Projectiles.Yamata
 {
     public class YWProjectile : ModProjectile
     {
-    	public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Hydra Soul");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Hydra Soul");
             Main.projFrames[projectile.type] = 4;
         }
 
@@ -36,7 +36,6 @@ namespace AAMod.Projectiles.Yamata
 
         public override void AI()
         {
-
             projectile.frameCounter++;
             if (projectile.frameCounter > 5)
             {
@@ -47,27 +46,38 @@ namespace AAMod.Projectiles.Yamata
                     projectile.frame = 0;
                 }
             }
+
             if (projectile.velocity.X < 0f)
             {
                 projectile.spriteDirection = -1;
-                projectile.rotation = (float)Math.Atan2((double)(-(double)projectile.velocity.Y), (double)(-(double)projectile.velocity.X));
+                projectile.rotation = (float) Math.Atan2((double) (-(double) projectile.velocity.Y),
+                    (double) (-(double) projectile.velocity.X));
             }
             else
             {
                 projectile.spriteDirection = 1;
-                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);
+                projectile.rotation =
+                    (float) Math.Atan2((double) projectile.velocity.Y, (double) projectile.velocity.X);
             }
+
             int num557 = 8;
             //dust!
-            int dustId = Dust.NewDust(new Vector2(projectile.position.X + (float)num557, projectile.position.Y + (float)num557), projectile.width - num557 * 2, projectile.height - num557 * 2, 6, 0f, 0f, 0, default(Color), 1f);
+            int dustId =
+                Dust.NewDust(
+                    new Vector2(projectile.position.X + (float) num557, projectile.position.Y + (float) num557),
+                    projectile.width - num557 * 2, projectile.height - num557 * 2, 6, 0f, 0f, 0, default(Color), 1f);
             Main.dust[dustId].noGravity = true;
-            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X + (float)num557, projectile.position.Y + (float)num557), projectile.width - num557 * 2, projectile.height - num557 * 2, 6, 0f, 0f, 0, default(Color), 1f);
+            int dustId3 =
+                Dust.NewDust(
+                    new Vector2(projectile.position.X + (float) num557, projectile.position.Y + (float) num557),
+                    projectile.width - num557 * 2, projectile.height - num557 * 2, 6, 0f, 0f, 0, default(Color), 1f);
             Main.dust[dustId3].noGravity = true;
 
             const int aislotHomingCooldown = 0;
             const int homingDelay = 10;
             const float desiredFlySpeedInPixelsPerFrame = 50;
-            const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
+            const float
+                amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
 
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
@@ -79,7 +89,8 @@ namespace AAMod.Projectiles.Yamata
                 {
                     NPC n = Main.npc[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
-                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                    projectile.velocity =
+                        Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
                 }
             }
         }
@@ -99,7 +110,8 @@ namespace AAMod.Projectiles.Yamata
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance
+                        ) //or we are closer to this target than the already selected target
                     )
                         selectedTarget = i;
                 }
@@ -107,17 +119,21 @@ namespace AAMod.Projectiles.Yamata
 
             return selectedTarget;
         }
-        
+
 
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(SoundID.Item10, projectile.position);
             for (int num579 = 0; num579 < 20; num579++)
             {
-                int num580 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.YamataDust>(), -projectile.velocity.X * 0.2f, -projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
+                int num580 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.YamataDust>(), -projectile.velocity.X * 0.2f,
+                    -projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
                 Main.dust[num580].noGravity = true;
                 Main.dust[num580].velocity *= 2f;
-                num580 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.YamataDust>(), -projectile.velocity.X * 0.2f, -projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+                num580 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width,
+                    projectile.height, mod.DustType<Dusts.YamataDust>(), -projectile.velocity.X * 0.2f,
+                    -projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
                 Main.dust[num580].velocity *= 2f;
             }
         }

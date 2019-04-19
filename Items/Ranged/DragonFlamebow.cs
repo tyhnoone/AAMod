@@ -7,10 +7,8 @@ namespace AAMod.Items.Ranged
 {
     public class DragonFlamebow : ModItem
     {
-
         public override void SetDefaults()
         {
-
             item.damage = 14;
             item.noMelee = true;
             item.ranged = true;
@@ -28,7 +26,6 @@ namespace AAMod.Items.Ranged
             item.UseSound = SoundID.Item5;
             item.autoReuse = true;
             item.shootSpeed = 25f;
-
         }
 
         public override void SetStaticDefaults()
@@ -37,16 +34,20 @@ namespace AAMod.Items.Ranged
             Tooltip.SetDefault("Transforms arrows into Dragon Arrows");
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
         {
-            Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType<Projectiles.DragonArrow>(), damage, knockBack, player.whoAmI, 0f, 0f); //This is spawning a projectile of type FrostburnArrow using the original stats
+            Projectile.NewProjectile(position.X, position.Y, speedX, speedY,
+                mod.ProjectileType<Projectiles.DragonArrow>(), damage, knockBack, player.whoAmI, 0f,
+                0f); //This is spawning a projectile of type FrostburnArrow using the original stats
             return false;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "IncineriteBar", 8);
-			recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

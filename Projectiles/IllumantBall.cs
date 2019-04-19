@@ -11,10 +11,10 @@ namespace AAMod.Projectiles
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.BlueMoon);
-            projectile.penetrate = -1;  
+            projectile.penetrate = -1;
             projectile.width = 38;
             projectile.height = 38;
-			projectile.tileCollide = false;
+            projectile.tileCollide = false;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -29,7 +29,5 @@ namespace AAMod.Projectiles
         {
             DisplayName.SetDefault("IllumantBall");
         }
-
-
     }
 }

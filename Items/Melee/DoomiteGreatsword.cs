@@ -34,7 +34,8 @@ namespace AAMod.Items.Melee
 
         private static int shoot;
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockback)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockback)
         {
             shoot++;
             if (shoot % 2 != 0) return false;
@@ -42,6 +43,7 @@ namespace AAMod.Items.Melee
             shoot = 0;
             return true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

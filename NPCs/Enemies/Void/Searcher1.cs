@@ -8,11 +8,10 @@ using Terraria.ModLoader;
 namespace AAMod.NPCs.Enemies.Void
 {
     public class Searcher1 : ModNPC
-	{
-		
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Stone Searcher");
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Stone Searcher");
             Main.npcFrameCount[npc.type] = 5;
         }
 
@@ -30,7 +29,6 @@ namespace AAMod.NPCs.Enemies.Void
             npc.DeathSound = SoundID.NPCDeath14;
             npc.knockBackResist = 0.5f;
             npc.noGravity = true;
-
         }
 
         public override void HitEffect(int hitDirection, double damage)
@@ -39,7 +37,8 @@ namespace AAMod.NPCs.Enemies.Void
             for (int m = 0; m < (isDead ? 25 : 5); m++)
             {
                 int dustType = (mod.DustType<Dusts.VoidDust>());
-                Dust.NewDust(npc.position, npc.width, npc.height, dustType, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, (isDead ? 2f : 1.1f));
+                Dust.NewDust(npc.position, npc.width, npc.height, dustType, npc.velocity.X * 0.2f,
+                    npc.velocity.Y * 0.2f, 100, Color.White, (isDead ? 2f : 1.1f));
             }
 
             if (npc.life <= 0)
@@ -50,18 +49,19 @@ namespace AAMod.NPCs.Enemies.Void
         }
 
         float shootAI = 0;
+
         public override void AI()
         {
             BaseAI.AIEater(npc, ref npc.ai, .022f, 4, .6f, false, true);
             Player player = Main.player[npc.target];
             bool playerActive = player != null && player.active && !player.dead;
             BaseAI.LookAt((playerActive ? player.Center : (npc.Center + npc.velocity)), npc, 0);
-            
         }
 
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DoomiteScrap"), Main.rand.Next(3));
+            Item.NewItem((int) npc.position.X, (int) npc.position.Y, npc.width, npc.height,
+                mod.ItemType("DoomiteScrap"), Main.rand.Next(3));
         }
 
         public static Texture2D glowTex = null;

@@ -9,20 +9,20 @@ namespace AAMod.Projectiles.Zero
 {
     // to investigate: Projectile.Damage, (8843)
     class ZeroStarP : ModProjectile
-	{
+    {
         public override void SetDefaults()
-		{
+        {
             projectile.CloneDefaults(ProjectileID.LightDisc);
             aiType = ProjectileID.LightDisc;
             projectile.width = 46;
-			projectile.height = 46;
-			projectile.friendly = true;
+            projectile.height = 46;
+            projectile.friendly = true;
             projectile.hostile = false;
             projectile.tileCollide = false;
-			projectile.penetrate = -1;
-			projectile.timeLeft = 300;
+            projectile.penetrate = -1;
+            projectile.timeLeft = 300;
         }
-        
+
         public float[] shootAI = new float[4];
 
         public override void AI()
@@ -42,7 +42,8 @@ namespace AAMod.Projectiles.Zero
                 {
                     projectile.ai[aislotHomingCooldown] = 0;
                     NPC n = Main.npc[foundTarget];
-                    BaseAI.ShootPeriodic(projectile, n.position, n.width, n.height, mod.ProjectileType<Darkray>(), ref shootAI[0], 5, (int)(projectile.damage), 24f, true, projectile.Center);
+                    BaseAI.ShootPeriodic(projectile, n.position, n.width, n.height, mod.ProjectileType<Darkray>(),
+                        ref shootAI[0], 5, (int) (projectile.damage), 24f, true, projectile.Center);
                 }
             }
         }
@@ -62,7 +63,8 @@ namespace AAMod.Projectiles.Zero
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance
+                        ) //or we are closer to this target than the already selected target
                     )
                         selectedTarget = i;
                 }
@@ -74,7 +76,8 @@ namespace AAMod.Projectiles.Zero
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D Glow = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-            BaseDrawing.DrawTexture(spriteBatch, mod.GetTexture("Projectiles/Zero/ZeroStarP"), 0, projectile, lightColor, true);
+            BaseDrawing.DrawTexture(spriteBatch, mod.GetTexture("Projectiles/Zero/ZeroStarP"), 0, projectile,
+                lightColor, true);
             BaseDrawing.DrawTexture(spriteBatch, Glow, 0, projectile, AAColor.Oblivion, true);
             return false;
         }

@@ -5,13 +5,14 @@ using BaseMod;
 
 namespace AAMod.Items.Dyes
 {
-	public class AbyssalDye : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-            DisplayName.SetDefault("Abyssal Dye");	
-            BaseMod.BaseUtility.AddTooltips(item, new string[] { "Gives an abyssal touch to whatever this dye is applied to" });		
-		}
+    public class AbyssalDye : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Abyssal Dye");
+            BaseMod.BaseUtility.AddTooltips(item,
+                new string[] {"Gives an abyssal touch to whatever this dye is applied to"});
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
@@ -23,15 +24,15 @@ namespace AAMod.Items.Dyes
                 }
             }
         }
-        
+
         public override void SetDefaults()
         {
             item.width = 15;
             item.height = 15;
             item.maxStack = 99;
             item.rare = 8;
-			item.dye = (byte)GameShaders.Armor.GetShaderIdFromItemId(item.type); 
-            item.value = BaseUtility.CalcValue(0, 10, 0, 0);			
+            item.dye = (byte) GameShaders.Armor.GetShaderIdFromItemId(item.type);
+            item.value = BaseUtility.CalcValue(0, 10, 0, 0);
         }
 
 

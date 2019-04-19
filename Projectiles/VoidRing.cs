@@ -10,7 +10,6 @@ namespace AAMod.Projectiles
 {
     public class VoidRing : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[projectile.type] = 4;

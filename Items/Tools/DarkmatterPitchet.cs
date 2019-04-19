@@ -8,10 +8,9 @@ namespace AAMod.Items.Tools
 {
     public class DarkmatterPitchet : ModItem
     {
-        
         public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Darkmatter Pitchet");
+        {
+            DisplayName.SetDefault("Darkmatter Pitchet");
         }
 
 
@@ -21,7 +20,7 @@ namespace AAMod.Items.Tools
             item.height = 54;
             item.value = Item.sellPrice(0, 3, 0, 0);
             item.rare = 11;
-		    item.pick = 235;
+            item.pick = 235;
             item.axe = 50;
             item.tileBoost += 4;
 
@@ -36,10 +35,12 @@ namespace AAMod.Items.Tools
             item.useTurn = true;
             item.autoReuse = true;
 
-            
+
             item.UseSound = SoundID.Item1;
         }
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw

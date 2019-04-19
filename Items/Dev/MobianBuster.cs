@@ -16,9 +16,9 @@ namespace AAMod.Items.Dev
         {
             DisplayName.SetDefault("Mobian Buster");
             Tooltip.SetDefault("A standard issue Mobian blaster.\n" +
-                "Hold the use button to charge, and then release a powerful Charged Shot!\n" +
-                "\"Remember, the charged shot fires when you RELEASE the trigger, not the other way around.\" \n" +
-                "- Tails\n");
+                               "Hold the use button to charge, and then release a powerful Charged Shot!\n" +
+                               "\"Remember, the charged shot fires when you RELEASE the trigger, not the other way around.\" \n" +
+                               "- Tails\n");
         }
 
         public override void SetDefaults()
@@ -34,9 +34,9 @@ namespace AAMod.Items.Dev
             item.channel = true;
             Item.sellPrice(0, 50, 0, 0);
             item.noMelee = true;
-			item.rare = 10;
-			item.shootSpeed = 12f;
-			item.noUseGraphic = true;
+            item.rare = 10;
+            item.shootSpeed = 12f;
+            item.noUseGraphic = true;
         }
     }
 }

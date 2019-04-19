@@ -29,8 +29,7 @@ namespace AAMod.Items.Accessories
         {
             DisplayName.SetDefault("Botched Band");
             Tooltip.SetDefault(
-@"10% Increased movement speed and damage");
+                @"10% Increased movement speed and damage");
         }
-
     }
 }

@@ -7,7 +7,6 @@ namespace AAMod.Items.Tools
     {
         public override void SetDefaults()
         {
-
             item.damage = 10;
             item.melee = true;
             item.width = 40;
@@ -15,7 +14,7 @@ namespace AAMod.Items.Tools
 
             item.useTime = 10;
             item.useAnimation = 20;
-            item.axe = 15;    //pickaxe power
+            item.axe = 15; //pickaxe power
             item.useStyle = 1;
             item.knockBack = 3;
             item.value = 1000;
@@ -30,7 +29,7 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Madness Axe");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes() //How to craft this item
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod, "MadnessFragment", 6);

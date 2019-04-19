@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -10,19 +9,19 @@ using BaseMod;
 
 namespace AAMod.Items.Thorium.Healer
 {
-	public class HydrasFury : CrossoverItem
-	{
-		public override void SetStaticDefaults()
-		{
-			crossoverModName = "Thorium";
+    public class HydrasFury : CrossoverItem
+    {
+        public override void SetStaticDefaults()
+        {
+            crossoverModName = "Thorium";
             DisplayName.SetDefault("Hydra's Fury");
             Tooltip.SetDefault(@"Spins an abyssal scythe around you that shreds through enemies
 Scythes inflict poison on contact
-Grants 1 soul essence on direct hit");			
-		}
+Grants 1 soul essence on direct hit");
+        }
 
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.width = 40;
             item.height = 40;
             item.maxStack = 1;
@@ -35,34 +34,39 @@ Grants 1 soul essence on direct hit");
             item.UseSound = SoundID.Item1;
             item.damage = 10;
             item.knockBack = 6;
-			item.noMelee = true;
-			item.noUseGraphic = true;
-			item.autoReuse = true;
+            item.noMelee = true;
+            item.noUseGraphic = true;
+            item.autoReuse = true;
             item.shoot = mod.ProjectileType("HydrasFury");
             item.shootSpeed = 0.1f;
-		}
-		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			for (int k = 0; k < 2; k++)
-			{
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, mod.ProjectileType("HydrasFuryEffect"), damage, knockBack, player.whoAmI, k, 0f);
-			}
-			return true;
-		}
+        }
 
-		public override void GetWeaponDamage(Player player, ref int damage)
-		{
-			damage = (int)(damage * ((ModSupportPlayer)player.GetModPlayer(mod, "ModSupportPlayer")).thorium_radiantBoost);
-		}
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+            ref int type, ref int damage, ref float knockBack)
+        {
+            for (int k = 0; k < 2; k++)
+            {
+                Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f,
+                    mod.ProjectileType("HydrasFuryEffect"), damage, knockBack, player.whoAmI, k, 0f);
+            }
 
-		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
-		{
-			if (Main.rand.Next(100) <= ((ModSupportPlayer)player.GetModPlayer(mod, "ModSupportPlayer")).thorium_radiantCrit)
-			{
-				crit = true;
-			}
-		}
+            return true;
+        }
+
+        public override void GetWeaponDamage(Player player, ref int damage)
+        {
+            damage = (int) (damage * ((ModSupportPlayer) player.GetModPlayer(mod, "ModSupportPlayer"))
+                            .thorium_radiantBoost);
+        }
+
+        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+        {
+            if (Main.rand.Next(100) <=
+                ((ModSupportPlayer) player.GetModPlayer(mod, "ModSupportPlayer")).thorium_radiantCrit)
+            {
+                crit = true;
+            }
+        }
 
         public override void UpdateInventory(Player player)
         {
@@ -77,18 +81,29 @@ Grants 1 soul essence on direct hit");
             int index = -1, index2 = -1;
             for (int m = 0; m < list.Count; m++)
             {
-                if (list[m].Name.Equals("Damage")) { index = m; continue; }
-                if (list[m].Name.Equals("Tooltip0")) { index2 = m; continue; }		
-				if(index > -1 && index2 > -1) break;
+                if (list[m].Name.Equals("Damage"))
+                {
+                    index = m;
+                    continue;
+                }
+
+                if (list[m].Name.Equals("Tooltip0"))
+                {
+                    index2 = m;
+                    continue;
+                }
+
+                if (index > -1 && index2 > -1) break;
             }
+
             string oldTooltip = list[index].text;
-            string[] split = oldTooltip.Split(' '); 
+            string[] split = oldTooltip.Split(' ');
             list.RemoveAt(index);
             list.Insert(index, new TooltipLine(mod, "Damage", split[0] + " radiant damage"));
-			TooltipLine colorLine = new TooltipLine(mod, "Healer", "-Healer Class-");
-			colorLine.overrideColor = new Color(255, 255, 91);
+            TooltipLine colorLine = new TooltipLine(mod, "Healer", "-Healer Class-");
+            colorLine.overrideColor = new Color(255, 255, 91);
             list.Insert(index2, colorLine);
-			base.ModifyTooltips(list);
+            base.ModifyTooltips(list);
         }
 
         public override void AddRecipes()

@@ -24,20 +24,23 @@ namespace AAMod.Tiles
             TileID.Sets.HasOutlines[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
-            TileObjectData.newTile.HookCheck = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.FindEmptyChest), -1, 0, true);
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.AfterPlacement_Hook), -1, 0, false);
-            TileObjectData.newTile.AnchorInvalidTiles = new int[] { 127 };
+            TileObjectData.newTile.CoordinateHeights = new int[] {16, 18};
+            TileObjectData.newTile.HookCheck =
+                new PlacementHook(new Func<int, int, int, int, int, int>(Chest.FindEmptyChest), -1, 0, true);
+            TileObjectData.newTile.HookPostPlaceMyPlayer =
+                new PlacementHook(new Func<int, int, int, int, int, int>(Chest.AfterPlacement_Hook), -1, 0, false);
+            TileObjectData.newTile.AnchorInvalidTiles = new int[] {127};
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.LavaDeath = false;
-            TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
+            TileObjectData.newTile.AnchorBottom = new AnchorData(
+                AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
             TileObjectData.addTile(Type);
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Storm Chest");
             AddMapEntry(new Color(200, 200, 200), name, MapChestName);
             dustType = mod.DustType("FulgurChest");
             disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Containers };
+            adjTiles = new int[] {TileID.Containers};
             chest = "Storm Chest";
             chestDrop = mod.ItemType("StormChest");
         }
@@ -56,10 +59,12 @@ namespace AAMod.Tiles
             {
                 left--;
             }
+
             if (tile.frameY != 0)
             {
                 top--;
             }
+
             int chest = Chest.FindChest(left, top);
             if (Main.chest[chest].name == "")
             {
@@ -97,10 +102,12 @@ namespace AAMod.Tiles
             {
                 left--;
             }
+
             if (tile.frameY != 0)
             {
                 top--;
             }
+
             if (player.sign >= 0)
             {
                 Main.PlaySound(SoundID.MenuClose);
@@ -108,17 +115,21 @@ namespace AAMod.Tiles
                 Main.editSign = false;
                 Main.npcChatText = "";
             }
+
             if (Main.editChest)
             {
                 Main.PlaySound(SoundID.MenuTick);
                 Main.editChest = false;
                 Main.npcChatText = "";
             }
+
             if (player.editedChestName)
             {
-                NetMessage.SendData(33, -1, -1, NetworkText.FromLiteral(Main.chest[player.chest].name), player.chest, 1f, 0f, 0f, 0, 0, 0);
+                NetMessage.SendData(33, -1, -1, NetworkText.FromLiteral(Main.chest[player.chest].name), player.chest,
+                    1f, 0f, 0f, 0, 0, 0);
                 player.editedChestName = false;
             }
+
             if (Main.netMode == 1)
             {
                 if (left == player.chestX && top == player.chestY && player.chest >= 0)
@@ -129,7 +140,7 @@ namespace AAMod.Tiles
                 }
                 else
                 {
-                    NetMessage.SendData(31, -1, -1, null, left, (float)top, 0f, 0f, 0, 0, 0);
+                    NetMessage.SendData(31, -1, -1, null, left, (float) top, 0f, 0f, 0, 0, 0);
                     Main.stackSplit = 600;
                 }
             }
@@ -153,6 +164,7 @@ namespace AAMod.Tiles
                         player.chestY = top;
                         Main.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
                     }
+
                     Recipe.FindRecipes();
                 }
             }
@@ -168,10 +180,12 @@ namespace AAMod.Tiles
             {
                 left--;
             }
+
             if (tile.frameY != 0)
             {
                 top--;
             }
+
             int chest = Chest.FindChest(left, top);
             player.showItemIcon2 = -1;
             if (chest < 0)
@@ -187,6 +201,7 @@ namespace AAMod.Tiles
                     player.showItemIconText = "";
                 }
             }
+
             player.noThrow = 2;
             player.showItemIcon = true;
         }

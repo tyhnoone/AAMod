@@ -9,8 +9,8 @@ namespace AAMod.Projectiles.Shen
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Strike");     //The English name of the projectile
-            Main.projFrames[projectile.type] = 7;     //The recording mode
+            DisplayName.SetDefault("Meteor Strike"); //The English name of the projectile
+            Main.projFrames[projectile.type] = 7; //The recording mode
         }
 
         public override void SetDefaults()
@@ -40,12 +40,11 @@ namespace AAMod.Projectiles.Shen
                 if (++projectile.frame >= 7)
                 {
                     projectile.Kill();
-
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y *= 0.00f;
-
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -57,6 +56,5 @@ namespace AAMod.Projectiles.Shen
         {
             projectile.timeLeft = 0;
         }
-
     }
 }

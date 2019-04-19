@@ -8,19 +8,19 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Draco
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class DracoLeggings : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Draconian Sun Greaves");
-			Tooltip.SetDefault(@"16% increased movement speed
+    public class DracoLeggings : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Draconian Sun Greaves");
+            Tooltip.SetDefault(@"16% increased movement speed
 16% increased melee speed
 10% increased damage resistance
 The blazing fury of the Inferno rests in this armor");
+        }
 
-		}
-
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -42,18 +42,18 @@ The blazing fury of the Inferno rests in this armor");
         }
 
         public override void SetDefaults()
-		{
-			item.width = 26;
-			item.height = 18;
-			item.value = 3000000;
-			item.defense = 30;
-		}
+        {
+            item.width = 26;
+            item.height = 18;
+            item.value = 3000000;
+            item.defense = 30;
+        }
 
-		public override void UpdateEquip(Player player)
-		{
-			player.moveSpeed += 0.16f;
-			player.meleeSpeed += 0.16f;
-			player.endurance *= 1.1f;
+        public override void UpdateEquip(Player player)
+        {
+            player.moveSpeed += 0.16f;
+            player.meleeSpeed += 0.16f;
+            player.endurance *= 1.1f;
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)

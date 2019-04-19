@@ -5,21 +5,19 @@ using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
-namespace AAMod.Items.Boss.Akuma   //where is located
+namespace AAMod.Items.Boss.Akuma //where is located
 {
     public class DragonSlasher : ModItem
     {
-        
         public override void SetStaticDefaults()
         {
-            
             DisplayName.SetDefault("Dragon Shiv");
             Tooltip.SetDefault(@"Slow, but has massive knockback and leaves the target bleeding
 Inflicts Daybroken");
-            
         }
 
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor,
+            float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
             spriteBatch.Draw
@@ -42,17 +40,17 @@ Inflicts Daybroken");
 
         public override void SetDefaults()
         {
-            item.damage = 350;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 42;              //Sword width
-            item.height = 52;             //Sword height
-            item.useTime = 40;          //how fast 
-            item.useAnimation = 40;     
-            item.useStyle = 3;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 10f;      //Sword knockback
+            item.damage = 350; //Sword damage
+            item.melee = true; //if it's melee
+            item.width = 42; //Sword width
+            item.height = 52; //Sword height
+            item.useTime = 40; //how fast 
+            item.useAnimation = 40;
+            item.useStyle = 3; //Style is how this item is used, 1 is the style of the sword
+            item.knockBack = 10f; //Sword knockback
             item.value = Item.buyPrice(1, 0, 0, 0);
-            item.UseSound = SoundID.Item20;      //1 is the sound of the sword
-            item.autoReuse = true;   //if it's capable of autoswing.
+            item.UseSound = SoundID.Item20; //1 is the sound of the sword
+            item.autoReuse = true; //if it's capable of autoswing.
             item.useTurn = true;
         }
 
@@ -61,12 +59,13 @@ Inflicts Daybroken");
             if (Main.rand.NextFloat() < 1f)
             {
                 Dust dust;
-                dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 46, new Color(255, 75, 0), 1.381579f)];
+                dust = Main.dust[
+                    Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height,
+                        mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 46, new Color(255, 75, 0), 1.381579f)];
                 dust.noGravity = true;
             }
         }
 
-        
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
@@ -84,8 +83,8 @@ Inflicts Daybroken");
             target.AddBuff(BuffID.Daybreak, 600);
             target.AddBuff(BuffID.Bleeding, 600);
         }
-        
-        public override void AddRecipes()  //How to craft this sword
+
+        public override void AddRecipes() //How to craft this sword
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DaybreakIncinerite", 5);

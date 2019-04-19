@@ -10,6 +10,7 @@ namespace AAMod.Items.Materials
     public class Discordium : ModItem
     {
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -19,10 +20,12 @@ namespace AAMod.Items.Materials
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             DisplayName.SetDefault("Discordium");
             Tooltip.SetDefault("The World Chaoses melded together into a single, powerful bar");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 9));

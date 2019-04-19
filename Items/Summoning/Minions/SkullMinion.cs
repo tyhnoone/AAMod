@@ -9,7 +9,6 @@ namespace AAMod.Items.Summoning.Minions
 {
     public class SkullMinion : ModProjectile
     {
-
         protected float idleAccel = 0.05f;
         protected float spacingMult = 1f;
         protected float viewDist = 400f;
@@ -58,16 +57,21 @@ namespace AAMod.Items.Summoning.Minions
                 {
                     modPlayer.SkullMinion = false;
                 }
+
                 if (modPlayer.SkullMinion)
                 {
                     projectile.timeLeft = 2;
                 }
             }
+
             float num637 = 0.05f;
             for (int num638 = 0; num638 < 1000; num638++)
             {
                 bool flag23 = (Main.projectile[num638].type == mod.ProjectileType("SkullMinion"));
-                if (num638 != projectile.whoAmI && Main.projectile[num638].active && Main.projectile[num638].owner == projectile.owner && flag23 && Math.Abs(projectile.position.X - Main.projectile[num638].position.X) + Math.Abs(projectile.position.Y - Main.projectile[num638].position.Y) < (float)projectile.width)
+                if (num638 != projectile.whoAmI && Main.projectile[num638].active &&
+                    Main.projectile[num638].owner == projectile.owner && flag23 &&
+                    Math.Abs(projectile.position.X - Main.projectile[num638].position.X) +
+                    Math.Abs(projectile.position.Y - Main.projectile[num638].position.Y) < (float) projectile.width)
                 {
                     if (projectile.position.X < Main.projectile[num638].position.X)
                     {
@@ -77,6 +81,7 @@ namespace AAMod.Items.Summoning.Minions
                     {
                         projectile.velocity.X = projectile.velocity.X + num637;
                     }
+
                     if (projectile.position.Y < Main.projectile[num638].position.Y)
                     {
                         projectile.velocity.Y = projectile.velocity.Y - num637;
@@ -87,6 +92,7 @@ namespace AAMod.Items.Summoning.Minions
                     }
                 }
             }
+
             Vector2 targetPos = projectile.position;
             float targetDist = viewDist;
             bool target = false;
@@ -94,20 +100,23 @@ namespace AAMod.Items.Summoning.Minions
             if (player.HasMinionAttackTargetNPC)
             {
                 NPC npc = Main.npc[player.MinionAttackTargetNPC];
-                if (Collision.CanHitLine(projectile.position, projectile.width, projectile.height, npc.position, npc.width, npc.height))
+                if (Collision.CanHitLine(projectile.position, projectile.width, projectile.height, npc.position,
+                    npc.width, npc.height))
                 {
                     targetDist = Vector2.Distance(projectile.Center, targetPos);
                     targetPos = npc.Center;
                     target = true;
                 }
             }
-            else for (int k = 0; k < 200; k++)
+            else
+                for (int k = 0; k < 200; k++)
                 {
                     NPC npc = Main.npc[k];
                     if (npc.CanBeChasedBy(this, false))
                     {
                         float distance = Vector2.Distance(npc.Center, projectile.Center);
-                        if ((distance < targetDist || !target) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, npc.position, npc.width, npc.height))
+                        if ((distance < targetDist || !target) && Collision.CanHitLine(projectile.position,
+                                projectile.width, projectile.height, npc.position, npc.width, npc.height))
                         {
                             targetDist = distance;
                             targetPos = npc.Center;
@@ -115,15 +124,18 @@ namespace AAMod.Items.Summoning.Minions
                         }
                     }
                 }
+
             if (Vector2.Distance(player.Center, projectile.Center) > (target ? 1000f : 500f))
             {
                 projectile.ai[0] = 1f;
                 projectile.netUpdate = true;
             }
+
             if (projectile.ai[0] == 1f)
             {
                 projectile.tileCollide = false;
             }
+
             if (target && projectile.ai[0] == 0f)
             {
                 Vector2 direction = targetPos - projectile.Center;
@@ -134,7 +146,7 @@ namespace AAMod.Items.Summoning.Minions
                 }
                 else
                 {
-                    projectile.velocity *= (float)Math.Pow(0.97, 40.0 / inertia);
+                    projectile.velocity *= (float) Math.Pow(0.97, 40.0 / inertia);
                 }
             }
             else
@@ -143,11 +155,13 @@ namespace AAMod.Items.Summoning.Minions
                 {
                     projectile.ai[0] = 1f;
                 }
+
                 float speed = 6f;
                 if (projectile.ai[0] == 1f)
                 {
                     speed = 15f;
                 }
+
                 Vector2 center = projectile.Center;
                 Vector2 direction = player.Center - center;
                 projectile.ai[1] = 3600f;
@@ -155,27 +169,33 @@ namespace AAMod.Items.Summoning.Minions
                 int num = 1;
                 for (int k = 0; k < projectile.whoAmI; k++)
                 {
-                    if (Main.projectile[k].active && Main.projectile[k].owner == projectile.owner && Main.projectile[k].type == projectile.type)
+                    if (Main.projectile[k].active && Main.projectile[k].owner == projectile.owner &&
+                        Main.projectile[k].type == projectile.type)
                     {
                         num++;
                     }
                 }
-                direction.X -= (float)((10 + num * 40) * player.direction);
+
+                direction.X -= (float) ((10 + num * 40) * player.direction);
                 direction.Y -= 70f;
                 float distanceTo = direction.Length();
                 if (distanceTo > 200f && speed < 9f)
                 {
                     speed = 9f;
                 }
-                if (distanceTo < 100f && projectile.ai[0] == 1f && !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
+
+                if (distanceTo < 100f && projectile.ai[0] == 1f &&
+                    !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
                 {
                     projectile.ai[0] = 0f;
                     projectile.netUpdate = true;
                 }
+
                 if (distanceTo > 2000f)
                 {
                     projectile.Center = player.Center;
                 }
+
                 if (distanceTo > 48f)
                 {
                     direction.Normalize();
@@ -186,9 +206,10 @@ namespace AAMod.Items.Summoning.Minions
                 else
                 {
                     projectile.direction = Main.player[projectile.owner].direction;
-                    projectile.velocity *= (float)Math.Pow(0.9, 40.0 / inertia);
+                    projectile.velocity *= (float) Math.Pow(0.9, 40.0 / inertia);
                 }
             }
+
             projectile.rotation = projectile.velocity.X * 0.05f;
             if (projectile.velocity.X > 0f)
             {
@@ -198,6 +219,7 @@ namespace AAMod.Items.Summoning.Minions
             {
                 projectile.spriteDirection = (projectile.direction = 1);
             }
+
             if (projectile.ai[1] > 0f)
             {
                 projectile.ai[1] += 1f;
@@ -206,11 +228,13 @@ namespace AAMod.Items.Summoning.Minions
                     projectile.ai[1] += 1f;
                 }
             }
+
             if (projectile.ai[1] > shootCool)
             {
                 projectile.ai[1] = 0f;
                 projectile.netUpdate = true;
             }
+
             if (projectile.ai[0] == 0f)
             {
                 if (target)
@@ -223,6 +247,7 @@ namespace AAMod.Items.Summoning.Minions
                     {
                         projectile.spriteDirection = (projectile.direction = 1);
                     }
+
                     if (projectile.ai[1] == 0f)
                     {
                         projectile.ai[1] = 1f;
@@ -233,9 +258,11 @@ namespace AAMod.Items.Summoning.Minions
                             {
                                 shootVel = new Vector2(0f, 1f);
                             }
+
                             shootVel.Normalize();
                             shootVel *= shootSpeed;
-                            int num659 = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, shootVel.X, shootVel.Y, shoot, (int)((float)projectile.damage * 0.8f), 0f, Main.myPlayer, 0f, 0f);
+                            int num659 = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, shootVel.X,
+                                shootVel.Y, shoot, (int) ((float) projectile.damage * 0.8f), 0f, Main.myPlayer, 0f, 0f);
                             Main.projectile[num659].timeLeft = 300;
                             projectile.netUpdate = true;
                         }

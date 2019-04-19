@@ -35,9 +35,9 @@ Mobian Buster EX");
             item.channel = true;
             Item.sellPrice(1, 0, 0, 0);
             item.noMelee = true;
-			item.rare = 11;
-			item.shootSpeed = 12f;
-			item.noUseGraphic = true;
+            item.rare = 11;
+            item.shootSpeed = 12f;
+            item.noUseGraphic = true;
         }
 
         public override void AddRecipes()

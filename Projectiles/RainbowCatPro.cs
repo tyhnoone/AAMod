@@ -9,6 +9,7 @@ namespace AAMod.Projectiles
     public class RainbowCatPro : ModProjectile
     {
         public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
             if (Main.netMode != 2)
@@ -18,15 +19,18 @@ namespace AAMod.Projectiles
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
                 }
+
                 glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
+                customGlowMask = (short) (glowMasks.Length - 1);
                 Main.glowMaskTexture = glowMasks;
             }
+
             projectile.glowMask = customGlowMask;
 
             DisplayName.SetDefault("Legendary Rainbow Cat");
             Main.projFrames[projectile.type] = 17;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 42;
@@ -39,6 +43,7 @@ namespace AAMod.Projectiles
             projectile.ignoreWater = true;
             projectile.timeLeft = 300;
         }
+
         public override void AI()
         {
             if (++projectile.frameCounter >= 3)
@@ -49,42 +54,62 @@ namespace AAMod.Projectiles
                     projectile.frame = 7;
                 }
             }
+
             if (projectile.localAI[0] > 21f) //projectile time left before disappears
             {
-
                 int Shoot = ProjectileID.Meowmere;
                 Main.projectile[Shoot].melee = false;
                 Main.projectile[Shoot].magic = true;
 
                 if (Main.rand.Next(3) == 0)
                 {
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -16 + Main.rand.Next(0, 33), -16 + Main.rand.Next(0, 33), Shoot, projectile.damage, 3, Main.myPlayer);
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -16 + Main.rand.Next(0, 33), -16 + Main.rand.Next(0, 33), Shoot, projectile.damage, 3, Main.myPlayer);
+                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -16 + Main.rand.Next(0, 33),
+                        -16 + Main.rand.Next(0, 33), Shoot, projectile.damage, 3, Main.myPlayer);
+                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -16 + Main.rand.Next(0, 33),
+                        -16 + Main.rand.Next(0, 33), Shoot, projectile.damage, 3, Main.myPlayer);
                 }
+
                 if (Main.rand.Next(50) == 0)
                 {
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -16 + Main.rand.Next(0, 33), -16 + Main.rand.Next(0, 33), ProjectileID.RainbowRodBullet, projectile.damage, 3, Main.myPlayer);
+                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -16 + Main.rand.Next(0, 33),
+                        -16 + Main.rand.Next(0, 33), ProjectileID.RainbowRodBullet, projectile.damage, 3,
+                        Main.myPlayer);
                 }
             }
+
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y += 0.00f;
             projectile.localAI[0] += 1f;
             if (projectile.localAI[0] > 300f) //projectile time left before disappears
             {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 58, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 59, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 60, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 61, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 62, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 64, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 65, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 58, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 59, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 60, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 61, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 62, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 64, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 65, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 58,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 59,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 60,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 61,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 62,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 64,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 65,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 58,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 59,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 60,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 61,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 62,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 64,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
+                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 65,
+                    projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 20, default(Color), 2f);
                 projectile.Kill();
             }
         }

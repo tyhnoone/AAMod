@@ -9,39 +9,39 @@ namespace AAMod.Items.Dev
 {
     public class DuckstepGun : BaseAAItem
     {
-        
         public override void SetStaticDefaults()
-		{
+        {
             DisplayName.SetDefault("Duckstep Launcher");
             Tooltip.SetDefault(@"Quack.
 -Aves");
         }
 
-		public override void SetDefaults()
-		{
-            
-			item.damage = 130;
-			item.magic = true;
+        public override void SetDefaults()
+        {
+            item.damage = 130;
+            item.magic = true;
             item.mana = 9;
             item.width = 74;
-			item.height = 36;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = 5;
-			item.noMelee = true; //so the item's animation doesn't do damage
-			item.knockBack = 4;
-			item.value = 1000000;
-			item.rare = 2;
+            item.height = 36;
+            item.useTime = 20;
+            item.useAnimation = 20;
+            item.useStyle = 5;
+            item.noMelee = true; //so the item's animation doesn't do damage
+            item.knockBack = 4;
+            item.value = 1000000;
+            item.rare = 2;
             item.expert = true;
-			item.UseSound = new LegacySoundStyle(29, 10, Terraria.Audio.SoundType.Sound);
+            item.UseSound = new LegacySoundStyle(29, 10, Terraria.Audio.SoundType.Sound);
             item.autoReuse = true;
-			item.shoot = 10; //idk why but all the guns in the vanilla source have this
-			item.shootSpeed = 12f;
+            item.shoot = 10; //idk why but all the guns in the vanilla source have this
+            item.shootSpeed = 12f;
             item.shoot = mod.ProjectileType("Duck");
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
-            glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_GUN; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
-            glowmaskDrawColor = Color.White;  //glowmask draw color
+            glowmaskDrawType =
+                BaseAAItem
+                    .GLOWMASKTYPE_GUN; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
+            glowmaskDrawColor = Color.White; //glowmask draw color
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
