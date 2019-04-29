@@ -874,6 +874,7 @@
     <Compile Include="Items\Flasks\CrimsonFlask.cs" />
     <Compile Include="Items\Flasks\Fungicide.cs" />
     <Compile Include="Items\Flasks\GlowingSporeSac.cs" />
+    <Compile Include="Items\Flasks\SquidList.cs" />
     <Compile Include="Items\Flasks\HallowFlask.cs" />
     <Compile Include="Items\Flasks\PurityFlask.cs" />
     <Compile Include="Items\Flasks\AshJar.cs" />
@@ -3999,6 +4000,7 @@
     <Content Include="Items\Flasks\JungleFlask.png" />
     <Content Include="Items\Flasks\OrderBottle.png" />
     <Content Include="Items\Flasks\PurityFlask.png" />
+    <Content Include="Items\Flasks\SquidList.png" />
     <Content Include="Items\Flasks\VoidFlask.png" />
     <Content Include="Items\Magic\SubzeroStaff.png" />
     <Content Include="Items\Materials\DoomiteScrap.png" />
@@ -4007,6 +4009,7 @@
     <Content Include="Items\Materials\VikingRelic0.png" />
     <Content Include="Items\Materials\VikingRelic1.png" />
     <Content Include="Items\Materials\VikingRelic.png" />
+    <Content Include="Items\Melee\HeatCleaver.png" />
     <Content Include="Items\Melee\SwampSlasher.png" />
     <Content Include="Items\Mushrooms\Gray.png" />
     <Content Include="Items\Mushrooms\Green.png" />
@@ -4103,6 +4106,7 @@
     <Content Include="NPCs\Bosses\Toad\TruffleToadTongue.png" />
     <Content Include="NPCs\Bosses\Toad\TruffleToadTongueChain.png" />
     <Content Include="NPCs\Bosses\Toad\TruffleToad_Head_Boss.png" />
+    <Content Include="NPCs\Bosses\Truffle\TechnoTruffle.png" />
     <Content Include="NPCs\Bosses\Yamata\Awakened\HarukaY.png" />
     <Content Include="NPCs\Bosses\Yamata\Awakened\HarukaY_Head_Boss.png" />
     <Content Include="NPCs\Bosses\Zero\RealityCannon_Head_Boss.png" />

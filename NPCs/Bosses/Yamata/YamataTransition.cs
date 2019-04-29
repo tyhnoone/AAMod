@@ -1,3 +1,4 @@
+using AAMod.NPCs.Bosses.Yamata.Awakened;
 using BaseMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -103,9 +104,17 @@ namespace AAMod.NPCs.Bosses.Yamata
             }
             if (npc.ai[0] >= 1455)
             {
-                SpawnBoss(npc.Center, "YamataA", "Yamata Awakened");
+                int num = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataA"));
+                if (Main.netMode == 2 && num < 200)
+                {
+                    NetMessage.SendData(23, -1, -1, null, num, 0f, 0f, 0f, 0, 0, 0);
+                }
                 Main.NewText("Yamata has been Awakened!", Color.Magenta.R, Color.Magenta.G, Color.Magenta.B);
                 Main.NewText("AND IT'S GOT 7 HEADS! NYEHEHEHEHEHEHEHEHEHEHEHEH!!!", new Color(146, 30, 68));
+            }
+
+            if (NPC.AnyNPCs(mod.NPCType<YamataA>()))
+            {
                 AAMod.YamataMusic = false;
                 npc.active = false;
             }
@@ -137,18 +146,6 @@ namespace AAMod.NPCs.Bosses.Yamata
             npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
-        }
-
-        public void SpawnBoss(Vector2 center, string name, string displayName)
-        {
-            if (Main.netMode != 1)
-            {
-                int bossType = mod.NPCType(name);
-                if (NPC.AnyNPCs(bossType)) { return; } //don't spawn if there's already a boss!
-                int npcID = NPC.NewNPC((int)center.X, (int)center.Y, bossType, 0, 0, 0, 0, 0, npc.target);
-                Main.npc[npcID].Center = center - new Vector2(MathHelper.Lerp(-100f, 100f, (float)Main.rand.NextDouble()), 0f);
-                Main.npc[npcID].netUpdate2 = true; Main.npc[npcID].netUpdate = true;			
-            }
         }
 
     }

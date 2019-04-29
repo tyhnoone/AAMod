@@ -1,3 +1,4 @@
+using AAMod.NPCs.Bosses.Akuma.Awakened;
 using BaseMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -99,11 +100,16 @@ namespace AAMod.NPCs.Bosses.Akuma
             {
                 Main.NewText("Akuma has been Awakened!", Color.Magenta.R, Color.Magenta.G, Color.Magenta.B);
                 Main.NewText("IT ONLY MAKES THEM STRONGER!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
-
-                AAMod.AkumaMusic = false;
-
-                NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaA"));
+                int num = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaA"));
+                if (Main.netMode == 2 && num < 200)
+                {
+                    NetMessage.SendData(23, -1, -1, null, num, 0f, 0f, 0f, 0, 0, 0);
+                }
                 npc.netUpdate = true;
+            }
+            if (NPC.AnyNPCs(mod.NPCType<AkumaA>()))
+            {
+                AAMod.AkumaMusic = false;
                 npc.active = false;
             }
 

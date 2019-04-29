@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,14 +19,31 @@ namespace AAMod.Items.Melee   //where is located
             item.width = 56;              
             item.height = 56;          
             item.knockBack = 6;
-            item.value = 10;
-            item.autoReuse = true;   //if it's capable of autoswing.
+            item.value = 100000;
+            item.autoReuse = true;
             item.useTurn = false;
             item.expert = true;
-            item.useAnimation = 25;
-            item.useTime = 28;
+            item.useAnimation = 30;
+            item.useTime = 30;
             item.shootSpeed = 5;
             item.shoot = mod.ProjectileType("ChaosScythe");
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            int i = Main.myPlayer;
+            int num74 = item.shoot;
+            int num76 = item.damage;
+            float num77 = item.knockBack;
+            float mouseX = (Main.mouseX + Main.screenPosition.X) / 16;
+            float mouseY = (Main.mouseY + Main.screenPosition.Y) / 16;
+            Main.PlaySound(new LegacySoundStyle(2, 71, Terraria.Audio.SoundType.Sound), new Vector2(mouseX, mouseY));
+            Projectile.NewProjectile(mouseX + 250, mouseY, -7, 0, mod.ProjectileType("ChaosScytheP"), 250, 1, item.owner, 0f, 0f);
+            Projectile.NewProjectile(mouseX - 250, mouseY, 7, 0, mod.ProjectileType("ChaosScytheP"), 250, 1, item.owner, 0f, 0f);
+            Projectile.NewProjectile(mouseX, mouseY + 250, 0, -7, mod.ProjectileType("ChaosScytheP"), 250, 1, item.owner, 0f, 0f);
+            Projectile.NewProjectile(mouseX, mouseY - 250, 0, 7, mod.ProjectileType("ChaosScytheP"), 250, 1, item.owner, 0f, 0f);
+
+            return false;
         }
 
         public override void SetStaticDefaults()
