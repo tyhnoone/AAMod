@@ -569,7 +569,6 @@ namespace AAMod
                 bossChecklist.Call("AddBossWithInfo", "Subzero Serpent", 5.5f, (Func<bool>)(() => AAWorld.downedSerpent), "Use a [i:" + ItemType("SubzeroCrystal") + "] in the Snow biome at night");
                 bossChecklist.Call("AddBossWithInfo", "Desert Djinn", 5.5f, (Func<bool>)(() => AAWorld.downedDjinn), "Use a [i:" + ItemType("DjinnLamp") + "] in the Desert during the day");
                 bossChecklist.Call("AddBossWithInfo", "Sagittarius", 5.5f, (Func<bool>)(() => AAWorld.downedSag), "Use a [i:" + ItemType("Lifescanner") + "] in the Void");
-                bossChecklist.Call("AddBossWithInfo", "Truffle Toad", 6.5f, (Func<bool>)(() => AAWorld.downedToad), "Use a [i:" + ItemType("Toadstool") + "] in a glowing mushroom biome");
                 bossChecklist.Call("AddBossWithInfo", "Retriever", 9.5f, (Func<bool>)(() => AAWorld.downedRetriever), "Use a [i:" + ItemType("CyberneticClaw") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Raider Ultima", 9.5f, (Func<bool>)(() => AAWorld.downedRaider), "Use a [i:" + ItemType("CyberneticBell") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Orthrus X", 9.5f, (Func<bool>)(() => AAWorld.downedOrthrus), "Use a [i:" + ItemType("ScrapHeap") + "] at night");
@@ -578,7 +577,6 @@ namespace AAMod
                 bossChecklist.Call("AddBossWithInfo", "Yamata", 16.2f, (Func<bool>)(() => AAWorld.downedYamata), "Use a [i:" + ItemType("DreadSigil") + "] in the Mire at night");
                 bossChecklist.Call("AddBossWithInfo", "Akuma", 16.3f, (Func<bool>)(() => AAWorld.downedAkuma), "Use a [i:" + ItemType("DraconianSigil") + "] in the Inferno during the day");
                 bossChecklist.Call("AddBossWithInfo", "Zero", 16.4f, (Func<bool>)(() => AAWorld.downedZero), "Use a [i:" + ItemType("ZeroTesseract") + "] in the Void");
-                bossChecklist.Call("AddBossWithInfo", "Shen Doragon", 20f, (Func<bool>)(() => AAWorld.downedShen), "Use a [i:" + ItemType("ChaosSigil") + "]");
 
 
                 //SlimeKing = 1f;
@@ -704,9 +702,6 @@ namespace AAMod
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Terrarium"), ItemType("TerrariumBox"), TileType("TerrariumBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingDragon"), ItemType("SDBox"), TileType("SDBox"));
                     AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingGiant"), ItemType("SGBox"), TileType("SGBox"));
-                    AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Shen"), ItemType("ShenBox"), TileType("ShenBox"));
-                    AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/ShenA"), ItemType("ShenABox"), TileType("ShenABox"));
-                    AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/LastStand"), ItemType("SABox"), TileType("SABox"));
                 }
 
                 Filters.Scene["AAMod:MireSky"] = new Filter(new MireSkyData("FilterMiniTower").UseColor(0f, 0.20f, 1f).UseOpacity(0.3f), EffectPriority.High);
@@ -819,8 +814,6 @@ namespace AAMod
                 ShenASky.SkyTex = null;
                 Items.Accessories.SoulStone._glow = null;
                 NPCs.Bosses.Grips.GripOfChaosRed.glowTex = null;
-                NPCs.Bosses.GripsShen.AbyssGrip.glowTex = null;
-                NPCs.Bosses.GripsShen.BlazeGrip.glowTex = null;
                 NPCs.Bosses.Raider.Raider.glowTex = null;
                 NPCs.Bosses.Raider.Raider.glowTex1 = null;
                 NPCs.Bosses.Raider.RaidEgg.glowTex = null;

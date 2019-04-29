@@ -3,15 +3,20 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics; 
 using Terraria.ModLoader;
 
-namespace AAMod.Items.Boss.Serpent
+namespace AAMod.Items.Boss.Sagittarius
 {
-    public class ArcticMedallion : ModItem
+    public class SagShield : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Arctic Medallion");
-            Tooltip.SetDefault(@"Doubles your stats during a Blizzard");
+            DisplayName.SetDefault("Sagittarius Shield");
+            Tooltip.SetDefault(@"Pressing the ability hotkey puts up a barrier around you to protect you from damage
+While shielded, you cannot use items
+While shielded, your health regeneration is increated dramatically
+Shield lasts for 5 seconds
+Shield has a 5 minute cooldown");
         }
+
         public override void SetDefaults()
         {
             item.width = 26;
@@ -23,34 +28,7 @@ namespace AAMod.Items.Boss.Serpent
 
         public override void UpdateEquip(Player p)
         {
-			if(p.ZoneRain && p.ZoneSnow)
-			{
-				p.meleeDamage *= 2f;
-				p.rangedDamage *= 2f;
-				p.magicDamage *= 2f;
-				p.minionDamage *= 2f;
-				p.thrownDamage *= 2f;
-				p.meleeCrit *= 2;
-				p.rangedCrit *= 2;
-				p.magicCrit += 2;
-				p.thrownCrit *= 2;	
-			}
-        }
-
-        public override bool CanEquipAccessory(Player player, int slot)
-        {
-            if (slot < 10)
-            {
-                int maxAccessoryIndex = 5 + player.extraAccessorySlots;
-                for (int i = 3; i < 3 + maxAccessoryIndex; i++)
-                {
-                    if (slot != i && player.armor[i].type == mod.ItemType<FireFrostMedallion>())
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
+            p.GetModPlayer<AAPlayer>(mod).SagShield = true;
         }
     }
 }

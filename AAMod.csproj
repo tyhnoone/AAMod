@@ -2103,6 +2103,7 @@
     <Compile Include="Tiles\Trophy\NCTrophy.cs" />
     <Compile Include="Tiles\Trophy\BlazeGripTrophy.cs" />
     <Compile Include="Tiles\Trophy\OrthrusTrophy.cs" />
+    <Compile Include="Tiles\Trophy\SagTrophy.cs" />
     <Compile Include="Tiles\Trophy\YamataATrophy.cs" />
     <Compile Include="Tiles\Trophy\YamataTrophy.cs" />
     <Compile Include="Tiles\Uranium.cs" />
@@ -6257,7 +6258,6 @@
     <Content Include="Tiles\Trophy\RetrieverTrophy.png" />
     <Content Include="Tiles\Trophy\YamataATrophy.png" />
     <Content Include="Tiles\Trophy\YamataTrophy.png" />
-    <Content Include="Tiles\Trophy\ZeroTrophy.png" />
     <Content Include="Tiles\TruePaladinsSmeltery.png" />
     <Content Include="Tiles\UnifiedMycelium.png" />
     <Content Include="Tiles\Uranium.png" />
