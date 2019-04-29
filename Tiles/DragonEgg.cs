@@ -22,7 +22,7 @@ namespace AAMod.Tiles
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
-            Main.tileSolid[Type] = true;
+            Main.tileSolid[Type] = false;
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
             Main.tileHammer[Type] = true;
@@ -37,9 +37,9 @@ namespace AAMod.Tiles
             TileObjectData.addTile(Type);
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Dragon Egg");
-            drop1 = mod.ItemType<Items.Melee.FlamingFury>(); //change me
-            drop2 = mod.ItemType<Items.Ranged.Railjaw>(); //change me
-            drop3 = mod.ItemType<Items.Magic.DragonsBreath>(); //change me
+            drop1 = mod.ItemType<Pyrosphere>(); //change me
+            drop2 = mod.ItemType<Items.Ranged.Firebuster>(); //change me
+            drop3 = mod.ItemType<Items.Magic.Volley>(); //change me
             AddMapEntry(new Color(200, 200, 200), name);
             disableSmartCursor = true;
         }
@@ -53,7 +53,7 @@ namespace AAMod.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            int thinger = Main.rand.Next(5);
+            int thinger = Main.rand.Next(3);
 
             if (thinger == 0)
             {
@@ -66,14 +66,6 @@ namespace AAMod.Tiles
             else if (thinger == 2)
             {
                 Item.NewItem(i * 16, j * 16, 32, 32, drop3);
-            }
-            else if (thinger == 3)
-            {
-                Item.NewItem(i * 16, j * 16, 32, 32, drop4);
-            }
-            else
-            {
-                Item.NewItem(i * 16, j * 16, 32, 32, drop5);
             }
 
             if (AAWorld.SmashDragonEgg == 2)

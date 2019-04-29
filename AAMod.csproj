@@ -888,6 +888,7 @@
     <Compile Include="Items\Magic\CrystalTome.cs" />
     <Compile Include="Items\Magic\Depthsprayer.cs" />
     <Compile Include="Items\Magic\Fireblast.cs" />
+    <Compile Include="Items\Magic\GunkWand.cs" />
     <Compile Include="Items\Magic\HiveArtillery.cs" />
     <Compile Include="Items\Magic\MadnessStaff.cs" />
     <Compile Include="Items\Magic\DoomStaff.cs" />
@@ -911,6 +912,7 @@
     <Compile Include="Items\Magic\TrueManaRose.cs" />
     <Compile Include="Items\Magic\TrueTerraRose.cs" />
     <Compile Include="Items\Magic\VenomSpray.cs" />
+    <Compile Include="Items\Magic\Volley.cs" />
     <Compile Include="Items\Magic\YtriumStaff.cs" />
     <Compile Include="Items\Materials\AbyssiumBar.cs" />
     <Compile Include="Items\Materials\ApocalyptitePlate.cs" />
@@ -972,6 +974,7 @@
     <Compile Include="Items\Melee\Firestorm.cs" />
     <Compile Include="Items\Melee\IchorSpear.cs" />
     <Compile Include="Items\Melee\MadnessSword.cs" />
+    <Compile Include="Items\Melee\Pyrosphere.cs" />
     <Compile Include="Items\Melee\RustyCutlass.cs" />
     <Compile Include="Items\Melee\ScourgeOfShadows.cs" />
     <Compile Include="Items\Melee\SlapBone.cs" />
@@ -1126,6 +1129,8 @@
     <Compile Include="Items\Ranged\CoinPistol.cs" />
     <Compile Include="Items\Ranged\CoralBow.cs" />
     <Compile Include="Items\Ranged\Festivity.cs" />
+    <Compile Include="Items\Ranged\Mossket.cs" />
+    <Compile Include="Items\Ranged\Firebuster.cs" />
     <Compile Include="Items\Ranged\Flare_Minigun.cs" />
     <Compile Include="Items\Ranged\M79.cs" />
     <Compile Include="Items\Ranged\MadnessBow.cs" />
@@ -1720,6 +1725,9 @@
     <Compile Include="Projectiles\BurningGelP.cs" />
     <Compile Include="Projectiles\ChaosArrow.cs" />
     <Compile Include="Projectiles\Antifungus.cs" />
+    <Compile Include="Projectiles\Gunk.cs" />
+    <Compile Include="Projectiles\Pyrosphere.cs" />
+    <Compile Include="Projectiles\Volley.cs" />
     <Compile Include="Projectiles\Toad\Toadsplosion.cs" />
     <Compile Include="Projectiles\Toad\ToadRock.cs" />
     <Compile Include="Projectiles\Toad\ToadShot.cs" />
@@ -4002,7 +4010,9 @@
     <Content Include="Items\Flasks\PurityFlask.png" />
     <Content Include="Items\Flasks\SquidList.png" />
     <Content Include="Items\Flasks\VoidFlask.png" />
+    <Content Include="Items\Magic\GunkWand.png" />
     <Content Include="Items\Magic\SubzeroStaff.png" />
+    <Content Include="Items\Magic\Volley.png" />
     <Content Include="Items\Materials\DoomiteScrap.png" />
     <Content Include="Items\Materials\RelicBar.png" />
     <Content Include="Items\Materials\TerraShard.png" />
@@ -4010,6 +4020,7 @@
     <Content Include="Items\Materials\VikingRelic1.png" />
     <Content Include="Items\Materials\VikingRelic.png" />
     <Content Include="Items\Melee\HeatCleaver.png" />
+    <Content Include="Items\Melee\Pyrosphere.png" />
     <Content Include="Items\Melee\SwampSlasher.png" />
     <Content Include="Items\Mushrooms\Gray.png" />
     <Content Include="Items\Mushrooms\Green.png" />
@@ -5665,7 +5676,10 @@
     <Content Include="Projectiles\DBP.png" />
     <Content Include="Projectiles\DBreath.png" />
     <Content Include="Projectiles\DeathDagger.png" />
+    <Content Include="Projectiles\Gunk.png" />
     <Content Include="Projectiles\OrderDiscP.png" />
+    <Content Include="Projectiles\Pyrosphere.png" />
+    <Content Include="Projectiles\Pyrosphere_Chain.png" />
     <Content Include="Projectiles\ScourgeOfShadowsP2.png" />
     <Content Include="Projectiles\Singularity.png" />
     <Content Include="Projectiles\SingularityVortex.png" />
@@ -5912,6 +5926,7 @@
     <Content Include="Projectiles\ValkyrieLance.png" />
     <Content Include="Projectiles\Void.png" />
     <Content Include="Projectiles\VoidRing.png" />
+    <Content Include="Projectiles\Volley.png" />
     <Content Include="Projectiles\Yamata\AbyssalYariP.png" />
     <Content Include="Projectiles\Yamata\AbyssArrow.png" />
     <Content Include="Projectiles\Yamata\BabyYamata\BabyYamataHead.png" />

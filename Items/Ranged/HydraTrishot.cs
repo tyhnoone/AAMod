@@ -19,7 +19,7 @@ namespace AAMod.Items.Ranged
             item.useTime = 45;
             item.useAnimation = 45;
             item.useStyle = 5;
-            item.shoot = mod.ProjectileType("HydraShot");
+            item.shoot = 10;
             item.useAmmo = AmmoID.Bullet;
             item.knockBack = 0;
             item.value = 2000;

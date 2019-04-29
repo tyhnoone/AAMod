@@ -22,7 +22,7 @@ namespace AAMod.Tiles
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
-            Main.tileSolid[Type] = true;
+            Main.tileSolid[Type] = false;
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
             Main.tileHammer[Type] = true;
@@ -38,8 +38,8 @@ namespace AAMod.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Hydra Pod");
             drop1 = mod.ItemType<HydrasSpear>(); //change me
-            drop2 = mod.ItemType<Items.Ranged.HydraTrishot>(); //change me
-            drop3 = mod.ItemType<Items.Magic.VenomSpray>(); //change me
+            drop2 = mod.ItemType<Items.Ranged.Mossket>(); //change me
+            drop3 = mod.ItemType<Items.Magic.GunkWand>(); //change me
             AddMapEntry(new Color(200, 200, 200), name);
             disableSmartCursor = true;
         }
@@ -53,7 +53,7 @@ namespace AAMod.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            int thinger = Main.rand.Next(5);
+            int thinger = Main.rand.Next(3);
             if (thinger == 0)
             {
                 Item.NewItem(i * 16, j * 16, 32, 32, drop1);
@@ -66,14 +66,7 @@ namespace AAMod.Tiles
             {
                 Item.NewItem(i * 16, j * 16, 32, 32, drop3);
             }
-            else if (thinger == 3)
-            {
-                Item.NewItem(i * 16, j * 16, 32, 32, drop4);
-            }
-            else
-            {
-                Item.NewItem(i * 16, j * 16, 32, 32, drop5);
-            }
+            
 
             if (AAWorld.SmashHydraPod == 2)
             {
