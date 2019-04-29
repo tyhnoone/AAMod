@@ -166,7 +166,7 @@ namespace AAMod.NPCs.TownNPCs
 
             string ZeroT = "Ancient of Null";
 
-            string ShenT = "Discordian Death";
+            //string ShenT = "Discordian Death";
 
             Player player = Main.player[Main.myPlayer];
 
@@ -257,11 +257,11 @@ namespace AAMod.NPCs.TownNPCs
                 button2 = ZeroT;
                 Zero = true;
             }
-            else if (ChatNumber == 17 && AAWorld.downedAllAncients)
+            /*else if (ChatNumber == 17 && AAWorld.downedAllAncients)
             {
                 button2 = SistersT;
                 Zero = true;
-            }
+            }*/
             else
             {
                 ChatNumber = 0;

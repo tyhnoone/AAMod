@@ -73,7 +73,7 @@ namespace AAMod
 
         public override void SetDefaults(NPC npc)
         {
-            if (AAWorld.downedShen == true)
+            if (AAWorld.downedAllAncients == true)
             {
                 if (npc.type == NPCID.GoblinSummoner)   //this is where you choose the npc you want
                 {
@@ -324,7 +324,7 @@ namespace AAMod
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ShinyCharm")); //Item spawn
             }
 
-            if (AAWorld.downedShen == true)
+            if (AAWorld.downedAllAncients == true)
             {
                 if (npc.type == NPCID.GoblinSummoner)   //this is where you choose the npc you want
                 {

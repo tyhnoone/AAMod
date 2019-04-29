@@ -178,6 +178,9 @@ namespace AAMod
         public bool HeartP = false;
         public bool HeartS = false;
         public bool HeartA = false;
+        public bool SagShield = false;
+        public bool ShieldUp = false;
+        public int SagCooldown = 0;
 
         public bool BegAccessoryPrevious;
         public bool BegAccessory;
@@ -352,6 +355,8 @@ namespace AAMod
             HeartP = false;
             HeartS = false;
             HeartA = false;
+            SagShield = false;
+            ShieldUp = false;
             //Debuffs
             infinityOverload = false;
             discordInferno = false;
@@ -723,9 +728,44 @@ namespace AAMod
         }
 
         public int[] Spheres = null;
+        public float ShieldScale = 0;
+        public float RingRoatation = 0;
 
         public override void PostUpdate()
         {
+            if (SagCooldown > 0)
+            {
+                player.noItems = true;
+                SagCooldown--;
+            }
+            else
+            {
+                player.noItems = false;
+                SagCooldown = 0;
+            }
+            if (ShieldUp)
+            {
+                RingRoatation += .05f;
+                ShieldScale += .02f;
+                if (ShieldScale >= 1f)
+                {
+                    ShieldScale = 1f;
+                }
+            }
+            else
+            {
+                ShieldScale -= .02f;
+                if (ShieldScale <= 0f)
+                {
+                    ShieldScale = 0f;
+                }
+            }
+
+            if (ShieldScale > 0)
+            {
+                RingRoatation += .05f;
+            }
+
             if (trueAbyssal)
             {
                 Color light = BaseDrawing.GetLightColor(new Vector2(PlayerPos.position.X, PlayerPos.position.Y));
@@ -906,6 +946,15 @@ namespace AAMod
                     AshRain(player, mod);
                 }
             }
+
+            if (player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda)
+            {
+                if (AAWorld.downedAllAncients && !AAWorld.downedShen)
+                {
+                    EmberRain(player, mod);
+                }
+            }
+
 
             if (Assassin)
             {
@@ -1655,6 +1704,14 @@ namespace AAMod
                     });
                 }
             }
+            if (SagShield)
+            {
+                if (AAMod.AbilityKey.JustPressed && SagCooldown == 0)
+                {
+                    player.AddBuff(mod.BuffType<SagShield>(), 300);
+                    SagCooldown = 18000;
+                }
+            }
             if (trueDynaskull)
             {
                 if (AAMod.AbilityKey.JustPressed && AbilityCD == 0)
@@ -1902,6 +1959,11 @@ namespace AAMod
             if (Abducted)
             {
                 player.Center = RingLocation;
+            }
+
+            if (SagShield)
+            {
+                player.lifeRegen += 10;
             }
 
             if (Unstable)
@@ -2501,6 +2563,7 @@ namespace AAMod
             BaseDrawing.AddPlayerLayer(list, glAfterShield, PlayerLayer.ShieldAcc, false);
             BaseDrawing.AddPlayerLayer(list, glAfterNeck, PlayerLayer.NeckAcc, false);
             BaseDrawing.AddPlayerLayer(list, glAfterFace, PlayerLayer.FaceAcc, false);
+            BaseDrawing.AddPlayerLayer(list, glAfterAll, list[list.Count - 1], false);
         }
 
         public PlayerLayer glAfterWep = new PlayerLayer("AAMod", "glAfterWep", PlayerLayer.HeldItem, delegate (PlayerDrawInfo edi)
@@ -3010,6 +3073,27 @@ namespace AAMod
                     BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosGreavesBlue_Legs"), edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), edi.shadow), drawPlayer.legFrame);
                 }
                 BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/PerfectChaosGreaves_Legs_Glow"), edi.legArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow), drawPlayer.legFrame);
+            }
+        });
+
+
+        public PlayerLayer glAfterAll = new PlayerLayer("GRealm", "glAfterAll", delegate (PlayerDrawInfo edi)
+        {
+            Mod mod = AAMod.instance;
+            Player drawPlayer = edi.drawPlayer;
+            if (drawPlayer.mount.Active) return;
+            if (drawPlayer.GetModPlayer<AAPlayer>(mod).ShieldUp)
+            {
+                Texture2D Shield = mod.GetTexture("NPCs/Bosses/Sagittarius/SagittariusShield");
+                Texture2D Ring = mod.GetTexture("NPCs/Bosses/Sagittarius/SagittariusFreeRing");
+                Texture2D RingGlow = mod.GetTexture("Glowmasks/SagittariusFreeRing_Glow");
+
+                if (drawPlayer.GetModPlayer<AAPlayer>(mod).ShieldScale > 0)
+                {
+                    BaseDrawing.DrawTexture(Main.spriteBatch, Shield, 0, drawPlayer.position, drawPlayer.width, drawPlayer.height, drawPlayer.GetModPlayer<AAPlayer>(mod).ShieldScale, 0, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.ZeroShield, true);
+                    BaseDrawing.DrawTexture(Main.spriteBatch, Ring, 0, drawPlayer.position, drawPlayer.width, drawPlayer.height, drawPlayer.GetModPlayer<AAPlayer>(mod).ShieldScale, drawPlayer.GetModPlayer<AAPlayer>(mod).RingRoatation, 0, 1, new Rectangle(0, 0, Ring.Width, Ring.Height), BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), true);
+                    BaseDrawing.DrawTexture(Main.spriteBatch, RingGlow, 0, drawPlayer.position, drawPlayer.width, drawPlayer.height, drawPlayer.GetModPlayer<AAPlayer>(mod).ShieldScale, drawPlayer.GetModPlayer<AAPlayer>(mod).RingRoatation, 0, 1, new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), GenericUtils.COLOR_GLOWPULSE, true);
+                }
             }
         });
     }

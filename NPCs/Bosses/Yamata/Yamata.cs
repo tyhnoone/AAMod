@@ -93,7 +93,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 npc.buffImmune[k] = true;
             }
-            if (AAWorld.downedShen)
+            if (AAWorld.downedAllAncients)
             {
                 npc.lifeMax = 250000;
             }
@@ -134,7 +134,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                     {
                         Main.NewText("The defeat of Yamata causes the fog in the mire to lift.", Color.Indigo);
                     }
-                    if (Main.rand.Next(20) == 0 && AAWorld.SpaceDropped == false && AAWorld.downedShen)
+                    if (Main.rand.Next(20) == 0 && AAWorld.SpaceDropped == false && AAWorld.downedAllAncients)
                     {
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SpaceStone"));
                         AAWorld.SpaceDropped = true;
@@ -511,7 +511,7 @@ namespace AAMod.NPCs.Bosses.Yamata
 
             if (npc.directionY == -1 && (double)npc.velocity.Y > -hoverMaxSpeed)
             {
-                npc.velocity.Y = npc.velocity.Y - hoverInterval;
+                npc.velocity.Y -= hoverInterval;
                 if ((double)npc.velocity.Y > hoverMaxSpeed) { npc.velocity.Y = npc.velocity.Y - 0.05f; }
                 else
                     if (npc.velocity.Y > 0f) { npc.velocity.Y = npc.velocity.Y + (hoverInterval - 0.01f); }
