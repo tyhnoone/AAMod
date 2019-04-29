@@ -2,15 +2,15 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 
-namespace AAMod.Items.Boss.Akuma
+namespace AAMod.Items.Boss.Sagittarius
 {
-    public class AkumaATrophy : ModItem
+    public class SagTrophy : ModItem
 	{
         public static int type;
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Akuma Awakened Trophy");
+            DisplayName.SetDefault("Sagittarius Trophy");
 		}
 
         public override void SetDefaults()
@@ -28,7 +28,7 @@ namespace AAMod.Items.Boss.Akuma
 			item.value = 2000;
 			item.rare = 1;
             item.expert = true;
-			item.createTile = mod.TileType("AkumaATrophy");
+			item.createTile = mod.TileType("SagTrophy");
 		}
 	}
 }

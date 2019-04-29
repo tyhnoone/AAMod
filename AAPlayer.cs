@@ -1065,92 +1065,7 @@ namespace AAMod
                 }
             }
 
-            if (player.whoAmI == Main.myPlayer)
-            {
-                if (Main.hasFocus)
-                {
-                    for (int k = 0; k < AADoubleTapKeyTimer.Length; k++)
-                    {
-                        AADoubleTapKeyTimer[k]--;
-                        if (AADoubleTapKeyTimer[k] < 0)
-                        {
-                            AADoubleTapKeyTimer[k] = 0;
-                        }
-                    }
-                    for (int l = 0; l < 4; l++)
-                    {
-                        bool flag5 = false;
-                        bool flag6 = false;
-                        switch (l)
-                        {
-                            case 0:
-                                flag5 = (player.controlDown && player.releaseDown);
-                                flag6 = player.controlDown;
-                                break;
-                            case 1:
-                                flag5 = (player.controlUp && player.releaseUp);
-                                flag6 = player.controlUp;
-                                break;
-                            case 2:
-                                flag5 = (player.controlRight && player.releaseRight);
-                                flag6 = player.controlRight;
-                                break;
-                            case 3:
-                                flag5 = (player.controlLeft && player.releaseLeft);
-                                flag6 = player.controlLeft;
-                                break;
-                        }
-                        if (flag5)
-                        {
-                            if (player.doubleTapCardinalTimer[l] > 0)
-                            {
-                                ModKeyDoubleTap(l);
-                            }
-                            else
-                            {
-                                AADoubleTapKeyTimer[l] = 15;
-                            }
-                        }
-                        if (flag6)
-                        {
-                            AAHoldDownKeyTimer[l]++;
-                            ModKeyHoldDown(l, player.holdDownCardinalTimer[l]);
-                        }
-                        else
-                        {
-                            AAHoldDownKeyTimer[l] = 0;
-                        }
-                    }
-                }
-            }
         }
-
-        public void ModKeyDoubleTap(int keyDir)
-        {
-            int num = 0;
-            if (Main.ReversedUpDownArmorSetBonuses)
-            {
-                num = 1;
-            }
-            if (keyDir == num)
-            {
-                if (Assassin && !player.mount.Active)
-                {
-                    AssassinStealth = !AssassinStealth;
-                }
-            }
-        }
-
-        public void ModKeyHoldDown(int keyDir, int holdTime)
-        {
-            /*int num = 0;
-            if (Main.ReversedUpDownArmorSetBonuses)
-            {
-                num = 1;
-            }*/
-        }
-
-
 
         public void DropDevArmor(int dropType)
         {
@@ -1702,6 +1617,13 @@ namespace AAMod
                     {
                         player.ApplyDamageToNPC(x, damage: x.lifeMax, knockback: 0f, direction: 0, crit: true);
                     });
+                }
+            }
+            if (Assassin)
+            {
+                if (!player.mount.Active)
+                {
+                    AssassinStealth = !AssassinStealth;
                 }
             }
             if (SagShield)
