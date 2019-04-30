@@ -447,7 +447,7 @@ namespace AAMod.NPCs.TownNPCs
                     if (!BaseMod.BasePlayer.HasItem(player, mod.ItemType<Items.Flasks.SquidList>()))
                     {
                         Main.npcChatText = "Here's a list of some things I need for my research. If you lose it, I'll happily write up a new one for you";
-                        int itemID = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("Terratool_Axe"), 1, false, 0, false, false);
+                        int itemID = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("SquidList"), 1, false, 0, false, false);
                         if (Main.netMode == 1)
                         {
                             NetMessage.SendData(21, -1, -1, null, itemID, 1f, 0f, 0f, 0, 0, 0);
