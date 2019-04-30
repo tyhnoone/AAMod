@@ -47,6 +47,7 @@ namespace AAMod.NPCs.Bosses.Hydra
             npc.frame = BaseDrawing.GetFrame(frameCount, frameWidth, frameHeight, 0, 2);
             frameBottom = BaseDrawing.GetFrame(frameCount, frameWidth, 44, 0, 2);
             bossBag = mod.ItemType("HydraBag");
+            npc.netAlways = true;
         }
 
         public override void BossLoot(ref string name, ref int potionType)

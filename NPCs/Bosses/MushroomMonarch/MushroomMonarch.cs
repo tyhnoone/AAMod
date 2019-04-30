@@ -65,7 +65,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             npc.DeathSound = SoundID.NPCDeath1;
             bossBag = mod.ItemType("MonarchBag");
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Monarch");
-
+            npc.netAlways = true;
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

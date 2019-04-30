@@ -42,6 +42,7 @@ namespace AAMod.NPCs.Bosses.Broodmother
             npc.HitSound = new LegacySoundStyle(3, 6, Terraria.Audio.SoundType.Sound);
             npc.DeathSound = new LegacySoundStyle(4, 8, Terraria.Audio.SoundType.Sound);
             bossBag = mod.ItemType("BroodBag");
+            npc.netAlways = true;
         }
 
         public int frame = 0;

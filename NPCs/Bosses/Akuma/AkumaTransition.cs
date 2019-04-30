@@ -29,6 +29,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             {
                 npc.buffImmune[k] = true;
             }
+            npc.netAlways = true;
         }
         public bool ATransitionActive = false;
         public int RVal = 255;

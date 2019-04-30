@@ -62,6 +62,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
             bossBag = mod.ItemType("OrthrusBag");
             npc.noTileCollide = false;
             music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Siege");
+            npc.netAlways = true;
         }
 
         public override void BossLoot(ref string name, ref int potionType)

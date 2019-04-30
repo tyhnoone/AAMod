@@ -39,6 +39,7 @@ namespace AAMod.NPCs.Bosses.Retriever
             npc.DeathSound = new LegacySoundStyle(4, 14, Terraria.Audio.SoundType.Sound);
             npc.netAlways = true;
             bossBag = mod.ItemType("RetrieverBag");
+            npc.netAlways = true;
 
             music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Siege");
         }

@@ -71,6 +71,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             bossBag = mod.ItemType("FungusBag");
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Fungus");
             npc.alpha = 255;
+            npc.netAlways = true;
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

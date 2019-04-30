@@ -40,6 +40,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 npc.damage = 160;
             }
+            npc.netAlways = true;
         }
 
         public int varTime = 0;

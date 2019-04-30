@@ -44,6 +44,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                 npc.lifeMax = 50000;
                 npc.damage = 1400;
             }
+            npc.netAlways = true;
         }
 
         public float[] customAI = new float[4];

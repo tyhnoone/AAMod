@@ -33,6 +33,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             npc.noGravity = true;
             npc.noTileCollide = true;
             bossBag = mod.ItemType("SagBag");
+            npc.netAlways = true;
         }
 
         public static float[] MovementType = new float[2];

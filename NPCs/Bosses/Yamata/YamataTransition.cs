@@ -26,6 +26,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             npc.timeLeft = 10;
             npc.scale *= 1.3f;
             npc.alpha = 255;
+            npc.netAlways = true;
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
                 npc.buffImmune[k] = true;

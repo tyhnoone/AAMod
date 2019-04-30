@@ -34,6 +34,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             npc.noGravity = true;
             npc.alpha = 255;
             bossBag = mod.ItemType("SagBag");
+            npc.netAlways = true;
         }
         
         public override void SendExtraAI(BinaryWriter writer)

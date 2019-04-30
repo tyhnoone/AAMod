@@ -52,7 +52,8 @@ namespace AAMod.NPCs.Bosses.Equinox
                 npc.lifeMax = 200000;
                 npc.defense = 150;
             }
-		}
+            npc.netAlways = true;
+        }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {

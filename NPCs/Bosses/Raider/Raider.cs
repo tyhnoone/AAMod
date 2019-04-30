@@ -41,6 +41,7 @@ namespace AAMod.NPCs.Bosses.Raider
             npc.DeathSound = new LegacySoundStyle(4, 14, Terraria.Audio.SoundType.Sound);
             bossBag = mod.ItemType("RaiderBag");
             music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Siege");
+            npc.netAlways = true;
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

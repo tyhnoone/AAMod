@@ -32,6 +32,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
             {
                 npc.buffImmune[k] = true;
             }
+            npc.netAlways = true;
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {

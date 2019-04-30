@@ -40,6 +40,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             npc.noGravity = true;
             npc.noTileCollide = true;
             npc.HitSound = SoundID.NPCHit1;
+            npc.netAlways = true;
             npc.DeathSound = SoundID.NPCDeath1;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/AH");
             bossBag = mod.ItemType("AHBag");

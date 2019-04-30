@@ -67,6 +67,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             npc.buffImmune[103] = false;
             npc.alpha = 255;
             musicPriority = MusicPriority.BossHigh;
+            npc.netAlways = true;
             if (AAWorld.downedAllAncients)
             {
                 npc.damage = 120;
