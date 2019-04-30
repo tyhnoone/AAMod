@@ -112,6 +112,16 @@ namespace AAMod.NPCs.Bosses.Orthrus
                 npc.active = false;
             }
 
+            if (Main.netMode != 2 && (Head1 == null || Head2 == null))
+            {
+                int head1ID = BaseMod.BaseAI.GetNPC(npc.Center, mod.NPCType<OrthrusHead1>(), 500f);
+                int head2ID = BaseMod.BaseAI.GetNPC(npc.Center, mod.NPCType<OrthrusHead2>(), 500f);
+                if (head1ID > -1)
+                    Head1 = Main.npc[head1ID];
+                if (head2ID > -1)
+                    Head2 = Main.npc[head2ID];
+            }
+
             if (!playerTarget.active || playerTarget.dead) //fleeing
 			{
 	            npc.noGravity = true;	
