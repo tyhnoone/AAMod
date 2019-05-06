@@ -56,8 +56,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             npc.buffImmune[103] = false;
             npc.alpha = 255;
             musicPriority = MusicPriority.BossHigh;
-            npc.netAlways = true;
-            if (AAWorld.downedAllAncients)
+            if (AAWorld.downedShen)
             {
                 npc.damage = 140;
                 npc.defense = 180;
@@ -78,11 +77,21 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             return null;
         }
 
+        public override void BossLoot(ref string name, ref int potionType)
+        {
+            if (Main.expertMode)
+            {
+                potionType = ItemID.SuperHealingPotion;
+            }
+            else
+            {
+                potionType = 0;
+            }
+        }
 
         private int attackFrame;
         private int attackCounter;
         private int attackTimer;
-        private int speed = 8;
         public static int MinionCount = 0;
 
         public float[] internalAI = new float[4];
@@ -91,7 +100,6 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((float)npc.ai[2]);
                 writer.Write((float)internalAI[1]);
                 writer.Write((float)internalAI[2]);
                 writer.Write((float)internalAI[3]);
@@ -102,7 +110,6 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             base.ReceiveExtraAI(reader);
             if (Main.netMode == 1)
             {
-                npc.ai[2] = reader.ReadFloat();
                 internalAI[1] = reader.ReadFloat();
                 internalAI[2] = reader.ReadFloat();
                 internalAI[3] = reader.ReadFloat();
@@ -154,15 +161,15 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 spawnAshe = true;
                 if (AAWorld.downedAkuma)
                 {
-                    Main.NewText("Ashe? Help your dear old dad with this kid again!", Color.SkyBlue);
+                    Main.NewText("Ashe? Help your dear old dad with this kid again!", Color.DeepSkyBlue);
                     Main.NewText("You got it, daddy..!", new Color(102, 20, 48));
-                    SpawnBoss(Main.player[npc.target], "AsheA", "");
+                    AAModGlobalNPC.SpawnBoss(player, mod.NPCType("AsheA"), false, 0, 0);
                 }
                 else
                 {
                     Main.NewText("Hey! Hands off my papa!", new Color(102, 20, 48));
                     Main.NewText("Atta-girl..!", Color.DeepSkyBlue);
-                    SpawnBoss(Main.player[npc.target], "AsheA", "");
+                    AAModGlobalNPC.SpawnBoss(player, mod.NPCType("AsheA"), false, 0, 0);
                 }
             }
 
@@ -206,7 +213,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 }
                 if (attackTimer >= 80)
                 {
-                    npc.ai[1] = 0 ;
+                    npc.ai[1] = 0;
                     attackTimer = 0;
                     attackFrame = 0;
                     attackCounter = 0;
@@ -284,7 +291,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 maxTilePosY = Main.maxTilesY;
 
             bool collision = true;
-            
+
             float speed = 15f;
             float acceleration = 0.13f;
 
@@ -304,8 +311,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             float absDirX = Math.Abs(dirX);
             float absDirY = Math.Abs(dirY);
             float newSpeed = speed / length;
-            dirX = dirX * (newSpeed * 2);
-            dirY = dirY * (newSpeed * 2);
+            dirX = dirX * newSpeed;
+            dirY = dirY * newSpeed;
             if (npc.velocity.X > 0.0 && dirX > 0.0 || npc.velocity.X < 0.0 && dirX < 0.0 || (npc.velocity.Y > 0.0 && dirY > 0.0 || npc.velocity.Y < 0.0 && dirY < 0.0))
             {
                 if (npc.velocity.X < dirX)
@@ -413,9 +420,10 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             }
             if ((npc.velocity.X > 0.0 && npc.oldVelocity.X < 0.0 || npc.velocity.X < 0.0 && npc.oldVelocity.X > 0.0 || (npc.velocity.Y > 0.0 && npc.oldVelocity.Y < 0.0 || npc.velocity.Y < 0.0 && npc.oldVelocity.Y > 0.0)) && !npc.justHit)
                 npc.netUpdate = true;
-            
+
             return false;
         }
+
         public override void NPCLoot()
 		{
             if (Main.expertMode)
@@ -427,7 +435,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 Main.NewText(AAWorld.downedAkuma ? "Heh, not too shabby this time kid. I'm impressed. Here. Take your prize." : "GRAH..! HOW!? HOW COULD I LOSE TO A MERE MORTAL TERRARIAN?! Hmpf...fine kid, you win, fair and square. Heere's your reward.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
                 AAWorld.downedAkuma = true;
                 npc.DropLoot(Items.Vanity.Mask.AkumaAMask.type, 1f / 7);
-                if (Main.rand.Next(20) == 0 && AAWorld.PowerDropped == false && AAWorld.downedAllAncients)
+                if (Main.rand.Next(20) == 0 && AAWorld.PowerDropped == false && AAWorld.downedShen)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PowerStone"));
                     AAWorld.PowerDropped = true;

@@ -67,8 +67,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             npc.buffImmune[103] = false;
             npc.alpha = 255;
             musicPriority = MusicPriority.BossHigh;
-            npc.netAlways = true;
-            if (AAWorld.downedAllAncients)
+            if (AAWorld.downedShen)
             {
                 npc.damage = 120;
                 npc.defense = 160;
@@ -253,8 +252,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                 maxTilePosY = Main.maxTilesY;
 
             bool collision = true;
-
-
+            
             float speed = 12f;
             float acceleration = 0.13f;
 
@@ -379,31 +377,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 }
                 npc.velocity.Y = npc.velocity.Y + 1f;
                 if (npc.position.Y - npc.height - npc.velocity.Y >= Main.maxTilesY && Main.netMode != 1) { BaseAI.KillNPC(npc); npc.netUpdate2 = true; }
-            }
-
-            if (internalAI[3] != 0)
-            {
-                if (loludided == false)
-                {
-                    npc.NPCLoot();
-                    loludided = true;
-                }
-                npc.velocity.Y = npc.velocity.Y - 1f;
-                if (npc.position.Y < 0)
-                {
-                    npc.velocity.Y = npc.velocity.Y - 1f;
-                    speed = 30f;
-                }
-                if (npc.position.Y < 0)
-                {
-                    for (int num957 = 0; num957 < 200; num957++)
-                    {
-                        if (Main.npc[num957].aiStyle == npc.aiStyle)
-                        {
-                            Main.npc[num957].active = false;
-                        }
-                    }
-                }
             }
 
             if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
@@ -564,7 +537,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                 {
                     BaseUtility.Chat("The volcanoes of the inferno are finally quelled...", Color.DarkOrange.R, Color.DarkOrange.G, Color.DarkOrange.B, false);
                 }
-                if (Main.rand.Next(20) == 0 && AAWorld.PowerDropped == false && AAWorld.downedAllAncients)
+                if (Main.rand.Next(20) == 0 && AAWorld.PowerDropped == false && AAWorld.downedShen)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PowerStone"));
                     AAWorld.PowerDropped = true;
@@ -586,10 +559,14 @@ namespace AAMod.NPCs.Bosses.Akuma
 
         public override void BossLoot(ref string name, ref int potionType)
         {
-            if (!Main.expertMode)
+            if (Main.expertMode)
             {
-                potionType = ItemID.SuperHealingPotion;   //boss drops
+                potionType = 0;
+            }
+            else
+            {
                 AAWorld.downedAkuma = true;
+                potionType = ItemID.SuperHealingPotion;
             }
         }
 

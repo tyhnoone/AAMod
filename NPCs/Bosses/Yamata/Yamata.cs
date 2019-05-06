@@ -93,11 +93,10 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 npc.buffImmune[k] = true;
             }
-            if (AAWorld.downedAllAncients)
+            if (AAWorld.downedShen)
             {
                 npc.lifeMax = 250000;
             }
-            npc.netAlways = true;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -107,10 +106,28 @@ namespace AAMod.NPCs.Bosses.Yamata
 
         public override void BossLoot(ref string name, ref int potionType)
         {
-            if (!Tag)
+            if (Main.expertMode && isAwakened)
             {
                 potionType = ItemID.SuperHealingPotion;
             }
+            else if (!Main.expertMode && !isAwakened)
+            {
+                potionType = ItemID.SuperHealingPotion;
+            }
+            else
+            {
+                potionType = 0;
+            }
+        }
+
+        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
+        {
+            damage = 0;
+        }
+
+        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
+        {
+            damage = 0;
         }
 
         public bool Dead = false;
@@ -135,7 +152,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                     {
                         Main.NewText("The defeat of Yamata causes the fog in the mire to lift.", Color.Indigo);
                     }
-                    if (Main.rand.Next(20) == 0 && AAWorld.SpaceDropped == false && AAWorld.downedAllAncients)
+                    if (Main.rand.Next(20) == 0 && AAWorld.SpaceDropped == false && AAWorld.downedShen)
                     {
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SpaceStone"));
                         AAWorld.SpaceDropped = true;
@@ -295,7 +312,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             npc.oldPos[0] = npc.position;
 
             bool foundTarget = TargetClosest();
-            if (foundTarget || (NPC.AnyNPCs(mod.NPCType<YamataHead>()) || NPC.AnyNPCs(mod.NPCType<YamataAHead>())))
+            if (foundTarget)
             {
                 NoFlyCountDown--;
                 if (!NoFly4U && NoFlyCountDown <= 0 && !AAWorld.downedYamata)
@@ -512,7 +529,7 @@ namespace AAMod.NPCs.Bosses.Yamata
 
             if (npc.directionY == -1 && (double)npc.velocity.Y > -hoverMaxSpeed)
             {
-                npc.velocity.Y -= hoverInterval;
+                npc.velocity.Y = npc.velocity.Y - hoverInterval;
                 if ((double)npc.velocity.Y > hoverMaxSpeed) { npc.velocity.Y = npc.velocity.Y - 0.05f; }
                 else
                     if (npc.velocity.Y > 0f) { npc.velocity.Y = npc.velocity.Y + (hoverInterval - 0.01f); }
@@ -680,6 +697,16 @@ namespace AAMod.NPCs.Bosses.Yamata
                     quarterHealth = true;
                 }
             }
+        }
+
+        public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            damage = 0;
+        }
+
+        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+            damage = 0;
         }
     }
 
