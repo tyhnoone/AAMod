@@ -16,6 +16,7 @@ using AAMod.NPCs.Enemies.Other;
 using AAMod.Worldgen;
 using Terraria.Utilities;
 using AAMod.Backgrounds;
+using Terraria.Localization;
 
 namespace AAMod
 {
@@ -102,6 +103,7 @@ namespace AAMod
         public static bool downedSisters;
         public static bool downedSag;
         public static bool SistersSummoned;
+        public static bool downedTruffle;
         //Stones
         public static bool RealityDropped;
         public static bool SpaceDropped;
@@ -131,6 +133,10 @@ namespace AAMod
         public static int squid14 = 0;
         public static int squid15 = 0;
         public static int squid16 = 0;
+
+        //Other
+        public static bool Suncaller = false;
+        public static bool Mooncaller = false;
 
         public override void Initialize()
         {
@@ -168,6 +174,7 @@ namespace AAMod
             downedSisters = false;
             downedSag = false;
             SistersSummoned = false;
+            downedTruffle = false;
             //World Changes
             ChaosOres = downedGrips;
             Dynaskull = NPC.downedBoss3;
@@ -280,6 +287,7 @@ namespace AAMod
             if (downedSag) downed.Add("Sag");
             if (ModContentGenerated) downed.Add("WorldGenned");
             if (SistersSummoned) downed.Add("Summoned");
+            if (downedTruffle) downed.Add("Truffle");
 
             return new TagCompound {
                 {"downed", downed},
@@ -363,6 +371,7 @@ namespace AAMod
 
             BitsByte flags6 = new BitsByte();
             flags6[0] = ModContentGenerated;
+            flags6[1] = downedTruffle;
             writer.Write(flags6);
 
             writer.WriteVector2(MireCenter);
@@ -440,6 +449,10 @@ namespace AAMod
             
             BitsByte flags6 = reader.ReadByte();
             ModContentGenerated = flags6[0];
+            downedTruffle = flags6[1];
+
+            MireCenter = reader.ReadVector2();
+			InfernoCenter = reader.ReadVector2();		
 
             //Squid Lady
             squid1 = reader.ReadInt32();
@@ -501,6 +514,7 @@ namespace AAMod
             downedSisters = downed.Contains("Sisters");
             downedSag = downed.Contains("Sag");
             SistersSummoned = downed.Contains("Summoned");
+            downedTruffle = downed.Contains("Truffle");
             //World Changes
             ChaosOres = downedGrips;
             Dynaskull = NPC.downedBoss3;
@@ -558,79 +572,53 @@ namespace AAMod
             int shiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
             int shiniesIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
             int shiniesIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
-            ModContentGenerated = true;
-            if (shiniesIndex != -1)
+
+
+            tasks.Insert(shiniesIndex + 1, new PassLegacy("Prisms", delegate (GenerationProgress progress)
             {
-                tasks.Insert(shiniesIndex2, new PassLegacy("Generating AA Ores", delegate (GenerationProgress progress)
-                {
-                    int x = Main.maxTilesX;
-                    int y = Main.maxTilesY;
-                    for (int k = 0; k < (int)((double)(x * y) * 15E-05); k++)
-                    {
-                        int tilesX = WorldGen.genRand.Next(0, Main.maxTilesX);
-                        int tilesY = WorldGen.genRand.Next((int)WorldGen.rockLayerLow, Main.maxTilesY);
-                        if (Main.tile[tilesX, tilesY].type == 1)
-                        {
-                            WorldGen.OreRunner(tilesX, tilesY, (double)WorldGen.genRand.Next(2, 4), WorldGen.genRand.Next(3, 6), (ushort)mod.TileType("IncineriteOre"));
-                        }
-                    }
-
-                    for (int k = 0; k < (int)((double)(x * y) * 15E-05); k++)
-                    {
-                        int tilesX = WorldGen.genRand.Next(0, x);
-                        int tilesY = WorldGen.genRand.Next((int)(y * .3f), (int)(y * .75f));
-                        WorldGen.OreRunner(tilesX, tilesY, (double)WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), (ushort)mod.TileType("EverleafRoot"));
-                    }
-
-                    for (int k = 0; k < (int)((double)(x * y) * 15E-05); k++)
-                    {
-                        int tilesX = WorldGen.genRand.Next(0, x);
-                        int tilesY = WorldGen.genRand.Next(0, y);
-                        if (Main.tile[tilesX, tilesY].type == 59)
-                        {
-                            WorldGen.OreRunner(tilesX, tilesY, (double)WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), (ushort)mod.TileType("EverleafRoot"));
-                        }
-                    }
-                    for (int k = 0; k < (int)((double)(x * y) * 15E-05); k++)
-                    {
-                        int tilesX = WorldGen.genRand.Next(0, Main.maxTilesX);
-                        int tilesY = WorldGen.genRand.Next((int)WorldGen.rockLayerLow, Main.maxTilesY);
-                        if (Main.tile[tilesX, tilesY].type == 59)
-                        {
-                            WorldGen.OreRunner(tilesX, tilesY, (double)WorldGen.genRand.Next(2, 4), WorldGen.genRand.Next(3, 6), (ushort)mod.TileType("AbyssiumOre"));
-                        }
-                    }
-
-                    for (int k = 0; k < (int)((double)(x * y) * 15E-05); k++)
-                    {
-                        int tilesX = WorldGen.genRand.Next(0, Main.maxTilesX);
-                        int tilesY = WorldGen.genRand.Next(0, Main.maxTilesY);
-                        if (Main.tile[tilesX, tilesY].type == TileID.IceBlock)
-                        {
-                            WorldGen.OreRunner(tilesX, tilesY, (double)WorldGen.genRand.Next(2, 4), WorldGen.genRand.Next(3, 6), (ushort)mod.TileType("RelicOre"));
-                        }
-                    }
-                }));
-            }
+                GenPrisms(progress);
+            }));
+            tasks.Insert(shiniesIndex + 2, new PassLegacy("Abyssium", delegate (GenerationProgress progress)
+            {
+                GenAbyssium(progress);
+            }));
+            tasks.Insert(shiniesIndex + 3, new PassLegacy("Incinerite", delegate (GenerationProgress progress)
+            {
+                GenIncinerite(progress);
+            }));
+            tasks.Insert(shiniesIndex + 4, new PassLegacy("Everleaf", delegate (GenerationProgress progress)
+            {
+                GenEverleaf(progress);
+            }));
+            tasks.Insert(shiniesIndex + 5, new PassLegacy("Relic", delegate (GenerationProgress progress)
+            {
+                GenRelicOre(progress);
+            }));
             tasks.Insert(shiniesIndex1 + 1, new PassLegacy("Mire and Inferno", delegate (GenerationProgress progress)
             {
 				MireAndInferno(progress);
             }));
-            tasks.Insert(shiniesIndex2 + 2, new PassLegacy("Terrarium", delegate (GenerationProgress progress)
+
+
+            tasks.Insert(shiniesIndex2 + 1, new PassLegacy("Terrarium", delegate (GenerationProgress progress)
             {
                 Terrarium(progress);
             }));
-            tasks.Insert(shiniesIndex2 + 1, new PassLegacy("Void Islands", delegate (GenerationProgress progress)
+
+
+            tasks.Insert(shiniesIndex2 + 2, new PassLegacy("Void Islands", delegate (GenerationProgress progress)
             {
                 VoidIslands(progress);
             }));
 
-            tasks.Insert(shiniesIndex1, new PassLegacy("Mush", delegate (GenerationProgress progress)
+
+            tasks.Insert(shiniesIndex1 +  2, new PassLegacy("Mush", delegate (GenerationProgress progress)
             {
                 Mush(progress);
             }));
 
-            tasks.Insert(shiniesIndex2 + 4, new PassLegacy("Altars", delegate (GenerationProgress progress)
+
+            tasks.Insert(shiniesIndex2 + 3, new PassLegacy("Altars", delegate (GenerationProgress progress)
             {
                 Altars(progress);
             }));
@@ -807,8 +795,87 @@ namespace AAMod
                     }
                 }));
             }
+            
+            ModContentGenerated = true;
         }
-        
+
+        private void GenIncinerite(GenerationProgress progress)
+        {
+            int x = Main.maxTilesX;
+            int y = Main.maxTilesY;
+            for (int k = 0; k < (int)((double)(x * y) * 15E-05); k++)
+            {
+                int tilesX = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int tilesY = WorldGen.genRand.Next((int)WorldGen.rockLayerLow, Main.maxTilesY);
+                if (Main.tile[tilesX, tilesY].type == 1)
+                {
+                    WorldGen.OreRunner(tilesX, tilesY, (double)WorldGen.genRand.Next(2, 4), WorldGen.genRand.Next(3, 6), (ushort)mod.TileType("IncineriteOre"));
+                }
+            }
+        }
+
+        private void GenAbyssium(GenerationProgress progress)
+        {
+            int x = Main.maxTilesX;
+            int y = Main.maxTilesY;
+            for (int k = 0; k < (int)((double)(x * y) * 15E-05); k++)
+            {
+                int tilesX = WorldGen.genRand.Next(0, x);
+                int tilesY = WorldGen.genRand.Next(0, y);
+                if (Main.tile[tilesX, tilesY].type == 59)
+                {
+                    WorldGen.OreRunner(tilesX, tilesY, (double)WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(3, 8), (ushort)mod.TileType("EverleafRoot"));
+                }
+            }
+        }
+
+        private void GenEverleaf(GenerationProgress progress)
+        {
+            int x = Main.maxTilesX;
+            int y = Main.maxTilesY;
+            for (int k = 0; k < (int)((double)(x * y) * 15E-05); k++)
+            {
+                int tilesX = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int tilesY = WorldGen.genRand.Next((int)WorldGen.rockLayerLow, Main.maxTilesY);
+                if (Main.tile[tilesX, tilesY].type == 59)
+                {
+                    WorldGen.OreRunner(tilesX, tilesY, (double)WorldGen.genRand.Next(2, 4), WorldGen.genRand.Next(3, 6), (ushort)mod.TileType("AbyssiumOre"));
+                }
+            }
+        }
+
+        private void GenRelicOre(GenerationProgress progress)
+        {
+            int x = Main.maxTilesX;
+            int y = Main.maxTilesY;
+            for (int k = 0; k < (int)((double)(x * y) * 15E-05); k++)
+            {
+                int tilesX = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int tilesY = WorldGen.genRand.Next(0, Main.maxTilesY);
+                if (Main.tile[tilesX, tilesY].type == TileID.IceBlock)
+                {
+                    WorldGen.OreRunner(tilesX, tilesY, (double)WorldGen.genRand.Next(2, 4), WorldGen.genRand.Next(3, 6), (ushort)mod.TileType("RelicOre"));
+                }
+            }
+        }
+
+        private void GenPrisms(GenerationProgress progress)
+        {
+            progress.Message = Language.GetTextValue("LegacyWorldGen.23");
+            int amount = (int)(Main.maxTilesX * 0.4f * 0.2f);
+            for (int k = 0; k < amount; k++)
+            {
+                int x = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
+                while (Main.tile[x, y].type != 1)
+                {
+                    x = WorldGen.genRand.Next(0, Main.maxTilesX);
+                    y = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY);
+                }
+                WorldGen.TileRunner(x, y, WorldGen.genRand.Next(2, 6), WorldGen.genRand.Next(3, 7), mod.TileType<Tiles.PrismOre>());
+            }
+        }
+
         public void VoidIslands(GenerationProgress progress)
         {
             progress.Message = ("0" + NumberRand(1) + "0" + NumberRand(1) + "0" + NumberRand(1) + "0" + NumberRand(1) + "0" + NumberRand(1) + "0" + NumberRand(1) + "0" + NumberRand(1) + "0" + NumberRand(1) + "0" + NumberRand(1) + "0");
@@ -1131,6 +1198,30 @@ namespace AAMod
 
         public override void PostUpdate()
         {
+            if (Suncaller)
+            {
+                if (!Main.dayTime)
+                {
+                    Main.fastForwardTime = true;
+                    Main.dayRate = 15;
+                }
+                else
+                {
+                    Suncaller = false;
+                }
+            }
+            if (Mooncaller)
+            {
+                if (Main.dayTime)
+                {
+                    Main.fastForwardTime = true;
+                    Main.dayRate = 15;
+                }
+                else
+                {
+                    Suncaller = false;
+                }
+            }
             if (downedEquinox)
             {
                 if (RadiumOre == false)
@@ -1140,7 +1231,7 @@ namespace AAMod
                     for (int i = 0; i < Main.maxTilesX / 25; ++i)
                     {
                         int X = WorldGen.genRand.Next(50, (Main.maxTilesX / 10) * 9); //X position, centre.
-                        int Y = WorldGen.genRand.Next(20, 100); //Y position, centre.
+                        int Y = WorldGen.genRand.Next(10, 100); //Y position, centre.
                         int radius = WorldGen.genRand.Next(2, 5); //Radius.
                         for (int x = X - radius; x <= X + radius; x++)
                         {
