@@ -152,10 +152,6 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
-                if (npc.type == mod.NPCType<ShenDoragon>() || npc.type == mod.NPCType<ShenA>())
-                {
-                    npc.lifeRegen -= 48;
-                }
                 else
                 {
                     npc.lifeRegen -= 16;
