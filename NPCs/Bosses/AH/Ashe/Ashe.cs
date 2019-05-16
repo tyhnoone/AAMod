@@ -40,7 +40,6 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             npc.noGravity = true;
             npc.noTileCollide = true;
             npc.HitSound = SoundID.NPCHit1;
-            npc.netAlways = true;
             npc.DeathSound = SoundID.NPCDeath1;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/AH");
             bossBag = mod.ItemType("AHBag");
@@ -78,6 +77,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             return null;
         }
 
+        public float moveSpeed;
         public bool FlyingBack = false;
         public bool FlyingPositive = false;
         public bool FlyingNegative = false;
@@ -89,8 +89,6 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
         public bool SelectPoint = false;
 
         public int[] Vortexes = null;
-
-        float moveSpeed = 16f;
 
         public bool Health3 = false;
         public bool Health2 = false;
@@ -437,7 +435,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             }
             else
             {
-                npc.direction = npc.velocity.X > 0 ? -1 : 1;
+                npc.direction = npc.velocity.X > 0 ? 1 : -1;
             }
         }
 

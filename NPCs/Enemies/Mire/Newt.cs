@@ -20,10 +20,9 @@ namespace AAMod.NPCs.Enemies.Mire
             npc.height = 30;
             npc.damage = 10;
             npc.defense = 10;
-            npc.lifeMax = 200;
-            npc.damage = 45;
-            npc.defense = 14;
-            npc.lifeMax = 210;
+            npc.damage = 28;
+            npc.defense = 6;
+            npc.lifeMax = 60;
             npc.knockBackResist = 0.55f;
             npc.value = 100f;
             npc.aiStyle = 3;
@@ -59,13 +58,16 @@ namespace AAMod.NPCs.Enemies.Mire
                 npc.frameCounter = 0;
                 npc.frame.Y = 0;
             }
-            if (npc.velocity.X < 0) // so it faces the player
+            if (!tongueAttack)
             {
-                npc.spriteDirection = 1;
-            }
-            else if (npc.velocity.X > 0)
-            {
-                npc.spriteDirection = -1;
+                if (npc.velocity.X < 0) // so it faces the player
+                {
+                    npc.spriteDirection = 1;
+                }
+                else if (npc.velocity.X > 0)
+                {
+                    npc.spriteDirection = -1;
+                }
             }
             if (tongueAttack == true)
             {
@@ -84,9 +86,9 @@ namespace AAMod.NPCs.Enemies.Mire
                 }
             }
             float distance = npc.Distance(Main.player[npc.target].Center);
-            if (distance <= 150) // distance until it does the tongue attack
+            if (distance >= 100) // distance until it does the tongue attack
             {
-                if (Main.rand.Next(60) == 0) // so it wont do it repeatedly when the player is near. increase to lower the chance of it doing it
+                if (Main.rand.Next(30) == 0) // so it wont do it repeatedly when the player is near. increase to lower the chance of it doing it
                 {
                     if (tongueAttack == false)
                     {
@@ -101,16 +103,13 @@ namespace AAMod.NPCs.Enemies.Mire
                 npc.velocity.X = 0;
                 if (tongueTimer == 35)
                 {
-                    // projectile code, donno how to do it though, so it just throws up dirt ¯\_(ツ)_/¯
                     if (npc.direction == -1)
                     {
-                        //Main.PlaySound(SoundID.Item3, (int)npc.position.X, (int)npc.position.Y);
-                        Projectile.NewProjectile((new Vector2(npc.position.X + 17f, npc.position.Y + 18f)), new Vector2(-6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("AcidProj"), 15, 3);
+                        Projectile.NewProjectile((new Vector2(npc.Center.X + 56f, npc.Center.Y)), new Vector2(-6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("AcidProj"), 15, 3);
                     }
                     else
                     {
-                        //Main.PlaySound(SoundID.Item3, (int)npc.position.X, (int)npc.position.Y);
-                        Projectile.NewProjectile((new Vector2(npc.position.X + 57f, npc.position.Y + 18f)), new Vector2(6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("AcidProj"), 15, 3);
+                        Projectile.NewProjectile((new Vector2(npc.position.X - 56f, npc.Center.Y)), new Vector2(6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("AcidProj"), 15, 3);
                     }
                 }
                 if (tongueTimer >= 100)

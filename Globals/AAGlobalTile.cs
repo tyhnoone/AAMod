@@ -111,102 +111,7 @@ namespace AAMod
         {
             return GetTimedColor(AAColor.Shen2, color, min, max, clamp);
         }
-
-        public static Color GetPrismColorBrightInvert(Color color) { return GetstormColor(color, 1f, 0.6f, true); }
-        public static Color GetPrismColorDim(Color color) { return GetstormColor(color, 0.4f, 1f, false); }
-        public static Color GetPrismColorBright(Color color) { return GetstormColor(color, 0.6f, 1f, false); }
-        public static Color GetPrismColor(Color color, float min, float max, bool clamp)
-        {
-            Player player = Main.player[Main.myPlayer];
-            Mod mod = AAMod.instance;
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
-
-            Color currentColor = AAColor.TerraGlow;
-
-            if (modPlayer.Terrarium)
-            {
-                currentColor = AAColor.TerraGlow;
-            }
-            else if (player.ZoneCorrupt)
-            {
-                currentColor = AAColor.Corruption;
-            }
-            else if (player.ZoneCrimson)
-            {
-                currentColor = AAColor.Crimson;
-            }
-            else if (player.ZoneHoly)
-            {
-                currentColor = AAColor.Hallow;
-            }
-            else if (player.ZoneSnow)
-            {
-                currentColor = AAColor.Snow;
-            }
-            else if (player.ZoneDesert || player.ZoneUndergroundDesert)
-            {
-                currentColor = AAColor.Desert;
-            }
-            else if (player.ZoneJungle)
-            {
-                currentColor = AAColor.Jungle;
-            }
-            else if (player.ZoneDungeon)
-            {
-                currentColor = AAColor.Dungeon;
-            }
-            else if (player.ZoneBeach)
-            {
-                currentColor = AAColor.Ocean;
-            }
-            else if (player.ZoneGlowshroom)
-            {
-                currentColor = AAColor.TODE;
-            }
-            else if (player.ZoneUnderworldHeight)
-            {
-                currentColor = AAColor.Hell;
-            }
-            else if (player.ZoneRockLayerHeight)
-            {
-                currentColor = AAColor.Cavern;
-            }
-            else if (modPlayer.ZoneInferno)
-            {
-                currentColor = AAColor.Inferno;
-            }
-            else if (modPlayer.ZoneMire)
-            {
-                currentColor = AAColor.Mire;
-            }
-            else if (modPlayer.ZoneMush)
-            {
-                currentColor = AAColor.Mushroom;
-            }
-            else if (modPlayer.ZoneVoid)
-            {
-                currentColor = AAColor.ZeroShield;
-            }
-            else if (modPlayer.ZoneStorm)
-            {
-                currentColor = AAColor.Storm;
-            }
-            else if (modPlayer.ZoneStorm)
-            {
-                currentColor = AAColor.Storm;
-            }
-            else if (player.ZoneSkyHeight)
-            {
-                currentColor = AAColor.Sky;
-            }
-            else
-            {
-                currentColor = AAColor.TerraGlow;
-            }
-            return GetTimedColor(currentColor, color, min, max, clamp);
-        }
         
-
         public override bool Drop(int i, int j, int type)
         {
             if (type == TileID.Dirt && TileID.Sets.BreakableWhenPlacing[TileID.Dirt]) //placing grass
@@ -246,6 +151,53 @@ namespace AAMod
 			}
 			return glowColor;
 		}
+
+        public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
+        {
+            if (Main.tile[i, j - 1].active() && 
+                (Main.tile[i, j - 1].type == mod.TileType<Tiles.ChaosAltar1>() || Main.tile[i, j - 1].type == mod.TileType<Tiles.ChaosAltar2>()))
+            {
+                return false;
+            }
+            return base.CanKillTile(i, j, type, ref blockDamaged);
+        }
+
+        public override bool CanExplode(int i, int j, int type)
+        {
+            if (Main.tile[i, j - 1].active() &&
+                (Main.tile[i, j - 1].type == mod.TileType<Tiles.ChaosAltar1>() || Main.tile[i, j - 1].type == mod.TileType<Tiles.ChaosAltar2>()))
+            {
+                return false;
+            }
+            return base.CanExplode(i, j, type);
+        }
+
+        public override void RandomUpdate(int i, int j, int type)
+        {
+            if (Main.tile[i, j].type == TileID.MushroomGrass)
+            {
+                if (!Framing.GetTileSafely(i, j - 1).active() && Main.rand.Next(250) == 0)
+                {
+                    PlaceObject(i, j - 1, mod.TileType<Tiles.Shroomplant>());
+                    NetMessage.SendObjectPlacment(-1, i, j - 1, mod.TileType<Tiles.Shroomplant>(), 0, 0, -1, -1);
+                }
+            }
+        }
+
+        public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0, int random = -1, int direction = -1)
+        {
+            TileObject toBePlaced;
+            if (!TileObject.CanPlace(x, y, type, style, direction, out toBePlaced, false))
+            {
+                return false;
+            }
+            toBePlaced.random = random;
+            if (TileObject.Place(toBePlaced) && !mute)
+            {
+                WorldGen.SquareTileFrame(x, y, true);
+            }
+            return false;
+        }
     }
 }
 

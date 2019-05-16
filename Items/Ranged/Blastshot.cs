@@ -10,29 +10,28 @@ namespace AAMod.Items.Ranged
         
         public override void SetDefaults()
         {
-
             item.damage = 70;
             item.noMelee = true;
-
             item.ranged = true;
             item.width = 62;
             item.height = 24;
-            item.useTime = 25;
-            item.useAnimation = 25;
+            item.useTime = 7;
+            item.useAnimation = 22;
             item.useStyle = 5;
+            item.useAmmo = AmmoID.Gel;
             item.shoot = mod.ProjectileType<Projectiles.DragonfireProj>();
             item.knockBack = 0;
-            item.value = 10;
+            item.value = 100000;
             item.rare = 5;
             item.UseSound = SoundID.Item34;
-            item.autoReuse = false;
+            item.autoReuse = true;
             item.shootSpeed = 14f;
         }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Blastshot");
-            Tooltip.SetDefault("Doesn't use ammo");
+            Tooltip.SetDefault("Consumes Gel");
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-
+using AAMod.NPCs.Bosses.Shen;
 using System.Collections.Generic;
 using BaseMod;
 using Terraria.Localization;
@@ -17,7 +17,7 @@ namespace AAMod.Items.Blocks
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Celestial Stars Box");
-            Tooltip.SetDefault(@"Plays 'Interstellar' by OmegaFerretMusic");
+            Tooltip.SetDefault(@"Plays 'Galactic Gift' by OmegaFerretMusic");
         }
 
         public override void SetDefaults()

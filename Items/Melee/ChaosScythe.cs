@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,12 +18,12 @@ namespace AAMod.Items.Melee   //where is located
             item.width = 56;              
             item.height = 56;          
             item.knockBack = 6;
-            item.value = 100000;
-            item.autoReuse = true;
+            item.value = 300000;
+            item.autoReuse = true;   //if it's capable of autoswing.
             item.useTurn = false;
             item.expert = true;
-            item.useAnimation = 30;
-            item.useTime = 30;
+            item.useAnimation = 25;
+            item.useTime = 28;
             item.shootSpeed = 5;
             item.shoot = mod.ProjectileType("ChaosScythe");
         }

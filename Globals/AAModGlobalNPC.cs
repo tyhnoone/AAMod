@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using AAMod.NPCs.Bosses.Shen;
 using System;
 using BaseMod;
 using Terraria.Localization;
@@ -27,6 +28,7 @@ namespace AAMod
         public static int Toad = -1;
         public static int Rose = -1;
         public static int Brain = -1;
+        public static int Rajah = -1;
 
         public override bool InstancePerEntity
 		{
@@ -151,7 +153,14 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
-                npc.lifeRegen -= 16;
+                if (npc.type == mod.NPCType<ShenDoragon>() || npc.type == mod.NPCType<ShenA>())
+                {
+                    npc.lifeRegen -= 48;
+                }
+                else
+                {
+                    npc.lifeRegen -= 16;
+                }
                 if (damage < 2)
                 {
                     damage = 2;
@@ -217,7 +226,15 @@ namespace AAMod
                 }
                 npc.lifeRegen -= Math.Abs((int)(npc.velocity.X));
             }
+        }
 
+        public override bool PreNPCLoot(NPC npc)
+        {
+            if (npc.type == NPCID.Bunny || npc.type == NPCID.BunnyXmas || npc.type == NPCID.BunnySlimed || npc.type == NPCID.GoldBunny || npc.type == NPCID.PartyBunny)
+            {
+                AAPlayer.RabbitKills += 1;
+            }
+            return true;
         }
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
@@ -298,7 +315,7 @@ namespace AAMod
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ShinyCharm")); //Item spawn
             }
 
-            if (AAWorld.downedAllAncients == true)
+            if (AAWorld.downedShen == true)
             {
                 if (npc.type == NPCID.GoblinSummoner)   //this is where you choose the npc you want
                 {
@@ -429,7 +446,7 @@ namespace AAMod
                     Item.NewItem(npc.getRect(), mod.ItemType("Bloody_Mary"));
                 }
             }
-			if (npc.type == NPCID.AngryBones || npc.type == NPCID.DarkCaster)
+            if (npc.type == NPCID.AngryBones || npc.type == NPCID.DarkCaster)
             {
                 if (Main.rand.Next(200) == 0)
                 {
@@ -447,7 +464,7 @@ namespace AAMod
 
             if (npc.type == NPCID.Plantera)
             {
-                Item.NewItem(npc.getRect(),  ItemID.ChlorophyteOre, Main.rand.Next(50, 80));
+                Item.NewItem(npc.getRect(), ItemID.ChlorophyteOre, Main.rand.Next(50, 80));
             }
 
             if (npc.type == NPCID.SkeletronHand)
@@ -463,7 +480,7 @@ namespace AAMod
             {
                 Item.NewItem(npc.getRect(), mod.ItemType("Everleaf"), Main.rand.Next(1, 2));
             }
-            
+
             if ((npc.type == NPCID.GoblinArcher
                 || npc.type == NPCID.GoblinPeon
                 || npc.type == NPCID.GoblinScout
@@ -478,43 +495,45 @@ namespace AAMod
                 || npc.type == NPCID.DD2GoblinT2
                 || npc.type == NPCID.DD2GoblinBomberT3
                 || npc.type == NPCID.BoundGoblin
-                || npc.type == NPCID.GoblinTinkerer) 
+                || npc.type == NPCID.GoblinTinkerer)
                 && NPC.downedGoblins)
             {
                 if (Main.rand.Next(20) == 0)
                 {
                     Item.NewItem(npc.getRect(), mod.ItemType("GoblinSoul"), Main.rand.Next(1, 2));
                 }
-                
+
             }
 
-            if ((Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod).ZoneMire) && Main.hardMode)
             {
-                if (Main.rand.Next(0, 100) >= 80)
+                Player player = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
+                if (player.GetModPlayer<AAPlayer>(mod).ZoneMire && Main.hardMode && player.position.Y > (Main.worldSurface * 16.0))
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SoulOfSpite"), 1);
+                    if (Main.rand.Next(0, 100) >= 80)
+                    {
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SoulOfSpite"), 1);
+                    }
                 }
-            }
-            if ((Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod).ZoneInferno) && Main.hardMode)
-            {
-                if (Main.rand.Next(0, 100) >= 80)
+                if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno && Main.hardMode && player.position.Y > (Main.worldSurface * 16.0))
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SoulOfSmite"), 1);
+                    if (Main.rand.Next(0, 100) >= 80)
+                    {
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SoulOfSmite"), 1);
+                    }
                 }
-            }
-
-            if ((Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod).ZoneMire) && Main.hardMode)
-            {
-                if (Main.rand.Next(0, 2499) == 0)
+                if (player.GetModPlayer<AAPlayer>(mod).ZoneMire && Main.hardMode)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MireKey"), 1);
+                    if (Main.rand.Next(0, 2499) == 0)
+                    {
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MireKey"), 1);
+                    }
                 }
-            }
-            if ((Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].GetModPlayer<AAPlayer>(mod).ZoneInferno) && Main.hardMode)
-            {
-                if (Main.rand.Next(0, 2499) == 0)
+                if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno && Main.hardMode)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("InfernoKey"), 1);
+                    if (Main.rand.Next(0, 2499) == 0)
+                    {
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("InfernoKey"), 1);
+                    }
                 }
             }
         }
@@ -705,11 +724,39 @@ namespace AAMod
         {
             for (int i = 0; i < 200; ++i)
             {
-                if (Main.npc[i].boss && Main.npc[i].active)
+                if (Main.npc[i].boss && Main.npc[i].type != NPCID.WallofFlesh && Main.npc[i].active)
                 {
                     spawnRate = 0;
                     maxSpawns = 0;
                 }
+            }
+        }
+
+        public void ClearPoolWithExceptions(IDictionary<int, float> pool)
+        {
+            try
+            {
+                Dictionary<int, float> keepPool = new Dictionary<int, float>();
+                foreach (var kvp in pool)
+                {
+                    int npcID = kvp.Key;
+                    ModNPC mnpc = NPCLoader.GetNPC(npcID);
+                    if (mnpc != null && mnpc.mod != null) //splitting so you can add other exceptions if need be
+                    {
+                        if (mnpc.mod.Name.Equals("GRealm")) //do not remove GRealm spawns!
+                            keepPool.Add(npcID, kvp.Value);
+                    }
+                }
+                pool.Clear();
+
+                foreach (var newkvp in keepPool)
+                    pool.Add(newkvp.Key, newkvp.Value);
+
+                keepPool.Clear();
+            }
+            catch (Exception e)
+            {
+                Main.NewText(e.StackTrace);
             }
         }
 
@@ -732,16 +779,17 @@ namespace AAMod
 
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneInferno)
             {
-                pool.Clear();
+                ClearPoolWithExceptions(pool);
                 if ((player.position.Y < (Main.worldSurface * 16.0)) && (Main.dayTime || AAWorld.downedAkuma))
                 {
                     pool.Add(mod.NPCType("Wyrmling"), .3f);
                     pool.Add(mod.NPCType("InfernalSlime"), .7f);
                     pool.Add(mod.NPCType("Flamebrute"), .3f);
-                    pool.Add(mod.NPCType("InfernoSalamander"), .7f);
-                    pool.Add(mod.NPCType("DragonClaw"), .7f);
+                    pool.Add(mod.NPCType("InfernoSalamander"), .5f);
+                    pool.Add(mod.NPCType("DragonClaw"), .1f);
                     if (Main.hardMode)
                     {
+                        pool.Add(mod.NPCType("MagmaSwimmer"), SpawnCondition.WaterCritter.Chance * 0.2f);
                         pool.Add(mod.NPCType("Wyvern"), .2f);
                         pool.Add(mod.NPCType("BlazePhoenix"), .1f);
                     }
@@ -750,10 +798,12 @@ namespace AAMod
                 {
                     pool.Add(mod.NPCType("Wyrmling"), .3f);
                     pool.Add(mod.NPCType("Flamebrute"), .3f);
-                    pool.Add(mod.NPCType("InfernoSalamander"), .7f);
-                    pool.Add(mod.NPCType("DragonClaw"), .7f);
+                    pool.Add(mod.NPCType("InfernoSalamander"), .5f);
+                    pool.Add(mod.NPCType("DragonClaw"), .1f);
                     if (Main.hardMode)
                     {
+                        pool.Add(mod.NPCType("HotWasp"), .1f);
+                        pool.Add(mod.NPCType("MagmaSwimmer"), SpawnCondition.WaterCritter.Chance * 0.2f);
                         pool.Add(mod.NPCType("Wyvern"), .2f);
                         pool.Add(mod.NPCType("Wyrm"), .1f);
                         pool.Add(mod.NPCType("ChaoticDawn"), .1f);
@@ -761,11 +811,15 @@ namespace AAMod
                         {
                             pool.Add(mod.NPCType("Dragron"), .05f);
                         }
+                        if (player.ZoneUndergroundDesert)
+                        {
+                            pool.Add(mod.NPCType("InfernoGhoul"), .1f);
+                        }
                     }
                 }
                 if (AAWorld.downedGripsS)
                 {
-                    pool.Add(mod.NPCType("BlazeClaw"), .6f);
+                    pool.Add(mod.NPCType("BlazeClaw"), .05f);
                 }
                 if (AAWorld.downedAkuma)
                 {
@@ -775,7 +829,7 @@ namespace AAMod
 
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneMire)
             {
-                pool.Clear();
+                ClearPoolWithExceptions(pool);
                 if ((player.position.Y < (Main.worldSurface * 16.0)) && (!Main.dayTime || AAWorld.downedYamata))
                 {
                     pool.Add(mod.NPCType("MireSlime"), 1f);
@@ -785,6 +839,7 @@ namespace AAMod
                     pool.Add(mod.NPCType("MireSkulker"), .7f);
                     if (Main.hardMode)
                     {
+                        pool.Add(mod.NPCType("FogAngler"), SpawnCondition.WaterCritter.Chance * 0.2f);
                         pool.Add(mod.NPCType("Toxitoad"), .2f);
                         pool.Add(mod.NPCType("Kappa"), .4f);
                     }
@@ -797,11 +852,16 @@ namespace AAMod
                     pool.Add(mod.NPCType("MireSkulker"), .5f);
                     if (Main.hardMode)
                     {
-                        pool.Add(mod.NPCType("Kappa"), .4f);
+                        pool.Add(mod.NPCType("FogAngler"), SpawnCondition.WaterCritter.Chance * 0.2f);
+                        pool.Add(mod.NPCType("Miresquito"), .4f);
                         pool.Add(mod.NPCType("ChaoticTwilight"), .1f);
                         if (player.ZoneSnow)
                         {
                             pool.Add(mod.NPCType("Miregron"), .05f);
+                        }
+                        if (player.ZoneUndergroundDesert)
+                        {
+                            pool.Add(mod.NPCType("MireGhoul"), .1f);
                         }
                     }
                 }
@@ -813,7 +873,7 @@ namespace AAMod
 
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneVoid)
             {
-                pool.Clear();
+                ClearPoolWithExceptions(pool);
                 pool.Add(mod.NPCType("Searcher1"), .05f);
                 if (AAWorld.downedSag)
                 {
@@ -836,15 +896,16 @@ namespace AAMod
 
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).Terrarium)
             {
-                pool.Clear();
+                ClearPoolWithExceptions(pool);
                 if (NPC.downedPlantBoss)
                 {
                     pool.Add(mod.NPCType("Bladon"), .1f);
                     pool.Add(mod.NPCType("TerraDeadshot"), .1f);
                     pool.Add(mod.NPCType("TerraWizard"), .1f);
                     pool.Add(mod.NPCType("TerraWarlock"), .1f);
+                    return;
                 }
-                else
+                if (NPC.downedBoss3)
                 {
                     pool.Add(mod.NPCType("PurityWeaver"), .1f);
                     pool.Add(mod.NPCType("PuritySphere"), .1f);

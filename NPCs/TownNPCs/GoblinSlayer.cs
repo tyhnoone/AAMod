@@ -33,15 +33,16 @@ namespace AAMod.NPCs.TownNPCs
             NPCID.Sets.AttackType[npc.type] = 0;
             NPCID.Sets.AttackTime[npc.type] = 40;
             NPCID.Sets.AttackAverageChance[npc.type] = 20;
-            NPCID.Sets.HatOffsetY[npc.type] = 0;
+            NPCID.Sets.HatOffsetY[npc.type] = 3;
         }
 
         public override void SetDefaults()
 		{
 			npc.townNPC = true;
 			npc.friendly = true;
-			npc.width = 18;
-			npc.height = 56;
+            npc.height = 40;
+            npc.width = 18;
+			npc.height = 40;
 			npc.aiStyle = 7;
 			npc.damage = 80;
 			npc.defense = 98;

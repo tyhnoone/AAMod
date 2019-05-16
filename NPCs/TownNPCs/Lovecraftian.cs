@@ -10,19 +10,6 @@ namespace AAMod.NPCs.TownNPCs
     [AutoloadHead]
 	public class Lovecraftian : ModNPC
 	{
-
-        
-        private bool Purity = false;
-        private bool Snow = false;
-        private bool Desert = false;
-        private bool Corruption = false;
-        private bool Crimson = false;
-        private bool Inferno = false;
-        private bool Mire = false;
-        private bool Void = false;
-        private bool Hallow = false;
-
-
         public override string Texture
 		{
 			get
@@ -46,7 +33,7 @@ namespace AAMod.NPCs.TownNPCs
             NPCID.Sets.AttackType[npc.type] = 0;
             NPCID.Sets.AttackTime[npc.type] = 40;
             NPCID.Sets.AttackAverageChance[npc.type] = 20;
-            NPCID.Sets.HatOffsetY[npc.type] = 0;
+            NPCID.Sets.HatOffsetY[npc.type] = 3;
         }
 
         public override void SetDefaults()
@@ -54,7 +41,7 @@ namespace AAMod.NPCs.TownNPCs
             npc.townNPC = true;
             npc.friendly = true;
             npc.width = 18;
-            npc.height = 56;
+            npc.height = 40;
             npc.aiStyle = 7;
             npc.damage = 40;
             npc.defense = 38;
@@ -126,9 +113,7 @@ namespace AAMod.NPCs.TownNPCs
 
             chat.Add("Ever just find things in your tentacles that you don’t know how they got there? No? Just me?");
 
-            //chat.Add("Hey, your world is pretty interesting. Could you bring me some samples from different biomes for me to study ? If you do, I can make some neat stuff to trade with you.");
-
-            
+            chat.Add("Hey, your world is pretty interesting. Could you bring me some samples from different biomes for me to study ? If you do, I can make some neat stuff to trade with you.");
             
 
             //If Pirate is present
@@ -141,7 +126,7 @@ namespace AAMod.NPCs.TownNPCs
 
             if (Mutant >= 0)
             {
-                chat.Add("That " + Main.npc[Mutant].GivenName + " is talking out of his ass. Cthulhu would most likely squash him without any effort.");
+                chat.Add("That " + Main.npc[Mutant].GivenName + " is talking out of his ass. Cthulhu would most likely squash him before he could even say *ech*.");
             }
 
             //If Horde Zombie is present
@@ -158,9 +143,6 @@ namespace AAMod.NPCs.TownNPCs
             }
 
             //Providing materials
-
-            //Purity
-            //chat.Add("Thanks. These forests are so green, reminds me of home... Except where I'm from, it's green everywhere.");
 
             return chat; // chat is implicitly cast to a string. You can also do "return chat.Get();" if that makes you feel better
         }
@@ -340,7 +322,7 @@ namespace AAMod.NPCs.TownNPCs
                     {
                         Main.npcChatText = "Wow this is heavy! What is this? I've never seen this kind of metal before. Oh right. New flask. Here.";
                         player.QuickSpawnItem(mod.ItemType("VoidFlask"), 5);
-                        Main.npcChatCornerItem = mod.ItemType("VoidFlask");
+                        Main.npcChatCornerItem = mod.ItemType("Z");
                     }
 					if(Main.netMode == 1)
 					{
@@ -484,11 +466,6 @@ namespace AAMod.NPCs.TownNPCs
             if (AAWorld.squid10 >= 5)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Flasks.GlowingSporeSac>());
-                nextSlot++;
-            }
-            if (AAWorld.squid2 >= 5 && AAWorld.squid3 >= 5)
-            {
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Flasks.OrderBottle>());
                 nextSlot++;
             }
         }

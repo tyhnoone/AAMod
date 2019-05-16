@@ -39,7 +39,6 @@ namespace AAMod.NPCs.Bosses.Retriever
             npc.DeathSound = new LegacySoundStyle(4, 14, Terraria.Audio.SoundType.Sound);
             npc.netAlways = true;
             bossBag = mod.ItemType("RetrieverBag");
-            npc.netAlways = true;
 
             music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Siege");
         }
@@ -156,6 +155,9 @@ namespace AAMod.NPCs.Bosses.Retriever
         public override void AI()
         {
             Player targetPlayer = Main.player[npc.target];
+            color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
+
+            Lighting.AddLight(npc.Center, color.R / 255, color.G / 255, color.B / 255);
 
             if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
             {

@@ -10,7 +10,8 @@ namespace AAMod.Items.Blocks
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Equinox Worms Music Box");
-            Tooltip.SetDefault(@"Plays 'Symphony of the Stars' by OmegaFerretMusic");
+            Tooltip.SetDefault(@"Plays 'Lunala Battle' by Emdasche
+Remix by Charlie Debnam");
         }
 
 		public override void SetDefaults()
@@ -58,7 +59,7 @@ namespace AAMod.Items.Blocks
                 recipe.AddIngredient(ItemID.MusicBox);
                 recipe.AddIngredient(null, "DarkMatter", 5);
                 recipe.AddIngredient(null, "RadiumBar", 5);
-                recipe.AddTile(ItemID.Sawmill);
+                recipe.AddTile(TileID.Sawmill);
                 recipe.SetResult(this);
                 recipe.AddRecipe();
             }

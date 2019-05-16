@@ -44,7 +44,7 @@ A dark hood infused with the shadow of midnight");
 			player.setBonus = @"Slash and Stalk.
 18% increased Melee and Ranged damage
 25% decreased ammo consumption
-Press the Ability key to go into stealth mode
+Double tap down to go into stealth mode
 Movement is not impeded while in stealth mode
 Melee and Ranged damage increased while in stealth";
             player.rangedDamage += .2f;

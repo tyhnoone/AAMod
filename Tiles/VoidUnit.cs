@@ -46,11 +46,6 @@ namespace AAMod.Tiles
             frameCounter = Main.tileFrameCounter[TileID.LunarMonolith];
         }
 
-        public Color GetColor(Color color)
-        {
-            return AAColor.ZeroShield;
-        }
-
         public override void RightClick(int i, int j)
         {
             Main.PlaySound(SoundID.Mech, i * 16, j * 16, 0);

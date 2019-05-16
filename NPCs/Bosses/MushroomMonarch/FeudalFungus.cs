@@ -71,7 +71,6 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             bossBag = mod.ItemType("FungusBag");
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Fungus");
             npc.alpha = 255;
-            npc.netAlways = true;
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
@@ -196,8 +195,10 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
 
         public override void BossLoot(ref string name, ref int potionType)
         {   //boss drops
+            potionType = ItemID.ManaPotion;
             AAWorld.downedFungus = true;
             Projectile.NewProjectile(npc.Center, npc.velocity, mod.ProjectileType("FungusIGoNow"), 0, 0, 255, npc.scale);
+            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GlowingSporeSac"), Main.rand.Next(30, 35));
             if (Main.expertMode == true)
             {
                 npc.DropBossBags();

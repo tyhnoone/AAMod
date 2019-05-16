@@ -11,8 +11,7 @@ namespace AAMod.Items.Dev
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Soul Siphon");
-			Tooltip.SetDefault(@"Projectiles siphon the target's health to heal you.
-'Gamer.'
+			Tooltip.SetDefault(@"I swear if you ask me for a song one more time...
 -Charlie");
 		}
 		public override void SetDefaults()

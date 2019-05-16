@@ -26,13 +26,6 @@ namespace AAMod.Tiles
             AddMapEntry(new Color(200, 200, 200), name);
 		}
 
-        public Texture2D glowTex = null;
-
-        public Color GetColor(Color color)
-        {
-            return AAColor.ZeroShield;
-        }
-
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(i * 16, j * 16, 16, 48, mod.ItemType("ZeroBox"));

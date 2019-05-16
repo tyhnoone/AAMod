@@ -19,8 +19,8 @@ namespace AAMod.NPCs.Enemies.Inferno
         public override void SetDefaults()
         {
             npc.lifeMax = 120;
-            npc.damage = 12;
-            npc.defense = 6;
+            npc.damage = 25;
+            npc.defense = 10;
             npc.knockBackResist = 0f;
             npc.value = Item.buyPrice(0, 0, 6, 45);
             npc.aiStyle = -1;
@@ -50,7 +50,7 @@ namespace AAMod.NPCs.Enemies.Inferno
 				npc.spriteDirection = (npc.Center.X < player.Center.X ? 1 : -1);	
 			}else
 			{
-				BaseMod.BaseAI.AIZombie(npc, ref npc.ai, false, true, -1, 0.1f, 2f, 5, 7, 120);	
+				BaseAI.AIZombie(npc, ref npc.ai, false, true, -1, 0.1f, 2f, 5, 7, 120);	
 				npc.spriteDirection = (npc.velocity.X > 0 ? 1 : -1);				
 			}
 

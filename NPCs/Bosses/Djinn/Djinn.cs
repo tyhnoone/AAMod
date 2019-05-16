@@ -19,8 +19,7 @@ namespace AAMod.NPCs.Bosses.Djinn
 		}
 
 		public override void SetDefaults()
-        {
-            npc.netAlways = true;
+		{
             npc.width = 70;
             npc.height = 80;
             npc.aiStyle = -1;

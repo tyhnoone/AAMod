@@ -32,7 +32,6 @@ namespace AAMod.NPCs.Bosses.Hydra
                 npc.buffImmune[k] = true;
             }
 			middleHead = true;
-            npc.netAlways = true;
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {

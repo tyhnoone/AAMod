@@ -54,7 +54,8 @@ namespace AAMod.NPCs.Bosses.Orthrus
             npc.defense = 99999999;
             npc.lifeMax = 28000;
             npc.value = Item.buyPrice(0, 10, 0, 0);
-            npc.DeathSound = new LegacySoundStyle(2, 88, Terraria.Audio.SoundType.Sound);
+            npc.HitSound = new LegacySoundStyle(3, 4, Terraria.Audio.SoundType.Sound);
+            npc.DeathSound = new LegacySoundStyle(4, 14, Terraria.Audio.SoundType.Sound);
             npc.knockBackResist = 0f;
             npc.boss = true;
             npc.netAlways = true;
@@ -62,7 +63,6 @@ namespace AAMod.NPCs.Bosses.Orthrus
             bossBag = mod.ItemType("OrthrusBag");
             npc.noTileCollide = false;
             music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Siege");
-            npc.netAlways = true;
         }
 
         public override void BossLoot(ref string name, ref int potionType)
@@ -97,30 +97,41 @@ namespace AAMod.NPCs.Bosses.Orthrus
         
         public Player playerTarget = null;
         public static int AISTATE_TURRET = 0, AISTATE_FLY = 1, AISTATE_RUNAWAY = 2;
-        public float[] internalAI = new float[4];
+        public float[] internalAI = new float[2];
 
         //clientside stuff
 		public int fWidth = 200;
 		public int fHeight = 102;
 
+        public Color color;
+
         public override void AI()
         {
 			npc.TargetClosest();
-			Player playerTarget = Main.player[npc.target];
-            if (HeadsSpawned && (!NPC.AnyNPCs(mod.NPCType<OrthrusHead1>()) || !NPC.AnyNPCs(mod.NPCType<OrthrusHead2>())))
+
+            if (!HeadsSpawned)
+            {
+                if (Main.netMode != 1)
+                {
+                    npc.realLife = npc.whoAmI;
+                    int latestNPC = npc.whoAmI;
+                    latestNPC = NPC.NewNPC((int)npc.Center.X + 34, (int)npc.Center.Y - 23, mod.NPCType("OrthrusHead1"), 0, npc.whoAmI);
+                    Main.npc[(int)latestNPC].realLife = npc.whoAmI;
+                    Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
+                    Head1 = Main.npc[latestNPC];
+                    latestNPC = NPC.NewNPC((int)npc.Center.X - 34, (int)npc.Center.Y - 23, mod.NPCType("OrthrusHead2"), 0, npc.whoAmI);
+                    Main.npc[(int)latestNPC].realLife = npc.whoAmI;
+                    Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
+                    Head2 = Main.npc[latestNPC];
+                }
+                HeadsSpawned = true;
+            }
+
+            Player playerTarget = Main.player[npc.target];
+            if (HeadsSpawned && (!NPC.AnyNPCs(mod.NPCType<OrthrusHead1>()) || !NPC.AnyNPCs(mod.NPCType<OrthrusHead2>())) && !playerTarget.dead)
             {
                 npc.NPCLoot();
                 npc.active = false;
-            }
-
-            if (Main.netMode != 2 && (Head1 == null || Head2 == null))
-            {
-                int head1ID = BaseMod.BaseAI.GetNPC(npc.Center, mod.NPCType<OrthrusHead1>(), 500f);
-                int head2ID = BaseMod.BaseAI.GetNPC(npc.Center, mod.NPCType<OrthrusHead2>(), 500f);
-                if (head1ID > -1)
-                    Head1 = Main.npc[head1ID];
-                if (head2ID > -1)
-                    Head2 = Main.npc[head2ID];
             }
 
             if (!playerTarget.active || playerTarget.dead) //fleeing
@@ -128,13 +139,14 @@ namespace AAMod.NPCs.Bosses.Orthrus
 	            npc.noGravity = true;	
 				npc.noTileCollide = true;				
 				npc.velocity.Y -= 0.5f;				
-				if(Main.netMode != 1)
+				if (Main.netMode != 1)
 				{
 					if(npc.position.Y + npc.height + npc.velocity.Y < 0) //if out of map, kill boss
 					{
-						BaseAI.KillNPC(npc); 
+                        npc.active = false; 
 						npc.netUpdate = true;
-					}else
+					}
+                    else
 					{
 						float oldAI = internalAI[1];	
 						internalAI[1] = AISTATE_FLY;					
@@ -162,22 +174,6 @@ namespace AAMod.NPCs.Bosses.Orthrus
 					npc.noGravity = false;		
 					npc.noTileCollide = false;				
 					npc.velocity.X *= 0.8f;
-					if (!HeadsSpawned)
-					{
-						if (Main.netMode != 1)
-						{
-							int latestNPC = npc.whoAmI;
-							latestNPC = NPC.NewNPC((int)npc.Center.X + 34, (int)npc.Center.Y - 23, mod.NPCType("OrthrusHead1"), 0, npc.whoAmI);
-							Main.npc[latestNPC].realLife = npc.whoAmI;
-							Main.npc[latestNPC].ai[0] = npc.whoAmI;
-							Head1 = Main.npc[latestNPC];
-							latestNPC = NPC.NewNPC((int)npc.Center.X - 34, (int)npc.Center.Y - 23, mod.NPCType("OrthrusHead2"), 0, npc.whoAmI);
-							Main.npc[latestNPC].realLife = npc.whoAmI;
-							Main.npc[latestNPC].ai[0] = npc.whoAmI;
-							Head2 = Main.npc[latestNPC];					
-						}
-						HeadsSpawned = true;
-					}
 					if (Math.Abs(playerTarget.Center.X - npc.Center.X) < 380f) 
 					{
 						
@@ -194,9 +190,10 @@ namespace AAMod.NPCs.Bosses.Orthrus
 							Head2.netUpdate = true;						
 						}
 					}
-				}else if (internalAI[1] == AISTATE_FLY)
+				}
+                else if (internalAI[1] == AISTATE_FLY)
 				{
-					npc.noGravity = true;	
+                    npc.noGravity = true;	
 					npc.noTileCollide = true;
 					if (Math.Abs(playerTarget.Center.X - npc.Center.X) > 380f || Collision.SolidCollision(npc.position, npc.width, npc.height)) //make it less then what makes it rise so it doesn't keep locking between them
 					{
@@ -208,10 +205,13 @@ namespace AAMod.NPCs.Bosses.Orthrus
 						playerTarget.Center += new Vector2(0f, 32f);						
 						int SHLOOPX = 34;
 						int SHLOOPY = 60;
-						Head1.Center = npc.Center + new Vector2(SHLOOPX, -SHLOOPY) + npc.velocity;
-						Head2.Center = npc.Center + new Vector2(-SHLOOPX, -SHLOOPY) + npc.velocity;
-					}
-					else if(Main.netMode != 1) //digs itself out of the ground
+                        if (Head1 != null && Head2 != null)
+                        {
+                            Head1.Center = npc.Center + new Vector2(SHLOOPX, -SHLOOPY) + npc.velocity;
+                            Head2.Center = npc.Center + new Vector2(-SHLOOPX, -SHLOOPY) + npc.velocity;
+                        }
+                    }
+                    else if (Main.netMode != 1) //digs itself out of the ground
 					{
 						internalAI[1] = AISTATE_TURRET;							
 						npc.netUpdate = true;
@@ -239,7 +239,8 @@ namespace AAMod.NPCs.Bosses.Orthrus
                         npc.frame.Y = 0;
                     }
                 }
-            }else //Following
+            }
+            else //Following
             {
 				npc.frameCounter++;				
                 if (npc.frameCounter >= 5)

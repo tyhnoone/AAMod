@@ -4,12 +4,35 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BaseMod;
+using AAMod.NPCs.Bosses.Yamata.Awakened;
+using Terraria.ID;
+using System.IO;
 
 namespace AAMod.NPCs.Bosses.Orthrus
 {
     [AutoloadBossHead]
     public class OrthrusHead1 : ModNPC
     {
+        public float[] internalAI = new float[2];
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            if ((Main.netMode == 2 || Main.dedServ))
+            {
+                writer.Write((float)internalAI[0]);
+                writer.Write((float)internalAI[1]);
+            }
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            if (Main.netMode == 1)
+            {
+                internalAI[0] = reader.ReadFloat();
+                internalAI[1] = reader.ReadFloat();
+            }
+        }
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Orthrus X");
@@ -32,7 +55,6 @@ namespace AAMod.NPCs.Bosses.Orthrus
             {
                 npc.buffImmune[k] = true;
             }
-            npc.netAlways = true;
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -81,10 +103,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
             }
             if (!bodyNPC.active)
             {
-                if (npc.timeLeft > 10)
-                {
-                    npc.timeLeft = 10;
-                }
+                npc.active = false;
                 return;
             }
             npc.realLife = bodyNPC.whoAmI;
@@ -125,13 +144,11 @@ namespace AAMod.NPCs.Bosses.Orthrus
                             }
                             else
                             {
-								//DONT CHANGE VELOCITY HERE OR IT WILL BREAK!
                                 Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, mod.ProjectileType("Shocking"), (int)(damage * 1.3f), 0f, Main.myPlayer);
                             }
                         }
                     }
-                    else
-                    if (npc.ai[1] >= 200) //pick random spot to move head to
+                    else if (npc.ai[1] >= 200) //pick random spot to move head to
                     {
                         npc.ai[1] = 0;
                         npc.ai[2] = Main.rand.Next(-movementVariance, movementVariance);

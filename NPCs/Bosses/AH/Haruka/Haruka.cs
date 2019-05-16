@@ -43,7 +43,6 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/AH");
             npc.noGravity = true;
             bossBag = mod.ItemType("AHBag");
-            npc.netAlways = true;
         }
 
 
@@ -106,6 +105,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
                 int lootH = Main.rand.Next(lootTableH.Length);
                 npc.DropLoot(mod.ItemType(lootTableH[lootH]));
             }
+            NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<HarukaVanish>());
             Main.NewText("Rgh..! Ow...", new Color(72, 78, 117));
             npc.value = 0f;
             npc.boss = false;
@@ -385,7 +385,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
 
                 if (SelectPoint)
                 {
-                    float Point = 500 * npc.direction;
+                    float Point = 500 * -npc.direction;
                     MovePoint = player.Center + new Vector2(Point, 0);
                     SelectPoint = false;
                     npc.netUpdate = true;
@@ -501,7 +501,6 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
         }
-
 
         public override void BossLoot(ref string name, ref int potionType)
         {

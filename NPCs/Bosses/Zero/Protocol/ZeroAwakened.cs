@@ -55,7 +55,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 npc.buffImmune[k] = true;
             }
 
-            if (AAWorld.downedShen)
+            if (AAWorld.downedAllAncients)
             {
                 npc.lifeMax = 220000;
                 npc.damage = 160;
@@ -80,7 +80,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EXSoul"));
                 }
-                if (Main.rand.NextFloat() < 0.05f && AAWorld.RealityDropped == false && AAWorld.downedShen)
+                if (Main.rand.NextFloat() < 0.05f && AAWorld.RealityDropped == false && AAWorld.downedAllAncients)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RealityStone"));
                     AAWorld.RealityDropped = true;
@@ -91,9 +91,16 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
-            potionType = ItemID.SuperHealingPotion;   //boss drops
-            AAWorld.downedZero = true;
-            Projectile.NewProjectile((new Vector2(npc.Center.X, npc.Center.Y)), (new Vector2(0f, 0f)), mod.ProjectileType("ZeroDeath1"), 0, 0);
+            if (Main.expertMode)
+            {
+                potionType = ItemID.SuperHealingPotion;
+                AAWorld.downedZero = true;
+                Projectile.NewProjectile((new Vector2(npc.Center.X, npc.Center.Y)), (new Vector2(0f, 0f)), mod.ProjectileType("ZeroDeath1"), 0, 0);
+            }
+            else
+            {
+                potionType = 0;
+            }
         }
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

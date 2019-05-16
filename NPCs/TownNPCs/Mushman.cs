@@ -25,14 +25,14 @@ namespace AAMod.NPCs.TownNPCs
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 23;
+            Main.npcFrameCount[npc.type] = 26;
             NPCID.Sets.ExtraFramesCount[npc.type] = 7;
             NPCID.Sets.AttackFrameCount[npc.type] = 3;
             NPCID.Sets.DangerDetectRange[npc.type] = 700;
             NPCID.Sets.AttackType[npc.type] = 0;
             NPCID.Sets.AttackTime[npc.type] = 40;
             NPCID.Sets.AttackAverageChance[npc.type] = 20;
-            NPCID.Sets.HatOffsetY[npc.type] = 0;
+            NPCID.Sets.HatOffsetY[npc.type] = -3;
         }
 
         public override void SetDefaults()
@@ -49,6 +49,28 @@ namespace AAMod.NPCs.TownNPCs
             npc.DeathSound = SoundID.NPCDeath1;
             npc.knockBackResist = 0.5f;
             animationType = NPCID.Truffle;
+        }
+
+        public override bool CheckConditions(int left, int right, int top, int bottom)
+        {
+            int score = 0;
+            for (int x = left; x <= right; x++)
+            {
+                for (int y = top; y <= bottom; y++)
+                {
+                    int type = Main.tile[x, y].type;
+                    int wall = Main.tile[x, y].wall;
+                    if (type == mod.TileType("Mycelium") || wall == mod.WallType<Walls.Mushwall>())
+                    {
+                        score++;
+                    }
+                    if (Main.tile[x, y].wall == mod.WallType("ExampleWall"))
+                    {
+                        score++;
+                    }
+                }
+            }
+            return score >= (right - left) * (bottom - top) / 2;
         }
 
 
@@ -122,50 +144,100 @@ namespace AAMod.NPCs.TownNPCs
                 Player player = Main.LocalPlayer;
                 AAPlayer p = player.GetModPlayer<AAPlayer>(mod);
 
+                int Special = player.FindItem(mod.ItemType("Mushplant"));
+                int Special2 = player.FindItem(mod.ItemType("Shroomplant"));
                 int Item = player.FindItem(ItemID.StrangePlant1);
                 int Item2 = player.FindItem(ItemID.StrangePlant2);
                 int Item3 = player.FindItem(ItemID.StrangePlant3);
                 int Item4 = player.FindItem(ItemID.StrangePlant4);
 
+                string[] lootTable = { "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Brown", "Gray", "Pink" };
+                int loot = Main.rand.Next(lootTable.Length);
 
-                if (Item >= 0 || Item2 >= 0 || Item3 >= 0 || Item4 >= 0)
+                if (Special >= 0)
                 {
-                    if (Item >= 0) //Item 1: 3 Blueberries
+                    player.inventory[Special].stack--;
+                    if (player.inventory[Special].stack <= 0)
                     {
-                        player.inventory[Item].stack--;
-                        if (player.inventory[Item].stack <= 0)
-                        {
-                            player.inventory[Item] = new Item();
-                        }
-                        GibShroom();
+                        player.inventory[Special] = new Item();
                     }
-                    else if (Item2 >= 0)
+
+                    Main.npcChatText = SpecialChat();
+                    player.QuickSpawnItem(mod.ItemType<Items.Mushrooms.Rainbow>(), 3);
+
+                    Main.PlaySound(24, -1, -1, 1);
+                    return;
+                }
+                else if (Special2 >= 0)
+                {
+                    player.inventory[Special2].stack--;
+                    if (player.inventory[Special2].stack <= 0)
                     {
-                        player.inventory[Item2].stack--;
-                        if (player.inventory[Item2].stack <= 0)
-                        {
-                            player.inventory[Item2] = new Item();
-                        }
-                        GibShroom();
+                        player.inventory[Special2] = new Item();
                     }
-                    else if (Item3 >= 0)
+
+                    Main.npcChatText = SpecialChat();
+                    player.QuickSpawnItem(mod.ItemType(lootTable[loot]), 3);
+
+                    Main.PlaySound(24, -1, -1, 1);
+                    return;
+                }
+
+                if (Item >= 0)
+                {
+                    player.inventory[Item].stack--;
+                    if (player.inventory[Item].stack <= 0)
                     {
-                        player.inventory[Item3].stack--;
-                        if (player.inventory[Item3].stack <= 0)
-                        {
-                            player.inventory[Item3] = new Item();
-                        }
-                        GibShroom();
+                        player.inventory[Item] = new Item();
                     }
-                    else if (Item4 >= 0)
+
+                    Main.npcChatText = MushroomChat();
+                    player.QuickSpawnItem(mod.ItemType(lootTable[loot]), 3);
+
+                    Main.PlaySound(24, -1, -1, 1);
+                    return;
+                }
+                else if (Item2 >= 0)
+                {
+                    player.inventory[Item2].stack--;
+                    if (player.inventory[Item2].stack <= 0)
                     {
-                        player.inventory[Item4].stack--;
-                        if (player.inventory[Item4].stack <= 0)
-                        {
-                            player.inventory[Item4] = new Item();
-                        }
-                        GibShroom();
+                        player.inventory[Item2] = new Item();
                     }
+
+                    Main.npcChatText = MushroomChat();
+                    player.QuickSpawnItem(mod.ItemType(lootTable[loot]), 3);
+
+                    Main.PlaySound(24, -1, -1, 1);
+                    return;
+                }
+                else if (Item3 >= 0)
+                {
+                    player.inventory[Item3].stack--;
+                    if (player.inventory[Item3].stack <= 0)
+                    {
+                        player.inventory[Item3] = new Item();
+                    }
+
+                    Main.npcChatText = MushroomChat();
+                    player.QuickSpawnItem(mod.ItemType(lootTable[loot]), 3);
+
+                    Main.PlaySound(24, -1, -1, 1);
+                    return;
+                }
+                else if (Item4 >= 0)
+                {
+                    player.inventory[Item4].stack--;
+                    if (player.inventory[Item4].stack <= 0)
+                    {
+                        player.inventory[Item4] = new Item();
+                    }
+
+                    Main.npcChatText = MushroomChat();
+                    player.QuickSpawnItem(mod.ItemType(lootTable[loot]), 3);
+
+                    Main.PlaySound(24, -1, -1, 1);
+                    return;
                 }
                 else
                 {
@@ -176,34 +248,21 @@ namespace AAMod.NPCs.TownNPCs
             }
         }
 
-        public void GibShroom()
-        {
-            Player player = Main.LocalPlayer;
-            AAPlayer p = player.GetModPlayer<AAPlayer>(mod);
-
-            string[] lootTable = { "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Brown", "Gray", "Pink" };
-            int loot = Main.rand.Next(lootTable.Length);
-            int loot1 = Main.rand.Next(lootTable.Length);
-            int loot2 = Main.rand.Next(lootTable.Length);
-            int loot3 = Main.rand.Next(lootTable.Length);
-            int loot4 = Main.rand.Next(lootTable.Length);
-
-            Main.npcChatText = MushroomChat();
-
-            player.QuickSpawnItem(mod.ItemType(lootTable[loot]));
-            player.QuickSpawnItem(mod.ItemType(lootTable[loot1]));
-            player.QuickSpawnItem(mod.ItemType(lootTable[loot2]));
-            player.QuickSpawnItem(mod.ItemType(lootTable[loot3]));
-            player.QuickSpawnItem(mod.ItemType(lootTable[loot4]));
-            Main.PlaySound(24, -1, -1, 1);
-        }
-
         public string NoMushroomChat()
         {
             WeightedRandom<string> chat = new WeightedRandom<string>();
             chat.Add("I need strange plants for something. Bring me some and I'll give you some special alchemical mushrooms. Good for making potions.");
             chat.Add("...no plants?");
             chat.Add("Plants please. I won't give you mushrooms without them.");
+            return chat;
+        }
+
+        public string SpecialChat()
+        {
+            WeightedRandom<string> chat = new WeightedRandom<string>();
+            chat.Add("Ooh..! I like this one! Reminds me of home. Here's a special kind mushroom for payment. This one is really useful. Just...don't eat it directly.");
+            chat.Add("Oh, one of these! These ones I like a lot. Here, have a few rainbow shrooms.");
+            chat.Add("You can find these in both mushroom biomes, you know. Make sure to check both of them just in case.");
             return chat;
         }
 
@@ -221,6 +280,10 @@ namespace AAMod.NPCs.TownNPCs
             shop.item[nextSlot].SetDefaults(ItemID.Mushroom);
             nextSlot++;
             shop.item[nextSlot].SetDefaults(mod.ItemType("SporeSac"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(ItemID.RecallPotion);
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(ItemID.WormholePotion);
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.GlowingMushroom);
             nextSlot++;

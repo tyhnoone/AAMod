@@ -30,6 +30,7 @@ namespace AAMod.Projectiles
             projectile.alpha = 130;
             projectile.scale = .01f;
             projectile.alpha = 255;
+            projectile.tileCollide = false;
         }
 
         private float RingRotation = 0f;
@@ -67,7 +68,7 @@ namespace AAMod.Projectiles
 
         public override bool PreDraw(SpriteBatch spritebatch, Color lightColor)
         {
-            Texture2D Tex = Main.npcTexture[projectile.type];
+            Texture2D Tex = Main.projectileTexture[projectile.type];
             Texture2D Vortex = mod.GetTexture("Projectiles/SingularityVortex1");
             Rectangle frame = new Rectangle(0, 0, Tex.Width, Tex.Height);
             BaseDrawing.DrawTexture(spritebatch, Vortex, 0, projectile.position, projectile.width, projectile.height, projectile.scale, RingRotation, 0, 1, frame, projectile.GetAlpha(GenericUtils.COLOR_GLOWPULSE), true);

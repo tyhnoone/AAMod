@@ -42,7 +42,6 @@ namespace AAMod.NPCs.Bosses.Serpent
             npc.boss = true;
             bossBag = mod.ItemType<Items.Boss.Serpent.SerpentBag>();
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Boss6");
-            npc.netAlways = true;
         }
 
         private bool fireAttack;
