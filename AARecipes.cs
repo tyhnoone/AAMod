@@ -824,6 +824,16 @@ namespace AAMod
 
             TransmuteRecipe((short)AAMod.instance.ItemType("Abyssium"), (short)AAMod.instance.ItemType("Incinerite"));
             #endregion
+
+            #region Other
+
+            Mod GRealm = ModLoader.GetMod("Grealm");
+
+            if (GRealm != null)
+            {
+                TransmuteRecipe((short)GRealm.ItemType("CursedShards"), (short)GRealm.ItemType("CrimsonShards"));
+            }
+            #endregion
         }
 
         private static void TransmuteRecipe(short item, short item2)
