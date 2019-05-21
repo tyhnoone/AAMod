@@ -8,7 +8,8 @@ using BaseMod;
 
 namespace AAMod.NPCs.Bosses.Zero
 {
-	public class ZeroDeactivated : ModNPC
+    [AutoloadBossHead]
+    public class ZeroDeactivated : ModNPC
 	{
         public static int ZeroShieldStrength = 0;
         public override void SetStaticDefaults()
