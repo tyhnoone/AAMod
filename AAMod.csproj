@@ -835,11 +835,15 @@
     <Compile Include="Items\Boss\Zero\ZeroTerratool_Hammer.cs" />
     <Compile Include="Items\Boss\Zero\ZeroTrophy.cs" />
     <Compile Include="Items\Currency\GoblinSoul.cs" />
+    <Compile Include="Items\DevTools\AAUndowner.cs" />
     <Compile Include="Items\DevTools\Anticheat.cs" />
     <Compile Include="Items\DevTools\ChaosConverter.cs" />
+    <Compile Include="Items\DevTools\HardmodeUndowner.cs" />
     <Compile Include="Items\DevTools\Noodle.cs" />
     <Compile Include="Items\DevTools\NoodleSword.cs" />
     <Compile Include="Items\DevTools\DevRadar.cs" />
+    <Compile Include="Items\DevTools\TerrariaUndowner.cs" />
+    <Compile Include="Items\DevTools\Undowner.cs" />
     <Compile Include="Items\Dev\SoulSiphon.cs" />
     <Compile Include="Items\Dev\AmphibianLongsword.cs" />
     <Compile Include="Items\Dev\AmphibianLongswordEX.cs" />
@@ -4069,6 +4073,10 @@
     <Content Include="Items\Boss\Truffle\MetallicTruffle.png" />
     <Content Include="Items\Boss\Truffle\TruffleBag.png" />
     <Content Include="Items\Boss\Zero\DoomPortal.png" />
+    <Content Include="Items\DevTools\AAUndowner.png" />
+    <Content Include="Items\DevTools\HardmodeUndowner.png" />
+    <Content Include="Items\DevTools\TerrariaUndowner.png" />
+    <Content Include="Items\DevTools\Undowner.png" />
     <Content Include="Items\Flasks\AshJar.png" />
     <Content Include="Items\Flasks\CorruptionFlask.png" />
     <Content Include="Items\Flasks\CrimsonFlask.png" />
