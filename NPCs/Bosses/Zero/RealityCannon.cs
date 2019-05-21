@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Zero
 {
+    [AutoloadBossHead]
     public class RealityCannon : ModNPC
     {
 
@@ -20,7 +21,7 @@ namespace AAMod.NPCs.Bosses.Zero
         {
             npc.width = 40;
             npc.height = 70;
-            npc.damage = 30;
+            npc.damage = 70;
             npc.defense = 40;
             npc.lifeMax = 37500;
             npc.HitSound = SoundID.NPCHit4;
@@ -271,6 +272,11 @@ namespace AAMod.NPCs.Bosses.Zero
         {
             Texture2D glowTex = mod.GetTexture("Glowmasks/RealityCannonZ");
             BaseMod.BaseDrawing.DrawTexture(spriteBatch, glowTex, 0, npc, GenericUtils.COLOR_GLOWPULSE);
+        }
+
+        public override void BossHeadRotation(ref float rotation)
+        {
+            rotation = npc.rotation;
         }
     }
 }

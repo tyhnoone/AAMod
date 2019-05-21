@@ -155,9 +155,9 @@ namespace AAMod.NPCs.Bosses.Retriever
         public override void AI()
         {
             Player targetPlayer = Main.player[npc.target];
-            color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
+            color = BaseUtility.MultiLerpColor(Main.player[Main.myPlayer].miscCounter % 100 / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
 
-            Lighting.AddLight(npc.Center, color.R / 255, color.G / 255, color.B / 255);
+            Lighting.AddLight((int)(npc.Center.X + (npc.width / 2)) / 16, (int)(npc.position.Y + (npc.height / 2)) / 16, color.R / 255, color.G / 255, color.B / 255);
 
             if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
             {
@@ -174,6 +174,7 @@ namespace AAMod.NPCs.Bosses.Retriever
             if (Main.dayTime)
             {
                 npc.velocity.Y -= 4;
+                npc.netUpdate = true;
                 if (npc.position.Y + npc.velocity.Y <= 0f && Main.netMode != 1) { BaseAI.KillNPC(npc); npc.netUpdate2 = true; }
                 return;
             }
@@ -238,6 +239,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                     Player player = Main.player[npc.target];
 
                     BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjectileType<RetrieverShot>(), ref customAI[3], 5, npc.damage / 2, 12);
+                    npc.netUpdate = true;
                     return;
                 }
                 else if (customAI[0] >= 59)
@@ -310,8 +312,6 @@ namespace AAMod.NPCs.Bosses.Retriever
                 MoveToPoint(point);
                 if (Main.netMode != 1 && Vector2.Distance(npc.Center, point) < 10f)
                 {
-                    bool doubleDive = (npc.life < npc.lifeMax / 2);
-
                     npc.ai[0] = Dive1 ? 3 : 0;
                     npc.ai[1] = Dive1 ? targetPlayer.Center.X : 0;
                     npc.ai[2] = Dive1 ? targetPlayer.Center.Y : 0;

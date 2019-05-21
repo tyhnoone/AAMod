@@ -16,6 +16,7 @@ namespace AAMod.Tiles
             SetModTree(new MushroomTree());
             Main.tileBlendAll[this.Type] = true;
             TileID.Sets.NeedsGrassFraming[Type] = true;
+            drop = ItemID.DirtBlock;
             dustType = mod.DustType("Mushdust");
 			AddMapEntry(new Color(100, 100, 0));
 		}

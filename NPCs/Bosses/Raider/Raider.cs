@@ -18,7 +18,6 @@ namespace AAMod.NPCs.Bosses.Raider
         {
             DisplayName.SetDefault("The Raider Ultima");
             Main.npcFrameCount[npc.type] = 8;
-
         }
 
         public override void SetDefaults()
@@ -56,12 +55,12 @@ namespace AAMod.NPCs.Bosses.Raider
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((float)internalAI[0]);
-                writer.Write((float)internalAI[1]);
-                writer.Write((float)internalAI[2]);
-                writer.Write((float)internalAI[3]);
-                writer.Write((float)internalAI[4]);
-                writer.Write((float)internalAI[5]);
+                writer.Write(internalAI[0]);
+                writer.Write(internalAI[1]);
+                writer.Write(internalAI[2]);
+                writer.Write(internalAI[3]);
+                writer.Write(internalAI[4]);
+                writer.Write(internalAI[5]);
             }
         }
 
@@ -208,8 +207,9 @@ namespace AAMod.NPCs.Bosses.Raider
             Player player = Main.player[npc.target];
 
             int Minions = NPC.CountNPCS(mod.NPCType<RaidEgg>()) + NPC.CountNPCS(mod.NPCType<Raidmini>());
-            color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
-            Lighting.AddLight(npc.Center, color.R / 255, color.G / 255, color.B / 255);
+            color = BaseUtility.MultiLerpColor(Main.player[Main.myPlayer].miscCounter % 100 / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
+
+            Lighting.AddLight((int)(npc.Center.X + (npc.width / 2)) / 16, (int)(npc.position.Y + (npc.height / 2)) / 16, color.R / 255, color.G / 255, color.B / 255);
 
             if (Main.netMode != 1 && internalAI[0]++ >= 180)
             {
@@ -241,10 +241,9 @@ namespace AAMod.NPCs.Bosses.Raider
                 {
                     internalAI[1] = AISTATE_RUNAWAY;
                     npc.ai = new float[4];
+                    npc.netUpdate = true;
                 }
             }
-
-            
 
             if (internalAI[1] == AISTATE_RUNAWAY)
             {
@@ -286,14 +285,13 @@ namespace AAMod.NPCs.Bosses.Raider
                 {
                     internalAI[2]++;
                     float spread = 12f * 0.0174f;
-                    double startAngle = Math.Atan2(npc.velocity.X, npc.velocity.Y) - spread / 2;
-                    double deltaAngle = spread / (Main.expertMode ? 5 : 4);
                     if (!NPC.AnyNPCs(mod.NPCType("RaidRocket")))
                     {
                         for (int i = 0; i < (Main.expertMode ? 5 : 4); i++)
                         {
                             NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("RaidRocket"), 0);
                         }
+                        npc.netUpdate = true;
                     }
                     if (internalAI[2] > 90)
                     {
@@ -323,6 +321,7 @@ namespace AAMod.NPCs.Bosses.Raider
                             Main.npc[NPCID].velocity.Y = 4f;
                             Main.npc[NPCID].netUpdate = true;
                         }
+                        npc.netUpdate = true;
                     }
                 }
             }

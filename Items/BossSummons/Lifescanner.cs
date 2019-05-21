@@ -39,11 +39,6 @@ Can only be used in the Void");
 
         public override bool CanUseItem(Player player)
         {
-            if (!NPC.downedBoss3)
-            {
-                if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The Lifescanner isn't active yet.", new Color(216, 60, 0), false);
-                return false;
-            }
             if (!player.GetModPlayer<AAPlayer>(mod).ZoneVoid)
             {
                 if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("The Lifescanner doesn't do anything.", new Color(216, 60, 0), false);
@@ -61,7 +56,6 @@ Can only be used in the Void");
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DoomiteScrap", 10);
-            recipe.AddIngredient(ItemID.Bone, 5);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this, 1);
             recipe.AddRecipe();

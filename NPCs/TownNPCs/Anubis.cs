@@ -92,7 +92,6 @@ namespace AAMod.NPCs.TownNPCs
         public static bool Hydra = false;
         public static bool Djinn = false;
         public static bool Serpent = false;
-        public static bool Sag = false;
         public static bool Retriever = false;
         public static bool Raider = false;
         public static bool Orthrus = false;
@@ -118,7 +117,6 @@ namespace AAMod.NPCs.TownNPCs
             Hydra = false;
             Djinn = false;
             Serpent = false;
-            Sag = false;
             Raider = false;
             Retriever = false;
             Orthrus = false;
@@ -151,8 +149,6 @@ namespace AAMod.NPCs.TownNPCs
             string DjinnT = "3 Wishes";
 
             string SerpentT = "Snakes. Why is it always snakes?";
-
-            string SagT = "Pretty Pony";
 
             string RetT = "Gotcha'";
 
@@ -218,62 +214,57 @@ namespace AAMod.NPCs.TownNPCs
                 button2 = SerpentT;
                 Serpent = true;
             }
-            else if (ChatNumber == 8 && NPC.downedBoss3)
-            {
-                button2 = SagT;
-                Sag = true;
-            }
-            else if (ChatNumber == 9 && Main.hardMode)
+            else if (ChatNumber == 8 && Main.hardMode)
             {
                 button2 = RetT;
                 Retriever = true;
             }
-            else if (ChatNumber == 10 && Main.hardMode)
+            else if (ChatNumber == 9 && Main.hardMode)
             {
                 button2 = RaidT;
                 Raider = true;
             }
-            else if (ChatNumber == 11 && Main.hardMode)
+            else if (ChatNumber == 10 && Main.hardMode)
             {
                 button2 = OrthrusT;
                 Orthrus = true;
             }
-            else if (ChatNumber == 12 && NPC.downedMoonlord)
+            else if (ChatNumber == 11 && NPC.downedMoonlord)
             {
                 button2 = EquinoxT;
                 Equinox = true;
             }
-            else if (ChatNumber == 13 && NPC.downedMoonlord)
+            else if (ChatNumber == 12 && NPC.downedMoonlord)
             {
                 button2 = AnubisT;
                 AnubisB = true;
             }
-            else if (ChatNumber == 14 && NPC.downedMoonlord && AAWorld.downedEquinox)
+            else if (ChatNumber == 13 && NPC.downedMoonlord && AAWorld.downedEquinox)
             {
                 button2 = SistersT;
                 Sisters = true;
             }
-            else if (ChatNumber == 15 && NPC.downedMoonlord && AAWorld.downedSisters)
+            else if (ChatNumber == 14 && NPC.downedMoonlord && AAWorld.downedSisters)
             {
                 button2 = AkumaT;
                 Akuma = true;
             }
-            else if (ChatNumber == 16 && NPC.downedMoonlord && AAWorld.downedSisters)
+            else if (ChatNumber == 15 && NPC.downedMoonlord && AAWorld.downedSisters)
             {
                 button2 = YamataT;
                 Yamata = true;
             }
-            else if (ChatNumber == 17 && NPC.downedMoonlord && AAWorld.downedNC)
+            else if (ChatNumber == 16 && NPC.downedMoonlord && AAWorld.downedNC)
             {
                 button2 = ZeroT;
                 Zero = true;
             }
-            else if (ChatNumber == 18 && AAWorld.downedAllAncients)
+            else if (ChatNumber == 17 && AAWorld.downedAllAncients)
             {
                 button2 = ShenT;
                 Shen = true;
             }
-            else if (ChatNumber == 19 && AAWorld.downedAllAncients)
+            else if (ChatNumber == 18 && AAWorld.downedShen)
             {
                 button2 = StonesT;
                 Stones = true;
@@ -361,11 +352,6 @@ namespace AAMod.NPCs.TownNPCs
             {
                 return AAWorld.downedSerpent ? "Hope you didn't get any 'FROSTBITES'! *buh-dum-tish* ...yeah I know that was lame." : 
                     "Snakes, why does it always have to be snakes? I hate 'em! Whatever, in the tundra recently, there have been these snow snerpents that won't leave me alone. Could ya play exterminator and find out what they're doing?";
-            }
-            else if (Sag)
-            {
-                return AAWorld.downedSag ? "Nice job, you killed it. I would give you a sticker if I had one." :
-                    "You know those creepy floating islands to the east? Yeah, uh...there's a flying horse up there. I'm dead serious. Just go check for youself. Also, watch out for that floating...thing in there. I don't like it one bit.";
             }
             else if (Retriever)
             {

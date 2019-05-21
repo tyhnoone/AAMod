@@ -93,7 +93,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 npc.buffImmune[k] = true;
             }
-            if (AAWorld.downedAllAncients)
+            if (AAWorld.downedShen)
             {
                 npc.lifeMax = 250000;
             }
@@ -127,7 +127,7 @@ namespace AAMod.NPCs.Bosses.Yamata
 
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
         {
-            damage = 0;
+            projectile.damage = 0;
         }
 
         public bool Dead = false;
@@ -152,7 +152,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                     {
                         Main.NewText("The defeat of Yamata causes the fog in the mire to lift.", Color.Indigo);
                     }
-                    if (Main.rand.Next(20) == 0 && AAWorld.SpaceDropped == false && AAWorld.downedAllAncients)
+                    if (Main.rand.Next(20) == 0 && AAWorld.SpaceDropped == false && AAWorld.downedShen)
                     {
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SpaceStone"));
                         AAWorld.SpaceDropped = true;
@@ -209,55 +209,69 @@ namespace AAMod.NPCs.Bosses.Yamata
 					if(isAwakened)
 					{
 						npc.realLife = npc.whoAmI;
-						int latestNPC = npc.whoAmI;
+						int latestNPC;
 						latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHead"), 0, npc.whoAmI);
 						Main.npc[(int)latestNPC].realLife = npc.whoAmI;
 						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
 						TrueHead = Main.npc[latestNPC];
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF1"), 0, npc.whoAmI);
                         Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
                         Head2 = Main.npc[latestNPC];
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF1"), 0, npc.whoAmI);
                         Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
                         Head3 = Main.npc[latestNPC];
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF1"), 0, npc.whoAmI);
                         Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
                         Head4 = Main.npc[latestNPC];
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF2"), 0, npc.whoAmI);
                         Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
                         Head5 = Main.npc[latestNPC];
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF2"), 0, npc.whoAmI);
                         Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
                         Head6 = Main.npc[latestNPC];
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF2"), 0, npc.whoAmI);
                         Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
                         Head7 = Main.npc[latestNPC];
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
                     }
                     else
 					{
-						int latestNPC = npc.whoAmI;
+						int latestNPC;
 						latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHead"), 0, npc.whoAmI);
 						Main.npc[(int)latestNPC].realLife = npc.whoAmI;
 						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
 						TrueHead = Main.npc[latestNPC];
-						latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF1"), 0, npc.whoAmI);
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
+                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF1"), 0, npc.whoAmI);
 						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
 						Head2 = Main.npc[latestNPC];
-						latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF1"), 0, npc.whoAmI);
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
+                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF1"), 0, npc.whoAmI);
 						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
 						Head3 = Main.npc[latestNPC];
-						latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF1"), 0, npc.whoAmI);
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
+                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF1"), 0, npc.whoAmI);
 						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
 						Head4 = Main.npc[latestNPC];
-						latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF2"), 0, npc.whoAmI);
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
+                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF2"), 0, npc.whoAmI);
 						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
 						Head5 = Main.npc[latestNPC];
-						latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF2"), 0, npc.whoAmI);
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
+                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF2"), 0, npc.whoAmI);
 						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
 						Head6 = Main.npc[latestNPC];
-						latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF2"), 0, npc.whoAmI);
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
+                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF2"), 0, npc.whoAmI);
 						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
 						Head7 = Main.npc[latestNPC];
+                        Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
                     }
                 }
                 HeadsSpawned = true;

@@ -4,6 +4,7 @@ using AAMod.Buffs;
 using AAMod.Items.Dev;
 using AAMod.NPCs.Bosses.Zero;
 using AAMod.NPCs.Bosses.Akuma;
+using AAMod.NPCs.Bosses.Shen;
 using AAMod.NPCs.Bosses.Akuma.Awakened;
 using AAMod.NPCs.Bosses.Zero.Protocol;
 using Microsoft.Xna.Framework;
@@ -60,6 +61,7 @@ namespace AAMod
         public bool Protocol = false;
         public bool ScoutMinion = false;
         public bool SagOrbiter = false;
+        public bool Rabbitcopter = false;
         // Biome bools.
         public bool ZoneMire = false;
         public bool ZoneInferno = false;
@@ -291,6 +293,7 @@ namespace AAMod
             Protocol = false;
             ScoutMinion = false;
             SagOrbiter = false;
+            Rabbitcopter = false;
             //Armor
             MoonSet = false;
             valkyrieSet = false;
@@ -443,7 +446,7 @@ namespace AAMod
             // Make sure this condition is the same as the condition in the Buff to remove itself. We do this here instead of in ModItem.UpdateAccessory in case we want future upgraded items to set blockyAccessory
             if (BegAccessory)
             {
-                player.AddBuff(mod.BuffType<Buffs.Horse>(), 60, true);
+                player.AddBuff(mod.BuffType<Horse>(), 60, true);
             }
         }
 
@@ -451,6 +454,7 @@ namespace AAMod
         {
 
         }
+
 
         public override void UpdateBiomes()
         {
@@ -490,13 +494,20 @@ namespace AAMod
 
         public override void UpdateBiomeVisuals()
         {
+            bool useShen = (NPC.AnyNPCs(mod.NPCType<ShenDoragon>()));
+            bool useShenA = (NPC.AnyNPCs(mod.NPCType<ShenA>()));
             bool useAkuma = (NPC.AnyNPCs(mod.NPCType<AkumaA>()) || AkumaAltar);
             bool useYamata = (NPC.AnyNPCs(mod.NPCType<YamataA>()) || YamataAltar);
-            bool useMire = (ZoneMire || MoonAltar) && !useYamata;
-            bool useInferno = (ZoneInferno || SunAltar) && !useAkuma;
-            bool useVoid = (ZoneVoid || VoidUnit);
+            bool useMire = (ZoneMire || MoonAltar) && !useYamata && !useShen;
+            bool useInferno = (ZoneInferno || SunAltar) && !useAkuma && !useShen;
+            bool useVoid = (ZoneVoid || VoidUnit) && !useShen;
+            bool useStars = ZoneStars && !useShen;
 
             //player.ManageSpecialBiomeVisuals("AAMod:StarSky", useStars);
+
+            player.ManageSpecialBiomeVisuals("AAMod:ShenSky", useShen);
+
+            player.ManageSpecialBiomeVisuals("AAMod:ShenASky", useShenA);
 
             player.ManageSpecialBiomeVisuals("AAMod:AkumaSky", useAkuma);
 
@@ -1046,6 +1057,270 @@ namespace AAMod
                     }
                 }
             }
+
+            if (BasePlayer.HasAccessory(player, mod.ItemType<Items.Accessories.Wings.DarkmatterJetpack>(), true, true) || BasePlayer.HasAccessory(player, mod.ItemType<Items.Accessories.Wings.ZeroWings>(), true, true))
+            {
+                bool isFlying = false;
+                if (player.controlJump && player.wingTime > 0f && !player.jumpAgainCloud && player.jump == 0 && player.velocity.Y != 0f)
+                {
+                    isFlying = true;
+                }
+                if (player.controlJump && player.controlDown && player.wingTime > 0f)
+                {
+                    isFlying = true;
+                }
+                if (isFlying || player.jump > 0)
+                {
+                    player.wingFrameCounter++;
+                    int num80 = 2;
+                    if (player.wingFrameCounter >= num80 * 3)
+                    {
+                        player.wingFrameCounter = 0;
+                    }
+                    player.wingFrame = 1 + player.wingFrameCounter / num80;
+                }
+                else if (player.velocity.Y != 0f)
+                {
+                    if (player.controlJump)
+                    {
+                        player.wingFrameCounter++;
+                        int num81 = 2;
+                        if (player.wingFrameCounter >= num81 * 3)
+                        {
+                            player.wingFrameCounter = 0;
+                        }
+                        player.wingFrame = 1 + player.wingFrameCounter / num81;
+                    }
+                    else if (player.wingTime == 0f)
+                    {
+                        player.wingFrame = 0;
+                    }
+                    else
+                    {
+                        player.wingFrame = 0;
+                    }
+                }
+                else
+                {
+                    player.wingFrame = 0;
+                }
+                
+            }
+
+
+            if (BasePlayer.HasAccessory(player, mod.ItemType<Items.Boss.Rajah.RabbitcopterEars>(), true, true))
+            {
+                bool isFlying = false;
+                if (player.controlJump && player.wingTime > 0f && !player.jumpAgainCloud && player.jump == 0 && player.velocity.Y != 0f)
+                {
+                    isFlying = true;
+                }
+                if (player.controlJump && player.controlDown && player.wingTime > 0f)
+                {
+                    isFlying = true;
+                }
+                if (isFlying || player.jump > 0)
+                {
+                    player.wingFrameCounter++;
+                    if (player.wingFrameCounter >= 6)
+                    {
+                        player.wingFrameCounter = 0;
+                    }
+                    player.wingFrame = 1 + player.wingFrameCounter / 2;
+                }
+                else if (player.velocity.Y != 0f)
+                {
+                    if (player.controlJump)
+                    {
+                        player.wingFrameCounter++;
+                        if (player.wingFrameCounter >= 6)
+                        {
+                            player.wingFrameCounter = 0;
+                        }
+                        player.wingFrame = 1 + player.wingFrameCounter / 2;
+                    }
+                    else if (player.wingTime == 0f)
+                    {
+                        player.wingFrame = 0;
+                    }
+                    else
+                    {
+                        player.wingFrame = 0;
+                    }
+                }
+                else
+                {
+                    player.wingFrame = 0;
+                }
+            }
+        }
+
+        /*
+         * Wing Animation; For when you'd like a custom wing animation. Put this in your modplayer's postupdate.
+         * Note: You MUST do a check for if the player has the wings you want animated equipped first. I have included a working method below this one for you to call.
+         * 
+         * WingType: This is so you can decide what animation specificall you want
+         * * 0: Basic Wing animation. Can be customized with the values adjescent to this value.
+         * * 1: Wing Animation that skips frame 0. This is good for jetpacks or wings with a special idle frame.  Can be customized with the values adjescent to this value.
+         * * 2: Wing animation that acts like a Vortex Booster. Cannot be customized due to the way it is animated. Skips frame 0 and plays animation when falling.
+         * 
+         * AnimationSpeed: How many ticks you'd like each frame to be. Remember that a tick is 1/60th of a second.
+         * 
+         * FallingFrame: Which animation frame you'd like to be up when the player has run out of wing time.
+         */
+
+        public static void WingAnimation(Player player, int WingType = 0, int AnimationSpeed = 4, int FallingFrame = 1)
+        {
+            bool isFlying = false;
+            if (player.controlJump && player.wingTime > 0f && !player.jumpAgainCloud && player.jump == 0 && player.velocity.Y != 0f)
+            {
+                isFlying = true;
+            }
+            if (player.controlJump && player.controlDown && player.wingTime > 0f)
+            {
+                isFlying = true;
+            }
+            if (WingType == 1)
+            {
+                if (isFlying || player.jump > 0)
+                {
+                    player.wingFrameCounter++;
+                    int num80 = 2;
+                    if (player.wingFrameCounter >= num80 * 3)
+                    {
+                        player.wingFrameCounter = 0;
+                    }
+                    player.wingFrame = 1 + player.wingFrameCounter / num80;
+                }
+                else if (player.velocity.Y != 0f)
+                {
+                    if (player.controlJump)
+                    {
+                        player.wingFrameCounter++;
+                        int num81 = 2;
+                        if (player.wingFrameCounter >= num81 * 3)
+                        {
+                            player.wingFrameCounter = 0;
+                        }
+                        player.wingFrame = 1 + player.wingFrameCounter / num81;
+                    }
+                    else if (player.wingTime == 0f)
+                    {
+                        player.wingFrame = 0;
+                    }
+                    else
+                    {
+                        player.wingFrame = 0;
+                    }
+                }
+                else
+                {
+                    player.wingFrame = 0;
+                }
+            }
+            else if (WingType == 2)
+            {
+                if (isFlying || player.jump > 0)
+                {
+                    player.wingFrameCounter++;
+                    if (player.wingFrameCounter > AnimationSpeed)
+                    {
+                        player.wingFrame++;
+                        player.wingFrameCounter = 0;
+                        if (player.wingFrame >= 4)
+                        {
+                            player.wingFrame = 1;
+                        }
+                    }
+                }
+                else if (player.velocity.Y != 0f)
+                {
+                    if (player.controlJump)
+                    {
+                        player.wingFrameCounter++;
+                        if (player.wingFrameCounter > AnimationSpeed)
+                        {
+                            player.wingFrame++;
+                            player.wingFrameCounter = 0;
+                            if (player.wingFrame >= 4)
+                            {
+                                player.wingFrame = 1;
+                            }
+                        }
+                    }
+                    else if (player.wingTime == 0f)
+                    {
+                        player.wingFrame = 0;
+                    }
+                    else
+                    {
+                        player.wingFrame = 0;
+                    }
+                }
+                else
+                {
+                    player.wingFrame = 0;
+                }
+            }
+            else
+            {
+                if (isFlying || player.jump > 0)
+                {
+                    player.wingFrameCounter++;
+                    if (player.wingFrameCounter > AnimationSpeed)
+                    {
+                        player.wingFrame++;
+                        player.wingFrameCounter = 0;
+                        if (player.wingFrame >= 4)
+                        {
+                            player.wingFrame = 0;
+                        }
+                    }
+                }
+                else if (player.velocity.Y != 0f)
+                {
+                    player.wingFrame = FallingFrame;
+                }
+                else
+                {
+                    player.wingFrame = 0;
+                }
+            }
+        }
+
+        /**
+         * Returns true if the given player has the given accessory equipped.
+         * 
+         * type: The accessory you are checking for
+         * 
+         * normal: Check for if it is in a normal accessory slot
+         * 
+         * vanity: Check for it it is in a Vanity accessory slot
+         * 
+         * social: Whether the item's visibility has been turned on or off
+         * 
+         * index: Which specific slot of the player's accessory slots the accessory is in.
+         */
+
+        public static bool HasAccessory(Player player, int type, bool normal, bool vanity, ref bool social, ref int index)
+        {
+            if (vanity)
+            {
+                for (int m = 13; m < 18 + player.extraAccessorySlots; m++)
+                {
+                    Item item = player.armor[m];
+                    if (item != null && !item.IsBlank() && item.type == type) { index = m; social = true; return true; }
+                }
+            }
+            if (normal)
+            {
+                for (int m = 3; m < 8 + player.extraAccessorySlots; m++)
+                {
+                    Item item = player.armor[m];
+                    if (item != null && !item.IsBlank() && item.type == type) { index = m; social = false; return true; }
+                }
+            }
+            return false;
         }
 
         public void DropDevArmor(int dropType)
@@ -1226,6 +1501,10 @@ namespace AAMod
                         player.QuickSpawnItem(mod.ItemType("MoonHood"));
                         player.QuickSpawnItem(mod.ItemType("MoonRobe"));
                         player.QuickSpawnItem(mod.ItemType("MoonBoots"));
+                        if (dropType >= 1)
+                        {
+                            player.QuickSpawnItem(mod.ItemType("MoonWings"));
+                        }
                         if (dropType >= 2)
                         {
                             player.QuickSpawnItem(mod.ItemType("Etheral" + addonEX));
@@ -1579,7 +1858,7 @@ namespace AAMod
                 RiftPos = player.position;
                 for (int m = 0; m < 58; m++)
                 {
-                    if (player.inventory[m].type == mod.ItemType<Items.Usable.RiftMirror>())
+                    if (player.inventory[m].type == mod.ItemType<Items.Usable.RiftMirror>() || Space)
                     {
                         player.Spawn();
                     }
@@ -1589,7 +1868,7 @@ namespace AAMod
             {
                 for (int m = 0; m < 58; m++)
                 {
-                    if (player.inventory[m].type == mod.ItemType<Items.Usable.RiftMirror>())
+                    if (player.inventory[m].type == mod.ItemType<Items.Usable.RiftMirror>() || Space)
                     {
                         player.position = RiftPos;
                     }
@@ -2460,20 +2739,33 @@ namespace AAMod
             }
 
         }
+
+        public static void AddPlayerLayer(List<PlayerLayer> list, PlayerLayer layer, PlayerLayer parent, bool first)
+        {
+            int insertAt = -1;
+            for (int m = 0; m < list.Count; m++)
+            {
+                PlayerLayer dl = list[m];
+                if (dl.Name.Equals(parent.Name)) { insertAt = m; break; }
+            }
+            if (insertAt == -1) list.Add(layer); else list.Insert(first ? insertAt : insertAt + 1, layer);
+        }
+
         public override void ModifyDrawLayers(List<PlayerLayer> list)
         {
-            BaseDrawing.AddPlayerLayer(list, glAfterHead, PlayerLayer.Head, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterBody, PlayerLayer.Body, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterArm, PlayerLayer.Arms, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterHandOn, PlayerLayer.HandOnAcc, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterHandOff, PlayerLayer.HandOffAcc, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterArm, PlayerLayer.Arms, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterWep, PlayerLayer.HeldItem, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterLegs, PlayerLayer.Legs, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterShield, PlayerLayer.ShieldAcc, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterNeck, PlayerLayer.NeckAcc, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterFace, PlayerLayer.FaceAcc, false);
-            BaseDrawing.AddPlayerLayer(list, glAfterAll, list[list.Count - 1], false);
+            AddPlayerLayer(list, glBeforeWings, PlayerLayer.Wings, true);
+            AddPlayerLayer(list, glAfterHead, PlayerLayer.Head, false);
+            AddPlayerLayer(list, glAfterBody, PlayerLayer.Body, false);
+            AddPlayerLayer(list, glAfterArm, PlayerLayer.Arms, false);
+            AddPlayerLayer(list, glAfterHandOn, PlayerLayer.HandOnAcc, false);
+            AddPlayerLayer(list, glAfterHandOff, PlayerLayer.HandOffAcc, false);
+            AddPlayerLayer(list, glAfterArm, PlayerLayer.Arms, false);
+            AddPlayerLayer(list, glAfterWep, PlayerLayer.HeldItem, false);
+            AddPlayerLayer(list, glAfterLegs, PlayerLayer.Legs, false);
+            AddPlayerLayer(list, glAfterShield, PlayerLayer.ShieldAcc, false);
+            AddPlayerLayer(list, glAfterNeck, PlayerLayer.NeckAcc, false);
+            AddPlayerLayer(list, glAfterFace, PlayerLayer.FaceAcc, false);
+            AddPlayerLayer(list, glAfterAll, list[list.Count - 1], false);
         }
 
         public PlayerLayer glAfterWep = new PlayerLayer("AAMod", "glAfterWep", PlayerLayer.HeldItem, delegate (PlayerDrawInfo edi)
@@ -2613,6 +2905,13 @@ namespace AAMod
                 }
                 BaseDrawing.DrawPlayerTexture(Main.playerDrawData, Glow, edi.handOffShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(GlowColor, edi.shadow), drawPlayer.bodyFrame);
             }
+        });
+
+        public PlayerLayer glBeforeWings = new PlayerLayer("AAMod", "glBeforeWings", PlayerLayer.Wings, delegate (PlayerDrawInfo edi)
+        {
+            Mod mod = AAMod.instance;
+            Player drawPlayer = edi.drawPlayer;
+            if (drawPlayer.mount.Active) return;
         });
 
         public static void DrawAfterHead(PlayerDrawInfo edi, PlayerHeadDrawInfo edhi, bool mapHead)
@@ -3000,6 +3299,62 @@ namespace AAMod
                 BaseDrawing.DrawTexture(Main.spriteBatch, RingGlow, 0, drawPlayer.position, drawPlayer.width, drawPlayer.height, drawPlayer.GetModPlayer<AAPlayer>(mod).ShieldScale, drawPlayer.GetModPlayer<AAPlayer>(mod).RingRoatation, 0, 1, new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), GenericUtils.COLOR_GLOWPULSE, true);
             }
         });
+
+        public bool MeleeHighest(Player player)
+        {
+            if (player.meleeDamage > player.rangedDamage &&
+                player.meleeDamage > player.magicDamage &&
+                player.meleeDamage > player.minionDamage &&
+                player.meleeDamage > player.thrownDamage)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool RangedHighest(Player player)
+        {
+            if (player.rangedDamage > player.meleeDamage &&
+                player.rangedDamage > player.magicDamage &&
+                player.rangedDamage > player.minionDamage &&
+                player.rangedDamage > player.thrownDamage)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool MagicHighest(Player player)
+        {
+            if (player.magicDamage > player.rangedDamage &&
+                player.magicDamage > player.meleeDamage &&
+                player.magicDamage > player.minionDamage &&
+                player.magicDamage > player.thrownDamage)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool SummonHighest(Player player)
+        {
+            if (player.minionDamage > player.rangedDamage &&
+                player.minionDamage > player.magicDamage &&
+                player.minionDamage > player.meleeDamage &&
+                player.minionDamage > player.thrownDamage)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool ThrownHighest(Player player)
+        {
+            if (player.thrownDamage > player.rangedDamage &&
+                player.thrownDamage > player.magicDamage &&
+                player.thrownDamage > player.minionDamage &&
+                player.thrownDamage > player.meleeDamage)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
 

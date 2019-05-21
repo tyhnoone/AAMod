@@ -18,12 +18,15 @@ namespace AAMod.Projectiles.Zero
             projectile.height = 10;
             projectile.hostile = false;
             projectile.friendly = true;
-            projectile.scale = 2f;
             projectile.ignoreWater = true;
             projectile.tileCollide = true;
             projectile.penetrate = 1;
-            projectile.timeLeft = 150;
+            projectile.timeLeft = 600;
             projectile.alpha = 30;
+            projectile.extraUpdates = 3;
+            projectile.usesLocalNPCImmunity = true;
+            projectile.localNPCHitCooldown = 2;
+            projectile.ranged = true;
         }
 
         public override void AI()
