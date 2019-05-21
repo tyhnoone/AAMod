@@ -21,10 +21,6 @@ namespace AAMod.Walls
 
         public override void KillWall(int i, int j, ref bool fail)
         {
-            if (AAWorld.downedShen)
-            {
-                fail = false;
-            }
             fail = true;
         }
 

@@ -5626,8 +5626,6 @@
     <Content Include="obj\Debug\AAMod.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\AAMod.dll" />
     <Content Include="obj\Debug\AAMod.pdb" />
-    <Content Include="OldChaosGen.txt" />
-    <Content Include="Placeholder.png" />
     <Content Include="Projectiles\AcidBall.png" />
     <Content Include="Projectiles\Akuma\AkumaExp.png" />
     <Content Include="Projectiles\Akuma\Dawnstrike.png" />

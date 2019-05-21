@@ -4,7 +4,7 @@ using AAMod.Buffs;
 using AAMod.Items.Dev;
 using AAMod.NPCs.Bosses.Zero;
 using AAMod.NPCs.Bosses.Akuma;
-using AAMod.NPCs.Bosses.Shen;
+
 using AAMod.NPCs.Bosses.Akuma.Awakened;
 using AAMod.NPCs.Bosses.Zero.Protocol;
 using Microsoft.Xna.Framework;
@@ -494,20 +494,11 @@ namespace AAMod
 
         public override void UpdateBiomeVisuals()
         {
-            bool useShen = (NPC.AnyNPCs(mod.NPCType<ShenDoragon>()));
-            bool useShenA = (NPC.AnyNPCs(mod.NPCType<ShenA>()));
             bool useAkuma = (NPC.AnyNPCs(mod.NPCType<AkumaA>()) || AkumaAltar);
             bool useYamata = (NPC.AnyNPCs(mod.NPCType<YamataA>()) || YamataAltar);
-            bool useMire = (ZoneMire || MoonAltar) && !useYamata && !useShen;
-            bool useInferno = (ZoneInferno || SunAltar) && !useAkuma && !useShen;
-            bool useVoid = (ZoneVoid || VoidUnit) && !useShen;
-            bool useStars = ZoneStars && !useShen;
-
-            //player.ManageSpecialBiomeVisuals("AAMod:StarSky", useStars);
-
-            player.ManageSpecialBiomeVisuals("AAMod:ShenSky", useShen);
-
-            player.ManageSpecialBiomeVisuals("AAMod:ShenASky", useShenA);
+            bool useMire = (ZoneMire || MoonAltar) && !useYamata;
+            bool useInferno = (ZoneInferno || SunAltar) && !useAkuma;
+            bool useVoid = (ZoneVoid || VoidUnit);
 
             player.ManageSpecialBiomeVisuals("AAMod:AkumaSky", useAkuma);
 
@@ -873,7 +864,7 @@ namespace AAMod
             {
                 player.AddBuff(mod.BuffType<Buffs.YamataAGravity>(), 10, true);
             }
-            if (player.GetModPlayer<AAPlayer>().ZoneMire || player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake)
+            if (player.position.Y > (Main.worldSurface * 16.0) && (player.GetModPlayer<AAPlayer>().ZoneMire || player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake))
             {
                 if (Main.dayTime && !AAWorld.downedYamata)
                 {
@@ -934,14 +925,14 @@ namespace AAMod
                     player.gravity = 1f;
                 }
             }
-            if (player.GetModPlayer<AAPlayer>().ZoneInferno || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda)
+            if (player.position.Y < (Main.worldSurface * 16.0) && (player.GetModPlayer<AAPlayer>().ZoneInferno || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda))
             {
                 if (AshCurse)
                 {
                     AshRain(player, mod);
                 }
             }
-            if (player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda)
+            if (player.position.Y > (Main.worldSurface * 16.0) && (player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda))
             {
                 if (AAWorld.downedAllAncients && !AAWorld.downedShen)
                 {
@@ -1105,53 +1096,6 @@ namespace AAMod
                     player.wingFrame = 0;
                 }
                 
-            }
-
-
-            if (BasePlayer.HasAccessory(player, mod.ItemType<Items.Boss.Rajah.RabbitcopterEars>(), true, true))
-            {
-                bool isFlying = false;
-                if (player.controlJump && player.wingTime > 0f && !player.jumpAgainCloud && player.jump == 0 && player.velocity.Y != 0f)
-                {
-                    isFlying = true;
-                }
-                if (player.controlJump && player.controlDown && player.wingTime > 0f)
-                {
-                    isFlying = true;
-                }
-                if (isFlying || player.jump > 0)
-                {
-                    player.wingFrameCounter++;
-                    if (player.wingFrameCounter >= 6)
-                    {
-                        player.wingFrameCounter = 0;
-                    }
-                    player.wingFrame = 1 + player.wingFrameCounter / 2;
-                }
-                else if (player.velocity.Y != 0f)
-                {
-                    if (player.controlJump)
-                    {
-                        player.wingFrameCounter++;
-                        if (player.wingFrameCounter >= 6)
-                        {
-                            player.wingFrameCounter = 0;
-                        }
-                        player.wingFrame = 1 + player.wingFrameCounter / 2;
-                    }
-                    else if (player.wingTime == 0f)
-                    {
-                        player.wingFrame = 0;
-                    }
-                    else
-                    {
-                        player.wingFrame = 0;
-                    }
-                }
-                else
-                {
-                    player.wingFrame = 0;
-                }
             }
         }
 
@@ -1574,7 +1518,7 @@ namespace AAMod
             }
             if ((player.GetModPlayer<AAPlayer>(mod).ZoneInferno || player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda) && player.GetModPlayer<AAPlayer>(mod).AshCurse)
             {
-                if (!player.GetModPlayer<AAPlayer>(mod).AshRemover || !(player.ZoneSkyHeight || player.ZoneOverworldHeight))
+                if (!player.GetModPlayer<AAPlayer>(mod).AshRemover || player.position.Y > (Main.worldSurface * 16.0)  )
                 {
                     player.AddBuff(mod.BuffType<BurningAsh>(), 5);
                 }
@@ -1657,7 +1601,7 @@ namespace AAMod
             {
                 return;
             }
-            if ((player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda || player.GetModPlayer<AAPlayer>(mod).ZoneRisingMoonLake) && AAWorld.downedAllAncients && !AAWorld.downedShen)
+            if ((player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda || player.GetModPlayer<AAPlayer>(mod).ZoneRisingMoonLake) && AAWorld.downedAllAncients && !AAWorld.downedAllAncients)
             {
                 if (Main.player[Main.myPlayer].position.Y < Main.worldSurface * 16.0)
                 {

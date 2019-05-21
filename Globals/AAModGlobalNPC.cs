@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using AAMod.NPCs.Bosses.Shen;
+
 using System;
 using BaseMod;
 using Terraria.Localization;
@@ -56,7 +56,7 @@ namespace AAMod
 
         public override void SetDefaults(NPC npc)
         {
-            if (AAWorld.downedShen == true)
+            if (AAWorld.downedAllAncients == true)
             {
                 if (npc.type == NPCID.GoblinSummoner)   //this is where you choose the npc you want
                 {
@@ -153,10 +153,6 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
-                if (npc.type == mod.NPCType<ShenDoragon>() || npc.type == mod.NPCType<ShenA>())
-                {
-                    npc.lifeRegen -= 48;
-                }
                 else
                 {
                     npc.lifeRegen -= 16;
@@ -227,7 +223,6 @@ namespace AAMod
                 npc.lifeRegen -= Math.Abs((int)(npc.velocity.X));
             }
         }
-
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
@@ -307,7 +302,7 @@ namespace AAMod
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ShinyCharm")); //Item spawn
             }
 
-            if (AAWorld.downedShen == true)
+            if (AAWorld.downedAllAncients == true)
             {
                 if (npc.type == NPCID.GoblinSummoner)   //this is where you choose the npc you want
                 {
@@ -493,25 +488,6 @@ namespace AAMod
                 if (Main.rand.Next(20) == 0)
                 {
                     Item.NewItem(npc.getRect(), mod.ItemType("GoblinSoul"), Main.rand.Next(1, 2));
-                }
-            }
-
-            if (Main.hardMode)
-            {
-                Player punishedPlayer = Main.player[Player.FindClosest(npc.Center, npc.width, npc.height)];
-                int lastCreatureHit = punishedPlayer.lastCreatureHit;
-                if (Item.BannerToNPC(lastCreatureHit) == 14) //14 is the banner ID for all bunny creatures.
-                {
-                    if (NPC.killCount[Item.BannerToNPC(lastCreatureHit)] % 50 == 0 && NPC.killCount[Item.BannerToNPC(lastCreatureHit)] % 100 != 0)
-                    {
-                        Main.NewText("The eyes of a wrathful creature gaze upon you...", 107, 137, 179);
-                    }
-                    if (NPC.killCount[Item.BannerToNPC(lastCreatureHit)] % 100 == 0)
-                    {
-                        Main.NewText("Those who slaughter the innocent must be PUNISHED!", 107, 137, 179);
-                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Rajah"), npc.Center);
-                        SpawnBoss(punishedPlayer, mod.NPCType<NPCs.Bosses.Rajah.Rajah>(), true, new Vector2(npc.Center.X, npc.Center.Y - 2000), "Rajah Rabbit");
-                    }
                 }
             }
 

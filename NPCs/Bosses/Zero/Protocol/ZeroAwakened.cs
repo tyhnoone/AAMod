@@ -19,7 +19,6 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         public int timer;
         public static int type;
         private bool Panic = false;
-        private bool introPlayed = false;
 
         public override void SetStaticDefaults()
         {
@@ -55,7 +54,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 npc.buffImmune[k] = true;
             }
 
-            if (AAWorld.downedShen)
+            if (AAWorld.downedAllAncients)
             {
                 npc.lifeMax = 220000;
                 npc.damage = 160;
@@ -80,7 +79,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EXSoul"));
                 }
-                if (Main.rand.NextFloat() < 0.05f && AAWorld.RealityDropped == false && AAWorld.downedShen)
+                if (Main.rand.NextFloat() < 0.05f && AAWorld.RealityDropped == false && AAWorld.downedAllAncients)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RealityStone"));
                     AAWorld.RealityDropped = true;
@@ -160,7 +159,6 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             for (int k = 0; k < npc.oldPos.Length; k++)
             {
                 Texture2D ZeroTrail = mod.GetTexture("NPCs/Bosses/Zero/Protocol/ZeroTrail");
-                Vector2 drawPos = npc.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, npc.gfxOffY);
                 Color color = npc.GetAlpha(color1) * ((npc.oldPos.Length - k) / (float)npc.oldPos.Length);
                 spritebatch.Draw(ZeroTrail, npc.position, null, color, npc.rotation, drawOrigin, npc.scale, SpriteEffects.None, 0f);
             }
@@ -187,8 +185,6 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
 
             return true;
         }
-        private int Glitch = 0;
-        private bool GlitchBool = false;
 
         public float[] internalAI = new float[4];
         public override void SendExtraAI(BinaryWriter writer)
@@ -281,9 +277,9 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             {
                 int num371 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y + (npc.height * 0.25f)), npc.width, (int)(npc.height * 0.5f), 5, npc.velocity.X, 2f, 0, default(Color), 1f);
                 Dust expr_12582_cp_0 = Main.dust[num371];
-                expr_12582_cp_0.velocity.X = expr_12582_cp_0.velocity.X * 0.5f;
+                expr_12582_cp_0.velocity.X *= 0.5f;
                 Dust expr_125A2_cp_0 = Main.dust[num371];
-                expr_125A2_cp_0.velocity.Y = expr_125A2_cp_0.velocity.Y * 0.1f;
+                expr_125A2_cp_0.velocity.Y *= 0.1f;
             }
             if (Main.netMode != 1 && !dead2 && npc.timeLeft < 10)
             {

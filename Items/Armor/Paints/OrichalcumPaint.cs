@@ -9,7 +9,7 @@ namespace AAMod.Items.Armor.Paints
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Oricalcum Face Paint");
+            DisplayName.SetDefault("Orichalcum Face Paint");
             Tooltip.SetDefault(@"22% increased minion damage
 +80 mana");
         }

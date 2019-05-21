@@ -36,7 +36,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 npc.buffImmune[k] = true;
             }
-            if (AAWorld.downedShen)
+            if (AAWorld.downedAllAncients)
             {
                 npc.damage = 160;
             }
@@ -58,8 +58,6 @@ namespace AAMod.NPCs.Bosses.Yamata
         public float TargetDirection = (float)Math.PI / 2;
         public float s = 1;
         public Projectile Breath;
-        private int MouthFrame;
-        private int MouthCounter;
         public static bool fireAttack;
         private int attackFrame;
         private int attackCounter;
@@ -158,22 +156,11 @@ namespace AAMod.NPCs.Bosses.Yamata
 
             int roarSound = mod.GetSoundSlot(SoundType.Item, "Sounds/Sounds/YamataRoar");
 
-            int num429 = 1;
-            if (npc.position.X + (npc.width / 2) < Main.player[npc.target].position.X + Main.player[npc.target].width)
-            {
-                num429 = -1;
-            }
             Vector2 PlayerDistance = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
-            float PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) + (num429 * 180) - PlayerDistance.X;
+            float PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - PlayerDistance.X;
             float PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - PlayerDistance.Y;
-            float PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX) + (PlayerPosY * PlayerPosY));
-            float num433 = 6f;
-            PlayerPosX = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - PlayerDistance.X;
-            PlayerPosY = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - PlayerDistance.Y;
-            PlayerPos = (float)Math.Sqrt((PlayerPosX * PlayerPosX + PlayerPosY * PlayerPosY));
-            PlayerPos = num433 / PlayerPos;
-            PlayerPosX *= PlayerPos;
-            PlayerPosY *= PlayerPos;
+            PlayerPosX *= (float)Math.Sqrt((PlayerPosX * PlayerPosX) + (PlayerPosY * PlayerPosY));
+            PlayerPosY *= (float)Math.Sqrt((PlayerPosX * PlayerPosX) + (PlayerPosY * PlayerPosY));
             PlayerPosY += Main.rand.Next(-40, 41) * 0.01f;
             PlayerPosX += Main.rand.Next(-40, 41) * 0.01f;
             PlayerPosY += npc.velocity.Y * 0.5f;
@@ -487,7 +474,7 @@ namespace AAMod.NPCs.Bosses.Yamata
         {
             if (projectile.type == ProjectileID.LastPrismLaser)
             {
-                damage = (int)(damage * .05f);
+                projectile.damage = (int)(projectile.damage * .05f);
             }
         }
 

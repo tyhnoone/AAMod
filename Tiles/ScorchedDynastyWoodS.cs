@@ -17,10 +17,6 @@ namespace AAMod.Tiles
         }
         public override bool CanKillTile(int i, int j, ref bool blockDamaged)
         {
-            if (AAWorld.downedShen)
-            {
-                return true;
-            }
             return false;
         }
 

@@ -101,7 +101,6 @@ namespace AAMod.NPCs.TownNPCs
         public static bool Akuma = false;
         public static bool Yamata = false;
         public static bool Zero = false;
-        public static bool Shen = false;
         public static bool Stones = false;
         public static bool BaseChat = false;
         public static int ChatNumber = 0;
@@ -126,7 +125,6 @@ namespace AAMod.NPCs.TownNPCs
             Akuma = false;
             Yamata = false;
             Zero = false;
-            Shen = false;
             Stones = false;
         }
         
@@ -167,8 +165,6 @@ namespace AAMod.NPCs.TownNPCs
             string YamataT = "Ancient of Wrath";
 
             string ZeroT = "Ancient of Doom";
-
-            string ShenT = "Discordian Doomsayer";
 
             string StonesT = "The Stonekeepers";
 
@@ -261,11 +257,6 @@ namespace AAMod.NPCs.TownNPCs
             }
             else if (ChatNumber == 17 && AAWorld.downedAllAncients)
             {
-                button2 = ShenT;
-                Shen = true;
-            }
-            else if (ChatNumber == 18 && AAWorld.downedShen)
-            {
                 button2 = StonesT;
                 Stones = true;
             }
@@ -295,7 +286,6 @@ namespace AAMod.NPCs.TownNPCs
             Akuma = false;
             Yamata = false;
             Zero = false;
-            Shen = false;
             Stones = true;
         }
 
@@ -396,11 +386,6 @@ namespace AAMod.NPCs.TownNPCs
             {
                 return AAWorld.downedZero ? "...I'll be honest. I don't like what that thing said after it died one bit." : 
                     "You know the void? Those spooky floating islands to the east? There's a BIG scary machine there that's always just floating there. Anyways, after you slammed the moon lord, I heard a massive shockwave come from the void. Could you check it out for me?";
-            }
-            else if (Shen)
-            {
-                return AAWorld.downedShen ? "Holy-- I knew you had it in you, man! Awesome job! Although...he seemed pretty angry when you beat him...almost as angry as when he got beat by-- er, nevermind that." :
-                    "Akuma and Yamata...you know, those two were once one being. And hot dang, that guy was powerful. He leveled 2 civilizations one time. Anyways, so what was it that you needed?";
             }
             else if (Stones)
             {
