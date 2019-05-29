@@ -1,10 +1,9 @@
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
-using Terraria;
+using Terraria.ModLoader;
 using Terraria.ID;
 
 namespace AAMod.Items.Blocks
 {
-	public class SDBox : ModItem
+    public class SDBox : ModItem
 	{
         
 		public override void SetStaticDefaults()
@@ -34,8 +33,9 @@ namespace AAMod.Items.Blocks
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "PagodaBox");
-            recipe.AddIngredient(null, "LakeBox");
+            recipe.AddIngredient(null, "InfernoBox");
+            recipe.AddIngredient(null, "MireBox");
+            recipe.AddIngredient(null, "ChaosScale", 10);
             recipe.AddTile(TileID.Sawmill);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -1,20 +1,16 @@
-using System; using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using BaseMod;
 
 namespace AAMod.Items.Usable
 {
-	public class MyceliumSeeds : ModItem
+    public class MyceliumSeeds : ModItem
 	{
 		public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mycelium Seeds");
-            Tooltip.SetDefault("Plants Inferno grass"); ;	
+            Tooltip.SetDefault("Plants Mycelium"); ;	
 		}		
 		
         public override void SetDefaults()

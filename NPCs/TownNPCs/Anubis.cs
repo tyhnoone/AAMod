@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
@@ -19,8 +18,9 @@ namespace AAMod.NPCs.TownNPCs
 		}
 
 		public override bool Autoload(ref string name)
-		{
-			return mod.Properties.Autoload;
+        {
+            name = "Legendscribe";
+            return mod.Properties.Autoload;
 		}
 
 		public override void SetStaticDefaults()
@@ -101,6 +101,7 @@ namespace AAMod.NPCs.TownNPCs
         public static bool Akuma = false;
         public static bool Yamata = false;
         public static bool Zero = false;
+        public static bool Shen = false;
         public static bool Stones = false;
         public static bool BaseChat = false;
         public static int ChatNumber = 0;
@@ -125,6 +126,7 @@ namespace AAMod.NPCs.TownNPCs
             Akuma = false;
             Yamata = false;
             Zero = false;
+            Shen = false;
             Stones = false;
         }
         
@@ -165,6 +167,8 @@ namespace AAMod.NPCs.TownNPCs
             string YamataT = "Ancient of Wrath";
 
             string ZeroT = "Ancient of Doom";
+
+            string ShenT = "Discordian Doomsayer";
 
             string StonesT = "The Stonekeepers";
 
@@ -257,6 +261,11 @@ namespace AAMod.NPCs.TownNPCs
             }
             else if (ChatNumber == 17 && AAWorld.downedAllAncients)
             {
+                button2 = ShenT;
+                Shen = true;
+            }
+            else if (ChatNumber == 18 && AAWorld.downedShen)
+            {
                 button2 = StonesT;
                 Stones = true;
             }
@@ -286,6 +295,7 @@ namespace AAMod.NPCs.TownNPCs
             Akuma = false;
             Yamata = false;
             Zero = false;
+            Shen = false;
             Stones = true;
         }
 
@@ -387,6 +397,11 @@ namespace AAMod.NPCs.TownNPCs
                 return AAWorld.downedZero ? "...I'll be honest. I don't like what that thing said after it died one bit." : 
                     "You know the void? Those spooky floating islands to the east? There's a BIG scary machine there that's always just floating there. Anyways, after you slammed the moon lord, I heard a massive shockwave come from the void. Could you check it out for me?";
             }
+            else if (Shen)
+            {
+                return AAWorld.downedShen ? "Holy-- I knew you had it in you, man! Awesome job! Although...he seemed pretty angry when you beat him...almost as angry as when he got beat by-- er, nevermind that." :
+                    "Akuma and Yamata...you know, those two were once one being. And hot dang, that guy was powerful. He leveled 2 civilizations one time. Anyways, so what was it that you needed?";
+            }
             else if (Stones)
             {
                 return "You know...after you whooped ol' Shen, I felt some...very old magic activate. Maybe you should pay a visit to some of the tougher bosses you've come across? By the way, have you seen the Goblin Summoner recently? Jeeze she got tough. Wonder what her deal is.";
@@ -395,6 +410,44 @@ namespace AAMod.NPCs.TownNPCs
             {
                 return "I dunno? Ask me about any strong creatures you can fight currently.";
             }
+        }
+
+        public string GuideChat()
+        {
+            WeightedRandom<string> chat = new WeightedRandom<string>();
+
+            if (!AAWorld.downedAkuma)
+            {
+                chat.Add("If I were you, I'd stay out of the Mire during the day. It gets really foggy and you can't see jack squat in there. I think you can make a lantern out of blaze claws if I remember correctly to help see through it...");
+            }
+            if (!AAWorld.downedYamata)
+            {
+                chat.Add("The Volcano in the inferno gets pretty active at night for some reason. During the day, it seems to calm down. Maybe you could get through if you made some kind of cover out of those Hydra claws? They seem to not be affected by that ash...");
+            }
+            chat.Add("Creatures in the jungle drop these really weird leaves I've noticed. They're tough as nails, though, so making gear out of it could be a pretty interesting idea...");
+            if (Main.rand.Next(2) == 0)
+            {
+                chat.Add("You know those eggs at the bottom of the inferno volcano? Yeah uh, I wouldn't touch those if I were you, unless you want to deal with a very angry dragon.");
+            }
+            else
+            {
+                chat.Add("Underneath the lake in the mire are some pods of...something. I don't really want to know what that Hydra thing eats. I wouldn't break them either, that lizard gets feisty when something messes with her food.");
+            }
+            chat.Add("Those floating islands to the east freak me out. They're just...there. I think there's some houses on them, but I'm not going up there.");
+            if (Main.hardMode)
+            {
+                chat.Add("Hey, if you go to the underground chaos biomes, I think you can get some souls like the ones you get in the evil biomes. Those should be useful.");
+                chat.Add("Hey you know those frogs in the mire? I hear they hoard tons of coins. Just go beat the bajeezus out of them and BAM! Cash money.");
+            }
+            if (NPC.downedPlantBoss)
+            {
+                chat.Add("Did you hear that music coming from the Terrarium? I think there's something new down there. See if you can get your hands on one of those green prisms they have. I think you can make a crazy new crafting station with it.");
+            }
+            if (AAWorld.downedEquinox)
+            {
+                chat.Add("You know those glowing spheres in the sky? If I remember correctly, they change depending on the time of day. Maybe you can get something different from them if you go at different points in the day?");
+            }
+            return chat;
         }
 
         public override string GetChat()
@@ -477,7 +530,7 @@ namespace AAMod.NPCs.TownNPCs
 
             if (Cobbler >= 0)
             {
-                chat.Add(Main.npc[Cobbler].GivenName + " keeps yelling at me for eating all the shoes he makes. It's not my fault he makes them with quality lether.");
+                chat.Add(Main.npc[Cobbler].GivenName + " keeps yelling at me for eating all the shoes he makes. It's not my fault he makes them with premium lether.");
             }
 
             if (ConfusedZombie >= 0)

@@ -410,9 +410,12 @@ namespace AAMod.Globals
                 bossChecklist.Call("AddBossWithInfo", "Subzero Serpent", 5.5f, (Func<bool>)(() => AAWorld.downedSerpent), "Use a [i:" + AAMod.instance.ItemType("SubzeroCrystal") + "] in the Snow biome at night");
                 bossChecklist.Call("AddBossWithInfo", "Desert Djinn", 5.5f, (Func<bool>)(() => AAWorld.downedDjinn), "Use a [i:" + AAMod.instance.ItemType("DjinnLamp") + "] in the Desert during the day");
                 bossChecklist.Call("AddBossWithInfo", "Sagittarius", 5.7f, (Func<bool>)(() => AAWorld.downedSag), "Use a [i:" + AAMod.instance.ItemType("Lifescanner") + "] in the Void");
+                bossChecklist.Call("AddBossWithInfo", "Truffle Toad", 6.5f, (Func<bool>)(() => AAWorld.downedToad), "Use a [i:" + AAMod.instance.ItemType("Toadstool") + "] in a glowing mushroom biome");
                 bossChecklist.Call("AddBossWithInfo", "Retriever", 9.5f, (Func<bool>)(() => AAWorld.downedRetriever), "Use a [i:" + AAMod.instance.ItemType("CyberneticClaw") + "] at night");
+                bossChecklist.Call("AddBossWithInfo", "Techno Truffle", 9.5f, (Func<bool>)(() => AAWorld.downedTruffle), "Use a [i:" + AAMod.instance.ItemType("CyberneticShroom") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Raider Ultima", 9.5f, (Func<bool>)(() => AAWorld.downedRaider), "Use a [i:" + AAMod.instance.ItemType("CyberneticBell") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Orthrus X", 9.5f, (Func<bool>)(() => AAWorld.downedOrthrus), "Use a [i:" + AAMod.instance.ItemType("ScrapHeap") + "] at night");
+                bossChecklist.Call("AddBossWithInfo", "Rajah Rabbit", 12.1f, (Func<bool>)(() => AAWorld.downedRajah), "Use a [i:" + AAMod.instance.ItemType("GoldenCarrot") + "] or kill 100 Rabbits like a jerk.");
                 bossChecklist.Call("AddBossWithInfo", "Nightcrawler & Daybringer", 15f, (Func<bool>)(() => AAWorld.downedEquinox), "Use a [i:" + AAMod.instance.ItemType("EquinoxWorm") + "]");
                 bossChecklist.Call("AddBossWithInfo", "Sisters of Discord", 16.1f, (Func<bool>)(() => AAWorld.downedSisters), "Use the [i:" + AAMod.instance.ItemType("FlamesOfAnarchy") + "]");
                 bossChecklist.Call("AddBossWithInfo", "Yamata", 16.2f, (Func<bool>)(() => AAWorld.downedYamata), "Use a [i:" + AAMod.instance.ItemType("DreadSigil") + "] in the Mire at night");

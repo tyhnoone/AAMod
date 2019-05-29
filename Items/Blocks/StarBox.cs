@@ -3,9 +3,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using BaseMod;
-using Terraria.Localization;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace AAMod.Items.Blocks
 {

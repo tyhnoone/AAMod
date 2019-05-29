@@ -1,10 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
 using AAMod.Buffs;
-using AAMod.Items.Dev;
 using AAMod.NPCs.Bosses.Zero;
 using AAMod.NPCs.Bosses.Akuma;
-
 using AAMod.NPCs.Bosses.Akuma.Awakened;
 using AAMod.NPCs.Bosses.Zero.Protocol;
 using Microsoft.Xna.Framework;
@@ -19,13 +17,11 @@ using AAMod.NPCs.Bosses.Yamata.Awakened;
 using AAMod.NPCs.Bosses.Yamata;
 using System.Collections.Generic;
 using BaseMod;
-using Terraria.ModLoader.IO;
-using Terraria.Localization;
-using Terraria.Graphics.Shaders;
 using Terraria.Graphics.Effects;
 using AAMod.Items;
-using AAMod.Items.DevTools;
-using AAMod.Items.BossSummons;
+using Terraria.GameContent.Events;
+using Terraria.Utilities;
+
 namespace AAMod
 {
     public class AAPlayer : ModPlayer
@@ -62,6 +58,8 @@ namespace AAMod
         public bool ScoutMinion = false;
         public bool SagOrbiter = false;
         public bool Rabbitcopter = false;
+        public bool Sock = false;
+        public bool Socc = false;
         // Biome bools.
         public bool ZoneMire = false;
         public bool ZoneInferno = false;
@@ -258,7 +256,6 @@ namespace AAMod
 
         public bool WorldgenReminder = false;
 
-        public static int RabbitKills = 0;
 
         public override void ResetEffects()
         {
@@ -294,6 +291,8 @@ namespace AAMod
             ScoutMinion = false;
             SagOrbiter = false;
             Rabbitcopter = false;
+            Sock = false;
+            Socc = false;
             //Armor
             MoonSet = false;
             valkyrieSet = false;
@@ -409,7 +408,6 @@ namespace AAMod
 
             //Misc
             Compass = false;
-            RabbitKills = 0;
         }
 
         public override void Initialize()
@@ -427,18 +425,6 @@ namespace AAMod
             ZoneTower = false;
             ZoneStars = false;
             WorldgenReminder = false;
-        }
-
-        public override TagCompound Save()
-        {
-            return new TagCompound {
-                {"Rabbits", RabbitKills},
-            };
-        }
-
-        public override void Load(TagCompound tag)
-        {
-            RabbitKills = tag.GetInt("Rabbits");
         }
 
         public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
@@ -718,8 +704,14 @@ namespace AAMod
         public float ShieldScale = 0;
         public float RingRoatation = 0;
 
+        public float TimeScale = 0;
+
         public override void PostUpdate()
         {
+            if (player.ZoneSandstorm && (ZoneInferno || ZoneMire))
+            {
+                EmitDust();
+            }
             if (SagCooldown > 0)
             {
                 player.noItems = true;
@@ -746,6 +738,28 @@ namespace AAMod
                 {
                     ShieldScale = 0f;
                 }
+            }
+
+            if (AAWorld.TimeStopped || (Time && Main.fastForwardTime))
+            {
+                TimeScale += .02f;
+                if (TimeScale >= 1f)
+                {
+                    TimeScale = 1f;
+                }
+            }
+            else
+            {
+                TimeScale -= .02f;
+                if (TimeScale <= 0f)
+                {
+                    TimeScale = 0f;
+                }
+            }
+
+            if (ShieldScale > 0f || TimeScale > 0f)
+            {
+                RingRoatation += .05f;
             }
 
             if (ShieldScale > 0)
@@ -864,7 +878,7 @@ namespace AAMod
             {
                 player.AddBuff(mod.BuffType<Buffs.YamataAGravity>(), 10, true);
             }
-            if (player.position.Y > (Main.worldSurface * 16.0) && (player.GetModPlayer<AAPlayer>().ZoneMire || player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake))
+            if (player.GetModPlayer<AAPlayer>().ZoneMire || player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake)
             {
                 if (Main.dayTime && !AAWorld.downedYamata)
                 {
@@ -925,14 +939,14 @@ namespace AAMod
                     player.gravity = 1f;
                 }
             }
-            if (player.position.Y < (Main.worldSurface * 16.0) && (player.GetModPlayer<AAPlayer>().ZoneInferno || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda))
+            if (player.GetModPlayer<AAPlayer>().ZoneInferno || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda)
             {
                 if (AshCurse)
                 {
                     AshRain(player, mod);
                 }
             }
-            if (player.position.Y > (Main.worldSurface * 16.0) && (player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda))
+            if (player.GetModPlayer<AAPlayer>().ZoneRisingMoonLake || player.GetModPlayer<AAPlayer>().ZoneRisingSunPagoda)
             {
                 if (AAWorld.downedAllAncients && !AAWorld.downedShen)
                 {
@@ -1096,6 +1110,179 @@ namespace AAMod
                     player.wingFrame = 0;
                 }
                 
+            }
+
+            if (BasePlayer.HasAccessory(player, mod.ItemType<Items.Vanity.Grox.AngryPirateSails>(), true, true))
+            {
+                WingAnimation(player, 1, 10, 2);
+            }
+
+
+            if (BasePlayer.HasAccessory(player, mod.ItemType<Items.Boss.Rajah.RabbitcopterEars>(), true, true))
+            {
+                bool isFlying = false;
+                if (player.controlJump && player.wingTime > 0f && !player.jumpAgainCloud && player.jump == 0 && player.velocity.Y != 0f)
+                {
+                    isFlying = true;
+                }
+                if (player.controlJump && player.controlDown && player.wingTime > 0f)
+                {
+                    isFlying = true;
+                }
+                if (isFlying || player.jump > 0)
+                {
+                    player.wingFrameCounter++;
+                    if (player.wingFrameCounter >= 6)
+                    {
+                        player.wingFrameCounter = 0;
+                    }
+                    player.wingFrame = 1 + player.wingFrameCounter / 2;
+                }
+                else if (player.velocity.Y != 0f)
+                {
+                    if (player.controlJump)
+                    {
+                        player.wingFrameCounter++;
+                        if (player.wingFrameCounter >= 6)
+                        {
+                            player.wingFrameCounter = 0;
+                        }
+                        player.wingFrame = 1 + player.wingFrameCounter / 2;
+                    }
+                    else if (player.wingTime == 0f)
+                    {
+                        player.wingFrame = 0;
+                    }
+                    else
+                    {
+                        player.wingFrame = 0;
+                    }
+                }
+                else
+                {
+                    player.wingFrame = 0;
+                }
+            }
+        }
+
+        public static void EmitDust()
+        {
+            if (Main.gamePaused)
+            {
+                return;
+            }
+            int sandTiles = Main.sandTiles;
+            Player player = Main.player[Main.myPlayer];
+            bool flag = Sandstorm.Happening && player.ZoneSandstorm && (Main.bgStyle == 2 || Main.bgStyle == 5) && Main.bgDelay < 50;
+            Sandstorm.HandleEffectAndSky(flag && Main.UseStormEffects);
+            if (sandTiles < 100 || (double)player.position.Y > Main.worldSurface * 16.0 || player.ZoneBeach)
+            {
+                return;
+            }
+            int maxValue = 1;
+            if (!flag)
+            {
+                return;
+            }
+            if (Main.rand.Next(maxValue) != 0)
+            {
+                return;
+            }
+            int num = Math.Sign(Main.windSpeed);
+            float num2 = Math.Abs(Main.windSpeed);
+            if (num2 < 0.01f)
+            {
+                return;
+            }
+            float num3 = (float)num * MathHelper.Lerp(0.9f, 1f, num2);
+            float num4 = 2000f / sandTiles;
+            float num5 = 3f / num4;
+            num5 = MathHelper.Clamp(num5, 0.77f, 1f);
+            int num6 = (int)num4;
+            float num7 = (float)Main.screenWidth / (float)Main.maxScreenW;
+            int num8 = (int)(1000f * num7);
+            float num9 = 20f * Sandstorm.Severity;
+            float num10 = (float)num8 * (Main.gfxQuality * 0.5f + 0.5f) + (float)num8 * 0.1f - (float)Dust.SandStormCount;
+            if (num10 <= 0f)
+            {
+                return;
+            }
+            float num11 = (float)Main.screenWidth + 1000f;
+            float num12 = (float)Main.screenHeight;
+            Vector2 value = Main.screenPosition + player.velocity;
+            WeightedRandom<Color> weightedRandom = new WeightedRandom<Color>();
+            weightedRandom.Add(new Color(200, 160, 20, 180), (double)(Main.screenTileCounts[53] + Main.screenTileCounts[396] + Main.screenTileCounts[397]));
+            weightedRandom.Add(new Color(103, 98, 122, 180), (double)(Main.screenTileCounts[112] + Main.screenTileCounts[400] + Main.screenTileCounts[398]));
+            weightedRandom.Add(new Color(135, 43, 34, 180), (double)(Main.screenTileCounts[234] + Main.screenTileCounts[401] + Main.screenTileCounts[399]));
+            weightedRandom.Add(new Color(213, 196, 197, 180), (double)(Main.screenTileCounts[116] + Main.screenTileCounts[403] + Main.screenTileCounts[402]));
+            float num13 = MathHelper.Lerp(0.2f, 0.35f, Sandstorm.Severity);
+            float num14 = MathHelper.Lerp(0.5f, 0.7f, Sandstorm.Severity);
+            float amount = (num5 - 0.77f) / 0.230000019f;
+            int maxValue2 = (int)MathHelper.Lerp(1f, 10f, amount);
+            int num15 = 0;
+            while ((float)num15 < num9)
+            {
+                if (Main.rand.Next(num6 / 4) == 0)
+                {
+                    Vector2 vector = new Vector2(Main.rand.NextFloat() * num11 - 500f, Main.rand.NextFloat() * -50f);
+                    if (Main.rand.Next(3) == 0 && num == 1)
+                    {
+                        vector.X = (float)(Main.rand.Next(500) - 500);
+                    }
+                    else if (Main.rand.Next(3) == 0 && num == -1)
+                    {
+                        vector.X = (float)(Main.rand.Next(500) + Main.screenWidth);
+                    }
+                    if (vector.X < 0f || vector.X > (float)Main.screenWidth)
+                    {
+                        vector.Y += Main.rand.NextFloat() * num12 * 0.9f;
+                    }
+                    vector += value;
+                    int num16 = (int)vector.X / 16;
+                    int num17 = (int)vector.Y / 16;
+                    if (Main.tile[num16, num17] != null && Main.tile[num16, num17].wall == 0)
+                    {
+                        for (int i = 0; i < 1; i++)
+                        {
+                            Dust dust = Main.dust[Dust.NewDust(vector, 10, 10, 268, 0f, 0f, 0, default(Color), 1f)];
+                            dust.velocity.Y = 2f + Main.rand.NextFloat() * 0.2f;
+                            Dust expr_460_cp_0 = dust;
+                            expr_460_cp_0.velocity.Y = expr_460_cp_0.velocity.Y * dust.scale;
+                            Dust expr_47A_cp_0 = dust;
+                            expr_47A_cp_0.velocity.Y = expr_47A_cp_0.velocity.Y * 0.35f;
+                            dust.velocity.X = num3 * 5f + Main.rand.NextFloat() * 1f;
+                            Dust expr_4B7_cp_0 = dust;
+                            expr_4B7_cp_0.velocity.X = expr_4B7_cp_0.velocity.X + num3 * num14 * 20f;
+                            dust.fadeIn += num14 * 0.2f;
+                            dust.velocity *= 1f + num13 * 0.5f;
+                            dust.color = weightedRandom;
+                            dust.velocity *= 1f + num13;
+                            dust.velocity *= num5;
+                            dust.scale = 0.9f;
+                            num10 -= 1f;
+                            if (num10 <= 0f)
+                            {
+                                break;
+                            }
+                            if (Main.rand.Next(maxValue2) != 0)
+                            {
+                                i--;
+                                vector += Utils.RandomVector2(Main.rand, -10f, 10f) + dust.velocity * -1.1f;
+                                num16 = (int)vector.X / 16;
+                                num17 = (int)vector.Y / 16;
+                                if (WorldGen.InWorld(num16, num17, 10) && Main.tile[num16, num17] != null)
+                                {
+                                    ushort arg_5F6_0 = Main.tile[num16, num17].wall;
+                                }
+                            }
+                        }
+                        if (num10 <= 0f)
+                        {
+                            return;
+                        }
+                    }
+                }
+                num15++;
             }
         }
 
@@ -1455,6 +1642,23 @@ namespace AAMod
                         }
                         spawnedDevItems = true;
                         break;
+                    case 15:
+                        player.QuickSpawnItem(mod.ItemType("AngryPirateHood"));
+                        player.QuickSpawnItem(mod.ItemType("AngryPirateCofferplate"));
+                        player.QuickSpawnItem(mod.ItemType("AngryPirateBoots"));
+                        if (dropType >= 1)
+                        {
+                            player.QuickSpawnItem(mod.ItemType("AngryPirateSails"));
+                        }
+                        if (dropType >= 2)
+                        {
+                            player.QuickSpawnItem(mod.ItemType(dropType == 3 ? "SoccStaff" : "SockStaff"));
+                        }
+                        spawnedDevItems = true;
+                        break;
+                    case 16:
+                        player.QuickSpawnItem(mod.ItemType("GroxNote"));
+                        break;
                 }
             }
         }
@@ -1518,7 +1722,7 @@ namespace AAMod
             }
             if ((player.GetModPlayer<AAPlayer>(mod).ZoneInferno || player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda) && player.GetModPlayer<AAPlayer>(mod).AshCurse)
             {
-                if (!player.GetModPlayer<AAPlayer>(mod).AshRemover || player.position.Y > (Main.worldSurface * 16.0)  )
+                if (!player.GetModPlayer<AAPlayer>(mod).AshRemover || !(player.ZoneSkyHeight || player.ZoneOverworldHeight))
                 {
                     player.AddBuff(mod.BuffType<BurningAsh>(), 5);
                 }
@@ -1601,7 +1805,7 @@ namespace AAMod
             {
                 return;
             }
-            if ((player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda || player.GetModPlayer<AAPlayer>(mod).ZoneRisingMoonLake) && AAWorld.downedAllAncients && !AAWorld.downedAllAncients)
+            if ((player.GetModPlayer<AAPlayer>(mod).ZoneRisingSunPagoda || player.GetModPlayer<AAPlayer>(mod).ZoneRisingMoonLake) && AAWorld.downedAllAncients && !AAWorld.downedShen)
             {
                 if (Main.player[Main.myPlayer].position.Y < Main.worldSurface * 16.0)
                 {
@@ -1824,10 +2028,26 @@ namespace AAMod
                 {
                     SnapCD = 18000;
                     player.AddBuff(mod.BuffType<InfinityBurnout>(), 18000);
+                    Projectile.NewProjectile(player.position, Vector2.Zero, mod.ProjectileType<Items.Accessories.Snap>(), 0, 0, player.whoAmI);
                     Main.NewText("Perfectly Balanced, as all things should be...", Color.Purple);
-                    Main.npc.Where(x => x.active && !x.townNPC && x.type != NPCID.TargetDummy && x.type != mod.NPCType<RiftShredder>() && x.type != mod.NPCType<Taser>() && x.type != mod.NPCType<RealityCannon>() && x.type != mod.NPCType<VoidStar>() && x.type != mod.NPCType<TeslaHand>() && !x.boss).ToList().ForEach(x =>
+                    Main.npc.Where(x => x.active && !x.townNPC && (x.type != NPCID.TargetDummy || !NPCID.Sets.TechnicallyABoss[x.type] || !x.boss)).ToList().ForEach(x =>
                     {
-                        player.ApplyDamageToNPC(x, damage: x.lifeMax, knockback: 0f, direction: 0, crit: true);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            int num9 = Dust.NewDust(x.position, x.width, x.height, mod.DustType<Dusts.SnapDust>(), 0f, 0f, 0, default(Color), 1f);
+                            Main.dust[num9].velocity.Y = 3f + Main.rand.Next(30) * 0.1f;
+                            Dust expr_292_cp_0 = Main.dust[num9];
+                            expr_292_cp_0.velocity.Y *= Main.dust[num9].scale;
+                            Main.dust[num9].velocity.X = (Main.cloudAlpha + 0.5f) * 25f + Main.rand.NextFloat() * 0.2f - 0.1f;
+                            Dust expr_370_cp_0 = Main.dust[num9];
+                            expr_370_cp_0.velocity.Y += expr_370_cp_0.velocity.Y * 0.5f;
+                            Dust expr_38E_cp_0 = Main.dust[num9];
+                            expr_38E_cp_0.velocity.Y *= (1f + 0.3f * Main.cloudAlpha);
+                            Main.dust[num9].scale += Main.cloudAlpha * 0.2f;
+                            Main.dust[num9].velocity *= 1f + Main.cloudAlpha * 0.5f;
+                        }
+                        x.NPCLoot();
+                        x.active = false;
                     });
                 }
             }
@@ -1835,12 +2055,34 @@ namespace AAMod
             {
                 if (!player.mount.Active)
                 {
-                    AssassinStealth = !AssassinStealth;
+                    if (!AssassinStealth)
+                    {
+                        AssassinStealth = true;
+                    }
+                    else
+                    {
+                        AssassinStealth = false;
+                    }
+                }
+            }
+            if (Time)
+            {
+                if (AAMod.TimeStone.JustPressed && !NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Equinox.NightcrawlerHead>()) && !NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Equinox.DaybringerHead>()))
+                {
+                    AAWorld.TimeStopped = false;
+                    if (!Main.fastForwardTime)
+                    {
+                        Main.fastForwardTime = true;
+                    }
+                    else
+                    {
+                        Main.fastForwardTime = false;
+                    }
                 }
             }
             if (SagShield)
             {
-                if (AAMod.AbilityKey.JustPressed && SagCooldown == 0)
+                if (AAMod.AccessoryAbilityKey.JustPressed && SagCooldown == 0)
                 {
                     player.AddBuff(mod.BuffType<SagShield>(), 300);
                     SagCooldown = 5400;
@@ -1848,7 +2090,7 @@ namespace AAMod
             }
             if (trueDynaskull)
             {
-                if (AAMod.AbilityKey.JustPressed && AbilityCD == 0)
+                if (AAMod.ArmorAbilityKey.JustPressed && AbilityCD == 0)
                 {
                     AbilityCD = 180;
                     int i = Main.myPlayer;
@@ -2240,17 +2482,13 @@ namespace AAMod
             }
             if (demonGauntlet && !dwarvenGauntlet)
             {
-                int ThisDust;
-                if (WorldGen.crimson)
-                {
-                    ThisDust = 76;
-                }
-                else
-                {
-                    ThisDust = 264;
-                }
                 if (Main.rand.NextFloat() < 1f)
                 {
+                    int ThisDust = 170;
+                    if (!WorldGen.crimson)
+                    {
+                        ThisDust = 75;
+                    }
                     Dust dust;
                     dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, ThisDust, 0f, 0f, 46, default(Color), 1.381579f)];
                     dust.noGravity = true;
@@ -3003,6 +3241,10 @@ namespace AAMod
                 }
                 BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/PerfectChaosKabuto_Head_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow), drawPlayer.headFrame, scale);
             }
+            else if (!mapHead && HasAndCanDraw(drawPlayer, mod.ItemType("TrueBlazingKabuto")))
+            {
+                BaseDrawing.DrawPlayerTexture(drawObj, mod.GetTexture("Glowmasks/TrueBlazingKabutoHead_Glow"), dyeHead, drawPlayer, Position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.COLOR_WHITEFADE1, edi.shadow), drawPlayer.headFrame, scale);
+            }
         }
         public PlayerLayer glAfterBody = new PlayerLayer("AAMod", "glAfterBody", PlayerLayer.Body, delegate (PlayerDrawInfo edi)
         {
@@ -3075,33 +3317,20 @@ namespace AAMod
             }
             else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueCopperPlate")))
             {
-                if (drawPlayer.Male)
-                {
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueCopperPlate_Body_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow), drawPlayer.bodyFrame);
-                }
-                else
-                {
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueCopperPlate_Female_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow), drawPlayer.bodyFrame);
-                }
+                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueCopperPlate_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow), drawPlayer.bodyFrame);
+            }
+            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueBlazingDou")))
+            {
+                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueBlazingDou_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.COLOR_WHITEFADE1, edi.shadow), drawPlayer.bodyFrame);
             }
             else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosPlate")))
             {
-                if (drawPlayer.Male)
+                if (drawPlayer.direction == -1)
                 {
-                    if (drawPlayer.direction == -1)
-                    {
-                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosPlateBlue_Body"), edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), edi.shadow), drawPlayer.bodyFrame);
-                    }
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/PerfectChaosPlate_Body_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow), drawPlayer.bodyFrame);
+                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosPlateBlue_" + (drawPlayer.Male ? "Body" : "Female")), edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), edi.shadow), drawPlayer.bodyFrame);
                 }
-                else
-                {
-                    if (drawPlayer.direction == -1)
-                    {
-                        BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Items/Armor/PerfectChaos/PerfectChaosPlateBlue_Female"), edi.bodyArmorShader, drawPlayer, edi.position, 0, 0f, 0f, drawPlayer.GetImmuneAlphaPure(BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), edi.shadow), drawPlayer.bodyFrame);
-                    }
-                    BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/PerfectChaosPlate_Female_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow), drawPlayer.bodyFrame);
-                }
+                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/PerfectChaosPlate_" + (drawPlayer.Male ? "Body" : "Female") + "_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.Shen3, edi.shadow), drawPlayer.bodyFrame);
+
             }
         });
         public PlayerLayer glAfterArm = new PlayerLayer("AAMod", "glAfterArm", PlayerLayer.Arms, delegate (PlayerDrawInfo edi)
@@ -3156,6 +3385,10 @@ namespace AAMod
             else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueCopperPlate")))
             {
                 BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueCopperPlate_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow), drawPlayer.bodyFrame);
+            }
+            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueBlazingDou")))
+            {
+                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueBlazingDou_Arms_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.COLOR_WHITEFADE1, edi.shadow), drawPlayer.bodyFrame);
             }
             else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosPlate")))
             {
@@ -3219,6 +3452,10 @@ namespace AAMod
             {
                 BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueCopperLeggings_Legs_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(Main.DiscoColor, edi.shadow), drawPlayer.legFrame);
             }
+            else if (HasAndCanDraw(drawPlayer, mod.ItemType("TrueBlazingSuneate")))
+            {
+                BaseDrawing.DrawPlayerTexture(Main.playerDrawData, mod.GetTexture("Glowmasks/TrueBlazingSuneate_Legs_Glow"), edi.bodyArmorShader, drawPlayer, edi.position, 1, 0f, 0f, drawPlayer.GetImmuneAlphaPure(AAColor.COLOR_WHITEFADE1, edi.shadow), drawPlayer.bodyFrame);
+            }
             else if (HasAndCanDraw(drawPlayer, mod.ItemType("PerfectChaosGreaves")))
             {
                 if (drawPlayer.direction == -1)
@@ -3241,6 +3478,11 @@ namespace AAMod
                 BaseDrawing.DrawTexture(Main.spriteBatch, Shield, 0, drawPlayer.position, drawPlayer.width, drawPlayer.height, drawPlayer.GetModPlayer<AAPlayer>(mod).ShieldScale, 0, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.ZeroShield, true);
                 BaseDrawing.DrawTexture(Main.spriteBatch, Ring, 0, drawPlayer.position, drawPlayer.width, drawPlayer.height, drawPlayer.GetModPlayer<AAPlayer>(mod).ShieldScale, drawPlayer.GetModPlayer<AAPlayer>(mod).RingRoatation, 0, 1, new Rectangle(0, 0, Ring.Width, Ring.Height), BaseDrawing.GetLightColor(new Vector2(drawPlayer.position.X, drawPlayer.position.Y)), true);
                 BaseDrawing.DrawTexture(Main.spriteBatch, RingGlow, 0, drawPlayer.position, drawPlayer.width, drawPlayer.height, drawPlayer.GetModPlayer<AAPlayer>(mod).ShieldScale, drawPlayer.GetModPlayer<AAPlayer>(mod).RingRoatation, 0, 1, new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), GenericUtils.COLOR_GLOWPULSE, true);
+            }
+            if (drawPlayer.GetModPlayer<AAPlayer>(mod).TimeScale > 0)
+            {
+                Texture2D Ring = mod.GetTexture("Items/Accessories/TimeRing");
+                BaseDrawing.DrawTexture(Main.spriteBatch, Ring, 0, drawPlayer.position, drawPlayer.width, drawPlayer.height, drawPlayer.GetModPlayer<AAPlayer>(mod).TimeScale, drawPlayer.GetModPlayer<AAPlayer>(mod).RingRoatation, 0, 1, new Rectangle(0, 0, Ring.Width, Ring.Height), AAColor.COLOR_WHITEFADE1, true);
             }
         });
 

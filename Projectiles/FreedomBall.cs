@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+﻿using Terraria.ModLoader;
 
 namespace AAMod.Projectiles
 {
@@ -30,9 +23,10 @@ namespace AAMod.Projectiles
 
         public override void AI()
         {
-            projectile.ai[0] += 1f;
-
-            if(projectile.ai[0] >= 180f)
+            projectile.localAI[0] += 1f;
+            projectile.alpha += 10;
+            projectile.scale += 0.3f;
+            if (projectile.alpha >= 255)
             {
                 projectile.Kill();
             }

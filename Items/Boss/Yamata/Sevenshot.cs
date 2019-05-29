@@ -1,15 +1,13 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using AAMod.Projectiles.Yamata;
 
 namespace AAMod.Items.Boss.Yamata
 {
-	public class Sevenshot : ModItem
+    public class Sevenshot : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -57,7 +55,7 @@ namespace AAMod.Items.Boss.Yamata
 		{
 		    float SpeedX = speedX + (float) Main.rand.Next(-25, 26) * 0.05f;
 		    float SpeedY = speedY + (float) Main.rand.Next(-25, 26) * 0.05f;
-		    Projectile.NewProjectile(position.X, position.Y, SpeedX, SpeedY, mod.ProjectileType<Moonblow>(), damage, knockBack, player.whoAmI, 0.0f, 0.0f);
+		    Projectile.NewProjectile(position.X, position.Y, SpeedX, SpeedY, mod.ProjectileType<Moonblow>(), (int)(damage * 1.5f), knockBack, player.whoAmI, 0.0f, 0.0f);
 		    for (int i = 0; i <= 6; i++)
 		    {
 		    	float SpeedNewX = speedX + (float) Main.rand.Next(-45, 46) * 0.05f;

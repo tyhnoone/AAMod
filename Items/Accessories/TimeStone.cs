@@ -1,10 +1,7 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,6 +17,8 @@ namespace AAMod.Items.Accessories
             DisplayName.SetDefault("Time Stone");
             Tooltip.SetDefault(
 @"Respawn time cut by 80%
+Pressing the Time Stone hotkey will allow you to speed up and resume time.
+Using the Time stone like an item stops/resumes time.
 'Dread it. Run from it. Destiny still arives.'");
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 16));
@@ -32,6 +31,7 @@ namespace AAMod.Items.Accessories
             item.value = Item.sellPrice(0, 0, 0, 0);
             item.rare = 11;
             item.accessory = true;
+            item.consumable = false;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -50,7 +50,22 @@ namespace AAMod.Items.Accessories
             }
         }
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+        public override bool UseItem(Player player)
+        {
+            Main.fastForwardTime = false;
+            if (!AAWorld.TimeStopped)
+            {
+                AAWorld.PausedTime = Main.time;
+                AAWorld.TimeStopped = true;
+            }
+            else
+            {
+                AAWorld.TimeStopped = false;
+            }
+            return false;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<AAPlayer>().Time = true;
         }

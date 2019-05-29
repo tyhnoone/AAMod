@@ -3,15 +3,7 @@ using Terraria;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Terraria.DataStructures;
-using System.Diagnostics;
-using System.Collections.Generic;
-using Terraria.Enums;
-using System;
 using BaseMod;
-using Terraria.ID;
-using AAMod.NPCs.Bosses.Yamata;
-using AAMod.NPCs.Bosses.Yamata.Awakened;
 
 namespace AAMod.Tiles
 {
@@ -38,6 +30,10 @@ namespace AAMod.Tiles
 
         public override bool CanKillTile(int i, int j, ref bool blockDamaged)
         {
+            if (AAWorld.downedShen)
+            {
+                return true;
+            }
             return false;
         }
 

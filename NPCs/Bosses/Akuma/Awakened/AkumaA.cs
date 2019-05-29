@@ -4,7 +4,6 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using BaseMod;
 using System.IO;
 using Terraria.Graphics.Shaders;
@@ -34,7 +33,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 			npc.aiStyle = -1;
 			npc.netAlways = true;
             npc.lifeMax = 190000;
-            npc.damage = 90;
+            npc.damage = 150;
             npc.defense = 190;
             npc.value = Item.buyPrice(20, 0, 0, 0);
             npc.knockBackResist = 0f;
@@ -206,7 +205,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                         Main.NewText("ACK..! WATER! I LOATHE WATER!!!", Color.DeepSkyBlue);
                     }
                 }
-                else
+                else if (!npc.HasBuff(BuffID.Wet))
                 {
                     Main.PlaySound(2, (int)npc.Center.X, (int)npc.Center.Y, 20);
                     AAAI.BreatheFire(npc, true, mod.ProjectileType<AkumaABreath>(), 2, 2);
@@ -250,6 +249,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                             latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaABody"), npc.whoAmI, 0, latestNPC);
                             Main.npc[latestNPC].realLife = npc.whoAmI;
                             Main.npc[latestNPC].ai[3] = npc.whoAmI;
+                            Main.npc[latestNPC].netUpdate2 = true;
                             segment += 1;
                         }
                         if (segment == 1 || segment == 4 || segment == 7)
@@ -257,23 +257,27 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                             latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaAArms"), npc.whoAmI, 0, latestNPC);
                             Main.npc[latestNPC].realLife = npc.whoAmI;
                             Main.npc[latestNPC].ai[3] = npc.whoAmI;
+                            Main.npc[latestNPC].netUpdate2 = true;
                             segment += 1;
                         }
                     }
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaABody"), npc.whoAmI, 0, latestNPC);
                     Main.npc[latestNPC].realLife = npc.whoAmI;
                     Main.npc[latestNPC].ai[3] = npc.whoAmI;
+                    Main.npc[latestNPC].netUpdate2 = true;
 
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaABody1"), npc.whoAmI, 0, latestNPC);
                     Main.npc[latestNPC].realLife = npc.whoAmI;
                     Main.npc[latestNPC].ai[3] = npc.whoAmI;
+                    Main.npc[latestNPC].netUpdate2 = true;
 
                     latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaATail"), npc.whoAmI, 0, latestNPC);
                     Main.npc[latestNPC].realLife = npc.whoAmI;
                     Main.npc[latestNPC].ai[3] = npc.whoAmI;
+                    Main.npc[latestNPC].netUpdate2 = true;
 
                     npc.ai[0] = 1;
-                    npc.netUpdate = true;
+                    npc.netUpdate2 = true;
                 }
             }
 
@@ -435,10 +439,9 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 Main.NewText(AAWorld.downedAkuma ? "Heh, not too shabby this time kid. I'm impressed. Here. Take your prize." : "GRAH..! HOW!? HOW COULD I LOSE TO A MERE MORTAL TERRARIAN?! Hmpf...fine kid, you win, fair and square. Heere's your reward.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
                 AAWorld.downedAkuma = true;
                 npc.DropLoot(Items.Vanity.Mask.AkumaAMask.type, 1f / 7);
-                if (Main.rand.Next(20) == 0 && AAWorld.PowerDropped == false && AAWorld.downedAllAncients)
+                if (Main.rand.Next(50) == 0 && AAWorld.downedAllAncients)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PowerStone"));
-                    AAWorld.PowerDropped = true;
                 }
                 npc.DropLoot(Items.Boss.Akuma.AkumaATrophy.type, 1f / 10);
                 if (Main.rand.NextFloat() < 0.1f)
@@ -563,8 +566,6 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 damage = (int)(damage * .5f);
             }
         }
-
-        public static Texture2D glowTex = null, glowTex1 = null, glowTex2 = null, glowTex3 = null, glowTex4 = null, glowTex5 = null;
         
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
@@ -572,15 +573,14 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 AkumaTex = Main.npcTexture[npc.type];
             }
-            if (glowTex == null)
-            {
-                glowTex = mod.GetTexture("Glowmasks/AkumaA_Glow");
-                glowTex1 = mod.GetTexture("Glowmasks/AkumaA1_Glow");
-                glowTex2 = mod.GetTexture("Glowmasks/AkumaAArms_Glow");
-                glowTex3 = mod.GetTexture("Glowmasks/AkumaABody_Glow");
-                glowTex4 = mod.GetTexture("Glowmasks/AkumaABody1_Glow");
-                glowTex5 = mod.GetTexture("Glowmasks/AkumaATail_Glow");
-            }
+
+            Texture2D glowTex = mod.GetTexture("Glowmasks/AkumaA_Glow");
+            Texture2D glowTex1 = mod.GetTexture("Glowmasks/AkumaA1_Glow");
+            Texture2D glowTex2 = mod.GetTexture("Glowmasks/AkumaAArms_Glow");
+            Texture2D glowTex3 = mod.GetTexture("Glowmasks/AkumaABody_Glow");
+            Texture2D glowTex4 = mod.GetTexture("Glowmasks/AkumaABody1_Glow");
+            Texture2D glowTex5 = mod.GetTexture("Glowmasks/AkumaATail_Glow");
+
             Vector2 Drawpos = npc.Center - Main.screenPosition + new Vector2(0, npc.gfxOffY);
             int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
             if (npc.ai[1] == 1 || npc.ai[2] >= 470 || Main.npc[(int)npc.ai[3]].ai[1] == 1 || Main.npc[(int)npc.ai[3]].ai[2] >= 500)

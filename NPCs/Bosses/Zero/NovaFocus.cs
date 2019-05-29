@@ -16,12 +16,13 @@ namespace AAMod.NPCs.Bosses.Zero
         {
             DisplayName.SetDefault("Nova Focus");
             Main.npcFrameCount[npc.type] = 2;
+            NPCID.Sets.TechnicallyABoss[npc.type] = true;
         }
         public override void SetDefaults()
         {
             npc.width = 40;
             npc.height = 54;
-            npc.damage = 40;
+            npc.damage = 30;
             npc.defense = 70;
             npc.lifeMax = 37500;
             npc.HitSound = SoundID.NPCHit4;
@@ -203,13 +204,12 @@ namespace AAMod.NPCs.Bosses.Zero
                 if (npc.localAI[0] > 360)
                 {
                     npc.localAI[0] = 0.0f;
-                    LaserTime = 0;
+                    LaserTime = 0; if (Main.netMode != 1) laser.Kill();
                 }
                 LaserTime++;
                 if (LaserTime >= 600)
                 {
                     internalAI[0] = 0;
-                    if (Main.netMode != 1) laser.Kill();
                 }
                 else if (LaserTime >= 300)
                 {
@@ -285,8 +285,9 @@ namespace AAMod.NPCs.Bosses.Zero
                 ++npc.localAI[0];
                 if (npc.localAI[0] <= 80.0)
                     return;
-                if (npc.localAI[0] > 160)
+                if (npc.localAI[0] > 200)
                 {
+                    if (Main.netMode != 1) laser.Kill();
                     npc.localAI[0] = 0.0f;
                     LaserTime = 0;
                 }

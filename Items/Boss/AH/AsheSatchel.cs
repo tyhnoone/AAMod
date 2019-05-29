@@ -1,9 +1,5 @@
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using BaseMod;
 
 namespace AAMod.Items.Boss.AH
 {
@@ -32,6 +28,7 @@ Contains a set of Fury Witch's robes");
 
         public override void RightClick(Player player)
         {
+            byte pre = item.prefix;
             item.TurnToAir();
             int itemID = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("WitchHood"), 1, false, 0, false, false);
             int itemID1 = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("WitchRobe"), 1, false, 0, false, false);

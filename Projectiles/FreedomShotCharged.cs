@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Projectiles
 {
@@ -54,7 +49,7 @@ namespace AAMod.Projectiles
         {
             if (firstHit && projectile.owner == Main.myPlayer)
             {
-                Projectile.NewProjectile(projectile.position, new Vector2(0, 0), mod.ProjectileType("FreedomBall"), projectile.damage / 6, 0f, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, new Vector2(0, 0), mod.ProjectileType("FreedomBall"), projectile.damage / 6, 0f, projectile.owner);
                 firstHit = false;
             }
         }

@@ -5,18 +5,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Terraria;
-using Terraria.Utilities;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
-using Terraria.GameContent.Generation;
 using BaseMod;
 using AAMod.Tiles;
 
 namespace AAMod.Worldgeneration
-{ 
-	public class MireBiome : MicroBiome
+{
+    public class MireBiome : MicroBiome
 	{
 		public override bool Place(Point origin, StructureMap structures)
 		{
@@ -34,7 +31,7 @@ namespace AAMod.Worldgeneration
             colorToTile[new Color(255, 0, 0)] = mod.TileType("AbyssWood");
             colorToTile[new Color(128, 0, 0)] = mod.TileType("AbyssWoodSolid");
             colorToTile[new Color(255, 255, 0)] = mod.TileType("AbyssVines");
-            colorToTile[new Color(0, 255, 255)] = mod.TileType("MireGrass");
+            colorToTile[new Color(0, 255, 255)] = mod.TileType("DepthMoss");
             colorToTile[new Color(128, 0, 0)] = mod.TileType("AbyssWoodSolid");
             colorToTile[new Color(150, 150, 150)] = -2; //turn into air
             colorToTile[Color.Black] = -1; //don't touch when genning

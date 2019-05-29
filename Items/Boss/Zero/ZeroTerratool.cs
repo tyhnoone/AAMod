@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -27,7 +25,7 @@ namespace AAMod.Items.Boss.Zero
             item.autoReuse = true;
             item.useTurn = true;
             item.damage = 100;
-            item.pick = 260;
+            item.pick = 300;
 
         }
 

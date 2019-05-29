@@ -24,14 +24,11 @@ namespace AAMod
 
         // Hotkeys
         public static ModHotKey InfinityHotKey;
-        public static ModHotKey AbilityKey;
+        public static ModHotKey AccessoryAbilityKey;
+        public static ModHotKey ArmorAbilityKey;
         public static ModHotKey Rift;
         public static ModHotKey RiftReturn;
-
-        // Music
-        public static bool AkumaMusic = false;
-        public static bool YamataMusic = false;
-        public static bool AHIntro = false;
+        public static ModHotKey TimeStone;
 
         // Textures
         public static IDictionary<string, Texture2D> Textures = null;
@@ -43,9 +40,6 @@ namespace AAMod
         private static readonly int UI_ScreenAnchorX = Main.screenWidth - 800;
         private static int UIDisplay_ManaPerStar = 20;
         public static SpriteFont fontMouseText;
-
-        public static int[] SNAKETYPES = new int[0];
-        public static int[] SERPENTTYPES = new int[0];
 
         public static bool thoriumLoaded = false;
 
@@ -233,7 +227,10 @@ namespace AAMod
             Rift = RegisterHotKey("Rift Home", "C");
             RiftReturn = RegisterHotKey("Rift Back", "X");
 
-            AbilityKey = RegisterHotKey("AA Ability", "Y");
+            AccessoryAbilityKey = RegisterHotKey("AA Accessory Ability", "U");
+            ArmorAbilityKey = RegisterHotKey("AA Armor Ability", "Y");
+
+            TimeStone = RegisterHotKey("Time Stone", "K");
 
             if (!Main.dedServ)
             {
@@ -256,6 +253,7 @@ namespace AAMod
             PremultiplyTexture(GetTexture("Backgrounds/Star 1"));
             PremultiplyTexture(GetTexture("NPCs/Bosses/Zero/ZeroShield"));
             PremultiplyTexture(GetTexture("NPCs/Bosses/AH/Ashe/AsheBarrier"));
+            PremultiplyTexture(GetTexture("Items/Accessories/Snap"));
 
             if (GetSoundSlot(SoundType.Music, "Sounds/Music/Monarch") != 0) //ensure music was loaded!
             {
@@ -270,8 +268,10 @@ namespace AAMod
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/InfernoUnderground"), ItemType("InfernoUBox"), TileType("InfernoUBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MireUnderground"), ItemType("MireUBox"), TileType("MireUBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Djinn"), ItemType("DjinnBox"), TileType("DjinnBox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TODE"), ItemType("ToadBox"), TileType("ToadBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Boss6"), ItemType("SerpentBox"), TileType("SerpentBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Siege"), ItemType("SiegeBox"), TileType("SiegeBox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/RajahTheme"), ItemType("RajahBox"), TileType("RajahBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Equinox"), ItemType("Equibox"), TileType("Equibox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Stars"), ItemType("StarBox"), TileType("StarBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Void"), ItemType("VoidBox"), TileType("VoidBox"));
@@ -344,7 +344,9 @@ namespace AAMod
             InfinityHotKey = null;
             Rift = null;
             RiftReturn = null;
-            AbilityKey = null;
+            AccessoryAbilityKey = null;
+            ArmorAbilityKey = null;
+            TimeStone = null;
         }
 
         public void CleanupStaticArrays()
@@ -352,30 +354,6 @@ namespace AAMod
             if (Main.netMode != 2) //handle clearing all static texture arrays
             {
                 precachedTextures.Clear();
-
-                NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex = null;
-                NPCs.Bosses.Yamata.Awakened.YamataSoul.glowTex2 = null;
-
-                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex = null;
-                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex2 = null;
-                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex3 = null;
-                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex4 = null;
-                NPCs.Bosses.Akuma.Awakened.AkumaA.glowTex5 = null;
-
-                NPCs.Bosses.Grips.GripOfChaosRed.glowTex = null;
-
-                NPCs.Bosses.Raider.Raider.glowTex = null;
-                NPCs.Bosses.Raider.Raider.glowTex1 = null;
-                NPCs.Bosses.Raider.RaidEgg.glowTex = null;
-                NPCs.Bosses.Raider.Raidmini.glowTex = null;
-                NPCs.Bosses.Raider.Raidmini.glowTex1 = null;
-
-                NPCs.Bosses.Retriever.Retriever.glowTex = null;
-                NPCs.Bosses.Retriever.Retriever.glowTex = null;
-
-                NPCs.Bosses.Zero.SearcherZero.glowTex = null;
-
-                NPCs.Enemies.Void.Searcher.glowTex = null;
 
                 AkumaSky.PlanetTexture = null;
                 AkumaSky.BGTexture = null;
@@ -401,9 +379,7 @@ namespace AAMod
 
                 YamataSky.PlanetTexture = null;
                 YamataSky.BGTexture = null;
-                YamataSky.SkyTex = null;
-
-                Items.Accessories.SoulStone._glow = null;                
+                YamataSky.SkyTex = null;       
             }
         }
 
@@ -447,30 +423,6 @@ namespace AAMod
             {
                 priority = MusicPriority.Event;
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingGiant");
-
-                return;
-            }
-
-            if (AkumaMusic == true)
-            {
-                priority = MusicPriority.BossHigh;
-                music = GetSoundSlot(SoundType.Music, "Sounds/Music/Akuma2");
-
-                return;
-            }
-
-            if (YamataMusic == true)
-            {
-                priority = MusicPriority.BossHigh;
-                music = GetSoundSlot(SoundType.Music, "Sounds/Music/Yamata2");
-
-                return;
-            }
-
-            if (AHIntro)
-            {
-                priority = (MusicPriority)10;
-                music = GetSoundSlot(SoundType.Music, "Sounds/Music/ChaosSissy");
 
                 return;
             }
@@ -712,21 +664,6 @@ namespace AAMod
                     Main.spriteBatch.Draw(Stars, new Vector2((775 + UI_ScreenAnchorX), (30 + Stars.Height / 2) + (Stars.Height - Stars.Height * num) / 2f + (28 * (i - 1))), new Rectangle?(new Rectangle(0, 0, Stars.Width, Stars.Height)), new Color(num2, num2, num2, a), 0f, new Vector2((Stars.Width / 2), (Stars.Height / 2)), num, SpriteEffects.None, 0f);
                 }
             }
-        }
-    }
-
-    public class RuneRecipe : ModRecipe
-    {
-        public bool IsExpert;
-
-        public RuneRecipe(Mod mod) : base(mod)
-        {
-            IsExpert = Main.expertMode;
-        }
-
-        public override bool RecipeAvailable()
-        {
-            return IsExpert;         
         }
     }
 

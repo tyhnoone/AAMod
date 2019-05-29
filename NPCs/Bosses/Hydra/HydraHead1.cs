@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Terraria.ID;
 namespace AAMod.NPCs.Bosses.Hydra
 {
     [AutoloadBossHead]
@@ -12,6 +12,7 @@ namespace AAMod.NPCs.Bosses.Hydra
         {
             DisplayName.SetDefault("Hydra");
             Main.npcFrameCount[npc.type] = 2;
+            NPCID.Sets.TechnicallyABoss[npc.type] = true;
         }
 
         public override void SetDefaults()
@@ -163,16 +164,6 @@ namespace AAMod.NPCs.Bosses.Hydra
 				npc.position += Body.npc.velocity;
 			}
             npc.spriteDirection = -1;
-        }
-
-        public override bool PreDraw(SpriteBatch sb, Color dColor)
-        {
-            if (Body != null)
-            {
-				dColor = npc.GetAlpha(dColor);
-                Body.DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead2", "NPCs/Bosses/Hydra/HydraHead2_Glow", npc, dColor);
-            }
-            return true;
         }
 
         public override void BossHeadRotation(ref float rotation)

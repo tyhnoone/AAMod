@@ -1,16 +1,10 @@
-using BaseMod;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using AAMod.Items.Boss.Akuma;
 using AAMod.Items.Boss.Retriever;
 using AAMod.Items.Boss.Grips;
-using AAMod.Items.Dev;
-using System;
-using Terraria.Localization;
 
 namespace AAMod
 {
@@ -35,11 +29,11 @@ namespace AAMod
             }
         }
 
-        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        public override void GrabRange(Item item, Player player, ref int grabRange)
         {
-            if (item.type == ItemID.AnkhShield)
+            if (player.HeldItem.type == mod.ItemType<Items.Usable.CodeMagnet>())
             {
-                player.meleeSpeed += 0.07f;
+                grabRange += 250;
             }
         }
 

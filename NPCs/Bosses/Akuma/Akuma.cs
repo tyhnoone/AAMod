@@ -4,7 +4,6 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using BaseMod;
 using System.IO;
 
@@ -39,7 +38,7 @@ namespace AAMod.NPCs.Bosses.Akuma
 			npc.aiStyle = -1;
 			npc.netAlways = true;
 			npc.knockBackResist = 0f;
-            npc.damage = 90;
+            npc.damage = 130;
             npc.defense = 150;
             npc.lifeMax = 190000;
             if (Main.expertMode)
@@ -138,11 +137,11 @@ namespace AAMod.NPCs.Bosses.Akuma
                 Roar(roarTimerMax, false);
                 internalAI[1] += 1;
             }
-            if (internalAI[0] > 350)
+            if (internalAI[0] > 300)
             {
                 Attack(npc, npc.velocity);
             }
-            if (internalAI[0] >= 450)
+            if (internalAI[0] >= 400)
             {
                 internalAI[0] = 0;
             }
@@ -169,7 +168,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                         Main.NewText("Water?! ACK..! I CAN'T BREATHE!", new Color(180, 41, 32));
                     }
                 }
-                else
+                else if (!npc.HasBuff(BuffID.Wet))
                 {
                     AAAI.BreatheFire(npc, true, mod.ProjectileType<AkumaBreath>(), 2, 2);
                 }
@@ -439,7 +438,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                     QuoteSaid = true;
                     Quote1 = true;
                 }
-                if (internalAI[0] == 370 || internalAI[0] == 390 || internalAI[0] == 410 || internalAI[0] == 430)
+                if (internalAI[0] == 320 || internalAI[0] == 340 || internalAI[0] == 360 || internalAI[0] == 380)
                 {
                     int Fireballs = Main.expertMode ? 5 : 4;
                     for (int Loops = 0; Loops < Fireballs; Loops++)
@@ -487,7 +486,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                     QuoteSaid = true;
                     Quote4 = true;
                 }
-                if (internalAI[0] == 400)
+                if (internalAI[0] == 350)
                 {
                     int Fireballs = Main.expertMode ? 3 : 5;
                     float spread = 70f * 0.0174f;
@@ -537,10 +536,9 @@ namespace AAMod.NPCs.Bosses.Akuma
                 {
                     BaseUtility.Chat("The volcanoes of the inferno are finally quelled...", Color.DarkOrange.R, Color.DarkOrange.G, Color.DarkOrange.B, false);
                 }
-                if (Main.rand.Next(20) == 0 && AAWorld.PowerDropped == false && AAWorld.downedAllAncients)
+                if (Main.rand.Next(50) == 0 && AAWorld.downedAllAncients)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PowerStone"));
-                    AAWorld.PowerDropped = true;
                 }
                 string[] lootTable = { "AkumaTerratool", "DayStorm", "LungStaff", "MorningGlory", "RadiantDawn", "Solar", "SunSpear", "ReignOfFire", "DaybreakArrow", "Daycrusher", "Dawnstrike", "SunStorm", "SunStaff", "DragonSlasher" };
                 AAAI.DownedBoss(npc, mod, lootTable, AAWorld.downedAkuma, true, mod.ItemType("CrucibleScale"), 20, 30, false, false, true, 0, mod.ItemType("AkumaTrophy"), false);

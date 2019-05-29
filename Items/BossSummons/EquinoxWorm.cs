@@ -1,11 +1,7 @@
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using AAMod.NPCs.Bosses.Equinox;
-using System.Collections.Generic;
-using BaseMod;
-using Terraria.Localization;
 
 namespace AAMod.Items.BossSummons
 {
@@ -40,8 +36,8 @@ Non-Consumable");
 
         public override bool UseItem(Player player)
         {
-            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("DaybringerHead"), true, 0, 0, "The Equinox Worms", true);
-            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("NightcrawlerHead"), false, 0, 0, "Nightcralwer", false);
+            AAModGlobalNPC.SpawnBoss(player, mod.NPCType<DaybringerHead>(), true, 0, 0, "The Equinox Worms", true);
+            AAModGlobalNPC.SpawnBoss(player, mod.NPCType<NightcrawlerHead>(), false, 0, 0, "Nightcralwer", false);
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;
         }

@@ -1,5 +1,4 @@
-﻿using AAMod.NPCs.Bosses.Yamata;
-using AAMod.NPCs.Bosses.Yamata.Awakened;
+﻿using AAMod.NPCs.Bosses.Yamata.Awakened;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -62,7 +61,6 @@ namespace AAMod.Backgrounds
 
             bool YamataA = NPC.AnyNPCs(mod.NPCType<YamataA>());
 
-            Color bgColor = GetAlpha(defaultColor, 0.2f * fadeOpacity * dayTimeOpacity);
 			Color fogColor = GetAlpha(YamataA ? YamataFog : DefaultFog, 0.4f * fadeOpacity * dayTimeOpacity);
 
             //ensure we cover the whole screen first

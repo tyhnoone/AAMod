@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BaseMod;
@@ -48,14 +42,7 @@ namespace AAMod.Projectiles.Zero
                 projectile.alpha = 80;
             }
 
-            if (projectile.scale > 1f)
-            {
-                projectile.scale = 1f;
-            }
-            else
-            {
-                projectile.scale += .1f;
-            }
+            projectile.scale = projectile.penetrate / 100;
 
             const int aislotHomingCooldown = 0;
             const int homingDelay = 10;

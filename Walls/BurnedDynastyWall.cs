@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace AAMod.Walls
@@ -21,6 +19,10 @@ namespace AAMod.Walls
 
         public override void KillWall(int i, int j, ref bool fail)
         {
+            if (AAWorld.downedShen)
+            {
+                fail = false;
+            }
             fail = true;
         }
 

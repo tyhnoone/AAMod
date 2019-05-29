@@ -4,9 +4,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BaseMod;
-using AAMod.NPCs.Bosses.Yamata.Awakened;
-using Terraria.ID;
 using System.IO;
+using Terraria.ID;
 
 namespace AAMod.NPCs.Bosses.Orthrus
 {
@@ -37,6 +36,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
         {
             DisplayName.SetDefault("Orthrus X");
             Main.npcFrameCount[npc.type] = 2;
+            NPCID.Sets.TechnicallyABoss[npc.type] = true;
         }
 
         public override void SetDefaults()
@@ -135,7 +135,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
                             Vector2 dir = Vector2.Normalize(targetPlayer.Center - npc.Center);
                             if (leftHead)
                             {
-								dir *= 12f;
+                                dir *= 12f;
                                 for (int num468 = 0; num468 < 15; num468++)
                                 {
                                     Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, mod.ProjectileType("OrthrusSpark"), (int)(damage * 1.3f), 0f, Main.myPlayer);
@@ -144,7 +144,15 @@ namespace AAMod.NPCs.Bosses.Orthrus
                             }
                             else
                             {
-                                Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, mod.ProjectileType("Shocking"), (int)(damage * 1.3f), 0f, Main.myPlayer);
+                                if (targetPlayer.GetModPlayer<AAPlayer>(mod).LockedOn)
+                                {
+                                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, mod.ProjectileType("Shocking"), (int)(damage * 1.3f), 0f, Main.myPlayer);
+                                    targetPlayer.GetModPlayer<AAPlayer>(mod).LockedOn = false;
+                                }
+                                else
+                                {
+                                    NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("OrthrusLock"));
+                                }
                             }
                         }
                     }

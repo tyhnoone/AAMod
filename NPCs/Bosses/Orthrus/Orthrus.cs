@@ -7,7 +7,6 @@ using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using BaseMod;
-using AAMod.NPCs.Bosses.Yamata.Awakened;
 
 namespace AAMod.NPCs.Bosses.Orthrus
 {
@@ -125,26 +124,37 @@ namespace AAMod.NPCs.Bosses.Orthrus
                     Main.npc[latestNPC].ai[0] = npc.whoAmI;
                     Head1 = Main.npc[latestNPC];
                     Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
+                    if (Main.netMode == 2 && latestNPC < 200)
+                    {
+                        NetMessage.SendData(23, -1, -1, null, latestNPC, 0f, 0f, 0f, 0, 0, 0);
+                    }
                     latestNPC = NPC.NewNPC((int)npc.Center.X - 34, (int)npc.Center.Y - 23, mod.NPCType("OrthrusHead2"), 0, npc.whoAmI);
                     Main.npc[latestNPC].realLife = npc.whoAmI;
                     Main.npc[latestNPC].ai[0] = npc.whoAmI;
                     Head2 = Main.npc[latestNPC];
                     Main.npc[latestNPC].netUpdate2 = true; Main.npc[latestNPC].netUpdate = true;
+                    if (Main.netMode == 2 && latestNPC < 200)
+                    {
+                        NetMessage.SendData(23, -1, -1, null, latestNPC, 0f, 0f, 0f, 0, 0, 0);
+                    }
                 }
                 HeadsSpawned = true;
             }
 
 
             Player playerTarget = Main.player[npc.target];
-            if (HeadsSpawned && (!NPC.AnyNPCs(mod.NPCType<OrthrusHead1>()) || !NPC.AnyNPCs(mod.NPCType<OrthrusHead2>())) && !playerTarget.dead)
+            if (HeadsSpawned && (!NPC.AnyNPCs(mod.NPCType<OrthrusHead1>()) || !NPC.AnyNPCs(mod.NPCType<OrthrusHead2>())) && internalAI[1] != AISTATE_RUNAWAY)
             {
                 npc.NPCLoot();
                 npc.active = false;
             }
 
-            if (!playerTarget.active || playerTarget.dead) //fleeing
+            if (!playerTarget.active || playerTarget.dead || Main.dayTime) //fleeing
 			{
-	            npc.noGravity = true;	
+                internalAI[1] = AISTATE_RUNAWAY;
+
+                npc.dontTakeDamage = true;
+                npc.noGravity = true;	
 				npc.noTileCollide = true;				
 				npc.velocity.Y -= 0.5f;				
 				if (Main.netMode != 1)
@@ -174,6 +184,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
 						}
 					}
 				}
+                return;
 			}
             else
 			{	

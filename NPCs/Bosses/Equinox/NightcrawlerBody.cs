@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Equinox
@@ -18,7 +13,7 @@ namespace AAMod.NPCs.Bosses.Equinox
             npc.dontCountMe = true;
 		}
 
-		public override bool PreNPCLoot()
+        public override bool PreNPCLoot()
 		{
 			return false;
 		}

@@ -2,7 +2,6 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Zero.Protocol
@@ -63,7 +62,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Collision.HitTiles(projectile.position, oldVelocity, projectile.width, projectile.height);
-            Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1);
+            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Glitch"), (int)projectile.Center.X, (int)projectile.Center.Y);
             return true;
         }
     }

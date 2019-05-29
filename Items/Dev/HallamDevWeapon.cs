@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Dev
@@ -15,6 +13,7 @@ namespace AAMod.Items.Dev
             DisplayName.SetDefault("Prismeow Spectrum");
             Tooltip.SetDefault(@"Summons a Legendary Rainbow Cat at cursor point
 Shoots Rainbow Bolts that move in the direction of your cursor
+Warning: Using this WILL lag your game!
 Prismeow EX");
             Item.staff[item.type] = true;
         }

@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
 using BaseMod;
 using System.IO;
@@ -18,6 +17,7 @@ namespace AAMod.NPCs.Bosses.Yamata
         {
             DisplayName.SetDefault("Yamata");
             Main.npcFrameCount[npc.type] = 3;
+            NPCID.Sets.TechnicallyABoss[npc.type] = true;
         }
 
         public override void SetDefaults()
@@ -39,7 +39,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 npc.buffImmune[k] = true;
             }
-            if (AAWorld.downedAllAncients)
+            if (AAWorld.downedShen)
             {
                 npc.lifeMax = 50000;
                 npc.damage = 1400;

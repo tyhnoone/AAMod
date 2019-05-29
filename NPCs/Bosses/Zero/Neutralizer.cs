@@ -3,25 +3,25 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Zero
 {
-    [AutoloadBossHead]
     public class Neutralizer : ModNPC
     {
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Neutralizer");
             Main.npcFrameCount[npc.type] = 2;
+            NPCID.Sets.TechnicallyABoss[npc.type] = true;
         }
         public override void SetDefaults()
         {
             npc.width = 40;
             npc.height = 70;
-            npc.damage = 70;
+            npc.damage = 50;
             npc.defense = 70;
             npc.lifeMax = 37500;
             npc.HitSound = SoundID.NPCHit4;
@@ -270,7 +270,7 @@ namespace AAMod.NPCs.Bosses.Zero
 
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            Texture2D glowTex = mod.GetTexture("Glowmasks/Neutralizer_Glow");
+            Texture2D glowTex = mod.GetTexture("Glowmasks/Neutralizer2_Glow");
             BaseMod.BaseDrawing.DrawTexture(spriteBatch, glowTex, 0, npc, GenericUtils.COLOR_GLOWPULSE);
         }
     }
