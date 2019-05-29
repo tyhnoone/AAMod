@@ -855,7 +855,6 @@
     <Compile Include="Items\DevTools\Undowner.cs" />
     <Compile Include="Items\DevTools\HardmodeUndowner.cs" />
     <Compile Include="Items\DevTools\TerrariaUndowner.cs" />
-    <Compile Include="Items\DevTools\Anticheat.cs" />
     <Compile Include="Items\DevTools\ChaosConverter.cs" />
     <Compile Include="Items\DevTools\AAUndowner.cs" />
     <Compile Include="Items\DevTools\Noodle.cs" />
@@ -4879,7 +4878,6 @@
     <Content Include="Items\Currency\GoblinSoul.png" />
     <Content Include="Items\DevTools\AAWorldgenner.png" />
     <Content Include="Items\DevTools\AncientOreGenner.png" />
-    <Content Include="Items\DevTools\Anticheat.png" />
     <Content Include="Items\DevTools\ChaosConverter.png" />
     <Content Include="Items\DevTools\DevRadar.png" />
     <Content Include="Items\DevTools\Minilake.png" />

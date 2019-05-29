@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using BaseMod;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
 using System.IO;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.NPCs.Bosses.Yamata
 {

@@ -49,10 +49,10 @@ namespace AAMod.NPCs.Bosses.Retriever
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((short)customAI[0]);
-                writer.Write((short)customAI[1]);
-                writer.Write((short)customAI[2]);
-                writer.Write((short)customAI[3]);
+                writer.Write(customAI[0]);
+                writer.Write(customAI[1]);
+                writer.Write(customAI[2]);
+                writer.Write(customAI[3]);
             }
         }
 
@@ -165,6 +165,10 @@ namespace AAMod.NPCs.Bosses.Retriever
             }
             
             customAI[0]--;
+            if (customAI[0] < 0)
+            {
+                customAI[0] = 0;
+            }
 
             if (Main.dayTime)
             {
@@ -250,6 +254,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                 else if (customAI[0] <= 0)
                 {
                     customAI[0] = 1200;
+                    npc.netUpdate2 = true;
                     return;
                 }
             }
@@ -294,7 +299,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.ai[1] = targetPlayer.Center.X;
                     npc.ai[2] = targetPlayer.Center.Y;
                     npc.ai[3] = 0;
-                    npc.netUpdate2 = true;
+                    npc.netUpdate = true;
                 }
                 BaseAI.LookAt(targetPlayer.Center, npc, 0, 0f, 0.1f, false);
             }
@@ -311,7 +316,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.ai[1] = Dive1 ? targetPlayer.Center.X : 0;
                     npc.ai[2] = Dive1 ? targetPlayer.Center.Y : 0;
                     npc.ai[3] = 0;
-                    npc.netUpdate2 = true;
+                    npc.netUpdate = true;
                 }
                 BaseAI.Look(npc, 0, 0f, 0.1f, false);
             }
@@ -328,7 +333,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.ai[1] = Dive2 ? targetPlayer.Center.X : 0;
                     npc.ai[2] = Dive2 ? targetPlayer.Center.Y : 0;
                     npc.ai[3] = 0;
-                    npc.netUpdate2 = true;
+                    npc.netUpdate = true;
                 }
                 BaseAI.Look(npc, 0, 0f, 0.1f, false);
             }
@@ -345,7 +350,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.ai[1] = Dive3 ? targetPlayer.Center.X : 0;
                     npc.ai[2] = Dive3 ? targetPlayer.Center.Y : 0;
                     npc.ai[3] = 0;
-                    npc.netUpdate2 = true;
+                    npc.netUpdate = true;
                 }
                 BaseAI.Look(npc, 0, 0f, 0.1f, false);
             }
@@ -362,7 +367,7 @@ namespace AAMod.NPCs.Bosses.Retriever
                     npc.ai[1] = 0;
                     npc.ai[2] = 0;
                     npc.ai[3] = 0;
-                    npc.netUpdate2 = true;
+                    npc.netUpdate = true;
                 }
                 BaseAI.Look(npc, 0, 0f, 0.1f, false);
             }
