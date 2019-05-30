@@ -414,17 +414,9 @@ namespace AAMod.NPCs.Bosses.Retriever
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
             }
-            if (length < 200f)
+            if (npc.ai[0] == 1 || npc.ai[0] == 0)
             {
-                moveSpeed *= 0.5f;
-            }
-            if (length < 100f)
-            {
-                moveSpeed *= 0.5f;
-            }
-            if (length < 50f)
-            {
-                moveSpeed *= 0.5f;
+
             }
             npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
             npc.velocity *= moveSpeed;

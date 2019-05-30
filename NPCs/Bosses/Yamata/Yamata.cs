@@ -193,94 +193,164 @@ namespace AAMod.NPCs.Bosses.Yamata
         public bool NoFly4U = false;
         public int NoFlyCountDown = 60;
 
+        public void SpawnHeads(NPC head, int NPCType)
+        {
+            if (head == null)
+            {
+                if (Main.netMode != 1)
+                {
+                    head = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCType, 0)];
+                }
+                else
+                {
+                    int[] npcs = BaseAI.GetNPCs(npc.Center, -1, default(int[]), 100f, null);
+                    if (npcs != null && npcs.Length > 0)
+                    {
+                        foreach (int npcID in npcs)
+                        {
+                            NPC npc2 = Main.npc[npcID];
+                            if (npc2 != null && npc2.type == NPCType)
+                            {
+                                head = npc2;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public override void AI()
         {
             TargetClosest();
 
             if (!HeadsSpawned)
             {
-				headsSaidOw = new bool[7];				
-                if (Main.netMode != 1)
+				headsSaidOw = new bool[7];
+                if (isAwakened)
                 {
-					if(isAwakened)
-					{
-						npc.realLife = npc.whoAmI;
-						int latestNPC = npc.whoAmI;
-						latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHead"), 0, npc.whoAmI);
-						Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-						TrueHead = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF1"), 0, npc.whoAmI);
-                        Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-                        Head2 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF1"), 0, npc.whoAmI);
-                        Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-                        Head3 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF1"), 0, npc.whoAmI);
-                        Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-                        Head4 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF2"), 0, npc.whoAmI);
-                        Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-                        Head5 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF2"), 0, npc.whoAmI);
-                        Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-                        Head6 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataAHeadF2"), 0, npc.whoAmI);
-                        Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-                        Head7 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
+                    if (TrueHead == null)
+                    {
+                        if (Main.netMode != 1)
+                        {
+                            TrueHead = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHead"), 0)];
+                            TrueHead.realLife = npc.whoAmI;
+                            Head2 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHeadF1"), 0)];
+                            Head3 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHeadF1"), 0)];
+                            Head4 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHeadF1"), 0)];
+                            Head5 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHeadF2"), 0)];
+                            Head6 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHeadF2"), 0)];
+                            Head7 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHeadF2"), 0)];
+                        }
+                        else
+                        {
+                            int[] npcs = BaseAI.GetNPCs(npc.Center, -1, default(int[]), 100f, null);
+                            if (npcs != null && npcs.Length > 0)
+                            {
+                                foreach (int npcID in npcs)
+                                {
+                                    NPC npc2 = Main.npc[npcID];
+                                    if (npc2 != null && npc2.type == mod.NPCType("YamataAHead"))
+                                    {
+                                        TrueHead = npc2;
+                                        TrueHead.realLife = npc.whoAmI;
+                                    }
+                                    if (npc2 != null && npc2.type == mod.NPCType("YamataAHeadF1"))
+                                    {
+                                        if (Head2 == null)
+                                        {
+                                            Head2 = npc2;
+                                        }
+                                        else if (Head3 == null)
+                                        {
+                                            Head3 = npc2;
+                                        }
+                                        else if (Head4 == null)
+                                        {
+                                            Head4 = npc2;
+                                        }
+                                    }
+                                    if (npc2 != null && npc2.type == mod.NPCType("YamataAHeadF2"))
+                                    {
+                                        if (Head5 == null)
+                                        {
+                                            Head5 = npc2;
+                                        }
+                                        else if (Head6 == null)
+                                        {
+                                            Head6 = npc2;
+                                        }
+                                        else if (Head7 == null)
+                                        {
+                                            Head7 = npc2;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                    else
-					{
-						int latestNPC = npc.whoAmI;
-						latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHead"), 0, npc.whoAmI);
-						Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-						TrueHead = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF1"), 0, npc.whoAmI);
-						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-						Head2 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF1"), 0, npc.whoAmI);
-						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-						Head3 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF1"), 0, npc.whoAmI);
-						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-						Head4 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF2"), 0, npc.whoAmI);
-						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-						Head5 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF2"), 0, npc.whoAmI);
-						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-						Head6 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("YamataHeadF2"), 0, npc.whoAmI);
-						Main.npc[(int)latestNPC].ai[0] = npc.whoAmI;
-						Head7 = Main.npc[latestNPC];
-                        Main.npc[latestNPC].netUpdate2 = true;
-
+                }
+                else
+                {
+                    if (TrueHead == null)
+                    {
+                        if (Main.netMode != 1)
+                        {
+                            TrueHead = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHead"), 0)];
+                            TrueHead.realLife = npc.whoAmI;
+                            Head2 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHeadF1"), 0)];
+                            Head3 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHeadF1"), 0)];
+                            Head4 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHeadF1"), 0)];
+                            Head5 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHeadF2"), 0)];
+                            Head6 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHeadF2"), 0)];
+                            Head7 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHeadF2"), 0)];
+                        }
+                        else
+                        {
+                            int[] npcs = BaseAI.GetNPCs(npc.Center, -1, default(int[]), 100f, null);
+                            if (npcs != null && npcs.Length > 0)
+                            {
+                                foreach (int npcID in npcs)
+                                {
+                                    NPC npc2 = Main.npc[npcID];
+                                    if (npc2 != null && npc2.type == mod.NPCType("YamataHead"))
+                                    {
+                                        TrueHead = npc2;
+                                        TrueHead.realLife = npc.whoAmI;
+                                    }
+                                    if (npc2 != null && npc2.type == mod.NPCType("YamataHeadF1"))
+                                    {
+                                        if (Head2 == null)
+                                        {
+                                            Head2 = npc2;
+                                        }
+                                        else if (Head3 == null)
+                                        {
+                                            Head3 = npc2;
+                                        }
+                                        else if (Head4 == null)
+                                        {
+                                            Head4 = npc2;
+                                        }
+                                    }
+                                    if (npc2 != null && npc2.type == mod.NPCType("YamataHeadF2"))
+                                    {
+                                        if (Head5 == null)
+                                        {
+                                            Head5 = npc2;
+                                        }
+                                        else if (Head6 == null)
+                                        {
+                                            Head6 = npc2;
+                                        }
+                                        else if (Head7 == null)
+                                        {
+                                            Head7 = npc2;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 HeadsSpawned = true;

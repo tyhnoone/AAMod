@@ -59,8 +59,6 @@ namespace AAMod.NPCs.Bosses.Yamata
         public float TargetDirection = (float)Math.PI / 2;
         public float s = 1;
         public Projectile Breath;
-        private int MouthFrame;
-        private int MouthCounter;
         public static bool fireAttack;
         private int attackFrame;
         private int attackCounter;
