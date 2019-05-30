@@ -240,25 +240,29 @@ namespace AAMod.NPCs.Bosses.Raider
                 return;
             }
 
-            if (Main.netMode != 1 && internalAI[0]++ >= 180)
+            if (Main.netMode != 1)
             {
-                internalAI[0] = 0;
-                internalAI[1] = Minions < MaxMinions ? Main.rand.Next(5) : Main.rand.Next(4);
-                npc.ai = new float[4];
-                if (internalAI[1] == AISTATE_FLYABOVEPLAYER)
+                internalAI[0]++;
+                if (internalAI[0] >= 180)
                 {
-                    npc.ai[1] = 1 + Main.rand.Next(2);
+                    internalAI[0] = 0;
+                    internalAI[1] = Minions < MaxMinions ? Main.rand.Next(5) : Main.rand.Next(4);
+                    npc.ai = new float[4];
+                    if (internalAI[1] == AISTATE_FLYABOVEPLAYER)
+                    {
+                        npc.ai[1] = 1 + Main.rand.Next(2);
+                    }
+                    else
+                    if (internalAI[1] == AISTATE_SPAWNEGGS)
+                    {
+                        npc.ai[1] = (npc.ai[1] == 0 ? 1 : 0);
+                    }
+                    if (internalAI[1] == AISTATE_CHARGEATPLAYER)
+                    {
+                        SelectPoint = true;
+                    }
+                    npc.netUpdate2 = true;
                 }
-                else
-                if (internalAI[1] == AISTATE_SPAWNEGGS)
-                {
-                    npc.ai[1] = (npc.ai[1] == 0 ? 1 : 0);
-                }
-                if (internalAI[1] == AISTATE_CHARGEATPLAYER)
-                {
-                    SelectPoint = true;
-                }
-                npc.netUpdate2 = true;
             }
             pos = (npc.ai[1] == 0 ? -250 : 250);
 

@@ -77,8 +77,6 @@ namespace AAMod.NPCs.Bosses.Zero
             }
         }
 
-
-
         public override void HitEffect(int hitDirection, double damage)
         {
             bool flag = (npc.life <= 0 || (!npc.active && NPC.AnyNPCs(mod.NPCType<Zero>())));
