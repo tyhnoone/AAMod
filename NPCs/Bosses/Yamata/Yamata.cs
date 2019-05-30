@@ -234,7 +234,6 @@ namespace AAMod.NPCs.Bosses.Yamata
                         if (Main.netMode != 1)
                         {
                             TrueHead = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHead"), 0)];
-                            TrueHead.realLife = npc.whoAmI;
                             Head2 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHeadF1"), 0)];
                             Head3 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHeadF1"), 0)];
                             Head4 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHeadF1"), 0)];
@@ -253,7 +252,6 @@ namespace AAMod.NPCs.Bosses.Yamata
                                     if (npc2 != null && npc2.type == mod.NPCType("YamataAHead"))
                                     {
                                         TrueHead = npc2;
-                                        TrueHead.realLife = npc.whoAmI;
                                     }
                                     if (npc2 != null && npc2.type == mod.NPCType("YamataAHeadF1"))
                                     {
@@ -297,7 +295,6 @@ namespace AAMod.NPCs.Bosses.Yamata
                         if (Main.netMode != 1)
                         {
                             TrueHead = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHead"), 0)];
-                            TrueHead.realLife = npc.whoAmI;
                             Head2 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHeadF1"), 0)];
                             Head3 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHeadF1"), 0)];
                             Head4 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataHeadF1"), 0)];
@@ -316,7 +313,6 @@ namespace AAMod.NPCs.Bosses.Yamata
                                     if (npc2 != null && npc2.type == mod.NPCType("YamataHead"))
                                     {
                                         TrueHead = npc2;
-                                        TrueHead.realLife = npc.whoAmI;
                                     }
                                     if (npc2 != null && npc2.type == mod.NPCType("YamataHeadF1"))
                                     {
