@@ -207,6 +207,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                         if (Main.netMode != 1)
                         {
                             TrueHead = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHead"), 0)];
+                            TrueHead.lifeMax = npc.lifeMax;
                             TrueHead.realLife = npc.whoAmI;
                             TrueHead.ai[0] = npc.whoAmI;
                             Head2 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("YamataAHeadF1"), 0)];

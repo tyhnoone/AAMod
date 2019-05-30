@@ -170,16 +170,22 @@ namespace AAMod.NPCs.Bosses.Truffle
 
                 if (HasStopped)
                 {
-                    internalAI[0]++;
+                    if (Main.netMode != 1)
+                    {
+                        internalAI[0]++;
+                    }
                     npc.rotation = 0;
                 }
-                if (internalAI[0] >= 60)
+                if (Main.netMode != 1)
                 {
-                    int attack = Main.rand.Next(2);
-                    internalAI[1] = Main.rand.Next(4);
-                    internalAI[0] = 0;
-                    FungusAttack(attack);
-                    npc.netUpdate2 = true;
+                    if (internalAI[0] >= 60)
+                    {
+                        int attack = Main.rand.Next(2);
+                        internalAI[1] = Main.rand.Next(4);
+                        internalAI[0] = 0;
+                        FungusAttack(attack);
+                        npc.netUpdate2 = true;
+                    }
                 }
 
                 npc.velocity *= 0.7f;
@@ -212,26 +218,27 @@ namespace AAMod.NPCs.Bosses.Truffle
                 float num1 = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - vector2.X;
                 float num2 = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - vector2.Y;
                 float NewRotation = (float)Math.Atan2(num2, num1);
-
-                internalAI[0]++;
-                if (internalAI[0] < 120)
+                if (Main.netMode != 1)
                 {
-                    npc.rotation = MathHelper.Lerp(npc.rotation, NewRotation, 1f / 20f) + 1.57f;
-                }
-                else
-                {
-                    MoveToPoint(MovePoint);
-
-                    Lighting.AddLight((int)(npc.Center.X + (npc.width / 2)) / 16, (int)(npc.position.Y + (npc.height / 2)) / 16, Color.LightCyan.R / 255, Color.LightCyan.G / 255, Color.LightCyan.B / 255);
-                    if (Vector2.Distance(npc.Center, MovePoint) <= 0)
+                    internalAI[0]++;
+                    if (internalAI[0] < 120)
                     {
-                        internalAI[1] = Main.rand.Next(3);
-                        internalAI[0] = 0;
+                        npc.rotation = MathHelper.Lerp(npc.rotation, NewRotation, 1f / 20f) + 1.57f;
+                    }
+                    else
+                    {
+                        MoveToPoint(MovePoint);
+
+                        Lighting.AddLight((int)(npc.Center.X + (npc.width / 2)) / 16, (int)(npc.position.Y + (npc.height / 2)) / 16, Color.LightCyan.R / 255, Color.LightCyan.G / 255, Color.LightCyan.B / 255);
+                        if (Vector2.Distance(npc.Center, MovePoint) <= 0)
+                        {
+                            internalAI[1] = Main.rand.Next(3);
+                            internalAI[0] = 0;
+                            npc.netUpdate2 = true;
+                        }
                         npc.netUpdate2 = true;
                     }
-                    npc.netUpdate2 = true;
                 }
-                npc.netUpdate2 = true;
             }
             else if (internalAI[1] == AISTATE_CHARGE)
             {
