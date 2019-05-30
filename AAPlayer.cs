@@ -60,6 +60,8 @@ namespace AAMod
         public bool Rabbitcopter = false;
         public bool Sock = false;
         public bool Socc = false;
+        public bool Squirrel = false;
+        public bool DapperSquirrel = false;
         // Biome bools.
         public bool ZoneMire = false;
         public bool ZoneInferno = false;
@@ -142,6 +144,7 @@ namespace AAMod
         public bool AbyssalStealth;
         public bool AssassinStealth;
         public bool Witch;
+
         // Accessory bools.
         public bool clawsOfChaos;
         public bool HydraPendant;
@@ -293,6 +296,8 @@ namespace AAMod
             Rabbitcopter = false;
             Sock = false;
             Socc = false;
+            Squirrel = false;
+            DapperSquirrel = false;
             //Armor
             MoonSet = false;
             valkyrieSet = false;
