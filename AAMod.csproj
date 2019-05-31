@@ -1757,6 +1757,7 @@
     <Compile Include="Projectiles\Akuma\FireProjBoom.cs" />
     <Compile Include="Projectiles\Akuma\FireProjEX.cs" />
     <Compile Include="Projectiles\Akuma\FireProjEXBoom.cs" />
+    <Compile Include="Projectiles\Akuma\SolarSun.cs" />
     <Compile Include="Projectiles\Akuma\FireRain.cs" />
     <Compile Include="Projectiles\Akuma\Lung\LungFireball.cs" />
     <Compile Include="Projectiles\Akuma\Lung\LungHead.cs" />
@@ -5848,6 +5849,7 @@
     <Content Include="Projectiles\Akuma\Lung\LungTail.png" />
     <Content Include="Projectiles\Akuma\MorningGlory.png" />
     <Content Include="Projectiles\Akuma\Solar.png" />
+    <Content Include="Projectiles\Akuma\SolarSun.png" />
     <Content Include="Projectiles\Akuma\SunOrb.png" />
     <Content Include="Projectiles\Akuma\Sunray.png" />
     <Content Include="Projectiles\Akuma\SunSpear.png" />
