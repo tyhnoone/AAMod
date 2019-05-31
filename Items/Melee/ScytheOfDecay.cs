@@ -81,6 +81,7 @@ Death Sickle EX");
             num22 *= num24;
             num23 *= num24;
             Projectile.NewProjectile(vector.X, vector.Y, num22, num23, mod.ProjectileType<Projectiles.DecayScytheProj>(), damage, knockBack, player.whoAmI, 0f, 0f);
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
     }
 }
