@@ -82,32 +82,6 @@ namespace AAMod.NPCs.Bosses.Hydra
 
         public override void AI()
         {
-            if (playerTarget != null)
-            {
-                float dist = npc.Distance(playerTarget.Center);
-                if (dist > 500 || !Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
-                {
-                    npc.alpha += 3;
-                    if (npc.alpha >= 255)
-                    {
-                        Vector2 tele = new Vector2(playerTarget.Center.X + (Main.rand.Next(2) == 0 ? 120 : -120), playerTarget.Center.Y - 16);
-                        TeleportMe1 = true;
-                        TeleportMe2 = true;
-                        TeleportMe3 = true;
-                        npc.Center = tele;
-                        npc.netUpdate = true;
-                    }
-                }
-                else
-                {
-                    npc.alpha -= 3;
-                    if (npc.alpha <= 0)
-                    {
-                        npc.alpha = 0;
-                    }
-                }
-            }
-
             if (!HeadsSpawned)
             {
                 if (Head1 == null)
@@ -148,6 +122,32 @@ namespace AAMod.NPCs.Bosses.Hydra
                 HeadsSpawned = true;
             }
 
+            if (playerTarget != null)
+            {
+                float dist = npc.Distance(playerTarget.Center);
+                if (dist > 500 || !Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
+                {
+                    npc.alpha += 3;
+                    if (npc.alpha >= 255)
+                    {
+                        Vector2 tele = new Vector2(playerTarget.Center.X + (Main.rand.Next(2) == 0 ? 120 : -120), playerTarget.Center.Y - 16);
+                        TeleportMe1 = true;
+                        TeleportMe2 = true;
+                        TeleportMe3 = true;
+                        npc.Center = tele;
+                        npc.netUpdate = true;
+                    }
+                }
+                else
+                {
+                    npc.alpha -= 3;
+                    if (npc.alpha <= 0)
+                    {
+                        npc.alpha = 0;
+                    }
+                }
+            }
+
             for (int m = npc.oldPos.Length - 1; m > 0; m--)
             {
                 npc.oldPos[m] = npc.oldPos[m - 1];
@@ -155,8 +155,6 @@ namespace AAMod.NPCs.Bosses.Hydra
             npc.oldPos[0] = npc.position;
 
             bool foundTarget = TargetClosest();
-
-
 
             if (!runningAway && foundTarget)
             {

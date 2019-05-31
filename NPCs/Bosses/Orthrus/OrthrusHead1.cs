@@ -183,6 +183,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
                 npc.velocity = default(Vector2);
                 npc.position += bodyNPC.velocity;
             }
+            npc.position += (Body.npc.position - Body.npc.oldPosition);
             npc.rotation = 1.57f;
             npc.spriteDirection = -1;
             BaseDrawing.AddLight(npc.Center, leftHead ? new Color(255, 84, 84) : new Color(48, 232, 232));
