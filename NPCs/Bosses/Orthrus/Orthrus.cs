@@ -149,10 +149,13 @@ namespace AAMod.NPCs.Bosses.Orthrus
 
 
             Player playerTarget = Main.player[npc.target];
-            if (HeadsSpawned && (!NPC.AnyNPCs(mod.NPCType<OrthrusHead1>()) || !NPC.AnyNPCs(mod.NPCType<OrthrusHead2>())) && internalAI[1] != AISTATE_RUNAWAY)
+            if (HeadsSpawned && (!NPC.AnyNPCs(mod.NPCType<OrthrusHead1>()) || !NPC.AnyNPCs(mod.NPCType<OrthrusHead2>())))
             {
-                npc.NPCLoot();
-                npc.active = false;
+                if (internalAI[1] != AISTATE_RUNAWAY)
+                {
+                    npc.NPCLoot();
+                    npc.active = false;
+                }
             }
 
             if (!playerTarget.active || playerTarget.dead || Main.dayTime) //fleeing
