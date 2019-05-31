@@ -148,50 +148,22 @@ namespace AAMod.NPCs.Bosses.Orthrus
 
 
             Player playerTarget = Main.player[npc.target];
-            if (HeadsSpawned && (!NPC.AnyNPCs(mod.NPCType<OrthrusHead1>()) || !NPC.AnyNPCs(mod.NPCType<OrthrusHead2>())))
-            {
-                if (internalAI[1] != AISTATE_RUNAWAY)
-                {
-                    npc.NPCLoot();
-                    npc.active = false;
-                }
-            }
 
             if (!playerTarget.active || playerTarget.dead || Main.dayTime) //fleeing
 			{
-                internalAI[1] = AISTATE_RUNAWAY;
-
+                npc.noTileCollide = true;
                 npc.dontTakeDamage = true;
                 npc.noGravity = true;	
-				npc.noTileCollide = true;				
-				npc.velocity.Y -= 0.5f;				
-				if (Main.netMode != 1)
-				{
-					if(npc.position.Y + npc.height + npc.velocity.Y < 0) //if out of map, kill boss
-					{
-                        npc.active = false; 
-						npc.netUpdate = true;
-					}
-                    else
-					{
-						float oldAI = internalAI[1];	
-						internalAI[1] = AISTATE_FLY;					
-						if(internalAI[1] != oldAI) 
-							npc.netUpdate = true;					
-
-						if(Head1 != null && Head2 != null)
-						{
-							float oldAIH1 = Head1.ai[0];
-							float oldAIH2 = Head2.ai[0];						
-							Head1.ai[0] = AISTATE_FLY;
-							Head2.ai[0] = AISTATE_FLY;							
-							if(Head1.ai[0] != oldAIH1) 
-								Head1.netUpdate = true;
-							if(Head2.ai[0] != oldAIH2) 
-								Head2.netUpdate = true;						
-						}
-					}
-				}
+				npc.noTileCollide = true;
+                npc.velocity.Y -= 4;
+                int SHLOOPX = 34;
+                int SHLOOPY = 60;
+                if (Head1 != null && Head2 != null)
+                {
+                    Head1.Center = npc.Center + new Vector2(SHLOOPX, -SHLOOPY) + npc.velocity;
+                    Head2.Center = npc.Center + new Vector2(-SHLOOPX, -SHLOOPY) + npc.velocity;
+                }
+                if (npc.position.Y + npc.velocity.Y <= 0f && Main.netMode != 1) { npc.active = false; npc.netUpdate = true; }
                 return;
 			}
             else
