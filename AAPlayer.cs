@@ -1664,6 +1664,16 @@ namespace AAMod
                     case 16:
                         player.QuickSpawnItem(mod.ItemType("GroxNote"));
                         break;
+                    case 17:
+                        player.QuickSpawnItem(mod.ItemType("FargoHat"));
+                        player.QuickSpawnItem(mod.ItemType("FargoSuit"));
+                        player.QuickSpawnItem(mod.ItemType("FargoPants"));
+                        if (dropType >= 2)
+                        {
+                            player.QuickSpawnItem(mod.ItemType("MagicAcorn" + addonEX));
+                        }
+                        spawnedDevItems = true;
+                        break;
                 }
             }
         }
