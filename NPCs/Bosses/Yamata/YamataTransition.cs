@@ -20,10 +20,10 @@ namespace AAMod.NPCs.Bosses.Yamata
             npc.friendly = false;
             npc.lifeMax = 1;
             npc.dontTakeDamage = true;
+            npc.noTileCollide = true;
             npc.noGravity = true;
             npc.aiStyle = -1;
             npc.timeLeft = 10;
-            npc.scale *= 1.3f;
             npc.alpha = 255;
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
@@ -43,7 +43,6 @@ namespace AAMod.NPCs.Bosses.Yamata
 
         public override void AI()
         {
-
             Player player = Main.player[npc.target];
             MoveToPoint(player.Center - new Vector2(0, 300f));
 
@@ -52,7 +51,6 @@ namespace AAMod.NPCs.Bosses.Yamata
                 npc.alpha = 255;
                 npc.Center = player.Center - new Vector2(0, 300f);
             }
-
 
             npc.ai[0]++;
             npc.frameCounter++;
@@ -75,7 +73,6 @@ namespace AAMod.NPCs.Bosses.Yamata
                     npc.alpha = 0;
                 }
             }
-
             if (npc.ai[0] == 375)    
             {
                 Main.NewText("NYEHEHEHEHEHEHEHEH~!", new Color(45, 46, 70));

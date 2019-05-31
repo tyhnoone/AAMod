@@ -97,7 +97,6 @@ namespace AAMod.NPCs.Bosses.Retriever
             if (Main.expertMode)
             {
                 npc.DropBossBags();
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.SoulofSight, Main.rand.Next(20, 40));
             }
             else
             {

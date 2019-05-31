@@ -30,10 +30,9 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.buffImmune[k] = true;
             }
         }
-        public bool ATransitionActive = false;
+
         public int RVal = 255;
         public int BVal = 0;
-
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
@@ -43,7 +42,6 @@ namespace AAMod.NPCs.Bosses.Akuma
 
         public override void AI()
         {
-
             Player player = Main.player[npc.target];
             MoveToPoint(player.Center - new Vector2(0, 300f));
 
