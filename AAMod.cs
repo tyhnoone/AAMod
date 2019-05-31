@@ -232,6 +232,10 @@ namespace AAMod
 
             TimeStone = RegisterHotKey("Time Stone", "K");
 
+            ModTranslation text = CreateTranslation("RajahDeathMessage");
+            text.SetDefault("You win this time, murderer...but I will avenge those you've mercilicely slain...");
+            AddTranslation(text);
+
             if (!Main.dedServ)
             {
                 LoadClient();
