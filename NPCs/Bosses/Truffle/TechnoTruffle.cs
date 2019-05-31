@@ -74,7 +74,7 @@ namespace AAMod.NPCs.Bosses.Truffle
             return null;
         }
 
-        public static int AISTATE_HOVER = 0, AISTATE_FLIER = 1, AISTATE_SHOOT = 2, AISTATE_ROCKET = 3, AISTATE_CHARGE = 4;
+        public static int AISTATE_HOVER = 0, AISTATE_FLIER = 1, AISTATE_SHOOT = 2, AISTATE_ROCKET = 3;
 		public float[] internalAI = new float[4];
         bool HasStopped = false;
         bool SelectPoint = false;
@@ -93,14 +93,6 @@ namespace AAMod.NPCs.Bosses.Truffle
                     {
                         npc.frameCounter = 0;
                         npc.frame.Y = 0;
-                    }
-                }
-                else if (internalAI[1] == AISTATE_CHARGE)
-                {
-                    if (npc.frame.Y > (frameHeight * 16) || npc.frame.Y < (frameHeight * 12))
-                    {
-                        npc.frameCounter = 0;
-                        npc.frame.Y = frameHeight * 12;
                     }
                 }
                 else
@@ -148,18 +140,14 @@ namespace AAMod.NPCs.Bosses.Truffle
                 if (internalAI[0] >= 180)
                 {
                     internalAI[0] = 0;
-                    internalAI[1] = Main.rand.Next(5);
-                    if (internalAI[1] == AISTATE_ROCKET || internalAI[1] == AISTATE_CHARGE)
-                    {
-                        SelectPoint = true;
-                    }
+                    internalAI[1] = Main.rand.Next(4);
                     npc.ai = new float[4];
                     npc.netUpdate = true;
                 }
             }
             if (internalAI[1] == AISTATE_HOVER)
             {
-                BaseAI.AISpaceOctopus(npc, ref npc.ai, player.Center, 0.2f, 6f, 170, 40f, FireMagic);
+                BaseAI.AISpaceOctopus(npc, ref npc.ai, player.Center, 0.2f, 6f, 170, 20f, FireMagic);
             }
             else if (internalAI[1] == AISTATE_FLIER)
             {
@@ -209,7 +197,7 @@ namespace AAMod.NPCs.Bosses.Truffle
                 if (SelectPoint)
                 {
                     float Point = 200 * npc.direction;
-                    MovePoint = player.Center + new Vector2(Point, 200f);
+                    MovePoint = player.Center + new Vector2(Point, 300f);
                     SelectPoint = false;
                     npc.netUpdate = true;
                 }
@@ -239,67 +227,6 @@ namespace AAMod.NPCs.Bosses.Truffle
                         npc.netUpdate = true;
                     }
                 }
-            }
-            else if (internalAI[1] == AISTATE_CHARGE)
-            {
-                if (SelectPoint)
-                {
-                    float Point = Main.rand.Next(2) == 0 ? 300 : -300;
-                    MovePoint = player.Center + new Vector2(Point, 200f);
-                    SelectPoint = false;
-                    npc.netUpdate = true;
-                }
-                if (Vector2.Distance(npc.Center, MovePoint) < 60)
-                {
-                    internalAI[2] = 1;
-                }
-
-                if (internalAI[2] == 0)
-                {
-                    MoveToPoint(MovePoint);
-                }
-                else
-                {
-                    npc.noTileCollide = false;
-                    npc.noGravity = false;
-
-                    if (player.Center.X > npc.Center.X)
-                    {
-                        npc.spriteDirection = -1;
-                    }
-                    else
-                    {
-                        npc.spriteDirection = 1;
-                    }
-
-                    BaseAI.AICharger(npc, ref npc.ai, 0.07f, 13f, false, 30);
-                }
-
-                internalAI[0]++;
-                if (internalAI[0] >= 240 || !Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
-                {
-                    npc.noGravity = true;
-                    npc.noTileCollide = true;
-                    internalAI[0] = 0;
-                    internalAI[1] = AISTATE_HOVER;
-                    npc.ai = new float[4];
-                    npc.netUpdate = true;
-                }
-
-            }
-
-            if (internalAI[1] == AISTATE_ROCKET)
-            {
-                npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
-            }
-            else
-            {
-                npc.rotation = 0;
-            }
-
-            if (internalAI[1] != AISTATE_CHARGE)
-            {
-                npc.spriteDirection = 1;
             }
             
         }
@@ -383,7 +310,7 @@ namespace AAMod.NPCs.Bosses.Truffle
 
         public void MoveToPoint(Vector2 point, bool goUpFirst = false)
         {
-            float moveSpeed = 10f;
+            float moveSpeed = 14f;
             if (moveSpeed == 0f || npc.Center == point) return; //don't move if you have no move speed
             float velMultiplier = 1f;
             Vector2 dist = point - npc.Center;
@@ -419,10 +346,6 @@ namespace AAMod.NPCs.Bosses.Truffle
             if (internalAI[1] == AISTATE_ROCKET)
             {
                 BaseDrawing.DrawAfterimage(spritebatch, Main.npcTexture[npc.type], 0, npc, 1.5f, 1f, 5, false, 0f, 0f, Color.LightCyan);
-            }
-            if (internalAI[1] == AISTATE_CHARGE && npc.noGravity)
-            {
-                BaseDrawing.DrawAfterimage(spritebatch, Main.npcTexture[npc.type], 0, npc, 1.5f, 1f, 5, false, 0f, 0f, Color.Violet);
             }
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
             BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, color);

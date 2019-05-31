@@ -16,10 +16,10 @@ namespace AAMod.NPCs.Bosses.Toad
 			base.SendExtraAI(writer);
 			if((Main.netMode == 2 || Main.dedServ))
 			{
-				writer.Write((float)internalAI[0]);
-				writer.Write((float)internalAI[1]);
-                writer.Write((float)internalAI[2]);
-                writer.Write((float)internalAI[3]);
+				writer.Write(internalAI[0]);
+				writer.Write(internalAI[1]);
+                writer.Write(internalAI[2]);
+                writer.Write(internalAI[3]);
             }
 		}
 
@@ -75,7 +75,7 @@ namespace AAMod.NPCs.Bosses.Toad
             if (player != null)
             {
                 float dist = npc.Distance(player.Center);
-                if (dist > 800 || !Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
+                if (dist > 800)
                 {
                     npc.alpha += 5;
                     if (npc.alpha >= 255)
@@ -122,7 +122,7 @@ namespace AAMod.NPCs.Bosses.Toad
             {
                 npc.wet = false;
                 BaseAI.AISlime(npc, ref npc.ai, true, 30, 6f, -8f, 6f, -10f);
-                if (npc.velocity.Y == 0 && Main.netMode !=1)
+                if (Main.netMode !=1)
                 {
                     internalAI[1]++;
                 }
@@ -152,11 +152,11 @@ namespace AAMod.NPCs.Bosses.Toad
                         internalAI[2] = 0;
                         if (npc.direction == -1)
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("ToadBomb"), 35, 3);
+                            Projectile.NewProjectile(npc.Center, new Vector2(-6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("ToadBomb"), 35, 3);
                         }
                         else
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(-6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("ToadBomb"), 35, 3);
+                            Projectile.NewProjectile(npc.Center, new Vector2(6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("ToadBomb"), 35, 3);
                         }
                         npc.netUpdate = true;
                     }
@@ -195,7 +195,7 @@ namespace AAMod.NPCs.Bosses.Toad
             {
                 if (internalAI[0] == AISTATE_BARF)
                 {
-                    if (npc.frameCounter < frameHeight * 6)
+                    if (npc.frame.Y < frameHeight * 6)
                     {
                         npc.frame.Y = frameHeight * 6;
                     }

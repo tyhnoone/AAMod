@@ -1,3 +1,6 @@
+using BaseMod;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -24,6 +27,9 @@ namespace AAMod.NPCs.Bosses.Truffle
         }
         public override void AI()
         {
+            Color color = BaseUtility.MultiLerpColor(Main.player[Main.myPlayer].miscCounter % 100 / 100f, BaseDrawing.GetLightColor(projectile.position), BaseDrawing.GetLightColor(projectile.position), Color.Violet, BaseDrawing.GetLightColor(projectile.position), Color.Violet, BaseDrawing.GetLightColor(projectile.position));
+
+            Lighting.AddLight((int)(projectile.Center.X + (projectile.width / 2)) / 16, (int)(projectile.position.Y + (projectile.height / 2)) / 16, color.R / 255, color.G / 255, color.B / 255);
             if (++projectile.frameCounter >= 4)
             {
                 projectile.frameCounter = 0;
@@ -34,6 +40,18 @@ namespace AAMod.NPCs.Bosses.Truffle
             }
             projectile.velocity.X *= 0.00f;
             projectile.velocity.Y -= .1f;
+        }
+
+        public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
+        {
+            Texture2D glowTex = mod.GetTexture("Glowmasks/TruffleBookIt_Glow1");
+            Texture2D glowTex1 = mod.GetTexture("Glowmasks/TruffleBookIt_Glow2");
+            Color color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(projectile.position), BaseDrawing.GetLightColor(projectile.position), Color.Violet, BaseDrawing.GetLightColor(projectile.position), Color.Violet, BaseDrawing.GetLightColor(projectile.position));
+
+            BaseDrawing.DrawTexture(spritebatch, Main.projectileTexture[projectile.type], 0, projectile, dColor);
+            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, projectile, color);
+            BaseDrawing.DrawTexture(spritebatch, glowTex1, 0, projectile, Color.White);
+            return false;
         }
     }
 }

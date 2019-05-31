@@ -36,8 +36,8 @@ Non-Consumable");
 
         public override bool UseItem(Player player)
         {
-            AAModGlobalNPC.SpawnBoss(player, mod.NPCType<NightcrawlerHead>(), true, 0, 0, "The Equinox Worms", true);
-            AAModGlobalNPC.SpawnBoss(player, mod.NPCType<DaybringerHead>(), false, 0, 0, "The Equinox Worms", false);
+            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<NightcrawlerHead>());
+            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType<DaybringerHead>());
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;
         }

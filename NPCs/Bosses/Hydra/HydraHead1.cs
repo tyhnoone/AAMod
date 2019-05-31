@@ -18,7 +18,7 @@ namespace AAMod.NPCs.Bosses.Hydra
         public override void SetDefaults()
         {
 			npc.aiStyle = -1;
-            npc.lifeMax = 35000;
+            npc.lifeMax = 4000;
             npc.width = 36;
             npc.height = 32;
             npc.npcSlots = 0;

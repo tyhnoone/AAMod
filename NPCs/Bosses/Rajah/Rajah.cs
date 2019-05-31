@@ -242,13 +242,17 @@ namespace AAMod.NPCs.Bosses.Rajah
                 npc.TargetClosest(true);
             }
 
-            npc.ai[2]++;
-            internalAI[2]++;
+            if (Main.netMode != 1)
+            {
+                npc.ai[2]++;
+                internalAI[2]++;
+            }
             if (npc.ai[3] != 0 && npc.ai[2] >= 500)
             {
                 internalAI[2] = 0;
                 npc.ai[2] = 0;
                 npc.ai[3] = 0;
+                npc.netUpdate = true;
             }
             else if (npc.ai[3] == 0 && npc.ai[2] >= 240)
             {
@@ -328,7 +332,10 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
             else if (npc.ai[3] == 1) //Bunzooka
             {
-                internalAI[2]++;
+                if (Main.netMode != 1)
+                {
+                    internalAI[2]++;
+                }
                 if (internalAI[2] > 40)
                 {
                     internalAI[2] = 0;

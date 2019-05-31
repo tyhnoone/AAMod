@@ -65,12 +65,10 @@ namespace AAMod.Projectiles     //We need this to basically indicate the folder 
             if (projectile.rotation > MathHelper.TwoPi)
             {
                 projectile.rotation -= MathHelper.TwoPi;
-                Projectile.NewProjectile(projectile.Center.X + (projectile.velocity.X * 2), projectile.Center.Y + (projectile.velocity.Y * 2), projectile.velocity.X * 1.4f, projectile.velocity.Y * 1.4f, mod.ProjectileType("DecayScytheProj"), (int)((double)projectile.damage * 0.85f), projectile.knockBack * 0.85f, projectile.owner, 0f, 0f);
             }
             else if (projectile.rotation < 0)
             {
                 projectile.rotation += MathHelper.TwoPi;
-                Projectile.NewProjectile(projectile.Center.X + (projectile.velocity.X * 2), projectile.Center.Y + (projectile.velocity.Y * 2), projectile.velocity.X * 1.4f, projectile.velocity.Y * 1.4f, mod.ProjectileType("DecayScytheProj"), (int)((double)projectile.damage * 0.85f), projectile.knockBack * 0.85f, projectile.owner, 0f, 0f);
             }
             player.heldProj = projectile.whoAmI;
             player.itemTime = 2;

@@ -145,8 +145,6 @@ namespace AAMod.NPCs.Bosses.Retriever
 
         public float[] shootAI = new float[4];
 
-        Projectile laser;
-
         public override void AI()
         {
             Player targetPlayer = Main.player[npc.target];
@@ -192,14 +190,11 @@ namespace AAMod.NPCs.Bosses.Retriever
                 {
                     if (customAI[0] == 251)
                     {
-                        laser = Main.projectile[Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, mod.ProjectileType<RetrieverLaser>(), (int)(npc.damage * 0.75f), 3f, Main.myPlayer, npc.whoAmI, 420)];
-                        laser.velocity = BaseUtility.RotateVector(default(Vector2), new Vector2(14f, 0f), laser.rotation);
-                        laser.netUpdate = true;
+                        BaseAI.ShootPeriodic(npc, targetPlayer.Center, targetPlayer.width, targetPlayer.height, mod.ProjectileType<RetrieverShot>(), ref customAI[1], 5, (int)(npc.damage * .75f), 12f, false);
+                        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, mod.ProjectileType<RetrieverShot>(), (int)(npc.damage * 0.75f), 3f, Main.myPlayer);
                     }
                     if (customAI[0] <= 0)
                     {
-                        if (Main.netMode != 1) laser.Kill();
-                        laser.netUpdate = true;
                         customAI[0] = 1200;
                         npc.netUpdate2 = true;
                     }
@@ -207,7 +202,7 @@ namespace AAMod.NPCs.Bosses.Retriever
             }
             else
             {
-                npc.defense = 30;
+                npc.defense = npc.defDefense;
             }
 
             bool forceChange = false;

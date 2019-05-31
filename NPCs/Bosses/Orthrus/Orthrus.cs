@@ -121,7 +121,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
                         Head1 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("OrthrusHead1"), 0)];
                         Head1.realLife = npc.whoAmI;
                         Head2 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("OrthrusHead2"), 0)];
-                        Head1.realLife = npc.whoAmI;
+                        Head2.realLife = npc.whoAmI;
                     }
                     else
                     {
@@ -145,7 +145,6 @@ namespace AAMod.NPCs.Bosses.Orthrus
                 }
                 HeadsSpawned = true;
             }
-
 
             Player playerTarget = Main.player[npc.target];
 

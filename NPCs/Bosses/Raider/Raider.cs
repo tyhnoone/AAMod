@@ -329,12 +329,15 @@ namespace AAMod.NPCs.Bosses.Raider
             }
             else if (internalAI[1] == AISTATE_CHARGEATPLAYER)
             {
-                if (SelectPoint)
+                if (Main.netMode != 1)
                 {
-                    float Point = 500 * npc.direction;
-                    MovePoint = player.Center + new Vector2(Point, 500f);
-                    SelectPoint = false;
-                    npc.netUpdate = true;
+                    if (SelectPoint)
+                    {
+                        float Point = 500 * npc.direction;
+                        MovePoint = player.Center + new Vector2(Point, 500f);
+                        SelectPoint = false;
+                        npc.netUpdate = true;
+                    }
                 }
                 Charge(MovePoint);
 

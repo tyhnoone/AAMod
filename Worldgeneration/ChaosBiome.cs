@@ -180,11 +180,11 @@ namespace AAMod.Worldgeneration
 
             Mod mod = AAMod.instance;
             //--- Initial variable creation
-            ushort tileGrass = (ushort)mod.TileType("InfernoGrass"), tileStone = (ushort)mod.TileType("Torchstone"),
+            ushort tileGrass = (ushort)mod.TileType("InfernoGrass"), tileStone = (ushort)mod.TileType("Torchstone"), tileSnow = (ushort)mod.TileType("TorchAsh"),
             tileIce = (ushort)mod.TileType("Torchice"), tileSand = (ushort)mod.TileType("Torchsand"), tileSandHardened = (ushort)mod.TileType("TorchsandHardened"), tileSandstone = (ushort)mod.TileType("Torchsandstone");
 
             int worldSize = GetWorldSize();
-            int biomeRadius = (worldSize == 3 ? 240 : worldSize == 2 ? 200 : 180), biomeRadiusHalf = biomeRadius / 2;  //how deep the biome is (scaled by world size)	
+            int biomeRadius = (worldSize == 3 ? 240 : worldSize == 2 ? 200 : 180);
 
             Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
             colorToTile[new Color(255, 0, 0)] = mod.TileType("Torchstone");
@@ -207,7 +207,7 @@ namespace AAMod.Worldgeneration
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //remove all fluids in sphere...
 			{
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new Actions.SetLiquid(0, 0)
+                new Actions.SetLiquid(1, 0)
             }));
             WorldUtils.Gen(new Point(origin.X - (gen.width / 2), origin.Y - 20), new Shapes.Rectangle(gen.width, gen.height), Actions.Chain(new GenAction[] //remove all fluids in the volcano...
 			{
@@ -219,12 +219,12 @@ namespace AAMod.Worldgeneration
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius), //this provides the 'blending' on the edges (except the top)
 				new SetModTile(tileGrass, true, true) //actually place the tile
 			}));
-            /*WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //dirt...
+            WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //dirt...
             {
                 new Modifiers.OnlyTiles(new ushort[] { TileID.SnowBlock }),
                  new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new BaseMod.SetModTile(tileGrass, true, true)
-            }));*/
+                new SetModTile(tileSnow, true, true)
+            }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //and stone.
 			{
                 new Modifiers.OnlyTiles(new ushort[]{ TileID.Stone, TileID.Ebonstone, TileID.Crimstone, TileID.Pearlstone }),
@@ -287,7 +287,6 @@ namespace AAMod.Worldgeneration
                 {
                     for (int AltarY = yAxis - 45; AltarY < yAxis + 45; AltarY++)
                     {
-                        Tile tile = Main.tile[AltarX, AltarY];
                         if (Main.rand.Next(15) == 0)
                         {
                             WorldGen.PlaceObject(AltarX, AltarY - 1, mod.TileType<ChaosAltar2>());

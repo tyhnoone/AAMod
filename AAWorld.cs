@@ -577,7 +577,7 @@ namespace AAMod
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
             int shiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
-            int shiniesIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Micro Biomes"));
+            int shiniesIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Mushrooms"));
             int shiniesIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
 
 
@@ -616,12 +616,6 @@ namespace AAMod
             tasks.Insert(shiniesIndex2 + 2, new PassLegacy("Void Islands", delegate (GenerationProgress progress)
             {
                 VoidIslands(progress);
-            }));
-
-
-            tasks.Insert(shiniesIndex1 +  2, new PassLegacy("Mush", delegate (GenerationProgress progress)
-            {
-                Mush(progress);
             }));
 
 

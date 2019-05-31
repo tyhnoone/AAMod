@@ -83,6 +83,7 @@
     <Compile Include="Items\Blocks\RajahBox.cs" />
     <Compile Include="Items\Blocks\ToadBox.cs" />
     <Compile Include="Items\Blocks\TorchAsh.cs" />
+    <Compile Include="Items\Boss\Hydra\HydraTrophy.cs" />
     <Compile Include="Items\Boss\Rajah\CottonCane.cs" />
     <Compile Include="Items\Boss\Rajah\RajahTrophy.cs" />
     <Compile Include="Items\Boss\Rajah\RoyalScepter.cs" />
@@ -2126,6 +2127,8 @@
     <Compile Include="Tiles\MireFoliage.cs" />
     <Compile Include="Tiles\RajahBox.cs" />
     <Compile Include="Tiles\ToadBox.cs" />
+    <Compile Include="Tiles\Trophy\HydraTrophy.cs" />
+    <Compile Include="Tiles\Trophy\RajahTrophy.cs" />
     <Compile Include="Tiles\YttriumBar.cs" />
     <Compile Include="Tiles\TechneciumBar.cs" />
     <Compile Include="Tiles\UraniumBar.cs" />
@@ -3232,6 +3235,12 @@
     <Content Include="Glowmasks\TrueOblivion_Glow.png" />
     <Content Include="Glowmasks\TruePaladinsSmeltery_Glow.png" />
     <Content Include="Glowmasks\TrueTerraRose_Glow.png" />
+    <Content Include="Glowmasks\TruffleBookIt_Glow1.png" />
+    <Content Include="Glowmasks\TruffleBookIt_Glow2.png" />
+    <Content Include="Glowmasks\TruffleProbe_Glow1.png" />
+    <Content Include="Glowmasks\TruffleProbe_Glow2.png" />
+    <Content Include="Glowmasks\Truffling_Glow1.png" />
+    <Content Include="Glowmasks\Truffling_Glow2.png" />
     <Content Include="Glowmasks\UmbreonSPEX_Glow.png" />
     <Content Include="Glowmasks\UmbreonSPProjectile_Glow.png" />
     <Content Include="Glowmasks\UmbreonSP_Glow.png" />
@@ -4152,6 +4161,7 @@
     <Content Include="Items\BossSummons\GoldenCarrot.png" />
     <Content Include="Items\BossSummons\Lifescanner.png" />
     <Content Include="Items\BossSummons\Toadstool.png" />
+    <Content Include="Items\Boss\Hydra\HydraTrophy.png" />
     <Content Include="Items\Boss\MadnessTruffle.png" />
     <Content Include="Items\Boss\MushroomMonarch\GlowingMushlingStaff.png" />
     <Content Include="Items\Boss\MushroomMonarch\MushlingStaff.png" />
@@ -6561,9 +6571,11 @@
     <Content Include="Tiles\Trophy\DBTrophy.png" />
     <Content Include="Tiles\Trophy\GripBlueTrophy.png" />
     <Content Include="Tiles\Trophy\GripRedTrophy.png" />
+    <Content Include="Tiles\Trophy\HydraTrophy.png" />
     <Content Include="Tiles\Trophy\NCTrophy.png" />
     <Content Include="Tiles\Trophy\OrthrusTrophy.png" />
     <Content Include="Tiles\Trophy\RaiderTrophy.png" />
+    <Content Include="Tiles\Trophy\RajahTrophy.png" />
     <Content Include="Tiles\Trophy\RetrieverTrophy.png" />
     <Content Include="Tiles\Trophy\SagTrophy.png" />
     <Content Include="Tiles\Trophy\ShenATrophy.png" />
@@ -6571,6 +6583,7 @@
     <Content Include="Tiles\Trophy\YamataATrophy.png" />
     <Content Include="Tiles\Trophy\YamataTrophy.png" />
     <Content Include="Tiles\Trophy\ZeroTrophy.png" />
+    <Content Include="Tiles\Trophy\ZeroTrophy1.png" />
     <Content Include="Tiles\TruePaladinsSmeltery.png" />
     <Content Include="Tiles\UnifiedMycelium.png" />
     <Content Include="Tiles\UraniumAnvil.png" />

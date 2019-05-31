@@ -55,13 +55,12 @@ namespace AAMod.NPCs.Bosses.Hydra
         public override void NPCLoot()
         {
             AAWorld.downedHydra = true;
-            //npc.DropLoot(Items.Boss.Hydra.HydraTrophy.type, 1f / 10);
+            npc.DropLoot(Items.Boss.Hydra.HydraTrophy.type, 1f / 10);
 
             if (!Main.expertMode)
             {
                 npc.DropLoot(mod.ItemType("HydraHide"), 30, 50);
                 npc.DropLoot(mod.ItemType("Abyssium"), 40, 90);
-                //npc.DropLoot(Items.Vanity.Mask.HydraMask.type, 1f / 7);
             }
             if (Main.expertMode)
             {
@@ -111,24 +110,44 @@ namespace AAMod.NPCs.Bosses.Hydra
 
             if (!HeadsSpawned)
             {
-                if (Main.netMode != 1)
+                if (Head1 == null)
                 {
-                    int latestNPC = npc.whoAmI;
-                    latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 60, mod.NPCType("HydraHead1"), npc.whoAmI + 1, npc.whoAmI);
-                    Main.npc[latestNPC].realLife = npc.whoAmI;
-                    Main.npc[latestNPC].ai[0] = npc.whoAmI;
-                    Head1 = Main.npc[latestNPC];
-                    latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 60, mod.NPCType("HydraHead2"), npc.whoAmI + 1, npc.whoAmI);
-                    Main.npc[latestNPC].realLife = npc.whoAmI;
-                    Main.npc[latestNPC].ai[0] = npc.whoAmI;
-                    Head2 = Main.npc[latestNPC];
-                    latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 60, mod.NPCType("HydraHead3"), npc.whoAmI + 1, npc.whoAmI);
-                    Main.npc[latestNPC].realLife = npc.whoAmI;
-                    Main.npc[latestNPC].ai[0] = npc.whoAmI;
-                    Head3 = Main.npc[latestNPC];
+                    if (Main.netMode != 1)
+                    {
+                        Head1 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("HydraHead1"), 0)];
+                        Head1.realLife = npc.whoAmI;
+                        Head2 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("HydraHead2"), 0)];
+                        Head2.realLife = npc.whoAmI;
+                        Head2 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("HydraHead3"), 0)];
+                        Head3.realLife = npc.whoAmI;
+                    }
+                    else
+                    {
+                        int[] npcs = BaseAI.GetNPCs(npc.Center, -1, default(int[]), 100f, null);
+                        if (npcs != null && npcs.Length > 0)
+                        {
+                            foreach (int npcID in npcs)
+                            {
+                                NPC npc2 = Main.npc[npcID];
+                                if (npc2 != null && npc2.type == mod.NPCType("HydraHead1"))
+                                {
+                                    Head1 = npc2;
+                                }
+                                if (npc2 != null && npc2.type == mod.NPCType("HydraHead2"))
+                                {
+                                    Head2 = npc2;
+                                }
+                                if (npc2 != null && npc2.type == mod.NPCType("HydraHead3"))
+                                {
+                                    Head2 = npc2;
+                                }
+                            }
+                        }
+                    }
                 }
                 HeadsSpawned = true;
             }
+
             for (int m = npc.oldPos.Length - 1; m > 0; m--)
             {
                 npc.oldPos[m] = npc.oldPos[m - 1];
