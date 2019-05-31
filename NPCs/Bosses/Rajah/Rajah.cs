@@ -761,7 +761,16 @@ namespace AAMod.NPCs.Bosses.Rajah
                 int lootA = Main.rand.Next(lootTableA.Length);
                 npc.DropLoot(mod.ItemType(lootTableA[lootA]));
             }
-            Main.NewText("You win this time, murderer...but I will avenge those you've mercilicely slain...", 107, 137, 179);
+            string key = "Mods.AAMod.RajahDeathMessage";
+            Color messageColor = new Color(107, 137, 179);
+            if (Main.netMode == 2) // Server
+            {
+                NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+            }
+            else if (Main.netMode == 0) // Single Player
+            {
+                Main.NewText(Language.GetTextValue(key), messageColor);
+            }
             Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
             npc.value = 0f;
             npc.boss = false;
