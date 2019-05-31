@@ -280,7 +280,7 @@ namespace AAMod.NPCs.Bosses.Equinox
 					}
 					for (int k = 0; k < 15; k++)
 					{
-						int dustID = Dust.NewDust(npc.position, npc.width, npc.height, dustType, hitDirection, -1f, 0, default(Color), 1.5f);
+						Dust.NewDust(npc.position, npc.width, npc.height, dustType, hitDirection, -1f, 0, default(Color), 1.5f);
 					}
 				}
             }

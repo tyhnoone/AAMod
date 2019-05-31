@@ -657,6 +657,11 @@ namespace AAMod.NPCs.Bosses.Yamata
             return false;
         }
 
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            return false;
+        }
+
         public void UpdateLimbs()
         {
             if (legs == null || legs.Length < 4)

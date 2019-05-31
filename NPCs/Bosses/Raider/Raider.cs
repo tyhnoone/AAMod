@@ -259,8 +259,8 @@ namespace AAMod.NPCs.Bosses.Raider
                     if (internalAI[1] == AISTATE_CHARGEATPLAYER)
                     {
                         SelectPoint = true;
+                        npc.netUpdate = true;
                     }
-                    npc.netUpdate = true;
                 }
             }
             pos = (npc.ai[1] == 0 ? -250 : 250);
@@ -274,7 +274,6 @@ namespace AAMod.NPCs.Bosses.Raider
 
             Vector2 wantedVelocity = player.Center - new Vector2(pos, 250);
             MoveToPoint(wantedVelocity);
-            npc.netUpdate = true;
 
             if (Main.dayTime)
             {

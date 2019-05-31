@@ -3,6 +3,8 @@ using Terraria.ModLoader;
 using System;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
+using BaseMod;
+
 namespace AAMod.NPCs.Bosses.Hydra
 {
     [AutoloadBossHead]
@@ -39,7 +41,14 @@ namespace AAMod.NPCs.Bosses.Hydra
             return 0f;
         }
 
-        public Hydra Body = null;
+        public NPC bodyNPC = null;
+        public Hydra Body
+        {
+            get
+            {
+                return ((bodyNPC != null && bodyNPC.modNPC is Hydra) ? (Hydra)bodyNPC.modNPC : null);
+            }
+        }
         public bool leftHead = false;
 		public bool middleHead = true;
         public int damage = 0;
@@ -50,24 +59,20 @@ namespace AAMod.NPCs.Bosses.Hydra
 
         public override void AI()
         {
-            if (Body == null)
+            if(Body == null)
             {
-                NPC npcBody = Main.npc[(int)npc.ai[0]];
-                if (npcBody.type == mod.NPCType("Hydra"))
-                {
-                    Body = (Hydra)npcBody.modNPC;
-                }
-            }
-			if(Body == null) return;
-            npc.timeLeft = 50;
-            if (!Body.npc.active || Body.npc.life <= 0 || !NPC.AnyNPCs(mod.NPCType<Hydra>()))
-            {
-                npc.life = 0;
-				npc.checkDead();
+                int npcID = BaseAI.GetNPC(npc.Center, mod.NPCType("Hydra"), 500f, null);
+                if (npcID != -1)
+                    bodyNPC = Main.npc[npcID];
                 return;
             }
-			npc.realLife = (int)npc.ai[0];
-			npc.alpha = Body.npc.alpha;
+            if (!bodyNPC.active)
+            {
+                npc.active = false;
+                return;
+            }
+            npc.realLife = bodyNPC.whoAmI;
+            npc.alpha = Body.npc.alpha;
             if (Main.expertMode)
             {
                 damage = npc.damage / 4;

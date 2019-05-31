@@ -22,5 +22,14 @@ namespace AAMod.NPCs.Bosses.Equinox
 		{
 			return false;
 		}
+
+        public override bool CheckActive()
+        {
+            if (NPC.AnyNPCs(mod.NPCType<NightcrawlerHead>()))
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
