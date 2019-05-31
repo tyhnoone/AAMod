@@ -12,7 +12,7 @@ namespace AAMod.Items.Boss.Zero
         
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Doom Ray");
+			DisplayName.SetDefault("Nova Focus");
             Tooltip.SetDefault("Fires a insanely powerful death laser");
         }
 
@@ -36,6 +36,7 @@ namespace AAMod.Items.Boss.Zero
             item.noMelee = true;
             item.magic = true;
             item.autoReuse = true;
+            item.rare = 10;
         }
 
         public override Vector2? HoldoutOffset()

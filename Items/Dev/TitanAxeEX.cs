@@ -42,6 +42,7 @@ namespace AAMod.Items.Dev
 
             if (player.altFunctionUse == 2)
             {
+                item.damage = 300;
                 item.useStyle = 1;
                 item.thrown = true;
                 item.melee = false;
@@ -49,6 +50,7 @@ namespace AAMod.Items.Dev
             }
             else
             {
+                item.damage = 450;
                 item.useStyle = 5;
                 item.melee = true;
                 item.thrown = false;
