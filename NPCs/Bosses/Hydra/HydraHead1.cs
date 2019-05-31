@@ -85,6 +85,7 @@ namespace AAMod.NPCs.Bosses.Hydra
 			}
 		}
 		public NPC bodyNPC = null;	
+        public bool middleHead = false;
         public bool leftHead = false;
         public int damage = 0;
 
@@ -130,35 +131,45 @@ namespace AAMod.NPCs.Bosses.Hydra
 
             if (Main.netMode != 1)
             {
-                if (npc.alpha <= 0)
-                {
-                    npc.ai[1]++; ;
-                }
+                npc.ai[1]++;
                 int aiTimerFire = (npc.whoAmI % 3 == 0 ? 50 : npc.whoAmI % 2 == 0 ? 150 : 100); //aiTimerFire is different per head by using whoAmI (which is usually different) 
                 if (leftHead) aiTimerFire += 30;
-                if (targetPlayer != null && npc.ai[1] == aiTimerFire)
+                if (middleHead)
                 {
-                    fireAttack = true;
-                    for (int i = 0; i < 5; ++i)
+                    aiTimerFire = 100;
+                }
+
+                if (targetPlayer != null)
+                {
+                    Vector2 dir = Vector2.Normalize(targetPlayer.Center - npc.Center);
+                    if (!middleHead && npc.ai[1] == aiTimerFire)
                     {
-                        Main.PlaySound(2, (int)npc.Center.X, (int)npc.Center.Y, 20);
-                        Vector2 dir = Vector2.Normalize(targetPlayer.Center - npc.Center);
-                        dir *= 5f;
-                        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, mod.ProjectileType("HydraBreath"), (int)(npc.damage * .8f), 0f, Main.myPlayer);
+                        dir *= 9f;
+                        for (int i = 0; i < 7; ++i)
+                        {
+                            int projID = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, mod.ProjectileType("AcidProj"), (int)(damage * .8f), 0f, Main.myPlayer);
+                            Main.projectile[projID].netUpdate = true;
+                        }
+                    }
+                    else
+                    if (middleHead && npc.ai[1] >= 100 && npc.ai[1] % 10 == 0)
+                    {
+                        dir *= 6f;
+                        dir.X += Main.rand.Next(-1, 1) * 0.5f;
+                        dir.Y += Main.rand.Next(-1, 1) * 0.5f;
+                        int projID = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, mod.ProjectileType("HydraBreath"), (int)(damage * .8f), 0f, Main.myPlayer);
+                        Main.projectile[projID].netUpdate = true;
                     }
                 }
-                else
                 if (npc.ai[1] >= 200) //pick random spot to move head to
                 {
-                    fireAttack = false;
                     npc.ai[1] = 0;
                     npc.ai[2] = Main.rand.Next(-movementVariance, movementVariance);
                     npc.ai[3] = Main.rand.Next(-movementVariance, movementVariance);
                     npc.netUpdate = true;
                 }
             }
-
-            Vector2 nextTarget = bodyNPC.Center + new Vector2(leftHead ? -distFromBodyX : distFromBodyX, -distFromBodyY) + new Vector2(npc.ai[2], npc.ai[3]);
+            Vector2 nextTarget = Body.npc.Center + new Vector2(middleHead ? 0 : leftHead ? -distFromBodyX : distFromBodyX, -distFromBodyY) + new Vector2(npc.ai[2], npc.ai[3]);
             if (Vector2.Distance(nextTarget, npc.Center) < 40f)
             {
                 npc.velocity *= 0.9f;

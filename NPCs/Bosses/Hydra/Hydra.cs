@@ -158,8 +158,6 @@ namespace AAMod.NPCs.Bosses.Hydra
 
             if (!runningAway && foundTarget)
             {
-                int tileY = BaseWorldGen.GetFirstTileFloor((int)(npc.Center.X / 16f), (int)(npc.Center.Y / 16f));
-                float playerDistance = Vector2.Distance(playerTarget.Center, npc.Center);
                 if (Math.Abs(npc.velocity.X) > 12f) npc.velocity.X *= 0.8f;
                 if (Math.Abs(npc.velocity.Y) > 12f) npc.velocity.Y *= 0.8f;
                 if (npc.velocity.Y > 7f) npc.velocity.Y *= 0.75f;
