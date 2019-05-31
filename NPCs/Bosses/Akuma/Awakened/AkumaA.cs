@@ -558,13 +558,17 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
         
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            if (npc.ai[1] == 1 || npc.ai[2] >= 400)
+            AkumaTex = Main.npcTexture[npc.type];
+            if (npc.type == mod.NPCType<AkumaA>())
             {
-                AkumaTex = mod.GetTexture("NPCs/Bosses/Akuma/Awakened/AkumaA1");
-            }
-            else
-            {
-                AkumaTex = mod.GetTexture("NPCs/Bosses/Akuma/Awakened/AkumaA");
+                if (npc.ai[1] == 1 || npc.ai[2] >= 400)
+                {
+                    AkumaTex = mod.GetTexture("NPCs/Bosses/Akuma/Awakened/AkumaA1");
+                }
+                else
+                {
+                    AkumaTex = mod.GetTexture("NPCs/Bosses/Akuma/Awakened/AkumaA");
+                }
             }
 
             Texture2D glowTex = mod.GetTexture("Glowmasks/AkumaA_Glow");

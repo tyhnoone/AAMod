@@ -85,7 +85,6 @@ namespace AAMod.NPCs.Bosses.Orthrus
             if (Main.expertMode)
             {
                 npc.DropBossBags();
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.SoulofMight, Main.rand.Next(25, 40));
             }
             else
             {

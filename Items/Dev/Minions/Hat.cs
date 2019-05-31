@@ -4,62 +4,61 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace AAMod.Projectiles
+namespace AAMod.Items.Dev.Minions
 {
-    public class TopHat : ModProjectile
+    public class Hat : ModProjectile
     {
         public override void SetDefaults()
         {
             projectile.width = 12;
-            projectile.height = 24;
+            projectile.height = 14;
             projectile.friendly = true;
-            projectile.penetrate = -1;                       //this is the projectile penetration
-            Main.projFrames[projectile.type] = 4;           //this is projectile frames
+            projectile.penetrate = 1;
+            Main.projFrames[projectile.type] = 4;
             projectile.hostile = false;
-            projectile.ranged = true;                        //this make the projectile do magic damage
-            projectile.tileCollide = false;                 //this make that the projectile does not go thru walls
+            projectile.ranged = true; 
+            projectile.tileCollide = false; 
             projectile.ignoreWater = true;
         }
-        public short customGlowMask = 0;
+
         public override void SetStaticDefaults()
         {
-            if (Main.netMode != 2)
-            {
-                Texture2D[] glowMasks = new Microsoft.Xna.Framework.Graphics.Texture2D[Main.glowMaskTexture.Length + 1];
-                for (int i = 0; i < Main.glowMaskTexture.Length; i++)
-                {
-                    glowMasks[i] = Main.glowMaskTexture[i];
-                }
-                glowMasks[glowMasks.Length - 1] = mod.GetTexture("Glowmasks/" + GetType().Name + "_Glow");
-                customGlowMask = (short)(glowMasks.Length - 1);
-                Main.glowMaskTexture = glowMasks;
-            }
             DisplayName.SetDefault("Top Hat");
         }
 
 
         public override void AI()
         {
-            //this make that the projectile faces the right way
             projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
-            projectile.localAI[0] += 1f;
-            projectile.alpha = (int)projectile.localAI[0] * 2;
+            const int aislotHomingCooldown = 0;
+            const int homingDelay = 10;
+            const float desiredFlySpeedInPixelsPerFrame = 30;
+            const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
 
-            if (projectile.localAI[0] > 600f) //projectile time left before disappears
+            projectile.ai[aislotHomingCooldown]++;
+            if (projectile.ai[aislotHomingCooldown] > homingDelay)
             {
-                projectile.Kill();
+                projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
+
+                int foundTarget = (int)projectile.ai[1];
+                if (foundTarget != -1)
+                {
+                    NPC n = Main.npc[foundTarget];
+                    Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
+                    projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                }
             }
-
         }
-        public override bool PreDraw(SpriteBatch sb, Color lightColor) //this is where the animation happens
+
+        public override bool PreDraw(SpriteBatch sb, Color lightColor)
         {
-            projectile.frameCounter++; //increase the frameCounter by one
-            if (projectile.frameCounter >= 10) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
+            projectile.frameCounter++;
+            if (projectile.frameCounter >= 10)
             {
-                projectile.frame++; //go to the next frame
-                projectile.frameCounter = 0; //reset the counter
-                if (projectile.frame > 3) //if past the last frame
-                    projectile.frame = 0; //go back to the first frame
+                projectile.frame++;
+                projectile.frameCounter = 0;
+                if (projectile.frame > 3)
+                    projectile.frame = 0;
             }
             return true;
         }

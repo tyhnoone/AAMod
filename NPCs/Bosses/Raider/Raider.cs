@@ -96,7 +96,6 @@ namespace AAMod.NPCs.Bosses.Raider
             if (Main.expertMode)
             {
                 npc.DropBossBags();
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.SoulofFright, Main.rand.Next(25, 40));
             }
             else
             {

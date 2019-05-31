@@ -60,6 +60,8 @@ namespace AAMod
         public bool Rabbitcopter = false;
         public bool Sock = false;
         public bool Socc = false;
+        public bool Squirrel = false;
+        public bool DapperSquirrel = false;
         // Biome bools.
         public bool ZoneMire = false;
         public bool ZoneInferno = false;
@@ -142,6 +144,7 @@ namespace AAMod
         public bool AbyssalStealth;
         public bool AssassinStealth;
         public bool Witch;
+
         // Accessory bools.
         public bool clawsOfChaos;
         public bool HydraPendant;
@@ -256,6 +259,8 @@ namespace AAMod
 
         public bool WorldgenReminder = false;
 
+        public bool DemonSun = false;
+
 
         public override void ResetEffects()
         {
@@ -293,6 +298,8 @@ namespace AAMod
             Rabbitcopter = false;
             Sock = false;
             Socc = false;
+            Squirrel = false;
+            DapperSquirrel = false;
             //Armor
             MoonSet = false;
             valkyrieSet = false;
@@ -408,6 +415,7 @@ namespace AAMod
 
             //Misc
             Compass = false;
+            DemonSun = false;
         }
 
         public override void Initialize()
@@ -708,6 +716,21 @@ namespace AAMod
 
         public override void PostUpdate()
         {
+            if (BasePlayer.HasAccessory(player, mod.ItemType<Items.Vanity.HappySunSticker>(), true, true))
+            {
+                Main.sunTexture = mod.GetTexture("Backgrounds/DemonSun");
+            }
+            else
+            {
+                if (!Main.eclipse)
+                {
+                    Main.sunTexture = mod.GetTexture("Backgrounds/Sun1");
+                }
+                else
+                {
+                    Main.sunTexture = mod.GetTexture("Backgrounds/Sun3");
+                }
+            }
             if (player.ZoneSandstorm && (ZoneInferno || ZoneMire))
             {
                 EmitDust();
@@ -1658,6 +1681,16 @@ namespace AAMod
                         break;
                     case 16:
                         player.QuickSpawnItem(mod.ItemType("GroxNote"));
+                        break;
+                    case 17:
+                        player.QuickSpawnItem(mod.ItemType("FargoHat"));
+                        player.QuickSpawnItem(mod.ItemType("FargoSuit"));
+                        player.QuickSpawnItem(mod.ItemType("FargoPants"));
+                        if (dropType >= 2)
+                        {
+                            player.QuickSpawnItem(mod.ItemType("MagicAcorn" + addonEX));
+                        }
+                        spawnedDevItems = true;
                         break;
                 }
             }
