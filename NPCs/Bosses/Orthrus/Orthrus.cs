@@ -155,7 +155,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
                 npc.dontTakeDamage = true;
                 npc.noGravity = true;	
 				npc.noTileCollide = true;
-                npc.velocity.Y -= 4;
+                npc.velocity.Y -= .05f;
                 int SHLOOPX = 34;
                 int SHLOOPY = 60;
                 if (Head1 != null && Head2 != null)
