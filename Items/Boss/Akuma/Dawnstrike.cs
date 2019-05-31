@@ -20,7 +20,6 @@ namespace AAMod.Items.Boss.Akuma
 
         public override void SetDefaults()
         {
-
             item.damage = 100;
             item.noMelee = true;
             item.ranged = true;
@@ -33,7 +32,7 @@ namespace AAMod.Items.Boss.Akuma
             item.shoot = mod.ProjectileType("Dawnstrike");
             item.knockBack = 0;
             item.value = Item.buyPrice( 1, 0, 0, 0);
-            item.rare = 0;
+            item.rare = 10;
             item.UseSound = SoundID.Item20;
             item.autoReuse = true;
             item.shootSpeed = 7f;

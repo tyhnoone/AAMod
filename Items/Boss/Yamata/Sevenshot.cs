@@ -18,7 +18,7 @@ namespace AAMod.Items.Boss.Yamata
 
 	    public override void SetDefaults()
 	    {
-	        item.damage = 90;
+	        item.damage = 70;
 	        item.ranged = true;
 	        item.width = 60;
 	        item.height = 26;
@@ -33,7 +33,8 @@ namespace AAMod.Items.Boss.Yamata
 	        item.shoot = 10;
 	        item.shootSpeed = 20f;
 	        item.useAmmo = 97;
-	    }
+            item.rare = 10;
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
