@@ -259,6 +259,8 @@ namespace AAMod
 
         public bool WorldgenReminder = false;
 
+        public bool DemonSun = false;
+
 
         public override void ResetEffects()
         {
@@ -413,6 +415,7 @@ namespace AAMod
 
             //Misc
             Compass = false;
+            DemonSun = false;
         }
 
         public override void Initialize()
@@ -713,6 +716,21 @@ namespace AAMod
 
         public override void PostUpdate()
         {
+            if (BasePlayer.HasAccessory(player, mod.ItemType<Items.Vanity.HappySunSticker>(), true, true))
+            {
+                Main.sunTexture = mod.GetTexture("Backgrounds/DemonSun");
+            }
+            else
+            {
+                if (!Main.eclipse)
+                {
+                    Main.sunTexture = mod.GetTexture("Backgrounds/Sun1");
+                }
+                else
+                {
+                    Main.sunTexture = mod.GetTexture("Backgrounds/Sun3");
+                }
+            }
             if (player.ZoneSandstorm && (ZoneInferno || ZoneMire))
             {
                 EmitDust();
