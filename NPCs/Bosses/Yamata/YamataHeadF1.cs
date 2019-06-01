@@ -99,7 +99,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                 }
             }
             if (Body == null)
-                return;
+                return;			
 
             npc.alpha = Body.npc.alpha;
 

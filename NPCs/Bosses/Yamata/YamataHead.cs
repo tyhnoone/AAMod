@@ -133,8 +133,9 @@ namespace AAMod.NPCs.Bosses.Yamata
                 }
                 return;
             }
-	
+
             npc.realLife = Body.whoAmI;
+			npc.timeLeft = 100;
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
 		

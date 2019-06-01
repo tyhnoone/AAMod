@@ -1151,18 +1151,5 @@ namespace AAMod
                 AANet.SendNetMessage(AANet.SummonNPCFromClient, (byte)player.whoAmI, (short)bossType, (bool)spawnMessage, (int)npcCenter.X, (int)npcCenter.Y, (string)overrideDisplayName, (bool)namePlural);
             }
         }
-
-    }
-
-    public abstract class AANPC : ParentNPC
-    {
-        public virtual bool CanSpawn(int x, int y, int type, Player player, NPCSpawnInfo info)
-        {
-            return CanSpawn(x, y, type, player);
-        }
-        public virtual bool CanSpawn(int x, int y, int type, Player player)
-        {
-            return false;
-        }
     }
 }
