@@ -45,8 +45,8 @@ namespace AAMod.NPCs.Bosses.Truffle
             if (npc.frameCounter > 8)
             {
                 npc.frameCounter = 0;
-                npc.frame.Y += 22;
-                if (npc.frame.Y > 66)
+                npc.frame.Y += 44;
+                if (npc.frame.Y > 132)
                 {
                     npc.frame.Y = 0;
                 }

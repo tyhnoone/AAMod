@@ -23,7 +23,7 @@ namespace AAMod.Items.Magic
 			item.UseSound = SoundID.Item21;
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("FireblastP");
-			item.shootSpeed = 13f;
+			item.shootSpeed = 10f;
 		}   
 
 		public override void SetStaticDefaults()
