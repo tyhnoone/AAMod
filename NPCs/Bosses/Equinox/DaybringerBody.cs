@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Equinox
 {
-    [AutoloadBossHead]
     public class DaybringerBody : DaybringerHead
 	{
 		public override void SetDefaults()

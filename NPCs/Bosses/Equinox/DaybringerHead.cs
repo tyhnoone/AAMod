@@ -9,8 +9,8 @@ using AAMod.Dusts;
 
 namespace AAMod.NPCs.Bosses.Equinox
 {
-    [AutoloadBossHead]	
-	public class DaybringerHead : ModNPC
+    [AutoloadBossHead]
+    public class DaybringerHead : ModNPC
 	{
         public float[] customAI = new float[2];		
 		public bool nightcrawler = false;
@@ -430,7 +430,7 @@ namespace AAMod.NPCs.Bosses.Equinox
 			if(wormStronger)
 			{
 				string texName = ("NPCs/Bosses/Equinox/");
-				if(npc.type == mod.NPCType("DaybringerHead")){ texName += "DaybringerHeadBig"; }else
+				if(npc.type == mod.NPCType("DaybringerHead")){ texName += "DaybringerHeadeadBig"; }else
 				if(npc.type == mod.NPCType("DaybringerBody")){ texName += "DaybringerBodyBig"; }else				
 				if(npc.type == mod.NPCType("DaybringerTail")){ texName += "DaybringerTailBig"; }else				
 				if(npc.type == mod.NPCType("NightcrawlerHead")){ texName += "NightcrawlerHeadBig"; }else
@@ -441,10 +441,10 @@ namespace AAMod.NPCs.Bosses.Equinox
 				int diff = (Main.player[Main.myPlayer].miscCounter % 50);
 				float diffFloat = (float)diff / 50f;
 				float auraPercent = BaseUtility.MultiLerp(diffFloat, 0f, 1f, 0f); //did it this way so it's syncronized between all the segments
-				BaseMod.BaseDrawing.DrawAura(spritebatch, tex, 0, npc, auraPercent, 2f, 0f, 0f, GetAuraAlpha());				
+				BaseDrawing.DrawAura(spritebatch, tex, 0, npc, auraPercent, 2f, 0f, 0f, GetAuraAlpha());				
 			}
 			
-			BaseMod.BaseDrawing.DrawTexture(spritebatch, tex, 0, npc, GetAuraAlpha());				
+			BaseDrawing.DrawTexture(spritebatch, tex, 0, npc, GetAuraAlpha());				
 			return false;
 		}	
     }
