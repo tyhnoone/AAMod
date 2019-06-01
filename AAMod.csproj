@@ -1514,7 +1514,6 @@
     <Compile Include="NPCs\Bosses\Grips\HydraClawM.cs" />
     <Compile Include="NPCs\Bosses\Hydra\Hydra.cs" />
     <Compile Include="NPCs\Bosses\Hydra\HydraBreath.cs" />
-    <Compile Include="NPCs\Bosses\Hydra\HydraHead.cs" />
     <Compile Include="NPCs\Bosses\Hydra\HydraHead2.cs" />
     <Compile Include="NPCs\Bosses\Hydra\HydraHead3.cs" />
     <Compile Include="NPCs\Bosses\Hydra\HydraHead1.cs" />
