@@ -53,43 +53,43 @@ namespace AAMod.Worldgeneration
 			{
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.Grass, TileID.JungleGrass, TileID.CorruptGrass, TileID.FleshGrass }), //ensure we only replace the intended tile (in this case, grass)
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius), //this provides the 'blending' on the edges (except the top)
-				new BaseMod.SetModTile(tileGrass, true, true) //actually place the tile
+				new SetModTile(tileGrass, true, true) //actually place the tile
 			}));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //dirt...
 			{
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.Dirt }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileDirt, true, true)
+				new SetModTile(tileDirt, true, true)
 			}));
 			WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //stone...
 			{
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.Stone, TileID.Ebonstone, TileID.Crimstone, TileID.Pearlstone }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileStone, true, true)
+				new SetModTile(tileStone, true, true)
 			}));			
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //ice...
 			{
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.IceBlock, TileID.CorruptIce, TileID.FleshIce }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileIce, true, true)
+				new SetModTile(tileIce, true, true)
 			}));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //sand...
 			{
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.Sand, TileID.Ebonsand, TileID.Crimsand }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileSand, true, true)
+				new SetModTile(tileSand, true, true)
 			}));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //hardened sand...
 			{
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.HardenedSand, TileID.CorruptHardenedSand, TileID.CrimsonHardenedSand }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileSandHardened, true, true)
+				new SetModTile(tileSandHardened, true, true)
 			}));
 			WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //...and sandstone.
 			{
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.Sandstone, TileID.CorruptSandstone, TileID.CrimsonSandstone }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileSandstone, true, true)
+				new SetModTile(tileSandstone, true, true)
 			}));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //...and Living Wood.
 			{
@@ -101,7 +101,7 @@ namespace AAMod.Worldgeneration
 			{
                 new Modifiers.OnlyTiles(new ushort[]{ TileID.LivingMahoganyLeaves, TileID.LeafBlock}),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new BaseMod.SetModTile(LivingLeaves, true, true)
+                new SetModTile(LivingLeaves, true, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{
@@ -255,12 +255,11 @@ namespace AAMod.Worldgeneration
 
             TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Volcano"), colorToTile, mod.GetTexture("Worldgeneration/VolcanoWalls"), colorToWall, mod.GetTexture("Worldgeneration/VolcanoLava"));
             Point newOrigin = new Point(origin.X, origin.Y - 30); //biomeRadius);
-            
 
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //remove all fluids in sphere...
-			{
+            {
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new Actions.SetLiquid(1, 0)
+                new Actions.SetLiquid(0, 0)
             }));
             WorldUtils.Gen(new Point(origin.X - (gen.width / 2), origin.Y - 20), new Shapes.Rectangle(gen.width, gen.height), Actions.Chain(new GenAction[] //remove all fluids in the volcano...
 			{
@@ -312,13 +311,13 @@ namespace AAMod.Worldgeneration
 			{
                 new Modifiers.OnlyTiles(new ushort[]{ TileID.Sandstone, TileID.CorruptSandstone, TileID.CrimsonSandstone }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new BaseMod.SetModTile(tileSandstone, true, true)
+                new SetModTile(tileSandstone, true, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //...and Living Wood.
 			{
                 new Modifiers.OnlyTiles(new ushort[]{ TileID.LivingMahogany, TileID.LivingWood}),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new BaseMod.SetModTile(LivingWood, true, true)
+                new SetModTile(LivingWood, true, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{

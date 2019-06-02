@@ -10,7 +10,7 @@ using AAMod.Dusts;
 namespace AAMod.NPCs.Bosses.Equinox
 {
     [AutoloadBossHead]	
-	public class DaybringerHead : ModNPC
+	public abstract class DaybringerHead : ModNPC
 	{
         public float[] customAI = new float[2];		
 		public bool nightcrawler = false;

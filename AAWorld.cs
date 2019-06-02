@@ -181,8 +181,7 @@ namespace AAMod
             HallowedOre = NPC.downedMechBossAny;
             Evil = NPC.downedPlantBoss;
             Luminite = NPC.downedMoonlord;
-            DarkMatter = downedNC;
-            RadiumOre = downedDB;
+            RadiumOre = NPC.downedMoonlor;
             DiscordOres = downedSisters;
             InfernoStripe = Main.hardMode;
             MireStripe = Main.hardMode;
@@ -526,7 +525,7 @@ namespace AAMod
             HallowedOre = NPC.downedMechBossAny;
             Evil = NPC.downedPlantBoss;
             Luminite = NPC.downedMoonlord;
-            RadiumOre = downedEquinox;
+            RadiumOre = NPC.downedMoonlord;
             DiscordOres = downedSisters;
             InfernoStripe = downed.Contains("IStripe");
             MireStripe = downed.Contains("MStripe");
@@ -1204,7 +1203,7 @@ namespace AAMod
                 Main.fastForwardTime = false;
                 Main.time = PausedTime;
             }
-            if (downedEquinox)
+            if (NPC.downedMoonlord)
             {
                 if (RadiumOre == false)
                 {

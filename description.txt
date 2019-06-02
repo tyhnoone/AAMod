@@ -32,6 +32,20 @@ Fargo's Mutant Mod support.
 
 A unique soundtrack.
 
+--Changelog--
+
+0.8.0.1
+
+Temporarily removed the Equinox Worms to fix them
+
+-
+
+0.8.0.0
+
+Added Rajah Rabbit, Techno Truffle, Truffle Toad, and a lot of balancing and bugfixes
+
+--
+
 Thanks to all these amazing people for all their help with the mod!
 
 -TheDoctorDallin
