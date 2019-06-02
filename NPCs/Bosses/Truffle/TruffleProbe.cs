@@ -39,7 +39,7 @@ namespace AAMod.NPCs.Bosses.Truffle
 
             Lighting.AddLight((int)(npc.Center.X + (npc.width / 2)) / 16, (int)(npc.position.Y + (npc.height / 2)) / 16, color.R / 255, color.G / 255, color.B / 255);
 
-            BaseAI.AIFloater(npc, ref npc.ai, false, 0.2f, 2f, 1.5f, 0.04f, 1.5f, 3);
+            BaseAI.AISpore(npc, ref npc.ai, 0.1f, 0.02f, 5f, 1f);
 
             npc.frameCounter++;
             if (npc.frameCounter > 8)
@@ -57,7 +57,7 @@ namespace AAMod.NPCs.Bosses.Truffle
         {
             Texture2D glowTex = mod.GetTexture("Glowmasks/TruffleProbe_Glow1");
             Texture2D glowTex1 = mod.GetTexture("Glowmasks/TruffleProbe_Glow2");
-            Color color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
+            Color color = BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
 
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
             BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, color);

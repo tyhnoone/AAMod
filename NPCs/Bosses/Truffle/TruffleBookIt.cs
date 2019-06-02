@@ -42,15 +42,17 @@ namespace AAMod.NPCs.Bosses.Truffle
             projectile.velocity.Y -= .1f;
         }
 
-        public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D glowTex = mod.GetTexture("Glowmasks/TruffleBookIt_Glow1");
             Texture2D glowTex1 = mod.GetTexture("Glowmasks/TruffleBookIt_Glow2");
-            Color color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(projectile.position), BaseDrawing.GetLightColor(projectile.position), Color.Violet, BaseDrawing.GetLightColor(projectile.position), Color.Violet, BaseDrawing.GetLightColor(projectile.position));
+            
+            Color color = BaseUtility.MultiLerpColor(Main.player[Main.myPlayer].miscCounter % 100 / 100f, BaseDrawing.GetLightColor(projectile.position), BaseDrawing.GetLightColor(projectile.position), Color.Violet, BaseDrawing.GetLightColor(projectile.position), Color.Violet, BaseDrawing.GetLightColor(projectile.position));
+            Rectangle frame = BaseDrawing.GetFrame(projectile.frame, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 4, 0, 2);
 
-            BaseDrawing.DrawTexture(spritebatch, Main.projectileTexture[projectile.type], 0, projectile, dColor);
-            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, projectile, color);
-            BaseDrawing.DrawTexture(spritebatch, glowTex1, 0, projectile, Color.White);
+            BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 4, frame, lightColor, true);
+            BaseDrawing.DrawTexture(spriteBatch, glowTex, 0, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 4, frame, color, true);
+            BaseDrawing.DrawTexture(spriteBatch, glowTex1, 0, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 4, frame, Color.White, true);
             return false;
         }
     }

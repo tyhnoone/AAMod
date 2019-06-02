@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Projectiles
 {
-    public class CloudEdgeP : ModProjectile
+    public class Cloud : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -11,6 +11,8 @@ namespace AAMod.Projectiles
             projectile.penetrate = 14;  
             projectile.width = 14;
             projectile.height = 18;
+            projectile.melee = false;
+            projectile.magic = true;
         }
 
         public override void SetStaticDefaults()

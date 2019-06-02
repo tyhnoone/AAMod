@@ -22,8 +22,8 @@ namespace AAMod.Items.Boss.Akuma
             item.ranged = true;
             item.width = 22;
             item.height = 50;
-            item.useTime = 10;
-            item.useAnimation = 10;
+            item.useTime = 13;
+            item.useAnimation = 13;
             item.useStyle = 5;
             item.noMelee = true;
             item.channel = true;
