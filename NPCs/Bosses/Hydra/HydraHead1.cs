@@ -12,30 +12,9 @@ namespace AAMod.NPCs.Bosses.Hydra
     [AutoloadBossHead]
     public class HydraHead1 : ModNPC
     {
-        /*public float[] internalAI = new float[2];
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            base.SendExtraAI(writer);
-            if ((Main.netMode == 2 || Main.dedServ))
-            {
-                writer.Write((float)internalAI[0]);
-                writer.Write((float)internalAI[1]);
-            }
-        }
-
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
-            {
-                internalAI[0] = reader.ReadFloat();
-                internalAI[1] = reader.ReadFloat();
-            }
-        }*/
-		
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hydra X");
+            DisplayName.SetDefault("Hydra");
             Main.npcFrameCount[npc.type] = 2;
             NPCID.Sets.TechnicallyABoss[npc.type] = true;
         }
@@ -57,7 +36,7 @@ namespace AAMod.NPCs.Bosses.Hydra
                 npc.buffImmune[k] = true;
             }
 			leftHead = false;
-			middleHead = true; //Head1 is middle, Head2 is right, Head3 is left
+			middleHead = true;
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -99,18 +78,6 @@ namespace AAMod.NPCs.Bosses.Hydra
 
         public override void AI()
         {
-            /*if (Body == null)
-            {
-                int npcID = BaseAI.GetNPC(npc.Center, mod.NPCType("Hydra"), 500f, null);
-                if (npcID != -1)
-                    bodyNPC = Main.npc[npcID];
-                return;
-            }
-            if (!bodyNPC.active)
-            {
-                npc.active = false;
-                return;
-            }*/
 	        if (bodyNPC == null)
             {
                 NPC npcBody = Main.npc[(int)npc.ai[0]];

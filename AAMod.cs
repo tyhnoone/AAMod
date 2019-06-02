@@ -312,7 +312,8 @@ namespace AAMod
             SkyManager.Instance["AAMod:InfernoSky"] = new InfernoSky();
             InfernoSky.PlanetTexture = GetTexture("Backgrounds/Sun");
             InfernoSky.SkyTex = GetTexture("Backgrounds/Sky");
-            AkumaSky.MeteorTexture = GetTexture("Backgrounds/AkumaMeteor");
+            InfernoSky.demonSun = GetTexture("Backgrounds/DemonSun");
+            InfernoSky.MeteorTexture = GetTexture("Backgrounds/AkumaMeteor");
 
             Filters.Scene["AAMod:AkumaSky"] = new Filter(new AkumaSkyData("FilterMiniTower").UseColor(0f, 0.3f, 0.4f).UseOpacity(0.5f), EffectPriority.VeryHigh);
             SkyManager.Instance["AAMod:AkumaSky"] = new AkumaSky();
@@ -333,9 +334,6 @@ namespace AAMod
                 StarSky.starTextures[i] = GetTexture("Backgrounds/Star " + i);
             }
 
-            //Main.itemTexture[3460] = GetTexture("Resprites/Luminite");
-            //Main.itemTexture[512] = GetTexture("Resprites/SoulOfNight");
-			
 			ReplaceItemTexture(3460, "Resprites/Luminite");
 			ReplaceItemTexture(512, "Resprites/SoulOfNight");
 			

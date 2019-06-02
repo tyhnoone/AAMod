@@ -2467,6 +2467,9 @@
     <Content Include="Backgrounds\Star 1.png" />
     <Content Include="Backgrounds\StarTex.png" />
     <Content Include="Backgrounds\Sun.png" />
+    <Content Include="Backgrounds\Sun1.png" />
+    <Content Include="Backgrounds\Sun2.png" />
+    <Content Include="Backgrounds\Sun3.png" />
     <Content Include="Backgrounds\TerrariumBG.png" />
     <Content Include="Backgrounds\VoidBH.png" />
     <Content Include="Backgrounds\VoidBolt.png" />
