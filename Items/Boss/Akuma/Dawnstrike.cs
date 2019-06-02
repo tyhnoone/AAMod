@@ -20,13 +20,13 @@ namespace AAMod.Items.Boss.Akuma
 
         public override void SetDefaults()
         {
-            item.damage = 100;
+            item.damage = 600;
             item.noMelee = true;
             item.ranged = true;
             item.width = 64;
             item.height = 46;
             item.useTime = 2;
-            item.useAnimation = 15;
+            item.useAnimation = 10;
             item.useStyle = 5;
             item.useAmmo = AmmoID.Gel;
             item.shoot = mod.ProjectileType("Dawnstrike");
