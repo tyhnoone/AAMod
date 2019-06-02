@@ -2164,6 +2164,12 @@ namespace AAMod
                                 WorldGen.SquareTileFrame(k, l, true);
                                 NetMessage.SendTileSquare(-1, k, l, 1);
                             }
+                            else if (type == mod.TileType<Torchstone>() || type == mod.TileType<Depthstone>())
+                            {
+                                Main.tile[k, l].type = TileID.Stone;
+                                WorldGen.SquareTileFrame(k, l, true);
+                                NetMessage.SendTileSquare(-1, k, l, 1);
+                            }
                             else if (type == mod.TileType<MireGrass>())
                             {
                                 Main.tile[k, l].type = TileID.JungleGrass;

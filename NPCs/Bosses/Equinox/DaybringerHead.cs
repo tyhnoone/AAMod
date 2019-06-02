@@ -132,16 +132,13 @@ namespace AAMod.NPCs.Bosses.Equinox
 			}
 				
 			if(isHead) //prevents despawn and allows them to run away
-			{
-				BaseUtility.Chat("STOPGAP 1");					
+			{				
 				bool foundTarget = TargetClosest();		
 				if(foundTarget)
-				{
-					BaseUtility.Chat("HAS TARGET");				
+				{			
 					npc.timeLeft = 300;	
 				}else
 				{		
-					BaseUtility.Chat("NO TARGET, RUN AWAY");	
 					if(npc.timeLeft > 50) npc.timeLeft = 50;
 					npc.velocity.Y -= 0.2f;
 					if(npc.velocity.Y < -20f) npc.velocity.Y = -20f;
@@ -173,9 +170,7 @@ namespace AAMod.NPCs.Bosses.Equinox
                     npc.damage = 300;
                     npc.defense = (!nightcrawler ? 120 : 200);
                 }
-            }
-			if(isHead)
-				BaseUtility.Chat("STOPGAP 2");	
+            }	
             if (!isHead && NPC.CountNPCS(mod.NPCType<Equiprobe>()) < 15)
             {
 				SpawnProbe();
@@ -185,9 +180,7 @@ namespace AAMod.NPCs.Bosses.Equinox
                 int Length = nightcrawler ? 24 : 30;
 				int[] wormTypes = (nightcrawler ? new int[]{ mod.NPCType("NightcrawlerHead"), mod.NPCType("NightcrawlerBody"), mod.NPCType("NightcrawlerTail") } : new int[]{ mod.NPCType("DaybringerHead"), mod.NPCType("DaybringerBody"), mod.NPCType("DaybringerTail") });
 				BaseAI.AIWorm(npc, wormTypes, Length, wormDistance, moveSpeedMax, 0.07f, true, false, false, false, false, false);	
-			}	
-			if(isHead)
-				BaseUtility.Chat("STOPGAP 3");			
+			}			
 			npc.spriteDirection = 1;
 			prevWormStronger = wormStronger;
 			return false;

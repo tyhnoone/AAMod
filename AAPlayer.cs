@@ -127,6 +127,10 @@ namespace AAMod
         public bool darkmatterSetMa;
         public bool darkmatterSetSu;
         public bool darkmatterSetTh;
+        public bool radiumMe;
+        public bool radiumRa;
+        public bool radiumMa;
+        public bool radiumSu;
         public bool DarkmatterSet;
         public bool dracoSet;
         public bool dreadSet;
@@ -602,6 +606,42 @@ namespace AAMod
             if (DragonsGuard)
             {
                 npc.AddBuff(BuffID.OnFire, 120);
+            }
+            if (Radium)
+            {
+                for (int n = 0; n < 3; n++)
+                {
+                    float x = player.position.X + (float)Main.rand.Next(-400, 400);
+                    float y = player.position.Y - (float)Main.rand.Next(500, 800);
+                    Vector2 vector = new Vector2(x, y);
+                    float speedX = player.position.X + (float)(player.width / 2) - vector.X;
+                    float speedY = player.position.Y + (float)(player.height / 2) - vector.Y;
+                    speedX += (float)Main.rand.Next(-100, 101);
+                    int num15 = 23;
+                    float num16 = (float)Math.Sqrt((double)(speedX * speedX + speedY * speedY));
+                    num16 = (float)num15 / num16;
+                    speedX *= num16;
+                    speedY *= num16;
+                    int num17 = Projectile.NewProjectile(x, y, speedX, speedY, mod.ProjectileType<Projectiles.RadiumStar>(), 70, 5f, player.whoAmI, 0f, 0f);
+                    if (radiumMe)
+                    {
+                        Main.projectile[num17].damage = (int)(Main.projectile[num17].damage * player.meleeDamage);
+                    }
+                    else if (radiumRa)
+                    {
+                        Main.projectile[num17].damage = (int)(Main.projectile[num17].damage * player.rangedDamage);
+                    }
+                    else if (radiumSu)
+                    {
+                        Main.projectile[num17].damage = (int)(Main.projectile[num17].damage * player.minionDamage);
+                    }
+                    else if (radiumMa)
+                    {
+                        Main.projectile[num17].damage = (int)(Main.projectile[num17].damage * player.magicDamage);
+                    }
+                    Main.projectile[num17].ai[1] = player.position.Y;
+                    Main.projectile[num17].netUpdate = true;
+                }
             }
             if (fleshrendSet && Main.rand.Next(2) == 0)
             {
@@ -2395,13 +2435,21 @@ namespace AAMod
                 {
                     player.mount.Dismount(player);
                 }
-                if (player.wingTimeMax > 30)
-                {
-                    player.wingTimeMax = 30;
-                }
                 if (YamataAGravity)
                 {
-                    player.moveSpeed *= .75f;
+                    player.moveSpeed *= .6f;
+                    if (player.wingTimeMax > 20)
+                    {
+                        player.wingTimeMax = 20;
+                    }
+                }
+                else
+                {
+                    player.moveSpeed *= .8f;
+                    if (player.wingTimeMax > 30)
+                    {
+                        player.wingTimeMax = 30;
+                    }
                 }
             }
 

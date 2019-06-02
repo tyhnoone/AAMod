@@ -166,6 +166,7 @@ namespace AAMod
 
             if (Moonraze)
             {
+                npc.defense *= (int).9f;
                 if (npc.lifeRegen > 0)
                 {
                     npc.lifeRegen = 0;

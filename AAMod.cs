@@ -254,6 +254,8 @@ namespace AAMod
             PremultiplyTexture(GetTexture("NPCs/Bosses/Zero/ZeroShield"));
             PremultiplyTexture(GetTexture("NPCs/Bosses/AH/Ashe/AsheBarrier"));
             PremultiplyTexture(GetTexture("Items/Accessories/Snap"));
+            PremultiplyTexture(GetTexture("Projectiles/MorningStar"));
+            PremultiplyTexture(GetTexture("Projectiles/RadiumStar"));
 
             if (GetSoundSlot(SoundType.Music, "Sounds/Music/Monarch") != 0) //ensure music was loaded!
             {

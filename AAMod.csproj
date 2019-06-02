@@ -1784,6 +1784,7 @@
     <Compile Include="Projectiles\Flasks\OrderBottle.cs" />
     <Compile Include="Projectiles\ForestSolution.cs" />
     <Compile Include="Projectiles\JungleSolution.cs" />
+    <Compile Include="Projectiles\RadiumStar.cs" />
     <Compile Include="Projectiles\RaiderLance.cs" />
     <Compile Include="Projectiles\Snowmelt.cs" />
     <Compile Include="Projectiles\SnowSolution.cs" />
@@ -5929,6 +5930,7 @@
     <Content Include="Projectiles\PrimevalJavelin.png" />
     <Content Include="Projectiles\Pyrosphere.png" />
     <Content Include="Projectiles\Pyrosphere_Chain.png" />
+    <Content Include="Projectiles\RadiumStar.png" />
     <Content Include="Projectiles\RaiderLance.png" />
     <Content Include="Projectiles\Rajah\Bane.png" />
     <Content Include="Projectiles\Rajah\BaneT.png" />

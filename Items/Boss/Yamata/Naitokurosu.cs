@@ -138,7 +138,7 @@ At night, you move three times as fast and your ranged attacks & minions inflict
             }
             else
             {
-                player.rangedDamage += .08f;
+                player.rangedDamage += .09f;
             }
             if (Main.dayTime)
             { 

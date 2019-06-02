@@ -9,7 +9,9 @@ namespace AAMod.Items.Dev
 		public override void SetStaticDefaults()
 		{
             DisplayName.SetDefault("Titan Slayer");
-            Tooltip.SetDefault(@"Titan Axe EX");
+            Tooltip.SetDefault(@"Right click to quickly swing the axe
+left click to throw the axe
+Titan Axe EX");
 		}
 
 		public override void SetDefaults()

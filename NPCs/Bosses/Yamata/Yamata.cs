@@ -494,7 +494,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             float dist = npc.Distance(playerTarget.Center);
             float movementScalar2 = Math.Min(4f, Math.Max(1f, (playerDistance / (float)playerTooFarDist) * 4f));
             bool playerTooFar = playerDistance > playerTooFarDist;
-			YamataBody(npc, ref npc.ai, true, 0.2f, 2f, 1.5f, 0.04f, 1.5f, 3);
+			YamataBody(npc, ref npc.ai, true, 0.2f, 2.5f, 3f, 0.04f, 1.5f, 3);
             if (playerTooFar) npc.position += (playerTarget.position - playerTarget.oldPosition);
             npc.rotation = 0f;
         }
@@ -656,7 +656,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                 playerTarget = Main.player[foundPlayer];
                 return true;
             }
-            else //found no jungle targets, you must be outside of it, time to make them pay :)
+            else
             {
                 for (int m = 0; m < players.Length; m++)
                 {

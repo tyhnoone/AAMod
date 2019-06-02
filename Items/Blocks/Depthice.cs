@@ -22,7 +22,7 @@ namespace AAMod.Items.Blocks
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Depthstone");
+            DisplayName.SetDefault("Indigo Ice");
         }
 
     }
