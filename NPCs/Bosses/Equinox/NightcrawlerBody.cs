@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Equinox
 {
-    [AutoloadBossHead]
+    //[AutoloadBossHead]
     public class NightcrawlerBody : NightcrawlerHead
 	{
 		public override void SetDefaults()

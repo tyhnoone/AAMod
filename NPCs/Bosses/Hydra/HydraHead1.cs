@@ -12,7 +12,7 @@ namespace AAMod.NPCs.Bosses.Hydra
     [AutoloadBossHead]
     public class HydraHead1 : ModNPC
     {
-        public float[] internalAI = new float[2];
+        /*public float[] internalAI = new float[2];
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
@@ -31,7 +31,8 @@ namespace AAMod.NPCs.Bosses.Hydra
                 internalAI[0] = reader.ReadFloat();
                 internalAI[1] = reader.ReadFloat();
             }
-        }
+        }*/
+		
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydra X");
@@ -55,6 +56,8 @@ namespace AAMod.NPCs.Bosses.Hydra
             {
                 npc.buffImmune[k] = true;
             }
+			leftHead = false;
+			middleHead = true; //Head1 is middle, Head2 is right, Head3 is left
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -96,7 +99,7 @@ namespace AAMod.NPCs.Bosses.Hydra
 
         public override void AI()
         {
-            if (Body == null)
+            /*if (Body == null)
             {
                 int npcID = BaseAI.GetNPC(npc.Center, mod.NPCType("Hydra"), 500f, null);
                 if (npcID != -1)
@@ -107,7 +110,28 @@ namespace AAMod.NPCs.Bosses.Hydra
             {
                 npc.active = false;
                 return;
+            }*/
+	        if (bodyNPC == null)
+            {
+                NPC npcBody = Main.npc[(int)npc.ai[0]];
+                if (npcBody.type == mod.NPCType<Hydra>())
+                {
+                    bodyNPC = npcBody;
+                }
             }
+			if(bodyNPC == null)
+				return;
+            if (!bodyNPC.active)
+            {
+                if (Main.netMode != 1) //force a kill to prevent 'ghosting'
+                {
+                    npc.life = 0;
+                    npc.checkDead();
+                    npc.netUpdate = true;
+                }
+                return;
+            }			
+			
             npc.realLife = bodyNPC.whoAmI;
             npc.timeLeft = 100;
 
@@ -120,6 +144,7 @@ namespace AAMod.NPCs.Bosses.Hydra
             {
                 damage = npc.damage / 2;
             }
+            npc.TargetClosest();			
             Player targetPlayer = Main.player[npc.target];
             if (!targetPlayer.active || targetPlayer.dead || Main.dayTime) //fleeing
             {
@@ -170,12 +195,18 @@ namespace AAMod.NPCs.Bosses.Hydra
                 }
             }
             Vector2 nextTarget = Body.npc.Center + new Vector2(middleHead ? 0 : leftHead ? -distFromBodyX : distFromBodyX, -distFromBodyY) + new Vector2(npc.ai[2], npc.ai[3]);
-            if (Vector2.Distance(nextTarget, npc.Center) < 40f)
+			float dist = Vector2.Distance(nextTarget, npc.Center);
+            if (dist < 40f)
             {
                 npc.velocity *= 0.9f;
                 if (Math.Abs(npc.velocity.X) < 0.05f) npc.velocity.X = 0f;
                 if (Math.Abs(npc.velocity.Y) < 0.05f) npc.velocity.Y = 0f;
-            }
+            }else
+            if (dist > 200f) //teleport to keep up with body
+            {
+                npc.Center = Body.npc.Center;
+				npc.netUpdate = true;
+            }	
             else
             {
                 npc.velocity = Vector2.Normalize(nextTarget - npc.Center);

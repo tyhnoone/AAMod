@@ -333,9 +333,30 @@ namespace AAMod
                 StarSky.starTextures[i] = GetTexture("Backgrounds/Star " + i);
             }
 
-            Main.itemTexture[3460] = GetTexture("Resprites/Luminite");
-            Main.itemTexture[512] = GetTexture("Resprites/SoulOfNight");
+            //Main.itemTexture[3460] = GetTexture("Resprites/Luminite");
+            //Main.itemTexture[512] = GetTexture("Resprites/SoulOfNight");
+			
+			ReplaceItemTexture(3460, "Resprites/Luminite");
+			ReplaceItemTexture(512, "Resprites/SoulOfNight");
+			
+			sunTextureBackup = Main.sunTexture;
         }
+		
+		//DO NOT MAKE THESE STATIC! DOING SO WILL PREVENT WHAT IT FIXES FROM HAPPENING.
+		Texture2D sunTextureBackup = null;
+		Dictionary<int, Texture2D> vanillaTextureBackups = new Dictionary<int, Texture2D>();		
+		public void ReplaceItemTexture(int id, string texturePath)
+		{
+			vanillaTextureBackups.Add(id, Main.itemTexture[id]);
+			Main.itemTexture[id] = GetTexture(texturePath);
+		}
+		public void ResetItemTexture(int id)
+		{
+			if(vanillaTextureBackups.ContainsKey(id))
+			{
+				Main.itemTexture[id] = vanillaTextureBackups[id];
+			}
+		}
 
         public override void Unload()
         {
@@ -347,7 +368,21 @@ namespace AAMod
             AccessoryAbilityKey = null;
             ArmorAbilityKey = null;
             TimeStone = null;
+
+            if (!Main.dedServ)
+            {
+                UnloadClient();
+            }		
         }
+	
+		public void UnloadClient()
+		{
+			ResetItemTexture(3460);
+			ResetItemTexture(512);		
+			
+			if(sunTextureBackup != null)
+				Main.sunTexture = sunTextureBackup;
+		}
 
         public void CleanupStaticArrays()
         {

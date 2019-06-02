@@ -794,18 +794,6 @@ namespace AAMod
 
         }
 
-        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
-        {
-            for (int i = 0; i < 200; ++i)
-            {
-                if (Main.npc[i].boss && Main.npc[i].type != NPCID.WallofFlesh && Main.npc[i].active)
-                {
-                    spawnRate = 0;
-                    maxSpawns = 0;
-                }
-            }
-        }
-
         public void ClearPoolWithExceptions(IDictionary<int, float> pool)
         {
             try
@@ -1050,16 +1038,6 @@ namespace AAMod
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("YellowSolution"));
                 nextSlot++;
-            }
-        }
-
-        public const string HeadTex = "AAMod/Resprites/TEoCHead";
-
-        public override void BossHeadSlot(NPC npc, ref int index)
-        {
-            if (npc.type == NPCID.MoonLordFreeEye)
-            {
-                index = NPCHeadLoader.GetBossHeadSlot(HeadTex);
             }
         }
 

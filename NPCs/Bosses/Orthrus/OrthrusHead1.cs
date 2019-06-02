@@ -93,9 +93,29 @@ namespace AAMod.NPCs.Bosses.Orthrus
         public int movementVariance = 40; //how far from the center point to move.
 
         public override void AI()
-        {
-            
-            if (Body == null)
+        {         
+	        if (bodyNPC == null)
+            {
+                NPC npcBody = Main.npc[(int)npc.ai[0]];
+                if (npcBody.type == mod.NPCType<Orthrus>())
+                {
+                    bodyNPC = npcBody;
+                }
+            }
+			if(bodyNPC == null)
+				return;
+            if (!bodyNPC.active)
+            {
+                if (Main.netMode != 1) //force a kill to prevent 'ghosting'
+                {
+                    npc.life = 0;
+                    npc.checkDead();
+                    npc.netUpdate = true;
+                }
+                return;
+            }			
+		
+            /*if (Body == null)
             {
                 int npcID = BaseAI.GetNPC(npc.Center, mod.NPCType("Orthrus"), 500f, null);
                 if (npcID != -1)
@@ -106,7 +126,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
             {
                 npc.active = false;
                 return;
-            }
+            }*/
             npc.realLife = bodyNPC.whoAmI;
             npc.timeLeft = 100;
 
@@ -125,17 +145,17 @@ namespace AAMod.NPCs.Bosses.Orthrus
                 if (npc.position.Y + npc.velocity.Y <= 0f && Main.netMode != 1) { npc.active = false; npc.netUpdate = true; }
                 return;
             }
-            if (npc.ai[0] == Orthrus.AISTATE_TURRET)
+            if (npc.ai[1] == Orthrus.AISTATE_TURRET)
             {
                 npc.TargetClosest();
                 if (targetPlayer == null || !targetPlayer.active || targetPlayer.dead) targetPlayer = null; //deliberately set to null
 
                 if (Main.netMode != 1)
                 {
-                    npc.ai[1]++;
+                    npc.localAI[1]++;
                     int aiTimerFire = (npc.whoAmI % 3 == 0 ? 50 : npc.whoAmI % 2 == 0 ? 150 : 100); //aiTimerFire is different per head by using whoAmI (which is usually different) 
                     aiTimerFire += 30;
-                    if (targetPlayer != null && npc.ai[1] == aiTimerFire)
+                    if (targetPlayer != null && npc.localAI[1] == aiTimerFire)
                     {
                         for (int i = 0; i < 5; ++i)
                         {
@@ -155,9 +175,9 @@ namespace AAMod.NPCs.Bosses.Orthrus
                             }
                         }
                     }
-                    else if (npc.ai[1] >= 200) //pick random spot to move head to
+                    else if (npc.localAI[1] >= 200) //pick random spot to move head to
                     {
-                        npc.ai[1] = 0;
+                        npc.localAI[1] = 0;
                         npc.ai[2] = Main.rand.Next(-movementVariance, movementVariance);
                         npc.ai[3] = Main.rand.Next(-movementVariance, movementVariance);
                         npc.netUpdate = true;
