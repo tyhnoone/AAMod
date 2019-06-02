@@ -181,7 +181,7 @@ namespace AAMod
             HallowedOre = NPC.downedMechBossAny;
             Evil = NPC.downedPlantBoss;
             Luminite = NPC.downedMoonlord;
-            RadiumOre = NPC.downedMoonlor;
+            RadiumOre = NPC.downedMoonlord;
             DiscordOres = downedSisters;
             InfernoStripe = Main.hardMode;
             MireStripe = Main.hardMode;
