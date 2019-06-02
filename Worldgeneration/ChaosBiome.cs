@@ -95,7 +95,7 @@ namespace AAMod.Worldgeneration
 			{
                 new Modifiers.OnlyTiles(new ushort[]{ TileID.LivingMahogany, TileID.LivingWood}),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new BaseMod.SetModTile(LivingWood, true, true)
+                new SetModTile(LivingWood, true, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //...and Living Leaves.
 			{
@@ -107,37 +107,31 @@ namespace AAMod.Worldgeneration
 			{
                 new Modifiers.OnlyWalls(new byte[]{ WallID.Stone, WallID.EbonstoneUnsafe, WallID.CrimstoneUnsafe }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(StoneWall, true, true)
+                new PlaceModWall(StoneWall, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{
                 new Modifiers.OnlyWalls(new byte[]{ WallID.Sandstone, WallID.CorruptSandstone, WallID.CrimsonSandstone }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(SandstoneWall, true, true)
+                new PlaceModWall(SandstoneWall, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{
                 new Modifiers.OnlyWalls(new byte[]{ WallID.HardenedSand, WallID.CorruptHardenedSand, WallID.CrimsonHardenedSand }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(HardenedSandWall, true, true)
-            }));
-            WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
-			{
-                new Modifiers.OnlyWalls(new byte[]{ WallID.HardenedSand, WallID.CorruptHardenedSand, WallID.CrimsonHardenedSand }),
-                new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(HardenedSandWall, true, true)
+                new PlaceModWall(HardenedSandWall, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{
                 new Modifiers.OnlyWalls(new byte[]{ WallID.GrassUnsafe, WallID.CorruptGrassUnsafe, WallID.CrimsonGrassUnsafe }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(GrassWall, true, true)
+                new PlaceModWall(GrassWall, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{
                 new Modifiers.OnlyWalls(new byte[]{ WallID.JungleUnsafe, WallID.JungleUnsafe1, WallID.JungleUnsafe2, WallID.JungleUnsafe3, WallID.JungleUnsafe4 }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(JungleWall, true, true)
+                new PlaceModWall(JungleWall, true)
             }));
             int genX = origin.X - (gen.width / 2);
             int genY = origin.Y - 30;
@@ -330,31 +324,25 @@ namespace AAMod.Worldgeneration
 			{
                 new Modifiers.OnlyWalls(new byte[]{ WallID.Stone, WallID.EbonstoneUnsafe, WallID.CrimstoneUnsafe }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(StoneWall, true, true)
+                new PlaceModWall(StoneWall, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{
                 new Modifiers.OnlyWalls(new byte[]{ WallID.Sandstone, WallID.CorruptSandstone, WallID.CrimsonSandstone }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(SandstoneWall, true, true)
+                new PlaceModWall(SandstoneWall, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{
                 new Modifiers.OnlyWalls(new byte[]{ WallID.HardenedSand, WallID.CorruptHardenedSand, WallID.CrimsonHardenedSand }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(HardenedSandWall, true, true)
-            }));
-            WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
-			{
-                new Modifiers.OnlyWalls(new byte[]{ WallID.HardenedSand, WallID.CorruptHardenedSand, WallID.CrimsonHardenedSand }),
-                new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(HardenedSandWall, true, true)
+                new PlaceModWall(HardenedSandWall, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{
                 new Modifiers.OnlyWalls(new byte[]{ WallID.GrassUnsafe, WallID.CorruptGrassUnsafe, WallID.CrimsonGrassUnsafe }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new SetModTile(GrassWall, true, true)
+                new PlaceModWall(GrassWall, true)
             }));
 
             int genX = origin.X - (gen.width / 2);
