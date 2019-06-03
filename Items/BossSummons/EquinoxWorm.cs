@@ -5,7 +5,7 @@ using AAMod.NPCs.Bosses.Equinox;
 
 namespace AAMod.Items.BossSummons
 {
-    public abstract class EquinoxWorm : ModItem
+    public class EquinoxWorm : ModItem
     {
         public override void SetStaticDefaults()
         {

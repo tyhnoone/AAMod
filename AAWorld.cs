@@ -181,7 +181,12 @@ namespace AAMod
             HallowedOre = NPC.downedMechBossAny;
             Evil = NPC.downedPlantBoss;
             Luminite = NPC.downedMoonlord;
+<<<<<<< HEAD
             RadiumOre = NPC.downedMoonlord;
+=======
+            DarkMatter = downedNC;
+            RadiumOre = downedDB;
+>>>>>>> parent of 8a028d5a... Abstratced the Worms until we can fix them
             DiscordOres = downedSisters;
             InfernoStripe = Main.hardMode;
             MireStripe = Main.hardMode;
@@ -525,7 +530,7 @@ namespace AAMod
             HallowedOre = NPC.downedMechBossAny;
             Evil = NPC.downedPlantBoss;
             Luminite = NPC.downedMoonlord;
-            RadiumOre = NPC.downedMoonlord;
+            RadiumOre = downedEquinox;
             DiscordOres = downedSisters;
             InfernoStripe = downed.Contains("IStripe");
             MireStripe = downed.Contains("MStripe");
@@ -1203,7 +1208,7 @@ namespace AAMod
                 Main.fastForwardTime = false;
                 Main.time = PausedTime;
             }
-            if (NPC.downedMoonlord)
+            if (downedEquinox)
             {
                 if (RadiumOre == false)
                 {
