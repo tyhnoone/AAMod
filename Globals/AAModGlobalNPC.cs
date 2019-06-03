@@ -558,13 +558,13 @@ namespace AAMod
             if (Main.hardMode && isBunny)
             {
                 Player player = Main.player[Player.FindClosest(npc.Center, npc.width, npc.height)];
-                int bunnyKills = NPC.killCount[NPCID.Bunny];
+                int bunnyKills = NPC.killCount[Item.NPCtoBanner(NPCID.Bunny)];
                 if (bunnyKills % 100 == 0 && bunnyKills < 1000)
                 {
                     Main.NewText("Those who slaughter the innocent must be PUNISHED!", 107, 137, 179);
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Rajah"), npc.Center);
                     SpawnRajah(player, mod.NPCType<NPCs.Bosses.Rajah.Rajah>(), true, new Vector2(npc.Center.X, npc.Center.Y - 2000), "Rajah Rabbit");
-                    
+
                 }
                 if (bunnyKills % 100 == 0 && bunnyKills >= 1000)
                 {
