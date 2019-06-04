@@ -34,6 +34,12 @@ A unique soundtrack.
 
 --Changelog--
 
+0.8.0.2
+
+- Re-added the fixed Equinox Worms
+- Fixed the initial hardmode Mire and Inferno spread so the vertical strip properly aligns with their respective biome
+- Fixed the Time Teller and Chrono's damage boost ability
+
 0.8.0.1
 
 Temporarily removed the Equinox Worms to fix them
@@ -83,6 +89,7 @@ Thanks to all these amazing people for all their help with the mod!
 -Dan Yami
 -Gregg
 -Diverman Sam
+-Shadow Figure
 
 Thank you to our amazing Patrons!
 
