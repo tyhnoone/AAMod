@@ -2256,7 +2256,6 @@
     <Compile Include="Tiles\Crates\MireCrate.cs" />
     <Compile Include="Tiles\FulguritePlating.cs" />
     <Compile Include="Tiles\Razetus.cs" />
-    <Compile Include="Tiles\DepthIce.cs" />
     <Compile Include="Tiles\DepthsandHardened.cs" />
     <Compile Include="Tiles\Depthsandstone.cs" />
     <Compile Include="Tiles\Depthsand.cs" />
@@ -2426,6 +2425,7 @@
     <Content Include="Backgrounds\Asteroids2.png" />
     <Content Include="Backgrounds\Asteroids3.png" />
     <Content Include="Backgrounds\DemonSun.png" />
+    <Content Include="Backgrounds\DemonSunEclipse.png" />
     <Content Include="Backgrounds\Echo.png" />
     <Content Include="Backgrounds\fog.png" />
     <Content Include="Backgrounds\FogTex.png" />
@@ -6309,7 +6309,6 @@
     <Content Include="Tiles\Darkshroom.png" />
     <Content Include="Tiles\DataBank.png" />
     <Content Include="Tiles\DaybreakIncineriteOre.png" />
-    <Content Include="Tiles\DepthIce.png" />
     <Content Include="Tiles\DepthMoss.png" />
     <Content Include="Tiles\DepthsandBall.png" />
     <Content Include="Tiles\DepthsandHardened.png" />
