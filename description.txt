@@ -34,6 +34,10 @@ A unique soundtrack.
 
 --Changelog--
 
+0.8.0.3
+
+- Fixed the infamous Cultist Spawning bug!
+
 0.8.0.2
 
 - Re-added the fixed Equinox Worms
