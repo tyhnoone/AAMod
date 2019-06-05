@@ -2115,6 +2115,7 @@
     <Compile Include="Tiles\CarrotGold.cs" />
     <Compile Include="Tiles\Crates\VoidCrate.cs" />
     <Compile Include="Tiles\BiomePrism.cs" />
+    <Compile Include="Tiles\DepthIce.cs" />
     <Compile Include="Tiles\DepthMoss.cs" />
     <Compile Include="Tiles\ShroomPlant.cs" />
     <Compile Include="Tiles\TorchAsh.cs" />
@@ -6309,6 +6310,7 @@
     <Content Include="Tiles\Darkshroom.png" />
     <Content Include="Tiles\DataBank.png" />
     <Content Include="Tiles\DaybreakIncineriteOre.png" />
+    <Content Include="Tiles\DepthIce.png" />
     <Content Include="Tiles\DepthMoss.png" />
     <Content Include="Tiles\DepthsandBall.png" />
     <Content Include="Tiles\DepthsandHardened.png" />
