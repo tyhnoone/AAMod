@@ -2757,6 +2757,7 @@
     <Content Include="Glowmasks\DarkmatterHelm_Glow.png" />
     <Content Include="Glowmasks\DarkmatterHelm_Head_Glow.png" />
     <Content Include="Glowmasks\DarkmatterJackhammer_Glow.png" />
+    <Content Include="Glowmasks\DarkmatterJetpack_Glow.png" />
     <Content Include="Glowmasks\DarkmatterJetpack_Wings_Glow.png" />
     <Content Include="Glowmasks\DarkmatterKunai_Glow.png" />
     <Content Include="Glowmasks\DarkmatterMask_Glow.png" />
