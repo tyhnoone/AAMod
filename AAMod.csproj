@@ -1637,6 +1637,7 @@
     <Compile Include="NPCs\Bosses\Zero\ZeroArmAIs.cs" />
     <Compile Include="NPCs\Bosses\Zero\Zero.cs" />
     <Compile Include="NPCs\Bosses\Zero\ZeroDeactivated.cs" />
+    <Compile Include="NPCs\Critters\RoyalRabbit.cs" />
     <Compile Include="NPCs\Enemies\Corruption\FeralMonster.cs" />
     <Compile Include="NPCs\Enemies\Desert\DjinnBurst1.cs" />
     <Compile Include="NPCs\Enemies\Desert\DjinnBurst2.cs" />
@@ -4431,6 +4432,7 @@
     <Content Include="NPCs\Bosses\Zero\Tazer_Boss_Head.png" />
     <Content Include="NPCs\Bosses\Zero\TeslaHand_Head_Boss.png" />
     <Content Include="NPCs\Bosses\Zero\VoidStar_Head_Boss.png" />
+    <Content Include="NPCs\Critters\RoyalRabbit.png" />
     <Content Include="NPCs\Enemies\Inferno\HotWasp.png" />
     <Content Include="NPCs\Enemies\Inferno\InfernoSkulker.png" />
     <Content Include="NPCs\Enemies\Inferno\MagmaSwimmer.png" />
