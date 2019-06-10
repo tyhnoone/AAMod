@@ -83,6 +83,9 @@
     <Compile Include="Items\Blocks\RajahBox.cs" />
     <Compile Include="Items\Blocks\ToadBox.cs" />
     <Compile Include="Items\Blocks\TorchAsh.cs" />
+    <Compile Include="Items\Boss\AH\HarukaTrophy.cs" />
+    <Compile Include="Items\Boss\AH\AsheTrophy.cs" />
+    <Compile Include="Items\Boss\Djinn\DjinnTrophy.cs" />
     <Compile Include="Items\Boss\Hydra\HydraTrophy.cs" />
     <Compile Include="Items\Boss\Rajah\CottonCane.cs" />
     <Compile Include="Items\Boss\Rajah\RajahTrophy.cs" />
@@ -771,6 +774,7 @@
     <Compile Include="Items\Boss\Sagittarius\SagShield.cs" />
     <Compile Include="Items\Boss\Sagittarius\SagTrophy.cs" />
     <Compile Include="Items\Boss\Serpent\ArcticMedallion.cs" />
+    <Compile Include="Items\Boss\Serpent\SerpentTrophy.cs" />
     <Compile Include="Items\Boss\Serpent\SerpentBag.cs" />
     <Compile Include="Items\Boss\Serpent\SubzeroSlasher.cs" />
     <Compile Include="Items\Boss\Serpent\SnowflakeShuriken.cs" />
@@ -2128,6 +2132,11 @@
     <Compile Include="Tiles\MireFoliage.cs" />
     <Compile Include="Tiles\RajahBox.cs" />
     <Compile Include="Tiles\ToadBox.cs" />
+    <Compile Include="Tiles\Trophy\ZeroATrophy.cs" />
+    <Compile Include="Tiles\Trophy\SerpentTrophy.cs" />
+    <Compile Include="Tiles\Trophy\HarukaTrophy.cs" />
+    <Compile Include="Tiles\Trophy\DjinnTrophy.cs" />
+    <Compile Include="Tiles\Trophy\AsheTrophy.cs" />
     <Compile Include="Tiles\Trophy\HydraTrophy.cs" />
     <Compile Include="Tiles\Trophy\RajahTrophy.cs" />
     <Compile Include="Tiles\YttriumBar.cs" />
@@ -4154,6 +4163,9 @@
     <Content Include="Items\BossSummons\GoldenCarrot.png" />
     <Content Include="Items\BossSummons\Lifescanner.png" />
     <Content Include="Items\BossSummons\Toadstool.png" />
+    <Content Include="Items\Boss\AH\AsheTrophy.png" />
+    <Content Include="Items\Boss\AH\HarukaTrophy.png" />
+    <Content Include="Items\Boss\Djinn\DjinnTrophy.png" />
     <Content Include="Items\Boss\Hydra\HydraTrophy.png" />
     <Content Include="Items\Boss\MadnessTruffle.png" />
     <Content Include="Items\Boss\MushroomMonarch\GlowingMushlingStaff.png" />
@@ -4181,6 +4193,7 @@
     <Content Include="Items\Boss\Sagittarius\SagCore.png" />
     <Content Include="Items\Boss\Sagittarius\SagShield.png" />
     <Content Include="Items\Boss\Sagittarius\SagTrophy.png" />
+    <Content Include="Items\Boss\Serpent\SerpentTrophy.png" />
     <Content Include="Items\Boss\Toad\MushrockStaff.png" />
     <Content Include="Items\Boss\Toad\ToadBag.png" />
     <Content Include="Items\Boss\Toad\ToadLeg.png" />
@@ -6551,11 +6564,14 @@
     <Content Include="Tiles\Trophy\AbyssGripTrophy.png" />
     <Content Include="Tiles\Trophy\AkumaATrophy.png" />
     <Content Include="Tiles\Trophy\AkumaTrophy.png" />
+    <Content Include="Tiles\Trophy\AsheTrophy.png" />
     <Content Include="Tiles\Trophy\BlazeGripTrophy.png" />
     <Content Include="Tiles\Trophy\BroodTrophy.png" />
     <Content Include="Tiles\Trophy\DBTrophy.png" />
+    <Content Include="Tiles\Trophy\DjinnTrophy.png" />
     <Content Include="Tiles\Trophy\GripBlueTrophy.png" />
     <Content Include="Tiles\Trophy\GripRedTrophy.png" />
+    <Content Include="Tiles\Trophy\HarukaTrophy.png" />
     <Content Include="Tiles\Trophy\HydraTrophy.png" />
     <Content Include="Tiles\Trophy\NCTrophy.png" />
     <Content Include="Tiles\Trophy\OrthrusTrophy.png" />
@@ -6563,12 +6579,13 @@
     <Content Include="Tiles\Trophy\RajahTrophy.png" />
     <Content Include="Tiles\Trophy\RetrieverTrophy.png" />
     <Content Include="Tiles\Trophy\SagTrophy.png" />
+    <Content Include="Tiles\Trophy\SerpentTrophy.png" />
     <Content Include="Tiles\Trophy\ShenATrophy.png" />
     <Content Include="Tiles\Trophy\ShenTrophy.png" />
     <Content Include="Tiles\Trophy\YamataATrophy.png" />
     <Content Include="Tiles\Trophy\YamataTrophy.png" />
+    <Content Include="Tiles\Trophy\ZeroATrophy.png" />
     <Content Include="Tiles\Trophy\ZeroTrophy.png" />
-    <Content Include="Tiles\Trophy\ZeroTrophy1.png" />
     <Content Include="Tiles\TruePaladinsSmeltery.png" />
     <Content Include="Tiles\UnifiedMycelium.png" />
     <Content Include="Tiles\UraniumAnvil.png" />
