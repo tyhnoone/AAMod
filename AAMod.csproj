@@ -1386,6 +1386,9 @@
     <Compile Include="Items\Vanity\Alphakip\Shiny\ShinyFishDiverJacket.cs" />
     <Compile Include="Items\Vanity\Alphakip\Shiny\ShinyFishDiverMask.cs" />
     <Compile Include="Items\Vanity\Alphakip\Shiny\ShinyKipronWings.cs" />
+    <Compile Include="Items\Vanity\Apawn\ApawnBoots.cs" />
+    <Compile Include="Items\Vanity\Apawn\ApawnPlate.cs" />
+    <Compile Include="Items\Vanity\Apawn\ApawnHelm.cs" />
     <Compile Include="Items\Vanity\HappySunSticker.cs" />
     <Compile Include="Items\Vanity\Aves\DJDuckPants.cs" />
     <Compile Include="Items\Vanity\Aves\DJDuckShirt.cs" />
@@ -4350,6 +4353,14 @@
     <Content Include="Items\Usable\YellowSolution.png" />
     <Content Include="Items\Vanity\Alphakip\Shiny\ShinyKipronWings.png" />
     <Content Include="Items\Vanity\Alphakip\Shiny\ShinyKipronWings_Wings.png" />
+    <Content Include="Items\Vanity\Apawn\ApawnBoots.png" />
+    <Content Include="Items\Vanity\Apawn\ApawnBoots_Legs.png" />
+    <Content Include="Items\Vanity\Apawn\ApawnHelm.png" />
+    <Content Include="Items\Vanity\Apawn\ApawnHelm_Head.png" />
+    <Content Include="Items\Vanity\Apawn\ApawnPlate.png" />
+    <Content Include="Items\Vanity\Apawn\ApawnPlate_Arms.png" />
+    <Content Include="Items\Vanity\Apawn\ApawnPlate_Body.png" />
+    <Content Include="Items\Vanity\Apawn\ApawnPlate_Female.png" />
     <Content Include="Items\Vanity\Beg\PonyBody.png" />
     <Content Include="Items\Vanity\Beg\PonyBody_Arms.png" />
     <Content Include="Items\Vanity\Beg\PonyBody_Body.png" />
@@ -6691,6 +6702,7 @@
     <Content Include="Worldgeneration\BOTE.png" />
     <Content Include="Worldgeneration\BOTEWalls.png" />
     <Content Include="Worldgeneration\BOTEWater.png" />
+    <Content Include="Worldgeneration\BunnyShrine.png" />
     <Content Include="Worldgeneration\InfinitePattern.png" />
     <Content Include="Worldgeneration\Lake.png" />
     <Content Include="Worldgeneration\LakeWalls.png" />

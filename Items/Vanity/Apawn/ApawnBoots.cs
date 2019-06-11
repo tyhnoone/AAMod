@@ -2,25 +2,26 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria.ModLoader;
 
-namespace AAMod.Items.Vanity.Eliza
+namespace AAMod.Items.Vanity.Apawn
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class LizBoots : ModItem
+	public class ApawnBoots : ModItem
 	{
 		public override void SetStaticDefaults()
+       
 		{
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Midnight Cat Boots");
-            Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Devs!'");
-		}
-        
+            DisplayName.SetDefault("Apawn's Greaves");
+            Tooltip.SetDefault(@"'Great for impersonating Ancients Awakened Contributors!'");
+        }
+
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = new Color(121, 21, 214);
+                    line2.overrideColor = new Color(162, 116, 55);
                 }
             }
         }
@@ -29,13 +30,8 @@ namespace AAMod.Items.Vanity.Eliza
         {
             item.width = 22;
             item.height = 18;
-            item.rare = 11;
+            item.rare = 9;
             item.vanity = true;
-        }
-
-        public override bool DrawLegs()
-        {
-            return false;
         }
     }
 }
