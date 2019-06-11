@@ -225,9 +225,14 @@ namespace AAMod.NPCs.Bosses.Equinox
 				return true;
 			}
 			return false;
-		}		
-		
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		}
+
+        public override void BossLoot(ref string name, ref int potionType)
+        {
+            potionType = ItemID.SuperHealingPotion;
+        }
+
+        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
 			npc.lifeMax = (int)(npc.lifeMax * 0.75f * bossLifeScale);
 			npc.damage = (int)(npc.damage * 0.85f);
