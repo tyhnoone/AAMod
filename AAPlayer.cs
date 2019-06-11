@@ -1534,7 +1534,7 @@ namespace AAMod
             string addonEX = (dropType == 3 ? "EX" : ""); //only include EX if it's a dropType 3 (ie from ancients)
             while (!spawnedDevItems)
             {
-                int choice = Main.rand.Next(18);
+                int choice = Main.rand.Next(20);
                 switch (choice)
                 {
                     case 0:
@@ -1738,6 +1738,11 @@ namespace AAMod
                             player.QuickSpawnItem(mod.ItemType("MagicAcorn" + addonEX));
                         }
                         spawnedDevItems = true;
+                        break;
+                    case 18:
+                        player.QuickSpawnItem(mod.ItemType("ApawnHelm"));
+                        player.QuickSpawnItem(mod.ItemType("ApawnPlate"));
+                        player.QuickSpawnItem(mod.ItemType("ApawnBoots"));
                         break;
                 }
             }
