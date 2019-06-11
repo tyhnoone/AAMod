@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace AAMod.Items.BossSummons
 {
-    public class GoldenCarrot : ModItem
+    public class PlatinumCarrot : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -48,7 +48,7 @@ namespace AAMod.Items.BossSummons
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType<Potions.Carrot>(), 5);
-            recipe.AddIngredient(ItemID.GoldBar, 10);
+            recipe.AddIngredient(ItemID.PlatinumBar, 10);
             recipe.AddIngredient(ItemID.GoldBunny, 1);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this, 1);

@@ -83,6 +83,8 @@
     <Compile Include="Items\Blocks\RajahBox.cs" />
     <Compile Include="Items\Blocks\ToadBox.cs" />
     <Compile Include="Items\Blocks\TorchAsh.cs" />
+    <Compile Include="Items\BossSummons\DiamondCarrot.cs" />
+    <Compile Include="Items\BossSummons\PlatinumCarrot.cs" />
     <Compile Include="Items\Boss\AH\HarukaTrophy.cs" />
     <Compile Include="Items\Boss\AH\AsheTrophy.cs" />
     <Compile Include="Items\Boss\Djinn\DjinnTrophy.cs" />
@@ -4180,8 +4182,10 @@
     <Content Include="Items\Blocks\ToadBox.png" />
     <Content Include="Items\Blocks\TorchAsh.png" />
     <Content Include="Items\BossSummons\CyberneticShroom.png" />
+    <Content Include="Items\BossSummons\DiamondCarrot.png" />
     <Content Include="Items\BossSummons\GoldenCarrot.png" />
     <Content Include="Items\BossSummons\Lifescanner.png" />
+    <Content Include="Items\BossSummons\PlatinumCarrot.png" />
     <Content Include="Items\BossSummons\Toadstool.png" />
     <Content Include="Items\Boss\AH\AsheTrophy.png" />
     <Content Include="Items\Boss\AH\HarukaTrophy.png" />
@@ -4326,6 +4330,7 @@
     <Content Include="Items\Thorium\Healer\StormDefibulator.png" />
     <Content Include="Items\Usable\BrownSolution.png" />
     <Content Include="Items\Usable\CavernCrate.png" />
+    <Content Include="Items\Usable\ChaosOverloader.png" />
     <Content Include="Items\Usable\DeepGreenSolution.png" />
     <Content Include="Items\Usable\FungicideSolution.png" />
     <Content Include="Items\Usable\LimeSolution.png" />
