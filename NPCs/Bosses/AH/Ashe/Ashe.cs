@@ -524,6 +524,10 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                 int lootA = Main.rand.Next(lootTableA.Length);
                 npc.DropLoot(mod.ItemType(lootTableA[lootA]));
             }
+            if (Main.rand.Next(10) == 0)
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("AsheTrophy"));
+            }
             int DeathAnim = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<AsheVanish>(), 0);
             Main.npc[DeathAnim].velocity = npc.velocity;
             Main.NewText("OW..! THAT HURT, YOU KNOW!", new Color(102, 20, 48));

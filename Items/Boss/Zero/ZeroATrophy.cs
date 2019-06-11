@@ -6,14 +6,15 @@ using System.Collections.Generic;
 
 namespace AAMod.Items.Boss.Zero
 {
-    public class ZeroTrophy : ModItem
+    public class ZeroATrophy : ModItem
 	{
         public static int type;
 
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zero Trophy");
+            
+            DisplayName.SetDefault("Zero Protocol Trophy");
 		}
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -41,7 +42,7 @@ namespace AAMod.Items.Boss.Zero
 			item.consumable = true;
 			item.value = 2000;
 			item.rare = 1;
-			item.createTile = mod.TileType("ZeroTrophy");
+			item.createTile = mod.TileType("ZeroATrophy");
 		}
     }
 }

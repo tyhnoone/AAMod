@@ -427,13 +427,19 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 }
                 Main.NewText(AAWorld.downedAkuma ? "Heh, not too shabby this time kid. I'm impressed. Here. Take your prize." : "GRAH..! HOW!? HOW COULD I LOSE TO A MERE MORTAL TERRARIAN?! Hmpf...fine kid, you win, fair and square. Heere's your reward.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
                 AAWorld.downedAkuma = true;
-                npc.DropLoot(Items.Vanity.Mask.AkumaAMask.type, 1f / 7);
                 if (Main.rand.Next(50) == 0 && AAWorld.downedAllAncients)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PowerStone"));
                 }
-                npc.DropLoot(Items.Boss.Akuma.AkumaATrophy.type, 1f / 10);
-                if (Main.rand.NextFloat() < 0.1f)
+                if (Main.rand.Next(10) == 0)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("AkumaATrophy"));
+                }
+                if (Main.rand.Next(7) == 0)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("AkumaAMask"));
+                }
+                if (Main.rand.Next(20) == 0)
                 {
                     Item.NewItem((int)npc.Center.X, (int)npc.Center.Y, npc.width, npc.height, mod.ItemType("EXSoul"));
                 }

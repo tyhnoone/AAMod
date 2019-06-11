@@ -749,7 +749,10 @@ namespace AAMod.NPCs.Bosses.Rajah
                 int lootA = Main.rand.Next(lootTableA.Length);
                 npc.DropLoot(mod.ItemType(lootTableA[lootA]));
             }
-            npc.DropLoot(Items.Boss.Rajah.RajahTrophy.type, 1f / 10);
+            if (Main.rand.Next(10) == 0)
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RajahTrophy"));
+            }
             BaseUtility.Chat("You win this time, murderer...but I will avenge those you've mercilicely slain...", 107, 137, 179, true);
             Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
             npc.value = 0f;

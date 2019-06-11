@@ -104,6 +104,10 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
                 int lootH = Main.rand.Next(lootTableH.Length);
                 npc.DropLoot(mod.ItemType(lootTableH[lootH]));
             }
+            if (Main.rand.Next(10) == 0)
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RaiderTrophy"));
+            }
             NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<HarukaVanish>());
             Main.NewText("Rgh..! Ow...", new Color(72, 78, 117));
             npc.value = 0f;
