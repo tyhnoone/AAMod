@@ -2142,6 +2142,7 @@
     <Compile Include="Tiles\MireFoliage.cs" />
     <Compile Include="Tiles\RajahBox.cs" />
     <Compile Include="Tiles\ToadBox.cs" />
+    <Compile Include="Tiles\Trophy\ToadTrophy.cs" />
     <Compile Include="Tiles\Trophy\MonarchTrophy.cs" />
     <Compile Include="Tiles\Trophy\FungusTrophy.cs" />
     <Compile Include="Tiles\Trophy\TruffleTrophy.cs" />
@@ -6627,6 +6628,7 @@
     <Content Include="Tiles\Trophy\SerpentTrophy.png" />
     <Content Include="Tiles\Trophy\ShenATrophy.png" />
     <Content Include="Tiles\Trophy\ShenTrophy.png" />
+    <Content Include="Tiles\Trophy\ToadTrophy.png" />
     <Content Include="Tiles\Trophy\Trophy.png" />
     <Content Include="Tiles\Trophy\TruffleTrophy.png" />
     <Content Include="Tiles\Trophy\YamataATrophy.png" />
