@@ -409,10 +409,10 @@ namespace AAMod.Globals
                 bossChecklist.Call("AddBossWithInfo", "Grips of Chaos", 2f, (Func<bool>)(() => AAWorld.downedGrips), "Use a [i:" + AAMod.instance.ItemType("CuriousClaw") + "] or [i:" + AAMod.instance.ItemType("InterestingClaw") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Broodmother", 3.5f, (Func<bool>)(() => AAWorld.downedBrood), "Use a [i:" + AAMod.instance.ItemType("DragonBell") + "] in the Inferno during the day");
                 bossChecklist.Call("AddBossWithInfo", "Hydra", 3.5f, (Func<bool>)(() => AAWorld.downedHydra), "Use a [i:" + AAMod.instance.ItemType("HydraChow") + "] in the Mire at night");
+                bossChecklist.Call("AddBossWithInfo", "Truffle Toad", 6.5f, (Func<bool>)(() => AAWorld.downedToad), "Use a [i:" + AAMod.instance.ItemType("Toadstool") + "] in a glowing mushroom biome");
                 bossChecklist.Call("AddBossWithInfo", "Subzero Serpent", 5.5f, (Func<bool>)(() => AAWorld.downedSerpent), "Use a [i:" + AAMod.instance.ItemType("SubzeroCrystal") + "] in the Snow biome at night");
                 bossChecklist.Call("AddBossWithInfo", "Desert Djinn", 5.5f, (Func<bool>)(() => AAWorld.downedDjinn), "Use a [i:" + AAMod.instance.ItemType("DjinnLamp") + "] in the Desert during the day");
                 bossChecklist.Call("AddBossWithInfo", "Sagittarius", 5.7f, (Func<bool>)(() => AAWorld.downedSag), "Use a [i:" + AAMod.instance.ItemType("Lifescanner") + "] in the Void");
-                bossChecklist.Call("AddBossWithInfo", "Truffle Toad", 6.5f, (Func<bool>)(() => AAWorld.downedToad), "Use a [i:" + AAMod.instance.ItemType("Toadstool") + "] in a glowing mushroom biome");
                 bossChecklist.Call("AddBossWithInfo", "Retriever", 9.5f, (Func<bool>)(() => AAWorld.downedRetriever), "Use a [i:" + AAMod.instance.ItemType("CyberneticClaw") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Techno Truffle", 9.5f, (Func<bool>)(() => AAWorld.downedTruffle), "Use a [i:" + AAMod.instance.ItemType("CyberneticShroom") + "] at night");
                 bossChecklist.Call("AddBossWithInfo", "Raider Ultima", 9.5f, (Func<bool>)(() => AAWorld.downedRaider), "Use a [i:" + AAMod.instance.ItemType("CyberneticBell") + "] at night");
@@ -423,7 +423,6 @@ namespace AAMod.Globals
                 bossChecklist.Call("AddBossWithInfo", "Yamata", 16.2f, (Func<bool>)(() => AAWorld.downedYamata), "Use a [i:" + AAMod.instance.ItemType("DreadSigil") + "] in the Mire at night");
                 bossChecklist.Call("AddBossWithInfo", "Akuma", 16.3f, (Func<bool>)(() => AAWorld.downedAkuma), "Use a [i:" + AAMod.instance.ItemType("DraconianSigil") + "] in the Inferno during the day");
                 bossChecklist.Call("AddBossWithInfo", "Zero", 16.4f, (Func<bool>)(() => AAWorld.downedZero), "Use a [i:" + AAMod.instance.ItemType("ZeroTesseract") + "] in the Void");
-                bossChecklist.Call("AddBossWithInfo", "Shen Doragon", 20f, (Func<bool>)(() => AAWorld.downedShen), "Use a [i:" + AAMod.instance.ItemType("ChaosSigil") + "]");
                 bossChecklist.Call("AddBossWithInfo", "Rajah Rabbit's Revenge", 40f, (Func<bool>)(() => AAWorld.downedRajahsRevenge), "Use a [i:" + AAMod.instance.ItemType<DiamondCarrot>() + "] or every 100 rabbit kills after 1000.");
 
                 // SlimeKing = 1f;
