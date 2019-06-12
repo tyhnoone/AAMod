@@ -13,6 +13,7 @@ namespace AAMod.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             drop = mod.ItemType("Depthsand");
+            Main.tileBlendAll[Type] = true;
             soundStyle = 18;
             AddMapEntry(new Color(37, 33, 50));
             SetModCactus(new Bogtus());

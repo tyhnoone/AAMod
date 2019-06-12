@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
+using Terraria.ObjectData;
 
 namespace AAMod.Tiles
 {
@@ -13,6 +14,7 @@ namespace AAMod.Tiles
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
+            Main.tileBlendAll[Type] = true;
             drop = mod.ItemType("Torchsand");
             soundStyle = 18;
             AddMapEntry(new Color(50, 35, 22));
