@@ -6466,6 +6466,7 @@
     <Content Include="Tiles\PrismOre.png" />
     <Content Include="Tiles\RadiumOreDark.png" />
     <Content Include="Tiles\RajahBox.png" />
+    <Content Include="Tiles\RajahShrine.png" />
     <Content Include="Tiles\RazePalmSapling.png" />
     <Content Include="Tiles\RazePalmTree.png" />
     <Content Include="Tiles\RazePalmTreetops.png" />

@@ -11,6 +11,7 @@ namespace AAMod.Tiles
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
+            Main.tileMergeDirt[Type] = true;
             drop = mod.ItemType("Depthsand");
             soundStyle = 18;
             AddMapEntry(new Color(37, 33, 50));
