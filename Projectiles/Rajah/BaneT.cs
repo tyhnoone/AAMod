@@ -17,7 +17,7 @@ namespace AAMod.Projectiles.Rajah
             projectile.width = 16;
             projectile.height = 16;
             projectile.friendly = true;
-            projectile.aiStyle = 1;
+            projectile.aiStyle = -1;
             projectile.melee = true;
             projectile.penetrate = -1;
             projectile.extraUpdates = 1;
