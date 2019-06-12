@@ -4284,8 +4284,6 @@
     <Content Include="Items\Materials\RelicBar.png" />
     <Content Include="Items\Materials\RoyalRabbit.png" />
     <Content Include="Items\Materials\TerraShard.png" />
-    <Content Include="Items\Materials\VikingRelic0.png" />
-    <Content Include="Items\Materials\VikingRelic1.png" />
     <Content Include="Items\Materials\VikingRelic.png" />
     <Content Include="Items\Melee\AsgardianLance.png" />
     <Content Include="Items\Melee\ChaosYari.png" />
