@@ -104,6 +104,7 @@ namespace AAMod
         public static bool downedSag;
         public static bool SistersSummoned;
         public static bool downedTruffle;
+        public static bool downedRajahsRevenge;
         //Points
         public static Point WHERESDAVOIDAT;
 
@@ -173,9 +174,9 @@ namespace AAMod
             SistersSummoned = false;
             downedTruffle = false;
             downedRajah = false;
-            RabbitKills = 0;
-            //World Changes
-            ChaosOres = downedGrips;
+            downedRajahsRevenge = false;
+             //World Changes
+             ChaosOres = downedGrips;
             Dynaskull = NPC.downedBoss3;
             FulguriteOre = downedStormAny;
             HallowedOre = NPC.downedMechBossAny;
@@ -282,6 +283,7 @@ namespace AAMod
             if (SistersSummoned) downed.Add("Summoned");
             if (downedTruffle) downed.Add("Truffle");
             if (downedRajah) downed.Add("Rajah");
+            if (downedRajahsRevenge) downed.Add("Rajah2");
 
             return new TagCompound {
                 {"downed", downed},
@@ -370,6 +372,7 @@ namespace AAMod
             flags6[0] = ModContentGenerated;
             flags6[1] = downedTruffle;
             flags6[2] = downedRajah;
+            flags6[3] = downedRajahsRevenge;
             writer.Write(flags6);
 
             writer.WriteVector2(MireCenter);
@@ -451,6 +454,7 @@ namespace AAMod
             ModContentGenerated = flags6[0];
             downedTruffle = flags6[1];
             downedRajah = flags6[2];
+            downedRajahsRevenge = flags6[3];
 
             MireCenter = reader.ReadVector2();
 			InfernoCenter = reader.ReadVector2();		
@@ -519,6 +523,7 @@ namespace AAMod
             SistersSummoned = downed.Contains("Summoned");
             downedTruffle = downed.Contains("Truffle");
             downedRajah = downed.Contains("Rajah");
+            downedRajahsRevenge = downed.Contains("Rajah2");
             //World Changes
             ChaosOres = downedGrips;
             Dynaskull = NPC.downedBoss3;
@@ -840,7 +845,7 @@ namespace AAMod
                 int tilesY = WorldGen.genRand.Next((int)WorldGen.rockLayerLow, Main.maxTilesY);
                 if (Main.tile[tilesX, tilesY].type == 59)
                 {
-                    WorldGen.OreRunner(tilesX, tilesY, (double)WorldGen.genRand.Next(2, 4), WorldGen.genRand.Next(3, 6), (ushort)mod.TileType("AbyssiumOre"));
+                    WorldGen.OreRunner(tilesX, tilesY, WorldGen.genRand.Next(2, 4), WorldGen.genRand.Next(3, 6), (ushort)mod.TileType("AbyssiumOre"));
                 }
             }
         }
@@ -1297,16 +1302,17 @@ namespace AAMod
                 if (!Dynaskull)
                 {
                     Dynaskull = true;
-                    Main.NewText("Bones of the ancient past burst with energy!", Color.DarkOrange.R, Color.DarkOrange.G, Color.DarkOrange.B);
+                    Main.NewText("Bones of the ancient past burst with energy!", Color.DarkOrange);
                     Main.NewText("The desert winds stir...", Color.Orange);
-                    Main.NewText("The winter hills rumble...", Color.Cyan.R, Color.Cyan.G, Color.Cyan.B);
+                    Main.NewText("The winter hills rumble...", Color.Cyan);
                     int x = Main.maxTilesX;
                     int y = Main.maxTilesY;
-                    for (int k = 0; k < (int)((double)(x * y) * 15E-05); k++)
+                    for (int k = 0; k < (int)((x * y) * 15E-04); k++)
                     {
                         int tilesX = WorldGen.genRand.Next(0, x);
                         int tilesY = WorldGen.genRand.Next(0, y);
-                        if (Main.tile[tilesX, tilesY].type == 397)
+                        Tile tile = Main.tile[tilesX, tilesY];
+                        if (tile.type == TileID.FossilOre || tile.type == TileID.Sandstone || tile.type == TileID.HardenedSand)
                         {
                             WorldGen.OreRunner(tilesX, tilesY, WorldGen.genRand.Next(5, 6), WorldGen.genRand.Next(10, 11), (ushort)mod.TileType("DynaskullOre"));
                         }
@@ -1318,9 +1324,7 @@ namespace AAMod
                 if (!Evil)
                 {
                     Evil = true;
-                    Main.NewText("The choirs of unity hum from the terrarium.", Color.LimeGreen.R, Color.LimeGreen.G, Color.LimeGreen.B);
-                    Main.NewText("Devils in the underworld begin to plot.", Color.Purple.R, Color.Purple.G, Color.Purple.B);
-                    Main.NewText("The withered machines of the emptiness reactivate.", Color.Red.R, Color.Red.G, Color.Red.B);
+                    Main.NewText("The choirs of unity hum from the terrarium, and echo across the land...", Color.LimeGreen);
                 }
             }
             if (downedRetriever || downedOrthrus || downedRaider)
