@@ -79,6 +79,9 @@
     <Compile Include="Buffs\SockPuppet.cs" />
     <Compile Include="Dusts\SnapDust.cs" />
     <Compile Include="Items\Accessories\Snap.cs" />
+    <Compile Include="Items\Armor\Dev\Tails\TailsBodyA.cs" />
+    <Compile Include="Items\Armor\Dev\Tails\TailsHeadA.cs" />
+    <Compile Include="Items\Armor\Dev\Tails\TailsLegsA.cs" />
     <Compile Include="Items\Blocks\DepthsandHardened.cs" />
     <Compile Include="Items\Blocks\RajahBox.cs" />
     <Compile Include="Items\Blocks\ToadBox.cs" />
@@ -3737,6 +3740,14 @@
     <Content Include="Items\Armor\Dev\Moon\MoonRobeA_Arms.png" />
     <Content Include="Items\Armor\Dev\Moon\MoonRobeA_Body.png" />
     <Content Include="Items\Armor\Dev\Moon\MoonRobeAFemale.png" />
+    <Content Include="Items\Armor\Dev\Tails\TailsBodyA.png" />
+    <Content Include="Items\Armor\Dev\Tails\TailsBodyA_Arms.png" />
+    <Content Include="Items\Armor\Dev\Tails\TailsBodyA_Body.png" />
+    <Content Include="Items\Armor\Dev\Tails\TailsBodyA_Female.png" />
+    <Content Include="Items\Armor\Dev\Tails\TailsHeadA.png" />
+    <Content Include="Items\Armor\Dev\Tails\TailsHeadA_Head.png" />
+    <Content Include="Items\Armor\Dev\Tails\TailsLegsA.png" />
+    <Content Include="Items\Armor\Dev\Tails\TailsLegsA_Legs.png" />
     <Content Include="Items\Armor\Djinn\DjinnLegs.png" />
     <Content Include="Items\Armor\Djinn\DjinnTurban.png" />
     <Content Include="Items\Armor\DoomiteU\DoomiteUGreaves.png" />
