@@ -95,10 +95,6 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("YamataATrophy"));
                 }
-                if (Main.rand.Next(7) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("YamataAMask"));
-                }
 
                 BaseAI.DropItem(npc, mod.ItemType("YamataATrophy"), 1, 1, 15, true);
                 

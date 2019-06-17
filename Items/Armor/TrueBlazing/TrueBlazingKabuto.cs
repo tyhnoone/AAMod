@@ -47,8 +47,8 @@ Your Swung weapons set your enemies ablaze";
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("KindledKabuto"));
-            recipe.AddIngredient(mod.ItemType("OceanHelm"));
+            recipe.AddIngredient(mod.ItemType("BlazingKabuto"));
+            recipe.AddIngredient(mod.ItemType("InfernoCrystal"));
             recipe.AddIngredient(ItemID.FossilHelm);
             recipe.AddIngredient(mod.ItemType("DoomiteUHelm"));
             recipe.AddTile(TileID.DemonAltar);

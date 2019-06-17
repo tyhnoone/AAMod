@@ -6404,7 +6404,6 @@
     <Content Include="Tiles\FungusBox.png" />
     <Content Include="Tiles\GlowingMushiumBar.png" />
     <Content Include="Tiles\Hotshroom.png" />
-    <Content Include="Tiles\InfernalAsh.png" />
     <Content Include="Tiles\InfernoFoliage.png" />
     <Content Include="Tiles\InfernoFoliage1.png" />
     <Content Include="Tiles\InfernoFoliage2.png" />
@@ -6414,11 +6413,6 @@
     <Content Include="Tiles\InfernoGrassAsh.png" />
     <Content Include="Tiles\LakeBox.png" />
     <Content Include="Tiles\MadnessShroom.png" />
-    <Content Include="Tiles\ManaLanternB.png" />
-    <Content Include="Tiles\ManaLanternG.png" />
-    <Content Include="Tiles\ManaLanternP.png" />
-    <Content Include="Tiles\ManaLanternTile.png" />
-    <Content Include="Tiles\ManaLantern_Glow.png" />
     <Content Include="Tiles\MireFoliage.png" />
     <Content Include="Tiles\MireFoliage1.png" />
     <Content Include="Tiles\MireFoliage2.png" />

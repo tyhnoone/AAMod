@@ -693,11 +693,21 @@ namespace AAMod.NPCs.Bosses.Rajah
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.GreaterHealingPotion;
+            if (IsSupreme)
+            {
+                AAWorld.downedRajahsRevenge = true;
+            }
             AAWorld.downedRajah = true;
         }
 
+        public bool IsSupreme = false;
+
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
+            if (npc.lifeMax >= 4000000)
+            {
+                IsSupreme = true;
+            }
             npc.lifeMax = (int)(npc.lifeMax * 0.8f * bossLifeScale);  //boss life scale in expertmode
             npc.damage = (int)(npc.damage * 1.3f);  //boss damage increase in expermode
         }
