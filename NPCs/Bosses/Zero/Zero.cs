@@ -237,7 +237,7 @@ namespace AAMod.NPCs.Bosses.Zero
         {
             LineStopper--;
             RingRoatation += 0.03f;
-            
+            AAWorld.zeroUS = false;
             npc.damage = npc.defDamage;
             npc.defense = npc.defDefense;
             if (npc.ai[0] == 0 && Main.netMode != 1)
