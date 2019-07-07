@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AAMod.Items
+namespace AAMod.Items.Ranged
 {
 	public class MidasGun : BaseAAItem
     {
