@@ -6,7 +6,6 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
 {
     public class ZeroDeath2 : ModProjectile
     {
-        bool slayer = false;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zero");
@@ -25,7 +24,6 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         }
         public override void AI()
         {
-            AAWorld.downedZero = true;
             if (++projectile.frameCounter >= 10)
             {
                 projectile.frameCounter = 0;

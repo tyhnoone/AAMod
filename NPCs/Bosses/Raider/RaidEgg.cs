@@ -11,8 +11,6 @@ namespace AAMod.NPCs.Bosses.Raider
     [AutoloadBossHead]
     public class RaidEgg : ModNPC
     {
-        private Player player;
-        private float speed;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Raider Egg");

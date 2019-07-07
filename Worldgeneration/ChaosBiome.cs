@@ -520,8 +520,6 @@ namespace AAMod.Worldgeneration
 
         Texture2D Terrasphere = null;
 
-        Texture2D TerraWalls = null;
-
         public override bool Place(Point origin, StructureMap structures)
         {
             //this handles generating the actual tiles, but you still need to add things like treegen etc. I know next to nothing about treegen so you're on your own there, lol.

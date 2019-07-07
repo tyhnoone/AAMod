@@ -18,8 +18,9 @@ namespace AAMod.Items.Boss.Rajah
             item.width = 32;
             item.height = 32;
             item.expert = true;
-            bossBagNPC = mod.NPCType("Rajah");
         }
+
+        public override int BossBagNPC => mod.NPCType("Rajah");
 
         public override bool CanRightClick()
         {

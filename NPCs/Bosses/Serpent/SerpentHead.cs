@@ -11,8 +11,6 @@ namespace AAMod.NPCs.Bosses.Serpent
     [AutoloadBossHead]	
 	public class SerpentHead : ModNPC
 	{
-		bool TailSpawned = false;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Subzero Serpent");

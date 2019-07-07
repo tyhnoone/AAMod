@@ -16,7 +16,6 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         public int timer;
         public static int type;
         private bool Panic = false;
-        private bool introPlayed = false;
 
         public override void SetStaticDefaults()
         {
@@ -187,9 +186,6 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
 
             return true;
         }
-        private int Glitch = 0;
-        private bool GlitchBool = false;
-
         public float[] internalAI = new float[4];
         public override void SendExtraAI(BinaryWriter writer)
         {
