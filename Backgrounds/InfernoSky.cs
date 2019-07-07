@@ -38,7 +38,7 @@ namespace AAMod.Backgrounds
             PlanetTexture = TextureManager.Load("Backgrounds/Sun");
             demonSun = TextureManager.Load("Backgrounds/DemonSun");
             MeteorTexture = TextureManager.Load("Backgrounds/AkumaMeteors");
-            SkyTex = TextureManager.Load("Backgrounds/Sky");
+            SkyTex = TextureManager.Load("Backgrounds/SkyTex");
         }
 
         public override void Update(GameTime gameTime)
@@ -65,15 +65,15 @@ namespace AAMod.Backgrounds
             {
                 if (Main.dayTime)
                 {
-                    Vector2 SkyPos = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
-                    spriteBatch.Draw(SkyTex, SkyPos, null, Color.OrangeRed, 0f, new Vector2(SkyTex.Width >> 1, SkyTex.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * Intensity);
+                    spriteBatch.Draw(SkyTex, new Rectangle(0, Math.Max(0, (int)((Main.worldSurface * 16.0 - Main.screenPosition.Y - 2400.0) * 0.10000000149011612)), Main.screenWidth, Main.screenHeight), Color.OrangeRed * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * Intensity));
                     float num64 = 1f;
                     num64 -= Main.cloudAlpha * 1.5f;
                     if (num64 < 0f)
                     {
                         num64 = 0f;
                     }
-                    int num20 = (int)(Main.time / 54000.0 * (double)(Main.screenWidth + Main.sunTexture.Width * 2)) - Main.sunTexture.Width;
+                    int num20 = (int)(Main.time / 54000.0 * (Main.screenWidth + Main.sunTexture.Width * 2)) - Main.sunTexture.Width;
                     int num21 = 0;
                     float num22 = 1f;
                     float rotation = (float)(Main.time / 54000.0) * 2f - 7.3f;
@@ -128,9 +128,9 @@ namespace AAMod.Backgrounds
                     return;
                 }
                 float scale = Math.Min(1f, (Main.screenPosition.Y - 1000f) / 1000f);
-                Vector2 value3 = Main.screenPosition + new Vector2((float)(Main.screenWidth >> 1), (float)(Main.screenHeight >> 1));
+                Vector2 value3 = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
                 Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
-                for (int j = (int)num; j < num2; j++)
+                for (int j = num; j < num2; j++)
                 {
                     Vector2 value4 = new Vector2(1f / Meteors[j].Depth, 0.9f / Meteors[j].Depth);
                     Vector2 position = (Meteors[j].Position - value3) * value4 + value3 - Main.screenPosition;
@@ -156,7 +156,7 @@ namespace AAMod.Backgrounds
             Meteors = new Meteor[150];
             for (int i = 0; i < Meteors.Length; i++)
             {
-                float num = (float)i / (float)Meteors.Length;
+                float num = i / (float)Meteors.Length;
                 Meteors[i].Position.X = num * (Main.maxTilesX * 16f) + this._random.NextFloat() * 40f - 20f;
                 Meteors[i].Position.Y = this._random.NextFloat() * -((float)Main.worldSurface * 16f + 10000f) - 10000f;
                 if (this._random.Next(3) != 0)

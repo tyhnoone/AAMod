@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Rajah
 {
-    public class Punisher : ModItem
+    public class Punisher : BaseAAItem
     {
         
         public override void SetStaticDefaults()

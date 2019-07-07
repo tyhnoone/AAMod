@@ -58,7 +58,7 @@ namespace AAMod.Projectiles
 					vector13.Normalize();
 					if (vector13.HasNaNs())
 					{
-						vector13 = Vector2.UnitX * (float)player.direction;
+						vector13 = Vector2.UnitX * player.direction;
 					}
 					vector13 *= scaleFactor6;
 					if (vector13.X != projectile.velocity.X || vector13.Y != projectile.velocity.Y)
@@ -76,7 +76,7 @@ namespace AAMod.Projectiles
 			Lighting.AddLight(vector14, 1f, 0.2f, 2f);
 			if (Main.rand.Next(3) == 0)
 			{
-				int num30 = Dust.NewDust(vector14 - projectile.Size / 2f, projectile.width, projectile.height, mod.DustType<Dusts.SnowDust>(), projectile.velocity.X, projectile.velocity.Y, 100, default(Color), 1f);
+				int num30 = Dust.NewDust(vector14 - projectile.Size / 2f, projectile.width, projectile.height, mod.DustType<Dusts.SnowDust>(), projectile.velocity.X, projectile.velocity.Y, 100);
 				Main.dust[num30].noGravity = true;
 				Main.dust[num30].position -= projectile.velocity;
 			}
@@ -88,7 +88,7 @@ namespace AAMod.Projectiles
 			player.heldProj = projectile.whoAmI;
 			player.itemTime = 2;
 			player.itemAnimation = 2;
-			player.itemRotation = (float)Math.Atan2((double)(projectile.velocity.Y * (float)projectile.direction), (double)(projectile.velocity.X * (float)projectile.direction));
+			player.itemRotation = (float)Math.Atan2(projectile.velocity.Y * projectile.direction, projectile.velocity.X * projectile.direction);
         }
         
         public override Color? GetAlpha(Color lightColor)

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Dev
 {
-    public class SkrallStaff : ModItem
+    public class SkrallStaff : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -19,7 +19,7 @@ It's the stick that's magic. The diamond is just for show
 
 		public override void SetDefaults()
 		{
-			item.damage = 70;
+			item.damage = 170;
 			item.magic = true;
 			item.mana = 6;
 			item.width = 58;
@@ -58,7 +58,7 @@ It's the stick that's magic. The diamond is just for show
 
             if (player.altFunctionUse == 2)
             {
-                item.mana = 12;
+                item.mana = 6;
                 item.useTime = 30;
                 item.useAnimation = 30;
                 item.useStyle = 5;
@@ -69,13 +69,13 @@ It's the stick that's magic. The diamond is just for show
             }
             else
             {
-                item.mana = 12;
+                item.mana = 6;
                 item.useStyle = 5;
                 item.useTime = 5;
                 item.useAnimation = 5;
                 item.melee = true;
                 item.shoot = mod.ProjectileType("Crystal");
-                item.damage = 70;
+                item.damage = 170;
                 item.noMelee = false;
                 item.shootSpeed = 20f;
             }

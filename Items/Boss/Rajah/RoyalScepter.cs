@@ -1,11 +1,10 @@
 using Terraria;
 using System;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Rajah
 {
-    public class RoyalScepter : ModItem
+    public class RoyalScepter : BaseAAItem
     {
         public override void SetDefaults()
         {

@@ -7,7 +7,7 @@ using AAMod.Projectiles.Yamata;
 
 namespace AAMod.Items.Boss.Yamata
 {
-    public class Sevenshot : ModItem
+    public class Sevenshot : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -18,7 +18,7 @@ namespace AAMod.Items.Boss.Yamata
 
 	    public override void SetDefaults()
 	    {
-	        item.damage = 70;
+	        item.damage = 75;
 	        item.ranged = true;
 	        item.width = 60;
 	        item.height = 26;
@@ -27,13 +27,13 @@ namespace AAMod.Items.Boss.Yamata
 	        item.useStyle = 5;
 	        item.noMelee = true;
 	        item.knockBack = 4.5f;
-	        item.value = Item.buyPrice(1, 0, 0, 0);
+	        item.value = Item.sellPrice(0, 30, 0, 0);
 	        item.UseSound = SoundID.Item36;
 	        item.autoReuse = true;
 	        item.shoot = 10;
 	        item.shootSpeed = 20f;
 	        item.useAmmo = 97;
-            item.rare = 10;
+            item.rare = 9; AARarity = 13;
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -42,7 +42,7 @@ namespace AAMod.Items.Boss.Yamata
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata;;
+                    line2.overrideColor = AAColor.Rarity13;;
                 }
             }
         }
@@ -54,13 +54,13 @@ namespace AAMod.Items.Boss.Yamata
 	    
 	    public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-		    float SpeedX = speedX + (float) Main.rand.Next(-25, 26) * 0.05f;
-		    float SpeedY = speedY + (float) Main.rand.Next(-25, 26) * 0.05f;
+		    float SpeedX = speedX + Main.rand.Next(-25, 26) * 0.05f;
+		    float SpeedY = speedY + Main.rand.Next(-25, 26) * 0.05f;
 		    Projectile.NewProjectile(position.X, position.Y, SpeedX, SpeedY, mod.ProjectileType<Moonblow>(), (int)(damage * 1.5f), knockBack, player.whoAmI, 0.0f, 0.0f);
 		    for (int i = 0; i <= 6; i++)
 		    {
-		    	float SpeedNewX = speedX + (float) Main.rand.Next(-45, 46) * 0.05f;
-		    	float SpeedNewY = speedY + (float) Main.rand.Next(-45, 46) * 0.05f;
+		    	float SpeedNewX = speedX + Main.rand.Next(-45, 46) * 0.05f;
+		    	float SpeedNewY = speedY + Main.rand.Next(-45, 46) * 0.05f;
 		    	Projectile.NewProjectile(position.X, position.Y, SpeedNewX, SpeedNewY, type, damage, knockBack, player.whoAmI, 0.0f, 0.0f);
 		    }
 		    return false;

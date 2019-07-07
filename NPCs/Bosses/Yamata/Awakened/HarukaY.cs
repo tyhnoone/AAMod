@@ -37,27 +37,11 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             npc.netAlways = true;
             npc.noGravity = true;
             npc.boss = false;
-            npc.value = Item.buyPrice(0, 0, 0, 0);
+            npc.value = Item.sellPrice(0, 0, 0, 0);
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Yamata2");
         }
 
         public int body = -1;
-
-        public override bool PreAI()
-        {
-            if (body == -1)
-            {
-                int npcID = BaseAI.GetNPC(npc.Center, mod.NPCType("YamataA"), -1, null);
-                if (npcID >= 0) body = npcID;
-            }
-            NPC Yamata = Main.npc[body];
-            if (Yamata.life <= Yamata.lifeMax / 5)
-            {
-                int musicType = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/RayOfHope");
-                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
-            }
-            return true;
-        }
 
         public override void PostAI()
         {
@@ -89,6 +73,19 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             {
                 npc.life = 0;
             }
+
+            if (body == -1)
+            {
+                int npcID = BaseAI.GetNPC(npc.Center, mod.NPCType("YamataA"), -1, null);
+                if (npcID >= 0) body = npcID;
+            }
+            if (body == -1) return;
+            NPC Yamata = Main.npc[body];
+            if (Yamata == null || Yamata.life <= 0 || !Yamata.active || Yamata.type != mod.NPCType("YamataA")) { BaseAI.KillNPCWithLoot(npc); return; }
+            if (Yamata.life <= Yamata.lifeMax / 5)
+            {
+                music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/RayOfHope");
+            }
         }
 
         public override bool CheckActive()
@@ -111,7 +108,6 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
                 Main.NewText("Dad, you moron..! Whatever, Can't really say I didn't see it coming.", new Color(72, 78, 117));
                 return;
             }
-            npc.DropLoot(mod.ItemType<Items.Blocks.EventideAbyssiumOre>(), Main.rand.Next(10, 25));
             Main.NewText("That's it. I'm done, YOU deal with them, dad.", new Color(72, 78, 117));
         }
 

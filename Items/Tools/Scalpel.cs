@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Tools
 {
-    public class Scalpel : ModItem
+    public class Scalpel : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -17,7 +17,7 @@ namespace AAMod.Items.Tools
             item.pick = 110;
             item.useStyle = 1;
             item.knockBack = 1;
-            item.value = 1000;
+            item.value = Terraria.Item.sellPrice(0, 1, 8, 0);
             item.rare = 2;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
@@ -29,7 +29,7 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Scalpel");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.DeathbringerPickaxe);

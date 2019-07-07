@@ -1,12 +1,11 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 
 namespace AAMod.Items.Armor.MadTitan
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class MadTitanBoots : ModItem
+	public class MadTitanBoots : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -21,8 +20,9 @@ namespace AAMod.Items.Armor.MadTitan
 			item.width = 22;
 			item.height = 18;
 			item.value = 3000000;
-			item.rare = 11;
-			item.defense = 40;
+            item.rare = 9;
+            AARarity = 14;
+            item.defense = 40;
 		}
 
 		public override void UpdateEquip(Player player)
@@ -36,7 +36,7 @@ namespace AAMod.Items.Armor.MadTitan
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DarkmatterGreaves", 1);
             recipe.AddIngredient(null, "RadiumCuisses", 1);
-            recipe.AddIngredient(null, "ApocalyptitePlate", 20);
+            recipe.AddIngredient(null, "UnstableSingularity", 20);
             recipe.AddTile(null, "AncientForge");
             recipe.SetResult(this);
             recipe.AddRecipe();

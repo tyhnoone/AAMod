@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.AH
 {
-    public class AshRain : ModItem
+    public class AshRain : BaseAAItem
     {
 
         public override void SetStaticDefaults()
@@ -24,8 +23,9 @@ namespace AAMod.Items.Boss.AH
             item.useStyle = 5;    
             item.noMelee = true;
             item.knockBack = 4;
-            item.value = Item.buyPrice(0, 25, 0, 0);
-            item.rare = 11;
+            item.value = Item.sellPrice(0, 25, 0, 0);
+            item.rare = 9;
+            AARarity = 12;
             item.mana = 5;          
             item.UseSound = SoundID.Item20;      
             item.autoReuse = true;

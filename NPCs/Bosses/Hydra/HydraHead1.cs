@@ -4,8 +4,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BaseMod;
-using System.IO;
 using Terraria.ID;
+using Terraria.Audio;
 
 namespace AAMod.NPCs.Bosses.Hydra
 {
@@ -30,6 +30,8 @@ namespace AAMod.NPCs.Bosses.Hydra
             npc.dontCountMe = true;
             npc.noTileCollide = true;
             npc.boss = false;
+            npc.HitSound = SoundID.NPCHit1;
+            npc.DeathSound = new LegacySoundStyle(2, 88, Terraria.Audio.SoundType.Sound);
             npc.noGravity = true;
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
@@ -113,12 +115,9 @@ namespace AAMod.NPCs.Bosses.Hydra
             }
             npc.TargetClosest();			
             Player targetPlayer = Main.player[npc.target];
-            if (!targetPlayer.active || targetPlayer.dead || Main.dayTime) //fleeing
-            {
-                if (npc.position.Y + npc.velocity.Y <= 0f && Main.netMode != 1) { npc.active = false; npc.netUpdate = true; }
-                return;
-            }
+
             npc.TargetClosest();
+
             if (targetPlayer == null || !targetPlayer.active || targetPlayer.dead) targetPlayer = null; //deliberately set to null
 
             if (Main.netMode != 1)
@@ -174,6 +173,17 @@ namespace AAMod.NPCs.Bosses.Hydra
                 npc.Center = Body.npc.Center;
 				npc.netUpdate = true;
             }	
+            else
+            {
+                npc.velocity = Vector2.Normalize(nextTarget - npc.Center);
+                npc.velocity *= 5f;
+            }
+            if (dist < 40f)
+            {
+                npc.velocity *= 0.9f;
+                if (Math.Abs(npc.velocity.X) < 0.05f) npc.velocity.X = 0f;
+                if (Math.Abs(npc.velocity.Y) < 0.05f) npc.velocity.Y = 0f;
+            }
             else
             {
                 npc.velocity = Vector2.Normalize(nextTarget - npc.Center);

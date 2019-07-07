@@ -7,12 +7,13 @@ namespace AAMod.Items.Vanity.Eliza
 {
 
     [AutoloadEquip(EquipType.Wings)]
-    public class NightingaleWings : ModItem
+    public class NightingaleWings : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
             DisplayName.SetDefault("Nightingale Wings");
-            Tooltip.SetDefault("'Great for impersonating Ancients Awakened Devs!'");
+            Tooltip.SetDefault(@"Allows flight and slow fall
+'Great for impersonating Ancients Awakened Devs!'");
 		}
 
 		public override void SetDefaults()

@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Materials
 {
-    public class ShinyCharm : ModItem
+    public class ShinyCharm : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

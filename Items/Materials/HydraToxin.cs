@@ -1,13 +1,11 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Materials
 {
-    public class HydraToxin : ModItem
+    public class HydraToxin : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bogtoxin");
-            Tooltip.SetDefault("Exceedingly erosive venom.");
+            Tooltip.SetDefault("Exceedingly corrosive venom.");
         }
         public override void SetDefaults()
         {

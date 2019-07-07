@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Materials
 {
-    public class VikingRelic : ModItem
+    public class VikingRelic : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{

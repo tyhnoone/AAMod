@@ -5,7 +5,7 @@ using Terraria;
 namespace AAMod.Items.Boss.Toad
 {
     [AutoloadEquip(EquipType.Shoes)]
-    public class ToadLeg : ModItem
+    public class ToadLeg : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -19,7 +19,7 @@ Increased jump height");
         {
             item.width = 34;
             item.height = 34;
-            item.value = Item.sellPrice(0, 12, 0, 0);
+            item.value = Item.sellPrice(0, 1, 0, 0);
             item.rare = 5;
             item.accessory = true;
             item.expertOnly = true;

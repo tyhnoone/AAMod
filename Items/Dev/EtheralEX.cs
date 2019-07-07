@@ -17,7 +17,7 @@ namespace AAMod.Items.Dev
 
 	    public override void SetDefaults()
 	    {
-	        item.damage = 250;
+	        item.damage = 300;
 	        item.magic = true;
 	        item.mana = 20;
 	        item.width = 60;
@@ -28,16 +28,17 @@ namespace AAMod.Items.Dev
 	        item.useStyle = 5;
 	        item.UseSound = SoundID.Item13;
 	        item.noMelee = true;
+            item.noUseGraphic = true;
 			item.channel = true;
 	        item.knockBack = 0f;
-	        item.value = Item.sellPrice(1, 0, 0, 0); ;
+	        item.value = Item.sellPrice(0, 30, 0, 0);
             item.channel = true;
-            item.shoot = mod.ProjectileType("EtheralLazerEX");
+            item.shoot = mod.ProjectileType("EtheralEX");
             item.shootSpeed = 30f;           
             item.expert = true;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
-            glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_NONE; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
+            glowmaskDrawType = GLOWMASKTYPE_NONE; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
             glowmaskDrawColor = Color.White;  //glowmask draw color
         }
 
@@ -60,11 +61,6 @@ namespace AAMod.Items.Dev
             recipe.AddTile(null, "QuantumFusionAccelerator");
             recipe.SetResult(this);
             recipe.AddRecipe();
-        }
-
-        public override Vector2? HoldoutOffset()
-        {
-            return new Vector2(0, 0);
         }
     }
 }

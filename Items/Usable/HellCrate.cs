@@ -1,10 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Usable
 {
-    public class HellCrate : ModItem
+    public class HellCrate : BaseAAItem
     {
         public override void SetDefaults()
         {

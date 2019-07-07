@@ -1,9 +1,8 @@
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Ranged
 {
-    public class RustyCrossbow : ModItem
+    public class RustyCrossbow : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

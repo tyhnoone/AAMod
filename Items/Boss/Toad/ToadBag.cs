@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Toad
 {
-	public class ToadBag : ModItem
+    public class ToadBag : BaseAAItem
 	{
         
         public override void SetStaticDefaults()
@@ -32,9 +31,9 @@ namespace AAMod.Items.Boss.Toad
 		{
             if (Main.rand.Next(7) == 0)
             {
-                //player.QuickSpawnItem(mod.ItemType("DBMask"));
+                player.QuickSpawnItem(mod.ItemType("ToadMask"));
             }
-            if (Main.rand.NextFloat() < 0.01f)
+            if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.HMDevArmor();

@@ -3,13 +3,12 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
-using System.Collections.Generic;
 
 
 namespace AAMod.Items.Armor.Draco
 {
     [AutoloadEquip(EquipType.Head)]
-	public class DracoHelm : ModItem
+	public class DracoHelm : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -25,8 +24,10 @@ The blazing fury of the Inferno rests in this armor");
 			item.width = 24;
 			item.height = 22;
 			item.value = 3000000;
-			item.defense = 37;
-		}
+			item.defense = 38;
+            item.rare = 9;
+            AARarity = 13;
+        }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
@@ -55,17 +56,6 @@ The blazing fury of the Inferno rests in this armor");
             player.endurance *= 1.1f;
 		}
 
-        public override void ModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Akuma;
-                }
-            }
-        }
-
         public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
 			return body.type == mod.ItemType("DracoPlate") && legs.type == mod.ItemType("DracoLeggings");
@@ -73,7 +63,6 @@ The blazing fury of the Inferno rests in this armor");
 
 		public override void UpdateArmorSet(Player player)
 		{
-			
 			player.setBonus = @"'Blazing fury consumes you'
 You are immune to all ice-related debuffs
 You glow like the blazing fire in your soul

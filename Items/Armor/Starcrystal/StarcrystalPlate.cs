@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Starcrystal
 {
     [AutoloadEquip(EquipType.Body)]
-    public class StarcrystalPlate : ModItem
+    public class StarcrystalPlate : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -26,7 +26,7 @@ namespace AAMod.Items.Armor.Starcrystal
         {
             player.statManaMax2 += 20;
         }
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.ManaCrystal, 2);

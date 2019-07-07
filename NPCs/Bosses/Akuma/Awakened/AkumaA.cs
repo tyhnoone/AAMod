@@ -13,7 +13,6 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
     [AutoloadBossHead]
     public class AkumaA : ModNPC
 	{
-        public bool Panic;
         public bool Loludided;
         private bool weakness = false;
         public int fireTimer = 0;
@@ -32,10 +31,10 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             npc.height = 84;
 			npc.aiStyle = -1;
 			npc.netAlways = true;
-            npc.lifeMax = 190000;
-            npc.damage = 120;
-            npc.defense = 190;
-            npc.value = Item.buyPrice(20, 0, 0, 0);
+            npc.damage = 140;
+            npc.defense = 270;
+            npc.lifeMax = 750000;
+            npc.value = Item.sellPrice(2, 0, 0, 0);
             npc.knockBackResist = 0f;
             npc.boss = true;
             npc.aiStyle = -1;
@@ -65,8 +64,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.8f * bossLifeScale);
-            npc.defense = (int)(npc.defense * 1.2f);
+            npc.lifeMax = (int)(npc.lifeMax * 0.5f * bossLifeScale);
         }
 
 
@@ -97,9 +95,9 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((float)internalAI[1]);
-                writer.Write((float)internalAI[2]);
-                writer.Write((float)internalAI[3]);
+                writer.Write(internalAI[1]);
+                writer.Write(internalAI[2]);
+                writer.Write(internalAI[3]);
             }
         }
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -161,18 +159,6 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     Main.NewText("Atta-girl..!", Color.DeepSkyBlue);
                     AAModGlobalNPC.SpawnBoss(player, mod.NPCType("AsheA"), false, 0, 0);
                 }
-            }
-
-            if (npc.life > npc.lifeMax / 3)
-            {
-                Panic = false;
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && npc.type == mod.NPCType<AkumaA>())
-            {
-                Panic = true;
-
-                music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/RayOfHope");
-                Main.NewText(AAWorld.downedAkuma ? "Still got it, do you? Ya got fire in your spirit! I like that about you, kid!" : "What?! How have you lasted this long?! Why you little... I refuse to be bested by a terrarian again! Have at it!", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
             }
 
             if (dist > 400 & Main.rand.Next(20) == 1 && npc.ai[1] == 0 && npc.ai[2] < 300)
@@ -292,10 +278,10 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             float targetXPos = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2);
             float targetYPos = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2);
 
-            float targetRoundedPosX = (float)((int)(targetXPos / 16.0) * 16);
-            float targetRoundedPosY = (float)((int)(targetYPos / 16.0) * 16);
-            npcCenter.X = (float)((int)(npcCenter.X / 16.0) * 16);
-            npcCenter.Y = (float)((int)(npcCenter.Y / 16.0) * 16);
+            float targetRoundedPosX = (int)(targetXPos / 16.0) * 16;
+            float targetRoundedPosY = (int)(targetYPos / 16.0) * 16;
+            npcCenter.X = (int)(npcCenter.X / 16.0) * 16;
+            npcCenter.Y = (int)(npcCenter.Y / 16.0) * 16;
             float dirX = targetRoundedPosX - npcCenter.X;
             float dirY = targetRoundedPosY - npcCenter.Y;
             npc.TargetClosest(true);
@@ -304,8 +290,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             float absDirX = Math.Abs(dirX);
             float absDirY = Math.Abs(dirY);
             float newSpeed = speed / length;
-            dirX = dirX * newSpeed;
-            dirY = dirY * newSpeed;
+            dirX *= newSpeed;
+            dirY *= newSpeed;
             if (npc.velocity.X > 0.0 && dirX > 0.0 || npc.velocity.X < 0.0 && dirX < 0.0 || (npc.velocity.Y > 0.0 && dirY > 0.0 || npc.velocity.Y < 0.0 && dirY < 0.0))
             {
                 if (npc.velocity.X < dirX)
@@ -388,12 +374,12 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     Loludided = true;
                 }
                 npc.velocity.Y = npc.velocity.Y + 1f;
-                if ((double)npc.position.Y > Main.rockLayer * 16.0)
+                if (npc.position.Y > Main.rockLayer * 16.0)
                 {
                     npc.velocity.Y = npc.velocity.Y + 1f;
                     speed = 30f;
                 }
-                if ((double)npc.position.Y > Main.rockLayer * 16.0)
+                if (npc.position.Y > Main.rockLayer * 16.0)
                 {
                     for (int num957 = 0; num957 < 200; num957++)
                     {
@@ -425,7 +411,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 {
                     Item.NewItem((int)npc.Center.X, (int)npc.Center.Y, npc.width, npc.height, mod.ItemType("DraconianRune"));
                 }
-                Main.NewText(AAWorld.downedAkuma ? "Heh, not too shabby this time kid. I'm impressed. Here. Take your prize." : "GRAH..! HOW!? HOW COULD I LOSE TO A MERE MORTAL TERRARIAN?! Hmpf...fine kid, you win, fair and square. Heere's your reward.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
+                Main.NewText(AAWorld.downedAkuma ? "Heh, not too shabby this time kid. I'm impressed. Here. Take your prize." : "GRAH..! HOW!? HOW COULD I LOSE TO A MERE MORTAL TERRARIAN?! Hmpf...fine kid, you win, fair and square. Here's your reward.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
                 AAWorld.downedAkuma = true;
                 if (Main.rand.Next(50) == 0 && AAWorld.downedAllAncients)
                 {
@@ -598,9 +584,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             Texture2D HeadGlow = (npc.ai[1] == 1 || npc.ai[2] >= 500) ? glowTex1 : glowTex;
 
             Texture2D myGlowTex = (npc.type == mod.NPCType<AkumaA>() ? HeadGlow : npc.type == mod.NPCType<AkumaAArms>() ? glowTex2 : npc.type == mod.NPCType<AkumaABody>() ? glowTex3 : npc.type == mod.NPCType<AkumaABody1>() ? glowTex4 : glowTex5);
-            var effects = npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            spriteBatch.Draw(AkumaTex, Drawpos, npc.frame, npc.GetAlpha(drawColor), npc.rotation, npc.frame.Size() / 2, npc.scale, effects, 0);
-            BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc, npc.GetAlpha(Color.White), true, npc.frame.Size() / 2);
+            BaseDrawing.DrawTexture(spriteBatch, AkumaTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.spriteDirection, 3, npc.frame, npc.GetAlpha(drawColor), true);
+            BaseDrawing.DrawTexture(spriteBatch, myGlowTex, shader, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.spriteDirection, 3, npc.frame, npc.GetAlpha(Color.White), true);
             return false;
         }
 
@@ -611,12 +596,12 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             int dust2 = mod.DustType<Dusts.AkumaDust>();
             if (npc.life <= 0)
             {
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0);
                 Main.dust[dust1].velocity *= 0.5f;
                 Main.dust[dust1].scale *= 1.3f;
                 Main.dust[dust1].fadeIn = 1f;
                 Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0);
                 Main.dust[dust2].velocity *= 0.5f;
                 Main.dust[dust2].scale *= 1.3f;
                 Main.dust[dust2].fadeIn = 1f;

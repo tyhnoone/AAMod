@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Projectiles
 {
@@ -35,7 +32,7 @@ namespace AAMod.Projectiles
 
         public override void AI()
         {
-            BaseMod.BaseAI.AIVilethorn(projectile, 80, 4, 10);
+            BaseMod.BaseAI.AIVilethorn(projectile, 80, 4, 20);
         }
 
         public override void PostAI()

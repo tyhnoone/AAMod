@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Djinn
 {
-    public class Djinnerang : ModItem
+    public class Djinnerang : BaseAAItem
 	{
 
         public override void SetStaticDefaults()
@@ -31,7 +30,8 @@ namespace AAMod.Items.Boss.Djinn
 			item.shoot = mod.ProjectileType ("Djinnerang");
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
-		}
+            item.value = 50000;
+        }
 
     
 

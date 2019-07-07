@@ -2,13 +2,12 @@ using Microsoft.Xna.Framework;
 
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using BaseMod;
 
 namespace AAMod.Items.Boss.AH
 {
-    public class FireSpiritStaff : ModItem
-	{
+    public class FireSpiritStaff : BaseAAItem
+    {
 		public override void SetStaticDefaults()
 		{
             DisplayName.SetDefault("Flame Vortex Staff");	
@@ -20,8 +19,9 @@ namespace AAMod.Items.Boss.AH
             item.width = 45;
             item.height = 18;
             item.maxStack = 1;
-            item.rare = 4;
-            item.value = BaseMod.BaseUtility.CalcValue(0, 20, 0, 0);
+            item.rare = 9;
+            AARarity = 12;
+            item.value = BaseUtility.CalcValue(0, 20, 0, 0);
             item.useStyle = 1;
             item.useAnimation = 35;
             item.useTime = 35;

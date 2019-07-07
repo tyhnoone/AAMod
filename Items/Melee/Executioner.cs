@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Melee
 {
-    public class Executioner : ModItem
+    public class Executioner : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -40,7 +40,7 @@ namespace AAMod.Items.Melee
             Tooltip.SetDefault("");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "Doomite", 10);

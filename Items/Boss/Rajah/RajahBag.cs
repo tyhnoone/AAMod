@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Rajah
 {
-    public class RajahBag : ModItem
+    public class RajahBag : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -33,11 +32,12 @@ namespace AAMod.Items.Boss.Rajah
             {
                 player.QuickSpawnItem(mod.ItemType("RajahMask"));
             }
-            if (Main.rand.NextFloat() < 0.01f)
+            if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PMLDevArmor();
             }
+            player.QuickSpawnItem(mod.ItemType<RajahPelt>(), Main.rand.Next(15, 31));
             player.QuickSpawnItem(mod.ItemType("RajahPelt"), Main.rand.Next(20, 25));
             player.QuickSpawnItem(mod.ItemType("RajahSash"));
             string[] lootTable = { "BaneOfTheBunny", "Bunzooka", "Punisher", "RabbitcopterEars", "RoyalScepter" };

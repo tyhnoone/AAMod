@@ -2,11 +2,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Pets
 {
-    public class BroodEgg : ModItem
+    public class BroodEgg : BaseAAItem
 	{
         
         public override void SetStaticDefaults()

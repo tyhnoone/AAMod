@@ -1,9 +1,8 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Usable
 {
-    public class InfernoCrate : ModItem
+    public class InfernoCrate : BaseAAItem
     {
         public override void SetDefaults()
         {

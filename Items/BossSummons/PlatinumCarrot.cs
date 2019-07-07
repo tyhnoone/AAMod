@@ -3,12 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using AAMod.NPCs.Bosses.Rajah;
 using Terraria.Localization;
-using System;
 using Microsoft.Xna.Framework;
 
 namespace AAMod.Items.BossSummons
 {
-    public class PlatinumCarrot : ModItem
+    public class PlatinumCarrot : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -34,7 +33,16 @@ namespace AAMod.Items.BossSummons
         // We use the CanUseItem hook to prevent a player from using this item while the boss is present in the world.
         public override bool CanUseItem(Player player)
         {
-            return !NPC.AnyNPCs(mod.NPCType<Rajah>());
+            return !(NPC.AnyNPCs(mod.NPCType<Rajah>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah2>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah3>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah4>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah5>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah6>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah7>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah8>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah9>()) ||
+                NPC.AnyNPCs(mod.NPCType<SupremeRajah>()));
         }
 
         public override bool UseItem(Player player)
@@ -97,7 +105,7 @@ namespace AAMod.Items.BossSummons
             else
             {
                 //I have no idea how to convert this to the standard system so im gonna post this method too lol
-                AANet.SendNetMessage(AANet.SummonNPCFromClient, (byte)player.whoAmI, (short)bossType, (bool)spawnMessage, (int)npcCenter.X, (int)npcCenter.Y, (string)overrideDisplayName, (bool)namePlural);
+                AANet.SendNetMessage(AANet.SummonNPCFromClient, (byte)player.whoAmI, (short)bossType, spawnMessage, (int)npcCenter.X, (int)npcCenter.Y, overrideDisplayName, namePlural);
             }
         }
     }

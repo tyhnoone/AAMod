@@ -1,10 +1,9 @@
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Ranged.Ammo
 {
-    public class DragonArrow : ModItem
+    public class DragonArrow : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -14,7 +13,7 @@ namespace AAMod.Items.Ranged.Ammo
 
 		public override void SetDefaults()
 		{
-			item.damage = 34;
+			item.damage = 11;
 			item.ranged = true;
 			item.width = 14;
 			item.height = 32;

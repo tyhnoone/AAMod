@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Banners
 {
-	public class FatPixieBanner : ModItem
+    public class FatPixieBanner : BaseAAItem
 	{
 		// The tooltip for this item is automatically assigned from .lang files
 		public override void SetDefaults() {
@@ -17,7 +16,7 @@ namespace AAMod.Items.Banners
 			item.useStyle = 1;
 			item.consumable = true;
 			item.rare = 1;
-			item.value = Item.buyPrice(0, 1, 0, 0);
+			item.value = Item.sellPrice(0, 1, 0, 0);
 			item.createTile = mod.TileType("FatPixieBanner");
 			item.placeStyle = 0;
 		}

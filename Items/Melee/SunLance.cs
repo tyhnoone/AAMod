@@ -1,10 +1,9 @@
 using Terraria.ID;
-using Terraria.ModLoader;
 using BaseMod;
 
 namespace AAMod.Items.Melee
 {
-    public class SunLance : ModItem
+    public class SunLance : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{

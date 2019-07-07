@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Accessories.Wings
 {
     [AutoloadEquip(EquipType.Wings)]
-	public class DarkmatterJetpack : ModItem
+	public class DarkmatterJetpack : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -18,7 +18,7 @@ namespace AAMod.Items.Accessories.Wings
         {
             item.width = 32;
             item.height = 24;
-            item.value = 300000;
+            item.value = Item.sellPrice(0, 8, 0, 0);
             item.rare = 11;
             item.accessory = true;
             
@@ -42,6 +42,24 @@ namespace AAMod.Items.Accessories.Wings
         {
             speed = 10f;
             acceleration *= 3f;
+        }
+
+        public override bool WingUpdate(Player player, bool inUse)
+        {
+            if (inUse)
+            {
+                player.wingFrameCounter++;
+                if (player.wingFrameCounter >= 6)
+                {
+                    player.wingFrameCounter = 0;
+                }
+                player.wingFrame = 1 + player.wingFrameCounter / 2;
+            }
+            else
+            {
+                player.wingFrame = 0;
+            }
+            return true;
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

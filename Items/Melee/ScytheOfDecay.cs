@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,7 +19,6 @@ Death Sickle EX");
 
         public override void SetDefaults()
         {
-
             item.damage = 400;  
             item.melee = true; 
             item.width = 80;    
@@ -31,7 +29,7 @@ Death Sickle EX");
             item.channel = true;
             item.useStyle = 100;  
             item.knockBack = 2f; 
-            item.value = Item.buyPrice(1, 0, 0, 0); 
+            item.value = Item.sellPrice(0, 30, 0, 0); 
             item.rare = 9;
             item.expert = true;
             item.shoot = mod.ProjectileType("DecayScythe"); 

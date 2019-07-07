@@ -1,12 +1,9 @@
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Melee
 {
-    public class Chicken : ModItem
+    public class Chicken : BaseAAItem
     {
         
         public override void SetStaticDefaults()

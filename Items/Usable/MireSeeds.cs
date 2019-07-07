@@ -1,12 +1,11 @@
 
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using BaseMod;
 
 namespace AAMod.Items.Usable
 {
-    public class MireSeeds : ModItem
+    public class MireSeeds : BaseAAItem
 	{
 		public override void SetStaticDefaults()
         {

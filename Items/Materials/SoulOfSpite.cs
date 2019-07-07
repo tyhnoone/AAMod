@@ -2,11 +2,10 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Materials
 {
-    public class SoulOfSpite : ModItem
+    public class SoulOfSpite : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

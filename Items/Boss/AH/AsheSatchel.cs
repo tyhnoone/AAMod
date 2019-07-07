@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.AH
 {
-    public class AsheSatchel : ModItem
+    public class AsheSatchel : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -11,7 +10,8 @@ namespace AAMod.Items.Boss.AH
             item.consumable = true;
             item.width = 16;
             item.height = 16;
-            item.rare = 11;
+            item.rare = 9;
+            AARarity = 12;
         }
 
         public override void SetStaticDefaults()
@@ -28,17 +28,9 @@ Contains a set of Fury Witch's robes");
 
         public override void RightClick(Player player)
         {
-            byte pre = item.prefix;
-            item.TurnToAir();
-            int itemID = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("WitchHood"), 1, false, 0, false, false);
-            int itemID1 = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("WitchRobe"), 1, false, 0, false, false);
-            int itemID2 = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("WitchBoots"), 1, false, 0, false, false);
-            if (Main.netMode == 1)
-            {
-                NetMessage.SendData(21, -1, -1, null, itemID, 1f, 0f, 0f, 0, 0, 0);
-                NetMessage.SendData(21, -1, -1, null, itemID1, 1f, 0f, 0f, 0, 0, 0);
-                NetMessage.SendData(21, -1, -1, null, itemID2, 1f, 0f, 0f, 0, 0, 0);
-            }
+            player.QuickSpawnItem(mod.ItemType("WitchHood"));
+            player.QuickSpawnItem(mod.ItemType("WitchRobe"));
+            player.QuickSpawnItem(mod.ItemType("WitchBoots"));
         }
     }
 }

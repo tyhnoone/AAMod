@@ -21,8 +21,8 @@ namespace AAMod.NPCs.Bosses.Zero
         public override void SetDefaults()
         {
             npc.damage = 100;
-            npc.defense = 90;
-            npc.lifeMax = 175000;
+            npc.defense = 200;
+            npc.lifeMax = 600000;
             if (Main.expertMode)
             {
                 npc.value = 0;
@@ -54,7 +54,7 @@ namespace AAMod.NPCs.Bosses.Zero
 
             if (AAWorld.downedAllAncients)
             {
-                npc.lifeMax = 200000;
+                npc.lifeMax = 700000;
                 npc.damage = 140;
                 npc.defense = 120;
             }
@@ -235,9 +235,13 @@ namespace AAMod.NPCs.Bosses.Zero
 
         public override void AI()
         {
+            if (Main.netMode != 1)
+            {
+                AAWorld.zeroUS = false;
+            }
             LineStopper--;
             RingRoatation += 0.03f;
-            AAWorld.zeroUS = false;
+            
             npc.damage = npc.defDamage;
             npc.defense = npc.defDefense;
             if (npc.ai[0] == 0 && Main.netMode != 1)

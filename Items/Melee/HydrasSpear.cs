@@ -1,10 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Melee
 {
-    public class HydrasSpear : ModItem
+    public class HydrasSpear : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

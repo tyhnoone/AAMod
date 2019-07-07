@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Summoning
 {
-    public class BlizzardDragonStaff : ModItem
+    public class BlizzardDragonStaff : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -25,7 +25,7 @@ namespace AAMod.Items.Summoning
             item.useAnimation = 30;
             item.useTime = 30;
             item.noMelee = true;
-            item.value = Item.sellPrice(0, 0, 27, 0);
+            item.value = Item.sellPrice(0, 15, 0, 0);
             item.knockBack = 8f;
             item.rare = 11;
             item.summon = true;
@@ -39,15 +39,15 @@ namespace AAMod.Items.Summoning
             int num74 = item.shoot;
             int num76 = item.damage;
             float num77 = item.knockBack;
-            int num154 = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
-            int num155 = (int)((float)Main.mouseY + Main.screenPosition.Y) / 16;
+            int num154 = (int)(Main.mouseX + Main.screenPosition.X) / 16;
+            int num155 = (int)(Main.mouseY + Main.screenPosition.Y) / 16;
             if (player.gravDir == -1f)
             {
-                num155 = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16;
+                num155 = (int)(Main.screenPosition.Y + Main.screenHeight - Main.mouseY) / 16;
             }
 			if (player.ownedProjectileCounts[num74] < player.maxTurrets)
 			{
-				Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num155 * 16 - 24), 0f, 15f, num74, num76, num77, i, 0f, 0f);
+				Projectile.NewProjectile(Main.mouseX + Main.screenPosition.X, num155 * 16 - 24, 0f, 15f, num74, num76, num77, i, 0f, 0f);
 			}
 			if (player.ownedProjectileCounts[num74] == player.maxTurrets)
 			{
@@ -59,7 +59,7 @@ namespace AAMod.Items.Summoning
 						break;
 					}
 				}
-				 Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num155 * 16 - 24), 0f, 15f, num74, num76, num77, i, 0f, 0f);
+				 Projectile.NewProjectile(Main.mouseX + Main.screenPosition.X, num155 * 16 - 24, 0f, 15f, num74, num76, num77, i, 0f, 0f);
 			}
 
             return false;

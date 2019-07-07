@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Heartstone
 {
     [AutoloadEquip(EquipType.Head)]
-    public class HeartstoneHelmet : ModItem
+    public class HeartstoneHelmet : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -45,7 +45,7 @@ Its forged with heart, no really");
                 player.thrownDamage *= 2;
             }﻿
         }
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.LifeCrystal, 2);

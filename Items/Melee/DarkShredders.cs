@@ -3,12 +3,12 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Melee
 {
-    public class DarkShredders : ModItem
+    public class DarkShredders : BaseAAItem
     {
         public override void SetDefaults()
         {
 
-            item.damage = 115;
+            item.damage = 220;
             item.melee = true;
             item.width = 80;
             item.height = 80;
@@ -17,7 +17,7 @@ namespace AAMod.Items.Melee
             item.channel = true;
             item.useStyle = 100;
             item.knockBack = 3f;
-            item.value = Item.buyPrice(0, 3, 0, 0);
+            item.value = Item.sellPrice(0, 3, 0, 0);
             item.rare = 11;      
             item.shoot = mod.ProjectileType("DarkShredders");
             item.noUseGraphic = true;

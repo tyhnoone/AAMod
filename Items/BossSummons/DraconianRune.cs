@@ -8,7 +8,7 @@ using BaseMod;
 
 namespace AAMod.Items.BossSummons
 {
-    public class DraconianRune : ModItem
+    public class DraconianRune : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -47,6 +47,14 @@ Non-Consumable");
             if (!Main.dayTime)
             {
                 if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("Geez, kid. Can't a dragon get a little shut-eye? Come back in the morning.", new Color(180, 41, 32), false);
+                return false;
+            }
+            if (NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Shen.ShenDoragon>()))
+            {
+                return false;
+            }
+            if (NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Shen.ShenA>()))
+            {
                 return false;
             }
             if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno)

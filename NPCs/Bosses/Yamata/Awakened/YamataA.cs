@@ -10,7 +10,6 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
     public class YamataA : Yamata
 	{
 		bool cheated = false;
-		bool Panic = false;
         private bool tenthHealth = false;
         private bool threeQuarterHealth = false;
         private bool HalfHealth = false;
@@ -26,7 +25,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
         {
 			base.SetDefaults();
 			isAwakened = true;
-            npc.value = Item.buyPrice(20, 0, 0, 0);
+            npc.value = Item.sellPrice(2, 0, 0, 0);
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Yamata2");		
             bossBag = mod.ItemType("YamataBag");
             npc.defense = 999999;
@@ -39,7 +38,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = npc.lifeMax;
+            npc.lifeMax = (int)(npc.lifeMax * 0.5f * bossLifeScale);
         }
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
@@ -95,6 +94,10 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("YamataATrophy"));
                 }
+                if (Main.rand.Next(7) == 0)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("YamataAMask"));
+                }
 
                 BaseAI.DropItem(npc, mod.ItemType("YamataATrophy"), 1, 1, 15, true);
                 
@@ -117,12 +120,12 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             int dust2 = mod.DustType<Dusts.YamataADust>();
             if (npc.life <= 0)
             {
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0);
                 Main.dust[dust1].velocity *= 0.5f;
                 Main.dust[dust1].scale *= 1.3f;
                 Main.dust[dust1].fadeIn = 1f;
                 Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0);
                 Main.dust[dust2].velocity *= 0.5f;
                 Main.dust[dust2].scale *= 1.3f;
                 Main.dust[dust2].fadeIn = 1f;
@@ -165,21 +168,6 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
                     tenthHealth = true;
                 }
             }
-            if (npc.life > npc.lifeMax / 3)
-            {
-                Panic = false;
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && !AAWorld.downedYamata && npc.type == mod.NPCType<YamataA>())
-            {
-                Panic = true;
-                Main.NewText("Wh-WHA?! DIE! DIE YOU LITTLE TWERP! DIEDIEDIEDIEDIEDIEDIE!!!!", new Color(146, 30, 68));
-            }
-            if (npc.life <= npc.lifeMax / 3 && Panic == false && AAWorld.downedYamata && npc.type == mod.NPCType<YamataA>())
-            {
-                Panic = true;
-                Main.NewText("NO NO NO!!! NOT AGAIN!!! THIS TIME IMMA STOMP YOU RIGHT INTO THE GROUND!!!", new Color(146, 30, 68));
-            }
-
 
             if (npc.life <= npc.lifeMax / 2 && !spawnHaruka)
             {

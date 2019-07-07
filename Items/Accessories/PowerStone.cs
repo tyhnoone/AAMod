@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Accessories
 {
     [AutoloadEquip(EquipType.Face)]
-    public class PowerStone : ModItem
+    public class PowerStone : BaseAAItem
     {
         
 
@@ -28,7 +28,17 @@ namespace AAMod.Items.Accessories
             item.value = Item.sellPrice(0, 0, 0, 0);
             item.rare = 11;
             item.accessory = true;
-            
+            item.prefix = 0;
+        }
+
+        public override void PostReforge()
+        {
+            item.prefix = 0;
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            item.prefix = 0;
         }
 
         public override Color? GetAlpha(Color lightColor)

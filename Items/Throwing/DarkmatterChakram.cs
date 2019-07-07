@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Throwing
 {
-    public class DarkmatterChakram : ModItem
+    public class DarkmatterChakram : BaseAAItem
 	{
         
         public override void SetStaticDefaults()
@@ -26,7 +26,7 @@ namespace AAMod.Items.Throwing
 			item.knockBack = 0;
 			item.value = 100000;
 			item.rare = 11;
-			item.shootSpeed = 12f;
+			item.shootSpeed = 9f;
 			item.shoot = mod.ProjectileType ("DMC");
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;

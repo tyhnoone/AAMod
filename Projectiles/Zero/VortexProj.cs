@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Projectiles.Zero
@@ -15,8 +14,7 @@ namespace AAMod.Projectiles.Zero
 			projectile.friendly = true;
 			projectile.hostile = false;
             projectile.timeLeft = 900;
-            projectile.melee = false;
-            projectile.ranged = true;
+            projectile.melee = true;
         }
 		
 		public override void AI()
@@ -34,7 +32,7 @@ namespace AAMod.Projectiles.Zero
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
             {
-                projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
+                projectile.ai[aislotHomingCooldown] = homingDelay; 
 
                 int foundTarget = HomeOnTarget();
                 if (foundTarget != -1)
@@ -61,7 +59,7 @@ namespace AAMod.Projectiles.Zero
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) 
                     )
                         selectedTarget = i;
                 }

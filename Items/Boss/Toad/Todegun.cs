@@ -2,11 +2,10 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Toad
 {
-    public class Todegun : ModItem
+    public class Todegun : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{

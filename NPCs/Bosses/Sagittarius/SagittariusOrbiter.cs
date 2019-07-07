@@ -24,7 +24,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             npc.value = BaseUtility.CalcValue(0, 0, 0, 0);
             npc.npcSlots = 1;
             npc.aiStyle = -1;
-            npc.lifeMax = 800;
+            npc.lifeMax = 300;
             npc.defense = 20;
             npc.damage = 20;
             npc.HitSound = SoundID.NPCHit4;
@@ -36,7 +36,6 @@ namespace AAMod.NPCs.Bosses.Sagittarius
 
 		public int body = -1;
 		public float rotValue = -1f;
-		public bool spawnedDust = false;
         public Vector2 pos;
         int ChainFrame = 0;
         int ChainTimer = 0;
@@ -71,8 +70,8 @@ namespace AAMod.NPCs.Bosses.Sagittarius
         }
 
         private Color Glow = GenericUtils.COLOR_GLOWPULSE;
-        Vector2 PlayerPos = new Vector2(0, 0);
-        Vector2 OldPos = new Vector2(0, 0);
+        private Vector2 PlayerPos = new Vector2(0, 0);
+        private Vector2 OldPos = new Vector2(0, 0);
 
         public override void AI()
         {

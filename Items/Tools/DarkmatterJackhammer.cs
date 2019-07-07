@@ -1,9 +1,8 @@
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Tools
 {
-    public class DarkmatterJackhammer : ModItem
+    public class DarkmatterJackhammer : BaseAAItem
 	{
         public override void SetStaticDefaults()
         {

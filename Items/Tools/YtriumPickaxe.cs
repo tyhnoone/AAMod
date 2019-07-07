@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Tools
 {
-    public class YtriumPickaxe : ModItem
+    public class YtriumPickaxe : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -31,11 +31,11 @@ namespace AAMod.Items.Tools
       Tooltip.SetDefault("");
     }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "YtriumBar", 15);
-            recipe.AddTile(TileID.Anvils);   //at work bench
+            recipe.AddTile(TileID.Anvils);   
             recipe.SetResult(this);  
             recipe.AddRecipe();
         }

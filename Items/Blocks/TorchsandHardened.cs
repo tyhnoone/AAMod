@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Blocks
 {
-    public class TorchsandHardened : ModItem
+    public class TorchsandHardened : BaseAAItem
     {
         public override void SetDefaults()
         {

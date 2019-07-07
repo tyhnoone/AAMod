@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Ter
 namespace AAMod.Items.Boss.Retriever
 {
     [AutoloadEquip(EquipType.Shield)]
-    public class StormRiot : ModItem
+    public class StormRiot : BaseAAItem
     {
         public override void SetDefaults()
         {
             item.width = 30;
             item.height = 32;
-            item.value = Item.sellPrice(0, 5, 0, 0);
+            item.value = Item.sellPrice(0, 18, 0, 0);
             item.rare = -12;
             item.expert = true;
             item.accessory = true;

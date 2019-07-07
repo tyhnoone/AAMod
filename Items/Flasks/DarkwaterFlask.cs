@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Flasks
 {
-    public class DarkwaterFlask : ModItem
+    public class DarkwaterFlask : BaseAAItem
 	{
 		public override void SetDefaults()
 		{
@@ -40,7 +39,7 @@ namespace AAMod.Items.Flasks
 
             if (player.altFunctionUse == 2)
             {
-                item.shoot = mod.ProjectileType("DarkwaterFlask");
+                item.shoot = mod.ProjectileType<Projectiles.Flasks.DarkwaterFlask>();
                 item.shootSpeed = 9f;
             }
             else

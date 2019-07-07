@@ -1,9 +1,8 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Usable
 {
-    public class VoidCrate : ModItem
+    public class VoidCrate : BaseAAItem
     {
         public override void SetDefaults()
         {

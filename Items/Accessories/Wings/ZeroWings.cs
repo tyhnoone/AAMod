@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Accessories.Wings
 {
     [AutoloadEquip(EquipType.Wings)]
-	public class ZeroWings : ModItem
+	public class ZeroWings : BaseAAItem
 	{
 		public override void SetStaticDefaults()
         {
@@ -17,7 +17,7 @@ namespace AAMod.Items.Accessories.Wings
 		{
 			item.width = 22;
 			item.height = 20;
-			item.value = 400000;
+            item.value = Item.sellPrice(0, 8, 0, 0);
             item.rare = 2;
 			item.accessory = true;
             
@@ -44,13 +44,31 @@ namespace AAMod.Items.Accessories.Wings
 			acceleration *= 3.5f;
 		}
 
+        public override bool WingUpdate(Player player, bool inUse)
+        {
+            if (inUse)
+            {
+                player.wingFrameCounter++;
+                if (player.wingFrameCounter >= 6)
+                {
+                    player.wingFrameCounter = 0;
+                }
+                player.wingFrame = 1 + player.wingFrameCounter / 2;
+            }
+            else
+            {
+                player.wingFrame = 0;
+            }
+            return true;
+        }
+
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Zero;
+                    line2.overrideColor = AAColor.Rarity13;
                 }
             }
         }

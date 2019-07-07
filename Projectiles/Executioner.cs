@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 namespace AAMod.Projectiles
 {
@@ -40,8 +39,8 @@ namespace AAMod.Projectiles
             projectile.direction = projOwner.direction;
             projOwner.heldProj = projectile.whoAmI;
             projOwner.itemTime = projOwner.itemAnimation;
-            projectile.position.X = ownerMountedCenter.X - (float)(projectile.width / 2);
-            projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
+            projectile.position.X = ownerMountedCenter.X - projectile.width / 2;
+            projectile.position.Y = ownerMountedCenter.Y - projectile.height / 2;
 
             if (!projOwner.frozen)
             {

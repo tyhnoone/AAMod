@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Throwing
 {
-    public class LunaticJavelin : ModItem
+    public class LunaticJavelin : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -37,7 +37,7 @@ namespace AAMod.Items.Throwing
       Tooltip.SetDefault("");
     }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.LunarBar, 1);

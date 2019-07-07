@@ -1,11 +1,9 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Flasks
 {
-    public class IcemeltFlask : ModItem
+    public class IcemeltFlask : BaseAAItem
     {
         public override void SetDefaults()
         {

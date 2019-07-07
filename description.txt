@@ -32,32 +32,6 @@ Fargo's Mutant Mod support.
 
 A unique soundtrack.
 
---Changelog--
-
-0.8.0.3
-
-- Fixed the infamous Cultist Spawning bug!
-- Changed the Indigo Ice filename (Added becuase Dallin decided to post it on the Discord)
-- Freedom Star has been nerfed
-
-0.8.0.2
-
-- Re-added the fixed Equinox Worms
-- Fixed the initial hardmode Mire and Inferno spread so the vertical strip properly aligns with their respective biome
-- Fixed the Time Teller and Chrono's damage boost ability
-
-0.8.0.1
-
-Temporarily removed the Equinox Worms to fix them
-
--
-
-0.8.0.0
-
-Added Rajah Rabbit, Techno Truffle, Truffle Toad, and a lot of balancing and bugfixes
-
---
-
 Thanks to all these amazing people for all their help with the mod!
 
 -TheDoctorDallin
@@ -95,7 +69,6 @@ Thanks to all these amazing people for all their help with the mod!
 -Dan Yami
 -Gregg
 -Diverman Sam
--Shadow Figure
 
 Thank you to our amazing Patrons!
 

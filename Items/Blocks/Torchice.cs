@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Blocks
 {
-    public class Torchice : ModItem
+    public class Torchice : BaseAAItem
     {
         public override void SetDefaults()
         {

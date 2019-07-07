@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Orthrus
 {
-    public class OrthrusBag : ModItem
+    public class OrthrusBag : BaseAAItem
 	{
         
         public override void SetStaticDefaults()
@@ -32,9 +31,13 @@ namespace AAMod.Items.Boss.Orthrus
 		{
             if (Main.rand.Next(7) == 0)
             {
-                //player.QuickSpawnItem(mod.ItemType("RetrieverMask"));
+                player.QuickSpawnItem(mod.ItemType("OrthrusMaskRed"));
             }
-            if (Main.rand.NextFloat() < 0.01f)
+            else if (Main.rand.Next(7) == 1)
+            {
+                player.QuickSpawnItem(mod.ItemType("OrthrusMaskBlue"));
+            }
+            if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.HMDevArmor();

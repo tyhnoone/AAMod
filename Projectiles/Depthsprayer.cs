@@ -36,25 +36,25 @@ namespace AAMod.Projectiles
 			int num3;
 			for (int num153 = 0; num153 < 3; num153 = num3 + 1)
 			{
-				float num154 = projectile.velocity.X / 3f * (float)num153;
-				float num155 = projectile.velocity.Y / 3f * (float)num153;
+				float num154 = projectile.velocity.X / 3f * num153;
+				float num155 = projectile.velocity.Y / 3f * num153;
 				int num156 = 14;
-				int num157 = Dust.NewDust(new Vector2(projectile.position.X + (float)num156, projectile.position.Y + (float)num156), projectile.width - num156 * 2, projectile.height - num156 * 2, mod.DustType<Dusts.HydraDust>(), 0f, 0f, 100, default(Color), 1f);
+				int num157 = Dust.NewDust(new Vector2(projectile.position.X + num156, projectile.position.Y + num156), projectile.width - num156 * 2, projectile.height - num156 * 2, mod.DustType<Dusts.HydraDust>(), 0f, 0f, 100);
 				Main.dust[num157].noGravity = true;
 				Dust dust = Main.dust[num157];
 				dust.velocity *= 0.1f;
 				dust = Main.dust[num157];
 				dust.velocity += projectile.velocity * 0.5f;
 				Dust var_2_69A9_cp_0_cp_0 = Main.dust[num157];
-				var_2_69A9_cp_0_cp_0.position.X = var_2_69A9_cp_0_cp_0.position.X - num154;
+				var_2_69A9_cp_0_cp_0.position.X -= num154;
 				Dust var_2_69C3_cp_0_cp_0 = Main.dust[num157];
-				var_2_69C3_cp_0_cp_0.position.Y = var_2_69C3_cp_0_cp_0.position.Y - num155;
+				var_2_69C3_cp_0_cp_0.position.Y -= num155;
 				num3 = num153;
 			}
 			if (Main.rand.Next(8) == 0)
 			{
 				int num158 = 16;
-				int num159 = Dust.NewDust(new Vector2(projectile.position.X + (float)num158, projectile.position.Y + (float)num158), projectile.width - num158 * 2, projectile.height - num158 * 2, mod.DustType<Dusts.HydraDust>(), 0f, 0f, 100, default(Color), 0.5f);
+				int num159 = Dust.NewDust(new Vector2(projectile.position.X + num158, projectile.position.Y + num158), projectile.width - num158 * 2, projectile.height - num158 * 2, mod.DustType<Dusts.HydraDust>(), 0f, 0f, 100, default(Color), 0.5f);
 				Dust dust = Main.dust[num159];
 				dust.velocity *= 0.25f;
 				dust = Main.dust[num159];

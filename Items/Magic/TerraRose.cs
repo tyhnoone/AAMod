@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Magic
 {
-    public class TerraRose : ModItem
+    public class TerraRose : BaseAAItem
 	{
         
         public override void SetStaticDefaults()
@@ -29,8 +29,8 @@ Projectiles go through walls");
 			item.useStyle = 5;
 			item.noMelee = true; //so the item's animation doesn't do damage
 			item.knockBack = 6;
-			item.value = 300000;
-			item.rare = 4;
+            item.value = Item.sellPrice(0, 20, 0, 0);
+            item.rare = 4;
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("TerraRoseShot");

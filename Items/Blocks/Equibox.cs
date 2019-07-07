@@ -4,14 +4,13 @@ using Terraria.ID;
 
 namespace AAMod.Items.Blocks
 {
-	public class Equibox : ModItem
+	public class Equibox : BaseAAItem
 	{
         
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Equinox Worms Music Box");
-            Tooltip.SetDefault(@"Plays 'Lunala Battle' by Emdasche
-Remix by Charlie Debnam");
+            Tooltip.SetDefault(@"Plays 'Symphony of the Stars' by OmegaFerretMusic");
         }
 
 		public override void SetDefaults()

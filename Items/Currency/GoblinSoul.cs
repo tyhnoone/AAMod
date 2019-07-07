@@ -2,13 +2,12 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.GameContent.UI;
 using Terraria.Localization;
 
 namespace AAMod.Items.Currency
 {
-    public class GoblinSoul : ModItem
+    public class GoblinSoul : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

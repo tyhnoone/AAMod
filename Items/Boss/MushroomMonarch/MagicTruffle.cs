@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.MushroomMonarch
 {
-    public class MagicTruffle : ModItem
+    public class MagicTruffle : BaseAAItem
     {
 
         public override void SetStaticDefaults()

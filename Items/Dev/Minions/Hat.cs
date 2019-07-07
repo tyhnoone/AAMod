@@ -19,6 +19,7 @@ namespace AAMod.Items.Dev.Minions
             projectile.ranged = true; 
             projectile.tileCollide = false; 
             projectile.ignoreWater = true;
+			projectile.timeLeft = 90;
         }
 
         public override void SetStaticDefaults()
@@ -38,7 +39,7 @@ namespace AAMod.Items.Dev.Minions
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
             {
-                projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
+                projectile.ai[aislotHomingCooldown] = homingDelay; 
 
                 int foundTarget = (int)projectile.ai[1];
                 if (foundTarget != -1)

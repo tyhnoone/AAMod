@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Materials
 {
-    public class TerraShard : ModItem
+    public class TerraShard : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

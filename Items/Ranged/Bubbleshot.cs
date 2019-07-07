@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Ranged
 {
-    public class Bubbleshot : ModItem
+    public class Bubbleshot : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{

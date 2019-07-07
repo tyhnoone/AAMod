@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Technecium
 {
     [AutoloadEquip(EquipType.Head)]
-	public class TechneciumHelmet : ModItem
+	public class TechneciumHelmet : BaseAAItem
 	{
         public override void SetStaticDefaults()
         {
@@ -21,7 +21,7 @@ namespace AAMod.Items.Armor.Technecium
             item.height = 24;
             item.value = Item.sellPrice(0, 1, 80, 0);
             item.rare = 4;
-            item.defense = 22;
+            item.defense = 5;
         }
 
         public override void UpdateEquip(Player player)

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Ranged
 {
-    public class UWAM : ModItem
+    public class UWAM : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -19,7 +19,8 @@ namespace AAMod.Items.Ranged
 		public override void SetDefaults()
 		{
 			item.CloneDefaults(ItemID.SDMG);
-			item.damage = 50;
+			item.damage = 85;
+
 			item.ranged = true;
 			item.knockBack = 4;
 			item.width = 86;

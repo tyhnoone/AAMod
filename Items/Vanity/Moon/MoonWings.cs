@@ -7,12 +7,13 @@ namespace AAMod.Items.Vanity.Moon
 {
 
     [AutoloadEquip(EquipType.Wings)]
-    public class MoonWings : ModItem
+    public class MoonWings : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
             DisplayName.SetDefault("Lunar Wasp Wings");
-            Tooltip.SetDefault("'Great for impersonating Ancients Awakened Devs!'");
+            Tooltip.SetDefault(@"Allows flight and slow fall
+'Great for impersonating Ancients Awakened Devs!'");
 		}
 
 		public override void SetDefaults()

@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Mushrooms
 {
-    public class MadnessShroom : ModItem
+    public class MadnessShroom : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.AH
 {
-    public class AHBag : ModItem
+    public class AHBag : BaseAAItem
 	{
         
         public override void SetStaticDefaults()
@@ -18,7 +17,7 @@ namespace AAMod.Items.Boss.AH
 			item.consumable = true;
 			item.width = 36;
 			item.height = 32;
-			item.expert = true;
+            item.expert = true;
 			bossBagNPC = mod.NPCType("Ashe");
 		}
 
@@ -28,8 +27,8 @@ namespace AAMod.Items.Boss.AH
         }
 
         public override void OpenBossBag(Player player)
-		{
-            if (Main.rand.NextFloat() < 0.01f)
+        {
+            if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PMLDevArmor();

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -7,13 +6,13 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Zero
 {
-    public class DoomRay : ModItem
+    public class DoomRay : BaseAAItem
     {
         
         public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nova Focus");
-            Tooltip.SetDefault("Fires a insanely powerful death laser");
+            Tooltip.SetDefault("Fires an insanely powerful death laser");
         }
 
         public override void SetDefaults()
@@ -32,11 +31,11 @@ namespace AAMod.Items.Boss.Zero
             item.UseSound = SoundID.Item13;
             item.channel = true;
             item.shoot = mod.ProjectileType("DoomRayHandle");
-            item.value = Item.sellPrice(1, 0, 0, 0);
+            item.value = Item.sellPrice(0, 30, 0, 0);
             item.noMelee = true;
             item.magic = true;
             item.autoReuse = true;
-            item.rare = 10;
+            item.rare = 9; AARarity = 13;
         }
 
         public override Vector2? HoldoutOffset()
@@ -63,17 +62,6 @@ namespace AAMod.Items.Boss.Zero
                 SpriteEffects.None,
                 0f
             );
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Zero;
-                }
-            }
         }
         
 		public override void AddRecipes()

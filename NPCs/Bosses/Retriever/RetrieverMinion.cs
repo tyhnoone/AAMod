@@ -65,20 +65,20 @@ namespace AAMod.NPCs.Bosses.Retriever
         {
             if (npc.life <= 0)
             {
-                npc.position.X = npc.position.X + (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y + (float)(npc.height / 2);
+                npc.position.X = npc.position.X + npc.width / 2;
+                npc.position.Y = npc.position.Y + npc.height / 2;
                 npc.width = 44;
                 npc.height = 78;
-                npc.position.X = npc.position.X - (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y - (float)(npc.height / 2);
+                npc.position.X = npc.position.X - npc.width / 2;
+                npc.position.Y = npc.position.Y - npc.height / 2;
                 int dust1 = mod.DustType<Dusts.TMagicDust>();
                 int dust2 = mod.DustType<Dusts.TMagicDust>();
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0);
                 Main.dust[dust1].velocity *= 0.5f;
                 Main.dust[dust1].scale *= 1.3f;
                 Main.dust[dust1].fadeIn = 1f;
                 Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0);
                 Main.dust[dust2].velocity *= 0.5f;
                 Main.dust[dust2].scale *= 1.3f;
                 Main.dust[dust2].fadeIn = 1f;

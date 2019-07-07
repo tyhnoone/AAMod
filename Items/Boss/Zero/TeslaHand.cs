@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Zero
 {
-    public class TeslaHand : ModItem
+    public class TeslaHand : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -18,24 +17,22 @@ namespace AAMod.Items.Boss.Zero
 
         public override void SetDefaults()
         {
-            
+            item.ranged = true;
+            item.useTime = 4;
+            item.reuseDelay = 15;
+            item.useAnimation = 12;
+            item.useStyle = 5;
+            item.noMelee = true;
+            item.knockBack = 2.5f;
+            item.autoReuse = true;
+            item.shootSpeed = 16f;
             item.width = 36;
             item.height = 42;
             item.damage = 240;
-            item.noMelee = true;
-            item.noUseGraphic = false;
-            item.channel = true;
-            item.autoReuse = true;
-            item.ranged = true;
-            item.useAnimation = 9;
-            item.useTime = 9;
-            item.useStyle = 1;
-            item.knockBack = 2f;
             item.UseSound = SoundID.Item116;
-            item.value = Item.buyPrice(1, 0, 0, 0);
-            item.shootSpeed = 20f;
+            item.value = Item.sellPrice(0, 30, 0, 0);
             item.shoot = mod.ProjectileType("Teslashock");
-            item.rare = 10;
+            item.rare = 9; AARarity = 13;
         }
 
 
@@ -59,17 +56,6 @@ namespace AAMod.Items.Boss.Zero
                 0f
             );
         }
-
-        public override void ModifyTooltips(List<TooltipLine> list)
-	    {
-	        foreach (TooltipLine line2 in list)
-	        {
-	            if (line2.mod == "Terraria" && line2.Name == "ItemName")
-	            {
-	                line2.overrideColor = AAColor.Zero;
-	            }
-	        }
-	    }
 
         // How can I make the shots appear out of the muzzle exactly?
         // Also, when I do this, how do I prevent shooting through tiles?

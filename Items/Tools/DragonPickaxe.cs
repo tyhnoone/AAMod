@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Tools
 {
-    public class DragonPickaxe : ModItem
+    public class DragonPickaxe : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -31,11 +31,11 @@ namespace AAMod.Items.Tools
       Tooltip.SetDefault("");
     }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DragonSpirit", 18);
-            recipe.AddTile(TileID.MythrilAnvil);   //at work bench
+            recipe.AddTile(TileID.MythrilAnvil);   
             recipe.SetResult(this);  
             recipe.AddRecipe();
         }

@@ -1,9 +1,9 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 namespace AAMod.Items.Blocks
 {
-    public class Incinerite : ModItem
+    public class Incinerite : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -16,7 +16,7 @@ namespace AAMod.Items.Blocks
             item.useAnimation = 15;
             item.useTime = 10;
             item.useStyle = 1;
-            item.value = 4000;
+            item.value = Terraria.Item.sellPrice(0, 0, 8, 0);
             item.rare = 1;
             item.consumable = true;
             item.createTile = mod.TileType("IncineriteOre"); //put your CustomBlock Tile name

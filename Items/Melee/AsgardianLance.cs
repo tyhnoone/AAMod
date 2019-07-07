@@ -1,12 +1,11 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using BaseMod;
 using Terraria;
 using Microsoft.Xna.Framework;
 
 namespace AAMod.Items.Melee
 {
-    public class AsgardianLance : ModItem
+    public class AsgardianLance : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{

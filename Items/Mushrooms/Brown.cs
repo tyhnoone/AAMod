@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Mushrooms
 {
-    public class Brown : ModItem
+    public class Brown : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

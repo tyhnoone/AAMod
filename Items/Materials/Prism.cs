@@ -1,10 +1,9 @@
 using Terraria;
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Materials
 {
-    public class Prism : ModItem
+    public class Prism : BaseAAItem
     {
         
         public override void SetStaticDefaults()

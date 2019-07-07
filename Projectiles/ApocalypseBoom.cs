@@ -25,7 +25,7 @@ namespace AAMod.Projectiles
             projectile.timeLeft = 600;
             projectile.melee = true;
             projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 8;
+            projectile.localNPCHitCooldown = 5;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -49,11 +49,9 @@ namespace AAMod.Projectiles
 
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType<AmphibiousBoom>(), projectile.damage, projectile.knockBack, projectile.owner, 0, 0);
-            Main.PlaySound(SoundID.Item14, projectile.position);
-            projectile.timeLeft = 0;
+            target.AddBuff(BuffID.Daybreak, 180);
         }
 
     }

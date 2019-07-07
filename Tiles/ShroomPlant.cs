@@ -1,15 +1,10 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Terraria.ID;
-using Terraria.Enums;
-using Terraria.DataStructures;
 
 namespace AAMod.Tiles
 {
-	public class Shroomplant : ModTile
+    public class Shroomplant : ModTile
 	{
         public override void SetDefaults()
         {

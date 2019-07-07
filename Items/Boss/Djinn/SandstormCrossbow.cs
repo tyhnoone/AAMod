@@ -2,11 +2,10 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Djinn
 {
-    public class SandstormCrossbow : ModItem
+    public class SandstormCrossbow : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{

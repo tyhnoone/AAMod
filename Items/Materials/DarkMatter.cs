@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Ter
 
 namespace AAMod.Items.Materials
 {
-    public class DarkMatter : ModItem
+    public class DarkMatter : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -48,7 +48,7 @@ namespace AAMod.Items.Materials
         }
 
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {                                                   
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DarkmatterOre", 5);              //example of how to craft with a modded item
             recipe.AddTile(null, "QuantumFusionAccelerator");

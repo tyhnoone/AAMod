@@ -1,10 +1,9 @@
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
 
 namespace AAMod.Items.DevTools
 {
-    public class AncientOreGenner : ModItem
+    public class AncientOreGenner : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

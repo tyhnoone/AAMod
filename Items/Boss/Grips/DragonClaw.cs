@@ -29,6 +29,15 @@ namespace AAMod.Items.Boss.Grips
         }
         public override void AI()
         {
+            if (projectile.frameCounter++ > 5)
+            {
+                projectile.frame++;
+                projectile.frameCounter = 0;
+                if (projectile.frame > 4)
+                {
+                    projectile.frame = 0;
+                }
+            }
             bool flag64 = projectile.type == mod.ProjectileType("DragonClaw");
             Player player = Main.player[projectile.owner];
             AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
@@ -53,7 +62,7 @@ namespace AAMod.Items.Boss.Grips
             for (int num638 = 0; num638 < 1000; num638++)
             {
                 bool flag23 = (Main.projectile[num638].type == mod.ProjectileType("DragonClaw"));
-                if (num638 != projectile.whoAmI && Main.projectile[num638].active && Main.projectile[num638].owner == projectile.owner && flag23 && Math.Abs(projectile.position.X - Main.projectile[num638].position.X) + Math.Abs(projectile.position.Y - Main.projectile[num638].position.Y) < (float)projectile.width)
+                if (num638 != projectile.whoAmI && Main.projectile[num638].active && Main.projectile[num638].owner == projectile.owner && flag23 && Math.Abs(projectile.position.X - Main.projectile[num638].position.X) + Math.Abs(projectile.position.Y - Main.projectile[num638].position.Y) < projectile.width)
                 {
                     if (projectile.position.X < Main.projectile[num638].position.X)
                     {
@@ -176,8 +185,8 @@ namespace AAMod.Items.Boss.Grips
                 }
                 if (num651 > 2000f)
                 {
-                    projectile.position.X = Main.player[projectile.owner].Center.X - (float)(projectile.width / 2);
-                    projectile.position.Y = Main.player[projectile.owner].Center.Y - (float)(projectile.height / 2);
+                    projectile.position.X = Main.player[projectile.owner].Center.X - projectile.width / 2;
+                    projectile.position.Y = Main.player[projectile.owner].Center.Y - projectile.height / 2;
                     projectile.netUpdate = true;
                 }
                 if (num651 > 70f)
@@ -195,7 +204,7 @@ namespace AAMod.Items.Boss.Grips
             projectile.rotation = projectile.velocity.ToRotation() + 3.14159274f;
             if (projectile.ai[1] > 0f)
             {
-                projectile.ai[1] += (float)Main.rand.Next(1, 4);
+                projectile.ai[1] += Main.rand.Next(1, 4);
             }
             if (projectile.ai[1] > 40f)
             {
@@ -216,15 +225,6 @@ namespace AAMod.Items.Boss.Grips
                         projectile.netUpdate = true;
                         return;
                     }
-                }
-            }
-            if (projectile.frameCounter > 10)
-            {
-                projectile.frame++;
-                projectile.frameCounter = 0;
-                if (projectile.frame > 4)
-                {
-                    projectile.frame = 0;
                 }
             }
         }

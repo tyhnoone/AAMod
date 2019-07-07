@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Ranged
 {
-    public class Bonesaw : ModItem
+    public class Bonesaw : BaseAAItem
 	{
 		
 		public override void SetStaticDefaults()
@@ -34,9 +34,13 @@ namespace AAMod.Items.Ranged
 			item.shoot = 10;
 			item.shootSpeed = 16f;
 			item.useAmmo = AmmoID.Bullet;
-			
 			item.crit = 3;
 		}
+		
+		public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-3, 0);
+        }
 		
 		public override void AddRecipes()
 		{
@@ -49,6 +53,12 @@ namespace AAMod.Items.Ranged
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            type = ProjectileID.IchorBullet;
+            return true;
         }
 
 

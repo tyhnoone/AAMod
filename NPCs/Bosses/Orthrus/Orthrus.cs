@@ -23,8 +23,8 @@ namespace AAMod.NPCs.Bosses.Orthrus
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((float)internalAI[0]);
-                writer.Write((float)internalAI[1]);
+                writer.Write(internalAI[0]);
+                writer.Write(internalAI[1]);
             }
         }
 
@@ -53,7 +53,7 @@ namespace AAMod.NPCs.Bosses.Orthrus
             npc.damage = 0;
             npc.defense = 99999999;
             npc.lifeMax = 28000;
-            npc.value = Item.buyPrice(0, 10, 0, 0);
+            npc.value = Item.sellPrice(0, 10, 0, 0);
             npc.HitSound = new LegacySoundStyle(3, 4, Terraria.Audio.SoundType.Sound);
             npc.DeathSound = new LegacySoundStyle(4, 14, Terraria.Audio.SoundType.Sound);
             npc.knockBackResist = 0f;
@@ -72,7 +72,8 @@ namespace AAMod.NPCs.Bosses.Orthrus
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
-            return false;
+            scale *= 2;
+            return true;
         }
 
         public override void NPCLoot()

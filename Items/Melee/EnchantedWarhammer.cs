@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Melee
 {
-    public class EnchantedWarhammer : ModItem
+    public class EnchantedWarhammer : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -21,23 +21,22 @@ namespace AAMod.Items.Melee
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
             item.useTurn = true;
- 
- 
+            item.hammer = 100;
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Enchanted Warhammer");
-      Tooltip.SetDefault("Cannot be used as a hammer!");
-    }
+        public override void SetStaticDefaults()
+        {
+          DisplayName.SetDefault("Enchanted Warhammer");
+          Tooltip.SetDefault("Now with hammer power because gibs wouldn't shut up aout it.");
+        }
 
  
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.EnchantedSword, 1);
-            recipe.AddIngredient(ItemID.HallowedBar, 15);  //in this example you see how to add your custom item to the crafting recipe
-            recipe.AddTile(TileID.MythrilAnvil);     //in this example you see how to add your custom craftingbench
+            recipe.AddIngredient(ItemID.HallowedBar, 5);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

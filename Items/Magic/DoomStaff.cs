@@ -1,9 +1,8 @@
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Magic
 {
-    public class DoomStaff : ModItem
+    public class DoomStaff : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{

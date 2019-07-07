@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Tools
 {
-    public class MadnessPick : ModItem
+    public class MadnessPick : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -32,7 +32,7 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Madness Pickaxe");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod, "MadnessFragment", 6);

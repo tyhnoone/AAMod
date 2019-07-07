@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Materials
 {
-    public class DragonScale : ModItem
+    public class DragonScale : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Boss.Rajah
 {
-    public class RajahTrophy : ModItem
+    public class RajahTrophy : BaseAAItem
 	{
         public static int type;
         

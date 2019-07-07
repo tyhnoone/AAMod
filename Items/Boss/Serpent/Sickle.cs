@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Serpent
 {
-    public class Sickle : ModItem
+    public class Sickle : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -17,7 +16,7 @@ namespace AAMod.Items.Boss.Serpent
             item.useStyle = 5;
             item.noMelee = true; 
             item.knockBack = 1;
-            item.value = Item.buyPrice(0, 5, 0, 0);
+            item.value = Item.sellPrice(0, 5, 0, 0);
             item.rare = 3;
             item.mana = 9;
             item.UseSound = SoundID.Item1;

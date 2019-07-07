@@ -23,7 +23,7 @@ namespace AAMod.NPCs.Enemies.Inferno
             npc.damage = 14;  //boss damage
             npc.defense = 14;    //boss defense
             npc.knockBackResist = 1f;   //this boss will behavior like the DemonEye  //boss frame/animation 
-            npc.value = Item.buyPrice(0, 0, 6, 45);
+            npc.value = Item.sellPrice(0, 0, 6, 45);
             npc.aiStyle = 3;
             aiType = NPCID.GoblinScout;
             npc.HitSound = SoundID.NPCHit1;
@@ -142,7 +142,7 @@ namespace AAMod.NPCs.Enemies.Inferno
                 Vector2 drawCenter = new Vector2(npc.Center.X, npc.Center.Y);
                 int num214 = biteAni.Height / 3; // 3 is the number of frames in the sprite sheet
                 int y6 = num214 * biteFrame;
-                Main.spriteBatch.Draw(biteAni, drawCenter - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(new Rectangle(0, y6, biteAni.Width, num214)), drawColor, npc.rotation, new Vector2((float)biteAni.Width / 2f, (float)num214 / 2f), npc.scale, npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
+                Main.spriteBatch.Draw(biteAni, drawCenter - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(new Rectangle(0, y6, biteAni.Width, num214)), drawColor, npc.rotation, new Vector2(biteAni.Width / 2f, num214 / 2f), npc.scale, npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
             }
             return false;
         }

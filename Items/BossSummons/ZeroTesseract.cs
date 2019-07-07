@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.BossSummons
 {
     //imported from my tAPI mod because I'm lazy
-    public class ZeroTesseract : ModItem
+    public class ZeroTesseract : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -36,7 +36,7 @@ N0N-C0NSUMABLE");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Zero;
+                    line2.overrideColor = AAColor.Rarity13;
                 }
             }
         }
@@ -108,7 +108,7 @@ N0N-C0NSUMABLE");
             {
 				AAWorld.zeroUS = true;
 				if(!NPC.AnyNPCs(mod.NPCType("ZeroDeactivated")))
-					NPC.NewNPC((int)player.position.X + Main.rand.Next(-2200, 2200), (int)player.position.Y + 1200, mod.NPCType("Zero"));
+					NPC.NewNPC((int)player.position.X + Main.rand.Next(-2200, 2200), (int)player.position.Y - 300, mod.NPCType("Zero"));
             }
             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Glitch"));
             return true;

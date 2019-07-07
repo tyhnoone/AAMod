@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.TrueDeathly
 {
     [AutoloadEquip(EquipType.Head)]
-    public class TrueDeathlySkull : ModItem
+    public class TrueDeathlySkull : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -20,7 +20,7 @@ namespace AAMod.Items.Armor.TrueDeathly
             item.height = 34;
             item.value = 90000;
             item.rare = 8;
-            item.defense = 10;
+            item.defense = 17;
         }
 
         public override void UpdateEquip(Player player)

@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.MushroomMonarch
 {
-    public class FungusBag : ModItem
+    public class FungusBag : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -33,7 +32,7 @@ namespace AAMod.Items.Boss.MushroomMonarch
             {
                 player.QuickSpawnItem(mod.ItemType<Items.Vanity.Mask.FungusMask>());
             }
-            if (Main.rand.NextFloat() < 0.01f)
+            if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PHMDevArmor();

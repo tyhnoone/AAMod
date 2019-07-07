@@ -1,11 +1,10 @@
 
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Usable
 {
-    public class MyceliumSeeds : ModItem
+    public class MyceliumSeeds : BaseAAItem
 	{
 		public override void SetStaticDefaults()
         {

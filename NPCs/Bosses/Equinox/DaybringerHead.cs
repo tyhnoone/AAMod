@@ -22,10 +22,10 @@ namespace AAMod.NPCs.Bosses.Equinox
 
 		public override void SetDefaults()
 		{
-            npc.lifeMax = 130000;
+            npc.lifeMax = 125000;
             npc.damage = 200;
             npc.defense = 100;
-            npc.value = Item.buyPrice(0, 55, 0, 0);
+            npc.value = Item.sellPrice(0, 55, 0, 0);
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
                 npc.buffImmune[k] = true;
@@ -345,7 +345,7 @@ namespace AAMod.NPCs.Bosses.Equinox
 
 		public Color GetAuraAlpha()
 		{
-			Color c = (Color.White * ((float)Main.mouseTextColor / 255f));
+			Color c = (Color.White * (Main.mouseTextColor / 255f));
 			//c.A = 255;
 			return c;
 		}
@@ -437,7 +437,7 @@ namespace AAMod.NPCs.Bosses.Equinox
 				tex = mod.GetTexture(texName);
 				
 				int diff = (Main.player[Main.myPlayer].miscCounter % 50);
-				float diffFloat = (float)diff / 50f;
+				float diffFloat = diff / 50f;
 				float auraPercent = BaseUtility.MultiLerp(diffFloat, 0f, 1f, 0f); //did it this way so it's syncronized between all the segments
 				BaseMod.BaseDrawing.DrawAura(spritebatch, tex, 0, npc, auraPercent, 2f, 0f, 0f, GetAuraAlpha());				
 			}			

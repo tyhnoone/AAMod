@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Blocks
 {
-    public class RadiumOre : ModItem
+    public class RadiumOre : BaseAAItem
     {
         public override void SetDefaults()
         {

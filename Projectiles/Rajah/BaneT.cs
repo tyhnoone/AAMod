@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Projectiles.Rajah
@@ -28,7 +27,7 @@ namespace AAMod.Projectiles.Rajah
         {
             Rectangle myRect = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
             bool flag3 = projectile.Colliding(myRect, target.getRect());
-            if (flag3 && !StuckInEnemy)
+            if (flag3 && !StuckInEnemy && !target.boss)
             {
                 StuckInEnemy = true;
                 projectile.ai[0] = 1f;
@@ -40,10 +39,9 @@ namespace AAMod.Projectiles.Rajah
 
         public override void AI()
         {
-            int num972 = 25;
             if (projectile.alpha > 0)
             {
-                projectile.alpha -= num972;
+                projectile.alpha -= 25;
             }
             if (projectile.alpha < 0)
             {
@@ -70,7 +68,7 @@ namespace AAMod.Projectiles.Rajah
                 bool flag53 = false;
                 projectile.localAI[0] += 1f;
                 int num978 = (int)projectile.ai[1];
-                if (projectile.localAI[0] >= (float)(60 * num977))
+                if (projectile.localAI[0] >= 60 * num977)
                 {
                     flag53 = true;
                 }

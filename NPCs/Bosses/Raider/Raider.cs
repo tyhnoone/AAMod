@@ -30,7 +30,7 @@ namespace AAMod.NPCs.Bosses.Raider
             npc.damage = 70;
             npc.defense = 30;
             npc.lifeMax = 30000;
-            npc.value = Item.buyPrice(0, 10, 50, 0);
+            npc.value = Item.sellPrice(0, 10, 50, 0);
             npc.buffImmune[BuffID.Ichor] = true;
             npc.lavaImmune = true;
             npc.boss = true;
@@ -183,7 +183,7 @@ namespace AAMod.NPCs.Bosses.Raider
         {
             Texture2D glowTex = mod.GetTexture("Glowmasks/Raider_Glow1");
             Texture2D glowTex1 = mod.GetTexture("Glowmasks/Raider_Glow2");
-            color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
+            color = BaseUtility.MultiLerpColor(Main.player[Main.myPlayer].miscCounter % 100 / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor);
             BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, color);
             BaseDrawing.DrawTexture(spritebatch, glowTex1, 0, npc, Color.White);
@@ -285,23 +285,15 @@ namespace AAMod.NPCs.Bosses.Raider
             {
                 if (Main.netMode != 1)
                 {
-                    internalAI[2]++;
-                    if (!NPC.AnyNPCs(mod.NPCType("RaidRocket")))
+                    for (int i = 0; i < (Main.expertMode ? 5 : 4); i++)
                     {
-                        for (int i = 0; i < (Main.expertMode ? 5 : 4); i++)
-                        {
-                            NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("RaidRocket"), 0);
-                        }
-                        npc.netUpdate = true;
+                        NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("RaidRocket"), 0);
                     }
-                    if (internalAI[2] > 90)
-                    {
-                        internalAI[0] = 0;
-                        internalAI[1] = 0;
-                        internalAI[2] = 0;
-                        npc.ai = new float[4];
-                        npc.netUpdate = true;
-                    }
+                    internalAI[0] = 0;
+                    internalAI[1] = 0;
+                    internalAI[2] = 0;
+                    npc.ai = new float[4];
+                    npc.netUpdate = true;
                 }
 
             }
@@ -361,7 +353,7 @@ namespace AAMod.NPCs.Bosses.Raider
                         Vector2 dir = new Vector2(npc.velocity.X * 2f + (2f * npc.direction), npc.velocity.Y * 0.5f + 1f);
                         Vector2 firePos = new Vector2(npc.Center.X + (64 * npc.direction), npc.Center.Y + 28f);
                         firePos = BaseUtility.RotateVector(npc.Center, firePos, npc.rotation); //+ (npc.direction == -1 ? (float)Math.PI : 0f)));
-                        int projID = Projectile.NewProjectile(firePos, dir, mod.ProjectileType("RaidSphere"), npc.damage / 2, 1, 255);
+                        int projID = Projectile.NewProjectile(firePos, dir / 2, mod.ProjectileType("RaidSphere"), npc.damage / 2, 1, 255);
                         Main.projectile[projID].netUpdate = true;
                     }
                 }

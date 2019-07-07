@@ -1,11 +1,9 @@
-using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
 
 namespace AAMod.Items.Boss.Djinn
 
 {
-    public class SultanScimitar : ModItem
+    public class SultanScimitar : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -27,8 +25,8 @@ namespace AAMod.Items.Boss.Djinn
 	        item.UseSound = SoundID.Item1;
 			item.useStyle = 1;
 			item.knockBack = 3;
-			item.value = Item.buyPrice(1, 0, 0, 0);
-			item.autoReuse = true;
+            item.value = 50000;
+            item.autoReuse = true;
             item.rare = 3;
 		}
 	}

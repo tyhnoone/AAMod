@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Flasks
 {
-    public class CorruptionFlask : ModItem
+    public class CorruptionFlask : BaseAAItem
 	{
         public override void SetDefaults()
         {

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Melee   //where is located
 {
-    public class ChaosScythe : ModItem
+    public class ChaosScythe : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -19,7 +19,7 @@ namespace AAMod.Items.Melee   //where is located
             item.height = 56;          
             item.knockBack = 6;
             item.value = 300000;
-            item.autoReuse = true;   //if it's capable of autoswing.
+            item.autoReuse = true;   
             item.useTurn = false;
             item.expert = true;
             item.useAnimation = 25;

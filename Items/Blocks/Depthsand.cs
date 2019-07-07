@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Blocks
 {
-    public class Depthsand : ModItem
+    public class Depthsand : BaseAAItem
     {
         public override void SetDefaults()
         {

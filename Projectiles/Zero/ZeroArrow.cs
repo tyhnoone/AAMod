@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -27,20 +26,6 @@ namespace AAMod.Projectiles.Zero
 
         public override void AI()
         {
-            projectile.localAI[0] += 1f;
-            if (projectile.localAI[0] > 9f)
-            {
-                for (int num447 = 0; num447 < 4; num447++)
-                {
-                    Vector2 vector33 = projectile.position;
-                    vector33 -= projectile.velocity * (num447 * 0.25f);
-                    int num448 = Dust.NewDust(vector33, projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 200, default(Color), 1f); //Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 200, default(Color), 1f);;
-                    Main.dust[num448].position = vector33;
-                    Main.dust[num448].scale = Main.rand.Next(70, 110) * 0.013f;
-                    Main.dust[num448].velocity *= 0.2f;
-                    Main.dust[num448].noGravity = true;
-                }
-            }
             const int aislotHomingCooldown = 0;
             const int homingDelay = 10;
             const float desiredFlySpeedInPixelsPerFrame = 8;
@@ -49,7 +34,7 @@ namespace AAMod.Projectiles.Zero
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
             {
-                projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
+                projectile.ai[aislotHomingCooldown] = homingDelay; 
 
                 int foundTarget = HomeOnTarget();
                 if (foundTarget != -1)
@@ -76,7 +61,7 @@ namespace AAMod.Projectiles.Zero
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) 
                     )
                         selectedTarget = i;
                 }
@@ -85,5 +70,14 @@ namespace AAMod.Projectiles.Zero
             return selectedTarget;
         }
 
+        public override void Kill(int timeleft)
+        {
+            Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1);
+            for (int num468 = 0; num468 < 4; num468++)
+            {
+                num468 = Dust.NewDust(new Microsoft.Xna.Framework.Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
+                    -projectile.velocity.Y * 0.2f, 100, default(Microsoft.Xna.Framework.Color));
+            }
+        }
     }
 }

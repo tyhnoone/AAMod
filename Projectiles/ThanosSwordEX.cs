@@ -11,7 +11,7 @@ namespace AAMod.Projectiles     //We need this to basically indicate the folder 
 
         public override void SetDefaults()
         {
-            projectile.width = 210;
+            projectile.width = 190;
             projectile.height = 210; 
             projectile.friendly = true;
             projectile.penetrate = -1; 
@@ -66,7 +66,7 @@ namespace AAMod.Projectiles     //We need this to basically indicate the folder 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)  //this make the projectile sprite rotate perfectaly around the player
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
-            spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, null, Color.White, projectile.rotation, new Vector2(texture.Width / 2, texture.Height / 2), 1f, projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
+            spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, null, lightColor, projectile.rotation, new Vector2(texture.Width / 2, texture.Height / 2), 1f, projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
             return false;
         }
 

@@ -4,7 +4,7 @@ using BaseMod;
 
 namespace AAMod.Items.Melee
 {
-    public class YtriumHalberd : ModItem
+    public class YtriumHalberd : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -31,7 +31,7 @@ namespace AAMod.Items.Melee
             item.noUseGraphic = true;
             item.noMelee = true;
             item.shoot = mod.ProjType("YtriumHalberd");
-            item.shootSpeed = 4;			
+            item.shootSpeed = 8;			
         }
 		
 		public override void AddRecipes()

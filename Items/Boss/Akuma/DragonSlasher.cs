@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -7,14 +6,14 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Akuma   //where is located
 {
-    public class DragonSlasher : ModItem
+    public class DragonSlasher : BaseAAItem
     {
         
         public override void SetStaticDefaults()
         {
             
             DisplayName.SetDefault("Dragon Shiv");
-            Tooltip.SetDefault(@"Slow, but has massive knockback and leaves the target bleeding
+            Tooltip.SetDefault(@"Slow, but has massive knockback explodes on contact with an enemy
 Inflicts Daybroken");
             
         }
@@ -42,19 +41,20 @@ Inflicts Daybroken");
 
         public override void SetDefaults()
         {
-            item.damage = 450;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 42;              //Sword width
-            item.height = 52;             //Sword height
-            item.useTime = 40;          //how fast 
-            item.useAnimation = 40;     
-            item.useStyle = 3;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 10f;      //Sword knockback
-            item.value = Item.buyPrice(1, 0, 0, 0);
-            item.UseSound = SoundID.Item20;      //1 is the sound of the sword
-            item.autoReuse = true;   //if it's capable of autoswing.
+            item.damage = 450;
+            item.melee = true;
+            item.width = 42;
+            item.height = 52;
+            item.useTime = 50;
+            item.useAnimation = 50;     
+            item.useStyle = 3;
+            item.knockBack = 20f;
+            item.value = Item.sellPrice(0, 30, 0, 0);
+            item.UseSound = SoundID.Item20; 
+            item.autoReuse = true;
             item.useTurn = true;
-            item.rare = 10;
+            item.rare = 9;
+            AARarity = 13;
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -67,23 +67,10 @@ Inflicts Daybroken");
             }
         }
 
-        
-
-        public override void ModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Akuma;
-                }
-            }
-        }
-
         public void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Daybreak, 600);
-            target.AddBuff(BuffID.Bleeding, 600);
+            Projectile.NewProjectile((int)target.position.X, (int)target.position.Y, 0, 0, mod.ProjectileType<Projectiles.Akuma.AkumaExp>(), item.damage, 20, Main.myPlayer);
         }
         
         public override void AddRecipes()  //How to craft this sword

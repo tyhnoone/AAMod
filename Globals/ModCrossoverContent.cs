@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+
 using Terraria;
 using Terraria.ModLoader;
 using System.Reflection;
 using Microsoft.Xna.Framework.Graphics;
+using AAMod.Items;
 
 namespace AAMod
 {
@@ -11,45 +13,45 @@ namespace AAMod
     {
         public static Mod thorium = null, calamity = null, redemption = null;
 
-        public static FieldInfo Revengance = null, Death = null, Defiled = null;
+        public static FieldInfo CRevengence = null, CDeath = null, CDefiled = null;
 
-        public static bool Calamity_Revengence(bool? value = null)
+        public static bool Revengence(bool? value = null)
         {
-            if (value != null && Revengance != null)
+            if (value != null && CRevengence != null)
             {
-                Revengance.SetValue(null, (bool)value);
+                CRevengence.SetValue(null, (bool)value);
                 return (bool)value;
 
             }
-            return (Revengance == null ? false : (bool)Revengance.GetValue(null));
+            return (CRevengence == null ? false : (bool)CRevengence.GetValue(null));
         }
 
-        public static bool Calamity_Death(bool? value = null)
+        public static bool Death(bool? value = null)
         {
-            if (value != null && Death != null)
+            if (value != null && CDeath != null)
             {
-                Death.SetValue(null, (bool)value);
+                CDeath.SetValue(null, (bool)value);
                 return (bool)value;
             }
-            return (Death == null ? false : (bool)Death.GetValue(null));
+            return (CDeath == null ? false : (bool)CDeath.GetValue(null));
         }
 
-        public static bool Calamity_Defiled(bool? value = null)
+        public static bool Defiled(bool? value = null)
         {
-            if (value != null && Defiled != null)
+            if (value != null && CDefiled != null)
             {
-                Defiled.SetValue(null, (bool)value);
+                CDefiled.SetValue(null, (bool)value);
                 return (bool)value;
             }
-            return (Defiled == null ? false : (bool)Defiled.GetValue(null));
+            return (CDefiled == null ? false : (bool)CDefiled.GetValue(null));
         }
 
         public static bool ModInstalled(string name)
         {
             switch (name)
             {
-                case "Calamity": return calamity != null;
-                case "Thorium": return thorium != null;
+                case "CalamityMod": return calamity != null;
+                case "ThoriumMod": return thorium != null;
                 case "Redemption": return redemption != null;
                 default: return false;
             }
@@ -65,7 +67,6 @@ namespace AAMod
 
         public static void SetupSupport()
         {
-            Mod mod = AAMod.instance;
             thorium = ModLoader.GetMod("ThoriumMod");
             calamity = ModLoader.GetMod("CalamityMod");
             redemption = ModLoader.GetMod("Redemption");
@@ -83,9 +84,9 @@ namespace AAMod
                     switch (fname)
                     {
                         default: break;
-                        case "revenge": Revengance = info; break;
-                        case "death": Death = info; break;
-                        case "defiled": Defiled = info; break;
+                        case "revenge": CRevengence = info; break;
+                        case "death": CDeath = info; break;
+                        case "defiled": CDefiled = info; break;
                     }
                 }
             }
@@ -93,13 +94,13 @@ namespace AAMod
         }
     }
 
-    public abstract class CrossoverItem : ModItem
+    public abstract class CrossoverItem : BaseAAItem
     {
         public string crossoverModName = "(N/A)";
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
-            if (!ModSupport.ModInstalled(crossoverModName)) //this is to give a warning if they have the item and the mod is not enabled
+            if (!ModSupport.ModInstalled(crossoverModName))
             {
                 TooltipLine error = new TooltipLine(mod, "Error", "WARNING: ITEM WILL NOT FUNCTION WITHOUT " + crossoverModName.ToUpper() + " ENABLED!")
                 {
@@ -215,6 +216,4 @@ namespace AAMod
 
         #endregion
     }
-
-
 }

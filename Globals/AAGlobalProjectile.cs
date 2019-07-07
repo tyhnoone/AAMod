@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using AAMod.Tiles;
-using AAMod.Walls;
 
 namespace AAMod
 {
@@ -83,7 +82,7 @@ namespace AAMod
                             WorldGen.SquareTileFrame(k, l, true);
                             NetMessage.SendTileSquare(-1, k, l, 1, TileChangeType.None);
                         }
-                        else if (Main.tile[k, l].type == mod.TileType<Torchice>() || Main.tile[k, l].type == mod.TileType<DepthIce>())
+                        else if (Main.tile[k, l].type == mod.TileType<Torchice>() || Main.tile[k, l].type == mod.TileType<IndigoIce>())
                         {
                             Main.tile[k, l].type = 161;
                             WorldGen.SquareTileFrame(k, l, true);

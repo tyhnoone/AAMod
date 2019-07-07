@@ -1,12 +1,9 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Vanity.Mask
 {
     [AutoloadEquip(EquipType.Head)]
-	public class RajahMask : ModItem
+	public class RajahMask : BaseAAItem
 	{
 		public override void SetStaticDefaults()
         {

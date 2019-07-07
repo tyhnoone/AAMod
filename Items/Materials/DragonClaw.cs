@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Materials
 {
-    public class DragonClaw : ModItem
+    public class DragonClaw : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

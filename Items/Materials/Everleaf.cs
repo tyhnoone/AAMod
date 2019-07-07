@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Materials
 {
-    public class Everleaf : ModItem
+    public class Everleaf : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -15,7 +14,7 @@ namespace AAMod.Items.Materials
             item.width = 32;
             item.height = 32;
             item.maxStack = 99;
-            item.value = Item.buyPrice(0, 0, 70, 0);
+            item.value = Item.sellPrice(0, 0, 70, 0);
         }
     }
 }

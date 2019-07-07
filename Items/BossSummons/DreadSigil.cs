@@ -8,7 +8,7 @@ using BaseMod;
 
 namespace AAMod.Items.BossSummons
 {
-    public class DreadSigil : ModItem
+    public class DreadSigil : BaseAAItem
 	{
 
         public override void SetStaticDefaults()
@@ -37,7 +37,7 @@ Non-Consumable");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata;;
+                    line2.overrideColor = AAColor.Rarity13;;
                 }
             }
         }
@@ -77,11 +77,19 @@ Non-Consumable");
             }
             if (player.GetModPlayer<AAPlayer>(mod).ZoneMire)
 			{
-                /*if (!AAWorld.downedYamata)
+                if (NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Shen.ShenDoragon>()))
+                {
+                    return false;
+                }
+                if (NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Shen.ShenA>()))
+                {
+                    return false;
+                }
+                if (!AAWorld.downedYamata && player.GetModPlayer<AAPlayer>(mod).ZoneRisingMoonLake)
                 {
                     if (player.whoAmI == Main.myPlayer) BaseUtility.Chat("You NEED to use that sigil on the altar at the center of the mire! Trust me, nothing bad will happen!", new Color(45, 46, 70), false);
                     return false;
-                }*/
+                }
 				if (NPC.AnyNPCs(mod.NPCType("Yamata")))
 				{
 					if(player.whoAmI == Main.myPlayer) BaseUtility.Chat("WHAT THE HELL ARE YOU DOING?! I'M ALREADY HERE!!!", new Color(45, 46, 70), false);
@@ -147,7 +155,7 @@ Non-Consumable");
             else
             {
                 //I have no idea how to convert this to the standard system so im gonna post this method too lol
-                AANet.SendNetMessage(AANet.SummonNPCFromClient, (byte)player.whoAmI, (short)bossType, (bool)spawnMessage, (int)npcCenter.X, (int)npcCenter.Y, (string)overrideDisplayName, (bool)namePlural);
+                AANet.SendNetMessage(AANet.SummonNPCFromClient, (byte)player.whoAmI, (short)bossType, spawnMessage, (int)npcCenter.X, (int)npcCenter.Y, overrideDisplayName, namePlural);
             }
         }
 

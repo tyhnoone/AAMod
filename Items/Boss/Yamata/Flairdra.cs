@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Yamata
 {
-    public class Flairdra : ModItem
+    public class Flairdra : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -24,7 +24,7 @@ Inflicts Moonraze");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata;;
+                    line2.overrideColor = AAColor.Rarity13;;
                 }
             }
         }
@@ -33,11 +33,11 @@ Inflicts Moonraze");
         {
             item.width = 26;
             item.height = 22;
-            item.value = Item.buyPrice(1, 0, 0, 0);
+            item.value = Item.sellPrice(0, 30, 0, 0);
             item.noMelee = true;
             item.useStyle = 5;
-            item.useAnimation = 20;
-            item.useTime = 20;
+            item.useAnimation = 12;
+            item.useTime = 12;
             item.knockBack = 3.5f;
             item.damage = 200;
             item.noUseGraphic = true;
@@ -46,7 +46,7 @@ Inflicts Moonraze");
             item.UseSound = SoundID.Item21;
             item.melee = true;
             item.autoReuse = true;
-            item.rare = 10;
+            item.rare = 9; AARarity = 13;
         }
 
 

@@ -21,24 +21,22 @@ namespace AAMod.Tiles
             soundType = 21;
             drop = mod.ItemType("FulguriteShard");   //put your CustomBlock name
             dustType = mod.DustType("FulguriteDust");
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Fulgurite Ore");
-            AddMapEntry(new Color(204, 0, 150), name);
-			minPick = 200;
+            AddMapEntry(new Color(204, 0, 150));
+			minPick = 180;
         }
 
         public override void ModifyLight(int x, int y, ref float r, ref float g, ref float b)
         {
             if (!glow) return;
             Tile tile = Main.tile[x, y];
-            Color color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Violet, Color.White, Color.White);
+            Color color = BaseUtility.MultiLerpColor(Main.player[Main.myPlayer].miscCounter % 100 / 100f, Color.Violet, Color.White, Color.White);
             r = (color.R / 255f); g = (color.G / 255f); b = (color.B / 255f);
         }
 
         public override void PostDraw(int x, int y, SpriteBatch sb)
         {
             Tile tile = Main.tile[x, y];
-            color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Black, Color.Violet, Color.Black, Color.Violet, Color.Black, Color.Black, Color.Black);
+            color = BaseUtility.MultiLerpColor(Main.player[Main.myPlayer].miscCounter % 100 / 100f, Color.Black, Color.Violet, Color.Black, Color.Violet, Color.Black, Color.Black, Color.Black);
             Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
             if (Main.drawToScreen)
             {

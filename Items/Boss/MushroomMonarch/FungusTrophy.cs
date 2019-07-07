@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Boss.MushroomMonarch
 {
-    public class FungusTrophy : ModItem
+    public class FungusTrophy : BaseAAItem
 	{
         public static int type;
         

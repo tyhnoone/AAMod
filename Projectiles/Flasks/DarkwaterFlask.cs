@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Projectiles.Flasks
 {
-    public class Flask : ModProjectile
+    public class DarkwaterFlask : ModProjectile
     {
 
         public override void SetStaticDefaults()
@@ -67,7 +67,7 @@ namespace AAMod.Projectiles.Flasks
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //circle
                     {
-                        AAWorld.AAConvert(xPosition, yPosition, 2, 1);
+                        AAWorld.AAConvert(xPosition, yPosition, 2);
                     }
                 }
             }

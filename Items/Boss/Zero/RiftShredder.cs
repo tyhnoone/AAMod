@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Zero
 {
-    public class RiftShredder : ModItem
+    public class RiftShredder : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -19,22 +18,21 @@ namespace AAMod.Items.Boss.Zero
 		public override void SetDefaults()
 		{
             
-			item.damage = 300;
+			item.damage = 370;
 			item.melee = true;
 			item.width = 94;
 			item.height = 70;
 			item.useTime = 15;
             item.shoot = mod.ProjectileType("Rift");
-            item.shootSpeed = 14f;
+            item.shootSpeed = 10f;
             item.useAnimation = 15;
 			item.useStyle = 1;
 			item.knockBack = 3;
-			item.value = Item.buyPrice(1, 0, 0, 0);
+			item.value = Item.sellPrice(0, 30, 0, 0);
             item.UseSound = new LegacySoundStyle(2, 15, Terraria.Audio.SoundType.Sound);
 			item.autoReuse = true;
-            item.rare = 10;
+            item.rare = 9; AARarity = 13;
         }
-
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
@@ -56,18 +54,6 @@ namespace AAMod.Items.Boss.Zero
                 0f
             );
         }
-
-        public override void ModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Zero;
-                }
-            }
-        }
-
 
         public override void AddRecipes()
         {

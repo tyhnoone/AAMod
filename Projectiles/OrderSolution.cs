@@ -1,11 +1,6 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using AAMod.Tiles;
-using AAMod.Walls;
-using AAMod.Dusts;
 
 namespace AAMod.Projectiles
 {
@@ -28,7 +23,7 @@ namespace AAMod.Projectiles
             int dustType = mod.DustType<Dusts.OrderSolution>();
             if (projectile.owner == Main.myPlayer)
             {
-                AAWorld.AAConvert((int)(projectile.position.X + (float)(projectile.width / 2)) / 16, (int)(projectile.position.Y + (float)(projectile.height / 2)) / 16, 11);
+                AAWorld.AAConvert((int)(projectile.position.X + projectile.width / 2) / 16, (int)(projectile.position.Y + projectile.height / 2) / 16, 11);
             }
             if (projectile.timeLeft > 133)
             {
@@ -56,12 +51,12 @@ namespace AAMod.Projectiles
                 projectile.ai[0] += 1f;
                 for (int i = 0; i < 1; i++)
                 {
-                    int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, dustType, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+                    int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, dustType, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100);
                     Dust dust = Main.dust[dustIndex];
                     dust.noGravity = true;
                     dust.scale *= 1.75f;
-                    dust.velocity.X = dust.velocity.X * 2f;
-                    dust.velocity.Y = dust.velocity.Y * 2f;
+                    dust.velocity.X *= 2f;
+                    dust.velocity.Y *= 2f;
                     dust.scale *= dustScale;
                 }
             }
@@ -69,7 +64,7 @@ namespace AAMod.Projectiles
             {
                 projectile.ai[0] += 1f;
             }
-            projectile.rotation += 0.3f * (float)projectile.direction;
+            projectile.rotation += 0.3f * projectile.direction;
         }
     }
 }

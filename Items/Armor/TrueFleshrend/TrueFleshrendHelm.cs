@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.TrueFleshrend
 {
     [AutoloadEquip(EquipType.Head)]
-	public class TrueFleshrendHelm : ModItem
+	public class TrueFleshrendHelm : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -20,7 +20,7 @@ namespace AAMod.Items.Armor.TrueFleshrend
 			item.height = 26;
 			item.value = 100000;
 			item.rare = 7;
-			item.defense = 30;
+			item.defense = 29;
 		}
 		
 		public override void UpdateEquip(Player player)

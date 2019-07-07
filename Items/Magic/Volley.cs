@@ -2,11 +2,10 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Magic
 {
-    public class Volley : ModItem
+    public class Volley : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -19,7 +18,7 @@ namespace AAMod.Items.Magic
             item.useStyle = 5;
             item.noMelee = true;
             item.knockBack = 4;
-            item.value = Item.buyPrice(0, 3, 0, 0);
+            item.value = Item.sellPrice(0, 3, 0, 0);
             item.rare = 4;
             item.mana = 10;
             item.UseSound = SoundID.Item20;

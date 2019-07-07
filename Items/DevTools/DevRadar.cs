@@ -1,11 +1,10 @@
 
 using Terraria;
-using Terraria.ModLoader;
 using BaseMod;
 
 namespace AAMod.Items.DevTools
 {
-    public class DevRadar : ModItem
+    public class DevRadar : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{

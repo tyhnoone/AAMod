@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Magic
 {
-    public class SkyBook : ModItem
+    public class SkyBook : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -19,7 +19,7 @@ namespace AAMod.Items.Magic
             item.useStyle = 5;        //this is how the item is holded
             item.noMelee = true;
             item.knockBack = 2;
-            item.value = Item.buyPrice(0, 1, 0, 0);
+            item.value = Item.sellPrice(0, 1, 0, 0);
             item.rare = 6;
             item.mana = 2;             //mana use
             item.UseSound = SoundID.Item21;            //this is the sound when you use the item
@@ -34,12 +34,12 @@ namespace AAMod.Items.Magic
             Tooltip.SetDefault("Casts crystal shards towards your cursor");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "StarcloudBar", 15);   //you need 10 Wood
 			recipe.AddIngredient(ItemID.Book, 1);
-            recipe.AddTile(TileID.Bookcases);   //at work bench
+            recipe.AddTile(TileID.Bookcases);   
             recipe.SetResult(this);  
             recipe.AddRecipe();
         }

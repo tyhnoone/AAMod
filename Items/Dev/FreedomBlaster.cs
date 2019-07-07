@@ -1,8 +1,6 @@
-﻿using Terraria.ModLoader;
-
-namespace AAMod.Items.Dev
+﻿namespace AAMod.Items.Dev
 {
-    public class FreedomBlaster : ModItem
+    public class FreedomBlaster : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

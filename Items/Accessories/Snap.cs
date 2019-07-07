@@ -1,9 +1,5 @@
-using System;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Accessories
 {
@@ -30,7 +26,7 @@ namespace AAMod.Items.Accessories
         {
             Player player = Main.player[projectile.owner];
             projectile.Center = player.Center;
-            projectile.scale += 0.2f;
+            projectile.scale += 0.1f;
             if (projectile.localAI[0] == 1f)
             {
                 projectile.alpha += 20;
@@ -41,7 +37,7 @@ namespace AAMod.Items.Accessories
             }
             else
             {
-                projectile.alpha -= 4;
+                projectile.alpha -= 2;
                 if (projectile.alpha <= 0)
                 {
                     projectile.localAI[0] = 1f;

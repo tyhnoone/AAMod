@@ -5,13 +5,17 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Ranged
 {
-    public class AbyssalPentashot : ModItem
+    public class AbyssalPentashot : BaseAAItem
     {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Abyssal Pentashot");
+            Tooltip.SetDefault("");
+        }
 
         public override void SetDefaults()
         {
-
-            item.damage = 10;
+            item.damage = 35;
             item.noMelee = true;
             item.ranged = true;
             item.width = 50;
@@ -22,17 +26,10 @@ namespace AAMod.Items.Ranged
             item.shoot = 10;
             item.useAmmo = AmmoID.Bullet;
             item.knockBack = 0;
-            item.value = 2000;
-            item.rare = 2;
+            item.value = Terraria.Item.sellPrice(0, 1, 8, 0);
+            item.rare = 4;
             item.UseSound = SoundID.Item11;
             item.shootSpeed = 12f;
-
-        }
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Abyssal Pentashot");
-            Tooltip.SetDefault("");
         }
 
 		public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

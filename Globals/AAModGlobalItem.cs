@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using AAMod.Items.Boss.Akuma;
 using AAMod.Items.Boss.Retriever;
 using AAMod.Items.Boss.Grips;
+using AAMod.Items;
 
 namespace AAMod
 {
@@ -27,13 +28,81 @@ namespace AAMod
             {
                 item.createTile = mod.TileType("LuminiteOre");
             }
+            if (item.modItem != null && item.modItem.mod.Name == mod.Name && (item.damage > 0 || item.accessory || item.defense > 0) && item.maxStack < 2)
+            {
+                BaseAAItem AAitem = (BaseAAItem)item.modItem;
+                if (AAitem.AARarity != 0)
+                {
+                    switch (AAitem.AARarity)
+                    {
+                        case 12:
+                            item.value = Item.sellPrice(0, 30, 0, 0);
+                            break;
+                        case 13:
+                            item.value = Item.sellPrice(0, 35, 0, 0);
+                            break;
+                        case 14:
+                            item.value = Item.sellPrice(0, 40, 0, 0);
+                            break;
+                        case 15:
+                            item.value = Item.sellPrice(0, 45, 0, 0);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (item.rare)
+                    {
+                        case 0:
+                            item.value = Item.sellPrice(0, 0, 25, 0);
+                            break;
+                        case 1:
+                            item.value = Item.sellPrice(0, 0, 50, 0);
+                            break;
+                        case 2:
+                            item.value = Item.sellPrice(0, 0, 75, 0);
+                            break;
+                        case 3:
+                            item.value = Item.sellPrice(0, 1, 0, 0);
+                            break;
+                        case 4:
+                            item.value = Item.sellPrice(0, 2, 0, 0);
+                            break;
+                        case 5:
+                            item.value = Item.sellPrice(0, 4, 0, 0);
+                            break;
+                        case 6:
+                            item.value = Item.sellPrice(0, 6, 0, 0);
+                            break;
+                        case 7:
+                            item.value = Item.sellPrice(0, 8, 0, 0);
+                            break;
+                        case 8:
+                            item.value = Item.sellPrice(0, 10, 0, 0);
+                            break;
+                        case 9:
+                            item.value = Item.sellPrice(0, 15, 0, 0);
+                            break;
+                        case 10:
+                            item.value = Item.sellPrice(0, 20, 0, 0);
+                            break;
+                        case 11:
+                            item.value = Item.sellPrice(0, 25, 0, 0);
+                            break;
+                    }
+                }
+            }
         }
 
         public override void GrabRange(Item item, Player player, ref int grabRange)
         {
-            if (player.HeldItem.type == mod.ItemType<Items.Usable.CodeMagnet>())
+            if (player.HeldItem.type == mod.ItemType<Items.Usable.CodeMagnetWeak>())
             {
                 grabRange += 250;
+            }
+            if (player.HeldItem.type == mod.ItemType<Items.Usable.CodeMagnet>())
+            {
+                grabRange += 1920;
             }
         }
 
@@ -88,6 +157,13 @@ namespace AAMod
             return true;
         }
 
+        public override void OpenVanillaBag(string context, Player player, int arg)
+        {
+            if (context == "bossBag" && arg == ItemID.FishronBossBag)
+            {
+                player.QuickSpawnItem(mod.ItemType<Items.Materials.FishronScale>(), Main.rand.Next(15, 31));
+            }
+        }
         public static void OpenAACrate(Player player, int CrateType)
         {
             Mod mod = AAMod.instance;

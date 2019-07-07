@@ -156,6 +156,14 @@ namespace AAMod
             recipe.AddTile(TileID.DyeVat);
             recipe.SetResult(ItemID.BrownDye);
             recipe.AddRecipe();
+
+            recipe = GetNewRecipe();
+            recipe.AddIngredient(ItemID.SoulofLight, 15);
+            recipe.AddIngredient(ItemID.Pearlwood, 5);
+            recipe.AddIngredient(ItemID.CrystalShard, 30);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(ItemID.RodofDiscord);
+            recipe.AddRecipe();
             #endregion
         }
 
@@ -815,8 +823,11 @@ namespace AAMod
             TransmuteRecipe(ItemID.OrichalcumBar, (short)AAMod.instance.ItemType("UraniumBar"));
             TransmuteRecipe(ItemID.AdamantiteBar, (short)AAMod.instance.ItemType("TechneciumBar"));
             TransmuteRecipe(ItemID.TitaniumBar, (short)AAMod.instance.ItemType("TechneciumBar"));
+            TransmuteRecipe(ItemID.HallowedBar, (short)AAMod.instance.ItemType("FulguriteBar"));
 
             TransmuteRecipe((short)AAMod.instance.ItemType("AbyssiumBar"), (short)AAMod.instance.ItemType("IncineriteBar"));
+            TransmuteRecipe((short)AAMod.instance.ItemType("DeepAbyssium"), (short)AAMod.instance.ItemType("RadiantIncinerite"));
+            TransmuteRecipe((short)AAMod.instance.ItemType("DaybreakIncinerite"), (short)AAMod.instance.ItemType("EventideAbyssium"));
             #endregion
 
             #region Ores

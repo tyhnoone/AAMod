@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Flasks
 {
-    public class AshJar : ModItem
+    public class AshJar : BaseAAItem
     {
         public override void SetDefaults()
         {

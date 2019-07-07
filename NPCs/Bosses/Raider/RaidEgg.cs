@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.ID;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Raider
@@ -27,8 +27,8 @@ namespace AAMod.NPCs.Bosses.Raider
             npc.defense = 30;
             npc.lavaImmune = true;
             npc.lifeMax = 50;
-            npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
+            npc.HitSound = new LegacySoundStyle(3, 4, Terraria.Audio.SoundType.Sound);
+            npc.DeathSound = new LegacySoundStyle(4, 14, Terraria.Audio.SoundType.Sound);
             npc.value = 0f;
             npc.knockBackResist = 2f;
             npc.npcSlots = 0f;
@@ -46,7 +46,7 @@ namespace AAMod.NPCs.Bosses.Raider
         {
 
             Texture2D glowTex = mod.GetTexture("Glowmasks/RaidEgg_Glow");
-            color = BaseUtility.MultiLerpColor((float)(Main.player[Main.myPlayer].miscCounter % 100) / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
+            color = BaseUtility.MultiLerpColor(Main.player[Main.myPlayer].miscCounter % 100 / 100f, BaseDrawing.GetLightColor(npc.position), BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position), Color.Violet, BaseDrawing.GetLightColor(npc.position));
             BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc, dColor, true);
             BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc, color, true);
             return false;
@@ -76,22 +76,23 @@ namespace AAMod.NPCs.Bosses.Raider
             }
             if (npc.justHit)
             {
-                npc.ai[0] -= (float)Main.rand.Next(10, 21);
+                npc.ai[0] -= Main.rand.Next(10, 21);
                 if (!Main.expertMode)
                 {
-                    npc.ai[0] -= (float)Main.rand.Next(10, 21);
+                    npc.ai[0] -= Main.rand.Next(10, 21);
                 }
             }
             npc.ai[0] += 1f;
-            if (npc.ai[0] >= num1326 || npc.collideX || npc.collideY)
+            if (npc.ai[0] >= num1326 || npc.velocity.Y == 0)
             {
+                Projectile.NewProjectile((int)npc.position.X, (int)npc.position.Y, 0, 0, mod.ProjectileType<RaidStrike>(), 30, 10, Main.myPlayer, 0, 0);
                 npc.Transform(mod.NPCType("Raidmini"));
             }
-            if (Main.netMode != 1 && npc.velocity.Y == 0f && (double)Math.Abs(npc.velocity.X) < 0.2 && (double)npc.ai[0] >= (double)num1326 * 0.75)
+            if (Main.netMode != 1 && npc.velocity.Y == 0f && Math.Abs(npc.velocity.X) < 0.2 && npc.ai[0] >= num1326 * 0.75)
             {
-                float num1327 = npc.ai[0] - ((float)num1326 * 0.75f);
-                num1327 /= (float)num1326 * 0.25f;
-                if ((float)Main.rand.Next(-10, 120) < num1327 * 100f)
+                float num1327 = npc.ai[0] - (num1326 * 0.75f);
+                num1327 /= num1326 * 0.25f;
+                if (Main.rand.Next(-10, 120) < num1327 * 100f)
                 {
                     npc.velocity.Y = npc.velocity.Y - (Main.rand.Next(20, 40) * 0.025f);
                     npc.velocity.X = npc.velocity.X + (Main.rand.Next(-20, 20) * 0.025f);

@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Tools
 {
-    public class Toothpick : ModItem
+    public class Toothpick : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -29,7 +29,7 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Toothpick");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Bone, 12);

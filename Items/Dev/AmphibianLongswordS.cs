@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace AAMod.Items.Dev
 {
-    public class AmphibianLongswordS : ModItem
+    public class AmphibianLongswordS : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -21,11 +21,11 @@ namespace AAMod.Items.Dev
 			item.width = 64;
 			item.height = 64;
 			item.useTime = 22;
-			item.useAnimation = 2;
+			item.useAnimation = 22;
 			item.useStyle = 1;
 			item.knockBack = 7;
-			item.value = 300000;
-			item.rare = 9;
+            item.value = Item.sellPrice(0, 10, 0, 0);
+            item.rare = 9;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("AmphibiousProjectileS");

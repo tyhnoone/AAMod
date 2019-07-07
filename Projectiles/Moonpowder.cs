@@ -37,13 +37,13 @@ namespace AAMod.Projectiles
                 projectile.ai[1] = 1f;
                 for (int num62 = 0; num62 < 30; num62++)
                 {
-                    Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, projectile.velocity.X, projectile.velocity.Y, 50, default(Color), 1f);
+                    Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType, projectile.velocity.X, projectile.velocity.Y, 50);
                 }
             }
             int num63 = (int)(projectile.position.X / 16f) - 1;
-            int num64 = (int)((projectile.position.X + (float)projectile.width) / 16f) + 2;
+            int num64 = (int)((projectile.position.X + projectile.width) / 16f) + 2;
             int num65 = (int)(projectile.position.Y / 16f) - 1;
-            int num66 = (int)((projectile.position.Y + (float)projectile.height) / 16f) + 2;
+            int num66 = (int)((projectile.position.Y + projectile.height) / 16f) + 2;
             if (num63 < 0)
             {
                 num63 = 0;
@@ -62,7 +62,7 @@ namespace AAMod.Projectiles
             }
             if (projectile.owner == Main.myPlayer)
             {
-                Convert((int)(projectile.position.X + (float)(projectile.width / 2)) / 16, (int)(projectile.position.Y + (float)(projectile.height / 2)) / 16);
+                Convert((int)(projectile.position.X + projectile.width / 2) / 16, (int)(projectile.position.Y + projectile.height / 2) / 16);
             }
         }
 

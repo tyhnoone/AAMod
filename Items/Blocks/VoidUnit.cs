@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Blocks
 {
-    public class VoidUnit : ModItem
+    public class VoidUnit : BaseAAItem
 	{
 
         
@@ -27,7 +27,7 @@ namespace AAMod.Items.Blocks
 			item.useStyle = 1;
 			item.consumable = true;
 			item.rare = 10;
-			item.value = Item.buyPrice(0, 10, 0, 0);
+			item.value = Item.sellPrice(0, 10, 0, 0);
 			item.createTile = mod.TileType("VoidUnit");
             item.rare = 10;
         }
@@ -63,7 +63,7 @@ namespace AAMod.Items.Blocks
 
                     line2.overrideColor = new Color(100, 0, 10);
 
-                    line2.overrideColor = AAColor.Zero;
+                    line2.overrideColor = AAColor.Rarity13;
 //
                 }
             }

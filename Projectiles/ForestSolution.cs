@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using AAMod.Dusts;
 using Terraria.ID;
 
 namespace AAMod.Projectiles
@@ -25,7 +24,7 @@ namespace AAMod.Projectiles
             int dustType = DustID.GrassBlades;
             if (projectile.owner == Main.myPlayer)
             {
-                AAWorld.AAConvert((int)(projectile.position.X + (float)(projectile.width / 2)) / 16, (int)(projectile.position.Y + (float)(projectile.height / 2)) / 16, 7);
+                AAWorld.AAConvert((int)(projectile.position.X + projectile.width / 2) / 16, (int)(projectile.position.Y + projectile.height / 2) / 16, 7);
             }
             if (projectile.timeLeft > 133)
             {
@@ -66,7 +65,7 @@ namespace AAMod.Projectiles
             {
                 projectile.ai[0] += 1f;
             }
-            projectile.rotation += 0.3f * (float)projectile.direction;
+            projectile.rotation += 0.3f * projectile.direction;
         }
     }
 }

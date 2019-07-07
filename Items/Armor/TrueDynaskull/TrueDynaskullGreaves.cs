@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.TrueDynaskull
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class TrueDynaskullGreaves : ModItem
+	public class TrueDynaskullGreaves : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -27,7 +27,7 @@ namespace AAMod.Items.Armor.TrueDynaskull
 
 		public override void UpdateEquip(Player player)
 		{
-			player.thrownCrit += 20;
+			player.rangedCrit += 20;
             player.moveSpeed *= 1.12f;
 		}
 

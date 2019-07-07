@@ -96,6 +96,14 @@ namespace AAMod
             return GetTimedColor(Color.Maroon, color, min, max, clamp);
         }
 
+        public static Color GetYamataColorBrightInvert2(Color color) { return GetYamataColor2(color, 1f, 0.6f, true); }
+        public static Color GetYamataColorDim2(Color color) { return GetYamataColor2(color, 0.4f, 1f, false); }
+        public static Color GetYamataColorBright2(Color color) { return GetYamataColor2(color, 0.6f, 1f, false); }
+        public static Color GetYamataColor2 (Color color, float min, float max, bool clamp)
+        {
+            return GetTimedColor(Color.Violet, color, min, max, clamp);
+        }
+
         public static Color GetCthulhuColorBrightInvert(Color color) { return GetCthulhuColor(color, 1f, 0.6f, true); }
         public static Color GetCthulhuColorDim(Color color) { return GetCthulhuColor(color, 0.4f, 1f, false); }
         public static Color GetCthulhuColorBright(Color color) { return GetCthulhuColor(color, 0.6f, 1f, false); }
@@ -135,7 +143,7 @@ namespace AAMod
 
         public static Color GetTimedColor(Color tColor, Color color, float min, float max, bool clamp)
         {
-            Color glowColor = BaseMod.BaseUtility.ColorMult(tColor, BaseMod.BaseUtility.MultiLerp((float)glowTick / (float)glowMax, min, max, min));
+            Color glowColor = BaseMod.BaseUtility.ColorMult(tColor, BaseMod.BaseUtility.MultiLerp(glowTick / (float)glowMax, min, max, min));
             if (clamp)
             {
                 if (color.R > glowColor.R) { glowColor.R = color.R; }
@@ -146,7 +154,7 @@ namespace AAMod
         }
         public static Color GetGradientColor(Color tColor1, Color tColor2, Color color, bool clamp)
         {
-            Color glowColor = Color.Lerp(tColor1, tColor2, BaseMod.BaseUtility.MultiLerp((float)glowTick / (float)glowMax, 0f, 1f, 0f));
+            Color glowColor = Color.Lerp(tColor1, tColor2, BaseMod.BaseUtility.MultiLerp(glowTick / (float)glowMax, 0f, 1f, 0f));
             if (clamp)
             {
                 if (color.R > glowColor.R) { glowColor.R = color.R; }
@@ -158,7 +166,8 @@ namespace AAMod
 
         public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
         {
-            if ((Main.tile[i, j - 1].type == mod.TileType<Tiles.ChaosAltar1>() || Main.tile[i, j - 1].type == mod.TileType<Tiles.ChaosAltar2>()) && (type != mod.TileType<Tiles.ChaosAltar1>() || type != mod.TileType<Tiles.ChaosAltar2>()))
+            if (Main.tile[i, j + 1].active() &&
+                (Main.tile[i, j].type == mod.TileType<Tiles.ChaosAltar1>() || Main.tile[i, j].type == mod.TileType<Tiles.ChaosAltar2>()))
             {
                 return false;
             }
@@ -167,7 +176,8 @@ namespace AAMod
 
         public override bool CanExplode(int i, int j, int type)
         {
-            if ((Main.tile[i, j - 1].type == mod.TileType<Tiles.ChaosAltar1>() || Main.tile[i, j - 1].type == mod.TileType<Tiles.ChaosAltar2>()) && (type != mod.TileType<Tiles.ChaosAltar1>() || type != mod.TileType<Tiles.ChaosAltar2>()))
+            if (Main.tile[i, j + 1].active() &&
+                (Main.tile[i, j].type == mod.TileType<Tiles.ChaosAltar1>() || Main.tile[i, j].type == mod.TileType<Tiles.ChaosAltar2>()))
             {
                 return false;
             }

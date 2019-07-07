@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Dev
 {
-    public class TitanAxe : ModItem
+    public class TitanAxe : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -28,7 +28,8 @@ namespace AAMod.Items.Dev
 			item.rare = 11;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
-		}
+            item.shootSpeed = 12f;
+        }
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
@@ -51,25 +52,13 @@ namespace AAMod.Items.Dev
 
             if (player.altFunctionUse == 2)
             {
-                item.useStyle = 1;
-                item.useTime = 26;
-                item.useAnimation = 26;
-                item.melee = true;
-                item.damage = 200;
                 item.shoot = mod.ProjectileType("TitanAxe");
-                item.shootSpeed = 12f;
                 item.noMelee = true;
                 item.noUseGraphic = true;
             }
             else
             {
-                item.useStyle = 1;
-                item.useTime = 26;
-                item.useAnimation = 26;
-                item.melee = true;
-                item.thrown = false;
                 item.shoot = 0;
-                item.damage = 200;
                 item.noMelee = false;
                 item.noUseGraphic = false;
             }

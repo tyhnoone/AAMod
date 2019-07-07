@@ -1,9 +1,10 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Melee
 {
-	public class SlapBone : ModItem
+	public class SlapBone : BaseAAItem
 	{
 		public override void SetDefaults()
 		{
@@ -12,8 +13,8 @@ namespace AAMod.Items.Melee
 			item.useTime = 15;
 			item.useAnimation = 15;     
 			item.knockBack = 50;
-			item.value = 100000;        
-			item.rare = 5;            
+            item.value = Item.sellPrice(0, 25, 0, 0);
+            item.rare = 5;            
 		}
 
 		public override void SetStaticDefaults()

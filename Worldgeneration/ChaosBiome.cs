@@ -19,7 +19,7 @@ namespace AAMod.Worldgeneration
 		public override bool Place(Point origin, StructureMap structures)
 		{
 			Mod mod = AAMod.instance;
-            ushort tileGrass = (ushort)mod.TileType("MireGrass"), tileDirt = TileID.Mud, tileStone = (ushort)mod.TileType("Depthstone"), tileIce = (ushort)mod.TileType("DepthIce"),
+            ushort tileGrass = (ushort)mod.TileType("MireGrass"), tileDirt = TileID.Mud, tileStone = (ushort)mod.TileType("Depthstone"), tileIce = (ushort)mod.TileType("IndigoIce"),
             tileSand = (ushort)mod.TileType("Depthsand"), tileSandHardened = (ushort)mod.TileType("DepthsandHardened"), tileSandstone = (ushort)mod.TileType("Depthsandstone"),
             LivingWood = (ushort)mod.TileType<LivingBogwood>(), LivingLeaves = (ushort)mod.TileType<LivingBogleaves>();
 
@@ -54,63 +54,63 @@ namespace AAMod.Worldgeneration
 				new InWorld(),				
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.Grass, TileID.JungleGrass, TileID.CorruptGrass, TileID.FleshGrass }), //ensure we only replace the intended tile (in this case, grass)
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius), //this provides the 'blending' on the edges (except the top)
-				new BaseMod.SetModTile(tileGrass, true, true) //actually place the tile
+				new SetModTile(tileGrass, true, true) //actually place the tile
 			}));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //dirt...
 			{
 				new InWorld(),				
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.Dirt }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileDirt, true, true)
+				new SetModTile(tileDirt, true, true)
 			}));
 			WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //stone...
 			{
 				new InWorld(),				
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.Stone, TileID.Ebonstone, TileID.Crimstone, TileID.Pearlstone }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileStone, true, true)
+				new SetModTile(tileStone, true, true)
 			}));			
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //ice...
 			{
 				new InWorld(),				
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.IceBlock, TileID.CorruptIce, TileID.FleshIce }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileIce, true, true)
+				new SetModTile(tileIce, true, true)
 			}));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //sand...
 			{
 				new InWorld(),				
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.Sand, TileID.Ebonsand, TileID.Crimsand }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileSand, true, true)
+				new SetModTile(tileSand, true, true)
 			}));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //hardened sand...
 			{
 				new InWorld(),				
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.HardenedSand, TileID.CorruptHardenedSand, TileID.CrimsonHardenedSand }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileSandHardened, true, true)
+				new SetModTile(tileSandHardened, true, true)
 			}));
 			WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //...and sandstone.
 			{
 				new InWorld(),				
 				new Modifiers.OnlyTiles(new ushort[]{ TileID.Sandstone, TileID.CorruptSandstone, TileID.CrimsonSandstone }),
 				new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-				new BaseMod.SetModTile(tileSandstone, true, true)
+				new SetModTile(tileSandstone, true, true)
 			}));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //...and Living Wood.
 			{
 				new InWorld(),				
                 new Modifiers.OnlyTiles(new ushort[]{ TileID.LivingMahogany, TileID.LivingWood}),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new BaseMod.SetModTile(LivingWood, true, true)
+                new SetModTile(LivingWood, true, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //...and Living Leaves.
 			{
 				new InWorld(),				
                 new Modifiers.OnlyTiles(new ushort[]{ TileID.LivingMahoganyLeaves, TileID.LeafBlock}),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new BaseMod.SetModTile(LivingLeaves, true, true)
+                new SetModTile(LivingLeaves, true, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{
@@ -343,7 +343,7 @@ namespace AAMod.Worldgeneration
 				new InWorld(),				
                 new Modifiers.OnlyTiles(new ushort[]{ TileID.LivingMahogany, TileID.LivingWood}),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
-                new BaseMod.SetModTile(LivingWood, true, true)
+                new SetModTile(LivingWood, true, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //Walls
 			{
@@ -541,17 +541,13 @@ namespace AAMod.Worldgeneration
 
             if (Terrasphere == null)
             {
-                if (worldSize == 3)
-                {
-                    Terrasphere = TerraLarge;
-                }
-                if (worldSize == 2)
-                {
-                    Terrasphere = TerraMed;
-                }
                 if (worldSize == 1)
                 {
                     Terrasphere = TerraSmall;
+                }
+                else
+                {
+                    Terrasphere = TerraMed;
                 }
             }
 
@@ -575,9 +571,9 @@ namespace AAMod.Worldgeneration
         }
         public static int GetWorldSize()
         {
-            //if (Main.maxTilesX == 4200) { return 1; }
-            //else if (Main.maxTilesX == 6400) { return 2; }
-            //else if (Main.maxTilesX == 8400) { return 3; }
+            if (Main.maxTilesX == 4200) { return 1; }
+            else if (Main.maxTilesX == 6400) { return 2; }
+            else if (Main.maxTilesX == 8400) { return 3; }
             return 1; //unknown size, assume small
         }
     }
@@ -610,31 +606,23 @@ namespace AAMod.Worldgeneration
 
             Texture2D TerraSmall = mod.GetTexture("Worldgeneration/Terrarium");
             Texture2D TerraMed = mod.GetTexture("Worldgeneration/TerrariumMed");
-            Texture2D TerraLarge = mod.GetTexture("Worldgeneration/TerrariumLarge");
 
             Texture2D WallSmall = mod.GetTexture("Worldgeneration/TerrariumWalls");
             Texture2D WallMed = mod.GetTexture("Worldgeneration/TerrariumMedWalls");
-            Texture2D WallLarge = mod.GetTexture("Worldgeneration/TerrariumLargeWalls");
 
             if (Terrasphere == null)
             {
-                if (worldSize == 3)
-                {
-                    Terrasphere = TerraLarge;
-
-                    TerraWalls = WallLarge;
-                }
-                if (worldSize == 2)
-                {
-                    Terrasphere = TerraMed;
-
-                    TerraWalls = WallMed;
-                }
                 if (worldSize == 1)
                 {
                     Terrasphere = TerraSmall;
 
                     TerraWalls = WallSmall;
+                }
+                else
+                {
+                    Terrasphere = TerraMed;
+
+                    TerraWalls = WallMed;
                 }
             }
 
@@ -658,9 +646,9 @@ namespace AAMod.Worldgeneration
         }
         public static int GetWorldSize()
         {
-            //if (Main.maxTilesX == 4200) { return 1; }
-            //else if (Main.maxTilesX == 6400) { return 2; }
-            //else if (Main.maxTilesX == 8400) { return 3; }
+            if (Main.maxTilesX == 4200) { return 1; }
+            else if (Main.maxTilesX == 6400) { return 2; }
+            else if (Main.maxTilesX == 8400) { return 3; }
             return 1; //unknown size, assume small
         }
     }
@@ -692,7 +680,7 @@ namespace AAMod.Worldgeneration
             TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Parthenan"), colorToTile, mod.GetTexture("Worldgeneration/ParthenanWalls"), colorToWall);
             
             gen.Generate(origin.X, origin.Y, true, true);
-            WorldGen.PlaceObject((int)(origin.X) + 34, (int)(origin.Y) + 47, (ushort)mod.TileType("DataBank"));
+            WorldGen.PlaceObject(origin.X + 34, (origin.Y) + 47, (ushort)mod.TileType("DataBank"));
             WorldGen.PlaceChest((origin.X) + 32, (origin.Y) + 47, (ushort)mod.TileType("StormChest"), true);
             WorldGen.PlaceChest((origin.X) + 41, (origin.Y) + 47, (ushort)mod.TileType("StormChest"), true);
             return true;
@@ -752,11 +740,11 @@ namespace AAMod.Worldgeneration
 
 		public override bool Apply(Point origin, int x, int y, params object[] args)
 		{
-			Vector2 value = new Vector2((float)origin.X + (_width / 2), (float)origin.Y);
-			Vector2 value2 = new Vector2((float)x, (float)y);
+			Vector2 value = new Vector2((float)origin.X + (_width / 2), origin.Y);
+			Vector2 value2 = new Vector2(x, y);
 			float num = Vector2.Distance(value2, value);
 			float num2 = Math.Max(0f, Math.Min(1f, (num - this._innerRadius) / (this._outerRadius - this._innerRadius)));
-			if (_random.NextDouble() > (double)num2)
+			if (_random.NextDouble() > num2)
 			{
 				return base.UnitApply(origin, x, y, args);
 			}

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 
 namespace AAMod.Items.Melee
 {
-    public class DragonFang : ModItem
+    public class DragonFang : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -19,7 +14,6 @@ namespace AAMod.Items.Melee
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.Arkhalis);
             item.damage = 160;
             item.width = 48;
             item.height = 46;
@@ -35,7 +29,8 @@ namespace AAMod.Items.Melee
             item.useTurn = true;
             item.noMelee = true;
             item.noUseGraphic = true;
-            item.shoot = mod.ProjectileType("MadnessSlash");
+            item.shoot = mod.ProjectileType("ValkyrieSlash");
+            item.melee = true;
         }
         public override bool AltFunctionUse(Player player)
         {
@@ -46,23 +41,24 @@ namespace AAMod.Items.Melee
         {
             if (player.altFunctionUse == 2)
             {
-                item.damage = 200;
-                item.knockBack = 6;
-                item.useTime = 13;
-                item.useAnimation = 13;
                 item.noMelee = false;
                 item.noUseGraphic = false;
-                item.shoot = 0;
+                item.channel = false;
+                item.useAnimation = 15;
+                item.useTime = 15;
+                item.useStyle = 1;
+                item.autoReuse = true;
                 item.shoot = mod.ProjectileType<Projectiles.AsgardianIce>();
             }
             else
             {
-                item.damage = 200;
-                item.useTime = 4;
-                item.knockBack = 3;
-                item.useAnimation = 4;
                 item.noMelee = true;
                 item.noUseGraphic = true;
+                item.channel = true;
+                item.useAnimation = 25;
+                item.useTime = 5;
+                item.useStyle = 5;
+                item.autoReuse = false;
                 item.shoot = mod.ProjectileType<Projectiles.ValkyrieSlash>();
             }
             return base.CanUseItem(player);

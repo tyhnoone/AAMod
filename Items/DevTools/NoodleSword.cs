@@ -2,11 +2,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.DevTools
 {
-    public class NoodleSword : ModItem
+    public class NoodleSword : BaseAAItem
     {
         
         public override void SetStaticDefaults()

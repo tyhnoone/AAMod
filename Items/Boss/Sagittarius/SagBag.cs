@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Sagittarius
 {
-    public class SagBag : ModItem
+    public class SagBag : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -32,7 +31,7 @@ namespace AAMod.Items.Boss.Sagittarius
             {
                 player.QuickSpawnItem(mod.ItemType("SagMask"));
             }
-            if (Main.rand.NextFloat() < 0.01f)
+            if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PHMDevArmor();

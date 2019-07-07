@@ -1,12 +1,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Rajah
 {
 
-    public class Bunzooka : ModItem
+    public class Bunzooka : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -25,13 +24,17 @@ namespace AAMod.Items.Boss.Rajah
             item.useStyle = 5;
             item.noMelee = true; //so the item's animation doesn't do damage
             item.knockBack = 7.5f;
-            item.value = 5000000;
+            item.value = Item.sellPrice(0, 5, 0, 0);
             item.UseSound = SoundID.Item11;
             item.autoReuse = true;
             item.shootSpeed = 24f;
             item.shoot = mod.ProjectileType("RabbitRocket3");
             item.useAmmo = AmmoID.Rocket;
             item.rare = 8;
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-20, -6);
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

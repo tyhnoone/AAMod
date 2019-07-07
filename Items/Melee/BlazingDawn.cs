@@ -23,13 +23,13 @@ namespace AAMod.Items.Melee
 			item.useAnimation = 26;
 			item.useStyle = 1;
 			item.knockBack = 5;
-			item.value = 80000;
-			item.rare = 3;
+            item.value = Item.sellPrice(0, 10, 0, 0);
+            item.rare = 3;
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = false;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name; //the glowmask texture path.
-            glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
+            glowmaskDrawType = GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
             glowmaskDrawColor = Color.White;  //glowmask draw color
         }
 		

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Tools
 {
-    public class Terratool : ModItem
+    public class Terratool : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -23,55 +23,41 @@ namespace AAMod.Items.Tools
             item.useTurn = true;
             item.damage = 60;
             item.pick = 215;
-
         }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Terratool");
-            Tooltip.SetDefault("Right Click to change tool types");
+            Tooltip.SetDefault(@"Right Click to change tool types
+You may only have a maximum of 2 tool types active");
         }
 
-        /*public override bool AltFunctionUse(Player player)
+        public override bool AltFunctionUse(Player player)
         {
             return true;
         }
 
         public override bool CanUseItem(Player player)
         {
-            if (player.altFunctionUse != 2)
+            if (player.altFunctionUse == 2)
             {
-                byte pre = item.prefix;
-                item.TurnToAir();
-                int itemID = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("Terratool_Axe"), 1, false, pre, false, false);
-                if (Main.netMode == 1)
-                {
-                    NetMessage.SendData(21, -1, -1, null, itemID, 1f, 0f, 0f, 0, 0, 0);
-                }
+                item.noUseGraphic = true;
+                AAMod.instance.TerratoolState.ToggleUI(AAMod.instance.TerratoolInterface);
+                item.pick = 0;
+                item.axe = 0;
+                item.hammer = 0;
             }
-            return base.CanUseItem(player);
-        }*/
-
-        public override bool CanRightClick()
-        {
+            else
+            {
+                item.noUseGraphic = false;
+                item.pick = UI.TerratoolTUI.Pick;
+                item.axe = UI.TerratoolTUI.Axe;
+                item.hammer = UI.TerratoolTUI.Hammer;
+            }
             return true;
         }
 
-        public override void RightClick(Player player)
-        {
-            if (player.altFunctionUse != 2)
-            {
-                byte pre = item.prefix;
-                item.TurnToAir();
-                int itemID = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("Terratool_Axe"), 1, false, pre, false, false);
-                if (Main.netMode == 1)
-                {
-                    NetMessage.SendData(21, -1, -1, null, itemID, 1f, 0f, 0f, 0, 0, 0);
-                }
-            }
-        }
-
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             {
                 ModRecipe recipe = new ModRecipe(mod);

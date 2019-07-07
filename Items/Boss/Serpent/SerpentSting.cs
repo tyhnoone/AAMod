@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Serpent
 {
-    public class SerpentSting : ModItem
+    public class SerpentSting : BaseAAItem
 	{
 		
 		public override void SetStaticDefaults()

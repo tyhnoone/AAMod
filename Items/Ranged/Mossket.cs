@@ -1,9 +1,9 @@
 using Terraria.ID;
-using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace AAMod.Items.Ranged
 {
-    public class Mossket : ModItem
+    public class Mossket : BaseAAItem
     {
 
         public override void SetDefaults()
@@ -24,6 +24,11 @@ namespace AAMod.Items.Ranged
             item.scale = 1f;
             item.rare = 1;
             item.ranged = true;
+        }
+		
+		public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-12, 0);
         }
     }
 }

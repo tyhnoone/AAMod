@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Accessories
 {
     [AutoloadEquip(EquipType.Face)]
-    public class SoulStone : ModItem
+    public class SoulStone : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -26,6 +25,17 @@ Allows you to detect the souls of creatures, detect valuable resources, and see 
             item.value = Item.sellPrice(0, 0, 0, 0);
             item.rare = 11;
             item.accessory = true;
+            item.prefix = 0;
+        }
+
+        public override void PostReforge()
+        {
+            item.prefix = 0;
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            item.prefix = 0;
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)

@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AAmod.Items.Melee
+namespace AAMod.Items.Melee
 {
-    public class DesertScimitar : ModItem
+    public class DesertScimitar : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -21,7 +21,7 @@ namespace AAmod.Items.Melee
             item.useAnimation = 26;
             item.useStyle = 1;
             item.knockBack = 4;
-            item.value = Item.buyPrice(0, 0, 0, 52);
+            item.value = Item.sellPrice(0, 0, 50, 0);
             item.rare = 5;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
@@ -44,7 +44,7 @@ namespace AAmod.Items.Melee
         {
             Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(20));
             float scale = 1f - (Main.rand.NextFloat() * .3f);
-            perturbedSpeed = perturbedSpeed * scale;
+            perturbedSpeed *= scale;
             Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
             return false;
         }

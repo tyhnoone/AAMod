@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Dev
 {
     //imported from my tAPI mod because I'm lazy
-    public class EnderStaff : ModItem
+    public class EnderStaff : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -31,15 +31,23 @@ I thought the sky was purple
 			item.useStyle = 1;
 			item.noMelee = true;
 			item.knockBack = 3;
-			item.value = Item.buyPrice(0, 20, 0, 0);
+			item.value = Item.sellPrice(0, 20, 0, 0);
 			item.rare = 8;
             item.expert = true;
 			item.UseSound = SoundID.Item44;
 			item.shoot = mod.ProjectileType("EnderMinion");
 			item.shootSpeed = 7f;
 			item.buffType = mod.BuffType("EnderMinionBuff");	//The buff added to player after used the item
-            item.buffTime = 18000;
 		}
+		
+		public override void UseStyle(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+			{
+				player.AddBuff(item.buffType, 3600, true);
+			}
+		}
+		
         public override void ModifyTooltips(List<TooltipLine> list)
         {
             foreach (TooltipLine line2 in list)

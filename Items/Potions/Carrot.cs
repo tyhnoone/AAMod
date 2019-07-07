@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Potions
 {
-    public class Carrot : ModItem
+    public class Carrot : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{

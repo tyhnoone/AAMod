@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Throwing
 {
-    public class StormJavelin : ModItem
+    public class StormJavelin : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -59,7 +59,7 @@ namespace AAMod.Items.Throwing
             );
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "FulguriteBar");

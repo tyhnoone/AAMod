@@ -33,7 +33,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             npc.boss = false;
             npc.noGravity = true;
             npc.chaseable = false;
-            npc.damage = 150;
+            npc.damage = 250;
             NPCID.Sets.TechnicallyABoss[npc.type] = true;
             npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCKilled, "Sounds/Sounds/YamataRoar");
             for (int k = 0; k < npc.buffImmune.Length; k++)
@@ -53,10 +53,10 @@ namespace AAMod.NPCs.Bosses.Yamata
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((float)customAI[0]);
-                writer.Write((float)customAI[1]);
-                writer.Write((float)customAI[2]);
-                writer.Write((float)customAI[3]);
+                writer.Write(customAI[0]);
+                writer.Write(customAI[1]);
+                writer.Write(customAI[2]);
+                writer.Write(customAI[3]);
             }
         }
 
@@ -89,7 +89,6 @@ namespace AAMod.NPCs.Bosses.Yamata
         public override void AI()
         {
             int attackpower = isAwakened ? 130 : 100;
-            int projectileDamage = 0;
             if (Body == null)
             {
                 NPC npcBody = Main.npc[(int)npc.ai[0]];
@@ -110,15 +109,6 @@ namespace AAMod.NPCs.Bosses.Yamata
             else
             {
                 npc.damage = attackpower;
-            }
-
-            if (Main.expertMode)
-            {
-                projectileDamage = attackpower / 4;
-            }
-            else
-            {
-                projectileDamage = attackpower / 2;
             }
             npc.TargetClosest();
             Player targetPlayer = Main.player[npc.target];
@@ -200,7 +190,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                 {
                     npc.ai[1]++; ;
                 }
-                int aiTimerFire = (npc.whoAmI % 3 == 0 ? 50 : npc.whoAmI % 2 == 0 ? 150 : 100); //aiTimerFire is different per head by using whoAmI (which is usually different) 
+                int aiTimerFire = (npc.whoAmI % 3 == 0 ? 50 : npc.whoAmI % 2 == 0 ? 150 : 100);
                 if (leftHead) aiTimerFire += 30;
                 if (targetPlayer != null && npc.ai[1] == aiTimerFire)
                 {
@@ -245,6 +235,14 @@ namespace AAMod.NPCs.Bosses.Yamata
             }
         }
 
+        public override void HitEffect(int hitDirection, double damage)
+        {
+            if (npc.life <= 0)
+            {
+                BaseUtility.Chat("OWIE!!!", new Color(45, 46, 70));
+            }
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             return false;
@@ -277,14 +275,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             rotation = npc.rotation;
         }
         
-		public override bool PreNPCLoot()
-        {
-            if (Body.npc.active)
-            {
-                BaseUtility.Chat("OWIE!!!", new Color(45, 46, 70));
-            }
-            return false;
-        }
+		
 
         public override bool CheckActive()
         {
@@ -309,7 +300,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            npc.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            npc.Distance(Main.npc[selectedTarget].Center) > distance) 
                     )
                         selectedTarget = i;
                 }

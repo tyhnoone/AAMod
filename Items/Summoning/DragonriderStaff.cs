@@ -2,11 +2,10 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Summoning
 {
-    public class DragonriderStaff : ModItem
+    public class DragonriderStaff : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -30,9 +29,17 @@ namespace AAMod.Items.Summoning
             item.noMelee = true;
             item.knockBack = 2f;
             item.buffType = mod.BuffType("DragonMinion");
-            item.buffTime = 3600;
             item.summon = true;
+            item.value = Terraria.Item.sellPrice(0, 8, 0, 0);
         }
+		
+		public override void UseStyle(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+			{
+				player.AddBuff(item.buffType, 3600, true);
+			}
+		}
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {

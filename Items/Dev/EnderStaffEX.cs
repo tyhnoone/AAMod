@@ -31,19 +31,26 @@ Conflagrate Staff EX");
 			item.useStyle = 1;
 			item.noMelee = true;
 			item.knockBack = 3;
-			item.value = Item.buyPrice(0, 20, 0, 0);
+			item.value = Item.sellPrice(0, 20, 0, 0);
             item.shoot = mod.ProjectileType("EnderMinionEX");
             item.buffType = mod.BuffType("EnderMinionBuffEX");
             item.rare = 8;
             item.expert = true;
 			item.UseSound = SoundID.Item44;
 			item.shootSpeed = 7f;	//The buff added to player after used the item
-            item.buffTime = 18000;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
             glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
             glowmaskDrawColor = Color.White;  //glowmask draw color
         }
+		
+		public override void UseStyle(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+			{
+				player.AddBuff(item.buffType, 3600, true);
+			}
+		}
 
         public override void AddRecipes()
         {

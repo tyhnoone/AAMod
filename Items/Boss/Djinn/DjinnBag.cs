@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Djinn
 {
-    public class DjinnBag : ModItem
+    public class DjinnBag : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -34,14 +33,10 @@ namespace AAMod.Items.Boss.Djinn
             {
                 player.QuickSpawnItem(mod.ItemType("DjinnMask"));
             }
-            if (Main.rand.NextFloat() < 0.01f)
+            if (Main.rand.Next(20) == 0)
             {
-                int choice = Main.rand.Next(17);
-                {
-
-                    AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
-                    modPlayer.PHMDevArmor();
-                }
+                AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+                modPlayer.PHMDevArmor();
             }
             player.QuickSpawnItem(mod.ItemType("DesertMana"), Main.rand.Next(15, 20));
             string[] lootTable = { "Djinnerang", "SandLamp", "SandScepter", "SandstormCrossbow", "SultanScimitar" };

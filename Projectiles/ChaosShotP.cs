@@ -64,21 +64,21 @@ namespace AAMod.Projectiles
             }
             
             
-            projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 0.785f;
+            projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 0.785f;
             if (projectile.velocity.Y > 16f)
             {
                 projectile.velocity.Y = 16f;
             }
             
             const int aislotHomingCooldown = 0;
-            const int homingDelay = 10;
-            const float desiredFlySpeedInPixelsPerFrame = 60;
+            const int homingDelay = 30;
+            const float desiredFlySpeedInPixelsPerFrame = 20;
             const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
 
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
             {
-                projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
+                projectile.ai[aislotHomingCooldown] = homingDelay; 
 
                 int foundTarget = HomeOnTarget();
                 if (foundTarget != -1)
@@ -105,7 +105,7 @@ namespace AAMod.Projectiles
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) 
                     )
                         selectedTarget = i;
                 }

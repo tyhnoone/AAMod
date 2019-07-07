@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Throwing
 {
-    public class Paladins_Knife : ModItem
+    public class Paladins_Knife : BaseAAItem
 	{
 		public override void SetDefaults()
 		{

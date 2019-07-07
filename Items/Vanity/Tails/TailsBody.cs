@@ -6,13 +6,13 @@ namespace AAMod.Items.Vanity.Tails
 
 {
     [AutoloadEquip(EquipType.Body)]
-    public class TailsBody : ModItem
+    public class TailsBody : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
             DisplayName.SetDefault("Tails Body Costume");
-            Tooltip.SetDefault(@"A costume made to resemble a certain two-tailed fox.
+            Tooltip.SetDefault(@"A body suit made to resemble a certain two-tailed fox.
 'Great for impersonating Ancients Awakened Devs!'");
         }
 

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Ytrium
 {
     [AutoloadEquip(EquipType.Body)]
-    public class YtriumPlate : ModItem
+    public class YtriumPlate : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -20,7 +20,7 @@ namespace AAMod.Items.Armor.Ytrium
             item.height = 18;
             item.value = 70000;
             item.rare = 4;
-            item.defense = 9;
+            item.defense = 7;
         }
 
         public override void UpdateEquip(Player player)

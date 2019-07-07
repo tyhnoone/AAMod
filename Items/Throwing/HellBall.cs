@@ -1,9 +1,10 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Throwing
 {
-    public class HellBall : ModItem
+    public class HellBall : BaseAAItem
     {
 
         public override void SetDefaults()
@@ -23,15 +24,23 @@ namespace AAMod.Items.Throwing
             item.height = 56;
         }
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Scorched Saw");
-      Tooltip.SetDefault("");
-    }
+        public override void SetStaticDefaults()
+        {
+          DisplayName.SetDefault("Scorched Saw");
+          Tooltip.SetDefault("");
+        }
 
+        public override bool CanUseItem(Player player)       //this make that you can shoot only 1 boomerang at once
+        {
+            if (AAGlobalProjectile.CountProjectiles(mod.ProjectileType("HellBallP")) > 5)
+            {
+                return false;
+            }
+            return true;
+        }
 
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {                                                   
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.HellstoneBar, 20);              //exeample of how to craft with a modded item
 			recipe.AddIngredient(ItemID.SoulofNight, 5);

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Yamata   //where is located
 {
-    public class Hydraslayer : ModItem
+    public class Hydraslayer : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -23,20 +23,20 @@ Inflicts Moonrazed");
         public override void SetDefaults()
         {
             item.shoot = mod.ProjectileType("YWProjectile");
-            item.damage = 220;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 86;              //Sword width
-            item.height = 86;             //Sword height
-            item.useTime = 17;          //how fast 
+            item.damage = 220;            
+            item.melee = true;            
+            item.width = 86;              
+            item.height = 86;             
+            item.useTime = 17;          
             item.useAnimation = 17;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 3f;      //Sword knockback
-            item.value = Item.buyPrice(1, 0, 0, 0);
-            item.UseSound = SoundID.Item20;      //1 is the sound of the sword
-            item.autoReuse = true;   //if it's capable of autoswing.
+            item.useStyle = 1;        
+            item.knockBack = 3f;      
+            item.value = Item.sellPrice(0, 30, 0, 0);
+            item.UseSound = SoundID.Item20;      
+            item.autoReuse = true;   
             item.useTurn = true;
             item.shootSpeed = 20f;
-            item.rare = 10;
+            item.rare = 9; AARarity = 13;
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
@@ -66,9 +66,19 @@ Inflicts Moonrazed");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Yamata;
+                    line2.overrideColor = AAColor.Rarity13;
                 }
             }
+        }
+
+        int shoot = 0;
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockback)
+        {
+            shoot++;
+            if (shoot % 2 != 0) return false;
+
+            shoot = 0;
+            return true;
         }
 
         public void OnHitNPC(NPC target, int damage, float knockback, bool crit)

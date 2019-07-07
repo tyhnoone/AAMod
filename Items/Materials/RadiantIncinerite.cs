@@ -4,7 +4,7 @@ using Terraria;
 
 namespace AAMod.Items.Materials
 {
-    public class RadiantIncinerite : ModItem
+    public class RadiantIncinerite : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -31,7 +31,7 @@ namespace AAMod.Items.Materials
         }
 
 		public override void AddRecipes()
-        {                                                   //How to craft this item
+        {                                                   
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.ChlorophyteBar, 2);
             recipe.AddIngredient(null, "IncineriteBar", 1);              //example of how to craft with a modded item

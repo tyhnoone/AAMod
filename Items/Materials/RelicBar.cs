@@ -3,7 +3,7 @@ using Terraria.ID;
 
 namespace AAMod.Items.Materials
 {
-    public class RelicBar : ModItem
+    public class RelicBar : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -27,7 +27,7 @@ namespace AAMod.Items.Materials
         }
 
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {                                                   
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "VikingRelic", 2);              //example of how to craft with a modded item
             recipe.AddTile(TileID.Furnaces);

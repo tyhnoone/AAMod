@@ -1,9 +1,9 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 namespace AAMod.Items.Boss.Raider
 {
-    public class RaiderBag : ModItem
+    public class RaiderBag : BaseAAItem
 	{
         
         public override void SetStaticDefaults()
@@ -59,7 +59,7 @@ namespace AAMod.Items.Boss.Raider
             {
                 player.QuickSpawnItem(mod.ItemType("RaidEgg"));
             }
-            if (Main.rand.NextFloat() < 0.01f)
+            if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.HMDevArmor();

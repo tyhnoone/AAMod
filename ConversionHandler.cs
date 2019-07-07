@@ -54,7 +54,7 @@ namespace AAMod.Worldgen
             return 1; //unknown size, assume small
         }			
 
-	#region thread callback stuff
+	    #region thread callback stuff
 		public static void ConvertDownMireCallback(object threadContext)
 		{
 			try
@@ -105,7 +105,7 @@ namespace AAMod.Worldgen
                     wallSandHard = mod.WallType("DepthsandHardenedWall");
                     tileSandstone = mod.TileType("Depthsandstone");
 					wallSandstone = mod.WallType("DepthsandstoneWall");	
-					tileIce = mod.TileType("DepthIce");
+					tileIce = mod.TileType("IndigoIce");
 					//tileThorn = mod.TileType("MireThorn");			
 					break;
 				}
@@ -146,8 +146,8 @@ namespace AAMod.Worldgen
 				{
 					if (WorldGen.InWorld(k, l, 1))
 					{
-						int type = (int)Main.tile[k, l].type;
-						int wall = (int)Main.tile[k, l].wall;
+						int type = Main.tile[k, l].type;
+						int wall = Main.tile[k, l].wall;
 						if (wallGrass != 0 && WallID.Sets.Conversion.Grass[wall] && wall != wallGrass)
 						{
 							Main.tile[k, l].wall = (ushort)wallGrass;

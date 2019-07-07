@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Materials
 {
-    public class AbyssiumBar : ModItem
+    public class AbyssiumBar : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -30,7 +30,7 @@ namespace AAMod.Items.Materials
         }
 
 		public override void AddRecipes()
-        {                                                   //How to craft this item
+        {                                                   
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "Abyssium", 3);              //example of how to craft with a modded item
             recipe.AddTile(TileID.Furnaces);

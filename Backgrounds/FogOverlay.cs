@@ -5,7 +5,6 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.Graphics;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
-using AAMod.NPCs.Bosses.Yamata;
 using Terraria.ModLoader;
 using BaseMod;
 
@@ -32,17 +31,13 @@ namespace AAMod.Backgrounds
             if (fadeOpacity == 0f) return; //don't draw if no fog
             Main.spriteBatch.Begin();
             Player player = Main.player[Main.myPlayer];
-            Texture2D fog = mod.GetTexture("Backgrounds/fog");
+            Texture2D fog = mod.GetTexture("Backgrounds/FogTex");
 
             Color DefaultFog = new Color(62, 68, 100);
             Color YamataFog = new Color(100, 38, 62);
 
-            bool Yamata = NPC.AnyNPCs(mod.NPCType<Yamata>());
             bool YamataA = NPC.AnyNPCs(mod.NPCType<YamataA>());
 
-            Color defaultColor = YamataA ? YamataFog : Color.White;
-
-            Color bgColor = GetAlpha(defaultColor, 0.2f * fadeOpacity * dayTimeOpacity);
             Color fogColor = GetAlpha(YamataA ? YamataFog : DefaultFog, 0.4f * fadeOpacity * dayTimeOpacity);
 
             //ensure we cover the whole screen first
@@ -115,11 +110,11 @@ namespace AAMod.Backgrounds
         public Color GetAlpha(Color newColor, float alph)
         {
             int alpha = 255 - (int)(255 * alph);
-            float alphaDiff = (float)(255 - alpha) / 255f;
-            int newR = (int)((float)newColor.R * alphaDiff);
-            int newG = (int)((float)newColor.G * alphaDiff);
-            int newB = (int)((float)newColor.B * alphaDiff);
-            int newA = (int)newColor.A - alpha;
+            float alphaDiff = (255 - alpha) / 255f;
+            int newR = (int)(newColor.R * alphaDiff);
+            int newG = (int)(newColor.G * alphaDiff);
+            int newB = (int)(newColor.B * alphaDiff);
+            int newA = newColor.A - alpha;
             if (newA < 0) newA = 0;
             if (newA > 255) newA = 255;
             return new Color(newR, newG, newB, newA);

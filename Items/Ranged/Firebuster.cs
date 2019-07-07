@@ -1,9 +1,9 @@
 using Terraria.ID;
-using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace AAMod.Items.Ranged
 {
-    public class Firebuster : ModItem
+    public class Firebuster : BaseAAItem
     {
 
         public override void SetDefaults()
@@ -25,6 +25,11 @@ namespace AAMod.Items.Ranged
             item.rare = 1;
             item.ranged = true;
             item.crit = 10;
+        }
+		
+		public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-7, 0);
         }
     }
 }

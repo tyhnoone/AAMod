@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Dev
 {
-    public class GentlemansLongblade : ModItem
+    public class GentlemansLongblade : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -32,7 +32,7 @@ Gentleman's Rapier EX");
             item.shoot = mod.ProjectileType("TopHat");
             item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
-            item.shootSpeed = 18f;
+            item.shootSpeed = 22f;
         }
 
         public override void ModifyTooltips(List<TooltipLine> list)
@@ -79,13 +79,11 @@ Gentleman's Rapier EX");
 
         public override void AddRecipes()
         {
-            {
-                ModRecipe recipe = new ModRecipe(mod);
-                recipe.AddIngredient(null, "GentlemansRapier");
-                recipe.AddIngredient(null, "EXSoul");
-                recipe.SetResult(this);
-                recipe.AddRecipe();
-            }
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "GentlemansRapier");
+            recipe.AddIngredient(null, "EXSoul");
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

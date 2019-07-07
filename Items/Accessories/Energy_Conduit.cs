@@ -1,11 +1,10 @@
 using Terraria;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Accessories
 {
-    public class Energy_Conduit : ModItem
+    public class Energy_Conduit : BaseAAItem
 	{
 		public override void SetDefaults()
 		{

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.TrueBlazing
 {
     [AutoloadEquip(EquipType.Head)]
-	public class TrueBlazingKabuto : ModItem
+	public class TrueBlazingKabuto : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -49,8 +49,6 @@ Your Swung weapons set your enemies ablaze";
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("BlazingKabuto"));
             recipe.AddIngredient(mod.ItemType("InfernoCrystal"));
-            recipe.AddIngredient(ItemID.FossilHelm);
-            recipe.AddIngredient(mod.ItemType("DoomiteUHelm"));
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
             recipe.AddRecipe();

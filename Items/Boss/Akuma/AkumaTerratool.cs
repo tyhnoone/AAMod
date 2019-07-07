@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Akuma
 {
-    public class AkumaTerratool : ModItem
+    public class AkumaTerratool : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -14,53 +12,50 @@ namespace AAMod.Items.Boss.Akuma
             item.width = 54;
             item.height = 60;
             item.useStyle = 1;
-            item.useTime = 5;
+            item.useTime = 4;
             item.useAnimation = 20;
             item.tileBoost += 20;
             item.knockBack = 3;
-            item.value = 1000000;
-            item.rare = 10;
+            item.value = Item.sellPrice(0, 20, 0, 0);
+            item.rare = 9;
+            AARarity = 13;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
             item.useTurn = true;
             item.damage = 100;
             item.pick = 300;
-
         }
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Terratool");
-            Tooltip.SetDefault("Right Click to change tool types");
+            DisplayName.SetDefault("Draconian Terratool");
+            Tooltip.SetDefault(@"Right Click to change tool types
+You may only have a maximum of 2 tool types active");
         }
 
-        public override bool CanRightClick()
+        public override bool AltFunctionUse(Player player)
         {
             return true;
         }
 
-
-        public override void ModifyTooltips(List<TooltipLine> list)
+        public override bool CanUseItem(Player player)
         {
-            foreach (TooltipLine line2 in list)
+            if (player.altFunctionUse == 2)
             {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Akuma;
-                }
+                item.noUseGraphic = true;
+                AAMod.instance.TerratoolAState.ToggleUI(AAMod.instance.TerratoolAInterface);
+                item.pick = 0;
+                item.axe = 0;
+                item.hammer = 0;
             }
-        }
-
-
-        public override void RightClick(Player player)
-        {
-            byte pre = item.prefix;
-            item.TurnToAir();
-            int itemID = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("AkumaTerratool_Axe"), 1, false, pre, false, false);
-            if (Main.netMode == 1)
+            else
             {
-                NetMessage.SendData(21, -1, -1, null, itemID, 1f, 0f, 0f, 0, 0, 0);
+                item.noUseGraphic = false;
+                item.pick = UI.TerratoolAUI.Pick;
+                item.axe = UI.TerratoolAUI.Axe;
+                item.hammer = UI.TerratoolAUI.Hammer;
             }
+            return true;
         }
     }
 }

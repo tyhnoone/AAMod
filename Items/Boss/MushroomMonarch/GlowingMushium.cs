@@ -1,11 +1,10 @@
 using BaseMod;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.MushroomMonarch
 {
-    public class GlowingMushium : ModItem
+    public class GlowingMushium : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -13,6 +12,7 @@ namespace AAMod.Items.Boss.MushroomMonarch
             item.height = 16;
             item.maxStack = 999;
             item.rare = 1;
+            item.value = Terraria.Item.sellPrice(0, 0, 3, 0);
         }
 
         public override void SetStaticDefaults()

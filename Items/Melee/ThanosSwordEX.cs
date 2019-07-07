@@ -8,7 +8,8 @@ namespace AAMod.Items.Melee
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Thanoscopter Blades");
-            Tooltip.SetDefault(@"'I am...inevitable'
+            Tooltip.SetDefault(@"Right click to throw the blade as a boomerang
+'I am...inevitable'
 Mad Titan's Dualblade EX");
         }
 
@@ -25,7 +26,7 @@ Mad Titan's Dualblade EX");
             item.channel = true;
             item.useStyle = 100;
             item.knockBack = 6f;
-            item.value = Item.buyPrice(3, 0, 0, 0);
+            item.value = Item.sellPrice(3, 0, 0, 0);
             item.rare = 11;
             item.shoot = mod.ProjectileType("ThanosSwordEX");
             item.noUseGraphic = true;
@@ -38,7 +39,7 @@ Mad Titan's Dualblade EX");
 
         public override bool CanUseItem(Player player)
         {
-            if (player.altFunctionUse == 2)
+            if (player.altFunctionUse != 2)
             {
                 item.useStyle = 100;
                 item.shoot = mod.ProjectileType("ThanosSwordEX");
@@ -48,7 +49,7 @@ Mad Titan's Dualblade EX");
             {
                 item.useStyle = 1;
                 item.shoot = mod.ProjectileType("ThanosSwordEXT");
-                item.shootSpeed = 10f;
+                item.shootSpeed = 14f;
             }
             for (int i = 0; i < 1000; ++i)
             {

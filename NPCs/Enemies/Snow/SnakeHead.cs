@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -30,7 +29,7 @@ namespace AAMod.NPCs.Enemies.Snow
             npc.HitSound = SoundID.NPCHit5;
             npc.DeathSound = SoundID.NPCDeath7;
             npc.netAlways = true;
-            npc.value = Item.buyPrice(0, 0, 10, 0);
+            npc.value = Item.sellPrice(0, 0, 10, 0);
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -72,17 +71,25 @@ namespace AAMod.NPCs.Enemies.Snow
         {
             for (int k = 0; k < 5; k++)
             {
-                Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.IceDust>(), hitDirection, -1f, 0, default(Color), 1f);
+                Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.IceDust>(), hitDirection, -1f, 0);
             }
             if (npc.life == 0)
             {
                 for (int k = 0; k < 5; k++)
                 {
-                    Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.SnowDustLight>(), hitDirection, -1f, 0, default(Color), 1f);
+                    Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.SnowDustLight>(), hitDirection, -1f, 0);
                 }
             }
         }
 
+        public override bool PreNPCLoot()
+        {
+            if (NPC.AnyNPCs(mod.NPCType<Bosses.Serpent.SerpentHead>()))
+            {
+                return false;
+            }
+            return base.PreNPCLoot();
+        }
         public override void NPCLoot()
         {
             npc.DropLoot(mod.ItemType("SubzeroCrystal"));

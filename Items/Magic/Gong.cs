@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Magic
 {
-    public class Gong : ModItem
+    public class Gong : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -31,13 +31,13 @@ namespace AAMod.Items.Magic
             DisplayName.SetDefault("Gong");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup("AAMod:Gold", 15);
             recipe.AddIngredient(ItemID.WhiteString);
             recipe.AddIngredient(ItemID.ManaCrystal);
-            recipe.AddTile(TileID.Anvils);   //at work bench
+            recipe.AddTile(TileID.Anvils);   
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

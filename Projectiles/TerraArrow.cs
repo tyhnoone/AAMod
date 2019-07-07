@@ -25,10 +25,10 @@ namespace AAMod.Projectiles
         public override void AI()
         {
             int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, 107, projectile.velocity.X * 0.2f,
-                projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+                projectile.velocity.Y * 0.2f, 100);
             Main.dust[dustId].noGravity = true;
             int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, 107, projectile.velocity.X * 0.2f,
-                projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+                projectile.velocity.Y * 0.2f, 100);
             Main.dust[dustId3].noGravity = true;
 
             const int aislotHomingCooldown = 0;
@@ -39,7 +39,7 @@ namespace AAMod.Projectiles
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
             {
-                projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
+                projectile.ai[aislotHomingCooldown] = homingDelay; 
 
                 int foundTarget = HomeOnTarget();
                 if (foundTarget != -1)
@@ -66,7 +66,7 @@ namespace AAMod.Projectiles
                     if (distance <= homingMaximumRangeInPixels && Collision.CanHit(projectile.position, projectile.width, projectile.height, n.position, n.width, n.height) &&
                     (
                         selectedTarget == -1 || //there is no selected target
-                        projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                        projectile.Distance(Main.npc[selectedTarget].Center) > distance) 
                     )
                         selectedTarget = i;
                 }
@@ -74,9 +74,9 @@ namespace AAMod.Projectiles
 
             return selectedTarget;
         }
-
         public override void Kill(int timeleft)
         {
+            Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1);
             for (int num468 = 0; num468 < 20; num468++)
             {
                 int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 107, -projectile.velocity.X * 0.2f,

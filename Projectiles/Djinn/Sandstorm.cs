@@ -62,7 +62,7 @@ namespace AAMod.Projectiles.Djinn
             int num3 = 160;
             for (int i = 0; i < 1; i++)
             {
-                Vector2 position = new Vector2(projectile.Center.X - (float)(num2 / 2), projectile.position.Y + (float)projectile.height - (float)num3);
+                Vector2 position = new Vector2(projectile.Center.X - num2 / 2, projectile.position.Y + projectile.height - num3);
                 if (Collision.SolidCollision(position, num2, num3) || Collision.WetCollision(position, num2, num3))
                 {
                     if (projectile.velocity.Y > 0f)
@@ -132,14 +132,14 @@ namespace AAMod.Projectiles.Djinn
                     dust.noGravity = true;
                     dust.velocity.Y = Main.rand.NextFloat() * -0.5f - 1.3f;
                     Dust expr_49A_cp_0 = dust;
-                    expr_49A_cp_0.velocity.X = expr_49A_cp_0.velocity.X + projectile.velocity.X * 2.1f;
+                    expr_49A_cp_0.velocity.X += projectile.velocity.X * 2.1f;
                     dust.noLight = true;
                 }
             }
             Vector2 position3 = projectile.Bottom + new Vector2(-25f, -25f);
             for (int k = 0; k < 4; k++)
             {
-                Dust dust2 = Dust.NewDustDirect(position3, 50, 25, 269, projectile.velocity.X, -2f, 100, default(Color), 1f);
+                Dust dust2 = Dust.NewDustDirect(position3, 50, 25, 269, projectile.velocity.X, -2f, 100);
                 dust2.fadeIn = 1.1f;
                 dust2.noGravity = true;
             }
@@ -156,7 +156,7 @@ namespace AAMod.Projectiles.Djinn
                     gore.timeLeft = 60;
                     gore.alpha = 50;
                     Gore expr_5FA_cp_0 = gore;
-                    expr_5FA_cp_0.velocity.X = expr_5FA_cp_0.velocity.X + projectile.velocity.X;
+                    expr_5FA_cp_0.velocity.X += projectile.velocity.X;
                 }
             }
             for (int m = 0; m < 1; m++)

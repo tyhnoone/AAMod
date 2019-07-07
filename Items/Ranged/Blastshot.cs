@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Ranged
 {
-    public class Blastshot : ModItem
+    public class Blastshot : BaseAAItem
     {
         
         public override void SetDefaults()
@@ -26,6 +26,11 @@ namespace AAMod.Items.Ranged
             item.UseSound = SoundID.Item34;
             item.autoReuse = true;
             item.shootSpeed = 14f;
+        }
+		
+		public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-4, 0);
         }
 
         public override void SetStaticDefaults()

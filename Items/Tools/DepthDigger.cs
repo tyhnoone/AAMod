@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Tools
 {
-    public class DepthDigger : ModItem
+    public class DepthDigger : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -23,7 +23,7 @@ namespace AAMod.Items.Tools
 			item.useStyle = 1;
 			item.knockBack = 4;
 			item.value = 3600;
-			item.rare = 2;
+			item.rare = 6;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 		}

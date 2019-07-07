@@ -1,9 +1,8 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Usable
 {
-    public class MireCrate : ModItem
+    public class MireCrate : BaseAAItem
     {
         public override void SetDefaults()
         {

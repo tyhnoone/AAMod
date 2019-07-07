@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -6,7 +5,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Armor.Dread
 {
     [AutoloadEquip(EquipType.Legs)]
-	public class DreadBoots : ModItem
+	public class DreadBoots : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -22,8 +21,10 @@ The abyssal wrath of the Mire rests in this armor");
 			item.width = 22;
 			item.height = 16;
 			item.value = 3000000;
-			item.defense = 29;
-		}
+			item.defense = 30;
+            item.rare = 9;
+            AARarity = 13;
+        }
 
 		public override void UpdateEquip(Player player)
 		{
@@ -31,17 +32,6 @@ The abyssal wrath of the Mire rests in this armor");
             player.ammoCost75 = true;
 			player.endurance *= 1.05f;
 		}
-
-        public override void ModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Yamata;;
-                }
-            }
-        }
 
         public override void AddRecipes()
         {

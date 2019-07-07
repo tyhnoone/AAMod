@@ -2,19 +2,18 @@ using Terraria;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
-using System.Collections.Generic;
 
 
 namespace AAMod.Items.Armor.Doomsday
 {
     [AutoloadEquip(EquipType.Body)]
-	public class DoomsdayChestplate : ModItem
+	public class DoomsdayChestplate : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
 			DisplayName.SetDefault("Doomsday Assault Armor");
-			Tooltip.SetDefault(@"35% increased Minion damage
+			Tooltip.SetDefault(@"35% decreased mana usage
 The power to destroy entire planets rests in this armor");
 		}
 
@@ -23,8 +22,10 @@ The power to destroy entire planets rests in this armor");
 			item.width = 30;
 			item.height = 20;
 			item.value = 3000000;
-			item.defense = 46;
-		}
+			item.defense = 35;
+            item.rare = 9;
+            AARarity = 13;
+        }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
@@ -47,20 +48,9 @@ The power to destroy entire planets rests in this armor");
             );
         }
 
-        public override void ModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Zero;
-                }
-            }
-        }
-
         public override void UpdateEquip(Player player)
 		{
-			player.minionDamage += .35f;
+			player.manaCost *= .65f;
         }
 
 		public override void AddRecipes()

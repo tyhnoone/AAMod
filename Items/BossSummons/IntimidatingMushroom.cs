@@ -7,7 +7,7 @@ using BaseMod;
 
 namespace AAMod.Items.BossSummons
 {
-    public class IntimidatingMushroom : ModItem
+    public class IntimidatingMushroom : BaseAAItem
     {
 
         public override void SetStaticDefaults()
@@ -32,7 +32,7 @@ Can only be used during the day in a red mushroom biome");
 
         public override bool UseItem(Player player)
         {
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("MushroomMonarch"));
+            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("MushroomMonarch"), true, 0, 0, "The Mushroom Monarch", false);
             Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
             return true;
         }

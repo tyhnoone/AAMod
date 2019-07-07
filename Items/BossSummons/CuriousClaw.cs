@@ -8,7 +8,7 @@ using AAMod.NPCs.Bosses.Grips;
 namespace AAMod.Items.BossSummons
 {
     //imported from my tAPI mod because I'm lazy
-    public class CuriousClaw : ModItem
+    public class CuriousClaw : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -58,7 +58,7 @@ Only usable at night");
         public override bool UseItem(Player player)
         {
             AAModGlobalNPC.SpawnBoss(player, mod.NPCType("GripOfChaosBlue"), true, 1, 0, "The Grips of Chaos", true);
-            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("GripOfChaosRed"), false, -1, 0);
+            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("GripOfChaosRed"), false, -1, 0, "", true);
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;
         }

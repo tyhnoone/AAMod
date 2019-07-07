@@ -16,7 +16,7 @@ namespace AAMod.Projectiles
         {
             projectile.width = 130;
             projectile.height = 130;
-            projectile.aiStyle = 50;
+            projectile.aiStyle = -1;
             projectile.friendly = true;
             projectile.alpha = 255;
             projectile.magic = true;
@@ -28,7 +28,7 @@ namespace AAMod.Projectiles
         {
             if (projectile.localAI[0] == 0f)
             {
-                Main.PlaySound(SoundID.Item74, projectile.position);
+                Main.PlaySound(SoundID.Item20, projectile.position);
                 projectile.localAI[0] += 1f;
             }
             projectile.ai[0] += 1f;
@@ -51,12 +51,12 @@ namespace AAMod.Projectiles
                 num461 *= 0.7f;
             }
             int num462 = 0;
-            while ((float)num462 < num461)
+            while (num462 < num461)
             {
-                float num463 = (float)Main.rand.Next(-10, 11);
-                float num464 = (float)Main.rand.Next(-10, 11);
-                float num465 = (float)Main.rand.Next(3, 9);
-                float num466 = (float)System.Math.Sqrt((double)(num463 * num463 + num464 * num464));
+                float num463 = Main.rand.Next(-10, 11);
+                float num464 = Main.rand.Next(-10, 11);
+                float num465 = Main.rand.Next(3, 9);
+                float num466 = (float)System.Math.Sqrt(num463 * num463 + num464 * num464);
                 num466 = num465 / num466;
                 num463 *= num466;
                 num464 *= num466;
@@ -65,9 +65,9 @@ namespace AAMod.Projectiles
                 Main.dust[num467].position.X = projectile.Center.X;
                 Main.dust[num467].position.Y = projectile.Center.Y;
                 Dust expr_14B5B_cp_0 = Main.dust[num467];
-                expr_14B5B_cp_0.position.X = expr_14B5B_cp_0.position.X + (float)Main.rand.Next(-10, 11);
+                expr_14B5B_cp_0.position.X += Main.rand.Next(-10, 11);
                 Dust expr_14B85_cp_0 = Main.dust[num467];
-                expr_14B85_cp_0.position.Y = expr_14B85_cp_0.position.Y + (float)Main.rand.Next(-10, 11);
+                expr_14B85_cp_0.position.Y += Main.rand.Next(-10, 11);
                 Main.dust[num467].velocity.X = num463;
                 Main.dust[num467].velocity.Y = num464;
                 num462++;

@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Ter
 namespace AAMod.Items.Boss.Retriever
 {
     [AutoloadEquip(EquipType.HandsOn)]
-    public class StormClaw : ModItem
+    public class StormClaw : BaseAAItem
     {
         public override void SetDefaults()
         {
             item.width = 26;
             item.height = 30;
-            item.value = Item.sellPrice(0, 20, 0, 0);
+            item.value = Item.sellPrice(0, 5, 0, 0);
             item.rare = -12;
             item.expert = true;
             item.accessory = true;

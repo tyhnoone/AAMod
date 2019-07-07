@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +22,7 @@ namespace AAMod.NPCs.Enemies.Other
 			npc.lifeMax = 25;
 			npc.knockBackResist = 0f;
 			animationType = 81;
-			npc.value = Item.buyPrice(0, 0, 5, 0);
+			npc.value = Item.sellPrice(0, 0, 5, 0);
 			npc.alpha = 60;
 			npc.lavaImmune = false;
 			npc.noGravity = false;
@@ -46,13 +45,13 @@ namespace AAMod.NPCs.Enemies.Other
 		{
 			for (int k = 0; k < 3; k++)
 			{
-				Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? mod.DustType<Dusts.InfinityOverloadR>() : mod.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0, default(Color), 1f);
+				Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? mod.DustType<Dusts.InfinityOverloadR>() : mod.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0);
 			}
 			if (npc.life <= 0)
 			{
 				for (int k = 0; k < 15; k++)
 				{
-					Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? mod.DustType<Dusts.InfinityOverloadR>() : mod.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0, default(Color), 1f);
+					Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? mod.DustType<Dusts.InfinityOverloadR>() : mod.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0);
 				}
 			}
 		}

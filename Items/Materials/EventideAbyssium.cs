@@ -2,7 +2,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Materials
 {
-    public class EventideAbyssium : ModItem
+    public class EventideAbyssium : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -24,7 +24,7 @@ namespace AAMod.Items.Materials
             item.createTile = mod.TileType("EventideAbyssiumBar");
         }
         public override void AddRecipes()
-        {                                                   //How to craft this item
+        {                                                   
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "EventideAbyssiumOre", 5);
             recipe.AddIngredient(null, "DeepAbyssium", 1);

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Melee
 {
-    public class AbyssalTwilight : ModItem
+    public class AbyssalTwilight : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -23,8 +23,8 @@ namespace AAMod.Items.Melee
 			item.useAnimation = 14;
 			item.useStyle = 1;
 			item.knockBack = 2;
-			item.value = 10800;
-			item.rare = 3;
+            item.value = Item.sellPrice(0, 10, 0, 0);
+            item.rare = 3;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = false;
 		}

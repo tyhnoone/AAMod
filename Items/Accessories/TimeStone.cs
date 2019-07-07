@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 namespace AAMod.Items.Accessories
 {
     [AutoloadEquip(EquipType.Face)]
-    public class TimeStone : ModItem
+    public class TimeStone : BaseAAItem
     {
         
 
@@ -24,6 +24,7 @@ Using the Time stone like an item stops/resumes time.
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 16));
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
+
         public override void SetDefaults()
         {
             item.width = 54;
@@ -32,6 +33,17 @@ Using the Time stone like an item stops/resumes time.
             item.rare = 11;
             item.accessory = true;
             item.consumable = false;
+            item.prefix = 0;
+        }
+
+        public override void PostReforge()
+        {
+            item.prefix = 0;
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            item.prefix = 0;
         }
 
         public override Color? GetAlpha(Color lightColor)

@@ -24,7 +24,7 @@ namespace AAMod.Projectiles
             int dustType = mod.DustType<VoidDust>();
             if (projectile.owner == Main.myPlayer)
             {
-                AAWorld.AAConvert((int)(projectile.position.X + (float)(projectile.width / 2)) / 16, (int)(projectile.position.Y + (float)(projectile.height / 2)) / 16, 3);
+                AAWorld.AAConvert((int)(projectile.position.X + projectile.width / 2) / 16, (int)(projectile.position.Y + projectile.height / 2) / 16, 3);
             }
             if (projectile.timeLeft > 133)
             {
@@ -56,8 +56,8 @@ namespace AAMod.Projectiles
                     Dust dust = Main.dust[dustIndex];
                     dust.noGravity = true;
                     dust.scale *= 1.75f;
-                    dust.velocity.X = dust.velocity.X * 2f;
-                    dust.velocity.Y = dust.velocity.Y * 2f;
+                    dust.velocity.X *= 2f;
+                    dust.velocity.Y *= 2f;
                     dust.scale *= dustScale;
                 }
             }
@@ -65,7 +65,7 @@ namespace AAMod.Projectiles
             {
                 projectile.ai[0] += 1f;
             }
-            projectile.rotation += 0.3f * (float)projectile.direction;
+            projectile.rotation += 0.3f * projectile.direction;
         }
     }
 }

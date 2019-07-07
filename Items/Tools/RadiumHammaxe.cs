@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Tools
 {
-    public class RadiumHammaxe : ModItem
+    public class RadiumHammaxe : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -30,11 +30,11 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Radium Hammaxe");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "RadiumBar", 12);
-            recipe.AddTile(null, "QuantumFusionAccelerator");   //at work bench
+            recipe.AddTile(null, "QuantumFusionAccelerator");   
             recipe.SetResult(this);  
             recipe.AddRecipe();
         }

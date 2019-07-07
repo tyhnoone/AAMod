@@ -3,11 +3,10 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
-using System.Collections.Generic;
 
 namespace AAMod.Items.Boss.Yamata
 {
-    public class Crescent : ModItem
+    public class Crescent : BaseAAItem
     {
 
         
@@ -21,8 +20,8 @@ Inflicts Moonraze");
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.Terrarian);
-            item.damage = 250;                            
-            item.value = Item.buyPrice(1, 0, 0, 0);
+            item.damage = 300;                            
+            item.value = Item.sellPrice(0, 30, 0, 0);
             item.rare = 2;
             item.knockBack = 1;
             item.channel = true;
@@ -30,7 +29,7 @@ Inflicts Moonraze");
             item.useAnimation = 15;
             item.useTime = 15;
             item.shoot = mod.ProjectileType("Crescent");
-            item.rare = 10;
+            item.rare = 9; AARarity = 13;
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
@@ -52,17 +51,6 @@ Inflicts Moonraze");
                 SpriteEffects.None,
                 0f
             );
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Yamata;;
-                }
-            }
         }
 
         public override void AddRecipes()  //How to craft this sword

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Zero
 {
-    public class RealityCannon : ModItem
+    public class RealityCannon : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -30,13 +29,13 @@ namespace AAMod.Items.Boss.Zero
             item.damage = 150;
             item.UseSound = SoundID.Item12;
             item.shoot = mod.ProjectileType("RealityLaser");
-            item.rare = 10;
-            item.value = Item.buyPrice(1, 0, 0, 0);
+            item.rare = 9; AARarity = 13;
+            item.value = Item.sellPrice(0, 30, 0, 0);
             item.noMelee = true;
             item.ranged = true;
             item.autoReuse = true;
             item.noUseGraphic = false;
-            item.rare = 10;
+            item.rare = 9; AARarity = 13;
         }
 
 
@@ -59,17 +58,6 @@ namespace AAMod.Items.Boss.Zero
                 SpriteEffects.None,
                 0f
             );
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Zero;
-                }
-            }
         }
 
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

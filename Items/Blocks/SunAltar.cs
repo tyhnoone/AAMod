@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Blocks
 {
-    public class SunAltar : ModItem
+    public class SunAltar : BaseAAItem
 	{
 
         public override void SetStaticDefaults()
@@ -23,7 +23,7 @@ namespace AAMod.Items.Blocks
 			item.useStyle = 1;
 			item.consumable = true;
 			item.rare = 10;
-			item.value = Item.buyPrice(0, 10, 0, 0);
+			item.value = Item.sellPrice(0, 10, 0, 0);
 			item.createTile = mod.TileType("SunAltar");
 		}
 

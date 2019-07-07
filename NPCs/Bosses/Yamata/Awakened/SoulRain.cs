@@ -41,12 +41,12 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             if (projectile.velocity.X < 0f)
             {
                 projectile.spriteDirection = -1;
-                projectile.rotation = (float)Math.Atan2((double)(-(double)projectile.velocity.Y), (double)(-(double)projectile.velocity.X));
+                projectile.rotation = (float)Math.Atan2(-projectile.velocity.Y, -projectile.velocity.X);
             }
             else
             {
                 projectile.spriteDirection = 1;
-                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);
+                projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X);
             }
 
             int dustId = Dust.NewDust(projectile.Center, projectile.width, projectile.height + 5, mod.DustType<Dusts.YamataAuraDust>(), projectile.velocity.X * 0.2f,
@@ -59,7 +59,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             for (int num468 = 0; num468 < 20; num468++)
             {
                 int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.YamataADust>(), -projectile.velocity.X * 0.2f,
-                    -projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+                    -projectile.velocity.Y * 0.2f, 100);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
             }

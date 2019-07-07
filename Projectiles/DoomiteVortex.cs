@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Projectiles
@@ -21,8 +20,8 @@ namespace AAMod.Projectiles
 		
 		public override void AI()
 		{
-            int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
-                       -projectile.velocity.Y * 0.2f, 46, default(Color), 1.184211f);
+            int num469 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
+                       -projectile.velocity.Y * 0.2f, 46);
             Main.dust[num469].noGravity = true;
             Main.dust[num469].velocity *= 2f;
             projectile.rotation += .02f;
@@ -34,7 +33,7 @@ namespace AAMod.Projectiles
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
             {
-                projectile.ai[aislotHomingCooldown] = homingDelay; //cap this value 
+                projectile.ai[aislotHomingCooldown] = homingDelay; 
 
                 int foundTarget = HomeOnTarget();
                 if (foundTarget != -1)
@@ -61,7 +60,7 @@ namespace AAMod.Projectiles
                     if (distance <= homingMaximumRangeInPixels &&
                         (
                             selectedTarget == -1 || //there is no selected target
-                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) //or we are closer to this target than the already selected target
+                            projectile.Distance(Main.npc[selectedTarget].Center) > distance) 
                     )
                         selectedTarget = i;
                 }

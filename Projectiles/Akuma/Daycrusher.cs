@@ -155,8 +155,6 @@ namespace AAMod.Projectiles.Akuma
 		
 		public override bool OnTileCollide (Vector2 oldVelocity)
 		{
-			//projectile.tileCollide = false;
-			//projectile.timeLeft = 20;
 			projectile.ai[0] = 1f;
 			return false;
 		}

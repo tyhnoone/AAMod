@@ -1,9 +1,9 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 namespace AAMod.Items.Boss.Yamata
 {
-    public class YamataBag : ModItem
+    public class YamataBag : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -56,7 +56,7 @@ namespace AAMod.Items.Boss.Yamata
             {
                 player.QuickSpawnItem(mod.ItemType("YamataMask"));
             }
-            if (Main.rand.NextFloat() < 0.01f)
+            if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PMLDevArmor();

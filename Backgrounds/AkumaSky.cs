@@ -30,16 +30,16 @@ namespace AAMod.Backgrounds
         public static Texture2D SkyTex;
         public bool Active;
         public float Intensity;
-        private UnifiedRandom _random = new UnifiedRandom();
+        private readonly UnifiedRandom _random = new UnifiedRandom();
 
         public override void OnLoad()
         {
             PlanetTexture = TextureManager.Load("Backgrounds/AkumaSun");
             MeteorTexture = TextureManager.Load("Backgrounds/AkumaAMeteor");
-            SkyTex = TextureManager.Load("Backgrounds/Sky");
+            SkyTex = TextureManager.Load("Backgrounds/SkyTex");
         }
 
-        float num = 1200f;
+        private readonly float num = 1200f;
 
         public override void Update(GameTime gameTime)
         {
@@ -59,15 +59,13 @@ namespace AAMod.Backgrounds
                 Meteor[] expr_8E_cp_0_cp_0 = Meteors;
                 int expr_8E_cp_0_cp_1 = i;
                 expr_8E_cp_0_cp_0[expr_8E_cp_0_cp_1].Position.Y = expr_8E_cp_0_cp_0[expr_8E_cp_0_cp_1].Position.Y + num * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if ((double)Meteors[i].Position.Y > Main.worldSurface * 16.0)
+                if (Meteors[i].Position.Y > Main.worldSurface * 16.0)
                 {
                     Meteors[i].Position.X = Meteors[i].StartX;
                     Meteors[i].Position.Y = -10000f;
                 }
             }
         }
-
-        
 
         public override Color OnTileColor(Color inColor)
         {
@@ -81,20 +79,19 @@ namespace AAMod.Backgrounds
             {
                 if (Main.dayTime)
                 {
-                    Vector2 SkyPos = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
-                    spriteBatch.Draw(SkyTex, SkyPos, null, Color.DeepSkyBlue, 0f, new Vector2(SkyTex.Width >> 1, SkyTex.Height >> 1), 1f, SpriteEffects.None, 1f);
+                    spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * Intensity);
+                    spriteBatch.Draw(SkyTex, new Rectangle(0, Math.Max(0, (int)((Main.worldSurface * 16.0 - Main.screenPosition.Y - 2400.0) * 0.10000000149011612)), Main.screenWidth, Main.screenHeight), Color.DeepSkyBlue * Math.Min(1f, (Main.screenPosition.Y - 800f) / 1000f * Intensity));
                     float num64 = 1f;
                     num64 -= Main.cloudAlpha * 1.5f;
                     if (num64 < 0f)
                     {
                         num64 = 0f;
                     }
-                    int num20 = (int)(Main.time / 54000.0 * (double)(Main.screenWidth + Main.sunTexture.Width * 2)) - Main.sunTexture.Width;
+                    int num20 = (int)(Main.time / 54000.0 * (Main.screenWidth + Main.sunTexture.Width * 2)) - Main.sunTexture.Width;
                     int num21 = 0;
                     float num22 = 1f;
                     float rotation = (float)(Main.time / 54000.0) * 2f - 7.3f;
                     double bgTop = ((-Main.screenPosition.Y) / (Main.worldSurface * 16.0 - 600.0) * 200.0);
-                    float rotation2 = (float)(Main.time / 32400.0) * 2f - 7.3f;
                     if (Main.dayTime)
                     {
                         double num26;
@@ -136,9 +133,9 @@ namespace AAMod.Backgrounds
                 return;
             }
             float scale = Math.Min(1f, (Main.screenPosition.Y - 1000f) / 1000f);
-            Vector2 value3 = Main.screenPosition + new Vector2((float)(Main.screenWidth >> 1), (float)(Main.screenHeight >> 1));
+            Vector2 value3 = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
             Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
-            for (int j = (int)num; j < num2; j++)
+            for (int j = num; j < num2; j++)
             {
                 Vector2 value4 = new Vector2(1f / Meteors[j].Depth, 0.9f / Meteors[j].Depth);
                 Vector2 position = (Meteors[j].Position - value3) * value4 + value3 - Main.screenPosition;
@@ -156,6 +153,19 @@ namespace AAMod.Backgrounds
             return (1f - Intensity);
         }
 
+        public Color GetAlpha(Color newColor, float alph)
+        {
+            int alpha = 255 - (int)(255 * alph);
+            float alphaDiff = (255 - alpha) / 255f;
+            int newR = (int)(newColor.R * alphaDiff);
+            int newG = (int)(newColor.G * alphaDiff);
+            int newB = (int)(newColor.B * alphaDiff);
+            int newA = newColor.A - alpha;
+            if (newA < 0) newA = 0;
+            if (newA > 255) newA = 255;
+            return new Color(newR, newG, newB, newA);
+        }
+
         public override void Activate(Vector2 position, params object[] args)
         {
             Intensity = 0.002f;
@@ -163,7 +173,7 @@ namespace AAMod.Backgrounds
             Meteors = new Meteor[150];
             for (int i = 0; i < Meteors.Length; i++)
             {
-                float num = (float)i / (float)Meteors.Length;
+                float num = i / (float)Meteors.Length;
                 Meteors[i].Position.X = num * (Main.maxTilesX * 16f) + this._random.NextFloat() * 40f - 20f;
                 Meteors[i].Position.Y = this._random.NextFloat() * -((float)Main.worldSurface * 16f + 10000f) - 10000f;
                 if (this._random.Next(3) != 0)

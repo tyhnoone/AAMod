@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Tools
 {
-    public class UraniumAxe : ModItem
+    public class UraniumAxe : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -29,7 +29,7 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Uranium Logger");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod, "UraniumBar", 10);

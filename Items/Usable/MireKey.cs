@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Usable
 {
-    public class MireKey : ModItem
+    public class MireKey : BaseAAItem
     {
 		public override void SetStaticDefaults()
 		{

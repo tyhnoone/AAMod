@@ -67,7 +67,7 @@ namespace AAMod
 
 		public override Vector4 GetFrameV4()
 		{
-			return new Vector4(0f, 0f, (float)frameWidth, (float)(frameHeight + 2));
+			return new Vector4(0f, 0f, frameWidth, frameHeight + 2);
 		}
 
 		public override void SendExtraAI(BinaryWriter writer)
@@ -180,7 +180,7 @@ namespace AAMod
 				if (drawCenteredX)
 				{
 					NPC expr_48_cp_0 = npc;
-					expr_48_cp_0.position.X = expr_48_cp_0.position.X + (npc.Center.X - npc.position.X);
+					expr_48_cp_0.position.X += (npc.Center.X - npc.position.X);
 				}
 				else
 				{

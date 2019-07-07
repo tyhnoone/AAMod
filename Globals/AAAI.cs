@@ -19,26 +19,26 @@ namespace AAMod
             {
                 xVelocityChanged = true;
             }
-            if (npc.position.X == npc.oldPosition.X || ai[3] >= (float)ticksUntilBoredom || xVelocityChanged)
+            if (npc.position.X == npc.oldPosition.X || ai[3] >= ticksUntilBoredom || xVelocityChanged)
             {
                 ai[3] += 1f;
             }
             else
-            if ((double)Math.Abs(npc.velocity.X) > 0.9 && ai[3] > 0f) { ai[3] -= 1f; }
-            if (ai[3] > (float)(ticksUntilBoredom * 10)) { ai[3] = 0f; }
+            if (Math.Abs(npc.velocity.X) > 0.9 && ai[3] > 0f) { ai[3] -= 1f; }
+            if (ai[3] > ticksUntilBoredom * 10) { ai[3] = 0f; }
             if (npc.justHit) { ai[3] = 0f; }
-            if (ai[3] == (float)ticksUntilBoredom) { npc.netUpdate = true; }
+            if (ai[3] == ticksUntilBoredom) { npc.netUpdate = true; }
 
-            bool notBored = ai[3] < (float)ticksUntilBoredom;
+            bool notBored = ai[3] < ticksUntilBoredom;
             //if npc does not flee when it's day, if is night, or npc is not on the surface and it hasn't updated projectile pass, update target.
-            if (targetPlayers && (!fleeWhenNight || Main.dayTime || (double)npc.position.Y > Main.worldSurface * 16.0) && (fleeWhenNight && Main.dayTime ? notBored : (!allowBoredom || notBored)))
+            if (targetPlayers && (!fleeWhenNight || Main.dayTime || npc.position.Y > Main.worldSurface * 16.0) && (fleeWhenNight && Main.dayTime ? notBored : (!allowBoredom || notBored)))
             {
                 npc.TargetClosest(true);
             }
             else
             if (ai[2] <= 0f)//if 'bored'
             {
-                if (fleeWhenNight && !Main.dayTime && (double)(npc.position.Y / 16f) < Main.worldSurface && npc.timeLeft > 10)
+                if (fleeWhenNight && !Main.dayTime && npc.position.Y / 16f < Main.worldSurface && npc.timeLeft > 10)
                 {
                     npc.timeLeft = 10;
                 }
@@ -253,11 +253,11 @@ namespace AAMod
                         npc.TargetClosest(true);
                         if (npc.direction > 0)
                         {
-                            npc.velocity.X = npc.velocity.X + 2f;
+                            npc.velocity.X += 2f;
                         }
                         else
                         {
-                            npc.velocity.X = npc.velocity.X - 2f;
+                            npc.velocity.X -= 2f;
                         }
                         for (int m = 0; m < 20; m = npcAvoidCollision + 1)
                         {
@@ -268,7 +268,7 @@ namespace AAMod
                     float timerPartial = 1f - npc.localAI[0] / timerMax;
                     float timerPartialTimes20 = timerPartial * 20f;
                     int nextNPC = 0;
-                    while ((float)nextNPC < timerPartialTimes20)
+                    while (nextNPC < timerPartialTimes20)
                     {
                         npcAvoidCollision = nextNPC;
                         nextNPC = npcAvoidCollision + 1;
@@ -279,12 +279,12 @@ namespace AAMod
             {
                 npc.TargetClosest(true);
                 npc.ai[0] = 1f;
-                npc.ai[1] = (float)npc.direction;
+                npc.ai[1] = npc.direction;
             }
             else if (npc.ai[0] == 1f)
             {
                 npc.TargetClosest(true);
-                npc.velocity.X = npc.velocity.X + npc.ai[1] * velIntervalX;
+                npc.velocity.X += npc.ai[1] * velIntervalX;
 
                 if (npc.velocity.X > velMaxX)
                     npc.velocity.X = velMaxX;
@@ -313,7 +313,7 @@ namespace AAMod
             }
             else if (npc.ai[0] == 2f)
             {
-                npc.velocity.Y = npc.velocity.Y + npc.ai[1] * velIntervalYTurn;
+                npc.velocity.Y += npc.ai[1] * velIntervalYTurn;
 
                 if (npc.velocity.Length() > velIntervalMaxTurn)
                     npc.velocity *= velIntervalScalar;
@@ -322,7 +322,7 @@ namespace AAMod
                 {
                     npc.TargetClosest(true);
                     npc.ai[0] = 3f;
-                    npc.ai[1] = (float)npc.direction;
+                    npc.ai[1] = npc.direction;
                 }
             }
             else if (npc.ai[0] == 3f)
@@ -341,7 +341,7 @@ namespace AAMod
                 {
                     npc.TargetClosest(true);
                     npc.ai[0] = 0f;
-                    npc.ai[1] = (float)npc.direction;
+                    npc.ai[1] = npc.direction;
                 }
             }
         }
@@ -388,46 +388,46 @@ namespace AAMod
             //controls momentum when going left, and clamps velocity at -velMaxX.
             if (npc.direction == -1 && npc.velocity.X > -velMaxX)
             {
-                npc.velocity.X = npc.velocity.X - moveIntervalX;
-                if (npc.velocity.X > 4f) { npc.velocity.X = npc.velocity.X - 0.1f; }
+                npc.velocity.X -= moveIntervalX;
+                if (npc.velocity.X > 4f) { npc.velocity.X -= 0.1f; }
                 else
-                    if (npc.velocity.X > 0f) { npc.velocity.X = npc.velocity.X + 0.05f; }
+                    if (npc.velocity.X > 0f) { npc.velocity.X += 0.05f; }
                 if (npc.velocity.X < -4f) { npc.velocity.X = -velMaxX; }
             }
             else //controls momentum when going right on the x axis and clamps velocity at velMaxX.
                 if (npc.direction == 1 && npc.velocity.X < velMaxX)
             {
-                npc.velocity.X = npc.velocity.X + moveIntervalX;
-                if (npc.velocity.X < -velMaxX) { npc.velocity.X = npc.velocity.X + 0.1f; }
+                npc.velocity.X += moveIntervalX;
+                if (npc.velocity.X < -velMaxX) { npc.velocity.X += 0.1f; }
                 else
-                    if (npc.velocity.X < 0f) { npc.velocity.X = npc.velocity.X - 0.05f; }
+                    if (npc.velocity.X < 0f) { npc.velocity.X -= 0.05f; }
 
                 if (npc.velocity.X > velMaxX) { npc.velocity.X = velMaxX; }
             }
             //controls momentum when going up on the Y axis and clamps velocity at -velMaxY.
             if (npc.directionY == -1 && (double)npc.velocity.Y > -velMaxY)
             {
-                npc.velocity.Y = npc.velocity.Y - moveIntervalY;
-                if ((double)npc.velocity.Y > velMaxY) { npc.velocity.Y = npc.velocity.Y - 0.05f; }
+                npc.velocity.Y -= moveIntervalY;
+                if ((double)npc.velocity.Y > velMaxY) { npc.velocity.Y -= 0.05f; }
                 else
-                    if (npc.velocity.Y > 0f) { npc.velocity.Y = npc.velocity.Y + 0.03f; }
+                    if (npc.velocity.Y > 0f) { npc.velocity.Y += 0.03f; }
 
                 if ((double)npc.velocity.Y < -velMaxY) { npc.velocity.Y = -velMaxY; }
             }
             else //controls momentum when going down on the Y axis and clamps velocity at velMaxY.
                 if (npc.directionY == 1 && (double)npc.velocity.Y < velMaxY)
             {
-                npc.velocity.Y = npc.velocity.Y + moveIntervalY;
-                if ((double)npc.velocity.Y < -velMaxY) { npc.velocity.Y = npc.velocity.Y + 0.05f; }
+                npc.velocity.Y += moveIntervalY;
+                if ((double)npc.velocity.Y < -velMaxY) { npc.velocity.Y += 0.05f; }
                 else
-                    if (npc.velocity.Y < 0f) { npc.velocity.Y = npc.velocity.Y - 0.03f; }
+                    if (npc.velocity.Y < 0f) { npc.velocity.Y -= 0.03f; }
 
                 if ((double)npc.velocity.Y > velMaxY) { npc.velocity.Y = velMaxY; }
             }
             if (!ignoreWet && npc.wet) //if don't ignore being wet and is wet, accelerate upwards to get out.
             {
-                if (npc.velocity.Y > 0f) { npc.velocity.Y = npc.velocity.Y * 0.95f; }
-                npc.velocity.Y = npc.velocity.Y - 0.5f;
+                if (npc.velocity.Y > 0f) { npc.velocity.Y *= 0.95f; }
+                npc.velocity.Y -= 0.5f;
                 if (npc.velocity.Y < -velMaxY * 1.5f) { npc.velocity.Y = -velMaxY * 1.5f; }
                 npc.TargetClosest(true);
                 return;
@@ -443,26 +443,26 @@ namespace AAMod
             {
                 xVelocityChanged = true;
             }
-            if (npc.position.X == npc.oldPosition.X || ai[3] >= (float)ticksUntilBoredom || xVelocityChanged)
+            if (npc.position.X == npc.oldPosition.X || ai[3] >= ticksUntilBoredom || xVelocityChanged)
             {
                 ai[3] += 1f;
             }
             else
-            if ((double)Math.Abs(npc.velocity.X) > 0.9 && ai[3] > 0f) { ai[3] -= 1f; }
-            if (ai[3] > (float)(ticksUntilBoredom * 10)) { ai[3] = 0f; }
+            if (Math.Abs(npc.velocity.X) > 0.9 && ai[3] > 0f) { ai[3] -= 1f; }
+            if (ai[3] > ticksUntilBoredom * 10) { ai[3] = 0f; }
             if (npc.justHit) { ai[3] = 0f; }
-            if (ai[3] == (float)ticksUntilBoredom) { npc.netUpdate = true; }
+            if (ai[3] == ticksUntilBoredom) { npc.netUpdate = true; }
 
-            bool notBored = ai[3] < (float)ticksUntilBoredom;
+            bool notBored = ai[3] < ticksUntilBoredom;
             //if npc does not flee when it's day, if is night, or npc is not on the surface and it hasn't updated projectile pass, update target.
-            if (targetPlayers && (player.ZoneCorrupt || (double)npc.position.Y > Main.worldSurface * 16.0) && (Main.dayTime ? notBored : (!allowBoredom || notBored)))
+            if (targetPlayers && (player.ZoneCorrupt || npc.position.Y > Main.worldSurface * 16.0) && (Main.dayTime ? notBored : (!allowBoredom || notBored)))
             {
                 npc.TargetClosest(true);
             }
             else
             if (ai[2] <= 0f)//if 'bored'
             {
-                if (!player.ZoneCorrupt && (double)(npc.position.Y / 16f) < Main.worldSurface && npc.timeLeft > 10)
+                if (!player.ZoneCorrupt && npc.position.Y / 16f < Main.worldSurface && npc.timeLeft > 10)
                 {
                     npc.timeLeft = 10;
                 }
@@ -533,7 +533,7 @@ namespace AAMod
         public static void GripAI(NPC npc, ref float[] ai, float moveIntervalX = 0.1f, float moveIntervalY = 0.04f, float velMaxX = 4f, float velMaxY = 1.5f)
         {
             //if it should flee when it's day, and it is day, the npc's position is at or above the surface, it will flee.
-            if (Main.dayTime && (double)npc.position.Y <= Main.worldSurface * 16.0)
+            if (Main.dayTime && npc.position.Y <= Main.worldSurface * 16.0)
             {
                 if (npc.timeLeft > 10) { npc.timeLeft = 10; }
                 npc.directionY = -1;
@@ -556,39 +556,39 @@ namespace AAMod
             //controls momentum when going left, and clamps velocity at -velMaxX.
             if (npc.direction == -1 && npc.velocity.X > -velMaxX)
             {
-                npc.velocity.X = npc.velocity.X - moveIntervalX;
-                if (npc.velocity.X > 4f) { npc.velocity.X = npc.velocity.X - 0.1f; }
+                npc.velocity.X -= moveIntervalX;
+                if (npc.velocity.X > 4f) { npc.velocity.X -= 0.1f; }
                 else
-                    if (npc.velocity.X > 0f) { npc.velocity.X = npc.velocity.X + 0.05f; }
+                    if (npc.velocity.X > 0f) { npc.velocity.X += 0.05f; }
                 if (npc.velocity.X < -4f) { npc.velocity.X = -velMaxX; }
             }
             else //controls momentum when going right on the x axis and clamps velocity at velMaxX.
             if (npc.direction == 1 && npc.velocity.X < velMaxX)
             {
-                npc.velocity.X = npc.velocity.X + moveIntervalX;
-                if (npc.velocity.X < -velMaxX) { npc.velocity.X = npc.velocity.X + 0.1f; }
+                npc.velocity.X += moveIntervalX;
+                if (npc.velocity.X < -velMaxX) { npc.velocity.X += 0.1f; }
                 else
-                    if (npc.velocity.X < 0f) { npc.velocity.X = npc.velocity.X - 0.05f; }
+                    if (npc.velocity.X < 0f) { npc.velocity.X -= 0.05f; }
 
                 if (npc.velocity.X > velMaxX) { npc.velocity.X = velMaxX; }
             }
             //controls momentum when going up on the Y axis and clamps velocity at -velMaxY.
             if (npc.directionY == -1 && (double)npc.velocity.Y > -velMaxY)
             {
-                npc.velocity.Y = npc.velocity.Y - moveIntervalY;
-                if ((double)npc.velocity.Y > velMaxY) { npc.velocity.Y = npc.velocity.Y - 0.05f; }
+                npc.velocity.Y -= moveIntervalY;
+                if ((double)npc.velocity.Y > velMaxY) { npc.velocity.Y -= 0.05f; }
                 else
-                    if (npc.velocity.Y > 0f) { npc.velocity.Y = npc.velocity.Y + 0.03f; }
+                    if (npc.velocity.Y > 0f) { npc.velocity.Y += 0.03f; }
 
                 if ((double)npc.velocity.Y < -velMaxY) { npc.velocity.Y = -velMaxY; }
             }
             else //controls momentum when going down on the Y axis and clamps velocity at velMaxY.
             if (npc.directionY == 1 && (double)npc.velocity.Y < velMaxY)
             {
-                npc.velocity.Y = npc.velocity.Y + moveIntervalY;
-                if ((double)npc.velocity.Y < -velMaxY) { npc.velocity.Y = npc.velocity.Y + 0.05f; }
+                npc.velocity.Y += moveIntervalY;
+                if ((double)npc.velocity.Y < -velMaxY) { npc.velocity.Y += 0.05f; }
                 else
-                    if (npc.velocity.Y < 0f) { npc.velocity.Y = npc.velocity.Y - 0.03f; }
+                    if (npc.velocity.Y < 0f) { npc.velocity.Y -= 0.03f; }
 
                 if ((double)npc.velocity.Y > velMaxY) { npc.velocity.Y = velMaxY; }
             }

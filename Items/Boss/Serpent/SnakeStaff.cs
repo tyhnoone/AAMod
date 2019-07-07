@@ -2,11 +2,10 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Serpent
 {
-    public class SnakeStaff : ModItem
+    public class SnakeStaff : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -33,9 +32,16 @@ Summons 2 segments for each minion slot");
             item.noMelee = true;
             item.knockBack = 2f;
             item.buffType = mod.BuffType("SnakeMinion");
-            item.buffTime = 3600;
             item.summon = true;
         }
+		
+		public override void UseStyle(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
+			{
+				player.AddBuff(item.buffType, 3600, true);
+			}
+		}
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {

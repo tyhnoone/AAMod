@@ -17,10 +17,10 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
 			base.SendExtraAI(writer);
 			if((Main.netMode == 2 || Main.dedServ))
 			{
-				writer.Write((float)internalAI[0]);
-				writer.Write((float)internalAI[1]);
-                writer.Write((float)internalAI[2]);
-                writer.Write((float)internalAI[3]);
+				writer.Write(internalAI[0]);
+				writer.Write(internalAI[1]);
+                writer.Write(internalAI[2]);
+                writer.Write(internalAI[3]);
             }
 		}
 
@@ -48,7 +48,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             npc.damage = 12;  //boss damage
             npc.defense = 12;    //boss defense
             npc.knockBackResist = 0f;   //this boss will behavior like the DemonEye  //boss frame/animation 
-            npc.value = Item.buyPrice(0, 0, 75, 45);
+            npc.value = Item.sellPrice(0, 0, 75, 45);
             npc.aiStyle = 26;
             npc.width = 74;
             npc.height = 108;
@@ -59,7 +59,6 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             npc.buffImmune[46] = true;
             npc.buffImmune[47] = true;
             npc.netAlways = true;
-            npc.noTileCollide = true;
             npc.noGravity = true;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;

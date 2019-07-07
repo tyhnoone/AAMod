@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss
 {
-    public class MadnessTruffle : ModItem
+    public class MadnessTruffle : BaseAAItem
     {
 
         public override void SetStaticDefaults()
@@ -27,6 +27,14 @@ You know what? Just don't put it anywhere near your mouth.");
             item.accessory = true;
             item.expert = true;
             item.defense = 8;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            if (player.wingTime > 0)
+            {
+                player.wingTime += 3;
+            }
         }
 
         public override void UpdateEquip(Player player)

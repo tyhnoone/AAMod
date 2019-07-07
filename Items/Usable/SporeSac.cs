@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Usable
 {
-    public class SporeSac : ModItem
+    public class SporeSac : BaseAAItem
 	{
 		public override void SetDefaults()
 		{

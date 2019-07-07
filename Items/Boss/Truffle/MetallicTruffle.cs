@@ -1,10 +1,9 @@
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.DataStructures;
 
 namespace AAMod.Items.Boss.Truffle
 {
-    public class MetallicTruffle : ModItem
+    public class MetallicTruffle : BaseAAItem
     {
 
         public override void SetStaticDefaults()

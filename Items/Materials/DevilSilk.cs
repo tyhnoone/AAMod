@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Materials
 {
-    public class DevilSilk : ModItem
+    public class DevilSilk : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

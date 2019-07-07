@@ -1,11 +1,9 @@
-using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Vanity
 {
-    public class HappySunSticker : ModItem
+    public class HappySunSticker : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -13,6 +11,7 @@ namespace AAMod.Items.Vanity
             item.height = 24;
             item.rare = 3;
             item.accessory = true;
+            item.vanity = true;
         }
 
         public override void SetStaticDefaults()

@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Materials
 {
-    public class PlanteraPetal : ModItem
+    public class PlanteraPetal : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

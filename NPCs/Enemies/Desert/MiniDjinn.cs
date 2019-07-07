@@ -110,19 +110,19 @@ namespace AAMod.NPCs.Enemies.Desert
         {
             if (npc.life <= 0)
             {
-                npc.position.X = npc.position.X + (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y + (float)(npc.height / 2);
+                npc.position.X = npc.position.X + npc.width / 2;
+                npc.position.Y = npc.position.Y + npc.height / 2;
                 npc.width = 42;
                 npc.height = 66;
-                npc.position.X = npc.position.X - (float)(npc.width / 2);
-                npc.position.Y = npc.position.Y - (float)(npc.height / 2);
+                npc.position.X = npc.position.X - npc.width / 2;
+                npc.position.Y = npc.position.Y - npc.height / 2;
                 int dust1 = mod.DustType<Dusts.SandDust>();
                 int dust2 = mod.DustType<Dusts.SandDust>();
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0);
                 Main.dust[dust1].velocity.X *= 0f;
                 Main.dust[dust1].scale *= 1.3f;
                 Main.dust[dust1].noGravity = false;
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0, default(Color), 1f);
+                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust2, 0f, 0f, 0);
                 Main.dust[dust2].velocity.X *= 0f;
                 Main.dust[dust2].scale *= 1.3f;
                 Main.dust[dust2].noGravity = false;

@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Blocks
 {
-    public class YtriumOre : ModItem
+    public class YtriumOre : BaseAAItem
     {
         public override void SetDefaults()
         {

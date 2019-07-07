@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Magic
 {
-    public class SubzeroStaff : ModItem
+    public class SubzeroStaff : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
@@ -20,9 +20,9 @@ namespace AAMod.Items.Magic
             item.autoReuse = true;
             item.mana = 11;
             item.useStyle = 5;
-            item.damage = 100;
+            item.damage = 140;
             item.useAnimation = 8;
-            item.useTime = 4;
+            item.useTime = 8;
             item.width = 62;
             item.height = 62;
             item.shoot = mod.ProjectileType("SubzeroSnowflake");
@@ -39,11 +39,11 @@ namespace AAMod.Items.Magic
         {
             for (int num111 = 0; num111 < 2; num111++)
             {
-                Vector2 vector2 = new Vector2(player.position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -(float)player.direction) + ((float)Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y - 600f);
-                vector2.X = (vector2.X + player.Center.X) / 2f + (float)Main.rand.Next(-200, 201);
-                vector2.Y -= (float)(100 * num111);
-                float num81 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
-                float num82 = (float)Main.mouseY + Main.screenPosition.Y - vector2.Y;
+                Vector2 vector2 = new Vector2(player.position.X + player.width * 0.5f + Main.rand.Next(201) * -(float)player.direction + (Main.mouseX + Main.screenPosition.X - player.position.X), player.MountedCenter.Y - 600f);
+                vector2.X = (vector2.X + player.Center.X) / 2f + Main.rand.Next(-200, 201);
+                vector2.Y -= 100 * num111;
+                float num81 = Main.mouseX + Main.screenPosition.X - vector2.X;
+                float num82 = Main.mouseY + Main.screenPosition.Y - vector2.Y;
                 if (num82 < 0f)
                 {
                     num82 *= -1f;
@@ -52,13 +52,13 @@ namespace AAMod.Items.Magic
                 {
                     num82 = 20f;
                 }
-                float num83 = (float)Math.Sqrt((double)(num81 * num81 + num82 * num82));
+                float num83 = (float)Math.Sqrt(num81 * num81 + num82 * num82);
                 num83 = item.shootSpeed / num83;
                 num81 *= num83;
                 num82 *= num83;
-                float speedX4 = num81 + (float)Main.rand.Next(-40, 41) * 0.02f;
-                float speedY5 = num82 + (float)Main.rand.Next(-40, 41) * 0.02f;
-                Projectile.NewProjectile(vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockBack, item.owner, 0f, (float)Main.rand.Next(5));
+                float speedX4 = num81 + Main.rand.Next(-40, 41) * 0.02f;
+                float speedY5 = num82 + Main.rand.Next(-40, 41) * 0.02f;
+                Projectile.NewProjectile(vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockBack, item.owner, 0f, Main.rand.Next(5));
             }
             return false;
         }

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Dev
 {
-    public class AmphibianLongswordEXS : ModItem
+    public class AmphibianLongswordEXS : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -21,8 +21,8 @@ namespace AAMod.Items.Dev
 			item.useAnimation = 18;
 			item.useStyle = 1;
 			item.knockBack = 7;
-			item.value = 300000;
-			item.rare = 9;
+            item.value = Item.sellPrice(0, 30, 0, 0);
+            item.rare = 9;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("AmphibiousProjectileEXS");

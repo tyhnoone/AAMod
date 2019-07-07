@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Pets
 {
-    public class MudkipBall : ModItem
+    public class MudkipBall : BaseAAItem
 	{
         
         public override void SetStaticDefaults()

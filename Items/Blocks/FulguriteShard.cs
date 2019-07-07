@@ -1,9 +1,9 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 namespace AAMod.Items.Blocks
 {
-    public class FulguriteShard : ModItem
+    public class FulguriteShard : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -18,6 +18,7 @@ namespace AAMod.Items.Blocks
             item.useStyle = 1;
             item.consumable = true;
             item.createTile = mod.TileType("FulguriteOre");
+            item.value = 10000;
         }
 
 

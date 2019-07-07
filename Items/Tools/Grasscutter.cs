@@ -1,9 +1,10 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace AAMod.Items.Tools
 {
-    public class Grasscutter : ModItem
+    public class Grasscutter : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -18,7 +19,7 @@ namespace AAMod.Items.Tools
             item.pick = 60;
             item.useStyle = 1;
             item.knockBack = 1;
-            item.value = 10;
+            item.value = Item.sellPrice(0, 0, 30, 0);
             item.rare = 2;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
@@ -30,7 +31,7 @@ namespace AAMod.Items.Tools
             DisplayName.SetDefault("Grasscutter");
         }
 
-        public override void AddRecipes()  //How to craft this item
+        public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Vine, 2);

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Magic
 {
-	public class Toxifang : ModItem
+	public class Toxifang : BaseAAItem
 	{
 		public override void SetDefaults()
 		{
@@ -18,13 +18,13 @@ namespace AAMod.Items.Magic
 			item.useStyle = 5;
 			item.noMelee = true;
 			item.knockBack = 4;
-			item.value = Item.buyPrice(0, 3, 0, 0);
+			item.value = Item.sellPrice(0, 3, 0, 0);
 			item.rare = 4;
 			item.mana = 10;
 			item.UseSound = SoundID.Item21;
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("Toxifang");
-			item.shootSpeed = 12f;
+			item.shootSpeed = 8f;
 		}   
 
 		public override void SetStaticDefaults()
@@ -41,7 +41,7 @@ namespace AAMod.Items.Magic
 			return true;
 		}
 		
-		public override void AddRecipes()  //How to craft this item
+		public override void AddRecipes()  
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.SpellTome);

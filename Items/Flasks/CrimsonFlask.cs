@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Flasks
 {
-    public class CrimsonFlask : ModItem
+    public class CrimsonFlask : BaseAAItem
 	{
         public override void SetDefaults()
         {

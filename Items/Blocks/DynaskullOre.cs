@@ -1,9 +1,9 @@
 using Terraria;
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 namespace AAMod.Items.Blocks
 {
-    public class DynaskullOre : ModItem
+    public class DynaskullOre : BaseAAItem
     {
         public override void SetDefaults()
         {

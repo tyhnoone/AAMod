@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Serpent
 {
-    public class BlizzardBuster : ModItem
+    public class BlizzardBuster : BaseAAItem
 	{
         
         public override void SetStaticDefaults()

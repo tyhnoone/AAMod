@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Ranged
 {
-    public class TheSquirter : ModItem
+    public class TheSquirter : BaseAAItem
     {
 
         public override void SetDefaults()
@@ -22,12 +22,17 @@ namespace AAMod.Items.Ranged
             item.useStyle = 5;
             item.shoot = mod.ProjectileType ("Squirt");
             item.knockBack = 0;
-            item.value = 1000;
+            item.value = Terraria.Item.sellPrice(0, 1, 0, 0);
             item.rare = 6;
             item.UseSound = SoundID.Item34;
             item.autoReuse = false;
             item.shootSpeed = 14f;
 
+        }
+		
+		public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(2, -2);
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

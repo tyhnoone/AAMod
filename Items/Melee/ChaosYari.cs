@@ -1,11 +1,10 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using BaseMod;
 using Terraria;
 
 namespace AAMod.Items.Melee
 {
-    public class ChaosYari : ModItem
+    public class ChaosYari : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -27,7 +26,7 @@ namespace AAMod.Items.Melee
             item.noUseGraphic = true;
             item.autoReuse = true;
             item.useStyle = 5;
-            item.value = Item.sellPrice(0, 5, 0, 0);
+            item.value = Item.sellPrice(0, 20, 0, 0);
             item.rare = 8;
             item.shootSpeed = 11f;
             item.shoot = mod.ProjectileType("ChaosYari");  //put your Spear projectile name

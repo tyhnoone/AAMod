@@ -2,11 +2,10 @@
 using Terraria.DataStructures;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss
 {
-    public class EXSoul : ModItem
+    public class EXSoul : BaseAAItem
     {
         internal static int type;
 

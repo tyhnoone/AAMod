@@ -2,7 +2,6 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Projectiles
@@ -39,7 +38,7 @@ namespace AAMod.Projectiles
             }
             if (projectile.alpha == 0)
             {
-                if (projectile.position.X + (float)(projectile.width / 2) > Main.player[projectile.owner].position.X + (float)(Main.player[projectile.owner].width / 2))
+                if (projectile.position.X + projectile.width / 2 > Main.player[projectile.owner].position.X + Main.player[projectile.owner].width / 2)
                 {
                     Main.player[projectile.owner].ChangeDir(1);
                 }
@@ -48,17 +47,17 @@ namespace AAMod.Projectiles
                     Main.player[projectile.owner].ChangeDir(-1);
                 }
             }
-            Vector2 vector14 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
-            float num166 = Main.player[projectile.owner].position.X + (float)(Main.player[projectile.owner].width / 2) - vector14.X;
-            float num167 = Main.player[projectile.owner].position.Y + (float)(Main.player[projectile.owner].height / 2) - vector14.Y;
-            float num168 = (float)Math.Sqrt((double)(num166 * num166 + num167 * num167));
+            Vector2 vector14 = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
+            float num166 = Main.player[projectile.owner].position.X + Main.player[projectile.owner].width / 2 - vector14.X;
+            float num167 = Main.player[projectile.owner].position.Y + Main.player[projectile.owner].height / 2 - vector14.Y;
+            float num168 = (float)Math.Sqrt(num166 * num166 + num167 * num167);
             if (projectile.ai[0] == 0f)
             {
                 if (num168 > 700f)
                 {
                     projectile.ai[0] = 1f;
                 }
-                projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+                projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
                 projectile.ai[1] += 1f;
                 if (projectile.ai[1] > 5f)
                 {
@@ -73,7 +72,7 @@ namespace AAMod.Projectiles
             else if (projectile.ai[0] == 1f)
             {
                 projectile.tileCollide = false;
-                projectile.rotation = (float)Math.Atan2((double)num167, (double)num166) - 1.57f;
+                projectile.rotation = (float)Math.Atan2(num167, num166) - 1.57f;
                 float num169 = 20f;
                 if (projectile.type == 262)
                 {
@@ -145,7 +144,7 @@ namespace AAMod.Projectiles
                     vector24 = mountedCenter - position;
                     Color color2 = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
                     color2 = projectile.GetAlpha(color2);
-                    Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, Color.White, rotation, origin, 1.35f, SpriteEffects.None, 0.0f);
+                    Main.spriteBatch.Draw(texture, position - Main.screenPosition, sourceRectangle, color2, rotation, origin, 1.35f, SpriteEffects.None, 0.0f);
                 }
             }
             return true;

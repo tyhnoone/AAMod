@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.DevTools
 {
-    public class TerrariaUndowner : ModItem
+    public class TerrariaUndowner : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

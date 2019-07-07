@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Akuma   //where is located
 {
-    public class SunStaff : ModItem
+    public class SunStaff : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -32,11 +32,12 @@ Inflicts Daybroken");
             item.useAnimation = 30;
             item.useTime = 30;
             item.noMelee = true;
-            item.value = Item.buyPrice(1, 0, 0, 0);
+            item.value = Item.sellPrice(0, 30, 0, 0);
             item.knockBack = 5f;
             item.summon = true;
             item.sentry = true;
-            item.rare = 10;
+            item.rare = 9;
+            AARarity = 13;
         }
 
 
@@ -67,13 +68,13 @@ Inflicts Daybroken");
             int num74 = item.shoot;
             int num76 = item.damage;
             float num77 = item.knockBack;
-            int num154 = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
-            int num155 = (int)((float)Main.mouseY + Main.screenPosition.Y) / 16;
+            int num154 = (int)(Main.mouseX + Main.screenPosition.X) / 16;
+            int num155 = (int)(Main.mouseY + Main.screenPosition.Y) / 16;
             if (player.gravDir == -1f)
             {
-                num155 = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16;
+                num155 = (int)(Main.screenPosition.Y + Main.screenHeight - Main.mouseY) / 16;
             }
-            Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num155 * 16 - 24), 0f, 15f, num74, num76, num77, i, 0f, 0f);
+            Projectile.NewProjectile(Main.mouseX + Main.screenPosition.X, num155 * 16 - 24, 0f, 15f, num74, num76, num77, i, 0f, 0f);
             player.UpdateMaxTurrets();
 
             return false;
@@ -85,7 +86,7 @@ Inflicts Daybroken");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Akuma;
+                    line2.overrideColor = AAColor.Rarity13;
                 }
             }
         }

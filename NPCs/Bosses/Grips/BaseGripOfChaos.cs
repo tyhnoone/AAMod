@@ -23,7 +23,7 @@ namespace AAMod.NPCs.Bosses.Grips
             npc.height = 60;			
             npc.aiStyle = -1;
 			npc.knockBackResist = 0f;	
-            npc.value = Item.buyPrice(0, 4, 50, 0);
+            npc.value = Item.sellPrice(0, 4, 50, 0);
             npc.npcSlots = 1f;
             npc.boss = true;  
             npc.lavaImmune = true;
@@ -96,7 +96,7 @@ namespace AAMod.NPCs.Bosses.Grips
             base.SendExtraAI(writer);
             if ((Main.netMode == 2 || Main.dedServ))
             {
-                writer.Write((float)internalAI[0]);
+                writer.Write(internalAI[0]);
             }
         }
 
@@ -259,8 +259,6 @@ namespace AAMod.NPCs.Bosses.Grips
                 }
             }
         }
-
-      
 
         public void MoveToPoint(Vector2 point, bool goUpFirst = false)
 		{

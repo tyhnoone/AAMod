@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.MushroomMonarch
 {
-    public class MushiumBar : ModItem
+    public class MushiumBar : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -19,7 +19,7 @@ namespace AAMod.Items.Boss.MushroomMonarch
             item.useStyle = 1;
             item.consumable = true;
             item.createTile = mod.TileType("MushiumBar");
-			
+            item.value = Terraria.Item.sellPrice(0, 0, 9, 0);
         }
 
         public override void SetStaticDefaults()
@@ -29,7 +29,7 @@ namespace AAMod.Items.Boss.MushroomMonarch
         }
 
 		public override void AddRecipes()
-        {                                                   //How to craft this item
+        {                                                   
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "Mushium", 3);              //example of how to craft with a modded item
             recipe.AddTile(TileID.Furnaces);

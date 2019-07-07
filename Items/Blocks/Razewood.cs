@@ -1,8 +1,6 @@
-﻿using Terraria.ModLoader;
-
-namespace AAMod.Items.Blocks
+﻿namespace AAMod.Items.Blocks
 {
-    class Razewood : ModItem
+    class Razewood : BaseAAItem
     {
         public override void SetDefaults()
         {

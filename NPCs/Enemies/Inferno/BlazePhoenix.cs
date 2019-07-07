@@ -58,11 +58,11 @@ namespace AAMod.NPCs.Enemies.Inferno
                 float num1279 = 1f - npc.localAI[0] / num1276;
                 float num1280 = num1279 * 20f;
                 int num1281 = 0;
-                while ((float)num1281 < num1280)
+                while (num1281 < num1280)
                 {
                     if (Main.rand.Next(5) == 0)
                     {
-                        int num1282 = Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.DragonflameDust>(), 0f, 0f, 0, default(Color), 1f);
+                        int num1282 = Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.DragonflameDust>(), 0f, 0f, 0);
                         Main.dust[num1282].alpha = 100;
                         Main.dust[num1282].velocity *= 0.3f;
                         Main.dust[num1282].velocity += npc.velocity * 0.75f;
@@ -77,7 +77,7 @@ namespace AAMod.NPCs.Enemies.Inferno
 
         public Color GetGlowAlpha()
         {
-            return new Color(220, 150, 150) * ((float)Main.mouseTextColor / 255f);
+            return new Color(220, 150, 150) * (Main.mouseTextColor / 255f);
         }
         
         public override void NPCLoot()

@@ -1,17 +1,14 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
-using Terraria;
 using Terraria.ID;
 
 namespace AAMod.Items.Blocks
 {
-    public class RajahBox : ModItem
+    public class RajahBox : BaseAAItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rajah Rabbit Music Box");
-            Tooltip.SetDefault(@"Plays 'Unforseen Consequences' by Spectral Aves");
+            Tooltip.SetDefault(@"Plays 'JUSTICE' by Spectral Aves");
         }
 
         public override void SetDefaults()

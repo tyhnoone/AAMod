@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Serpent
 {
-    public class SerpentBag : ModItem
+    public class SerpentBag : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -34,7 +33,7 @@ namespace AAMod.Items.Boss.Serpent
             {
                 player.QuickSpawnItem(mod.ItemType("SerpentMask"));
             }
-            if (Main.rand.NextFloat() < 0.01f)
+            if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
                 modPlayer.PHMDevArmor();

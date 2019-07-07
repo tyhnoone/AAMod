@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Mushrooms
 {
-    public class Pink : ModItem
+    public class Pink : BaseAAItem
     {
         public override void SetStaticDefaults()
         {

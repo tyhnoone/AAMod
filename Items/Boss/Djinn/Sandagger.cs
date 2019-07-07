@@ -1,9 +1,8 @@
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Djinn
 {
-    public class Sandagger : ModItem
+    public class Sandagger : BaseAAItem
 	{
 		public override void SetDefaults()
 		{

@@ -1,11 +1,10 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Pets
 {
-    public class RoyalStar : ModItem
+    public class RoyalStar : BaseAAItem
 	{
         public override void SetStaticDefaults()
 		{

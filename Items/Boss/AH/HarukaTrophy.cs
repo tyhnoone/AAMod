@@ -1,9 +1,7 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Boss.AH
 {
-    public class HarukaTrophy : ModItem
-	{
+    public class HarukaTrophy : BaseAAItem
+    {
         public static int type;
         
         public override void SetStaticDefaults()
@@ -27,5 +25,5 @@ namespace AAMod.Items.Boss.AH
 			item.rare = 1;
 			item.createTile = mod.TileType("HarukaTrophy");
 		}
-	}
+    }
 }

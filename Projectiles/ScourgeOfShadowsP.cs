@@ -46,9 +46,9 @@ namespace AAMod.Projectiles
 				int num3;
 				for (int num20 = 0; num20 < 4; num20 = num3 + 1)
 				{
-					float num21 = projectile.velocity.X / 4f * (float)num20;
-					float num22 = projectile.velocity.Y / 4f * (float)num20;
-					int num23 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 184, 0f, 0f, 0, default(Color), 1f);
+					float num21 = projectile.velocity.X / 4f * num20;
+					float num22 = projectile.velocity.Y / 4f * num20;
+					int num23 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 184, 0f, 0f, 0);
 					Main.dust[num23].position.X = projectile.Center.X - num21;
 					Main.dust[num23].position.Y = projectile.Center.Y - num22;
 					Dust dust = Main.dust[num23];
@@ -62,17 +62,17 @@ namespace AAMod.Projectiles
 			{
 				projectile.alpha = 0;
 			}
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 0.785f;
+			projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 0.785f;
 			
 			if (Main.rand.Next(30) == 0)
 			{
 				for (int num627 = 0; num627 < 2; num627++)
 				{
-					float num628 = (float)Main.rand.Next(-35, 36) * 0.02f;
-					float num629 = (float)Main.rand.Next(-35, 36) * 0.02f;
+					float num628 = Main.rand.Next(-35, 36) * 0.02f;
+					float num629 = Main.rand.Next(-35, 36) * 0.02f;
 					num628 *= 10f;
 					num629 *= 10f;
-					int p = Projectile.NewProjectile(projectile.position.X, projectile.position.Y, num628, num629, 307, projectile.damage, (float)((int)((double)projectile.knockBack * 0.35)), Main.myPlayer, 0f, 0f);
+					int p = Projectile.NewProjectile(projectile.position.X, projectile.position.Y, num628, num629, 307, projectile.damage, (int)(projectile.knockBack * 0.35), Main.myPlayer, 0f, 0f);
 					Main.projectile[p].timeLeft = 180;
 				}
 			}
@@ -90,7 +90,7 @@ namespace AAMod.Projectiles
 			int num3;
 			for (int num622 = 0; num622 < 20; num622 = num3 + 1)
 			{
-				int num623 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 184, 0f, 0f, 0, default(Color), 1f);
+				int num623 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 184, 0f, 0f, 0);
 				Dust dust = Main.dust[num623];
 				dust.scale *= 1.1f;
 				Main.dust[num623].noGravity = true;
@@ -98,7 +98,7 @@ namespace AAMod.Projectiles
 			}
 			for (int num624 = 0; num624 < 30; num624 = num3 + 1)
 			{
-				int num625 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 184, 0f, 0f, 0, default(Color), 1f);
+				int num625 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 184, 0f, 0f, 0);
 				Dust dust = Main.dust[num625];
 				dust.velocity *= 2.5f;
 				dust = Main.dust[num625];
@@ -123,11 +123,11 @@ namespace AAMod.Projectiles
 				}
 				for (int num627 = 0; num627 < num626; num627 = num3 + 1)
 				{
-					float num628 = (float)Main.rand.Next(-35, 36) * 0.02f;
-					float num629 = (float)Main.rand.Next(-35, 36) * 0.02f;
+					float num628 = Main.rand.Next(-35, 36) * 0.02f;
+					float num629 = Main.rand.Next(-35, 36) * 0.02f;
 					num628 *= 10f;
 					num629 *= 10f;
-					int p = Projectile.NewProjectile(projectile.position.X, projectile.position.Y, num628, num629, 307, projectile.damage*3, (float)((int)((double)projectile.knockBack * 0.35)), Main.myPlayer, 0f, 0f);
+					int p = Projectile.NewProjectile(projectile.position.X, projectile.position.Y, num628, num629, 307, projectile.damage*3, (int)(projectile.knockBack * 0.35), Main.myPlayer, 0f, 0f);
 					num3 = num627;
 					Main.projectile[p].timeLeft = 240;
 				}

@@ -7,12 +7,13 @@ namespace AAMod.Items.Vanity.Aves
 {
 
     [AutoloadEquip(EquipType.Wings)]
-    public class DuckstepWings : ModItem
+    public class DuckstepWings : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
             DisplayName.SetDefault("Duckstep Bass Boosters");
-            Tooltip.SetDefault("'Great for impersonating Ancients Awakened Devs!'");
+            Tooltip.SetDefault(@"Allows flight and slow fall
+'Great for impersonating Ancients Awakened Devs!'");
 		}
 
 		public override void SetDefaults()

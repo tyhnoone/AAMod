@@ -27,15 +27,15 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         }
         public override void SetDefaults()
         {
-            npc.lifeMax = 160000;
-            npc.damage = 140;
-            npc.defense = 110;
+            npc.lifeMax = 600000;
+            npc.damage = 190;
+            npc.defense = 70;
             npc.knockBackResist = 0f;
             npc.width = 78;
             npc.height = 78;
             npc.friendly = false;
             npc.aiStyle = 0;
-            npc.value = Item.buyPrice(2, 0, 0, 0);
+            npc.value = Item.sellPrice(2, 0, 0, 0);
             npc.npcSlots = 1f;
             npc.boss = true;
             npc.lavaImmune = true;
@@ -51,12 +51,11 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             {
                 npc.buffImmune[k] = true;
             }
-
             if (AAWorld.downedAllAncients)
             {
-                npc.lifeMax = 220000;
-                npc.damage = 160;
-                npc.defense = 140;
+                npc.lifeMax = 1000000;
+                npc.damage = 220;
+                npc.defense = 300;
             }
         }
 
@@ -67,11 +66,10 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
 
                 if (!AAWorld.downedZero)
                 {
+                    Main.NewText("Doomstone stops glowing. You can now mine it.", Color.Silver);
                     Item.NewItem((int)npc.Center.X, (int)npc.Center.Y, npc.width, npc.height, mod.ItemType("ZeroRune"));
                 }
-                AAWorld.downedZero = true;
 
-                Main.NewText("Doomstone stops glowing. You can now mine it.", Color.Silver);
                 if (Main.rand.Next(10) == 0)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ZeroTrophy"));
@@ -84,7 +82,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EXSoul"));
                 }
-                if (Main.rand.NextFloat(50) == 0 && AAWorld.downedAllAncients)
+                if (Main.rand.Next(50) == 0 && AAWorld.downedAllAncients)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RealityStone"));
                 }
@@ -227,10 +225,6 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             float num367 = npc.position.X + (npc.width / 2) - Main.player[npc.target].position.X - (Main.player[npc.target].width / 2);
             float num368 = npc.position.Y + npc.height - 59f - Main.player[npc.target].position.Y - (Main.player[npc.target].height / 2);
             float num369 = (float)Math.Atan2(num368, num367) + 1.57f;
-            if (Panic)
-            {
-                music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/ZeroPinch");
-            }
             if (num369 < 0f)
             {
                 num369 += 6.283f;

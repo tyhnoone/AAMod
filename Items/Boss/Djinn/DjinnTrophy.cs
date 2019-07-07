@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Boss.Djinn
 {
-    public class DjinnTrophy : ModItem
+    public class DjinnTrophy : BaseAAItem
 	{
         public static int type;
         

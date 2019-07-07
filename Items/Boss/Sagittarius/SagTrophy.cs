@@ -1,8 +1,6 @@
-using Terraria.ModLoader;
-
 namespace AAMod.Items.Boss.Sagittarius
 {
-    public class SagTrophy : ModItem
+    public class SagTrophy : BaseAAItem
 	{
         public static int type;
         

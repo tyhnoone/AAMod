@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace AAMod.Items.Magic
 {
-    public class ElectricitySpell : ModItem
+    public class ElectricitySpell : BaseAAItem
     {
         public override void SetDefaults()
         {
@@ -20,7 +20,7 @@ namespace AAMod.Items.Magic
             item.useStyle = 1;        //this is how the item is holded
             item.noMelee = true;
             item.knockBack = 3;
-            item.value = Item.buyPrice(0, 1, 0, 0);
+            item.value = Item.sellPrice(0, 1, 0, 0);
             item.rare = 6;
             item.mana = 4;             //mana use
             item.UseSound = SoundID.Item21;            //this is the sound when you use the item
@@ -35,12 +35,12 @@ namespace AAMod.Items.Magic
       Tooltip.SetDefault("It shoots sparks in an even spread.");
     }
 
-		public override void AddRecipes()  //How to craft this item
+		public override void AddRecipes()  
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "FulguriteBar", 4);   //you need 10 Wood
 			recipe.AddIngredient(ItemID.SoulofFright, 10);
-            recipe.AddTile(TileID.WorkBenches);   //at work bench
+            recipe.AddTile(TileID.WorkBenches);   
             recipe.SetResult(this);  
             recipe.AddRecipe();
         }

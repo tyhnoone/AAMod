@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -35,12 +34,12 @@ namespace AAMod.NPCs.Enemies.Other
             if (npc.velocity.X > 0f)
             {
                 npc.spriteDirection = 1;
-                npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X);
+                npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X);
             }
             if (npc.velocity.X < 0f)
             {
                 npc.spriteDirection = -1;
-                npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X) + 3.14f;
+                npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 3.14f;
             }
             if (npc.frameCounter++ >= 8)
             {
@@ -68,13 +67,13 @@ namespace AAMod.NPCs.Enemies.Other
         {
             for (int k = 0; k < 3; k++)
             {
-                Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.FulguriteDust>(), hitDirection, -1f, 0, default(Color), 1f);
+                Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.FulguriteDust>(), hitDirection, -1f, 0);
             }
             if (npc.life <= 0)
             {
                 for (int k = 0; k < 15; k++)
                 {
-                    Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.FulguriteDust>(), hitDirection, -1f, 0, default(Color), 1f);
+                    Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType<Dusts.FulguriteDust>(), hitDirection, -1f, 0);
                 }
             }
         }

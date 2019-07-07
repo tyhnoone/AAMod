@@ -1,12 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Dev
 {
     //Ferret's dev weapon (axe form)
-    public class CordesDuFuret_Axe : ModItem
+    public class CordesDuFuret_Axe : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -24,9 +23,9 @@ namespace AAMod.Items.Dev
 			item.useAnimation = 12;
 			item.useStyle = 1;
 			item.knockBack = 7;
-			item.value = 300000;
-			item.rare = 9;
-            item.axe = 50; //250%
+            item.value = Item.sellPrice(0, 30, 0, 0);
+            item.rare = 9;
+            item.axe = 50;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 		}

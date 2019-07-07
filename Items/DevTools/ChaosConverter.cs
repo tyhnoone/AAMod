@@ -1,11 +1,10 @@
 
 using Terraria;
-using Terraria.ModLoader;
 using AAMod.Worldgen;
 
 namespace AAMod.Items.DevTools
 {
-    public class ChaosConverter : ModItem
+    public class ChaosConverter : BaseAAItem
 	{
 		public override void SetStaticDefaults()
 		{	

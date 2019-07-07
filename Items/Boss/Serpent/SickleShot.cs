@@ -1,11 +1,10 @@
 using Terraria;
 using System;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Serpent
 {
-    public class SickleShot : ModItem
+    public class SickleShot : BaseAAItem
     {
 
         public override void SetStaticDefaults()
