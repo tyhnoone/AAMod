@@ -1,4 +1,6 @@
+using BaseMod;
 using Microsoft.Xna.Framework;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -50,7 +52,16 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public override void PostAI()
         {
-            if (NPC.AnyNPCs(mod.NPCType<Rajah>()))
+            if (NPC.AnyNPCs(mod.NPCType<Rajah>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah2>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah3>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah4>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah5>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah6>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah7>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah8>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah9>()) ||
+                   NPC.AnyNPCs(mod.NPCType<SupremeRajah>()))
             {
                 if (npc.alpha > 0)
                 {
@@ -75,13 +86,41 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
         }
 
+        public bool SetLife = false;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            if ((Main.netMode == 2 || Main.dedServ))
+            {
+                writer.Write(SetLife);
+            }
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            if (Main.netMode == 1)
+            {
+                SetLife = reader.ReadBool(); //Set Lifex
+            }
+        }
+
         public override void AI()
         {
             npc.noTileCollide = false;
             npc.knockBackResist = 0.4f * Main.knockBackMultiplier;
             npc.noGravity = true;
             npc.rotation = ((npc.rotation * 9f) + (npc.velocity.X * 0.1f)) / 10f;
-            if (!NPC.AnyNPCs(mod.NPCType<Rajah>()))
+            if (!(NPC.AnyNPCs(mod.NPCType<Rajah>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah2>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah3>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah4>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah5>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah6>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah7>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah8>()) ||
+                NPC.AnyNPCs(mod.NPCType<Rajah9>()) ||
+                NPC.AnyNPCs(mod.NPCType<SupremeRajah>())))
             {
                 if (npc.timeLeft > 5)
 					npc.timeLeft = 5;
@@ -100,7 +139,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                     if (num1328 != npc.whoAmI && Main.npc[num1328].active && Main.npc[num1328].type == npc.type)
                     {
                         Vector2 value55 = Main.npc[num1328].Center - npc.Center;
-                        if (value55.Length() < (float)(npc.width + npc.height))
+                        if (value55.Length() < npc.width + npc.height)
                         {
                             value55.Normalize();
                             value55 *= -0.1f;
@@ -296,7 +335,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                     npc.noTileCollide = true;
                     npc.ai[1] += 1f;
                     int num1332 = 45;
-                    if (npc.ai[1] > (float)num1332)
+                    if (npc.ai[1] > num1332)
                     {
                         if (!Collision.SolidCollision(npc.position, npc.width, npc.height))
                         {
@@ -305,7 +344,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                             npc.ai[2] = 0f;
                             return;
                         }
-                        if (npc.ai[1] > (float)(num1332 * 2))
+                        if (npc.ai[1] > num1332 * 2)
                         {
                             npc.ai[0] = 1f;
                             npc.ai[1] = 0f;
@@ -315,6 +354,50 @@ namespace AAMod.NPCs.Bosses.Rajah
                     }
                 }
             }
+        }
+    }
+    public class RabbitcopterSoldier1 : RabbitcopterSoldier
+    {
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier"; } }
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            npc.damage = 110;
+            npc.defense = 30;
+            npc.lifeMax = 500;
+        }
+    }
+    public class RabbitcopterSoldier2 : RabbitcopterSoldier
+    {
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier"; } }
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            npc.damage = 130;
+            npc.defense = 40;
+            npc.lifeMax = 650;
+        }
+    }
+    public class RabbitcopterSoldier3 : RabbitcopterSoldier
+    {
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier"; } }
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            npc.damage = 150;
+            npc.defense = 50;
+            npc.lifeMax = 750;
+        }
+    }
+    public class RabbitcopterSoldier4 : RabbitcopterSoldier
+    {
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier"; } }
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            npc.damage = 170;
+            npc.defense = 70;
+            npc.lifeMax = 900;
         }
     }
 }

@@ -25,6 +25,11 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public override void AI()
         {
+            for (int num468 = 0; num468 < 20; num468++)
+            {
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), 0, 0, mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 0, AAColor.Jevil, 1f);
+                Main.dust[num469].noGravity = true;
+            }
             projectile.damage = 0;
             projectile.knockBack = 0;
             Move(new Vector2(projectile.ai[0], projectile.ai[1]));
@@ -36,7 +41,22 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public override void Kill(int timeLeft)
         {
-            int Minion = NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, mod.NPCType<BunnyBattler>(), 0);
+            int MinionType = mod.NPCType<BunnyBattler>();
+            if (NPC.AnyNPCs(mod.NPCType<SupremeRajah>()))
+            {
+                MinionType = mod.NPCType<BunnyBattler4>();
+            }
+            else if (NPC.AnyNPCs(mod.NPCType<Rajah7>()) || NPC.AnyNPCs(mod.NPCType<Rajah8>()) || NPC.AnyNPCs(mod.NPCType<Rajah9>()))
+            {
+                MinionType = mod.NPCType<BunnyBattler3>();
+            }
+            else if (NPC.AnyNPCs(mod.NPCType<Rajah4>()) || NPC.AnyNPCs(mod.NPCType<Rajah5>()) || NPC.AnyNPCs(mod.NPCType<Rajah6>()))
+            {
+                MinionType = mod.NPCType<BunnyBattler2>();
+            }
+
+
+            int Minion = NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, MinionType, 0);
             Main.npc[Minion].netUpdate2 = true;
             projectile.active = false;
             projectile.netUpdate2 = true;

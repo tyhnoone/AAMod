@@ -22,13 +22,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             projectile.extraUpdates = 1;
         }
 
-        public override void PostAI()
-        {
-            projectile.damage = 100;
-        }
-
         public bool StuckInEnemy = false;
-
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             Rectangle myRect = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
@@ -56,11 +50,11 @@ namespace AAMod.NPCs.Bosses.Rajah
             if (projectile.ai[0] == 0f)
             {
                 projectile.ai[1] += 1f;
-                if (projectile.ai[1] >= 45f)
+                if (projectile.ai[1] >= 120f)
                 {
                     float num975 = 0.98f;
                     float num976 = 0.35f;
-                    projectile.ai[1] = 45f;
+                    projectile.ai[1] =120f;
                     projectile.velocity.X = projectile.velocity.X * num975;
                     projectile.velocity.Y = projectile.velocity.Y + num976;
                 }
@@ -75,7 +69,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                 bool flag53 = false;
                 projectile.localAI[0] += 1f;
                 int num978 = (int)projectile.ai[1];
-                if (projectile.localAI[0] >= (float)(60 * num977))
+                if (projectile.localAI[0] >= 60 * num977)
                 {
                     flag53 = true;
                 }

@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using System.IO;
+using BaseMod;
 
 namespace AAMod.NPCs.Bosses.Rajah
 {
@@ -42,6 +44,24 @@ namespace AAMod.NPCs.Bosses.Rajah
                 Dust.NewDust(npc.position, npc.width, npc.height, DustID.Blood, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, default(Color), (isDead ? 2f : 1.5f));
             }
         }
+        public bool SetLife = false;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            if ((Main.netMode == 2 || Main.dedServ))
+            {
+                writer.Write(SetLife);
+            }
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            if (Main.netMode == 1)
+            {
+                SetLife = reader.ReadBool(); //Set Lifex
+            }
+        }
 
         public override void FindFrame(int frameHeight)
         {
@@ -66,7 +86,16 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public override void PostAI()
         {
-            if (NPC.AnyNPCs(mod.NPCType<Rajah>()))
+            if (NPC.AnyNPCs(mod.NPCType<Rajah>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah2>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah3>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah4>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah5>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah6>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah7>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah8>()) ||
+                   NPC.AnyNPCs(mod.NPCType<Rajah9>()) ||
+                   NPC.AnyNPCs(mod.NPCType<SupremeRajah>()))
             {
                 if (npc.alpha > 0)
                 {
@@ -89,6 +118,50 @@ namespace AAMod.NPCs.Bosses.Rajah
                     npc.active = false;
                 }
             }
+        }
+    }
+    public class BunnyBrawler1 : BunnyBrawler
+    {
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/BunnyBrawler"; } }
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            npc.damage = 120;
+            npc.defense = 70;
+            npc.lifeMax = 600;
+        }
+    }
+    public class BunnyBrawler2 : BunnyBrawler
+    {
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/BunnyBrawler"; } }
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            npc.damage = 140;
+            npc.defense = 70;
+            npc.lifeMax = 800;
+        }
+    }
+    public class BunnyBrawler3 : BunnyBrawler
+    {
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/BunnyBrawler"; } }
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            npc.damage = 155;
+            npc.defense = 90;
+            npc.lifeMax = 1200;
+        }
+    }
+    public class BunnyBrawler4 : BunnyBrawler
+    {
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/BunnyBrawler"; } }
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            npc.damage = 170;
+            npc.defense = 100;
+            npc.lifeMax = 1600;
         }
     }
 }
