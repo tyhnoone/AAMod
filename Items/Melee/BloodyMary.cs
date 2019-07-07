@@ -9,7 +9,6 @@ namespace AAMod.Items.Melee
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bloody Mary");
-			Tooltip.SetDefault("This is a modded sword."); 
 		}
 
 		public override void SetDefaults()
