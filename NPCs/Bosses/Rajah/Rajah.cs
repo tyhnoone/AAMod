@@ -935,7 +935,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class SupremeRajah : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Supreme/Rajah"; } }
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
 
         public override void SetStaticDefaults()
         {
