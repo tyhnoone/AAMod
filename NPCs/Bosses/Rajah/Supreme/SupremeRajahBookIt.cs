@@ -1,13 +1,13 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace AAMod.NPCs.Bosses.Rajah
+namespace AAMod.NPCs.Bosses.Rajah.Supreme
 {
-    public class RajahBookIt : ModProjectile
+    public class SupremeRajahBookIt : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rajah Rabbit");
+            DisplayName.SetDefault("Rajah Rabbit; Champion of the innocent");
             Main.projFrames[projectile.type] = 4;
         }
         public override void SetDefaults()

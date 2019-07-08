@@ -104,18 +104,20 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            if (AAWorld.Anticheat == true && NPC.killCount[NPCID.Bunny] >= 1000)
+            if (AAWorld.Anticheat == true && isSupreme)
             {
                 if (damage > npc.lifeMax / 8)
                 {
                     Main.NewText("JUSTICE CANNOT BE CHEATED", 107, 137, 179);
                     damage = 0;
+                    npc.damage = 9999;
+                    npc.defense = 99999;
                 }
-
-                npc.damage = 9999;
-                npc.defense = 99999;
-
                 return false;
+            }
+            if (isSupreme)
+            {
+                damage *= .6f;
             }
 
             return true;
@@ -174,10 +176,21 @@ namespace AAMod.NPCs.Bosses.Rajah
                 npc.TargetClosest(true);
                 if (Main.player[npc.target].dead)
                 {
-                    Main.NewText("Justice has been served...", 107, 137, 179);
-                    if (Main.netMode != 1)
+                    if (isSupreme)
                     {
-                        Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
+                        Main.NewText("Justice has been served...", 107, 137, 179);
+                        if (Main.netMode != 1)
+                        {
+                            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
+                        }
+                    }
+                    else
+                    {
+                        Main.NewText("And stay down.", 107, 137, 179);
+                        if (Main.netMode != 1)
+                        {
+                            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<Supreme.SupremeRajahBookIt>(), 100, 0, Main.myPlayer);
+                        }
                     }
                     npc.active = false;
                     npc.noTileCollide = true;
@@ -186,15 +199,22 @@ namespace AAMod.NPCs.Bosses.Rajah
                 }
             }
 
-            if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 3000)
+            if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 5000)
             {
                 npc.TargetClosest(true);
-                if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 3000)
+                if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 5000)
                 {
                     Main.NewText("Coward.", 107, 137, 179);
                     if (Main.netMode != 1)
                     {
-                        Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
+                        if (isSupreme)
+                        {
+                            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<Supreme.SupremeRajahBookIt>(), 100, 0, Main.myPlayer);
+                        }
+                        else
+                        {
+                            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
+                        }
                     }
                     npc.active = false;
                     npc.noTileCollide = true;
@@ -212,8 +232,9 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 npc.direction = -1;
             }
-
-            if (player.Center.Y < npc.position.Y - 30f || TileBelowEmpty() || !Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
+            if (player.Center.Y < npc.position.Y - 30f || TileBelowEmpty() || 
+                !Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height) ||
+                Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 2000)
             {
                 npc.noGravity = true;
                 FlyAI();
@@ -222,6 +243,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 npc.noTileCollide = false;
                 npc.noGravity = false;
+                isDashing = false;
                 JumpAI();
             }
 
@@ -408,6 +430,16 @@ namespace AAMod.NPCs.Bosses.Rajah
             npc.rotation = 0;
         }
 
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            if (isSupreme && npc.life <= 0)
+            {
+                Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/SupremeRajahHelmet1"), 1f);
+                Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/SupremeRajahHelmet2"), 1f);
+                Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/SupremeRajahHelmet3"), 1f);
+            }
+        }
+
         public bool TileBelowEmpty()
         {
             int tileX = (int)(npc.Center.X / 16f) + npc.direction * 2;
@@ -564,6 +596,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
         }
 
+        bool isDashing = false;
         public void FlyAI()
         {
             if (!Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
@@ -577,7 +610,14 @@ namespace AAMod.NPCs.Bosses.Rajah
             float speed = 10f;
             if (isSupreme)
             {
-                speed = 16f;
+                if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 2000)
+                {
+                    speed = 30f; isDashing = true;
+                }
+                else
+                {
+                    speed = 16f; isDashing = false;
+                }
             }
             else if (npc.life < (npc.lifeMax * .85f)) //The lower the health, the more damage is done
             {
@@ -791,6 +831,10 @@ namespace AAMod.NPCs.Bosses.Rajah
         {
             bool RageMode = !isSupreme && npc.life < npc.lifeMax / 7;
             bool SupremeRageMode = isSupreme && npc.life < npc.lifeMax / 7;
+            if (isSupreme && isDashing)
+            {
+                BaseDrawing.DrawAfterimage(spriteBatch, RajahTex, 0, npc, 1f, 1f, 10, false, 0f, 0f, Main.DiscoColor);
+            }
             if (RageMode)
             {
                 Color RageColor = BaseUtility.MultiLerpColor((Main.player[Main.myPlayer].miscCounter % 100) / 100f, Color.Firebrick, drawColor, Color.Firebrick);
@@ -834,7 +878,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         {
             get
             {
-                return "AAMod/NPCs/Bosses/Rajah/Rajah_Head_Boss";
+                return isSupreme ? "AAMod/NPCs/Bosses/Rajah/SupremeRajah_Head_Boss" : "AAMod/NPCs/Bosses/Rajah/Rajah_Head_Boss";
             }
         }
     }
@@ -969,6 +1013,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             npc.lifeMax = 4000000;
             npc.life = 4000000;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/SupremeRajah");
+            isSupreme = true;
         }
     }
 }

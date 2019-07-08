@@ -78,6 +78,14 @@ namespace AAMod
                     npc.value = 50000f;
                 }
             }
+            if (AAWorld.downedRajahsRevenge)
+            {
+                bool isBunny = npc.type == NPCID.Bunny || npc.type == NPCID.GoldBunny || npc.type == NPCID.BunnySlimed || npc.type == NPCID.BunnyXmas || npc.type == NPCID.PartyBunny;
+                if (isBunny)
+                {
+                    npc.dontTakeDamage = true;
+                }
+            }
         }
 
         public int RiftTimer;
