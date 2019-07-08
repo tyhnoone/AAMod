@@ -156,7 +156,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             return 9f;
         }
 
-
+        private bool SayLine = false;
         public override void AI()
         {
             AAModGlobalNPC.Rajah = npc.whoAmI;
@@ -164,10 +164,39 @@ namespace AAMod.NPCs.Bosses.Rajah
             StaffPos = new Vector2(npc.Center.X + (npc.direction == 1 ? 78 : -78), npc.Center.Y - 9);
             if (Roaring) roarTimer--;
 
-            if (Main.netMode != 1 && npc.type == mod.NPCType<SupremeRajah>())
+            if (Main.netMode != 1 && npc.type == mod.NPCType<SupremeRajah>() && isSupreme == false)
             {
                 isSupreme = true;
                 npc.netUpdate = true;
+            }
+
+            if (isSupreme && npc.life <= npc.lifeMax / 7 && !SayLine && Main.netMode != 1)
+            {
+                SayLine = true;
+                string Name;
+
+                int bunnyKills = NPC.killCount[Item.NPCtoBanner(NPCID.Bunny)];
+                if (bunnyKills >= 100 && !AAWorld.downedRajahsRevenge)
+                {
+                    Name = "MUDERER";
+                }
+                else
+                {
+                    if (Main.netMode != 0)
+                    {
+                        Name = "Terrarians";
+                    }
+                    else if (!AAWorld.downedRajahsRevenge)
+                    {
+                        Name = "Terrarian";
+                    }
+                    else
+                    {
+                        Name = Main.player[Main.myPlayer].name;
+                    }
+                }
+                BaseUtility.Chat("THIS ISN'T THE END, " + Name.ToUpper() + "! RIVALS CLASH TILL THE VERY END!", 107, 137, 179);
+                music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/LastStand");
             }
 
             Player player = Main.player[npc.target];
@@ -178,7 +207,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                 {
                     if (isSupreme)
                     {
-                        Main.NewText("Justice has been served...", 107, 137, 179);
+                        BaseUtility.Chat("Justice has been served...", 107, 137, 179);
                         if (Main.netMode != 1)
                         {
                             Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
@@ -266,19 +295,29 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
             else if (npc.ai[3] == 0 && npc.ai[2] >= 240)
             {
-                if (Main.rand.Next(10) == 0)
+                if (Main.rand.Next(5) == 0)
                 {
                     Roar(roarTimerMax);
                 }
-                internalAI[3] = 0;
-                npc.ai[2] = 0;
-                if (AAMod.thoriumLoaded && Main.rand.Next(7) == 0)
+                if (Main.netMode != 1)
                 {
-                    npc.ai[3] = 7;
-                }
-                else
-                {
-                    npc.ai[3] = Main.rand.Next(4);
+                    internalAI[3] = 0;
+                    npc.ai[2] = 0;
+                    if (AAMod.thoriumLoaded && Main.rand.Next(7) == 0)
+                    {
+                        npc.ai[3] = 7;
+                    }
+                    else
+                    {
+                        if (isSupreme)
+                        {
+                            npc.ai[3] = Main.rand.Next(4);
+                        }
+                        else
+                        {
+                            npc.ai[3] = Main.rand.Next(7);
+                        }
+                    }
                 }
                 npc.netUpdate = true;
             }
@@ -413,15 +452,15 @@ namespace AAMod.NPCs.Bosses.Rajah
                 }
                 else if (npc.ai[3] == 6) //Rabbits Wrath
                 {
-                    if (internalAI[3] > 80)
+                    if (internalAI[3] > 50)
                     {
                         internalAI[3] = 0;
-                        Vector2 vector12 = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
-                        float num75 = item.shootSpeed;
-                        for (int num120 = 0; num120 < 3; num120++)
+                        Vector2 vector12 = new Vector2(player.Center.X, player.Center.Y);
+                        float num75 = 20f;
+                        for (int num120 = 0; num120 < 6; num120++)
                         {
                             Vector2 vector2 = player.Center + new Vector2(-(float)Main.rand.Next(0, 401) * player.direction, -600f);
-                            vector2.Y -= 100 * num120;
+                            vector2.Y -= 120 * num120;
                             Vector2 vector13 = vector12 - vector2;
                             if (vector13.Y < 0f)
                             {
@@ -437,12 +476,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                             float num83 = vector13.Y;
                             float speedX5 = num82;
                             float speedY6 = num83 + Main.rand.Next(-40, 41) * 0.02f;
-                            int p = Projectile.NewProjectile(vector2.X, vector2.Y, speedX5, speedY6, mod.ProjectileType("Carrot"), damage * 3 / 2, knockBack, Main.myPlayer);
-                            Main.projectile[p].melee = false;
-                            Main.projectile[p].magic = true;
-                            Main.projectile[p].extraUpdates = 1;
-                            Main.projectile[p].usesLocalNPCImmunity = true;
-                            Main.projectile[p].localNPCHitCooldown = 10;
+                            Projectile.NewProjectile(vector2.X, vector2.Y, speedX5 * 2, speedY6 * 2, mod.ProjectileType<CarrotHostile>(), npc.damage / 3, 6, Main.myPlayer, 0, 0);
                         }
                         npc.netUpdate = true;
                     }
@@ -528,11 +562,7 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public string WeaponTexture()
         {
-            if (npc.ai[3] == 0 || npc.ai[3] == 4) //No Weapon or Carrot Farmer
-            {
-                return "BlankTex";
-            }
-            else if (npc.ai[3] == 1) //Bunzooka
+            if (npc.ai[3] == 1) //Bunzooka
             {
                 return "NPCs/Bosses/Rajah/RajahArmsB";
             }
@@ -540,13 +570,29 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 return "NPCs/Bosses/Rajah/RajahArmsR";
             }
-            else //Javelin
+            else if (npc.ai[3] == 3) //Javelin
             {
                 if (internalAI[3] > 60)
                 {
                     return "BlankTex";
                 }
                 return "NPCs/Bosses/Rajah/RajahArmsS";
+            }
+            else if (npc.ai[3] == 4) //Excalihare
+            {
+                return "NPCs/Bosses/Rajah/Supreme/Excalihare";
+            }
+            else if (npc.ai[3] == 5) //Fluffy Fury
+            {
+                return "NPCs/Bosses/Rajah/Supreme/FluffyFury";
+            }
+            else if (npc.ai[3] == 6) //Rabbits Wrath
+            {
+                return "NPCs/Bosses/Rajah/Supreme/RabbitsWrath";
+            }
+            else
+            {
+                return "BlankTex";
             }
         }
 
@@ -677,7 +723,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             float speed = 10f;
             if (isSupreme)
             {
-                if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 2000)
+                if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 1000)
                 {
                     speed = 30f; isDashing = true;
                 }
@@ -823,10 +869,6 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public override void NPCLoot()
         {
-            if (Main.expertMode)
-            {
-                npc.DropBossBags();
-            }
             if (!Main.expertMode)
             {
                 if (Main.rand.Next(7) == 0)
@@ -842,21 +884,45 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RajahTrophy"));
             }
-            if (isSupreme && !AAWorld.downedRajahsRevenge)
+            if (isSupreme)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EXSoul"));
-                NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, mod.NPCType<Supreme.SupremeRajahDefeat>());
+                if (!AAWorld.downedRajahsRevenge)
+                {
+                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, mod.NPCType<SupremeRajahDefeat>());
+                }
+                else
+                {
+                    string Name;
+                    if (Main.netMode != 0)
+                    {
+                        Name = "Terrarians";
+                    }
+                    else
+                    {
+                        Name = Main.player[Main.myPlayer].name;
+                    }
+                    if (Main.expertMode)
+                    {
+                        npc.DropBossBags();
+                    }
+                    BaseUtility.Chat("Well fought, " + Name + ". Take your reward.", 107, 137, 179, true);
+                    Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<SupremeRajahLeave>(), 100, 0, Main.myPlayer);
+                }
             }
             else
             {
-                BaseUtility.Chat("You win this time, murderer...but I will avenge those you've mercilicely slain...", 107, 137, 179, true);
+                if (Main.expertMode)
+                {
+                    npc.DropBossBags();
+                }
+                int bunnyKills = NPC.killCount[Item.NPCtoBanner(NPCID.Bunny)];
+                if (bunnyKills >= 100)
+                {
+                    BaseUtility.Chat("You win this time, murderer...but I will avenge those you've mercilicely slain...", 107, 137, 179, true);
+                }
                 Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
             }
             AAWorld.downedRajah = true;
-            if (isSupreme)
-            {
-                AAWorld.downedRajahsRevenge = true;
-            }
             npc.value = 0f;
             npc.boss = false;
         }
@@ -896,6 +962,8 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
+            if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
+            else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
             bool RageMode = !isSupreme && npc.life < npc.lifeMax / 7;
             bool SupremeRageMode = isSupreme && npc.life < npc.lifeMax / 7;
             if (isSupreme && isDashing)
@@ -911,7 +979,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 BaseDrawing.DrawAura(spriteBatch, RajahTex, 0, npc.position, npc.width, npc.height, auraPercent, 1f, 1f, 0f, npc.direction, 8, npc.frame, 0f, -5f, Main.DiscoColor);
             }
-            if (npc.ai[3] != 0) //No Weapon
+            if (npc.ai[3] != 0 && npc.ai[3] < 6) //If holding a weapon
             {
                 ArmTex = mod.GetTexture(WeaponTexture());
                 Rectangle WeaponRectangle = new Rectangle(0, WeaponFrame, 300, 220);
@@ -919,8 +987,12 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
             RajahTexture();
             BaseDrawing.DrawTexture(spriteBatch, RajahTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 8, npc.frame, drawColor, true);
-            if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
-            else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
+            if (npc.ai[3] == 6) //If Rabbits Wrath
+            {
+                ArmTex = mod.GetTexture("NPCs/Bosses/Rajah/Supreme/RabbitsWrath");
+                Rectangle WeaponRectangle = new Rectangle(0, WeaponFrame, 300, 220);
+                BaseDrawing.DrawTexture(spriteBatch, ArmTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 8, WeaponRectangle, drawColor, true);
+            }
             if (RageMode)
             {
                 int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingFlameDye);

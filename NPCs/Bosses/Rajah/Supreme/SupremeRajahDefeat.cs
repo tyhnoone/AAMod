@@ -105,7 +105,7 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
                 {
                     Name = Main.player[Main.myPlayer].name;
                 }
-                BaseUtility.Chat("Who better to take my place, " + Name + " ?", 107, 137, 179, true);
+                BaseUtility.Chat("Who better to take my place than you, " + Name + " ?", 107, 137, 179, true);
             }
             if (npc.ai[0] == 840)
             {
@@ -119,10 +119,11 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
             {
                 BaseUtility.Chat("And if you ever want to spar...use one of those special carrots. I'd be glad to earn my honor back.", 107, 137, 179, true);
             }
-
             if (npc.ai[0] >= 1020)
             {
                 BaseUtility.Chat("...See ya, kiddo.", 107, 137, 179, true);
+                AAWorld.downedRajahsRevenge = true;
+                BaseUtility.Chat("Rajah Rabbit's speech warms your heart. You no longer have the will to harm rabbits. Do him proud.", Color.Green, true);
                 Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<SupremeRajahLeave>(), 100, 0, Main.myPlayer);
             }
         }
