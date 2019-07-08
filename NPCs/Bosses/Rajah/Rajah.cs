@@ -411,6 +411,42 @@ namespace AAMod.NPCs.Bosses.Rajah
                         npc.netUpdate = true;
                     }
                 }
+                else if (npc.ai[3] == 6) //Rabbits Wrath
+                {
+                    if (internalAI[3] > 80)
+                    {
+                        internalAI[3] = 0;
+                        Vector2 vector12 = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+                        float num75 = item.shootSpeed;
+                        for (int num120 = 0; num120 < 3; num120++)
+                        {
+                            Vector2 vector2 = player.Center + new Vector2(-(float)Main.rand.Next(0, 401) * player.direction, -600f);
+                            vector2.Y -= 100 * num120;
+                            Vector2 vector13 = vector12 - vector2;
+                            if (vector13.Y < 0f)
+                            {
+                                vector13.Y *= -1f;
+                            }
+                            if (vector13.Y < 20f)
+                            {
+                                vector13.Y = 20f;
+                            }
+                            vector13.Normalize();
+                            vector13 *= num75;
+                            float num82 = vector13.X;
+                            float num83 = vector13.Y;
+                            float speedX5 = num82;
+                            float speedY6 = num83 + Main.rand.Next(-40, 41) * 0.02f;
+                            int p = Projectile.NewProjectile(vector2.X, vector2.Y, speedX5, speedY6, mod.ProjectileType("Carrot"), damage * 3 / 2, knockBack, Main.myPlayer);
+                            Main.projectile[p].melee = false;
+                            Main.projectile[p].magic = true;
+                            Main.projectile[p].extraUpdates = 1;
+                            Main.projectile[p].usesLocalNPCImmunity = true;
+                            Main.projectile[p].localNPCHitCooldown = 10;
+                        }
+                        npc.netUpdate = true;
+                    }
+                }
                 else if (npc.ai[3] == 7) //Carrot Farmer
                 {
                     if (!AAGlobalProjectile.AnyProjectiless(mod.ProjectileType<CarrotFarmerR>()))
