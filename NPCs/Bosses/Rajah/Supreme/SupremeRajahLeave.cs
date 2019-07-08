@@ -3,7 +3,6 @@ using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Rajah.Supreme
 {
-{
     public class SupremeRajahLeave : ModProjectile
     {
         public override void SetStaticDefaults()
