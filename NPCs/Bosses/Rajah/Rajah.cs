@@ -775,16 +775,21 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RajahTrophy"));
             }
-            if (isSupreme)
+            if (isSupreme && !AAWorld.downedRajahsRevenge)
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EXSoul"));
-                BaseUtility.Chat("Rgh...Terrarian...this will not be the last time we meet. Next time...I will end you.", 107, 137, 179, true);
+                NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, mod.NPCType<Supreme.SupremeRajahDefeat>());
             }
             else
             {
                 BaseUtility.Chat("You win this time, murderer...but I will avenge those you've mercilicely slain...", 107, 137, 179, true);
+                Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
             }
-            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
+            AAWorld.downedRajah = true;
+            if (isSupreme)
+            {
+                AAWorld.downedRajahsRevenge = true;
+            }
             npc.value = 0f;
             npc.boss = false;
         }
@@ -792,11 +797,6 @@ namespace AAMod.NPCs.Bosses.Rajah
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.GreaterHealingPotion;
-            AAWorld.downedRajah = true;
-            if (npc.type == mod.NPCType<SupremeRajah>())
-            {
-                AAWorld.downedRajahsRevenge = true;
-            }
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

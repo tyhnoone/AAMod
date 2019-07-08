@@ -102,12 +102,15 @@ namespace AAMod.Projectiles.Rajah
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             BaseDrawing.DrawAfterimage(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile, 1f, 1f, 10, false, 0f, 0f, Main.DiscoColor);
-            return false;
+            return true;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(mod.BuffType<Buffs.InfinityOverload>(), 120);
+            int p = Projectile.NewProjectile((int)projectile.Center.X, (int)projectile.Center.Y, 0, 0, mod.ProjectileType<ExcalihareBoom>(), projectile.damage, projectile.knockBack, Main.myPlayer);
+            Main.projectile[p].Center = projectile.Center;
+            Main.projectile[p].netUpdate = true;
         }
 
         public override void Kill(int i)
