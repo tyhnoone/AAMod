@@ -1,4 +1,3 @@
-
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,6 +8,7 @@ using BaseMod;
 using System.IO;
 using AAMod.Items.Boss.Rajah;
 using Terraria.Graphics.Shaders;
+using AAMod.NPCs.Bosses.Rajah.Supreme;
 
 namespace AAMod.NPCs.Bosses.Rajah
 {
@@ -272,9 +272,9 @@ namespace AAMod.NPCs.Bosses.Rajah
                 }
                 internalAI[3] = 0;
                 npc.ai[2] = 0;
-                if (AAMod.thoriumLoaded)
+                if (AAMod.thoriumLoaded && Main.rand.Next(7) == 0)
                 {
-                    npc.ai[3] = Main.rand.Next(5);
+                    npc.ai[3] = 7;
                 }
                 else
                 {
@@ -380,7 +380,38 @@ namespace AAMod.NPCs.Bosses.Rajah
                     }
                     npc.netUpdate = true;
                 }
-                else if (npc.ai[3] == 4) //Carrot Farmer
+                else if (npc.ai[3] == 4) //Excalihare
+                {
+                    if (internalAI[3] > 60)
+                    {
+                        internalAI[3] = 0;
+                        Vector2 dir = Vector2.Normalize(player.Center - WeaponPos);
+                        dir *= ProjSpeed();
+                        Projectile.NewProjectile(WeaponPos.X, WeaponPos.Y, dir.X, dir.Y, mod.ProjectileType<ExcalihareR>(), npc.damage / 5, 5, Main.myPlayer);
+                        npc.netUpdate = true;
+                    }
+                }
+                else if (npc.ai[3] == 5) //Fluffy Fury
+                {
+                    int Arrows = Main.rand.Next(2, 4);
+                    float spread = 45f * 0.0174f;
+                    Vector2 dir = Vector2.Normalize(player.Center - WeaponPos);
+                    dir *= ProjSpeed();
+                    float baseSpeed = (float)Math.Sqrt((dir.X * dir.X) + (dir.Y * dir.Y));
+                    double startAngle = Math.Atan2(dir.X, dir.Y) - .1d;
+                    double deltaAngle = spread / (Arrows * 2);
+                    if (internalAI[3] > 70)
+                    {
+                        internalAI[3] = 0;
+                        for (int i = 0; i < Arrows; i++)
+                        {
+                            double offsetAngle = startAngle + (deltaAngle * i);
+                            Projectile.NewProjectile(WeaponPos.X, WeaponPos.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType("CarrowR"), npc.damage / 3, 5, Main.myPlayer);
+                        }
+                        npc.netUpdate = true;
+                    }
+                }
+                else if (npc.ai[3] == 7) //Carrot Farmer
                 {
                     if (!AAGlobalProjectile.AnyProjectiless(mod.ProjectileType<CarrotFarmerR>()))
                     {
