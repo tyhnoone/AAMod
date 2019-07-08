@@ -735,11 +735,15 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RajahTrophy"));
             }
-            if (isSupreme &&Main.rand.Next(20) == 0)
+            if (isSupreme)
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EXSoul"));
+                BaseUtility.Chat("Rgh...Terrarian...this will not be the last time we meet. Next time...I will end you.", 107, 137, 179, true);
             }
-            BaseUtility.Chat("You win this time, murderer...but I will avenge those you've mercilicely slain...", 107, 137, 179, true);
+            else
+            {
+                BaseUtility.Chat("You win this time, murderer...but I will avenge those you've mercilicely slain...", 107, 137, 179, true);
+            }
             Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
             npc.value = 0f;
             npc.boss = false;
