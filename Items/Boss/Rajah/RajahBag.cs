@@ -1,13 +1,13 @@
 using Terraria;
 
-namespace AAMod.Items.Boss.Rajah
+namespace AAMod.Items.Boss.Rajah.Supreme
 {
-    public class RajahBag : BaseAAItem
+    public class RajahCache : BaseAAItem
     {
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Treasure Bag");
+            DisplayName.SetDefault("Treasure Cache");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
         }
 
@@ -20,7 +20,7 @@ namespace AAMod.Items.Boss.Rajah
             item.expert = true;
         }
 
-        public override int BossBagNPC => mod.NPCType("Rajah");
+        public override int BossBagNPC => mod.NPCType("SupremeRajah");
 
         public override bool CanRightClick()
         {
@@ -36,21 +36,13 @@ namespace AAMod.Items.Boss.Rajah
             if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
-                modPlayer.PMLDevArmor();
+                modPlayer.SADevArmor();
             }
             player.QuickSpawnItem(mod.ItemType<RajahPelt>(), Main.rand.Next(15, 31));
-            player.QuickSpawnItem(mod.ItemType("RajahPelt"), Main.rand.Next(20, 25));
             player.QuickSpawnItem(mod.ItemType("RajahSash"));
-            string[] lootTable = { "BaneOfTheBunny", "Bunzooka", "Punisher", "RabbitcopterEars", "RoyalScepter" };
+            string[] lootTable = { "Excalihare", "FluffyFury", "RabbitsWrath" };
             int loot = Main.rand.Next(lootTable.Length);
-            if (Main.rand.Next(6) == 1 && AAMod.thoriumLoaded)
-            {
-                player.QuickSpawnItem(mod.ItemType("CarrotFarmer"));
-            }
-            else
-            {
-                player.QuickSpawnItem(mod.ItemType(lootTable[loot]));
-            }
+            player.QuickSpawnItem(mod.ItemType(lootTable[loot]));
         }
     }
 }

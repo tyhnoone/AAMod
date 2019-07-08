@@ -166,6 +166,7 @@ namespace AAMod.NPCs.Bosses.Rajah
 
             if (Main.netMode != 1 && npc.type == mod.NPCType<SupremeRajah>() && isSupreme == false)
             {
+                bossBag = mod.ItemType("RajahCache");
                 isSupreme = true;
                 npc.netUpdate = true;
             }
