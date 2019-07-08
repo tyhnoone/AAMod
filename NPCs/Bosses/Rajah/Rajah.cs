@@ -722,6 +722,10 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
             if (!Main.expertMode)
             {
+                if (Main.rand.Next(7) == 0)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RajahMask"));
+                }
                 npc.DropLoot(mod.ItemType<RajahPelt>(), Main.rand.Next(10, 26));
                 string[] lootTableA = { "BaneOfTheBunny", "Bunnyzooka", "RoyalScepter", "Punisher", "RabbitcopterEars"};
                 int lootA = Main.rand.Next(lootTableA.Length);
@@ -730,6 +734,10 @@ namespace AAMod.NPCs.Bosses.Rajah
             if (Main.rand.Next(10) == 0)
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RajahTrophy"));
+            }
+            if (isSupreme &&Main.rand.Next(20) == 0)
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EXSoul"));
             }
             BaseUtility.Chat("You win this time, murderer...but I will avenge those you've mercilicely slain...", 107, 137, 179, true);
             Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
