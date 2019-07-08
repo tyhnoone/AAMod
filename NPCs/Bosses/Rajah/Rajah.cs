@@ -71,6 +71,7 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         private Texture2D RajahTex;
         private Texture2D Glow;
+        private Texture2D SupremeGlow;
         private Texture2D SupremeEyes;
         private Texture2D ArmTex;
         public int WeaponFrame = 0;
@@ -755,16 +756,19 @@ namespace AAMod.NPCs.Bosses.Rajah
         public void RajahTexture()
         {
             string IsRoaring = Roaring ? "Roar" : "";
+            string Supreme = isSupreme ? "Supreme/Supreme" : "";
             if (internalAI[1] == 0)
             {
-                RajahTex = mod.GetTexture("NPCs/Bosses/Rajah/Rajah" + IsRoaring + "_Fly");
+                RajahTex = mod.GetTexture("NPCs/Bosses/Rajah/" + Supreme + "Rajah" + IsRoaring + "_Fly");
                 Glow = mod.GetTexture("Glowmasks/Rajah" + IsRoaring + "_Fly_Glow");
+                SupremeGlow = mod.GetTexture("Glowmasks/SupremeRajah" + IsRoaring + "_Fly_Glow");
                 SupremeEyes = mod.GetTexture("Glowmasks/SupremeRajah" + IsRoaring + "_Fly_Eyes");
             }
             else
             {
-                RajahTex = mod.GetTexture("NPCs/Bosses/Rajah/Rajah" + IsRoaring);
+                RajahTex = mod.GetTexture("NPCs/Bosses/Rajah/" + Supreme + "Rajah" + IsRoaring);
                 Glow = mod.GetTexture("Glowmasks/Rajah" + IsRoaring + "_Glow");
+                SupremeGlow = mod.GetTexture("Glowmasks/SupremeRajah" + IsRoaring + "_Glow");
                 SupremeEyes = mod.GetTexture("Glowmasks/SupremeRajah" + IsRoaring + "_Eyes");
             }
         }
@@ -803,6 +807,8 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 BaseDrawing.DrawTexture(spriteBatch, Glow, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 8, npc.frame, Main.DiscoColor, true);
                 BaseDrawing.DrawAura(spriteBatch, Glow, 0, npc.position, npc.width, npc.height, auraPercent, 1f, 1f, 0f, npc.direction, 8, npc.frame, 0f, -5f, Main.DiscoColor);
+                BaseDrawing.DrawTexture(spriteBatch, SupremeGlow, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 8, npc.frame, Main.DiscoColor, true);
+                BaseDrawing.DrawAura(spriteBatch, SupremeGlow, 0, npc.position, npc.width, npc.height, auraPercent, 1f, 1f, 0f, npc.direction, 8, npc.frame, 0f, -5f, Main.DiscoColor);
                 return false;
             }
             else if (isSupreme)
@@ -935,11 +941,11 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class SupremeRajah : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
+        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Supreme/SupremeRajah"; } }
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rajah Rabbit");
+            DisplayName.SetDefault("Rajah Rabbit; Champion of the Innocent");
             Main.npcFrameCount[npc.type] = 8;
         }
 
@@ -950,6 +956,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             npc.defense = 350;
             npc.lifeMax = 4000000;
             npc.life = 4000000;
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/SupremeRajah");
         }
     }
 }
