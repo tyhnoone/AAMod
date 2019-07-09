@@ -312,11 +312,11 @@ namespace AAMod.NPCs.Bosses.Rajah
                     {
                         if (isSupreme)
                         {
-                            npc.ai[3] = Main.rand.Next(4);
+                            npc.ai[3] = Main.rand.Next(7);
                         }
                         else
                         {
-                            npc.ai[3] = Main.rand.Next(7);
+                            npc.ai[3] = Main.rand.Next(4);
                         }
                     }
                 }
@@ -967,6 +967,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
             bool RageMode = !isSupreme && npc.life < npc.lifeMax / 7;
             bool SupremeRageMode = isSupreme && npc.life < npc.lifeMax / 7;
+            RajahTexture();
             if (isSupreme && isDashing)
             {
                 BaseDrawing.DrawAfterimage(spriteBatch, RajahTex, 0, npc, 1f, 1f, 10, false, 0f, 0f, Main.DiscoColor);
@@ -986,7 +987,6 @@ namespace AAMod.NPCs.Bosses.Rajah
                 Rectangle WeaponRectangle = new Rectangle(0, WeaponFrame, 300, 220);
                 BaseDrawing.DrawTexture(spriteBatch, ArmTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 8, WeaponRectangle, drawColor, true);
             }
-            RajahTexture();
             BaseDrawing.DrawTexture(spriteBatch, RajahTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 8, npc.frame, drawColor, true);
             if (npc.ai[3] == 6) //If Rabbits Wrath
             {

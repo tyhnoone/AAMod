@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using AAMod.Items.Boss.Rajah;
 using Terraria;
 using Terraria.ModLoader;
 using BaseMod;
@@ -43,58 +43,58 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
             {
                 BaseUtility.Chat("Rgh...", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 180)
+            if (npc.ai[0] == 240)
             {
                 BaseUtility.Chat("...so...", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 240)
+            if (npc.ai[0] == 360)
             {
                 BaseUtility.Chat("Even when I'm at my most powerful...", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 300)
+            if (npc.ai[0] == 480)
             {
                 BaseUtility.Chat("...I still can't beat you.", 107, 137, 179, true);
             }
-            if (npc.ai[0] >= 360)
+            if (npc.ai[0] >= 600)
             {
                 npc.ai[1] = 1;
                 music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/ThinkAboutIt");
                 npc.netUpdate = true;
             }
-            if (npc.ai[0] == 360)
+            if (npc.ai[0] == 600)
             {
                 BaseUtility.Chat("...", 107, 137, 179, true);
             }
-            if (npc.ai[0] >= 420)
+            if (npc.ai[0] >= 840)
             {
                 npc.ai[1] = 2;
                 npc.netUpdate = true;
             }
-            if (npc.ai[0] == 420)
+            if (npc.ai[0] == 840)
             {
                 BaseUtility.Chat("...Terrarian...maybe...", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 480)
+            if (npc.ai[0] == 960)
             {
                 BaseUtility.Chat("Perhaps this is all just a sign that...maybe my time as protector...", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 540)
+            if (npc.ai[0] == 1080)
             {
                 BaseUtility.Chat("...is finally up. It might be time to pass on the baton.", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 600)
+            if (npc.ai[0] == 1200)
             {
                 BaseUtility.Chat("...I forgive you for every rabbit you've killed, but in return...I want you to take my place...", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 660)
+            if (npc.ai[0] == 1320)
             {
                 BaseUtility.Chat("...as their champion. Their protector.", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 720)
+            if (npc.ai[0] == 1440)
             {
                 BaseUtility.Chat("I only want the best for the creatures of this world...and if you're stronger than I am...", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 780)
+            if (npc.ai[0] == 1560)
             {
                 string Name;
                 if (Main.netMode != 0)
@@ -105,27 +105,37 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
                 {
                     Name = Main.player[Main.myPlayer].name;
                 }
-                BaseUtility.Chat("Who better to take my place than you, " + Name + " ?", 107, 137, 179, true);
+                BaseUtility.Chat("Who better to take my place than you, " + Name + "?", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 840)
+            if (npc.ai[0] == 1680)
             {
                 BaseUtility.Chat("Be the one the innocent can look to in their time of need.", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 900)
+            if (npc.ai[0] == 1800)
             {
                 BaseUtility.Chat("Think about it.", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 960)
+            if (npc.ai[0] == 1920)
             {
                 BaseUtility.Chat("And if you ever want to spar...use one of those special carrots. I'd be glad to earn my honor back.", 107, 137, 179, true);
             }
-            if (npc.ai[0] >= 1020)
+            if (npc.ai[0] == 2040)
             {
                 BaseUtility.Chat("...See ya, kiddo.", 107, 137, 179, true);
                 AAWorld.downedRajahsRevenge = true;
                 BaseUtility.Chat("Rajah Rabbit's speech warms your heart. You no longer have the will to harm rabbits. Do him proud.", Color.Green, true);
                 Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<SupremeRajahLeave>(), 100, 0, Main.myPlayer);
+                npc.active = false;
+                npc.netUpdate = true;
             }
+        }
+
+        public override void NPCLoot()
+        {
+            npc.DropLoot(mod.ItemType<RajahPelt>(), Main.rand.Next(15, 31));
+            string[] lootTable = { "Excalihare", "FluffyFury", "RabbitsWrath" };
+            int loot = Main.rand.Next(lootTable.Length);
+            npc.DropLoot(mod.ItemType(lootTable[loot]));
         }
 
         public override void FindFrame(int frameHeight)
@@ -158,13 +168,6 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
                     npc.frame.Y = frameHeight * 5;
                 }
             }
-
-        }
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-        {
-            BaseDrawing.DrawTexture(spriteBatch, Main.npcTexture[npc.type], 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 8, npc.frame, drawColor, true);
-            return false;
         }
 
         public override string BossHeadTexture

@@ -16,12 +16,12 @@ namespace AAMod.Items.Boss.Rajah.Supreme
         public override void SetDefaults()
         {
             item.damage = 300;
-            item.ranged = true;
+            item.magic = true;
+            item.mana = 5;
             item.width = 16;
             item.height = 16;
-            item.useTime = 7;
-            item.useAnimation = 21;
-            item.reuseDelay = 23;
+            item.useTime = 5;
+            item.useAnimation = 20;
             item.useStyle = 5;
             item.noMelee = true;
             item.knockBack = .5f;
@@ -30,7 +30,7 @@ namespace AAMod.Items.Boss.Rajah.Supreme
             item.shootSpeed = 14f;
             item.shoot = mod.ProjectileType("Carrot");
             item.rare = 9;
-            AARarity = 15;
+            AARarity = 14;
         }
         public override Vector2? HoldoutOffset()
         {

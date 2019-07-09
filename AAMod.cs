@@ -64,6 +64,7 @@ namespace AAMod
         public static int[] SERPENTTYPES = new int[0];
 
         public static bool thoriumLoaded = false;
+        public static bool calamityLoaded = false;
 
         internal static AAMod instance;
         public static AAMod self = null;
@@ -212,9 +213,12 @@ namespace AAMod
             WeakReferences.PerformModSupport();
 
             Mod Thorium = ModLoader.GetMod("ThoriumMod");
+            Mod Calamity = ModLoader.GetMod("CalamityMod");
 
             if (Thorium != null)
                 thoriumLoaded = true;
+            if (Calamity != null)
+                calamityLoaded = true;
         }
 
         public static void PremultiplyTexture(Texture2D texture)

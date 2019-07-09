@@ -24,6 +24,8 @@ namespace AAMod.Projectiles.Rajah
             projectile.melee = true;
             projectile.penetrate = 5;
             projectile.tileCollide = true;
+            projectile.usesLocalNPCImmunity = true;
+            projectile.localNPCHitCooldown = 5;
         }
 
 
@@ -101,7 +103,8 @@ namespace AAMod.Projectiles.Rajah
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            BaseDrawing.DrawAfterimage(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile, 1f, 1f, 10, false, 0f, 0f, Main.DiscoColor);
+            BaseDrawing.DrawAfterimage(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile, .5f, 1f, 10, false, 0f, 0f, Main.DiscoColor);
+            BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile, Main.DiscoColor, false);
             return true;
         }
 

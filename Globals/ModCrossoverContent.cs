@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.ModLoader;
-using System.Reflection;
 using Microsoft.Xna.Framework.Graphics;
 using AAMod.Items;
 
@@ -11,46 +9,12 @@ namespace AAMod
 {
     public class ModSupport
     {
-        public static Mod thorium = null, calamity = null, redemption = null;
-
-        public static FieldInfo CRevengence = null, CDeath = null, CDefiled = null;
-
-        public static bool Revengence(bool? value = null)
-        {
-            if (value != null && CRevengence != null)
-            {
-                CRevengence.SetValue(null, (bool)value);
-                return (bool)value;
-
-            }
-            return (CRevengence == null ? false : (bool)CRevengence.GetValue(null));
-        }
-
-        public static bool Death(bool? value = null)
-        {
-            if (value != null && CDeath != null)
-            {
-                CDeath.SetValue(null, (bool)value);
-                return (bool)value;
-            }
-            return (CDeath == null ? false : (bool)CDeath.GetValue(null));
-        }
-
-        public static bool Defiled(bool? value = null)
-        {
-            if (value != null && CDefiled != null)
-            {
-                CDefiled.SetValue(null, (bool)value);
-                return (bool)value;
-            }
-            return (CDefiled == null ? false : (bool)CDefiled.GetValue(null));
-        }
+        public static Mod thorium = null, redemption = null;
 
         public static bool ModInstalled(string name)
         {
             switch (name)
             {
-                case "CalamityMod": return calamity != null;
                 case "ThoriumMod": return thorium != null;
                 case "Redemption": return redemption != null;
                 default: return false;
@@ -63,34 +27,6 @@ namespace AAMod
         public static Texture2D GetMapBackgroundImage()
         {
             return (forceBlackMapBG ? Main.mapTexture : null);
-        }
-
-        public static void SetupSupport()
-        {
-            thorium = ModLoader.GetMod("ThoriumMod");
-            calamity = ModLoader.GetMod("CalamityMod");
-            redemption = ModLoader.GetMod("Redemption");
-
-            #region Calamity
-            if (calamity != null)
-            {
-                FieldInfo worldList = calamity.GetType().GetField("worlds", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-                Dictionary<string, ModWorld> worldDict = (Dictionary<string, ModWorld>)worldList.GetValue(calamity);
-                FieldInfo[] finfo = worldDict["CalamityWorld"].GetType().GetFields(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
-                for (int m = 0; m < finfo.Length; m++)
-                {
-                    FieldInfo info = finfo[m];
-                    string fname = info.Name.ToLower();
-                    switch (fname)
-                    {
-                        default: break;
-                        case "revenge": CRevengence = info; break;
-                        case "death": CDeath = info; break;
-                        case "defiled": CDefiled = info; break;
-                    }
-                }
-            }
-            #endregion
         }
     }
 

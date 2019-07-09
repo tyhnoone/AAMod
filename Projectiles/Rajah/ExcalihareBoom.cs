@@ -24,7 +24,7 @@ namespace AAMod.Projectiles.Rajah
             projectile.timeLeft = 600;
             projectile.melee = true;
             projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 15;
+            projectile.localNPCHitCooldown = 10;
         }
 
         public override Color? GetAlpha(Color lightColor)

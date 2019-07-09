@@ -8,7 +8,7 @@ namespace AAMod.Items.Boss.Rajah.Supreme
 	{
 		public override void SetDefaults()
 		{
-			item.damage = 430;
+			item.damage = 400;
 			item.melee = true;
 			item.width = 80;
 			item.height = 80;
@@ -17,7 +17,7 @@ namespace AAMod.Items.Boss.Rajah.Supreme
 			item.useStyle = 1;
             item.value = Item.sellPrice(0, 50, 0, 0);
             item.rare = 9;
-            AARarity = 15;
+            AARarity = 14;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("Excalihare");

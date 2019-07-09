@@ -36,21 +36,13 @@ namespace AAMod.Items.Boss.Rajah
             if (Main.rand.Next(20) == 0)
             {
                 AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
-                modPlayer.PMLDevArmor();
+                modPlayer.SADevArmor();
             }
             player.QuickSpawnItem(mod.ItemType<RajahPelt>(), Main.rand.Next(15, 31));
-            player.QuickSpawnItem(mod.ItemType("RajahPelt"), Main.rand.Next(20, 25));
             player.QuickSpawnItem(mod.ItemType("RajahSash"));
-            string[] lootTable = { "BaneOfTheBunny", "Bunzooka", "Punisher", "RabbitcopterEars", "RoyalScepter" };
+            string[] lootTable = { "Excalihare", "FluffyFury", "RabbitsWrath" };
             int loot = Main.rand.Next(lootTable.Length);
-            if (Main.rand.Next(6) == 1 && AAMod.thoriumLoaded)
-            {
-                player.QuickSpawnItem(mod.ItemType("CarrotFarmer"));
-            }
-            else
-            {
-                player.QuickSpawnItem(mod.ItemType(lootTable[loot]));
-            }
+            player.QuickSpawnItem(mod.ItemType(lootTable[loot]));
         }
     }
 }
