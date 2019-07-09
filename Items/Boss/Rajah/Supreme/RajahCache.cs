@@ -39,7 +39,7 @@ namespace AAMod.Items.Boss.Rajah
                 modPlayer.SADevArmor();
             }
             player.QuickSpawnItem(mod.ItemType<RajahPelt>(), Main.rand.Next(15, 31));
-            player.QuickSpawnItem(mod.ItemType("RajahSash"));
+            player.QuickSpawnItem(mod.ItemType("RajahCape"));
             string[] lootTable = { "Excalihare", "FluffyFury", "RabbitsWrath" };
             int loot = Main.rand.Next(lootTable.Length);
             player.QuickSpawnItem(mod.ItemType(lootTable[loot]));

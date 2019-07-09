@@ -117,7 +117,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
             if (isSupreme)
             {
-                damage *= .6f;
+                damage *= .5f;
             }
 
             return true;
@@ -1165,7 +1165,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         {
             base.SetDefaults();
             npc.damage = 350;
-            npc.defense = 350;
+            npc.defense = 0;
             npc.lifeMax = 4000000;
             npc.life = 4000000;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/SupremeRajah");
