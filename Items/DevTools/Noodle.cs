@@ -22,10 +22,10 @@ namespace AAMod.Items.DevTools
             projectile.hostile = false;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
-            projectile.penetrate = 1;
+            projectile.penetrate = 3;
             projectile.timeLeft = 300;
             projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 5;
+            projectile.localNPCHitCooldown = 2;
         }
 
         public override void AI()

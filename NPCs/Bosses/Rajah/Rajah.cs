@@ -533,16 +533,6 @@ namespace AAMod.NPCs.Bosses.Rajah
             npc.rotation = 0;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            if (isSupreme && npc.life <= 0)
-            {
-                Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/SupremeRajahHelmet1"), 1f);
-                Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/SupremeRajahHelmet2"), 1f);
-                Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/SupremeRajahHelmet3"), 1f);
-            }
-        }
-
         public bool TileBelowEmpty()
         {
             int tileX = (int)(npc.Center.X / 16f) + npc.direction * 2;
@@ -893,6 +883,9 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
             if (isSupreme)
             {
+                Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/SupremeRajahHelmet1"), 1f);
+                Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/SupremeRajahHelmet2"), 1f);
+                Gore.NewGore(npc.Center, npc.velocity, mod.GetGoreSlot("Gores/SupremeRajahHelmet3"), 1f);
                 if (!AAWorld.downedRajahsRevenge)
                 {
                     int n = NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, mod.NPCType<SupremeRajahDefeat>());
