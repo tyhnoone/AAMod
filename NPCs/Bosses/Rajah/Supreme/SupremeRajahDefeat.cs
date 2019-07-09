@@ -121,10 +121,11 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
             }
             if (npc.ai[0] >= 2180)
             {
-                BaseUtility.Chat("...See ya around, kiddo.", 107, 137, 179, true);
+                BaseUtility.Chat("...See ya, kiddo.", 107, 137, 179, true);
+                AAWorld.downedRajahsRevenge = true;
                 BaseUtility.Chat("Rajah Rabbit's speech warms your heart. You no longer have the will to harm rabbits. Do him proud.", Color.Green, true);
-                int n = NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, 0, 0, mod.NPCType<SupremeRajahLeave>());
-                Main.npc[n].Center = npc.Center;
+                int p = Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<SupremeRajahLeave>(), 100, 0, Main.myPlayer);
+                Main.projectile[p].position = npc.position;
                 npc.active = false;
                 npc.netUpdate = true;
             }

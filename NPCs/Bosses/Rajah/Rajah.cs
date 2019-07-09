@@ -207,18 +207,18 @@ namespace AAMod.NPCs.Bosses.Rajah
                 {
                     if (isSupreme)
                     {
-                        BaseUtility.Chat("Justice has been served...", 107, 137, 179);
-                        if (Main.netMode != 1)
-                        {
-                            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
-                        }
-                    }
-                    else
-                    {
                         Main.NewText("And stay down.", 107, 137, 179);
                         if (Main.netMode != 1)
                         {
                             Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<Supreme.SupremeRajahBookIt>(), 100, 0, Main.myPlayer);
+                        }
+                    }
+                    else
+                    {
+                        BaseUtility.Chat("Justice has been served...", 107, 137, 179);
+                        if (Main.netMode != 1)
+                        {
+                            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<RajahBookIt>(), 100, 0, Main.myPlayer);
                         }
                     }
                     npc.active = false;
@@ -896,8 +896,8 @@ namespace AAMod.NPCs.Bosses.Rajah
                         Name = Main.player[Main.myPlayer].name;
                     }
                     BaseUtility.Chat("Well fought, " + Name + ". Take your reward.", 107, 137, 179, true);
-                    int n = NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, 0, 0, mod.NPCType<SupremeRajahLeave>());
-                    Main.npc[n].Center = npc.Center;
+                    int p = Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<SupremeRajahLeave>(), 100, 0, Main.myPlayer);
+                    Main.projectile[p].Center = npc.Center;
                 }
                 if (Main.expertMode)
                 {
