@@ -1,8 +1,8 @@
 using Terraria;
 
-namespace AAMod.Items.Boss.Rajah
+namespace AAMod.Items.Boss.Rajah.Supreme
 {
-    public class RajahBag : BaseAAItem
+    public class RajahCache : BaseAAItem
     {
         
         public override void SetStaticDefaults()
@@ -20,7 +20,7 @@ namespace AAMod.Items.Boss.Rajah
             item.expert = true;
         }
 
-        public override int BossBagNPC => mod.NPCType("Rajah");
+        public override int BossBagNPC => mod.NPCType<NPCs.Bosses.Rajah.SupremeRajah>();
 
         public override bool CanRightClick()
         {
