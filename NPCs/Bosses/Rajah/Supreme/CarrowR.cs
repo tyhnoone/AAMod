@@ -27,7 +27,6 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
             projectile.penetrate = 1;  
 			projectile.timeLeft = 600;  
 			projectile.ignoreWater = true;
-            projectile.extraUpdates = 1;
 			projectile.tileCollide = true;
 			aiType = ProjectileID.WoodenArrowFriendly;
             projectile.noDropItem = true;
