@@ -294,7 +294,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                 npc.ai[3] = 0;
                 npc.netUpdate = true;
             }
-            else if (npc.ai[3] == 0 && npc.ai[2] >= 240)
+            else if (npc.ai[3] == 0 && npc.ai[2] >= ChangeRate())
             {
                 if (Main.rand.Next(5) == 0)
                 {
@@ -422,7 +422,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                 }
                 else if (npc.ai[3] == 4) //Excalihare
                 {
-                    if (internalAI[3] > 60)
+                    if (internalAI[3] > 40)
                     {
                         internalAI[3] = 0;
                         Vector2 dir = Vector2.Normalize(player.Center - WeaponPos);
@@ -440,7 +440,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                     float baseSpeed = (float)Math.Sqrt((dir.X * dir.X) + (dir.Y * dir.Y));
                     double startAngle = Math.Atan2(dir.X, dir.Y) - .1d;
                     double deltaAngle = spread / (Arrows * 2);
-                    if (internalAI[3] > 70)
+                    if (internalAI[3] > 50)
                     {
                         internalAI[3] = 0;
                         for (int i = 0; i < Arrows; i++)
@@ -453,7 +453,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                 }
                 else if (npc.ai[3] == 6) //Rabbits Wrath
                 {
-                    if (internalAI[3] > 50)
+                    if (internalAI[3] > 30)
                     {
                         internalAI[3] = 0;
                         Vector2 vector12 = new Vector2(player.Center.X, player.Center.Y);
@@ -477,7 +477,8 @@ namespace AAMod.NPCs.Bosses.Rajah
                             float num83 = vector13.Y;
                             float speedX5 = num82;
                             float speedY6 = num83 + Main.rand.Next(-40, 41) * 0.02f;
-                            Projectile.NewProjectile(vector2.X, vector2.Y, speedX5 * 2, speedY6 * 2, mod.ProjectileType<CarrotHostile>(), npc.damage / 3, 6, Main.myPlayer, 0, 0);
+                            int p = Projectile.NewProjectile(vector2.X, vector2.Y, speedX5 * 2, speedY6 * 2, mod.ProjectileType<CarrotHostile>(), npc.damage / 3, 6, Main.myPlayer, 0, 0);
+                            Main.projectile[p].tileCollide = false;
                         }
                         npc.netUpdate = true;
                     }
@@ -571,12 +572,8 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 return "NPCs/Bosses/Rajah/RajahArmsR";
             }
-            else if (npc.ai[3] == 3) //Javelin
+            else if (npc.ai[3] == 3 && internalAI[3] <= 60) //Javelin
             {
-                if (internalAI[3] > 60)
-                {
-                    return "BlankTex";
-                }
                 return "NPCs/Bosses/Rajah/RajahArmsS";
             }
             else if (npc.ai[3] == 4) //Excalihare
@@ -726,7 +723,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 1000)
                 {
-                    speed = 30f; isDashing = true;
+                    speed = 50f; isDashing = true;
                 }
                 else
                 {
@@ -759,6 +756,15 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
             BaseAI.AISpaceOctopus(npc, ref internalAI, .25f, speed, 300, 0, null);
             internalAI[1] = 0;
+        }
+
+        public int ChangeRate()
+        {
+            if (npc.type == mod.NPCType<SupremeRajah>())
+            {
+                return 120;
+            }
+            return 240;
         }
 
         public override void FindFrame(int frameHeight)
@@ -889,7 +895,8 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 if (!AAWorld.downedRajahsRevenge)
                 {
-                    NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, mod.NPCType<SupremeRajahDefeat>());
+                    int n = NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, mod.NPCType<SupremeRajahDefeat>());
+                    Main.npc[n].Center = npc.Center;
                 }
                 else
                 {
@@ -909,6 +916,10 @@ namespace AAMod.NPCs.Bosses.Rajah
                     BaseUtility.Chat("Well fought, " + Name + ". Take your reward.", 107, 137, 179, true);
                     Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<SupremeRajahLeave>(), 100, 0, Main.myPlayer);
                 }
+                npc.DropLoot(mod.ItemType<RajahPelt>(), Main.rand.Next(15, 31));
+                string[] lootTable = { "Excalihare", "FluffyFury", "RabbitsWrath" };
+                int loot = Main.rand.Next(lootTable.Length);
+                npc.DropLoot(mod.ItemType(lootTable[loot]));
             }
             else
             {
@@ -930,6 +941,11 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public override void BossLoot(ref string name, ref int potionType)
         {
+            if (isSupreme)
+            {
+                potionType = mod.ItemType<Items.Potions.TheBigOne>();
+                return;
+            }
             potionType = ItemID.GreaterHealingPotion;
         }
 

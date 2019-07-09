@@ -86,15 +86,15 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
             {
                 BaseUtility.Chat("...I forgive you for every rabbit you've killed, but in return...I want you to take my place...", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 1320)
+            if (npc.ai[0] == 1380)
             {
                 BaseUtility.Chat("...as their champion. Their protector.", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 1440)
+            if (npc.ai[0] == 1540)
             {
                 BaseUtility.Chat("I only want the best for the creatures of this world...and if you're stronger than I am...", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 1560)
+            if (npc.ai[0] == 1660)
             {
                 string Name;
                 if (Main.netMode != 0)
@@ -107,35 +107,25 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
                 }
                 BaseUtility.Chat("Who better to take my place than you, " + Name + "?", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 1680)
+            if (npc.ai[0] == 1780)
             {
                 BaseUtility.Chat("Be the one the innocent can look to in their time of need.", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 1800)
+            if (npc.ai[0] == 1900)
             {
                 BaseUtility.Chat("Think about it.", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 1920)
+            if (npc.ai[0] == 2020)
             {
                 BaseUtility.Chat("And if you ever want to spar...use one of those special carrots. I'd be glad to earn my honor back.", 107, 137, 179, true);
             }
-            if (npc.ai[0] == 2040)
+            if (npc.ai[0] >= 2180)
             {
-                BaseUtility.Chat("...See ya, kiddo.", 107, 137, 179, true);
-                AAWorld.downedRajahsRevenge = true;
+                BaseUtility.Chat("...See ya around, kiddo.", 107, 137, 179, true);
                 BaseUtility.Chat("Rajah Rabbit's speech warms your heart. You no longer have the will to harm rabbits. Do him proud.", Color.Green, true);
-                Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<SupremeRajahLeave>(), 100, 0, Main.myPlayer);
                 npc.active = false;
                 npc.netUpdate = true;
             }
-        }
-
-        public override void NPCLoot()
-        {
-            npc.DropLoot(mod.ItemType<RajahPelt>(), Main.rand.Next(15, 31));
-            string[] lootTable = { "Excalihare", "FluffyFury", "RabbitsWrath" };
-            int loot = Main.rand.Next(lootTable.Length);
-            npc.DropLoot(mod.ItemType(lootTable[loot]));
         }
 
         public override void FindFrame(int frameHeight)
