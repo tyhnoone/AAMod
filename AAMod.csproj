@@ -53,6 +53,7 @@
   <ItemGroup>
     <Folder Include="bin\Debug\net45\" />
     <Folder Include="bin\Release\" />
+    <Folder Include="Items\Calamity\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
 </Project>

@@ -715,7 +715,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             float speed = 10f;
             if (isSupreme)
             {
-                if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 1000)
+                if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 600)
                 {
                     speed = 50f; isDashing = true;
                 }
@@ -1166,7 +1166,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         {
             base.SetDefaults();
             npc.damage = 350;
-            npc.defense = 0;
+            npc.defense = 40;
             npc.lifeMax = 4000000;
             npc.life = 4000000;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/SupremeRajah");
