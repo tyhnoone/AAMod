@@ -25,6 +25,15 @@ BuffDescription.Clueless=你什么也看不见
 BuffName.CrimeraMinion=小血肉虫
 BuffDescription.CrimeraMinion=召唤一只小血肉虫为你而战
 
+BuffName.CrowMinion=恶鸦
+BuffDescription.CrowMinion=召唤一只恶毒乌鸦为你而战
+
+BuffName.ChaosClaw=混沌之爪
+BuffDescription.ChaosClaw=召唤混沌之爪为你而战
+
+BuffName.CyberClaw=电子之爪
+BuffDescription.CyberClaw=召唤电子之爪为你而战
+
 BuffName.DemonBuff=恶魔领主
 BuffDescription.DemonBuff=你命令一个小恶魔跟在你周围
 
@@ -53,6 +62,12 @@ BuffDescription.DragonMinion=召唤一条龙为你而战
 
 BuffName.DragonSoul=炎龙之魂
 BuffDescription.DragonSoul=龙之怒火中烧
+
+BuffName.DoomiteProbe=厄劫探针
+BuffDescription.DoomiteProbe=召唤一个厄劫探针为你而战
+
+BuffName.DoomiteProbeC=厄劫雷达探针
+BuffDescription.DoomiteProbeC=召唤一个厄劫雷达探针为你而战
 
 BuffName.DustDevil=沙尘魔
 BuffDescription.DustDevil=召唤一个沙尘魔为你而战
@@ -146,6 +161,15 @@ BuffDescription.RabbitcopterSoldier=召唤直升飞兔士兵为你而战
 BuffName.Raidmini=小侵入者
 BuffDescription.Raidmini=小机器人
 
+BuffName.ReaperImmune=无伤收割
+BuffDescription.ReaperImmune=你免疫伤害并造成10倍近战伤害
+
+BuffName.ReaperImmune2=无伤收割
+BuffDescription.ReaperImmune2=你免疫伤害并造成15倍近战伤害
+
+BuffName.ReaperCD=收割冷却
+BuffDescription.ReaperCD=你现在不能用这个武器的冲刺技能
+
 BuffName.RealityBent=弯曲裂位
 BuffDescription.RealityBent=你周围的空间被扭曲了
 
@@ -194,6 +218,9 @@ BuffDescription.TerraDemon=就像一个普通的恶魔,不过是绿的
 BuffName.Terrarium=泰拉的导引
 BuffDescription.Terrarium=免疫坠落伤害\n你对泰拉心球的光芒感到震惊,因为你觉得这地方什么也造不了
 
+BuffName.TerraSummon=向泰拉心球的呼唤
+BuffDescription.TerraSummon=一大堆怪物可供你召唤
+
 BuffName.TimeFrozen=时间冻结
 
 BuffName.TrueHallowedPrism=真·神圣棱镜
@@ -214,6 +241,11 @@ BuffDescription.YamataGravity=“别 想 远 离 我,臭 小 子!”
 BuffName.Yanked=猛拽
 BuffDescription.Yanked=“小 弟 弟,你 哪 也 去 不 了!”
 
+// AAMod.Items.Misc
+
+ItemName.TriHeadedKoi=三头锦鲤
+
+ItemName.Fishmother=育母炎鱼
 
 // AAMod.Items.Accessories
 
@@ -249,6 +281,9 @@ ItemTooltip.Energy_Conduit=增加50%移动速度
 
 ItemName.InfinityGauntlet=无限手套
 ItemTooltip.InfinityGauntlet=按G键打响指，消灭屏幕中一半的敌人\n响指会有5分钟冷却时间\n无限宝石的集合效果\n(译者注：你还真是灭霸了，还不快去试试能不能杀BOSS)\n“完美的平衡，万物本该如此”
+
+ItemName.IronBoots=铁质飞靴
+ItemTooltip.IronBoots=允许飞行\n穿戴者步履如飞\n免疫坠落伤害
 
 ItemName.Lantern=灯笼
 ItemTooltip.Lantern=驱散潭渊雾气
@@ -290,11 +325,20 @@ ItemTooltip.AquamancerWings=可飞行和滑翔
 ItemName.DarkmatterJetpack=暗物质加速器
 ItemTooltip.DarkmatterJetpack=可飞行和滑翔
 
+ItemName.DeathlyWings=死寂之翼
+ItemTooltip.DeathlyWings=可飞行和滑翔
+
 ItemName.DraconianWings=炙曦之翼
 ItemTooltip.DraconianWings=可飞行和滑翔
 
 ItemName.DreadWings=惧月之翼
 ItemTooltip.DreadWings=可飞行和滑翔
+
+ItemName.DynaskullWings=恐龙王翅
+ItemTooltip.DynaskullWings=可飞行和滑翔
+
+ItemName.TrueHallowedWings=神圣天翼
+ItemTooltip.TrueHallowedWings=可飞行和滑翔
 
 ItemName.NightmareWings=夜魇之翼
 ItemTooltip.NightmareWings=可飞行和滑翔
@@ -313,6 +357,20 @@ ItemTooltip.AbyssalWings=可飞行和滑翔
 
 ItemName.TrueNightsWings=真夜之翼
 ItemTooltip.TrueNightsWings=可飞行和滑翔
+
+ItemName.TrueFleshrendWings=肉戮之翼
+ItemTooltip.TrueFleshrendWings=可飞行和滑翔
+
+ItemName.DevilWings=魔君之翼
+ItemTooltip.DevilWings=可飞行和滑翔
+
+ItemName.AsgardianWings=阿斯加德之翼
+ItemTooltip.AsgardianWings=可飞行和滑翔
+
+ItemName.BlazingWings=灼曜之翼
+ItemTooltip.BlazingWings=可飞行和滑翔
+
+
 
 // AAMod.Items.Armor.Abyssal
 
@@ -496,6 +554,8 @@ ItemTooltip.DoomiteUPlate=增加6%召唤伤害
 
 // AAMod.Items.Armor.Doomsday
 
+ItemName.DoomsdayMask=末日突击视镜
+ItemTooltip.DoomsdayMask=增加50%召唤物伤害\n装甲内栖宿着毁灭行星之力
 
 ItemName.DoomsdayChestplate=末日突击装甲
 ItemTooltip.DoomsdayChestplate=增加35%召唤物伤害\n装甲内栖宿着毁灭行星之力
@@ -1159,6 +1219,8 @@ ItemName.Bogwood=污泽木
 
 ItemName.BogwoodChest=污泽木宝箱
 
+ItemName.HydratoxinTorch=毒潭火把
+
 ItemName.BroodBox=八音盒(育母炎龙)
 ItemTooltip.BroodBox=播放 'Blazing Fury' by Spectral Aves
 
@@ -1169,6 +1231,9 @@ ItemName.CorruptAltar=恶魔祭坛
 
 ItemName.CrimsonAltar=猩红祭坛
 
+ItemName.SRajahBox=八音盒(无辜的保护者)
+ItemTooltip.SRajahBox=播放 'Supreme Justice' by OmegaFerretMusic
+
 ItemName.DarkmatterOre=暗物质簇
 ItemTooltip.DarkmatterOre=感觉上没有质量, 但它仍有一些物质\n(昼夜虫后,夜晚太空)
 
@@ -1176,6 +1241,8 @@ ItemName.Darkmud=黑泥砖
 
 ItemName.DaybreakIncineriteOre=炙曦矿
 ItemTooltip.DaybreakIncineriteOre=摸上去暖暖的, 宛如晨曦一般.\n(混沌姐妹后,地下洞穴层,褐红色)
+
+ItemName.DaybreakTorch=炙曦火把
 
 ItemName.IndigoIce=靛青冰
 
@@ -1187,6 +1254,8 @@ ItemName.Depthsandstone=潭渊砂岩
 
 ItemName.Depthstone=潭渊石
 ItemTooltip.Depthstone=潮
+
+ItemName.DiscordianTorch=混律火把
 
 ItemName.DjinnBox=八音盒(沙漠巨灵)
 ItemTooltip.DjinnBox=播放 'Sand Smackdown' by Frogtism
@@ -1203,6 +1272,8 @@ ItemName.DracoAltar=炙烤之日底座
 
 ItemName.DreadAltar=怨惧之月底座
 
+ItemName.DragonfireTorch=龙炎火把
+
 ItemName.DynaskullOre=王骨化石
 ItemTooltip.DynaskullOre=数百万年的能量从这个远古化石中涌出\n(骷髅王后,沙漠洞穴,绿黄色)
 
@@ -1211,6 +1282,8 @@ ItemTooltip.Equibox=播放 'Lunala Battle' by Emdasche\nRemix by Charlie Debnam
 
 ItemName.EventideAbyssiumOre=渊宵矿
 ItemTooltip.EventideAbyssiumOre=又冷又湿, 如同遍布泥潭的沼泽中的一晚\n(混沌姐妹后,地下洞穴层,黑色)
+
+ItemName.EventideTorch=渊宵火把
 
 ItemName.FateBox=八音盒(永劫虚空)
 ItemTooltip.FateBox=播放 'Omen of a Fate Fortold' by OmegaFerretMusic
@@ -1780,6 +1853,25 @@ ItemName.RajahTrophy=忍者巨兔纪念章
 
 ItemName.RoyalScepter=皇家萝卜杖
 
+ItemName.RajahPelt=兔毛
+ItemTooltip.RajahPelt=令人惊讶的毛皮耐久度
+
+ItemName.RajahCape=忍者兔的至尊斗篷
+ItemTooltip.RajahCape=每损失10％生命值，你获得以下效果:\n1. 最高伤害提升类型再获得12%伤害加成\n2. 提升5%移动速度\n3.增加4%伤害抗性\n复仇腰带的所有效果\n“你被无辜的保护者视为合格的继承者”
+
+// AAMod.Items.Boss.Rajah.Supreme
+
+ItemName.RajahCache=宝藏袋
+ItemTooltip.RajahCache={$CommonItemTooltip.RightClickToOpen}
+
+ItemName.Excalihare=断兔圣剑
+
+ItemName.FluffyFury=毛绒动物之怒
+ItemTooltip.FluffyFury=把木箭变成分裂萝卜箭
+
+ItemName.RabbitsWrath=兔怨
+ItemTooltip.RabbitsWrath=把锋利的胡萝卜扎在你的敌人身上
+
 // AAMod.Items.Boss.Retriever
 
 
@@ -1793,6 +1885,9 @@ ItemTooltip.StormClaw=每次对敌人的攻击, 会造成20真实伤害 (无种�
 
 ItemName.StormRiot=暴风防暴盾
 ItemTooltip.StormRiot=每次对敌人的攻击, 会造成45真实伤害 (无种类伤害)\n让你可以向敌人发起冲锋并造成伤害\n非自动挥动武器挥舞速度加快
+
+ItemName.CyberBaton=电子指挥棒
+ItemTooltip.CyberBaton=召唤一个电子之爪为你而战
 
 
 // AAMod.Items.Boss.Sagittarius
@@ -2138,6 +2233,12 @@ ItemTooltip.DuckstepGun=嘎!\n-Aves
 ItemName.DuckstepGunEX=嘎嘎鸭 R.E.M.I.X.
 ItemTooltip.DuckstepGunEX=嘎嘎鸭发射器EX
 
+ItemName.DeceivingTruth=真实锻造者
+ItemTooltip.DeceivingTruth=发射一根无限穿透的藤曼
+
+ItemName.DeceivingTruthEX=梦魇锻造者
+ItemTooltip.DeceivingTruthEX=发射一根无限穿透的藤曼
+
 ItemName.EnderStaff=焚天法杖
 ItemTooltip.EnderStaff=召唤一个旋转焚天结构粉碎敌人\n我觉得天是紫的\n-Ender
 
@@ -2155,6 +2256,21 @@ ItemTooltip.FreedomBlaster=一种能发射等离子弹和偶尔发射电荷弹�
 
 ItemName.FreedomStar=自由之星
 ItemTooltip.FreedomStar=Tails真正的破坏枪.\n按住使用按钮充电,发射一个强大的充能炮!\n然你久等了,啊哈?\n-Tails\n莫比安破坏枪 EX
+
+ItemName.FuryForger=虚伪之怒
+ItemTooltip.FuryForger=击中敌人迸发出火花
+
+ItemName.FuryForgerEX=大虚伪之怒
+ItemTooltip.FuryForgerEX=击中敌人迸发出火花\n虚伪之怒 EX
+
+ItemName.GameRaider=游戏乱入者
+ItemTooltip.GameRaider=发射爆炸蘑菇火箭
+
+ItemName.GrimReaperScythe=冷酷收割之镰
+ItemTooltip.GrimReaperScythe=左键挥动并投掷跟踪镰刀\n右键冲刺攻击\n冲刺时免疫伤害，造成10倍真实近战伤害\n冲刺能力有10秒CD\n“嗯，你以前见过多少冷酷收割者，伙计？”\n-Gregg
+
+ItemName.GrimReaperScytheEX=灵魂粉碎者
+ItemTooltip.GrimReaperScytheEX=左键挥动并投掷跟踪镰刀\n右键冲刺攻击\n冲刺时免疫伤害，造成15倍真实近战伤害\n冲刺能力有5秒CD\n“嗯，你以前见过多少冷酷收割者，伙计？”\n-Gregg\n冷酷收割之镰 EX
 
 ItemName.GentlemansLongblade=绅士长刃
 ItemTooltip.GentlemansLongblade=发射诡异的花顶小帽子\n右键前刺,左键挥动\n绅士长剑EX
@@ -2186,6 +2302,9 @@ ItemTooltip.PoniumStaffEX=Ponium法杖EX
 ItemName.Prismeow=棱喵
 ItemTooltip.Prismeow=发射彩虹猫\n“天啊!”\n-Hallam
 
+ItemName.Placeholder=占位符法器
+ItemTooltip.Placeholder=“他们即将死去 SoonTM”\n-Fargo
+
 ItemName.SkrallStaff=Skrall之杖
 ItemTooltip.SkrallStaff=一颗冠以Skrall之名的宝石镶嵌在棍子上 \n“棍子才是魔法.宝石只是镶嵌在上面而已.”\n-Kingskrall
 
@@ -2197,6 +2316,18 @@ ItemTooltip.SockStaff=召唤一个袜子木偶为你而战
 
 ItemName.SoulSiphon=灵魂虹吸之镰
 ItemTooltip.SoulSiphon=如果你再向我唱一首歌的话,我发誓...\n-Charlie
+
+ItemName.Skullshot=超级髑髅炮
+ItemTooltip.Skullshot=向敌人发射大量的子弹\n右键向敌人发射旋转的骨头\n使用子弹和骨头作为弹药\n“我就是没道理的仇神”\n-Gibs
+
+ItemName.SkullshotEX=至尊地狱炮
+ItemTooltip.SkullshotEX=向敌人发射大量的子弹\n右键向敌人发射旋转的骨头\n使用子弹和骨头作为弹药\n超级髑髅炮 EX
+
+ItemName.ThunderLord=闪电暴风来复枪
+ItemTooltip.ThunderLord=发射静电电击\n“NUM”\n-BlazenBreaker
+
+ItemName.ThunderLordEX=雷电领主
+ItemTooltip.ThunderLordEX=发射雷击弹\n闪电暴风来复枪 EX 
 
 ItemName.TimeTeller=报时者
 ItemTooltip.TimeTeller=根据每天时间不同伤害变化\n午和午夜伤害最大\n“时间去死吧!”\n-Dallin
@@ -2211,10 +2342,21 @@ ItemName.UmbreonSP=幽夜之刃
 ItemTooltip.UmbreonSP=来自幽暗生物的黑暗剑
 
 ItemName.UmbreonSPEX=月影之刃
-ItemTooltip.UmbreonSPEX=两栖生物大剑EX来自幽暗生物的黑暗剑\n幽夜之刃EX
+ItemTooltip.UmbreonSPEX=来自幽暗生物的黑暗剑\n幽夜之刃EX
+
+ItemName.UmbralReaper=阴影收割者
+ItemTooltip.UmbralReaper=右键发射跟踪长矛\n左键发射虚空能量波\n“我没碰过Valkyrie”\n-CMD
+
+ItemName.CursedSickle=咒缚之镰
+ItemTooltip.CursedSickle=在你周围旋转着一把诅咒镰刀，撕碎敌人\n左键单击可旋转镰刀
+
+ItemName.CursedSickleEX=塔尔塔洛斯猎魂镰
+ItemTooltip.CursedSickleEX=在你周围旋转着一把诅咒镰刀，撕碎敌人\n右键单击可旋转镰刀\n(译者注:塔尔塔洛斯 Tartarus,是“地狱”的代名词，是地狱冥土的本体)
 
 // AAMod.Items.DevTools
 
+ItemName.AlphakipTerratool=两栖生物万用工具
+ItemTooltip.AlphakipTerratool=右键切换工具类型\n现在你可以同时使用两种工具类型
 
 ItemName.AAUndowner=【开发者】AA Undowner
 ItemTooltip.AAUndowner=Undowns all AA bosses.\n无消耗
@@ -2420,6 +2562,9 @@ ItemName.VenomSpray=毒液喷流
 ItemName.Volley=排火球
 ItemTooltip.Volley=均匀发射三个火球
 
+ItemName.WandOfSparkingEX=星爆魔棒
+ItemTooltip.WandOfSparkingEX=按住给魔棒蓄能\n火花魔棒 EX
+
 ItemName.YtriumStaff=钇土法杖
 
 
@@ -2433,6 +2578,11 @@ ItemName.ApocalyptitePlate=启示图版
 ItemTooltip.ApocalyptitePlate=这块金属镀层环绕着预言之能量
 
 ItemName.CocoaBean=可可豆
+
+ItemName.CometOre=白彗矿
+
+ItemName.CometBar=白彗锭
+ItemTooltip.CometBar=据说本身就是天空的碎片
 
 ItemName.Crystal=生态棱镜
 ItemTooltip.Crystal=可以通过不同生态的力量强化的神奇棱镜
@@ -2499,6 +2649,9 @@ ItemName.DesertMana=沙漠魔力
 ItemName.DevilSilk=恶魔丝绸
 ItemTooltip.DevilSilk=自然的罪恶; 感觉不错，但不能长久保存
 
+ItemName.Discordium=混律锭
+ItemTooltip.Discordium=世间的混沌之力在此锭中融合，充满强大的能量
+
 ItemName.Doomite=厄劫锭
 ItemTooltip.Doomite=从锭中辐射出让人不安的能量
 
@@ -2516,11 +2669,16 @@ ItemName.DragonScale=炽之龙鳞
 ItemName.DragonSpirit=龙之灵息
 ItemTooltip.DragonSpirit=看上去是苹果味
 
+ItemName.Dracokarp=炽龙龟
+
 ItemName.EventideAbyssium=渊宵锭
 ItemTooltip.EventideAbyssium=寒冷如夜月
 
 ItemName.Everleaf=常青叶
 ItemTooltip.Everleaf=充满神奇的光合能量
+
+ItemName.FishronScale=猪鲨鳞
+ItemTooltip.FishronScale=闻起来有死掉的臭鱼和甘甜的胜利的味道
 
 ItemName.FulguriteBar=雷熔锭
 ItemTooltip.FulguriteBar=静态-Y
@@ -2551,11 +2709,17 @@ ItemName.Nightmare_Ore=梦魇矿
 ItemName.OrderBar=秩序锭
 ItemTooltip.OrderBar=发挥着团结的力量
 
+ItemName.OceanWhisper=绝海之低语
+ItemTooltip.OceanWhisper=充满的魔力的光环中不断发出绵软的洋流之声
+
 ItemName.PlanteraPetal=世纪之花瓣
 ItemTooltip.PlanteraPetal=粉的像霞
 
 ItemName.Prism=镜棱
 ItemTooltip.Prism=闪耀着所有宝石的光芒\n(地下洞穴,灰色,有彩色光芒)
+
+ItemName.PrimevalSkull=始源之头骨
+ItemTooltip.PrimevalSkull=那个时代的能量从这个古老的化石中辐射出来
 
 ItemName.PureEvil=纯净之恶
 ItemTooltip.PureEvil=太邪恶了，你看着他就会有罪恶感
@@ -2680,6 +2844,12 @@ ItemTooltip.CarnalCrusher=暴击会回复你的生命
 ItemName.Chaos=浑沌
 ItemTooltip.Chaos=这把不和谐之剑对击中的敌人降下愤恨和怒火
 
+ItemName.ChaosChain=混沌链球
+ItemTooltip.ChaosChain=抛出一个带有混沌能量的不稳定球
+
+ItemName.ChaosChainEX=完美混沌链球
+ItemTooltip.ChaosChainEX=抛出一把旋转刀刃粉碎敌人\n混沌链球 EX
+
 ItemName.ChaosScythe=混沌终焉
 ItemTooltip.ChaosScythe=“无能为力”\n传说武器
 
@@ -2718,7 +2888,7 @@ ItemTooltip.Depthwalker=与九头蛇同行
 
 ItemName.DesertScimitar=沙漠弯刀
 
-ItemName.Discord=不谐
+ItemName.Discord=混律
 ItemTooltip.Discord=一把略带混沌的剑
 
 ItemName.DiversDoom=暗锑剑
@@ -2768,6 +2938,9 @@ ItemName.FulguriteTazesaber=雷熔电刃
 
 ItemName.GladiatorsGlory=角斗士荣光
 
+ItemName.GlacierBreaker=冰川粉碎者
+ItemTooltip.GlacierBreaker=击中敌人掉落冰柱
+
 ItemName.GoblinSlayer=哥布林屠戮者之剑
 ItemTooltip.GoblinSlayer=左键挥动右键前刺\n“传说中的哥布林杀手”
 
@@ -2809,6 +2982,15 @@ ItemTooltip.MagicSword=消耗魔力发射回旋弹幕\n(译者注：不想近战
 ItemName.MoltenLance=熔岩长枪
 ItemTooltip.MoltenLance=可以立即烤熟肉串!
 
+ItemName.MidasClub=迈达斯狼牙棒
+ItemTooltip.MidasClub=攻击敌人获得更多赏金
+
+ItemName.Mjolnir=乔尔尼尔-雷神之锤
+ItemTooltip.Mjolnir=在垂死的恒星的核心中锻造而成\n右键投掷\nplz dont sue diver
+
+ItemName.MjolnirEX=雷神风暴战斧
+ItemTooltip.MjolnirEX=为了杀死疯狂泰坦灭霸而锻造\n右键投掷\n乔尔尼尔-雷神之锤 EX
+
 ItemName.NightKeeper=持夜者
 
 ItemName.Nightmare_Katana=夜魇武士刀
@@ -2826,6 +3008,9 @@ ItemName.RaiderLance=突击者长枪
 
 ItemName.RustyCutlass=锈蚀短刀
 ItemTooltip.RustyCutlass=虽然锈了,但是依旧锋利
+
+ItemName.Ryusei=流星
+ItemTooltip.Ryusei=攻击用火焰和燎狱龙炎灼烧敌人
 
 ItemName.SaltwaterSpear=海水矛枪
 
@@ -2855,6 +3040,8 @@ ItemTooltip.SunLance=弧形挥动,沿光标攻击敌人
 
 ItemName.SwampSlasher=污泽砍刀
 ItemTooltip.SwampSlasher=用潭渊的污泽之力挥击敌人
+
+ItemName.SwimmingHydra=九头蛇泳刃
 
 ItemName.TechneciumSword=闪锝大剑
 
@@ -2908,6 +3095,9 @@ ItemTooltip.Void=纯的暗物质打造
 ItemName.Voidsaber=虚空军刀
 
 ItemName.Xiphos=希弗斯决斗者之剑
+
+ItemName.Yogan=溶岩
+ItemTooltip.Yogan=击中时点燃敌人
 
 ItemName.YtriumHalberd=钇土长戟
 ItemTooltip.YtriumHalberd=弧形挥动,沿光标攻击敌人
@@ -3075,6 +3265,12 @@ ItemTooltip.Bonesaw=将子弹变为脓血弹\n(译者注：然而实际好像并
 
 ItemName.Bubbleshot=潭渊泡泡枪
 
+ItemName.ChaosShot=混沌破坏枪
+ItemTooltip.ChaosShot=发射一枚穿甲弹和6发子弹
+
+ItemName.ChaosShotEX=混沌完全破坏枪
+ItemTooltip.ChaosShotEX=发射一枚穿甲弹和10发子弹\n混沌破坏枪 EX
+
 ItemName.CoinPistol=硬币手枪
 ItemTooltip.CoinPistol=硬币造成正常的一半伤害
 
@@ -3103,6 +3299,11 @@ ItemTooltip.DragonFlamebow=将木箭变为龙炎箭
 ItemName.DragonsMaw=噬龙
 ItemTooltip.DragonsMaw=将木箭变成火箭
 
+ItemName.DragonSpine=龙椎枪
+
+ItemName.DynaskullJavelin=王者骨标枪
+ItemTooltip.DynaskullJavelin=如果扎在敌人身上，敌人死亡时，释放一个远古能量导引的箭头
+
 ItemName.Festivity=节庆
 ItemTooltip.Festivity=发射3个烟花\n庆典EX
 
@@ -3114,10 +3315,14 @@ ItemTooltip.Flare_Minigun=快速连续发射数十个信号弹\n33%几率不消�
 ItemName.FulguriteTazerblaster=雷熔弧光枪
 ItemTooltip.FulguriteTazerblaster=快速发射雷暴弧\n小概率发射两个雷暴弧
 
+ItemName.FossilBoneslinger=化石骨绳弓
+
 ItemName.HK_MP5=HK MP5
 ItemTooltip.HK_MP5=把子弹变为爆破弹!
 
 ItemName.HydraTrishot=九头蛇三发猎枪
+
+ItemName.Incapacitator=行为麻痹标枪
 
 ItemName.L85A2=L85A2
 ItemTooltip.L85A2=将子弹变成高速弹!
@@ -3128,11 +3333,17 @@ ItemTooltip.Laser_Rifle=使用能量胞腔作为子弹
 ItemName.M79=M79
 ItemTooltip.M79=使用M79圆榴弹作为子弹\n33%几率不消耗子弹
 
+ItemName.MidasGun=迈达斯枪
+ItemTooltip.MidasGun=发射子弹获得更多金币
+
 ItemName.MadnessBow=癫狂弓
 
 ItemName.Mossket=藓步枪
 
 ItemName.OceanWhaler=猎鲸者
+
+ItemName.PrimevalJavelin=原初之枪
+ItemTooltip.PrimevalJavelin=如果扎在敌人身上，敌人死亡时，释放四个远古能量导引的箭头
 
 ItemName.Railjaw=钢颚枪
 
@@ -3178,6 +3389,8 @@ ItemTooltip.UraniumRepeater=25%几率不消耗箭矢
 ItemName.UWAM=U.W.A.M.
 ItemTooltip.UWAM=以极低的扩散速度射出数百发子弹\n有几率发射鲨鱼, 造成3倍伤害\n88%几率不消耗子弹\nS.D.M.G.(译者注：海豚枪)EX
 
+ItemName.Winterbreak=破冬
+
 ItemName.YtriumCrossbow=钇土连弩
 ItemTooltip.YtriumCrossbow=20%几率不消耗箭矢
 
@@ -3191,8 +3404,8 @@ ItemTooltip.Godly=给可以附魔神级的武器附魔神级\n用魂右键武器
 ItemName.Legendary=传说之魂
 ItemTooltip.Legendary=给可以附魔传说的武器附魔传说\n用魂右键武器进行附魔\n消耗品
 
-ItemName.Mythical=奥秘之魂
-ItemTooltip.Mythical=给可以附魔奥秘的武器附魔奥秘\n用魂右键武器进行附魔\n消耗品
+ItemName.Mythical=神话之魂
+ItemTooltip.Mythical=给可以附魔神话的武器附魔神话\n用魂右键武器进行附魔\n消耗品
 
 ItemName.Unreal=虚幻之魂
 ItemTooltip.Unreal=给可以附魔虚幻的武器附魔虚幻\n用魂右键武器进行附魔\n消耗品
@@ -3207,11 +3420,20 @@ ItemTooltip.BlizzardDragonStaff=召唤一只寒暴龙为你而战
 ItemName.CrimsonStaff=血虫权杖
 ItemTooltip.CrimsonStaff=召唤猩红血虫为你而战
 
+ItemName.ChaosBaton=混沌指挥棒
+ItemTooltip.ChaosBaton=召唤混沌之爪为你而战
+
 ItemName.DemonStaff=恶魔权杖
 ItemTooltip.DemonStaff=召唤一只恶魔为你而战
 
 ItemName.DevilStaff=邪魔权杖
 ItemTooltip.DevilStaff=召唤一只恶鬼为你而战
+
+ItemName.DoomiteSignal=厄劫信号仪
+ItemTooltip.DoomiteSignal=召唤一个厄劫探针为你而战
+
+ItemName.DoomiteSignalC=厄劫雷达
+ItemTooltip.DoomiteSignalC=召唤一个厄劫雷达探针为你而战
 
 ItemName.DragonriderStaff=唤龙槊
 ItemTooltip.DragonriderStaff=召唤星焰龙为你而战
@@ -3231,6 +3453,9 @@ ItemTooltip.HydraStaff=召唤一个石化九头蛇为你而战
 ItemName.MadnessCane=癫狂藤杖
 ItemTooltip.MadnessCane=召唤一个癫狂元素为你而战
 
+ItemName.OmenStaff=预兆鸦杖
+ItemTooltip.OmenStaff=召唤一只恶毒的乌鸦为你而战\n乌鸦法杖 EX
+
 ItemName.ProbeControlUnit=虚空探头控制单元
 ItemTooltip.ProbeControlUnit=召唤一个虚空探头为你而战
 
@@ -3240,6 +3465,9 @@ ItemTooltip.SkullStaff=召唤一个水生骷髅为你而战
 ItemName.TerraStaff=泰拉权杖
 ItemTooltip.TerraStaff=召唤一个泰拉恶魔为你而战
 
+ItemName.TerraGauntlet=泰拉手套
+ItemTooltip.TerraGauntlet=召唤一个泰拉心球飞鱿，泰拉心之球，泰拉心球爬虫或者泰拉编织者为你而战
+
 ItemName.TrueHallowStaff=真·神圣权杖
 ItemTooltip.TrueHallowStaff=召唤一个彩虹棱镜为你而战
 
@@ -3247,16 +3475,16 @@ ItemTooltip.TrueHallowStaff=召唤一个彩虹棱镜为你而战
 // AAMod.Items.Thorium.Healer
 
 
-ItemName.AuroraScythe=Aurora Scythe
+ItemName.AuroraScythe=极光之镰
 ItemTooltip.AuroraScythe=Spins a frostburning scythe around you that shreds through enemies\nScythes inflict frostburn on contact\nGrants 1 soul essence on direct hit
 
-ItemName.CarrotFarmer=Carrot Farmer
+ItemName.CarrotFarmer=萝卜锄
 ItemTooltip.CarrotFarmer=Spins a Carrot Scythe around you that shreds through enemies\nScythes fire off carrots while spun\nGrants 1 soul essence on direct hit
 
-ItemName.DragonsClaw=Dragon's Claw
+ItemName.DragonsClaw=燎狱龙爪
 ItemTooltip.DragonsClaw=Spins a fiery scythe around you that shreds through enemies\nScythes ignites enemies on contact\nGrants 1 soul essence on direct hit
 
-ItemName.HydrasFury=Hydra's Fury
+ItemName.HydrasFury=九头蛇之怒
 ItemTooltip.HydrasFury=Spins an abyssal scythe around you that shreds through enemies\nScythes inflict poison on contact\nGrants 1 soul essence on direct hit
 
 
@@ -3267,6 +3495,12 @@ ItemName.AbyssalArc=潭渊回旋弧
 
 ItemName.BurningGel=灼烧胶球
 ItemTooltip.BurningGel=点燃目标
+
+ItemName.ChaosJavelin=混沌标枪
+ItemTooltip.ChaosJavelin=接触时爆炸
+
+ItemName.ChaosJavelinEX=真·混沌标枪
+ItemTooltip.ChaosJavelinEX=接触时爆炸\n混沌标枪 EX
 
 ItemName.DarkmatterChakram=暗物质旋刃
 
@@ -3337,6 +3571,9 @@ ItemName.YtriumBoomerang=钇土回旋镖
 ItemName.CrystalPickaxe=秩序镐
 ItemTooltip.CrystalPickaxe=可以挖掘秘银和山铜矿
 
+ItemName.ChaosTerratool=混沌泰拉万用工具
+ItemTooltip.ChaosTerratool=背包中右键切换工具类型\n现在你可以同时使用两种工具工具形态
+
 ItemName.DarkmatterJackhammer=暗物质手持凿机
 
 ItemName.DarkmatterPitchet=暗物质镐斧
@@ -3346,7 +3583,12 @@ ItemName.DepthDigger=堑渊镐
 ItemName.DragonDigger=狱龙镐
 ItemTooltip.DragonDigger=龙不会真正挖东西,但这个会
 
+ItemName.DoomiteMiningLaser=厄劫发掘激光器
+ItemTooltip.DoomiteMiningLaser=使用暗能量激光挖掘
+
 ItemName.DragonPickaxe=古龙镐
+
+ItemName.Excavator=掘机镐
 
 ItemName.FulguritePitchet=雷熔镐斧
 
@@ -3361,6 +3603,8 @@ ItemName.MadnessAxe=癫狂斧
 
 ItemName.MadnessPick=癫狂镐
 
+ItemName.MadnessHammer=癫狂锤
+
 ItemName.Nightaxe=永夜镐
 
 ItemName.OceanAxe=珊瑚斧
@@ -3374,6 +3618,18 @@ ItemName.RadiumHammaxe=镭光锤斧
 ItemName.RadiumPickaxe=掘星镐
 
 ItemName.Scalpel=剖岩镐
+
+ItemName.Stonebreaker=裂石镐
+
+ItemName.ScorchShark=燎狱焦鲨
+
+ItemName.ShadowDrill=影钻
+ItemTooltip.ShadowDrill=我估摸着可以挖一些...绿绿的发光的东西?
+
+ItemName.PerfectShadowDrill=真·影钻
+ItemTooltip.PerfectShadowDrill=现在差不多
+
+ItemName.PerfectStonebreaker=真·裂石镐
 
 ItemName.TechneciumChainsaw=闪锝链锯
 
@@ -3439,7 +3695,7 @@ ItemTooltip.DoomSeeds=种植厄劫草
 ItemName.DoomstopperKey=厄劫阻断芯片
 ItemTooltip.DoomstopperKey=“打开末日宝箱”
 
-ItemName.FungicideSolution=Swarm溶液
+ItemName.FungicideSolution=除菌溶液
 ItemTooltip.FungicideSolution=环境改造枪专用\n清除蘑菇地
 
 ItemName.GoblinDoll=哥布林工匠巫毒娃娃
@@ -3521,6 +3777,9 @@ ItemTooltip.WhiteSolution=环境改造枪专用\n扩散苔原
 
 ItemName.YellowSolution=浅黄溶液
 ItemTooltip.YellowSolution=环境改造枪专用\n扩散沙漠
+
+ItemName.CodeMagnetWeak=无负载代码磁铁
+ItemTooltip.CodeMagnetWeak=“通过吸引代码，将物体拉向你”
 
 
 // AAMod.Items.Vanity.Alphakip
@@ -3634,6 +3893,19 @@ ItemTooltip.FargoPants=soonTM\n“非常适合冒充远古觉醒的开发者!”
 ItemName.FargoSuit=小松鼠衣衫
 ItemTooltip.FargoSuit=soonTM\n“非常适合冒充远古觉醒的开发者!”
 
+// AAMod.Items.Vanity.Gibs
+
+ItemName.GibsPlate=归来者护胸
+ItemTooltip.GibsPlate=“非常适合冒充远古觉醒的开发者!”
+
+ItemName.GibsShorts=归来者腿裤
+ItemTooltip.GibsShorts=“非常适合冒充远古觉醒的开发者!”
+
+ItemName.GibsSkull=归来者头骨
+ItemTooltip.GibsSkull=“非常适合冒充远古觉醒的开发者!”
+
+ItemName.GibsJet=归来者喷气背包
+ItemTooltip.GibsJet=允许飞行和滑翔\n按住下和跳跃键可以悬停一段时间\n“非常适合冒充远古觉醒的开发者!”
 
 
 // AAMod.Items.Vanity.Grox
@@ -3664,6 +3936,16 @@ ItemTooltip.HalTrousers=这条裤子比你想象的贵\n“非常适合冒充远
 ItemName.HalTux=Hallam的花式礼服
 ItemTooltip.HalTux=这件礼服纯手工\n“非常适合冒充远古觉醒的开发者!”
 
+// AAMod.Items.Vanity.Universe
+
+ItemName.CursedHood=诅咒收割者兜帽
+ItemTooltip.CursedHood=“非常适合冒充远古觉醒的开发者!”
+
+ItemName.CursedPants=诅咒收割者长裤
+ItemTooltip.CursedPants=“非常适合冒充远古觉醒的开发者!”
+
+ItemName.CursedRobe=诅咒收割者宽袍
+ItemTooltip.CursedRobe=“非常适合冒充远古觉醒的开发者!”
 
 // AAMod.Items.Vanity
 
@@ -3713,7 +3995,13 @@ ItemName.SagMask=人马面具
 
 ItemName.SerpentMask=冰蛇面具
 
+ItemName.ShenMask=上神应龙面具
+
+ItemName.ShenAMask=觉醒之上神应龙面具
+
 ItemName.TruffleMask=机械松露面具
+
+ItemName.ToadMask=松露蟾蜍面具
 
 ItemName.YamataAMask=觉醒之八歧大蛇面具
 
@@ -3733,6 +4021,21 @@ ItemTooltip.MoonHood=传说中的月亮魔法面罩\n“非常适合冒充远古
 
 ItemName.MoonRobe=明月袍
 ItemTooltip.MoonRobe=传说中的月亮魔法长袍\n“非常适合冒充远古觉醒的开发者!”
+
+ItemName.MoonWings=月蜂之翼
+ItemTooltip.MoonWings=允许飞行和滑翔\n“非常适合冒充远古觉醒的开发者!”
+
+// AAMod.Items.Vanity.Mikpin
+
+ItemName.MikpinCloak=狐皮着装
+ItemTooltip.MikpinCloak=“非常适合冒充远古觉醒的开发者!”
+
+ItemName.MikpinPants=狐皮长裤
+ItemTooltip.MikpinPants=“非常适合冒充远古觉醒的开发者!”
+
+ItemName.MikpinWig=狐皮假发
+ItemTooltip.MikpinWig=“非常适合冒充远古觉醒的开发者!”
+
 
 // AAMod.Items.Vanity.Tails
 
@@ -3758,6 +4061,17 @@ ItemTooltip.TiedsMask=“非常适合冒充远古觉醒的开发者!”
 
 ItemName.TiedsSuit=幽灵之衣装
 ItemTooltip.TiedsSuit=“非常适合冒充远古觉醒的开发者!”
+
+// AAMod.Items.Vanity.Darkpuppey
+
+ItemName.DarkMask=暗之花面具
+ItemTooltip.DarkMask=闻起来像花和…蜂蜜?\n“非常适合冒充远古觉醒的开发者!”
+
+ItemName.DarkPants=暗之花长裤
+ItemTooltip.DarkPants=闻起来像花和…蜂蜜?\n“非常适合冒充远古觉醒的开发者!”
+
+ItemName.DarkShirt=暗之花短裙
+ItemTooltip.DarkShirt=闻起来像花和…蜂蜜?\n“非常适合冒充远古觉醒的开发者!”
 
 
 // AAMod.Items.Walls
@@ -3974,13 +4288,36 @@ NPCName.RaidRocket=侵入火箭
 // AAMod.NPCs.Bosses.Rajah
 
 
-NPCName.BunnyBattler=忍者巨兔
+NPCName.BunnyBattler=红眼狂兔
+NPCName.BunnyBattler1=红眼狂兔
+NPCName.BunnyBattler2=红眼狂兔
+NPCName.BunnyBattler3=红眼狂兔
+NPCName.BunnyBattler4=红眼狂兔
 
 NPCName.BunnyBrawler=兔兔打手
+NPCName.BunnyBrawler1=兔兔打手
+NPCName.BunnyBrawler2=兔兔打手
+NPCName.BunnyBrawler3=兔兔打手
+NPCName.BunnyBrawler4=兔兔打手
 
 NPCName.RabbitcopterSoldier=直升飞兔
+NPCName.RabbitcopterSoldier1=直升飞兔
+NPCName.RabbitcopterSoldier2=直升飞兔
+NPCName.RabbitcopterSoldier3=直升飞兔
+NPCName.RabbitcopterSoldier4=直升飞兔
 
 NPCName.Rajah=忍者巨兔
+NPCName.Rajah2=忍者巨兔
+NPCName.Rajah3=忍者巨兔
+NPCName.Rajah4=忍者巨兔
+NPCName.Rajah5=忍者巨兔
+NPCName.Rajah6=忍者巨兔
+NPCName.Rajah7=忍者巨兔
+NPCName.Rajah8=忍者巨兔
+NPCName.Rajah9=忍者巨兔
+
+NPCName.SupremeRajah=至尊忍者巨兔-无辜的保护者
+
 
 
 // AAMod.NPCs.Bosses.Retriever
@@ -4015,6 +4352,12 @@ NPCName.SerpentTail=绝零冰蛇
 
 
 NPCName.TruffleToad=松露蟾蜍
+
+NPCName.TinyToad=小松露蟾蜍
+
+NPCName.GlowshroomGrow=荧光孢子菇
+
+NPCName.ShroomGlow=荧光孢子菇
 
 
 // AAMod.NPCs.Bosses.Truffle
@@ -4083,7 +4426,7 @@ NPCName.YamataHeadF1=远古之八歧大蛇的头
 ===UNKNWN===
 NPCName.YamataHeadF2=远古之八歧大蛇的头
 
-NPCName.YamataTransition=Spirit of Wrath
+NPCName.YamataTransition=霆渊之魂
 
 
 // AAMod.NPCs.Bosses.Zero
@@ -4440,7 +4783,7 @@ MapObject.DaybreakIncineriteOre=炙曦矿石
 
 MapObject.DevStatue=雕像
 
-MapObject.DiscordiumOre=不谐矿
+MapObject.DiscordiumOre=混律矿
 
 MapObject.DjinnBox=八音盒
 
