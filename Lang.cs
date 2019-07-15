@@ -1879,11 +1879,11 @@ namespace AAMod
                         return "Summoning";
                         case "Throwing":
                         return "Throwing";
-                        case "Damage Type":
+                        case "DamageType":
                         return "Damage Type";
-                        case "Current Damage Boost: +":
+                        case "CurrentDamageBoost:+":
                         return "Current Damage Boost: +";
-                        case " Damage":
+                        case "Damage":
                         return " Damage";
                     }
                 }
@@ -1901,11 +1901,11 @@ namespace AAMod
                         return "召唤";
                         case "Throwing":
                         return "投掷";
-                        case "Damage Type":
+                        case "DamageType":
                         return "伤害类型";
-                        case "Current Damage Boost: +":
+                        case "CurrentDamageBoost:+":
                         return "暴击伤害提升: +";
-                        case " Damage":
+                        case "Damage":
                         return "伤害";
                     }
                 }
@@ -1984,18 +1984,28 @@ You gain a fishy companion";
 You glow like the moon in the sky
 Magic attacks inflict Moonraze on your target
 You have a lunar friend to assist you";
+                        case "TiedsMaskABonus":
+                        return @"'The soviets have got nothing on me'
+All of your melee attacks inflict cursed inferno
+A spooky friend lights your way";
                         case "DoomiteVisorBonus":
                         return @"+1 Max Minion
 A void searcher fights by your side";
                         case "DoomiteUHelmBonus":
                         return @"Increases max amount of minions by 2
 Increases your minions knockback by 100%";
-                        case "DoomsdayHelmetBonus":
+                        case "DoomsdayMaskBonus":
                         return @"Life termination systems activated
 You detect all hostile life around you
 You can see in the dark much more easily
 Your minion's attacks are strong enough to weaken your enemies defense for a time
 +5 Minion slots";
+                        case "DoomsdayHelmetBonus":
+                        return @"Life termination systems activated
+You detect all hostile life around you
+You can see in the dark much more easily
+Your magic attacks are strong enough to weaken your enemies defense for a time
+Mana usage reduced by 30%";
                         case "DracoHelmBonus":
                         return @"'Blazing fury consumes you'
 You are immune to all ice-related debuffs
@@ -2016,7 +2026,7 @@ Increased life regen";
 -20% Mana Usage";
                         case "FulguriteHelmetBonus":
                         return @"Being struck causes a burst of lightning to erupt from your body, knocking back enemies
-+22% increased melee and movement speed";
++20% increased melee and movement speed";
                         case "FulguriteVisorBonus":
                         return @"Being struck causes a burst of lightning to erupt from your body, knocking back enemies
 25% chance to not consume ammo weapons";
@@ -2026,10 +2036,14 @@ Increased life regen";
                         return @"500% increased damage and knockback to goblins
 80% damage resistance from goblins
 'I hunt goblins or nothing.'";
+                        case "HoodlumHoodBonus":
+                        return @"Reaching below half heath multiplies your movement speed, melee damage, and minion damage by 50%";
                         case "HeartstoneHelmetBonus":
                         return "Doubles damage when health is below 40";
                         case "ImpHoodBonus":
                         return "Your minions set enemies ablaze";
+                        case "LeviathanHelmBonus":
+                        return @"Reaching below half heath multiplies your movement speed, ranged damage, and magic damage by 50%";
                         case "KindledKabutoBonus":
                         return @"5% increased damage resistance
 Your Swung weapons set your enemies ablaze";
@@ -2247,12 +2261,16 @@ The Fire spirit becomes more powerful the less mana you have";
                         return "“冲洗时间”\r\n你的所有攻击对除了boss以外的敌人造成潮湿\r\n在液体中可以畅快的运动\r\n无限手套可以发挥最大潜力了\r\n你获得了一个“鱼”伙伴";
                         case "MoonHoodABonus":
                         return "“真是讽刺,不是吗?”\r\n你如天上明月一般发光\r\n魔法攻击对目标造成蚀月\r\n你有了一个月亮伙伴";
+                        case "TiedsMaskABonus":
+                        return "“苏联人对我一无所知”\n你所有的近战攻击都会造成燎狱咒焰\n一个闹灵伙伴为你照明";
                         case "DoomiteVisorBonus":
                         return "+1召唤上限\r\n一个虚空搜索者为你而战";
                         case "DoomiteUHelmBonus":
                         return "增加2召唤上限\r\n增加100%召唤物击退";
-                        case "DoomsdayHelmetBonus":
+                        case "DoomsdayMaskBonus":
                         return "生命终结系统启动\r\n你可以探测到周围所有的敌对生物\r\n在黑暗中更容易看到\r\n你的召唤物对敌人造成一段时间的防御力削弱\r\n+5召唤上限";
+                        case "DoomsdayHelmetBonus":
+                        return "生命终结系统启动\r\n你可以探测到周围所有的敌对生物\r\n在黑暗中更容易看到\r\n你的魔法攻击对敌人造成一段时间的防御力削弱\r\n减少30%魔力消耗";
                         case "DracoHelmBonus":
                         return "“狂焰之怒充满了你的身体”\r\n你免疫所有冰系debuff\r\n你的灵魂灼烧如同狂焰之怒\r\n你的近战攻击对目标造成破晓";
                         case "DreadHelmBonus":
@@ -2264,17 +2282,21 @@ The Fire spirit becomes more powerful the less mana you have";
                         case "FulguriteHelmBonus":
                         return "受到攻击时从你的身体中爆发一阵闪电,击退敌人\r\n减少20%魔法消耗";
                         case "FulguriteHelmetBonus":
-                        return "受到攻击时从你的身体中爆发一阵闪电,击退敌人\r\n增加22%近战速度和移动速度";
+                        return "受到攻击时从你的身体中爆发一阵闪电,击退敌人\r\n增加20%近战速度和移动速度";
                         case "FulguriteVisorBonus":
                         return "受到攻击时从你的身体中爆发一阵闪电,击退敌人\r\n25%几率不消耗弹药";
                         case "ShroomHatBonus":
                         return "你对法力病免疫";
                         case "GoblinSlayerHelmBonus":
                         return "对哥布林增加500%伤害和击退\r\n增加80%对哥布林的伤害抗性\r\n“我只想猎杀哥布林”";
+                        case "HoodlumHoodBonus":
+                        return "生命值低于一半时，移动速度、近战伤害和召唤伤害将增加50%";
                         case "HeartstoneHelmetBonus":
                         return "生命值低于40时,伤害加倍";
                         case "ImpHoodBonus":
                         return "你的召唤物对敌人造成燃烧";
+                        case "LeviathanHelmBonus":
+                        return "生命值低于一半时，移动速度、远程战伤害和魔法伤害将增加50%";
                         case "KindledKabutoBonus":
                         return "增加5%伤害抗性\r\n你挥动的武器对敌人造成灼伤";
                         case "MadnessVisorBonus":

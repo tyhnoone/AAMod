@@ -226,6 +226,9 @@ BuffName.TimeFrozen=时间冻结
 BuffName.TrueHallowedPrism=真·神圣棱镜
 BuffDescription.TrueHallowedPrism=召唤一个神圣棱镜为你而战
 
+BuffName.TiedemiesBuff=Tied精灵
+BuffDescription.TiedemiesBuff=“它为你照明”
+
 BuffName.Unstable=不安定
 BuffDescription.Unstable=Y你角色的c代o码de变得不un稳sta定ble
 
@@ -526,6 +529,16 @@ ItemTooltip.MoonHoodA=增加24%魔法伤害和暴击率\n+200魔力上限\n减�
 ItemName.MoonRobeA=月亮魔法长袍
 ItemTooltip.MoonRobeA=增加24%魔法伤害和暴击率\n+200魔力上限\n减少15%魔力消耗
 
+// AAMod.Items.Armor.Dev.Tied
+
+ItemName.TiedsLeggingsA=Tied阴森灵长裤
+ItemTooltip.TiedsLeggingsA=如幽灵般的完美跟踪\n增加25%近战伤害和暴击率\n增加13%近战速度\n增加50%移动速度
+
+ItemName.TiedsMaskA=Tied阴森灵颅骨
+ItemTooltip.TiedsMaskA=如幽灵般的完美跟踪\n增加25%近战伤害和暴击率\n增加13%近战速度
+
+ItemName.TiedsSuitA=Tied阴森灵上装
+ItemTooltip.TiedsSuitA=如幽灵般的完美跟踪\n增加24%近战伤害和暴击率
 
 // AAMod.Items.Armor.Doomite
 
@@ -663,6 +676,17 @@ ItemTooltip.GoblinSlayerGreaves=对哥布林族的巨大仇恨萦绕着这个护
 ItemName.GoblinSlayerHelm=哥布林杀手头盔
 ItemTooltip.GoblinSlayerHelm=对哥布林族的巨大仇恨萦绕着这个头盔
 
+// AAMod.Items.Armor.Hoodlum
+
+ItemName.HoodlumHood=跳跳流氓兔兜帽
+ItemTooltip.HoodlumHood=增加18%召唤和近战伤害\n敌人更容易瞄准你\n疯狂的跳吧
+
+ItemName.HoodlumPants=跳跳流氓兔爪裤
+ItemTooltip.HoodlumPants=增加10%移动速度\n增加9%近战暴击率\n+1召唤上限\n敌人更容易瞄准你\n疯狂的跳吧
+
+ItemName.HoodlumShirt=跳跳流氓兔衬衫
+ItemTooltip.HoodlumShirt=增加10%近战速度\n+1召唤上限\n敌人更容易瞄准你\n疯狂的跳吧
+
 
 // AAMod.Items.Armor.Heartstone
 
@@ -680,14 +704,25 @@ ItemTooltip.HeartstoneLeggings=+10生命上限\n心脏锻造出这个铠甲, 当
 // AAMod.Items.Armor.Imp
 
 
-ItemName.ImpBoots=小鬼靴
+ItemName.ImpBoots=小鬼长靴
 ItemTooltip.ImpBoots=增加7%召唤伤害
 
-ItemName.ImpGarb=小鬼衣
+ItemName.ImpGarb=小鬼上衣
 ItemTooltip.ImpGarb=增加7%召唤伤害
 
 ItemName.ImpHood=小鬼兜帽
 ItemTooltip.ImpHood=增加7%召唤伤害\n+1召唤上限
+
+// AAMod.Items.Armor.Leviathan
+
+ItemName.LeviathanGreaves=利维坦护胫
+ItemTooltip.LeviathanGreaves=增加8%移动速度\n增加12%远程暴击率\n20%几率不消耗弹药\n敌人更容易瞄准你\n闻起来像鱼
+
+ItemName.LeviathanHelm=利维坦头盔
+ItemTooltip.LeviathanHelm=增加16%远程和魔法伤害\n敌人更容易瞄准你\n闻起来像鱼
+
+ItemName.LeviathanGreaves=利维坦胸甲
+ItemTooltip.LeviathanGreaves=+80魔力上限\n增加7%魔法暴击率\n减少10%魔力消耗\n敌人更容易瞄准你\n闻起来像鱼
 
 
 // AAMod.Items.Armor.Kindled
@@ -4035,6 +4070,20 @@ ItemTooltip.MikpinPants=“非常适合冒充远古觉醒的开发者!”
 
 ItemName.MikpinWig=狐皮假发
 ItemTooltip.MikpinWig=“非常适合冒充远古觉醒的开发者!”
+
+// AAMod.Items.Vanity.Blazen
+
+ItemName.BlazenBooster=战术突击喷气包
+ItemTooltip.BlazenBooster=允许飞行和滑翔\n按住飞的更快\n“非常适合冒充远古觉醒的开发者!”
+
+ItemName.BlazenBoots=战术突击靴
+ItemTooltip.BlazenBoots=“非常适合冒充远古觉醒的开发者!”
+
+ItemName.BlazenHelmet=战术突击盔
+ItemTooltip.BlazenHelmet=“非常适合冒充远古觉醒的开发者!”
+
+ItemName.BlazenPlate=战术突击甲
+ItemTooltip.BlazenPlate=“非常适合冒充远古觉醒的开发者!”
 
 
 // AAMod.Items.Vanity.Tails
