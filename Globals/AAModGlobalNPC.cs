@@ -33,18 +33,15 @@ namespace AAMod
         public bool BrokenArmor = false;
         public bool DynaEnergy1 = false;
         public bool DynaEnergy2 = false;
+        public bool Spear = false;
+
+
         public static int Toad = -1;
         public static int Rose = -1;
         public static int Brain = -1;
         public static int Rajah = -1;
 
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool InstancePerEntity => true;
 
         public override void ResetEffects(NPC npc)
         {
@@ -63,6 +60,7 @@ namespace AAMod
             BrokenArmor = false;
             DynaEnergy1 = false;
             DynaEnergy2 = false;
+            Spear = false;
         }
 
         public override void SetDefaults(NPC npc)
@@ -76,14 +74,6 @@ namespace AAMod
                     npc.lifeMax = 10000;
                     npc.knockBackResist = 0.05f;
                     npc.value = 50000f;
-                }
-            }
-            if (AAWorld.downedRajahsRevenge)
-            {
-                bool isBunny = npc.type == NPCID.Bunny || npc.type == NPCID.GoldBunny || npc.type == NPCID.BunnySlimed || npc.type == NPCID.BunnyXmas || npc.type == NPCID.PartyBunny;
-                if (isBunny)
-                {
-                    npc.dontTakeDamage = true;
                 }
             }
         }
@@ -103,6 +93,19 @@ namespace AAMod
                 if (damage < 40)
                 {
                     damage = 40;
+                }
+            }
+
+            if (Spear)
+            {
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
+                npc.lifeRegen -= 5;
+                if (damage < 5)
+                {
+                    damage = 5;
                 }
             }
 
@@ -172,15 +175,10 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
-                npc.lifeRegen -= 10;
+                npc.lifeRegen -= 20;
                 if (damage < 10)
                 {
                     damage = 10;
-                }
-                npc.lifeRegen -= 16;
-                if (damage < 2)
-                {
-                    damage = 2;
                 }
             }
 
@@ -592,20 +590,20 @@ namespace AAMod
                 int bunnyKills = NPC.killCount[Item.NPCtoBanner(NPCID.Bunny)];
                 if (bunnyKills % 100 == 0 && bunnyKills < 1000)
                 {
-                    Main.NewText("Those who slaughter the innocent must be PUNISHED!", 107, 137, 179);
+                    BaseMod.BaseUtility.Chat("Those who slaughter the innocent must be PUNISHED!", 107, 137, 179);
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Rajah"), npc.Center);
                     SpawnRajah(player, true, new Vector2(npc.Center.X, npc.Center.Y - 2000), "Rajah Rabbit");
 
                 }
                 if (bunnyKills % 100 == 0 && bunnyKills >= 1000)
                 {
-                    Main.NewText("YOU WILL PAY FOR YOUR SINS, " + player.name.ToUpper() + "!", 107, 137, 179);
+                    BaseMod.BaseUtility.Chat("YOU HAVE COMMITTED AN UNFORGIVABLE SIN! I SHALL WIPE YOU FROM THIS MORTAL REALM! PREPARE FOR TRUE PAIN AND PUNISHMENT, " + player.name.ToUpper() + "!", 107, 137, 179);
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Rajah"), npc.Center);
                     SpawnRajah(player, true, new Vector2(npc.Center.X, npc.Center.Y - 2000), "Rajah Rabbit");
                 }
                 if (bunnyKills % 50 == 0 && bunnyKills % 100 != 0)
                 {
-                    Main.NewText("The eyes of a wrathful creature gaze upon you...", 107, 137, 179);
+                    BaseMod.BaseUtility.Chat("The eyes of a wrathful creature gaze upon you...", 107, 137, 179);
                 }
             }
         }
@@ -614,7 +612,7 @@ namespace AAMod
         {
             if (damage > npc.lifeMax / 8)
             {
-                Main.NewText(Text, TextColor);
+                BaseMod.BaseUtility.Chat(Text, TextColor);
                 damage = 0;
             }
         }
@@ -868,7 +866,7 @@ namespace AAMod
             }
             catch (Exception e)
             {
-                Main.NewText(e.StackTrace);
+                BaseMod.BaseUtility.Chat(e.StackTrace);
             }
         }
 
@@ -944,28 +942,28 @@ namespace AAMod
                 ClearPoolWithExceptions(pool);
                 if ((player.position.Y < (Main.worldSurface * 16.0)) && (!Main.dayTime || AAWorld.downedYamata))
                 {
-                    pool.Add(mod.NPCType("MireSlime"), .05f);
-                    pool.Add(mod.NPCType("Mosster"), .25f);
-                    pool.Add(mod.NPCType("Newt"), .5f);
+                    pool.Add(mod.NPCType("Mosster"), .05f);
+                    pool.Add(mod.NPCType("Newt"), .1f);
                     pool.Add(mod.NPCType("HydraClaw"), .05f);
-                    pool.Add(mod.NPCType("MireSkulker"), .35f);
+                    pool.Add(mod.NPCType("MireSkulker"), .04f);
+                    pool.Add(mod.NPCType("MireSlime"), .05f);
                     if (Main.hardMode)
                     {
-                        pool.Add(mod.NPCType("FogAngler"), SpawnCondition.WaterCritter.Chance * 0.1f);
-                        pool.Add(mod.NPCType("Toxitoad"), .1f);
-                        pool.Add(mod.NPCType("Kappa"), .2f);
+                        pool.Add(mod.NPCType("FogAngler"), SpawnCondition.WaterCritter.Chance * 0.05f);
+                        pool.Add(mod.NPCType("Toxitoad"), .01f);
+                        pool.Add(mod.NPCType("Kappa"), .05f);
                     }
                 }
                 else if (player.position.Y > (Main.worldSurface * 16.0))
                 {
-                    pool.Add(mod.NPCType("Mosster"), .25f);
-                    pool.Add(mod.NPCType("Newt"), .5f);
-                    pool.Add(mod.NPCType("HydraClaw"), .5f);
-                    pool.Add(mod.NPCType("MireSkulker"), .25f);
+                    pool.Add(mod.NPCType("Mosster"), .05f);
+                    pool.Add(mod.NPCType("Newt"), .1f);
+                    pool.Add(mod.NPCType("HydraClaw"), .05f);
+                    pool.Add(mod.NPCType("MireSkulker"), .04f);
                     if (Main.hardMode)
                     {
                         pool.Add(mod.NPCType("FogAngler"), SpawnCondition.WaterCritter.Chance * 0.2f);
-                        pool.Add(mod.NPCType("Miresquito"), .1f);
+                        pool.Add(mod.NPCType("Miresquito"), .05f);
                         pool.Add(mod.NPCType("ChaoticTwilight"), .01f);
                         if (player.ZoneSnow)
                         {
@@ -973,13 +971,13 @@ namespace AAMod
                         }
                         if (player.ZoneUndergroundDesert)
                         {
-                            pool.Add(mod.NPCType("MireGhoul"), .1f);
+                            pool.Add(mod.NPCType("MireGhoul"), .05f);
                         }
                     }
                 }
                 if (AAWorld.downedSisters)
                 {
-                    pool.Add(mod.NPCType("AbyssClaw"), .05f);
+                    pool.Add(mod.NPCType("AbyssClaw"), .02f);
                 }
             }
 
@@ -992,20 +990,20 @@ namespace AAMod
                 }
                 if (NPC.downedPlantBoss)
                 {
-                    pool.Add(mod.NPCType("Vortex"), 0.005f);
-                    pool.Add(mod.NPCType("Scout"), .01f);
+                    pool.Add(mod.NPCType("Vortex"), 0.002f);
+                    pool.Add(mod.NPCType("Scout"), .005f);
                 }
                 if (NPC.downedMoonlord)
                 {
-                    pool.Add(mod.NPCType("Searcher"), .01f);
+                    pool.Add(mod.NPCType("Searcher"), .005f);
                     if (AAWorld.downedZero)
                     {
-                        pool.Add(mod.NPCType("Null"), .01f);
+                        pool.Add(mod.NPCType("Null"), .005f);
                     }
                 }
                 else
                 {
-                    pool.Add(mod.NPCType("Searcher1"), .01f);
+                    pool.Add(mod.NPCType("Searcher1"), .005f);
                 }
             }
 
@@ -1024,7 +1022,7 @@ namespace AAMod
                     pool.Add(mod.NPCType<PuritySquid>(), .03f);
                     return;
                 }
-                if (Main.hardMode)
+                else if (Main.hardMode)
                 {
                     pool.Add(mod.NPCType<TerraProbe>(), .07f);
                     pool.Add(mod.NPCType<TerraWatcher>(), .07f);
@@ -1034,7 +1032,7 @@ namespace AAMod
                     pool.Add(mod.NPCType<PurityCrawler>(), .03f);
                     pool.Add(mod.NPCType<PuritySquid>(), .03f);
                 }
-                if (NPC.downedBoss2)
+                else if (NPC.downedBoss2)
                 {
                     pool.Add(mod.NPCType<PurityWeaver>(), .05f);
                     pool.Add(mod.NPCType<PuritySphere>(), .05f);
@@ -1137,7 +1135,7 @@ namespace AAMod
                         npcName = Main.npc[npcID].modNPC.DisplayName.GetDefault();
                     if (namePlural)
                     {
-                        if (Main.netMode == 0) { Main.NewText(npcName + " have awoken!", 175, 75, 255, false); }
+                        if (Main.netMode == 0) { BaseMod.BaseUtility.Chat(npcName + " have awoken!", 175, 75, 255, false); }
                         else
                         if (Main.netMode == 2)
                         {
@@ -1146,7 +1144,7 @@ namespace AAMod
                     }
                     else
                     {
-                        if (Main.netMode == 0) { Main.NewText(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
+                        if (Main.netMode == 0) { BaseMod.BaseUtility.Chat(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
                         else
                         if (Main.netMode == 2)
                         {
