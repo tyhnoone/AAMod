@@ -34,7 +34,7 @@ namespace AAMod.Items.Armor.Nightmare
 		public override void UpdateArmorSet(Player player)
 		{
 			player.moveSpeed += 0.1f; 
-			player.setBonus = "+10% movement speed";
+			player.setBonus = Lang.ArmorBonus("NightmareHelmetBonus");
 		}
 		
 		public override void AddRecipes()

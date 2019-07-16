@@ -27,7 +27,7 @@ namespace AAMod.Items.Armor.Mech
 		public override void UpdateArmorSet(Player player)
         {
             player.endurance += 0.10f;
-            player.setBonus = "+10% Damage Resistance";
+            player.setBonus = Lang.ArmorBonus("MechHelmBonus");
 		}
 	}
 }
