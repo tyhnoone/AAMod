@@ -1863,7 +1863,7 @@ namespace AAMod
                 }
             return"";
         }
-        public static string RajahSashTooltip(String RajahSash)
+        public static string RajahSPTooltip(String RajahSash)
         {
             if(Language.ActiveCulture == GameCulture.English)
                 {
@@ -1883,6 +1883,10 @@ namespace AAMod
                         return "Damage Type";
                         case "CurrentDamageBoost:+":
                         return "Current Damage Boost: +";
+                        case "CurrentSpeedBoost:":
+                        return "Current Speed Boost: ";
+                        case "CurrentDamageResistance:":
+                        return "Current Damage Resistance: ";
                         case "Damage":
                         return " Damage";
                     }
@@ -1904,7 +1908,11 @@ namespace AAMod
                         case "DamageType":
                         return "伤害类型";
                         case "CurrentDamageBoost:+":
-                        return "暴击伤害提升: +";
+                        return "当前伤害提升: +";
+                        case "CurrentSpeedBoost:":
+                        return "当前速度增加: ";
+                        case "CurrentDamageResistance:":
+                        return "当前伤害抗性: ";
                         case "Damage":
                         return "伤害";
                     }
