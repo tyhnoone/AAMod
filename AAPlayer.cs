@@ -15,7 +15,6 @@ using Terraria.ModLoader;
 using System;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
 using AAMod.NPCs.Bosses.Yamata;
-using AAMod.NPCs.Bosses.Shen;
 using System.Collections.Generic;
 using BaseMod;
 using Terraria.Graphics.Effects;
@@ -553,17 +552,11 @@ namespace AAMod
 
         public override void UpdateBiomeVisuals()
         {
-            bool useShenA = NPC.AnyNPCs(mod.NPCType<ShenA>());
-            bool useShen = NPC.AnyNPCs(mod.NPCType<ShenDoragon>()) && !useShenA;
             bool useAkuma = NPC.AnyNPCs(mod.NPCType<AkumaA>()) || AkumaAltar;
             bool useYamata = NPC.AnyNPCs(mod.NPCType<YamataA>()) || YamataAltar;
-            bool useMire = (ZoneMire || MoonAltar) && !useYamata && !useShen && !useShenA;
-            bool useInferno = (ZoneInferno || SunAltar) && !useAkuma && !useShen && !useShenA;
-            bool useVoid = (ZoneVoid || VoidUnit) && !useShen && !useShenA;
-
-            player.ManageSpecialBiomeVisuals("AAMod:ShenSky", useShen);
-
-            player.ManageSpecialBiomeVisuals("AAMod:ShenASky", useShen);
+            bool useMire = (ZoneMire || MoonAltar) && !useYamata;
+            bool useInferno = (ZoneInferno || SunAltar) && !useAkuma;
+            bool useVoid = (ZoneVoid || VoidUnit);
 
             player.ManageSpecialBiomeVisuals("AAMod:AkumaSky", useAkuma);
 
@@ -811,19 +804,6 @@ namespace AAMod
 
         public override void PostUpdate()
         {
-            if (NPC.AnyNPCs(mod.NPCType<AkumaTransition>()))
-            {
-                int n = BaseAI.GetNPC(player.Center, mod.NPCType<AkumaTransition>(), -1);
-                NPC akuma = Main.npc[n];
-                if (akuma.ai[0] >= 660)
-                {
-                    player.AddBuff(mod.BuffType<BlazingPain>(), 2);
-                }
-            }
-            else if (NPC.AnyNPCs(mod.NPCType<AkumaA>()))
-            {
-                player.AddBuff(mod.BuffType<BlazingPain>(), 2);
-            }
             if (BasePlayer.HasAccessory(player, mod.ItemType<Items.Vanity.HappySunSticker>(), true, true))
             {
                 Main.sunTexture = mod.GetTexture("Backgrounds/DemonSun");
