@@ -38,8 +38,7 @@ Allows to breath underwater");
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = @"While submerged in liquids, your magic abilities are increased drastically
-You can swim and water does not affect your movement";
+			player.setBonus = Lang.ArmorBonus("TrueAtlanteanHelmBonus");
 			if (player.wet)
 			{
 				player.AddBuff(mod.BuffType("AtlanteanBuff"), 1800);
