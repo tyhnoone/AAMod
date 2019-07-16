@@ -6,6 +6,13 @@ The Ancients have Awakened. Chaos reigns, storms ravage, and reality tears at th
 
 **NOTE 2: Small worlds are heavilly discouraged with this mod. Things break because we have a lot of worldgen.**
 
+0.8.2.2
+-------
+
+TMod 0.11.2.2 compatibility
+
+-------
+
 This mod adds:
 
 800+ Items, including EX items; powerful upgrades to previous weapons with a new twist to them!
