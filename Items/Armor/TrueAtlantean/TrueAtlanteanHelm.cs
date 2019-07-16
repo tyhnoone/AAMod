@@ -38,13 +38,19 @@ Allows to breath underwater");
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("TrueAtlanteanHelmBonus");
-			if (player.wet)
-			{
-				player.AddBuff(mod.BuffType("AtlanteanBuff"), 1800);
+			player.setBonus = @"While submerged in water, your magic abilities are increased drastically
+You can swim and water does not affect your movement";
+            if (player.wet && !player.lavaWet && !player.honeyWet)
+            {
+                player.AddBuff(mod.BuffType("AtlanteanBuff"), 2);
+                player.accFlipper = true;
+                player.ignoreWater = true;
             }
-            player.accFlipper = true;
-            player.ignoreWater = true;
+            else
+            {
+                player.accFlipper = false;
+                player.ignoreWater = false;
+            }
         }
 		
 		public override void AddRecipes()

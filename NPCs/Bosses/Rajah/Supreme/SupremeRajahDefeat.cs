@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using AAMod.Items.Boss.Rajah;
 using Terraria;
 using Terraria.ModLoader;
 using BaseMod;
@@ -160,14 +159,6 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
                 {
                     npc.frame.Y = frameHeight * 5;
                 }
-            }
-        }
-
-        public override string BossHeadTexture
-        {
-            get
-            {
-                return npc.ai[1] == 0 ? "AAMod/NPCs/Bosses/Rajah/Supreme/SupremeRajahDefeat_Head_Boss" : npc.ai[1] == 1 ? "AAMod/NPCs/Bosses/Rajah/Supreme/SupremeRajahDefeat_Head_Boss1" : "AAMod/NPCs/Bosses/Rajah/Supreme/SupremeRajahDefeat_Head_Boss2";
             }
         }
     }

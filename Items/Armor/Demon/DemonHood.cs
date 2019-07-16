@@ -38,7 +38,9 @@ namespace AAMod.Items.Armor.Demon
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("DemonHoodBonus");
+            player.setBonus = @"Your minions set enemies ablaze
+You Always have a small Imp servant by your side
+Imp isn't counted in your max minion count";
             AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
             modPlayer.impSet = true;
             modPlayer.demonBonus = true;

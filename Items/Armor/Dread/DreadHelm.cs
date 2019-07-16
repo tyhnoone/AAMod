@@ -41,7 +41,10 @@ The abyssal wrath of the Mire rests in this armor");
 		public override void UpdateArmorSet(Player player)
 		{
 			
-			player.setBonus = Lang.ArmorBonus("DreadHelmBonus");
+			player.setBonus = @"'Abyssal Wrath enrages you'
+You are immune to all fire-related debuffs
+You glow like the dread moon in the sky
+Your ranged attacks inflict Moonraze on your target";
 
             player.buffImmune[24] = true;
             player.buffImmune[39] = true;

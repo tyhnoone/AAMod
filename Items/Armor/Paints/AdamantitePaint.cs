@@ -42,7 +42,7 @@ namespace AAMod.Items.Armor.Paints
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("AdamantitePaintBonus");
+            player.setBonus = @"+4 Minion slots";
             player.armorEffectDrawOutlines = true;
             player.armorEffectDrawShadow = true;
             player.maxMinions += 4;

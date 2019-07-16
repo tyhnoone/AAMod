@@ -44,7 +44,8 @@ namespace AAMod.Items.Armor.Paints
 
 		public override void UpdateArmorSet(Player player)
 		{
-            player.setBonus = Lang.ArmorBonus("ChlorophytePaintBonus");
+            player.setBonus = @"+6 Minion slots
+Shoots crystal leaves at nearby enemies";
             player.AddBuff(BuffID.LeafCrystal, 2);
             player.maxMinions += 6;
         }

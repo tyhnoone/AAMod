@@ -4,10 +4,10 @@ namespace AAMod.Items.Boss.Rajah
 {
     public class RajahBag : BaseAAItem
     {
-        
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Treasure Cache");
+            DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
         }
 

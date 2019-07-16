@@ -53,7 +53,10 @@ namespace AAMod.Items.Armor.Dev.Moon
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("MoonHoodABonus");
+            player.setBonus = @"'Stings, doesn't it?'
+You glow like the moon in the sky
+Magic attacks inflict Moonraze on your target
+You have a lunar friend to assist you";
             
             player.GetModPlayer<AAPlayer>(mod).MoonSet = true;
             

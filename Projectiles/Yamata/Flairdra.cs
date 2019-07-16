@@ -85,7 +85,7 @@ namespace AAMod.Projectiles.Yamata
 
         public override void OnHitNPC (NPC target, int damage, float knockback, bool crit)
 		{
-            if (Main.netMode != 1 && Main.rand.Next(5) == 0)
+            if (Main.netMode != 1 && Main.rand.Next(2) == 0)
             {
                 Main.PlaySound(new Terraria.Audio.LegacySoundStyle(2, 124, Terraria.Audio.SoundType.Sound));
                 float spread = 12f * 0.0174f;
@@ -121,14 +121,14 @@ namespace AAMod.Projectiles.Yamata
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
 
-            projectile.frameCounter++; //increase the frameCounter by one
-            if (projectile.frameCounter >= 10) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
+            projectile.frameCounter++;
+            if (projectile.frameCounter >= 10)
             {
-                projectile.frame++; //go to the next frame
-                projectile.frameCounter = 0; //reset the counter
+                projectile.frame++;
+                projectile.frameCounter = 0;
                 if (projectile.frame > 7)
                 { 
-                    projectile.frame = 0; //go back to the first frame
+                    projectile.frame = 0; 
                 }
             }
 

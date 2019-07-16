@@ -35,7 +35,8 @@ namespace AAMod.Items.Armor.TrueDoomite
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("TrueDoomiteVisorBonus");
+            player.setBonus = @"+4 Minion slots
+A void scout hunts down your foes for you";
             player.maxMinions += 4;
             player.GetModPlayer<AAPlayer>(mod).doomite = true;
             if (player.whoAmI == Main.myPlayer)

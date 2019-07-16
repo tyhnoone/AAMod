@@ -34,7 +34,7 @@ namespace AAMod.Items.Armor.Viking
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("VikingPlateBonus");
+			player.setBonus = @"4% Increased damage resistance";
             player.endurance += .04f;
         }
 		

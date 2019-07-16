@@ -31,7 +31,8 @@ namespace AAMod.Items.Armor.DoomiteU
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("DoomiteUHelmBonus");
+			player.setBonus = @"Increases max amount of minions by 2
+Increases your minions knockback by 100%";
         }
 		
 		public override void UpdateEquip(Player player)

@@ -5,7 +5,6 @@ namespace AAMod.Items.Dev.Tools
 {
     public class AlphakipTerratool : BaseAAItem
     {
-        
         public override void SetDefaults()
         {
             item.melee = true;
@@ -29,7 +28,8 @@ namespace AAMod.Items.Dev.Tools
         {
             DisplayName.SetDefault("Amphibious Terratool");
             Tooltip.SetDefault(@"Right Click to change tool types
-You may only have a maximum of 2 tool types active");
+You may only have a maximum of 2 tool types active
++25 tile reach");
         }
 
         public override bool AltFunctionUse(Player player)
@@ -42,10 +42,11 @@ You may only have a maximum of 2 tool types active");
             if (player.altFunctionUse == 2)
             {
                 item.noUseGraphic = true;
-                AAMod.instance.TerratoolKipState.ToggleUI(AAMod.instance.TerratoolKipInterface);
+                AAMod.instance.TerratoolKipState.ToggleUI(AAMod.instance.TerratoolInterface);
                 item.pick = 0;
                 item.axe = 0;
                 item.hammer = 0;
+                item.damage = 0;
             }
             else
             {
@@ -53,6 +54,7 @@ You may only have a maximum of 2 tool types active");
                 item.pick = UI.TerratoolKipUI.Pick;
                 item.axe = UI.TerratoolKipUI.Axe;
                 item.hammer = UI.TerratoolKipUI.Hammer;
+                item.damage = 120;
             }
             return true;
         }

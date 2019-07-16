@@ -20,7 +20,7 @@ namespace AAMod.Items.Armor.TrueBlazing
 			item.height = 20;
 			item.value = 100000;
 			item.rare = 4;
-			item.defense = 12;
+			item.defense = 18;
 		}
 
         public override void UpdateEquip(Player player)
@@ -35,7 +35,10 @@ namespace AAMod.Items.Armor.TrueBlazing
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("TrueBlazingKabutoBonus");
+			player.setBonus = @"5% increased damage resistance
+Enemies are more likely to target you
+Enemies that strike you are set ablaze
+Your Swung weapons set your enemies ablaze";
             player.endurance = .05f;
             player.aggro += 4;
             player.GetModPlayer<AAPlayer>(mod).kindledSet = true;

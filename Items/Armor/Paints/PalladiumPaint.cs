@@ -42,7 +42,8 @@ namespace AAMod.Items.Armor.Paints
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("PalladiumPaintBonus");
+            player.setBonus = @"+1 Minion Slot
+Greatly increases life regeneration after striking an enemy";
             player.maxMinions += 1;
             player.GetModPlayer<AAPlayer>(mod).Palladium = true;
         }

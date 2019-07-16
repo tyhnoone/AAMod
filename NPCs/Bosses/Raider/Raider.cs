@@ -327,6 +327,7 @@ namespace AAMod.NPCs.Bosses.Raider
                         float Point = 500 * npc.direction;
                         MovePoint = player.Center + new Vector2(Point, 500f);
                         SelectPoint = false;
+                        internalAI[5] = 1;
                         npc.netUpdate = true;
                     }
                 }
@@ -337,6 +338,7 @@ namespace AAMod.NPCs.Bosses.Raider
                     internalAI[0] = 0;
                     internalAI[1] = 0;
                     internalAI[2] = 0;
+                    internalAI[5] = 0;
                     npc.ai = new float[4];
                     npc.netUpdate = true;
                 }
@@ -353,12 +355,20 @@ namespace AAMod.NPCs.Bosses.Raider
                         Vector2 dir = new Vector2(npc.velocity.X * 2f + (2f * npc.direction), npc.velocity.Y * 0.5f + 1f);
                         Vector2 firePos = new Vector2(npc.Center.X + (64 * npc.direction), npc.Center.Y + 28f);
                         firePos = BaseUtility.RotateVector(npc.Center, firePos, npc.rotation); //+ (npc.direction == -1 ? (float)Math.PI : 0f)));
-                        int projID = Projectile.NewProjectile(firePos, dir / 2, mod.ProjectileType("RaidSphere"), npc.damage / 2, 1, 255);
+                        int projID = Projectile.NewProjectile(firePos, dir, mod.ProjectileType("RaidSphere"), npc.damage / 2, 1, 255);
                         Main.projectile[projID].netUpdate = true;
                     }
                 }
             }
-            
+            if (internalAI[5] == 1 && Main.netMode != 1)
+            {
+                internalAI[5] = 2;
+                npc.netUpdate = true;
+            }
+            else if (internalAI[5] == 2 && Main.netMode != 1)
+            {
+                npc.netUpdate = false;
+            }
         }
 
         public Vector2 MovePoint;

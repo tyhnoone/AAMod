@@ -44,7 +44,8 @@ namespace AAMod.Items.Armor.Paints
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("PalladiumPaintBonus");
+            player.setBonus = @"+4 Minion slots
+Enemies that hit you are electrified";
 
 
             player.GetModPlayer<AAPlayer>(mod).techneciumSet = true;

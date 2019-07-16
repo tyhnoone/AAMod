@@ -20,13 +20,13 @@ namespace AAMod.Items.Boss.Zero
         {
             
             item.useStyle = 5;
-            item.useAnimation = 7;
-            item.useTime = 7;
+            item.useAnimation = 6;
+            item.useTime = 6;
             item.shootSpeed = 16f;
             item.knockBack = 0f;
             item.width = 48;
             item.height = 26;
-            item.damage = 150;
+            item.damage = 180;
             item.UseSound = SoundID.Item12;
             item.shoot = mod.ProjectileType("RealityLaser");
             item.rare = 9; AARarity = 13;
@@ -60,7 +60,7 @@ namespace AAMod.Items.Boss.Zero
             );
         }
 
-        public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             float spread = 45f * 0.0174f;
             float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));

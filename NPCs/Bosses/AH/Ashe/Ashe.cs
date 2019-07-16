@@ -221,7 +221,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                 {
                     if (Main.netMode != 1)
                     {
-                        FireMagic(npc, npc.velocity);
+                        FireMagic(npc);
                         HasFiredProj = true;
                         npc.netUpdate = true;
                     }
@@ -258,7 +258,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                 {
                     if (Main.netMode != 1)
                     {
-                        FireMagic(npc, npc.velocity);
+                        FireMagic(npc);
                         npc.netUpdate = true;
                     }
                 }
@@ -289,7 +289,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                 {
                     if (Main.netMode != 1)
                     {
-                        FireMagic(npc, npc.velocity);
+                        FireMagic(npc);
                         HasFiredProj = true;
                         npc.netUpdate = true;
                     }
@@ -371,7 +371,6 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             
             if (internalAI[0] == AISTATE_DRAGON) //Summoning a dragon
             {
-                npc.dontTakeDamage = true;
                 internalAI[3]++;
                 if (internalAI[3] > 240)
                 {
@@ -389,18 +388,16 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                     }
                 }
             }
-            else
-            {
-                npc.dontTakeDamage = false;
-            }
 
-            if (NPC.AnyNPCs(mod.NPCType<AsheOrbiter>()))
+            if (NPC.AnyNPCs(mod.NPCType<AsheOrbiter>()) || internalAI[0] == AISTATE_DRAGON)
             {
                 npc.dontTakeDamage = true;
+                npc.reflectingProjectiles = true;
             }
             else
             {
                 npc.dontTakeDamage = false;
+                npc.reflectingProjectiles = false;
             }
 
             npc.rotation = 0; //No ugly rotation.
@@ -530,22 +527,21 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
 
         public int OrbiterCount = Main.expertMode ? 10 : 8;
 
-        public void FireMagic(NPC npc, Vector2 velocity)
+        public void FireMagic(NPC npc)
         {
             Player player = Main.player[npc.target];
             int VortexType = mod.NPCType("AsheOrbiter");
             if (internalAI[0] == 1)
             {
-                int speedX = 10;
-                int speedY = 10;
+                int speedX = 14;
+                int speedY = 14;
                 float spread = 75f * 0.0174f;
                 float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));
                 double startAngle = Math.Atan2(speedX, speedY) - .1d;
                 double deltaAngle = spread / 6f;
-                double offsetAngle;
                 for (int i = 0; i < 5; i++)
                 {
-                    offsetAngle = startAngle + (deltaAngle * i);
+                    double offsetAngle = startAngle + (deltaAngle * i);
                     Projectile.NewProjectile(npc.Center.X, npc.Center.Y, baseSpeed * (float)Math.Sin(offsetAngle) * npc.direction, baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType<AsheShot>(), npc.damage, 4);
                 }
             }
@@ -611,7 +607,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             }
             int DeathAnim = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<AsheVanish>(), 0);
             Main.npc[DeathAnim].velocity = npc.velocity;
-            Main.NewText("OW..! THAT HURT, YOU KNOW!", new Color(102, 20, 48));
+            BaseUtility.Chat("OW..! THAT HURT, YOU KNOW!", new Color(102, 20, 48));
             npc.value = 0f;
             npc.boss = false;
         }
@@ -807,7 +803,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
 
         public void MeleeMovement(Vector2 point)
         {
-            if (MeleeSpeed < 16f)
+            if (MeleeSpeed < 25f)
             {
                 MeleeSpeed += .5f;
             }
@@ -817,18 +813,6 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             if (length < MeleeSpeed)
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / MeleeSpeed);
-            }
-            if (length < 200f)
-            {
-                MeleeSpeed *= 0.5f;
-            }
-            if (length < 100f)
-            {
-                MeleeSpeed *= 0.5f;
-            }
-            if (length < 50f)
-            {
-                MeleeSpeed *= 0.5f;
             }
             npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
             npc.velocity *= MeleeSpeed;

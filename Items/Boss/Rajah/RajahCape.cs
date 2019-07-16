@@ -37,27 +37,27 @@ All effects of the Sash of Vengeance
             string DamageType = "";
             if (modPlayer.MeleeHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Melee");
+                DamageType = "Melee";
                 damageColor = Color.Firebrick;
             }
             else if (modPlayer.RangedHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Ranged");
+                DamageType = "Ranged";
                 damageColor = Color.SeaGreen;
             }
             else if (modPlayer.MagicHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Magic");
+                DamageType = "Magic";
                 damageColor = Color.Violet;
             }
             else if (modPlayer.SummonHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Summoning");
+                DamageType = "Summoning";
                 damageColor = Color.Cyan;
             }
             else if (modPlayer.ThrownHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Throwing");
+                DamageType = "Throwing";
                 damageColor = Color.DarkOrange;
             }
 
@@ -67,13 +67,13 @@ All effects of the Sash of Vengeance
 
             string ResAmmount = (10 * DamageRes(player)) + "% ";
 
-            TooltipLine DamageToltip = new TooltipLine(mod, "Damage Type", Lang.RajahSPTooltip("CurrentDamageBoost:+") + DamageAmmount + DamageType + Lang.RajahSPTooltip("Damage"))
+            TooltipLine DamageToltip = new TooltipLine(mod, "Damage Type", "Current Damage Boost: + " + DamageAmmount + DamageType + " Damage")
             {
                 overrideColor = damageColor
             };
-            TooltipLine SpeedTooltip = new TooltipLine(mod, "Damage Type", Lang.RajahSPTooltip("CurrentSpeedBoost:") + SpeedAmmount);
+            TooltipLine SpeedTooltip = new TooltipLine(mod, "Damage Type", "Current Speed Boost: " + SpeedAmmount);
 
-            TooltipLine ResTooltip = new TooltipLine(mod, "Damage Type", Lang.RajahSPTooltip("CurrentDamageResistance:") + ResAmmount);
+            TooltipLine ResTooltip = new TooltipLine(mod, "Damage Type", "Current Damage Resistance: " + ResAmmount);
 
             tooltips.Add(DamageToltip);
             tooltips.Add(SpeedTooltip);

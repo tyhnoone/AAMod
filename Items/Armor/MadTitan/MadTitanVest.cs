@@ -48,7 +48,8 @@ namespace AAMod.Items.Armor.MadTitan
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("MadTitanVestBonus");
+            player.setBonus = @"The infinity gauntlet is now at it's most powerful
+'The power of a mad titan is now at your fingertips'";
             player.GetModPlayer<AAPlayer>(mod).TrueInfinityGauntlet = true;
             player.GetModPlayer<AAPlayer>(mod).InfinityGauntlet = false;
         }

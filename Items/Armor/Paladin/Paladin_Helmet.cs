@@ -28,7 +28,8 @@ namespace AAMod.Items.Armor.Paladin
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("Paladin_HelmetBonus");
+            player.setBonus = @"+100 Health
+Effects of the Paladin's Shield";
             player.hasPaladinShield = true;
         }
     }

@@ -15,7 +15,7 @@ namespace AAMod.Projectiles.Zero
             projectile.width = 60;
             projectile.height = 60;
             projectile.friendly = true;
-            projectile.ranged = true;
+            projectile.melee = true;
             projectile.ignoreWater = true;
             projectile.penetrate = 1;
             projectile.alpha = 50;

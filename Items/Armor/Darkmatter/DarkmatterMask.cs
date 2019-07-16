@@ -61,7 +61,10 @@ Dark, yet still barely visible");
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("DarkmatterMaskBonus");
+			player.setBonus = @"200 increased maximum mana
+20% reduced mana usage
+Your Magic spells electrocute enemies
+8% increased damage resistance at night";
             if (!Main.dayTime)
             {
                 player.endurance += .08f;

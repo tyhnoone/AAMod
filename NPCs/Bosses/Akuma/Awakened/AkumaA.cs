@@ -12,28 +12,28 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 {
     [AutoloadBossHead]
     public class AkumaA : ModNPC
-	{
+    {
         public bool Loludided;
         private bool weakness = false;
         public int fireTimer = 0;
 
         public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Akuma Awakened; Blazing Fury Incarnate");
-			NPCID.Sets.TechnicallyABoss[npc.type] = true;
+        {
+            DisplayName.SetDefault("Akuma Awakened; Blazing Fury Incarnate");
+            NPCID.Sets.TechnicallyABoss[npc.type] = true;
             Main.npcFrameCount[npc.type] = 3;
         }
 
-		public override void SetDefaults()
-		{
-			npc.noTileCollide = true;
+        public override void SetDefaults()
+        {
+            npc.noTileCollide = true;
             npc.width = 84;
             npc.height = 84;
-			npc.aiStyle = -1;
-			npc.netAlways = true;
+            npc.aiStyle = -1;
+            npc.netAlways = true;
             npc.damage = 110;
             npc.defense = 270;
-            npc.lifeMax = 650000;
+            npc.lifeMax = 600000;
             npc.value = Item.sellPrice(2, 0, 0, 0);
             npc.knockBackResist = 0f;
             npc.boss = true;
@@ -43,8 +43,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             npc.noTileCollide = true;
             npc.behindTiles = true;
             npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.NPCKilled, "Sounds/Sounds/AkumaRoar");
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Akuma2");
+            npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCKilled, "Sounds/Sounds/AkumaRoar");
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Akuma2");
             musicPriority = MusicPriority.BossHigh;
             bossBag = mod.ItemType("AkumaBag");
             for (int k = 0; k < npc.buffImmune.Length; k++)
@@ -57,8 +57,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             if (AAWorld.downedAllAncients)
             {
                 npc.damage = 140;
-                npc.defense = 180;
-                npc.lifeMax = 260000;
+                npc.defense = 300;
+                npc.lifeMax = 750000;
             }
         }
 
@@ -115,7 +115,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
         public override bool PreAI()
         {
             Player player = Main.player[npc.target];
-            
+
 
             npc.frameCounter++;
             if (npc.frameCounter > 8)
@@ -149,14 +149,14 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 spawnAshe = true;
                 if (AAWorld.downedAkuma)
                 {
-                    Main.NewText("Ashe? Help your dear old dad with this kid again!", Color.DeepSkyBlue);
-                    Main.NewText("You got it, daddy..!", new Color(102, 20, 48));
+                    BaseUtility.Chat("Ashe? Help your dear old dad with this kid again!", Color.DeepSkyBlue);
+                    BaseUtility.Chat("You got it, daddy..!", new Color(102, 20, 48));
                     AAModGlobalNPC.SpawnBoss(player, mod.NPCType("AsheA"), false, 0, 0);
                 }
                 else
                 {
-                    Main.NewText("Hey! Hands off my papa!", new Color(102, 20, 48));
-                    Main.NewText("Atta-girl..!", Color.DeepSkyBlue);
+                    BaseUtility.Chat("Hey! Hands off my papa!", new Color(102, 20, 48));
+                    BaseUtility.Chat("Atta-girl..!", Color.DeepSkyBlue);
                     AAModGlobalNPC.SpawnBoss(player, mod.NPCType("AsheA"), false, 0, 0);
                 }
             }
@@ -179,7 +179,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     if (weakness == false)
                     {
                         weakness = true;
-                        Main.NewText("ACK..! WATER! I LOATHE WATER!!!", Color.DeepSkyBlue);
+                        BaseUtility.Chat("ACK..! WATER! I LOATHE WATER!!!", Color.DeepSkyBlue);
                     }
                 }
                 else if (!npc.HasBuff(BuffID.Wet))
@@ -361,7 +361,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 
             if (!Main.dayTime)
             {
-                Main.NewText("Nighttime won't save you from me this time, kid! The day is born anew!", Color.DeepSkyBlue);
+                BaseUtility.Chat("Nighttime won't save you from me this time, kid! The day is born anew!", Color.DeepSkyBlue);
                 Main.dayTime = true;
                 Main.time = 0;
             }
@@ -370,7 +370,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 if (Loludided == false)
                 {
-                    Main.NewText("You just got burned, kid.", new Color(180, 41, 32));
+                    BaseUtility.Chat("You just got burned, kid.", new Color(180, 41, 32));
                     Loludided = true;
                 }
                 npc.velocity.Y = npc.velocity.Y + 1f;
@@ -404,14 +404,14 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
         }
 
         public override void NPCLoot()
-		{
+        {
             if (Main.expertMode)
             {
                 if (!AAWorld.downedAkuma)
                 {
                     Item.NewItem((int)npc.Center.X, (int)npc.Center.Y, npc.width, npc.height, mod.ItemType("DraconianRune"));
                 }
-                Main.NewText(AAWorld.downedAkuma ? "Heh, not too shabby this time kid. I'm impressed. Here. Take your prize." : "GRAH..! HOW!? HOW COULD I LOSE TO A MERE MORTAL TERRARIAN?! Hmpf...fine kid, you win, fair and square. Here's your reward.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
+                BaseUtility.Chat(AAWorld.downedAkuma ? "Heh, not too shabby this time kid. I'm impressed. Here. Take your prize." : "GRAH..! HOW!? HOW COULD I LOSE TO A MERE MORTAL TERRARIAN?! Hmpf...fine kid, you win, fair and square. Here's your reward.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
                 AAWorld.downedAkuma = true;
                 if (Main.rand.Next(50) == 0 && AAWorld.downedAllAncients)
                 {
@@ -432,11 +432,11 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 npc.DropBossBags();
                 return;
             }
-            Main.NewText("Nice. You cheated. Now come fight me in expert mode like a real man.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
+            BaseUtility.Chat("Nice. You cheated. Now come fight me in expert mode like a real man.", Color.DeepSkyBlue.R, Color.DeepSkyBlue.G, Color.DeepSkyBlue.B);
             return;
         }
 
-        
+
         public bool Quote1;
         public bool Quote2;
         public bool Quote3;
@@ -451,7 +451,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 if (!QuoteSaid)
                 {
-                    Main.NewText((!Quote1) ? "Sky's fallin' again! On your toes!" : "Down comes the flames of fury again!", Color.DeepSkyBlue);
+                    BaseUtility.Chat((!Quote1) ? "Sky's fallin' again! On your toes!" : "Down comes the flames of fury again!", Color.DeepSkyBlue);
                     QuoteSaid = true;
                     Quote1 = true;
                 }
@@ -469,7 +469,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             {
                 if (!QuoteSaid)
                 {
-                    Main.NewText((!Quote1) ? "You underestimate the artillery of a dragon, kid!" : "Flames don't give in till the end, kid!", Color.DeepSkyBlue);
+                    BaseUtility.Chat((!Quote1) ? "You underestimate the artillery of a dragon, kid!" : "Flames don't give in till the end, kid!", Color.DeepSkyBlue);
                     QuoteSaid = true;
                     Quote1 = true;
                 }
@@ -494,7 +494,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 int Fireballs = Main.expertMode ? 12 : 14;
                 if (!QuoteSaid)
                 {
-                    Main.NewText((!Quote1) ? "Heads up! Volcano's eruptin' kid!" : "INCOMING!", Color.DeepSkyBlue);
+                    BaseUtility.Chat((!Quote1) ? "Heads up! Volcano's eruptin' kid!" : "INCOMING!", Color.DeepSkyBlue);
                     QuoteSaid = true;
                     Quote1 = true;
                 }
@@ -518,12 +518,12 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     }
                 }
             }
-            
+
             if (internalAI[1] == 5 || internalAI[1] == 9 || internalAI[1] == 14 || internalAI[1] == 19 || internalAI[1] == 22)
             {
                 if (!QuoteSaid)
                 {
-                    Main.NewText((!Quote1) ? "Hey Kid? Like Fireworks? No? Too Bad!" : "Here comes the grand finale, kid!", Color.DeepSkyBlue);
+                    BaseUtility.Chat((!Quote1) ? "Hey Kid? Like Fireworks? No? Too Bad!" : "Here comes the grand finale, kid!", Color.DeepSkyBlue);
                     QuoteSaid = true;
                     Quote1 = true;
                 }
@@ -538,7 +538,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 internalAI[1] = 0;
             }
         }
-        
+
 
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
@@ -547,7 +547,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 damage = (int)(damage * .5f);
             }
         }
-        
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             AkumaTex = Main.npcTexture[npc.type];
@@ -569,9 +569,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             Texture2D glowTex3 = mod.GetTexture("Glowmasks/AkumaABody_Glow");
             Texture2D glowTex4 = mod.GetTexture("Glowmasks/AkumaABody1_Glow");
             Texture2D glowTex5 = mod.GetTexture("Glowmasks/AkumaATail_Glow");
-
-            Vector2 Drawpos = npc.Center - Main.screenPosition + new Vector2(0, npc.gfxOffY);
-            int shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
+            
+            int shader;
             if (npc.ai[1] == 1 || npc.ai[2] >= 470 || Main.npc[(int)npc.ai[3]].ai[1] == 1 || Main.npc[(int)npc.ai[3]].ai[2] >= 500)
             {
                 shader = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingFlameDye);
@@ -609,7 +608,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 
             }
 
-            
+
         }
 
         public bool spawnAshe = false;
@@ -646,7 +645,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             }
             else
             {
-                Main.PlaySound(mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Sounds/AkumaRoar"), npc.Center);
+                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/AkumaRoar"), npc.Center);
             }
         }
 
@@ -667,6 +666,133 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                 return false;
             }
             return true;
+        }
+    }
+
+    [AutoloadBossHead]
+    public class AkumaAArms : AkumaA
+    {
+        public override string Texture => "AAMod/NPCs/Bosses/Akuma/Awakened/AkumaAArms";
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Akuma Awakened; Blazing Fury Incarnate");
+            Main.npcFrameCount[npc.type] = 1;
+        }
+
+        public override bool PreAI()
+        {
+            Vector2 chasePosition = Main.npc[(int)npc.ai[1]].Center;
+            Vector2 directionVector = chasePosition - npc.Center;
+            npc.spriteDirection = ((directionVector.X > 0f) ? 1 : -1);
+            if (npc.ai[3] > 0)
+                npc.realLife = (int)npc.ai[3];
+            if (npc.target < 0 || npc.target == byte.MaxValue || Main.player[npc.target].dead)
+                npc.TargetClosest(true);
+            if (Main.player[npc.target].dead && npc.timeLeft > 300)
+                npc.timeLeft = 300;
+
+            if (Main.netMode != 1)
+            {
+                if (!Main.npc[(int)npc.ai[1]].active || Main.npc[(int)npc.ai[3]].type != mod.NPCType("AkumaA"))
+                {
+                    npc.life = 0;
+                    npc.HitEffect(0, 10.0);
+                    npc.active = false;
+                    NetMessage.SendData(28, -1, -1, null, npc.whoAmI, -1f, 0.0f, 0.0f, 0, 0, 0);
+                }
+            }
+
+            if (npc.ai[1] < (double)Main.npc.Length)
+            {
+                Vector2 npcCenter = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+                float dirX = Main.npc[(int)npc.ai[1]].position.X + Main.npc[(int)npc.ai[1]].width / 2 - npcCenter.X;
+                float dirY = Main.npc[(int)npc.ai[1]].position.Y + Main.npc[(int)npc.ai[1]].height / 2 - npcCenter.Y;
+                npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
+                float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
+                float dist = (length - npc.width) / length;
+                float posX = dirX * dist;
+                float posY = dirY * dist;
+
+                if (dirX < 0f)
+                {
+                    npc.spriteDirection = 1;
+
+                }
+                else
+                {
+                    npc.spriteDirection = -1;
+                }
+
+                npc.velocity = Vector2.Zero;
+                npc.position.X = npc.position.X + posX;
+                npc.position.Y = npc.position.Y + posY;
+            }
+
+            Player player = Main.player[npc.target];
+            if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead || !Main.player[npc.target].active)
+            {
+                npc.TargetClosest(true);
+            }
+            npc.netUpdate = true;
+            return false;
+        }
+
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            npc.width = 60;
+            npc.height = 60;
+            npc.dontCountMe = true;
+        }
+
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            return false;
+        }
+
+        public override bool PreNPCLoot()
+        {
+            return false;
+        }
+
+        public override bool CheckActive()
+        {
+            if (NPC.AnyNPCs(mod.NPCType<AkumaA>()))
+            {
+                return false;
+            }
+            npc.active = false;
+            return true;
+        }
+    }
+
+    [AutoloadBossHead]
+    public class AkumaABody : AkumaAArms
+    {
+        public override string Texture => "AAMod/NPCs/Bosses/Akuma/Awakened/AkumaABody";
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+        }
+    }
+
+    [AutoloadBossHead]
+    public class AkumaABody1 : AkumaAArms
+    {
+        public override string Texture => "AAMod/NPCs/Bosses/Akuma/Awakened/AkumaABody1";
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+        }
+    }
+
+    [AutoloadBossHead]
+    public class AkumaATail : AkumaAArms
+    {
+        public override string Texture => "AAMod/NPCs/Bosses/Akuma/Awakened/AkumaATail";
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
         }
     }
 }

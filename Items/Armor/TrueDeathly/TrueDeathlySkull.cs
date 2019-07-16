@@ -37,7 +37,10 @@ namespace AAMod.Items.Armor.TrueDeathly
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("TrueDeathlySkullBonus");
+            player.setBonus = @"You are as quiet as death itself, making enemies less likely to target you
+25% Reduced Ammo Consumption
+Being killed causes your spirit to materialize, reviving you
+While Etheral, you have more invincibility frames, but your defense is reduced by 10";
 
             player.aggro -= 8;
             player.ammoCost75 = true;

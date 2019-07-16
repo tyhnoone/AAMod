@@ -30,7 +30,8 @@ namespace AAMod.Items.Armor.Kindled
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("KindledKabutoBonus");
+			player.setBonus = @"5% increased damage resistance
+Your Swung weapons set your enemies ablaze";
             player.endurance *= 1.05f;
             player.GetModPlayer<AAPlayer>(mod).kindledSet = true;
         }

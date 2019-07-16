@@ -43,7 +43,10 @@ Dark, yet still barely visible");
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("DarkmatterVisorBonus");
+            player.setBonus = @"25% decreased ammo consumption
+20% increased ranged critical chance
+Your ranged ammunition electrocute enemies
+8% increased damage resistance at night";
             if (!Main.dayTime)
             {
                 player.endurance += .08f;

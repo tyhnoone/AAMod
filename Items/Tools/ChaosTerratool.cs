@@ -30,7 +30,8 @@ namespace AAMod.Items.Tools
         {
             DisplayName.SetDefault("Chaos Terratool");
             Tooltip.SetDefault(@"Right Click to change tool types
-You may only have a maximum of 2 tool types active");
+You may only have a maximum of 2 tool types active
++3 tile reach");
         }
 
         public override bool AltFunctionUse(Player player)
@@ -43,10 +44,11 @@ You may only have a maximum of 2 tool types active");
             if (player.altFunctionUse == 2)
             {
                 item.noUseGraphic = true;
-                AAMod.instance.TerratoolCState.ToggleUI(AAMod.instance.TerratoolCInterface);
+                AAMod.instance.TerratoolCState.ToggleUI(AAMod.instance.TerratoolInterface);
                 item.pick = 0;
                 item.axe = 0;
                 item.hammer = 0;
+                item.damage = 0;
             }
             else
             {
@@ -54,11 +56,12 @@ You may only have a maximum of 2 tool types active");
                 item.pick = TerratoolCUI.Pick;
                 item.axe = TerratoolCUI.Axe;
                 item.hammer = TerratoolCUI.Hammer;
+                item.damage = 60;
             }
             return true;
         }
 
-        public override void AddRecipes()  
+        public override void AddRecipes()
         {
             {
                 ModRecipe recipe = new ModRecipe(mod);

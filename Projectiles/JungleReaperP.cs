@@ -10,8 +10,8 @@ namespace AAMod.Projectiles
     {
         public override void SetDefaults()
         {
-            projectile.width = 96;
-            projectile.height = 28;
+            projectile.width = 40;
+            projectile.height = 40;
             projectile.friendly = true;
             projectile.penetrate = -1;                       //this is the projectile penetration
             Main.projFrames[projectile.type] = 1;           //this is projectile frames
@@ -26,7 +26,7 @@ namespace AAMod.Projectiles
         {
             if (Main.netMode != 2)
             {
-                Texture2D[] glowMasks = new Microsoft.Xna.Framework.Graphics.Texture2D[Main.glowMaskTexture.Length + 1];
+                Texture2D[] glowMasks = new Texture2D[Main.glowMaskTexture.Length + 1];
                 for (int i = 0; i < Main.glowMaskTexture.Length; i++)
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
@@ -68,17 +68,18 @@ namespace AAMod.Projectiles
                 Main.dust[num469].velocity *= 2f;
             }
         }
-        public override bool PreDraw(SpriteBatch sb, Color lightColor) //this is where the animation happens
+        public override bool PreDraw(SpriteBatch sb, Color lightColor)
         {
-            projectile.frameCounter++; //increase the frameCounter by one
-            if (projectile.frameCounter >= 10) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
+            BaseMod.BaseDrawing.DrawTexture(sb, Main.projectileTexture[projectile.type], 0, projectile, Color.White, true);
+            projectile.frameCounter++;
+            if (projectile.frameCounter >= 10)
             {
-                projectile.frame++; //go to the next frame
-                projectile.frameCounter = 0; //reset the counter
-                if (projectile.frame > 3) //if past the last frame
-                    projectile.frame = 0; //go back to the first frame
+                projectile.frame++;
+                projectile.frameCounter = 0;
+                if (projectile.frame > 3) 
+                    projectile.frame = 0; 
             }
-            return true;
+            return false;
         }
     }
 }

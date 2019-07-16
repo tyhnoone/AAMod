@@ -27,6 +27,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         {
             Rectangle myRect = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
             bool flag3 = projectile.Colliding(myRect, target.getRect());
+            Main.player[(int)projectile.ai[1]].AddBuff(mod.BuffType<Buffs.SpearStuck>(), 2);
             if (flag3 && !StuckInEnemy)
             {
                 StuckInEnemy = true;
@@ -36,6 +37,7 @@ namespace AAMod.NPCs.Bosses.Rajah
                 projectile.netUpdate = true;
             }
         }
+
         public override void AI()
         {
             int num972 = 25;
@@ -93,11 +95,5 @@ namespace AAMod.NPCs.Bosses.Rajah
                 }
             }
         }
-
-        public override void Kill(int timeLeft)
-        {
-            base.Kill(timeLeft);
-        }
-
     }
 }

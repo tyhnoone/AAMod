@@ -32,7 +32,7 @@ Hopping Mad.");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("HoodlumHoodBonus");
+            player.setBonus = @"Reaching below half heath multiplies your movement speed, melee damage, and minion damage by 50%";
             if (player.statLife <= player.statLifeMax2 * .5f)
             {
                 player.moveSpeed += .5f;

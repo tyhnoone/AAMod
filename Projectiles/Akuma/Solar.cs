@@ -15,7 +15,7 @@ namespace AAMod.Projectiles.Akuma   //The directory for your .cs and .png; Examp
         {
             if (Main.netMode != 2)
             {
-                Texture2D[] glowMasks = new Microsoft.Xna.Framework.Graphics.Texture2D[Main.glowMaskTexture.Length + 1];
+                Texture2D[] glowMasks = new Texture2D[Main.glowMaskTexture.Length + 1];
                 for (int i = 0; i < Main.glowMaskTexture.Length; i++)
                 {
                     glowMasks[i] = Main.glowMaskTexture[i];
@@ -58,6 +58,7 @@ namespace AAMod.Projectiles.Akuma   //The directory for your .cs and .png; Examp
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Daybreak, 300);
+            Main.PlaySound(SoundID.Item14, projectile.position);
             Projectile.NewProjectile(projectile.position, projectile.velocity, mod.ProjectileType<AkumaExp>(), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
         }
     }

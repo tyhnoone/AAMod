@@ -37,7 +37,8 @@ namespace AAMod.Items.Armor.Fleshrend
 		public override void UpdateArmorSet(Player player)
 		{
 
-            player.setBonus = Lang.ArmorBonus("FleshrendHelmBonus");
+            player.setBonus = @"Being hit by enemies triggers a bloodsplosion that damages all enemies around you
+Increased life regen";
 
             player.crimsonRegen = true;
 			player.GetModPlayer<AAPlayer>(mod).fleshrendSet = true;

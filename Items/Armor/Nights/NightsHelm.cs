@@ -37,7 +37,8 @@ namespace AAMod.Items.Armor.Nights
 		public override void UpdateArmorSet(Player player)
 		{
 			
-			player.setBonus = Lang.ArmorBonus("NightsHelmBonus");
+			player.setBonus = @"Being hit by enemies Sends you into a speed frenzy, increasing movement speed for a short time
+22% Increased Movement speed";
             player.moveSpeed += 0.22f;
             player.panic = true;
 		}

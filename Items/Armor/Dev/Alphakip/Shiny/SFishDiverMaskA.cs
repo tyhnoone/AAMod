@@ -52,7 +52,11 @@ Allows for underwater breathing");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("SFishDiverMaskABonus");
+            player.setBonus = @"'Hosing time.'
+All of your attacks inflict wet to non-boss enemies
+Grants uninhibited liquid movement
+The Infinity Gauntlet is now at its max potential
+You gain a fishy companion";
             player.gills = true;
             player.GetModPlayer<AAPlayer>(mod).Alpha = true;
             player.AddBuff(mod.BuffType("MudkipS"), 18000);

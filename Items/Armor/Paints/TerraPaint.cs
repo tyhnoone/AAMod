@@ -44,7 +44,7 @@ namespace AAMod.Items.Armor.Paints
 
 		public override void UpdateArmorSet(Player player)
 		{
-            player.setBonus = Lang.ArmorBonus("TerraPaintBonus");
+            player.setBonus = @"+7 Minion slots";
             player.maxMinions += 6;
         }
 

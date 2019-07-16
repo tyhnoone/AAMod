@@ -43,7 +43,7 @@ namespace AAMod.Items.Armor.Paints
 
 		public override void UpdateArmorSet(Player player)
 		{
-            player.setBonus = Lang.ArmorBonus("HallowedPaintBonus");
+            player.setBonus = @"+6 Minion slots";
             player.armorEffectDrawOutlines = true;
             player.armorEffectDrawShadow = true;
             player.maxMinions += 6;

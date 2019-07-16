@@ -41,12 +41,12 @@ Inflicts Daybroken");
 
         public override void SetDefaults()
         {
-            item.damage = 450;
+            item.damage = 350;
             item.melee = true;
             item.width = 42;
             item.height = 52;
-            item.useTime = 50;
-            item.useAnimation = 50;     
+            item.useTime = 30;
+            item.useAnimation = 30;     
             item.useStyle = 3;
             item.knockBack = 20f;
             item.value = Item.sellPrice(0, 30, 0, 0);
@@ -67,9 +67,9 @@ Inflicts Daybroken");
             }
         }
 
-        public void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(BuffID.Daybreak, 600);
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        { 
+            target.AddBuff(BuffID.Daybreak, 200);
             Projectile.NewProjectile((int)target.position.X, (int)target.position.Y, 0, 0, mod.ProjectileType<Projectiles.Akuma.AkumaExp>(), item.damage, 20, Main.myPlayer);
         }
         

@@ -34,7 +34,7 @@ namespace AAMod.Items.Armor.Starcrystal
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("StarcrystalHelmBonus"); 
+            player.setBonus = "Doubles damage when mana is below 20% maximum capacity"; 
 			if (player.statMana < player.statManaMax * .2f) 
             {
                 player.meleeDamage *= 2;

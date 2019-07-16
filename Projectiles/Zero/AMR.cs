@@ -104,7 +104,10 @@ namespace AAMod.Projectiles.Zero
 					}
 				}
 			}
-			projectile.position = player.RotatedRelativePoint(player.MountedCenter, true) - projectile.Size / 2f;
+			if (player.direction == 1)
+				projectile.Center = player.Center + new Vector2(10, 0);
+			if (player.direction == -1)
+				projectile.Center = player.Center + new Vector2(-18, 0);
 			projectile.rotation = projectile.velocity.ToRotation() + num;
 			projectile.spriteDirection = projectile.direction;
 			projectile.timeLeft = 2;
@@ -146,9 +149,27 @@ namespace AAMod.Projectiles.Zero
 			}
         }
 
+
         public override void Kill(int timeLeft)
         {
 			Player player = Main.player[projectile.owner];
+            int damage;
+            if (chargeLevel >= 4)
+            {
+                damage = projectile.damage * 2;
+            }
+            else if (chargeLevel == 3)
+            {
+                damage = (int)(projectile.damage * 1.6f);
+            }
+            else if (chargeLevel == 2)
+            {
+                damage = (int)(projectile.damage * 1.3f);
+            }
+            else
+            {
+                damage = projectile.damage;
+            }
             if (projectile.owner == Main.myPlayer)
             {
 				float num1 = 12f;
@@ -170,7 +191,7 @@ namespace AAMod.Projectiles.Zero
 				float SpeedX = f1 * num5;
 				float SpeedY = f2 * num5;
                 Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 89);
-                int proj = Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX, SpeedY, mod.ProjectileType("Antimatter"), projectile.damage, 1f, player.whoAmI);
+                int proj = Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX, SpeedY, mod.ProjectileType("Antimatter"), damage, 1f, player.whoAmI);
                 Main.projectile[proj].penetrate = chargeLevel;
             }
         }

@@ -15,7 +15,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class Rajah : ModNPC
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/Rajah";
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rajah Rabbit");
@@ -75,6 +75,8 @@ namespace AAMod.NPCs.Bosses.Rajah
         private Texture2D SupremeEyes;
         private Texture2D ArmTex;
         public int WeaponFrame = 0;
+        public Vector2 MovePoint;
+        public bool SelectPoint = false;
 
         /*
          * npc.ai[0] = Jump Timer
@@ -85,13 +87,7 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public int roarTimer = 0;
         public int roarTimerMax = 240;
-        public bool Roaring
-        {
-            get
-            {
-                return roarTimer > 0;
-            }
-        }
+        public bool Roaring => roarTimer > 0;
 
         public void Roar(int timer)
         {
@@ -108,7 +104,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 if (damage > npc.lifeMax / 8)
                 {
-                    Main.NewText("JUSTICE CANNOT BE CHEATED", 107, 137, 179);
+                    BaseUtility.Chat("JUSTICE CANNOT BE CHEATED", 107, 137, 179);
                     damage = 0;
                     npc.damage = 9999;
                     npc.defense = 99999;
@@ -157,13 +153,14 @@ namespace AAMod.NPCs.Bosses.Rajah
         }
 
         private bool SayLine = false;
+
         public override void AI()
         {
             AAModGlobalNPC.Rajah = npc.whoAmI;
             WeaponPos = new Vector2(npc.Center.X + (npc.direction == 1 ? -78 : 78), npc.Center.Y - 9);
             StaffPos = new Vector2(npc.Center.X + (npc.direction == 1 ? 78 : -78), npc.Center.Y - 9);
             if (Roaring) roarTimer--;
-
+            
             if (Main.netMode != 1 && npc.type == mod.NPCType<SupremeRajah>() && isSupreme == false)
             {
                 isSupreme = true;
@@ -207,10 +204,10 @@ namespace AAMod.NPCs.Bosses.Rajah
                 {
                     if (isSupreme)
                     {
-                        Main.NewText("And stay down.", 107, 137, 179);
+                        BaseUtility.Chat("And stay down.", 107, 137, 179);
                         if (Main.netMode != 1)
                         {
-                            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<Supreme.SupremeRajahBookIt>(), 100, 0, Main.myPlayer);
+                            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<SupremeRajahBookIt>(), 100, 0, Main.myPlayer);
                         }
                     }
                     else
@@ -233,12 +230,12 @@ namespace AAMod.NPCs.Bosses.Rajah
                 npc.TargetClosest(true);
                 if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 5000)
                 {
-                    Main.NewText("Coward.", 107, 137, 179);
+                    BaseUtility.Chat("Coward.", 107, 137, 179);
                     if (Main.netMode != 1)
                     {
                         if (isSupreme)
                         {
-                            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<Supreme.SupremeRajahBookIt>(), 100, 0, Main.myPlayer);
+                            Projectile.NewProjectile(npc.position, npc.velocity, mod.ProjectileType<SupremeRajahBookIt>(), 100, 0, Main.myPlayer);
                         }
                         else
                         {
@@ -263,7 +260,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
             if (player.Center.Y < npc.position.Y - 30f || TileBelowEmpty() || 
                 !Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height) ||
-                Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 2000)
+                Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 2000 || isDashing)
             {
                 npc.noGravity = true;
                 FlyAI();
@@ -385,40 +382,44 @@ namespace AAMod.NPCs.Bosses.Rajah
                     if (internalAI[3] > 40)
                     {
                         internalAI[3] = 0;
+                        int Rocket = isSupreme ? mod.ProjectileType<RajahRocketEXR>() : mod.ProjectileType<RajahRocket>();
                         Vector2 dir = Vector2.Normalize(player.Center - WeaponPos);
                         dir *= ProjSpeed();
-                        Projectile.NewProjectile(WeaponPos.X, WeaponPos.Y, dir.X, dir.Y, mod.ProjectileType<RajahRocket>(), npc.damage / 5, 5, Main.myPlayer);
+                        Projectile.NewProjectile(WeaponPos.X, WeaponPos.Y, dir.X, dir.Y, Rocket, npc.damage / 5, 5, Main.myPlayer);
                         npc.netUpdate = true;
                     }
                 }
                 else if (npc.ai[3] == 2) //Royal Scepter
                 {
+                    int carrots = isSupreme ? 5 : 3;
+                    int carrotType = isSupreme ? mod.ProjectileType("CarrotEXR") : mod.ProjectileType("CarrotHostile");
                     float spread = 45f * 0.0174f;
                     Vector2 dir = Vector2.Normalize(player.Center - WeaponPos);
                     dir *= ProjSpeed();
                     float baseSpeed = (float)Math.Sqrt((dir.X * dir.X) + (dir.Y * dir.Y));
                     double startAngle = Math.Atan2(dir.X, dir.Y) - .1d;
-                    double deltaAngle = spread / 6f;
+                    double deltaAngle = spread / carrots * 2;
                     if (internalAI[3] > 40)
                     {
                         internalAI[3] = 0;
-                        for (int i = 0; i < 3; i++)
+                        for (int i = 0; i < carrots; i++)
                         {
                             double offsetAngle = startAngle + (deltaAngle * i);
-                            Projectile.NewProjectile(WeaponPos.X, WeaponPos.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType("CarrotHostile"), npc.damage / 3, 5, Main.myPlayer);
+                            Projectile.NewProjectile(WeaponPos.X, WeaponPos.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), carrotType, npc.damage / 3, 5, Main.myPlayer, 0);
                         }
                         npc.netUpdate = true;
                     }
                 }
                 else if (npc.ai[3] == 3) //Javelin
                 {
-                    if (internalAI[3] == 60)
+                    int Javelin = isSupreme ? mod.ProjectileType<BaneTEXR>() : mod.ProjectileType<BaneR>();
+                    if (internalAI[3] == (isSupreme ? 40 : 60))
                     {
                         Vector2 dir = Vector2.Normalize(player.position - WeaponPos);
                         dir *= ProjSpeed();
-                        Projectile.NewProjectile(WeaponPos.X, WeaponPos.Y, dir.X, dir.Y, mod.ProjectileType<BaneR>(), npc.damage / 5, 5, Main.myPlayer);
+                        Projectile.NewProjectile(WeaponPos.X, WeaponPos.Y, dir.X, dir.Y, Javelin, npc.damage / 5, 5, Main.myPlayer);
                     }
-                    if (internalAI[3] > 90)
+                    if (internalAI[3] > (isSupreme ? 60 : 90))
                     {
                         internalAI[3] = 0;
                     }
@@ -566,7 +567,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             {
                 return "NPCs/Bosses/Rajah/RajahArmsR";
             }
-            else if (npc.ai[3] == 3 && internalAI[3] <= 60) //Javelin
+            else if (npc.ai[3] == 3 && internalAI[3] <= (isSupreme ? 40 : 60)) //Javelin
             {
                 return "NPCs/Bosses/Rajah/RajahArmsS";
             }
@@ -715,9 +716,24 @@ namespace AAMod.NPCs.Bosses.Rajah
             float speed = 10f;
             if (isSupreme)
             {
-                if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 600)
+                if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) + Math.Abs(npc.Center.Y - Main.player[npc.target].Center.Y) > 1000)
                 {
-                    speed = 50f; isDashing = true;
+                    if (SelectPoint)
+                    {
+                        int DashDirection = 1;
+                        if (Main.player[npc.target].Center.X < npc.Center .X)
+                        {
+                            DashDirection = -1;
+                        }
+                        float Point = 500 * DashDirection;
+                        MovePoint = Main.player[npc.target].Center + new Vector2(Point, 0);
+                        SelectPoint = false;
+                        npc.netUpdate = true;
+                    }
+
+                    MoveToPoint(MovePoint);
+
+                    isDashing = true;
                 }
                 else
                 {
@@ -1031,19 +1047,25 @@ namespace AAMod.NPCs.Bosses.Rajah
             return false;
         }
 
-        public override string BossHeadTexture
+        public override string BossHeadTexture => "AAMod/NPCs/Bosses/Rajah/Rajah_Head_Boss";
+
+        public void MoveToPoint(Vector2 point)
         {
-            get
-            {
-                return "AAMod/NPCs/Bosses/Rajah/Rajah_Head_Boss";
-            }
+            float moveSpeed = 50f;
+            if (moveSpeed == 0f || npc.Center == point) return;
+            float velMultiplier = 1f;
+            Vector2 dist = point - npc.Center;
+            float length = (dist == Vector2.Zero ? 0f : dist.Length());
+            npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
+            npc.velocity *= moveSpeed;
+            npc.velocity *= velMultiplier;
         }
     }
 
     [AutoloadBossHead]
     public class Rajah2 : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/Rajah";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -1056,7 +1078,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class Rajah3 : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/Rajah";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -1070,7 +1092,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class Rajah4 : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/Rajah";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -1084,7 +1106,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class Rajah5 : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/Rajah";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -1098,7 +1120,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class Rajah6 : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/Rajah";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -1112,7 +1134,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class Rajah7 : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/Rajah";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -1126,7 +1148,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class Rajah8 : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/Rajah";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -1140,7 +1162,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class Rajah9 : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Rajah"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/Rajah";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -1154,7 +1176,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     [AutoloadBossHead]
     public class SupremeRajah : Rajah
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/Supreme/SupremeRajah"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/Supreme/SupremeRajah";
 
         public override void SetStaticDefaults()
         {
@@ -1166,19 +1188,13 @@ namespace AAMod.NPCs.Bosses.Rajah
         {
             base.SetDefaults();
             npc.damage = 350;
-            npc.defense = 40;
+            npc.defense = 0;
             npc.lifeMax = 4000000;
             npc.life = 4000000;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/SupremeRajah");
             bossBag = mod.ItemType("RajahCache");
             isSupreme = true;
         }
-        public override string BossHeadTexture
-        {
-            get
-            {
-                return "AAMod/NPCs/Bosses/Rajah/SupremeRajah_Head_Boss";
-            }
-        }
+        public override string BossHeadTexture => "AAMod/NPCs/Bosses/Rajah/SupremeRajah_Head_Boss";
     }
 }

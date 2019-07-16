@@ -40,7 +40,8 @@ namespace AAMod.Items.Armor.Fulgurite
 		public override void UpdateArmorSet(Player player)
 		{
 
-            player.setBonus = Lang.ArmorBonus("FulguriteHelmBonus");
+            player.setBonus = @"Being struck causes a burst of lightning to erupt from your body, knocking back enemies
+-20% Mana Usage";
 
             player.GetModPlayer<AAPlayer>(mod).fulgurite = true;
             player.manaCost *= .8f;

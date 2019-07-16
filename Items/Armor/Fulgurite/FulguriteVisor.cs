@@ -39,7 +39,8 @@ namespace AAMod.Items.Armor.Fulgurite
 		public override void UpdateArmorSet(Player player)
 		{
 
-            player.setBonus = Lang.ArmorBonus("FulguriteVisorBonus");
+            player.setBonus = @"Being struck causes a burst of lightning to erupt from your body, knocking back enemies
+25% chance to not consume ammo weapons";
 
             player.GetModPlayer<AAPlayer>(mod).fulgurite = true;
             player.ammoCost75 = true;

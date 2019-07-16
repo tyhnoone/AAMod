@@ -76,7 +76,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             npc.defense = 999999;
             npc.knockBackResist = 0f;
             npc.boss = true;
-            music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/Yamata");
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Yamata");
             musicPriority = MusicPriority.BossHigh;
             npc.noGravity = true;
             npc.netAlways = true;
@@ -86,14 +86,14 @@ namespace AAMod.NPCs.Bosses.Yamata
             npc.frame = BaseDrawing.GetFrame(frameCount, frameWidth, frameHeight, 0, 2);
             frameBottom = BaseDrawing.GetFrame(frameCount, frameWidth, 54, 0, 2);
             frameHead = BaseDrawing.GetFrame(frameCount, frameWidth, 118, 0, 2);
-            npc.DeathSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.NPCKilled, "Sounds/Sounds/YamataRoar");
+            npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCKilled, "Sounds/Sounds/YamataRoar");
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
                 npc.buffImmune[k] = true;
             }
             if (AAWorld.downedAllAncients)
             {
-                npc.lifeMax = 250000;
+                npc.lifeMax = 750000;
             }
             npc.chaseable = false;
         }
@@ -121,6 +121,7 @@ namespace AAMod.NPCs.Bosses.Yamata
 
         public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
+            damage = 0;
             return false;
         }
 
@@ -140,11 +141,11 @@ namespace AAMod.NPCs.Bosses.Yamata
                     int loot = Main.rand.Next(lootTable.Length);
                     npc.DropLoot(mod.ItemType(lootTable[loot]));
                     npc.DropLoot(Items.Boss.Yamata.YamataTrophy.type, 1f / 10);
-                    Main.NewText("HAH! I went easy on ya! Come back when you’re actually good and we can have a real fight!", new Color(45, 46, 70));
+                    BaseUtility.Chat("HAH! I went easy on ya! Come back when you’re actually good and we can have a real fight!", new Color(45, 46, 70));
                     npc.DropLoot(Items.Vanity.Mask.YamataMask.type, 1f / 7);
                     if (!AAWorld.downedYamata)
                     {
-                        Main.NewText("The defeat of Yamata causes the fog in the mire to lift.", Color.Indigo);
+                        BaseUtility.Chat("The defeat of Yamata causes the fog in the mire to lift.", Color.Indigo);
                     }
                     if (Main.rand.Next(50) == 0 && AAWorld.downedAllAncients)
                     {
@@ -370,7 +371,7 @@ namespace AAMod.NPCs.Bosses.Yamata
 
             if (Main.dayTime)
             {
-                Main.NewText(isAwakened ? "THE SUN DOESN'T SHINE IN THE DEPTHS!!! NYEHEHEHEHEHEHEHEH!!!" : "HISSSSSSSSSSSSSSS!!! THE SUNNNNNNNNNN! I'M OUT!", isAwakened ? new Color(146, 30, 68) : new Color(45, 46, 70));
+                BaseUtility.Chat(isAwakened ? "THE SUN DOESN'T SHINE IN THE DEPTHS!!! NYEHEHEHEHEHEHEHEH!!!" : "HISSSSSSSSSSSSSSS!!! THE SUNNNNNNNNNN! I'M OUT!", isAwakened ? new Color(146, 30, 68) : new Color(45, 46, 70));
                 if (isAwakened)
                 {
                     Main.dayTime = false;
@@ -478,7 +479,7 @@ namespace AAMod.NPCs.Bosses.Yamata
         public void AIMovementNormal(float movementScalar = 1f, float playerDistance = -1f)
         {
             bool playerTooFar = playerDistance > playerTooFarDist;
-			YamataBody(npc, ref npc.ai, true, 0.2f, 2.5f, 3f, 0.04f, 1.5f, 3);
+			YamataBody(npc, ref npc.ai, true, 0.2f, 3.5f, 6f, 0.04f, 1.5f, 3);
             if (playerTooFar) npc.position += (playerTarget.position - playerTarget.oldPosition);
             npc.rotation = 0f;
         }
@@ -754,17 +755,17 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 if (npc.life <= ((npc.lifeMax / 4) * 3) && threeQuarterHealth == false)
                 {
-                    Main.NewText("Resistance isn't gonna save you here! Now stop being a little brat and let me destroy you!", new Color(45, 46, 70));
+                    BaseUtility.Chat("Resistance isn't gonna save you here! Now stop being a little brat and let me destroy you!", new Color(45, 46, 70));
                     threeQuarterHealth = true;
                 }
                 if (npc.life <= npc.lifeMax / 2 && HalfHealth == false)
                 {
-                    Main.NewText("STOP SQUIRMING AND LET ME SQUASH YOU!!!", new Color(45, 46, 70));
+                    BaseUtility.Chat("STOP SQUIRMING AND LET ME SQUASH YOU!!!", new Color(45, 46, 70));
                     HalfHealth = true;
                 }
                 if (npc.life <= npc.lifeMax / 4 && quarterHealth == false)
                 {
-                    Main.NewText("NGAAAAAAAAAAAAAH YOU'RE REALLY ANNOYING YOU KNOW..!", new Color(45, 46, 70));
+                    BaseUtility.Chat("NGAAAAAAAAAAAAAH YOU'RE REALLY ANNOYING YOU KNOW..!", new Color(45, 46, 70));
                     quarterHealth = true;
                 }
             }
@@ -772,17 +773,17 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 if (npc.life <= ((npc.lifeMax / 4) * 3) && threeQuarterHealth == false)
                 {
-                    Main.NewText("I don't understand why you keep fighting me! I'm superior to you in every single way!", new Color(45, 46, 70));
+                    BaseUtility.Chat("I don't understand why you keep fighting me! I'm superior to you in every single way!", new Color(45, 46, 70));
                     threeQuarterHealth = true;
                 }
                 if (npc.life <= npc.lifeMax / 2 && HalfHealth == false)
                 {
-                    Main.NewText("I'M GETTING FRUSTRATED AGAIN!", new Color(45, 46, 70));
+                    BaseUtility.Chat("I'M GETTING FRUSTRATED AGAIN!", new Color(45, 46, 70));
                     HalfHealth = true;
                 }
                 if (npc.life <= npc.lifeMax / 4 && quarterHealth == false)
                 {
-                    Main.NewText("I HATE FIGHTING YOU! I HATE IT I HATE IT I HATE IT!!!", new Color(45, 46, 70));
+                    BaseUtility.Chat("I HATE FIGHTING YOU! I HATE IT I HATE IT I HATE IT!!!", new Color(45, 46, 70));
                     quarterHealth = true;
                 }
             }

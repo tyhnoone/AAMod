@@ -40,7 +40,7 @@ namespace AAMod.Items.Armor.Uranium
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("UraniumHoodBonus");
+            player.setBonus = @"Enemies near you are burned by radiation emitted by your armor";
 
 
             player.GetModPlayer<AAPlayer>(mod).uraniumSet = true;

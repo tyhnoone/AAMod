@@ -1,5 +1,6 @@
 using BaseMod;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
 using Terraria.ID;
@@ -17,7 +18,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         public override void SetDefaults()
         {
             npc.width = 30;
-            npc.height = 30;
+            npc.height = 36;
             npc.aiStyle = -1;
             npc.damage = 50;
             npc.defense = 20;
@@ -358,7 +359,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     }
     public class RabbitcopterSoldier1 : RabbitcopterSoldier
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -369,7 +370,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     }
     public class RabbitcopterSoldier2 : RabbitcopterSoldier
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -380,7 +381,7 @@ namespace AAMod.NPCs.Bosses.Rajah
     }
     public class RabbitcopterSoldier3 : RabbitcopterSoldier
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier";
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -391,13 +392,26 @@ namespace AAMod.NPCs.Bosses.Rajah
     }
     public class RabbitcopterSoldier4 : RabbitcopterSoldier
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier"; } }
+        public override string Texture => "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier";
         public override void SetDefaults()
         {
             base.SetDefaults();
             npc.damage = 170;
             npc.defense = 70;
             npc.lifeMax = 900;
+        }
+        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        {
+            damage /= 2;
+            return true;
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            if (NPC.AnyNPCs(mod.NPCType<SupremeRajah>()))
+            {
+                BaseDrawing.DrawAfterimage(spriteBatch, Main.npcTexture[npc.type], 0, npc, 1f, 1f, 10, false, 0f, 0f, Main.DiscoColor);
+            }
+            return false;
         }
     }
 }

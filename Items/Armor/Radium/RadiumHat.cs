@@ -36,7 +36,9 @@ Shines with the light of a starry night sky");
 		public override void UpdateArmorSet(Player player)
 		{
 			
-			player.setBonus = Lang.ArmorBonus("RadiumHatBonus");
+			player.setBonus = @"Increases max number of minions by 7
+Being hit causes stars from the heavans to fall around you and increases your movement speed
+30% increased movement speed during the day";
             if (Main.dayTime)
             {
                 player.moveSpeed += .3f;

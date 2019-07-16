@@ -79,7 +79,8 @@ namespace AAMod.Items.Armor.TrueCopper
 		public override void UpdateArmorSet(Player player)
 		{
 			
-			player.setBonus = Lang.ArmorBonus("TrueCopperHelmBonus");
+			player.setBonus = @"'You are empowered by the magic of the earth around you'
+Being struck releases a copper soul that strikes your enemies";
 
             player.GetModPlayer<AAPlayer>(mod).trueCopper = true;
 		}
