@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\references\tModLoader.targets" />
   <PropertyGroup>
@@ -6,10 +6,16 @@
     <TargetFramework>net45</TargetFramework>
     <PlatformTarget>x86</PlatformTarget>
     <LangVersion>latest</LangVersion>
+    <Version>1.0.0</Version>
   </PropertyGroup>
   <Target Name="BuildMod" AfterTargets="Build">
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
   </Target>
+  <ItemGroup>
+    <Compile Remove="Items\Calamity\**" />
+    <EmbeddedResource Remove="Items\Calamity\**" />
+    <None Remove="Items\Calamity\**" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="obj\Debug\net45\AAMod.AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,7 +59,6 @@
   <ItemGroup>
     <Folder Include="bin\Debug\net45\" />
     <Folder Include="bin\Release\" />
-    <Folder Include="Items\Calamity\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
 </Project>

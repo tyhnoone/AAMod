@@ -14,7 +14,7 @@ namespace AAMod.Items.Boss.Yamata
         {
             
             DisplayName.SetDefault("Flairdra");
-            Tooltip.SetDefault(@"Rockets towards foes and leaves homing cyclones in its wake
+            Tooltip.SetDefault(@"Rockets towards foes and has a 50% chance to fire off mire spirits
 Inflicts Moonraze");
         }
 
