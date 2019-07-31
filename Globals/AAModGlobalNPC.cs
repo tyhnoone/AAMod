@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using AAMod.NPCs.Bosses.Shen;
 using AAMod.NPCs.Bosses.Rajah;
 using AAMod.NPCs.Enemies.Terrarium.PreHM;
 using AAMod.NPCs.Enemies.Terrarium.Hardmode;
@@ -183,26 +182,10 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
-                if (npc.type == mod.NPCType<ShenDoragon>() || npc.type == mod.NPCType<ShenA>())
+                npc.lifeRegen -= 10;
+                if (damage < 10)
                 {
-                    npc.lifeRegen -= 30;
-                    if (damage < 30)
-                    {
-                        damage = 30;
-                    }
-                }
-                else
-                {
-                    npc.lifeRegen -= 10;
-                    if (damage < 10)
-                    {
-                        damage = 10;
-                    }
-                }
-                npc.lifeRegen -= 16;
-                if (damage < 2)
-                {
-                    damage = 2;
+                    damage = 10;
                 }
             }
 
@@ -1055,16 +1038,6 @@ namespace AAMod
                     pool.Add(mod.NPCType<PuritySphere>(), .05f);
                     pool.Add(mod.NPCType<PurityCrawler>(), .05f);
                     pool.Add(mod.NPCType<PuritySquid>(), .05f);
-                }
-            }
-
-            if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneAcropolis)
-            {
-                ClearPoolWithExceptions(pool);
-                pool.Add(NPCID.Harpy, .06f);
-                if (NPC.downedPlantBoss)
-                {
-                    pool.Add(mod.NPCType<Seraph>(), .03f);
                 }
             }
         }

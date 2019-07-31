@@ -15,14 +15,13 @@ using Terraria.ModLoader;
 using System;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
 using AAMod.NPCs.Bosses.Yamata;
-using AAMod.NPCs.Bosses.Shen;
 using System.Collections.Generic;
 using BaseMod;
 using Terraria.Graphics.Effects;
 using AAMod.Items;
 using Terraria.GameContent.Events;
 using Terraria.Utilities;
-using AAMod.NPCs.Bosses.Athena;
+
 
 namespace AAMod
 {
@@ -542,17 +541,11 @@ namespace AAMod
         
         public override void UpdateBiomeVisuals()
         {
-            bool useShenA = NPC.AnyNPCs(mod.NPCType<ShenA>());
-            bool useShen = NPC.AnyNPCs(mod.NPCType<ShenDoragon>()) && !useShenA;
             bool useAkuma = NPC.AnyNPCs(mod.NPCType<AkumaA>()) || AkumaAltar;
             bool useYamata = NPC.AnyNPCs(mod.NPCType<YamataA>()) || YamataAltar;
-            bool useMire = (ZoneMire || MoonAltar) && !useYamata && !useShen && !useShenA;
-            bool useInferno = (ZoneInferno || SunAltar) && !useAkuma && !useShen && !useShenA;
-            bool useVoid = (ZoneVoid || VoidUnit) && !useShen && !useShenA;
-
-            player.ManageSpecialBiomeVisuals("AAMod:ShenSky", useShen);
-
-            player.ManageSpecialBiomeVisuals("AAMod:ShenASky", useShenA);
+            bool useMire = (ZoneMire || MoonAltar) && !useYamata;
+            bool useInferno = (ZoneInferno || SunAltar) && !useAkuma;
+            bool useVoid = (ZoneVoid || VoidUnit);
 
             player.ManageSpecialBiomeVisuals("AAMod:AkumaSky", useAkuma);
 
@@ -805,24 +798,6 @@ namespace AAMod
 
         public override void PostUpdate()
         {
-            if (NPC.downedMoonlord && !AAWorld.AthenaHerald && !AAWorld.downedAthenaA)
-            {
-                if (HeraldTimer > 0)
-                {
-                    HeraldTimer--;
-                }
-                else
-                {
-                    Vector2 spawnpoint = player.Center - new Vector2(250, 200);
-                    int Seraph = NPC.NewNPC((int)spawnpoint.X, (int)spawnpoint.Y, mod.NPCType<SeraphA>());
-                    NPC Seraph1 = Main.npc[Seraph];
-                    for (int i = 0; i < 5; i++)
-                    {
-                        Dust d = Main.dust[Dust.NewDust(Seraph1.position, Seraph1.height, Seraph1.width, mod.DustType<Feather>(), Main.rand.Next(-1, 2), 1, 0)];
-                    }
-                    AAWorld.AthenaHerald = true;
-                }
-            }
             if (NPC.AnyNPCs(mod.NPCType<AkumaTransition>()))
             {
                 int n = BaseAI.GetNPC(player.Center, mod.NPCType<AkumaTransition>(), -1);

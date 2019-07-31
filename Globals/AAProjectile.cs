@@ -93,10 +93,10 @@ namespace AAMod
                     if (dColor.R > drawColor2.R) { drawColor2.R = dColor.R; }
                     if (dColor.G > drawColor2.G) { drawColor2.G = dColor.G; }
                     if (dColor.B > drawColor2.B) { drawColor2.B = dColor.B; }
-                    //drawColor2.A = (Color)drawColor.A;
+                    //drawColor2.A = drawColor.A;
                     return drawColor2;
                 }
-                return (Color)drawColor;
+                return drawColor;
             }
             return base.GetAlpha(dColor);
         }

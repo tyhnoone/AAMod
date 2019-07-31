@@ -25,7 +25,7 @@ namespace AAMod.Items.Dev
             item.shoot = mod.ProjectileType("TimeTeller");
         }
 
-        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult)
         {
             mult *= ((ModSupportPlayer)player.GetModPlayer(mod, "ModSupportPlayer")).Thorium_radiantBoost;
         }

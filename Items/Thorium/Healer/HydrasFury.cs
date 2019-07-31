@@ -49,7 +49,7 @@ Grants 1 soul essence on direct hit");
 			return true;
 		}
 
-        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult)
         {
             mult *= ((ModSupportPlayer)player.GetModPlayer(mod, "ModSupportPlayer")).Thorium_radiantBoost;
         }

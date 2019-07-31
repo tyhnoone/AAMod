@@ -141,7 +141,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             }
             if (internalAI[0] > 300)
             {
-                Attack(npc, npc.velocity);
+                Attack(npc);
             }
             if (internalAI[0] >= 400)
             {
@@ -160,7 +160,7 @@ namespace AAMod.NPCs.Bosses.Akuma
                 {
                     for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                     {
-                        int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("MireBubbleDust"), 0f, 0f, 90, default(Color), 2f);
+                        int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("MireBubbleDust"), 0f, 0f, 90, default, 2f);
                         Main.dust[num935].noGravity = true;
                         Main.dust[num935].velocity.Y -= 1f;
                     }
@@ -238,19 +238,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                     npc.netUpdate = true;
                 }
             }
-
-            int minTilePosX = (int)(npc.position.X / 16.0) - 1;
-            int maxTilePosX = (int)((npc.position.X + npc.width) / 16.0) + 2;
-            int minTilePosY = (int)(npc.position.Y / 16.0) - 1;
-            int maxTilePosY = (int)((npc.position.Y + npc.height) / 16.0) + 2;
-            if (minTilePosX < 0)
-                minTilePosX = 0;
-            if (maxTilePosX > Main.maxTilesX)
-                maxTilePosX = Main.maxTilesX;
-            if (minTilePosY < 0)
-                minTilePosY = 0;
-            if (maxTilePosY > Main.maxTilesY)
-                maxTilePosY = Main.maxTilesY;
 
             bool collision = true;
 
@@ -391,7 +378,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 if (npc.position.Y < 0)
                 {
                     npc.velocity.Y = npc.velocity.Y - 1f;
-                    speed = 30f;
                 }
                 if (npc.position.Y < 0)
                 {
@@ -429,7 +415,7 @@ namespace AAMod.NPCs.Bosses.Akuma
         public bool Quote4;
         public bool QuoteSaid;
 
-        public void Attack(NPC npc, Vector2 velocity)
+        public void Attack(NPC npc)
         {
             Player player = Main.player[npc.target];
             if (internalAI[1] == 1 || internalAI[1] == 5 || internalAI[1] == 9 || internalAI[1] == 16 || internalAI[1] == 18)
@@ -514,7 +500,6 @@ namespace AAMod.NPCs.Bosses.Akuma
         {
             Texture2D texture = Main.npcTexture[npc.type];
             Texture2D attackAni = mod.GetTexture("NPCs/Bosses/Akuma/Akuma");
-            var effects = npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             if (fireAttack == false)
             {
                 spriteBatch.Draw(texture, npc.Center - Main.screenPosition, npc.frame, drawColor, npc.rotation, npc.frame.Size() / 2, npc.scale, npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
@@ -710,7 +695,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.position.Y = npc.position.Y + posY;
             }
 
-            Player player = Main.player[npc.target];
             if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead || !Main.player[npc.target].active)
             {
                 npc.TargetClosest(true);
@@ -815,7 +799,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.position.Y = npc.position.Y + posY;
             }
 
-            Player player = Main.player[npc.target];
             if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead || !Main.player[npc.target].active)
             {
                 npc.TargetClosest(true);
@@ -926,7 +909,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.position.Y = npc.position.Y + posY;
             }
 
-            Player player = Main.player[npc.target];
             if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead || !Main.player[npc.target].active)
             {
                 npc.TargetClosest(true);
@@ -1042,7 +1024,6 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.position.Y = npc.position.Y + posY;
             }
 
-            Player player = Main.player[npc.target];
             if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead || !Main.player[npc.target].active)
             {
                 npc.TargetClosest(true);

@@ -614,7 +614,6 @@ namespace AAMod
             lightColor.G = (byte)(lightColor.G * percentLight);
             lightColor.B = (byte)(lightColor.B * percentLight);
             lightColor.A = (byte)(lightColor.A * percentLight);
-            Vector2 position2 = position;
             for (int m = 0; m < 4; m++)
             {
                 float offX = offsetX;
@@ -626,7 +625,7 @@ namespace AAMod
                     case 2: offY += percentHalf; break;
                     case 3: offY -= percentHalf; break;
                 }
-                position2 = new Vector2(position.X + offX, position.Y + offY);
+                Vector2 position2 = new Vector2(position.X + offX, position.Y + offY);
                 BaseDrawing.DrawTexture(sb, texture, shader, position2, width, height, scale, rotation, direction, framecount, frame, lightColor, true);
             }
         }

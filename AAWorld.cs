@@ -95,11 +95,6 @@ namespace AAMod
         public static bool downedSag;
         public static bool SistersSummoned;
         public static bool downedRajahsRevenge;
-        public static bool downedAnubis;
-        public static bool downedAthena;
-        public static bool downedAthenaA;
-        public static bool downedGreed;
-        public static bool AthenaHerald;
         //Points
         public static Point WHERESDAVOIDAT;
 
@@ -133,10 +128,6 @@ namespace AAMod
         public override void Initialize()
         {
             //Bosses
-            downedAnubis = false;
-            downedAthena = false;
-            downedAthenaA = false;
-            downedGreed = false;
             downedMonarch = false;
             downedGrips = false;
             downedEquinox = false;
@@ -160,7 +151,6 @@ namespace AAMod
             downedSag = false;
             SistersSummoned = false;
             downedRajah = false;
-            AthenaHerald = false;
             //World Changes
             TerrariumEnemies = NPC.downedBoss2;
             ChaosOres = downedGrips;
@@ -260,11 +250,6 @@ namespace AAMod
             if (downedRajah) downed.Add("Rajah");
             if (downedRajahsRevenge) downed.Add("Rajah2");
             if (zeroUS) downed.Add("ZUS");
-            if (downedAnubis) downed.Add("Doggo");
-            if (downedAthena) downed.Add("BirdBitch");
-            if (downedAthenaA) downed.Add("BirdBitchA");
-            if (downedGreed) downed.Add("GimmeGimme");
-            if (AthenaHerald) downed.Add("BitchBird");
 
             return new TagCompound {
                 {"downed", downed},
@@ -333,16 +318,7 @@ namespace AAMod
             flags4[2] = downedSerpent;
             flags4[3] = downedDjinn;
             flags4[4] = downedToad;
-            flags4[5] = downedAnubis;
-            flags4[6] = downedAthena;
-            flags4[7] = downedGreed;
             writer.Write(flags4);
-
-
-            BitsByte flags5 = new BitsByte();
-            flags5[0] = AthenaHerald;
-            flags5[1] = downedAthenaA;
-            writer.Write(flags5);
 
             writer.WriteVector2(MireCenter);
             writer.WriteVector2(InfernoCenter);
@@ -406,13 +382,6 @@ namespace AAMod
             downedSerpent = flags4[2];
             downedDjinn = flags4[3];
             downedToad = flags4[4];
-            downedAnubis = flags4[5];
-            downedAthena = flags4[6];
-            downedGreed = flags4[7];
-
-            BitsByte flags5 = reader.ReadByte();
-            AthenaHerald = flags5[0];
-            downedAthenaA = flags5[1];
 
             MireCenter = reader.ReadVector2();
 			InfernoCenter = reader.ReadVector2();		
@@ -472,11 +441,6 @@ namespace AAMod
             downedRajah = downed.Contains("Rajah");
             downedRajahsRevenge = downed.Contains("Rajah2");
             zeroUS = downed.Contains("ZUS");
-            downedAnubis = downed.Contains("Doggo");
-            downedAthena = downed.Contains("BirdBitch");
-            downedAthenaA = downed.Contains("BirdBitchA");
-            downedGreed = downed.Contains("GimmeGimme");
-            AthenaHerald = downed.Contains("BitchBird");
             //World Changes
             ChaosOres = downedGrips;
             Dynaskull = NPC.downedBoss3;
@@ -568,21 +532,10 @@ namespace AAMod
                 Terrarium(progress);
             }));
 
-            tasks.Insert(shiniesIndex2 + 7, new PassLegacy("Hoard", delegate (GenerationProgress progress)
-            {
-                Hoard(progress);
-            }));
-
-            tasks.Insert(shiniesIndex2 + 7, new PassLegacy("Acropolis", delegate (GenerationProgress progress)
-            {
-                Acropolis(progress);
-            }));
-
             tasks.Insert(shiniesIndex2 + 5, new PassLegacy("Void Islands", delegate (GenerationProgress progress)
             {
                 VoidIslands(progress);
             }));
-
 
             tasks.Insert(shiniesIndex2 + 8, new PassLegacy("Altars", delegate (GenerationProgress progress)
             {
@@ -1109,36 +1062,8 @@ namespace AAMod
             }
         }
 
-        public static Point CloudPoint = new Point((int)(Main.maxTilesX * 0.65f), 100);
-        public Vector2 Origin = new Vector2((int)(Main.maxTilesX * 0.65f), 100) * 16;
-
         public override void PostUpdate()
         {
-            if (NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Athena.Athena>()))
-            {
-                Dissipate = false;
-                CloudAlpha -= 4;
-                if (CloudAlpha <= 0)
-                {
-                    CloudAlpha = 0;
-                }
-            }
-            else
-            {
-                if (!Dissipate)
-                {
-                    CloudAlpha += 5;
-
-                    if (CloudAlpha >= 255)
-                    {
-                        Dissipate = true;
-                        CloudAlpha = 255;
-                        CloudKill Clouds = new CloudKill();
-                        Clouds.Place(CloudPoint, WorldGen.structures);
-                    }
-                }
-            }
-
             if (TimeStopped)
             {
                 Main.fastForwardTime = false;
@@ -1319,8 +1244,6 @@ namespace AAMod
             lakeTiles = tileCounts[mod.TileType<Darkmud>()] + tileCounts[mod.TileType<AbyssGrass>()] + tileCounts[mod.TileType<AbyssWood>()] + tileCounts[mod.TileType<AbyssWoodSolid>()];
             terraTiles = tileCounts[mod.TileType<TerraCrystal>()] + tileCounts[mod.TileType<TerraWood>()] + tileCounts[mod.TileType<TerraLeaves>()];
             Radium = tileCounts[mod.TileType<RadiumOre>()];
-            HoardTiles = tileCounts[mod.TileType<GreedBrick>()] + tileCounts[mod.TileType<GreedStone>()] + tileCounts[mod.TileType<GreedDoorClosed>()] + tileCounts[mod.TileType<GreedDoorOpen>()];
-            CloudTiles = tileCounts[mod.TileType<AcropolisBlock>()] + tileCounts[mod.TileType<AcropolisAltarBlock>()] + tileCounts[mod.TileType<AcropolisClouds>()];
         }
 
         private void MireAndInferno(GenerationProgress progress)
@@ -1390,34 +1313,6 @@ namespace AAMod
             TerraSphere();
         }
 
-        private void Acropolis(GenerationProgress progress)
-        {
-            progress.Message = "Amassing Treasure";
-            SkyAcropolis();
-        }
-
-        public void SkyAcropolis()
-        {
-            Point origin = new Point((int)(Main.maxTilesX * 0.65f), 100);
-            Acropolis biome = new Acropolis();
-            biome.Place(origin, WorldGen.structures);
-        }
-        private void Hoard(GenerationProgress progress)
-        {
-            progress.Message = "Amassing Treasure";
-            HoardCave();
-        }
-
-        public void HoardCave()
-        {
-            Point origin = new Point((int)(Main.maxTilesX * 0.3f), (int)(Main.maxTilesY * 0.65f));
-            origin.Y = BaseWorldGen.GetFirstTileFloor(origin.X, origin.Y, true);
-            Hoard biome = new Hoard();
-            HoardClear delete = new HoardClear();
-            delete.Place(origin, WorldGen.structures);
-            biome.Place(origin, WorldGen.structures);
-        }
-
         public static int GetWorldSize()
         {
             if (Main.maxTilesX <= 4200) { return 1; }
@@ -1443,14 +1338,6 @@ namespace AAMod
             MireDelete delete = new MireDelete();
             MireBiome biome = new MireBiome();
             delete.Place(origin, WorldGen.structures);
-            biome.Place(origin, WorldGen.structures);
-        }
-
-        public void SunkenShip()
-        {
-            Point origin = new Point((int)shipPos.X, (int)shipPos.Y);
-            origin.Y = BaseWorldGen.GetFirstTileFloor(origin.X, origin.Y, true);
-            BOTE biome = new BOTE();
             biome.Place(origin, WorldGen.structures);
         }
 

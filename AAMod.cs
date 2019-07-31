@@ -47,7 +47,6 @@ namespace AAMod
         internal TerratoolAUI TerratoolAState;
         internal TerratoolYUI TerratoolYState;
         internal TerratoolZUI TerratoolZState;
-        internal TerratoolSUI TerratoolSState;
         internal TerratoolKipUI TerratoolKipState;
 
         public static SpriteFont fontMouseText;
@@ -275,8 +274,6 @@ namespace AAMod
             TerratoolYState.Activate();
             TerratoolZState = new TerratoolZUI();
             TerratoolZState.Activate();
-            TerratoolSState = new TerratoolSUI();
-            TerratoolSState.Activate();
             TerratoolKipState = new TerratoolKipUI();
             TerratoolKipState.Activate();
 
@@ -328,19 +325,8 @@ namespace AAMod
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Terrarium"), ItemType("TerrariumBox"), TileType("TerrariumBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingDragon"), ItemType("SDBox"), TileType("SDBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingGiant"), ItemType("SGBox"), TileType("SGBox"));
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Shen"), ItemType("ShenBox"), TileType("ShenBox"));
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/ShenA"), ItemType("ShenABox"), TileType("ShenABox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/SupremeRajah"), ItemType("SRajahBox"), TileType("SRajahBox"));
             }
-
-            Filters.Scene["AAMod:ShenSky"] = new Filter(new ShenSkyData("FilterMiniTower").UseColor(.5f, 0f, .5f).UseOpacity(0.2f), EffectPriority.VeryHigh);
-            SkyManager.Instance["AAMod:ShenSky"] = new ShenSky();
-            ShenSky.SkyTex = GetTexture("Backgrounds/ShenBg");
-
-            Filters.Scene["AAMod:ShenASky"] = new Filter(new ShenASkyData("FilterMiniTower").UseColor(.7f, 0f, .7f).UseOpacity(0.2f), EffectPriority.VeryHigh);
-            SkyManager.Instance["AAMod:ShenASky"] = new ShenASky();
-            ShenASky.SkyTex = GetTexture("Backgrounds/ShenSky");
-            ShenASky.MeteorTexture = GetTexture("Backgrounds/ShenMeteor");
 
             Filters.Scene["AAMod:MireSky"] = new Filter(new MireSkyData("FilterMiniTower").UseColor(0f, 0.20f, 1f).UseOpacity(0.3f), EffectPriority.High);
             SkyManager.Instance["AAMod:MireSky"] = new MireSky();
@@ -359,12 +345,6 @@ namespace AAMod
             VoidSky.flashTexture = GetTexture("Backgrounds/VoidFlash");
             VoidSky.Stars = GetTexture("Backgrounds/Void_Starfield");
             VoidSky.SkyTexture = GetTexture("Backgrounds/SkyTex");
-
-
-            Filters.Scene["AAMod:AthenaSky"] = new Filter(new VoidSkyData("FilterMiniTower").UseColor(0f, 0.1f, 0.1f).UseOpacity(0.3f), EffectPriority.High);
-            SkyManager.Instance["AAMod:AthenaSky"] = new AthenaSky();
-            AthenaSky.boltTexture = GetTexture("Backgrounds/AthenaBolt");
-            AthenaSky.flashTexture = GetTexture("Backgrounds/AthenaFlash");
 
             Filters.Scene["AAMod:InfernoSky"] = new Filter(new InfernoSkyData("FilterMiniTower").UseColor(1f, 0.20f, 0f).UseOpacity(0.3f), EffectPriority.High);
             SkyManager.Instance["AAMod:InfernoSky"] = new InfernoSky();

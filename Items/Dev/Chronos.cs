@@ -24,7 +24,7 @@ namespace AAMod.Items.Dev
             item.expert = true; item.expertOnly = true;
         }
 
-        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult)
         {
             mult *= CalcDamageMultiplierFromTimeOfDay(item.damage);
         }
