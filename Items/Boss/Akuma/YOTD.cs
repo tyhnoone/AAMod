@@ -18,7 +18,7 @@ namespace AAMod.Items.Boss.Akuma
 
         public override void SetDefaults()
         {
-            item.crit = 20;
+            item.crit = 14;
             item.useStyle = 5;
             item.autoReuse = true;
             item.useAnimation = 25;
@@ -28,7 +28,7 @@ namespace AAMod.Items.Boss.Akuma
             item.height = 20;
             item.shoot = 134;
             item.UseSound = SoundID.Item11;
-            item.damage = 400;
+            item.damage = 600;
             item.shootSpeed = 12f;
             item.noMelee = true;
             item.value = Item.sellPrice(0, 30, 0, 0);
@@ -36,6 +36,17 @@ namespace AAMod.Items.Boss.Akuma
             item.rare = 9;
             AARarity = 13;
             item.ranged = true;
+        }
+
+        public override void ModifyTooltips(System.Collections.Generic.List<TooltipLine> list)
+        {
+            foreach (TooltipLine line2 in list)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = AAColor.Rarity13;
+                }
+            }
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

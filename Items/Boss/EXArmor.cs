@@ -7,13 +7,10 @@ namespace AAMod.Items.Boss
 {
     public class EXArmor : BaseAAItem
     {
-        internal static int type;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("EX Armor Fragment");
             Tooltip.SetDefault("Used to make EX armor");
-
         }
 
         // TODO -- Velocity Y smaller, post NewItem?
@@ -26,7 +23,7 @@ namespace AAMod.Items.Boss
             item.maxStack = 999;
             item.value = 333333;
             item.rare = 11;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
             
         }
 

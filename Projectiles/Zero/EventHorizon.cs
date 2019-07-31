@@ -66,7 +66,7 @@ namespace AAMod.Projectiles.Zero
             {
                 vector17.Y *= -1f;
             }
-            vector17 = vector17.RotatedBy(projectile.localAI[0], default(Vector2));
+            vector17 = vector17.RotatedBy(projectile.localAI[0], default);
             projectile.ai[0] += 1f;
             if (projectile.ai[0] < 30f)
             {
@@ -193,7 +193,7 @@ namespace AAMod.Projectiles.Zero
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType<Horizon>(), projectile.damage, 0, projectile.owner, 0, 0);
+            Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType<Horizon>(), projectile.damage*2, 0, projectile.owner, 0, 0);
         }
     }
 }

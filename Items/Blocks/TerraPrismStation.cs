@@ -8,7 +8,7 @@ namespace AAMod.Items.Blocks
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Terra Infuser");
-            Tooltip.SetDefault(@"Used to infuse biome prisms with the power of essences from different biomes");
+            Tooltip.SetDefault(@"Used to infuse biome prisms with the power of biome essesces.");
         }
 
         public override void SetDefaults()

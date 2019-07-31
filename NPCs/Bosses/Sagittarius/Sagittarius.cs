@@ -41,7 +41,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if ((Main.netMode == 2 || Main.dedServ))
+            if (Main.netMode == 2 || Main.dedServ)
             {
                 writer.Write(internalAI[0]);
                 writer.Write(internalAI[1]);
@@ -183,7 +183,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 npc.Transform(mod.NPCType<SagittariusFree>());
             }
 
-            if (internalAI[3] == 2f)
+            if (internalAI[3] == 1f)
             {
                 npc.TargetClosest(true);
                 npc.velocity *= .7f;
@@ -218,9 +218,9 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 npc.TargetClosest(true);
                 if (Main.player[npc.target].dead)
                 {
-                    if (internalAI[3] != 2f || internalAI[3] != 3f)
+                    if (internalAI[3] != 1f)
                     {
-                        BaseUtility.Chat("target(s) neutralized. returning to stealth mode.", Color.PaleVioletRed);
+                        if (Main.netMode != 1) BaseUtility.Chat("target(s) neutralized. returning to stealth mode.", Color.PaleVioletRed);
                         internalAI[3] = 1f;
                     }
                 }
@@ -230,10 +230,10 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 npc.TargetClosest(true);
                 if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 5000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 5000f)
                 {
-                    if (internalAI[3] != 1f || internalAI[3] != 3f)
+                    if (internalAI[3] != 1f)
                     {
-                        BaseUtility.Chat("target(s) lost. returning to stealth mode.", Color.PaleVioletRed);
-                        internalAI[3] = 2f;
+                        if (Main.netMode != 1) BaseUtility.Chat("target(s) lost. returning to stealth mode.", Color.PaleVioletRed);
+                        internalAI[3] = 1f;
                     }
                 }
             }
@@ -287,7 +287,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
         public override bool PreDraw(SpriteBatch sb, Color dColor)
         {
             BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 1, npc.frame, dColor, true);
-            BaseDrawing.DrawTexture(sb, mod.GetTexture("Glowmasks/Sagittarius_Glow"), 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 1, npc.frame, GenericUtils.COLOR_GLOWPULSE, true);
+            BaseDrawing.DrawTexture(sb, mod.GetTexture("Glowmasks/Sagittarius_Glow"), 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 1, npc.frame, ColorUtils.COLOR_GLOWPULSE, true);
             return false;
         }
 

@@ -20,7 +20,7 @@ Ignores 5 Enemy defense");
             item.value = Item.sellPrice(0, 10, 0, 0);
             item.rare = 2;
             item.accessory = true;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
             item.defense = 3;
         }
         public override void AddRecipes()
@@ -57,18 +57,6 @@ Ignores 5 Enemy defense");
                         return false;
                     }
                     if (slot != i && player.armor[i].type == mod.ItemType<Hydra.HydraPendant>())
-                    {
-                        return false;
-                    }
-                    if (slot != i && player.armor[i].type == mod.ItemType<StormCharm>())
-                    {
-                        return false;
-                    }
-                    if (slot != i && player.armor[i].type == mod.ItemType<Raider.HoloCape>())
-                    {
-                        return false;
-                    }
-                    if (slot != i && player.armor[i].type == mod.ItemType<Orthrus.StormPendant>())
                     {
                         return false;
                     }

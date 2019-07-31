@@ -6,10 +6,16 @@ The Ancients have Awakened. Chaos reigns, storms ravage, and reality tears at th
 
 **NOTE 2: Small worlds are heavilly discouraged with this mod. Things break because we have a lot of worldgen.**
 
-0.8.2.2
+0.8.3.0
 -------
 
-TMod 0.11.2.2 compatibility
+1. Removed a lot of unnececary weapons and a couple pointless inferno enemies.
+
+2. Removal of Storm Bosses & their loot
+
+3. Hero's dev weapon & ex weapon
+
+4. Resprites, Bugfixes, and Multiplayer compatibility fixes
 
 -------
 

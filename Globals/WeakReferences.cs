@@ -149,70 +149,6 @@ namespace AAMod.Globals
                 yabhb.Call("hbSetFillDecoOffsetSmall", 16);
                 yabhb.Call("hbFinishSingle", AAMod.instance.NPCType("Djinn"));
 
-                // The Retriever
-                yabhb.Call("hbStart");
-                yabhb.Call("hbSetTexture",
-                    AAMod.instance.GetTexture("Healthbars/SBarHead"),
-                    AAMod.instance.GetTexture("Healthbars/SBarBody"),
-                    AAMod.instance.GetTexture("Healthbars/SBarTail"),
-                    AAMod.instance.GetTexture("Healthbars/BarFill"));
-                yabhb.Call("hbSetColours",
-                    Color.Violet,
-                    Color.Violet,
-                    Color.Violet);
-                yabhb.Call("hbSetMidBarOffset", -30, 10);
-                yabhb.Call("hbSetBossHeadCentre", 50, 32);
-                yabhb.Call("hbSetFillDecoOffsetSmall", 16);
-                yabhb.Call("hbFinishSingle", AAMod.instance.NPCType("Retriever"));
-
-                // The Raider Ultima
-                yabhb.Call("hbStart");
-                yabhb.Call("hbSetTexture",
-                    AAMod.instance.GetTexture("Healthbars/SBarHead"),
-                    AAMod.instance.GetTexture("Healthbars/SBarBody"),
-                    AAMod.instance.GetTexture("Healthbars/SBarTail"),
-                    AAMod.instance.GetTexture("Healthbars/BarFill"));
-                yabhb.Call("hbSetColours",
-                    Color.Violet,
-                    Color.Violet,
-                    Color.Violet);
-                yabhb.Call("hbSetMidBarOffset", -30, 10);
-                yabhb.Call("hbSetBossHeadCentre", 50, 32);
-                yabhb.Call("hbSetFillDecoOffsetSmall", 16);
-                yabhb.Call("hbFinishSingle", AAMod.instance.NPCType("Raider"));
-
-                // Orthrus X
-                yabhb.Call("hbStart");
-                yabhb.Call("hbSetTexture",
-                    AAMod.instance.GetTexture("Healthbars/SBarHead"),
-                    AAMod.instance.GetTexture("Healthbars/SBarBody"),
-                    AAMod.instance.GetTexture("Healthbars/SBarTail"),
-                    AAMod.instance.GetTexture("Healthbars/BarFill"));
-                yabhb.Call("hbSetColours",
-                    Color.Violet,
-                    Color.Violet,
-                    Color.Violet);
-                yabhb.Call("hbSetMidBarOffset", -30, 10);
-                yabhb.Call("hbSetBossHeadCentre", 50, 32);
-                yabhb.Call("hbSetFillDecoOffsetSmall", 16);
-                yabhb.Call("hbFinishSingle", AAMod.instance.NPCType("Orthrus"));
-
-                // Techno Truffle
-                yabhb.Call("hbStart");
-                yabhb.Call("hbSetTexture",
-                    AAMod.instance.GetTexture("Healthbars/SBarHead"),
-                    AAMod.instance.GetTexture("Healthbars/SBarBody"),
-                    AAMod.instance.GetTexture("Healthbars/SBarTail"),
-                    AAMod.instance.GetTexture("Healthbars/BarFill"));
-                yabhb.Call("hbSetColours",
-                    Color.Violet,
-                    Color.Violet,
-                    Color.Violet);
-                yabhb.Call("hbSetMidBarOffset", -30, 10);
-                yabhb.Call("hbSetBossHeadCentre", 50, 32);
-                yabhb.Call("hbSetFillDecoOffsetSmall", 16);
-                yabhb.Call("hbFinishSingle", AAMod.instance.NPCType("TechnoTruffle"));
-
                 #region Rajah Bars
                 yabhb.Call("hbStart");
                 yabhb.Call("hbSetTexture",
@@ -578,17 +514,15 @@ namespace AAMod.Globals
                 bossChecklist.Call("AddBossWithInfo", "Subzero Serpent", 5.5f, (Func<bool>)(() => AAWorld.downedSerpent), "Use a [i:" + AAMod.instance.ItemType("SubzeroCrystal") + "] in the Snow biome at night");
                 bossChecklist.Call("AddBossWithInfo", "Desert Djinn", 5.5f, (Func<bool>)(() => AAWorld.downedDjinn), "Use a [i:" + AAMod.instance.ItemType("DjinnLamp") + "] in the Desert during the day");
                 bossChecklist.Call("AddBossWithInfo", "Sagittarius", 5.7f, (Func<bool>)(() => AAWorld.downedSag), "Use a [i:" + AAMod.instance.ItemType("Lifescanner") + "] in the Void");
-                bossChecklist.Call("AddBossWithInfo", "Truffle Toad", 6.5f, (Func<bool>)(() => AAWorld.downedToad), "Use a [i:" + AAMod.instance.ItemType("Toadstool") + "] in a glowing mushroom biome");
-                bossChecklist.Call("AddBossWithInfo", "Retriever", 9.5f, (Func<bool>)(() => AAWorld.downedRetriever), "Use a [i:" + AAMod.instance.ItemType("CyberneticClaw") + "] at night");
-                bossChecklist.Call("AddBossWithInfo", "Techno Truffle", 9.5f, (Func<bool>)(() => AAWorld.downedTruffle), "Use a [i:" + AAMod.instance.ItemType("CyberneticShroom") + "] at night");
-                bossChecklist.Call("AddBossWithInfo", "Raider Ultima", 9.5f, (Func<bool>)(() => AAWorld.downedRaider), "Use a [i:" + AAMod.instance.ItemType("CyberneticBell") + "] at night");
-                bossChecklist.Call("AddBossWithInfo", "Orthrus X", 9.5f, (Func<bool>)(() => AAWorld.downedOrthrus), "Use a [i:" + AAMod.instance.ItemType("ScrapHeap") + "] at night");
+                bossChecklist.Call("AddBossWithInfo", "Truffle Toad", 4f, (Func<bool>)(() => AAWorld.downedToad), "Use a [i:" + AAMod.instance.ItemType("Toadstool") + "] in a glowing mushroom biome");
+                bossChecklist.Call("AddBossWithInfo", "Athena", 11.5f, (Func<bool>)(() => AAWorld.downedToad), "Use an [i:" + AAMod.instance.ItemType("Owl") + "] at the owl altar in the Acropolis.");
                 bossChecklist.Call("AddBossWithInfo", "Rajah Rabbit", 12.1f, (Func<bool>)(() => AAWorld.downedRajah), "Use a [i:" + AAMod.instance.ItemType("GoldenCarrot") + "] or kill 100 Rabbits like a jerk.");
                 bossChecklist.Call("AddBossWithInfo", "Nightcrawler & Daybringer", 15f, (Func<bool>)(() => AAWorld.downedEquinox), "Use a [i:" + AAMod.instance.ItemType("EquinoxWorm") + "]");
                 bossChecklist.Call("AddBossWithInfo", "Sisters of Discord", 16.1f, (Func<bool>)(() => AAWorld.downedSisters), "Use the [i:" + AAMod.instance.ItemType("FlamesOfAnarchy") + "]");
                 bossChecklist.Call("AddBossWithInfo", "Yamata", 16.2f, (Func<bool>)(() => AAWorld.downedYamata), "Use a [i:" + AAMod.instance.ItemType("DreadSigil") + "] in the Mire at night");
                 bossChecklist.Call("AddBossWithInfo", "Akuma", 16.3f, (Func<bool>)(() => AAWorld.downedAkuma), "Use a [i:" + AAMod.instance.ItemType("DraconianSigil") + "] in the Inferno during the day");
                 bossChecklist.Call("AddBossWithInfo", "Zero", 16.4f, (Func<bool>)(() => AAWorld.downedZero), "Use a [i:" + AAMod.instance.ItemType("ZeroTesseract") + "] in the Void");
+                bossChecklist.Call("AddBossWithInfo", "Shen Doragon", 20f, (Func<bool>)(() => AAWorld.downedShen), "Use a [i:" + AAMod.instance.ItemType("ChaosSigil") + "]");
                 bossChecklist.Call("AddBossWithInfo", "Rajah Rabbit's Revenge", 40f, (Func<bool>)(() => AAWorld.downedRajahsRevenge), "Use a [i:" + AAMod.instance.ItemType<DiamondCarrot>() + "] or every 100 rabbit kills after 1000.");
 
                 // SlimeKing = 1f;
@@ -609,7 +543,7 @@ namespace AAMod.Globals
         }
         
         // Unused as of now, till Achievements Libs is more stable and support more reliable.
-        private static void PerformAchievementsLibsSupport()
+        /*private static void PerformAchievementsLibsSupport()
         {
             Mod DradonIsDum = ModLoader.GetMod("AchievementLibs");
 
@@ -621,21 +555,17 @@ namespace AAMod.Globals
                 DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Amphibious Atrocity", "Defeat the three-headed horror, the Hydra", AAMod.instance.GetTexture("BlankTex"), AAWorld.downedHydra);
                 DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Slithering Snowmongerer", "Defeat the Snow-burrowing Snake, the Subzero Serpent", AAMod.instance.GetTexture("BlankTex"), AAWorld.downedSerpent);
                 DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Sandskrit Sandman", "Defeat majin of magic, the Desert Djinn", AAMod.instance.GetTexture("BlankTex"), AAWorld.downedDjinn);
-                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Shocking", "Destroy any of the S.I.E.G.E. unit bosses", AAMod.instance.GetTexture("Achievements/Storm"), AAWorld.downedStormAny);
-                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Storming Smackdown", "Destroy all of the S.I.E.G.E. unit bosses", AAMod.instance.GetTexture("Achievements/Storm"), AAWorld.downedStormAll);
                 DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Equinox Eradicator", "Defeat the time-turning worms, the Equinox Duo", AAMod.instance.GetTexture("Achievements/Equinox"), AAWorld.downedEquinox);
-                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Grip it and rip it", "Rematch the Grips of Chaos in their enhanced, discordian form", AAMod.instance.GetTexture("Achievements/Grips"), AAWorld.downedGripsS);
-                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Hurricane Horror", "Defeat the Spatial Squid of the Ocean, the Kraken", AAMod.instance.GetTexture("BlankTex"), AAWorld.downedKraken);
                 DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Clockwork Catastrophe", "Defeat the destructive doomsday construct, Zero", AAMod.instance.GetTexture("Achievements/Zero"), AAWorld.downedZero);
-                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Doom Slayer", "Destroy Zero's true, dark form, Zero Protocol", AAMod.instance.GetTexture("Achievements/ZeroA"), (AAWorld.downedZero && Main.expertMode));
+                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Doom Slayer", "Destroy Zero's true, dark form, Zero Protocol", AAMod.instance.GetTexture("Achievements/ZeroA"), AAWorld.downedZero && Main.expertMode);
                 DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Trial By Fire", "Defeat the draconian demon of the Inferno, Akuma", AAMod.instance.GetTexture("Achievements/Akuma"), AAWorld.downedAkuma);
-                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Serpent Slayer", "Slay Akuma's true, blazing form, Akuma Awakened", AAMod.instance.GetTexture("Achievements/Akuma"), (AAWorld.downedAkuma && Main.expertMode));
+                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Serpent Slayer", "Slay Akuma's true, blazing form, Akuma Awakened", AAMod.instance.GetTexture("Achievements/Akuma"), AAWorld.downedAkuma && Main.expertMode);
                 DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Crescent of Madness", "Defeat the dread nightmare of the Mire, Yamata", AAMod.instance.GetTexture("BlankTex"), AAWorld.downedYamata);
-                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Hydra Slayer", "Slay Yamata's true, abyssal form, Yamata Awakened", AAMod.instance.GetTexture("BlankTex"), (AAWorld.downedYamata && Main.expertMode));
+                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Hydra Slayer", "Slay Yamata's true, abyssal form, Yamata Awakened", AAMod.instance.GetTexture("BlankTex"), AAWorld.downedYamata && Main.expertMode);
                 DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Unyielding Discord", "Defeat the discordian doomsayer of chaos, Shen Doragon", AAMod.instance.GetTexture("BlankTex"), AAWorld.downedShen);
-                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Dragon Slayer", "Slay Shen Doragon's true, chaotic form, Shen Doragon Awakened", AAMod.instance.GetTexture("BlankTex"), (AAWorld.downedShen && Main.expertMode));
+                DradonIsDum.Call("AddAchievementWithoutReward", AAMod.instance, "Dragon Slayer", "Slay Shen Doragon's true, chaotic form, Shen Doragon Awakened", AAMod.instance.GetTexture("BlankTex"), AAWorld.downedShen && Main.expertMode);
             }
-        }
+        }*/
 
         private static void PerformCencusSupport()
         {

@@ -22,7 +22,7 @@ namespace AAMod.Projectiles.Rajah.Supreme
             projectile.penetrate = -1;
             projectile.extraUpdates = 1;
             projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 5;
+            projectile.localNPCHitCooldown = 0;
         }
 
         public bool StuckInEnemy = false;

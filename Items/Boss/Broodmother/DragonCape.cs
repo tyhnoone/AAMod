@@ -20,7 +20,7 @@ namespace AAMod.Items.Boss.Broodmother
             item.value = Item.sellPrice(0, 1, 0, 0);
             item.rare = 2;
             item.accessory = true;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
             item.defense = 3;
         }
 
@@ -59,14 +59,6 @@ namespace AAMod.Items.Boss.Broodmother
                 for (int i = 3; i < 3 + maxAccessoryIndex; i++)
                 {
                     if (slot != i && player.armor[i].type == mod.ItemType<DragonSerpentNecklace>())
-                    {
-                        return false;
-                    }
-                    if (slot != i && player.armor[i].type == mod.ItemType<StormCharm>())
-                    {
-                        return false;
-                    }
-                    if (slot != i && player.armor[i].type == mod.ItemType<Raider.HoloCape>())
                     {
                         return false;
                     }

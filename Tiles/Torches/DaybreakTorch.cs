@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -75,8 +76,8 @@ namespace AAMod.Tiles.Torches
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
-			ulong randSeed = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)((ulong)i));
-			Color color = AAColor.AkumaA;
+			ulong randSeed = Main.TileFrameSeed ^ Convert.ToUInt64(j << 32 | i);
+            Color color = AAColor.AkumaA;
 			int frameX = Main.tile[i, j].frameX;
 			int frameY = Main.tile[i, j].frameY;
 			int width = 20;
@@ -99,7 +100,7 @@ namespace AAMod.Tiles.Torches
 			{
 				float x = Utils.RandomInt(ref randSeed, -10, 11) * 0.15f;
 				float y = Utils.RandomInt(ref randSeed, -10, 1) * 0.35f;
-				Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/DaybreakTorch_Glow"), new Vector2(i * 16 - (int)Main.screenPosition.X - (width - 16f) / 2f + x, j * 16 - (int)Main.screenPosition.Y + offsetY + y) + zero, new Rectangle(frameX, frameY, width, height), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/DaybreakTorch_Glow"), new Vector2(i * 16 - (int)Main.screenPosition.X - (width - 16f) / 2f + x, j * 16 - (int)Main.screenPosition.Y + offsetY + y) + zero, new Rectangle(frameX, frameY, width, height), color, 0f, default, 1f, SpriteEffects.None, 0f);
 			}
 		}
 	}

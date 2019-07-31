@@ -11,7 +11,7 @@ namespace AAMod.Items.Dev
         {
             DisplayName.SetDefault("Super Skullshot");
             Tooltip.SetDefault(@"fires a massive spread of bullets at your foes
-Right click to fire a spinning bone at your foe
+Right click to fire spinning bones at your foe
 Uses Bullets and Bones as ammo
 'I have an irrational hatred for gods`
 -Gibs");
@@ -29,7 +29,7 @@ Uses Bullets and Bones as ammo
             item.shoot = 10;
             item.useAmmo = AmmoID.Bullet;
             item.UseSound = SoundID.Item36;
-            item.damage = 30;
+            item.damage = 90;
             item.shootSpeed = 6f;
             item.noMelee = true;
             item.value = 100000;
@@ -55,7 +55,7 @@ Uses Bullets and Bones as ammo
                 item.useTime = 5;
                 item.reuseDelay = 17;
                 item.useAmmo = AAMod.BoneAmmo;
-                item.damage = 80;
+                item.damage = 350;
             }
             else
             {
@@ -63,7 +63,7 @@ Uses Bullets and Bones as ammo
                 item.useTime = 28;
                 item.reuseDelay = 0;
                 item.useAmmo = AmmoID.Bullet;
-                item.damage = 30;
+                item.damage = 70;
             }
             return base.CanUseItem(player);
         }

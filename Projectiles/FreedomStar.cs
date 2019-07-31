@@ -59,7 +59,7 @@ namespace AAMod.Projectiles
 			if (projectile.ai[1] == 1f && projectile.ai[0] != 1f)
 			{
 				Vector2 vector2 = Vector2.UnitX * 24f;
-				vector2 = vector2.RotatedBy(projectile.rotation - 1.57079637f, default(Vector2));
+				vector2 = vector2.RotatedBy(projectile.rotation - 1.57079637f, default);
 				Vector2 value = projectile.Center + vector2;
 				for (int i = 0; i < 3; i++)
 				{
@@ -97,7 +97,7 @@ namespace AAMod.Projectiles
 				
 					vector3 = projectile.Center + new Vector2(Main.rand.Next(-num7, num7 + 1), Main.rand.Next(-num7, num7 + 1));
 					Vector2 vector5 = Vector2.Normalize(projectile.velocity) * scaleFactor2;
-					vector5 = vector5.RotatedBy(Main.rand.NextDouble() * 0.19634954631328583 - 0.098174773156642914, default(Vector2));
+					vector5 = vector5.RotatedBy(Main.rand.NextDouble() * 0.19634954631328583 - 0.098174773156642914, default);
 					if (float.IsNaN(vector5.X) || float.IsNaN(vector5.Y))
 					{
 						vector5 = -Vector2.UnitY;
@@ -185,7 +185,7 @@ namespace AAMod.Projectiles
 						break;
 					case 3:
 						Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 88);
-                        Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX, SpeedY, mod.ProjectileType("FreedomShotCharged"), projectile.damage*8, 1f, player.whoAmI);
+                        Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX, SpeedY, mod.ProjectileType("FreedomShotCharged"), projectile.damage*10, 1f, player.whoAmI);
 						break;
                 }
             }

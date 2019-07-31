@@ -7,8 +7,6 @@ namespace AAMod.Items.Boss
 {
     public class EXSoul : BaseAAItem
     {
-        internal static int type;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("EX Soul");
@@ -16,7 +14,6 @@ namespace AAMod.Items.Boss
             // ticksperframe, frameCount
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 4));
             ItemID.Sets.ItemNoGravity[item.type] = true;
-
         }
 
         // TODO -- Velocity Y smaller, post NewItem?
@@ -29,7 +26,7 @@ namespace AAMod.Items.Boss
             item.maxStack = 999;
             item.value = 1000000;
             item.rare = 11;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
             
         }
 

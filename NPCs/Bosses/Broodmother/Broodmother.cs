@@ -36,7 +36,7 @@ namespace AAMod.NPCs.Bosses.Broodmother
             npc.netAlways = true;
             npc.friendly = false;
             npc.lifeMax = 6000;
-            npc.value = 20000;
+            npc.value = Item.sellPrice(0, 5, 0, 0);
             npc.behindTiles = true;
             npc.knockBackResist = 0f;
             npc.HitSound = new LegacySoundStyle(3, 6, Terraria.Audio.SoundType.Sound);
@@ -51,6 +51,8 @@ namespace AAMod.NPCs.Bosses.Broodmother
 
         public Texture2D Tex = null;
         public Texture2D Glow = null;
+
+        public int damage = 0;
 
         public override void FindFrame(int frameHeight)
         {
@@ -80,7 +82,7 @@ namespace AAMod.NPCs.Bosses.Broodmother
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if ((Main.netMode == 2 || Main.dedServ))
+            if (Main.netMode == 2 || Main.dedServ)
             {
                 writer.Write(internalAI[0]);
                 writer.Write(internalAI[1]);
@@ -145,7 +147,7 @@ namespace AAMod.NPCs.Bosses.Broodmother
             }			
 
             BaseDrawing.DrawTexture(spriteBatch, Tex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 6, npc.frame, drawColor, true);
-            BaseDrawing.DrawTexture(spriteBatch, Glow, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 6, npc.frame, GenericUtils.COLOR_GLOWPULSE, true);
+            BaseDrawing.DrawTexture(spriteBatch, Glow, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 6, npc.frame, ColorUtils.COLOR_GLOWPULSE, true);
             return false;
         }
 
@@ -156,8 +158,8 @@ namespace AAMod.NPCs.Bosses.Broodmother
         }
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.5f * bossLifeScale);  //boss life scale in expertmode
-            npc.damage = (int)(npc.damage * 0.8f);  //boss damage increase in expermode
+            npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);
+            npc.damage = (int)(npc.damage * 0.6f);
         }
         public override void HitEffect(int hitDirection, double damage)
         {
@@ -178,7 +180,7 @@ namespace AAMod.NPCs.Bosses.Broodmother
             }
 			for (int m = 0; m < (isDead ? 45 : 6); m++)
 			{
-				Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, (isDead? 3f : 1.5f));
+				Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, isDead? 3f : 1.5f);
 			}	
         }
 
@@ -198,44 +200,14 @@ namespace AAMod.NPCs.Bosses.Broodmother
 
 		public override void AI()
         {
-            Player player = Main.player[npc.target];
-
-            int Minions = NPC.CountNPCS(mod.NPCType<BroodEgg>()) + NPC.CountNPCS(mod.NPCType<Broodmini>());
-
-            if (Main.netMode != 1 && internalAI[0]++ >= 120)
+            if (Main.expertMode)
             {
-                internalAI[0] = 0;
-                internalAI[1] = Minions < MaxMinions ? Main.rand.Next(4) : Main.rand.Next(3);
-                npc.ai = new float[4];
-                if (internalAI[1] == AISTATE_FLYABOVEPLAYER)
-                {
-                    npc.ai[1] = 1 + Main.rand.Next(2);
-                }
-                else
-                if (internalAI[1] == AISTATE_SPAWNEGGS)
-                {
-                    npc.ai[1] = (npc.ai[1] == 0 ? 1 : 0);
-                }
-                npc.netUpdate = true;
-            }
-            pos = (npc.ai[1] == 0 ? -250 : 250);
-
-            if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
-            {
-                npc.active = false;
-            }
-
-            if (!Main.player[npc.target].GetModPlayer<AAPlayer>(mod).ZoneInferno)
-            {
-                npc.dontTakeDamage = true;
-                npc.damage = 130;
+                damage = npc.damage / 4;
             }
             else
             {
-                npc.dontTakeDamage = false;
-                npc.damage = npc.defDamage;
+                damage = npc.damage / 2;
             }
-
             if (internalAI[1] == AISTATE_RUNAWAY)
             {
                 npc.noTileCollide = true;
@@ -253,38 +225,74 @@ namespace AAMod.NPCs.Bosses.Broodmother
                     npc.velocity.Y -= 0.1f;
                     if (npc.velocity.Y > 15f) npc.velocity.Y = 15f;
                     npc.rotation = 0f;
+                    if(npc.position.Y + npc.velocity.Y <= 0f && Main.netMode != 1){ BaseAI.KillNPC(npc); npc.netUpdate = true; }
                 }
                 return;
             }
-            else
+
+            int Minions = NPC.CountNPCS(mod.NPCType<BroodEgg>()) + NPC.CountNPCS(mod.NPCType<Broodmini>());
+
+            if (Main.netMode != 1 && internalAI[0]++ >= 120)
             {
-                Vector2 wantedVelocity = player.Center - new Vector2(pos, 250);
-                MoveToPoint(wantedVelocity);
+                internalAI[0] = 0;
+                internalAI[1] = Minions < MaxMinions ? Main.rand.Next(4) : Main.rand.Next(3);
+                npc.ai = new float[4];
+                if (internalAI[1] == AISTATE_FLYABOVEPLAYER)
+                {
+                    npc.ai[1] = 1 + Main.rand.Next(2);
+                }
+                else
+                if (internalAI[1] == AISTATE_SPAWNEGGS)
+                {
+                    npc.ai[1] = npc.ai[1] == 0 ? 1 : 0;
+                }
+                npc.netUpdate = true;
+            }
+            pos = npc.ai[1] == 0 ? -250 : 250;
+
+            if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 4000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 4000f)
+            {
+                npc.active = false;
             }
 
-            if (!Main.dayTime)
+            if (!Main.player[npc.target].GetModPlayer<AAPlayer>(mod).ZoneInferno)
             {
-                internalAI[1] = AISTATE_RUNAWAY;
-                npc.ai = new float[4];
-                return;
+                npc.dontTakeDamage = true;
+                npc.damage = 130;
             }
-            npc.TargetClosest();
-            if (Main.player[npc.target].dead || !Main.player[npc.target].active)
+            else
             {
-                npc.TargetClosest();
-                if (Main.player[npc.target].dead || !Main.player[npc.target].active)
+                npc.dontTakeDamage = false;
+                npc.damage = npc.defDamage;
+            }
+
+            npc.TargetClosest();
+            Player player = Main.player[npc.target];
+            if (internalAI[1] != AISTATE_RUNAWAY)
+            {
+                if (!Main.dayTime)
                 {
                     internalAI[1] = AISTATE_RUNAWAY;
                     npc.ai = new float[4];
                     return;
                 }
+                if (player.dead || !player.active)
+                {
+                    npc.TargetClosest();
+                    if (player.dead || !player.active)
+                    {
+                        internalAI[1] = AISTATE_RUNAWAY;
+                        npc.ai = new float[4];
+                        return;
+                    }
+                }
             }
 
+            Vector2 wantedVelocity = player.Center - new Vector2(pos, 250);
+            MoveToPoint(wantedVelocity);
 
             if (internalAI[1] == AISTATE_FIREBREATH)
             {
-                Vector2 wantedVelocity = player.Center - new Vector2(pos, 250);
-                MoveToPoint(wantedVelocity);
                 npc.localAI[2] += 1f;
                 if (npc.localAI[2] > 22f)
                 {
@@ -296,7 +304,7 @@ namespace AAMod.NPCs.Bosses.Broodmother
                     internalAI[2]++;
                     if (internalAI[2] > 30f)
                     {
-                        BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjectileType<BroodBreath>(), ref internalAI[3], 5, npc.damage / 2, 12, true, new Vector2(0, 40f));
+                        BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjectileType<BroodBreath>(), ref internalAI[3], 5, damage, 12, true, new Vector2(0, 40f));
                     }
                     if (internalAI[2] > 90)
                     {
@@ -340,7 +348,7 @@ namespace AAMod.NPCs.Bosses.Broodmother
                         Vector2 dir = new Vector2(npc.velocity.X * 2f + (2f * npc.direction), npc.velocity.Y * 0.5f + 1f);
                         Vector2 firePos = new Vector2(npc.Center.X + (64 * npc.direction), npc.Center.Y + 10f);
                         firePos = BaseUtility.RotateVector(npc.Center, firePos, npc.rotation); //+ (npc.direction == -1 ? (float)Math.PI : 0f)));
-                        int projID = Projectile.NewProjectile(firePos, dir, mod.ProjectileType("BroodBall"), npc.damage / 2, 1, 255);
+                        int projID = Projectile.NewProjectile(firePos, dir, mod.ProjectileType("BroodBall"), damage, 1, 255);
                         Main.projectile[projID].netUpdate = true;
                     }
                 }
@@ -352,7 +360,7 @@ namespace AAMod.NPCs.Bosses.Broodmother
             float moveSpeed = 9f;
             float velMultiplier = 1f;
             Vector2 dist = point - npc.Center;
-            float length = (dist == Vector2.Zero ? 0f : dist.Length());
+            float length = dist == Vector2.Zero ? 0f : dist.Length();
             if (length < moveSpeed)
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
@@ -369,7 +377,7 @@ namespace AAMod.NPCs.Bosses.Broodmother
             {
                 moveSpeed *= 0.5f;
             }
-            npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
+            npc.velocity = length == 0f ? Vector2.Zero : Vector2.Normalize(dist);
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
         }

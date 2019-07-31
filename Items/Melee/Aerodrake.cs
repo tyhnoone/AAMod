@@ -18,9 +18,9 @@ namespace AAMod.Items.Melee
             item.rare = 9;
             item.UseSound = SoundID.DD2_SonicBoomBladeSlash;
             item.useStyle = 1;
-            item.damage = 90;
-            item.useAnimation = 25;
-            item.useTime = 25;
+            item.damage = 1650;
+            item.useAnimation = 15;
+            item.useTime = 15;
             item.width = 82;
             item.height = 102;
             item.knockBack = 5.5f;
@@ -30,13 +30,19 @@ namespace AAMod.Items.Melee
             item.useTurn = false;
             item.shoot = mod.ProjectileType<Projectiles.Aerodrake>();
             item.shootSpeed = 17f;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
 
             glowmaskDrawType = GLOWMASKTYPE_SWORD;
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow";
             glowmaskDrawColor = AAColor.COLOR_WHITEFADE1;
         }
 
+		public override void UseStyle(Player player)
+        {
+            player.itemLocation +=
+                new Vector2(-4 * player.direction, 16 * player.gravDir).RotatedBy(player.itemRotation);
+        }
+		
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);

@@ -12,10 +12,12 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
     [AutoloadBossHead]
     public class FeudalFungus : ModNPC
     {
+        public int damage = 0;
+
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			base.SendExtraAI(writer);
-			if((Main.netMode == 2 || Main.dedServ))
+			if(Main.netMode == 2 || Main.dedServ)
 			{
 				writer.Write(internalAI[0]);
 				writer.Write(internalAI[1]);
@@ -48,7 +50,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             npc.damage = 12;  //boss damage
             npc.defense = 12;    //boss defense
             npc.knockBackResist = 0f;   //this boss will behavior like the DemonEye  //boss frame/animation 
-            npc.value = Item.sellPrice(0, 0, 75, 45);
+            npc.value = Item.sellPrice(0, 0, 50, 0);
             npc.aiStyle = 26;
             npc.width = 74;
             npc.height = 108;
@@ -75,10 +77,17 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
 
         public static int AISTATE_HOVER = 0, AISTATE_FLIER = 1, AISTATE_SHOOT = 2;
 		public float[] internalAI = new float[4];
-        bool HasStopped = false;
 		
         public override void AI()
         {
+            if (Main.expertMode)
+            {
+                damage = npc.damage / 4;
+            }
+            else
+            {
+                damage = npc.damage / 2;
+            }
             Player player = Main.player[npc.target];
              
             if ((Main.dayTime && player.position.Y < Main.worldSurface) || !player.ZoneGlowshroom)
@@ -150,7 +159,8 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             }
             else if (internalAI[1] == AISTATE_SHOOT)
             {
-                if (HasStopped)
+                BaseAI.AISpaceOctopus(npc, ref npc.ai, player.Center, 0.15f, 4f, 170, 56f, null);
+                if (Main.netMode != 1)
                 {
                     internalAI[0]++;
                 }
@@ -161,21 +171,6 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                     internalAI[0] = 0;
                     FungusAttack(attack);
                     npc.netUpdate = true;
-                }
-
-                npc.velocity *= 0.7f;
-
-                if (npc.velocity.X <= .1f && npc.velocity.X >= -.1f)
-                {
-                    npc.velocity.X = 0;
-                }
-                if (npc.velocity.Y <= .1f && npc.velocity.Y >= -.1f)
-                {
-                    npc.velocity.Y = 0;
-                }
-                if (npc.velocity == new Vector2(0, 0))
-                {
-                    HasStopped = true;
                 }
             }
 
@@ -188,7 +183,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         public void FireMagic(NPC npc, Vector2 velocity)
         {
             Player player = Main.player[npc.target];
-            BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjType("Mushshot"), ref shootAI[0], 5, (int)(npc.damage * (Main.expertMode ? 0.25f : 0.5f)), 8f, true, new Vector2(20f, 15f));
+            BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjType("Mushshot"), ref shootAI[0], 5, damage, 8f, true, new Vector2(20f, 15f));
         }
 
         public override void BossLoot(ref string name, ref int potionType)
@@ -218,7 +213,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);  //boss life scale in expertmode
-            npc.damage = (int)(npc.damage * 1.1f);  //boss damage increase in expermode
+            npc.damage = (int)(npc.damage * 0.6f);
         }
 
         public void FungusAttack(int Attack)
@@ -252,8 +247,8 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                 double offsetAngle;
                 for (int i = 0; i < (Main.expertMode ? 5 : 4); i++)
                 {
-                    offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, (float)(Math.Sin(offsetAngle) * 6f), (float)(Math.Cos(offsetAngle) * 6f), mod.ProjectileType("FungusCloud"), npc.damage / 2, 0, Main.myPlayer, 0f, 0f);
+                    offsetAngle = startAngle + deltaAngle * (i + i * i) / 2f + 32f * i;
+                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, (float)(Math.Sin(offsetAngle) * 6f), (float)(Math.Cos(offsetAngle) * 6f), mod.ProjectileType("FungusCloud"), damage, 0, Main.myPlayer, 0f, 0f);
                 }
             }
             else
@@ -271,7 +266,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             if (moveSpeed == 0f || npc.Center == point) return; //don't move if you have no move speed
             float velMultiplier = 1f;
             Vector2 dist = point - npc.Center;
-            float length = (dist == Vector2.Zero ? 0f : dist.Length());
+            float length = dist == Vector2.Zero ? 0f : dist.Length();
             if (length < moveSpeed)
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
@@ -288,7 +283,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             {
                 moveSpeed *= 0.5f;
             }
-            npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
+            npc.velocity = length == 0f ? Vector2.Zero : Vector2.Normalize(dist);
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
         }

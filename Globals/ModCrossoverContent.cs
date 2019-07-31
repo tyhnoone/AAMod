@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using System.Reflection;
 using Microsoft.Xna.Framework.Graphics;
 using AAMod.Items;
 
@@ -9,12 +10,75 @@ namespace AAMod
 {
     public class ModSupport
     {
-        public static Mod thorium = null, redemption = null;
+        public static Mod thorium = null, calamity = null, redemption = null;
+
+        public static FieldInfo CRevengence = null, CDeath = null, CDefiled = null;
+
+        /*
+        public static bool Revengence
+        {
+            get
+            {
+                if (calamity != null)
+                {
+                    if (calamity.Version >= new Version(1, 4, 2, 201))
+                    {
+                        return CalamityMod.world.CalamityWorld.revenge;
+                    }
+                    else
+                    {
+                        return CalamityMod.CalamityWorld.revenge;
+                    }
+                    
+                }
+                return false;
+            }
+        }
+
+        public static bool Death
+        {
+            get
+            {
+                if (calamity != null)
+                {
+                    if (calamity.Version >= new Version(1, 4, 2, 201))
+                    {
+                        return CalamityMod.world.CalamityWorld.death;
+                    }
+                    else
+                    {
+                        return CalamityMod.CalamityWorld.death;
+                    }
+                    
+                }
+                return false;
+            }
+        }
+
+        public static bool Defiled
+        {
+            get
+            {
+                if (calamity != null)
+                {
+                    if (calamity.Version >= new Version(1, 4, 2, 201))
+                    {
+                        return CalamityMod.world.CalamityWorld.defiled;
+                    }
+                    else
+                    {
+                        return CalamityMod.CalamityWorld.defiled;
+                    }
+                }
+                return false;
+            }
+        }*/
 
         public static bool ModInstalled(string name)
         {
             switch (name)
             {
+                case "CalamityMod": return calamity != null;
                 case "ThoriumMod": return thorium != null;
                 case "Redemption": return redemption != null;
                 default: return false;
@@ -26,7 +90,14 @@ namespace AAMod
 
         public static Texture2D GetMapBackgroundImage()
         {
-            return (forceBlackMapBG ? Main.mapTexture : null);
+            return forceBlackMapBG ? Main.mapTexture : null;
+        }
+
+        public static void SetupSupport()
+        {
+            thorium = ModLoader.GetMod("ThoriumMod");
+            calamity = ModLoader.GetMod("CalamityMod");
+            redemption = ModLoader.GetMod("Redemption");
         }
     }
 

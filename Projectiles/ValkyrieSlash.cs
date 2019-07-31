@@ -32,7 +32,7 @@ namespace AAMod.Projectiles
                 //Do net updatey thing. Syncs this projectile.
 				if (Main.rand.Next(3) == 0)
                 {
-                 int num30 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, projectile.velocity.X, projectile.velocity.Y, 100, default(Color), 2f);
+                 int num30 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, projectile.velocity.X, projectile.velocity.Y, 100, default, 2f);
                     Main.dust[num30].noGravity = true;
                     Main.dust[num30].position -= projectile.velocity;
                 }
@@ -45,8 +45,8 @@ namespace AAMod.Projectiles
                     float Angle = (float)Math.Atan(Xdis / Ydis);
                     float DistXT = (float)(Math.Sin(Angle) * 29);
                     float DistYT = (float)(Math.Cos(Angle) * 29);
-                    projectile.position.X = (Main.player[projectile.owner].Center.X + DistXT) - 30;
-                    projectile.position.Y = (Main.player[projectile.owner].Center.Y + DistYT) - 30;
+                    projectile.position.X = Main.player[projectile.owner].Center.X + DistXT - 30;
+                    projectile.position.Y = Main.player[projectile.owner].Center.Y + DistYT - 30;
                 }
                 if (Main.player[projectile.owner].Center.Y >= mouse.Y)
                 {
@@ -55,8 +55,8 @@ namespace AAMod.Projectiles
                     float Angle = (float)Math.Atan(Xdis / Ydis);
                     float DistXT = (float)(Math.Sin(Angle) * 29);
                     float DistYT = (float)(Math.Cos(Angle) * 29);
-                    projectile.position.X = (Main.player[projectile.owner].Center.X + (0 - DistXT)) - 30;
-                    projectile.position.Y = (Main.player[projectile.owner].Center.Y + (0 - DistYT)) - 30;
+                    projectile.position.X = Main.player[projectile.owner].Center.X + (0 - DistXT) - 30;
+                    projectile.position.Y = Main.player[projectile.owner].Center.Y + (0 - DistYT) - 30;
                 }
             }
 			

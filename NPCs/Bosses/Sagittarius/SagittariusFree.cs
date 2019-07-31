@@ -12,6 +12,8 @@ namespace AAMod.NPCs.Bosses.Sagittarius
     [AutoloadBossHead]
     public class SagittariusFree : Sagittarius
 	{
+        public int damage = 0;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sagittarius-A");
@@ -27,6 +29,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             npc.width = 74;
             npc.height = 70;
             npc.aiStyle = -1;
+            npc.value = Item.sellPrice(0, 8, 0, 0);
             npc.HitSound = SoundID.NPCHit4;
             npc.DeathSound = SoundID.NPCDeath14;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Sagittarius");
@@ -39,7 +42,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if ((Main.netMode == 2 || Main.dedServ))
+            if (Main.netMode == 2 || Main.dedServ)
             {
                 writer.Write(internalAI[0]);
                 writer.Write(internalAI[1]);
@@ -66,6 +69,14 @@ namespace AAMod.NPCs.Bosses.Sagittarius
        
         public override void AI()
         {
+            if (Main.expertMode)
+            {
+                damage = npc.damage / 4;
+            }
+            else
+            {
+                damage = npc.damage / 2;
+            }
             npc.noGravity = true;
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
@@ -93,22 +104,22 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 npc.TargetClosest(true);
                 if (Main.player[npc.target].dead)
                 {
-                    if (internalAI[0] != 2f || internalAI[0] != 3f)
+                    if (internalAI[0] != 1f)
                     {
-                        BaseUtility.Chat("target(s) neutralized. returning to stealth mode.", Color.PaleVioletRed);
-                        internalAI[0] = 3f;
+                        if (Main.netMode != 1) BaseUtility.Chat("target(s) neutralized. returning to stealth mode.", Color.PaleVioletRed);
+                        internalAI[0] = 1f;
                     }
                 }
                 if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 5000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 5000f)
                 {
-                    if (internalAI[0] != 1f || internalAI[0] != 3f)
+                    if (internalAI[0] != 1f)
                     {
-                        BaseUtility.Chat("target(s) lost. returning to stealth mode.", Color.PaleVioletRed);
-                        internalAI[0] = 3f;
+                        if (Main.netMode != 1) BaseUtility.Chat("target(s) lost. returning to stealth mode.", Color.PaleVioletRed);
+                        internalAI[0] = 1f;
                     }
                 }
             }
-            if (internalAI[0] == 3f)
+            if (internalAI[0] == 1f)
             {
                 npc.TargetClosest(true);
                 npc.velocity *= .7f;
@@ -155,7 +166,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 internalAI[4] = Main.rand.Next(2);
                 if (internalAI[2] == 2)
                 {
-                    BaseUtility.Chat("initializing repair program.", Color.PaleVioletRed);
+                    if (Main.netMode != 1) BaseUtility.Chat("initializing repair program.", Color.PaleVioletRed);
                 }
                 npc.ai = new float[4];
                 npc.netUpdate = true;
@@ -165,7 +176,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             {
                 BaseAI.AIEater(npc, ref npc.ai, 0.05f, 4f, 0, false, true);
                 npc.rotation = 0;
-                BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjType("SagProj"), ref shootAI[0], 15, (int)(npc.damage * 0.25f), 10f, true, new Vector2(20f, 15f));
+                BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjType("SagProj"), ref shootAI[0], 15, damage, 10f, true, new Vector2(20f, 15f));
             }
             else if (internalAI[2] == 2) //Shield Mode
             {
@@ -210,7 +221,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 }
                 if (foundLocation)
                 {
-                    Vector2 tele = new Vector2((player.Center.X + Xint), (player.Center.Y + Yint));
+                    Vector2 tele = new Vector2(player.Center.X + Xint, player.Center.Y + Yint);
                     npc.Center = tele;
                     internalAI[4] = 0;
                 }
@@ -242,7 +253,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 for (int i = 0; i < Main.rand.Next(1, 3); i++)
                 {
                     offsetAngle = startAngle + (deltaAngle * i);
-                    Projectile.NewProjectile(player.position.X, player.position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType<Zero.DeathLaser>(), npc.damage / 4, 2, Main.myPlayer);
+                    Projectile.NewProjectile(player.position.X, player.position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType<Zero.DeathLaser>(), damage, 2, Main.myPlayer);
                 }
             }
         }
@@ -301,14 +312,14 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             Texture2D GlowTex = mod.GetTexture("Glowmasks/SagittariusFree_Glow");
 
             BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, dColor, true);
-            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, GenericUtils.COLOR_GLOWPULSE, true);
+            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, ColorUtils.COLOR_GLOWPULSE, true);
 
             if (ShieldScale > 0)
             {
                 BaseDrawing.DrawTexture(sb, Shield, 0, npc.position, npc.width, npc.height, ShieldScale, 0, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.ZeroShield, true);
             }
             BaseDrawing.DrawTexture(sb, Ring, 0, npc.position, npc.width, npc.height, 1, RingRoatation, 0, 1, new Rectangle(0, 0, Ring.Width, Ring.Height), dColor, true);
-            BaseDrawing.DrawTexture(sb, RingGlow, 0, npc.position, npc.width, npc.height, 1, RingRoatation, 0, 1, new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), GenericUtils.COLOR_GLOWPULSE, true);
+            BaseDrawing.DrawTexture(sb, RingGlow, 0, npc.position, npc.width, npc.height, 1, RingRoatation, 0, 1, new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), ColorUtils.COLOR_GLOWPULSE, true);
             return false;
         }
     }

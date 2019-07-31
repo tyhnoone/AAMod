@@ -19,7 +19,7 @@ Death Sickle EX");
 
         public override void SetDefaults()
         {
-            item.damage = 400;  
+            item.damage = 1250;  
             item.melee = true; 
             item.width = 80;    
             item.height = 72; 
@@ -31,13 +31,10 @@ Death Sickle EX");
             item.knockBack = 2f; 
             item.value = Item.sellPrice(0, 30, 0, 0); 
             item.rare = 9;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
             item.shoot = mod.ProjectileType("DecayScythe"); 
-            item.noUseGraphic = true; 
-
-            glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; 
-            glowmaskDrawType = GLOWMASKTYPE_NONE;
-            glowmaskDrawColor = Color.White;
+            item.noUseGraphic = true;
+            item.noMelee = true;
         }
 
         public override void AddRecipes()

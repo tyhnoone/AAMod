@@ -105,10 +105,10 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             Main.npc[DeathAnim].velocity = npc.velocity;
             if (!NPC.AnyNPCs(mod.NPCType<YamataA>()))
             {
-                BaseUtility.Chat("Dad, you moron..! Whatever, Can't really say I didn't see it coming.", new Color(72, 78, 117));
+                if (Main.netMode != 1) BaseUtility.Chat("Dad, you moron..! Whatever, Can't really say I didn't see it coming.", new Color(72, 78, 117));
                 return;
             }
-            BaseUtility.Chat("That's it. I'm done, YOU deal with them, dad.", new Color(72, 78, 117));
+            if (Main.netMode != 1) BaseUtility.Chat("That's it. I'm done, YOU deal with them, dad.", new Color(72, 78, 117));
         }
 
         public override void BossLoot(ref string name, ref int potionType)
@@ -119,7 +119,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);  //boss life scale in expertmode
-            npc.damage = (int)(npc.damage * 1.3f);  //boss damage increase in expermode
+            npc.damage = (int)(npc.damage * .9f);
         }
     }
 }

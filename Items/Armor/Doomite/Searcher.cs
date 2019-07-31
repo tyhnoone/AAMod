@@ -27,26 +27,22 @@ namespace AAMod.Items.Armor.Doomite
             projectile.tileCollide = false;
             projectile.timeLeft *= 5;
             projectile.minion = true;
+            projectile.minionSlots = 0;
         }
 
         public int FrameTimer = 0;
 
         public override void AI()
         {
-            bool flag64 = projectile.type == mod.ProjectileType("Searcher");
             Player player = Main.player[projectile.owner];
             AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
-            player.AddBuff(mod.BuffType("Searcher"), 3600);
-            if (flag64)
+            if (player.dead)
             {
-                if (player.dead)
-                {
-                    modPlayer.Searcher = false;
-                }
-                if (modPlayer.Searcher)
-                {
-                    projectile.timeLeft = 2;
-                }
+                modPlayer.Searcher = false;
+            }
+            if (modPlayer.Searcher)
+            {
+                projectile.timeLeft = 2;
             }
 
             float num633 = 700f;
@@ -56,7 +52,7 @@ namespace AAMod.Items.Armor.Doomite
 			float num637 = 0.05f;
 			for (int num638 = 0; num638 < 1000; num638++)
 			{
-				bool flag23 = (Main.projectile[num638].type == mod.ProjectileType("Searcher"));
+				bool flag23 = Main.projectile[num638].type == mod.ProjectileType("Searcher");
 				if (num638 != projectile.whoAmI && Main.projectile[num638].active && Main.projectile[num638].owner == projectile.owner && flag23 && Math.Abs(projectile.position.X - Main.projectile[num638].position.X) + Math.Abs(projectile.position.Y - Main.projectile[num638].position.Y) < projectile.width)
 				{
 					if (projectile.position.X < Main.projectile[num638].position.X)
@@ -140,7 +136,7 @@ namespace AAMod.Items.Armor.Doomite
 				bool flag26 = false;
 				if (!flag26)
 				{
-					flag26 = (projectile.ai[0] == 1f);
+					flag26 = projectile.ai[0] == 1f;
 				}
 				float num650 = 6f;
 				if (flag26)
@@ -208,7 +204,7 @@ namespace AAMod.Items.Armor.Doomite
 			if (projectile.ai[0] == 0f)
 			{
 				float scaleFactor3 = 8f;
-				int num658 = mod.ProjectileType<Summoning.Minions.ProbeShot>();;
+				int num658 = mod.ProjectileType<Summoning.Minions.ProbeShot>();
 				if (flag25 && projectile.ai[1] == 0f)
 				{
 					projectile.ai[1] += 1f;

@@ -18,12 +18,12 @@ Blade of Night EX");
 		
 		public override void SetDefaults()
 		{
-			item.damage = 425;
+			item.damage = 436;
 			item.melee = true;
 			item.width = 100;
 			item.height = 100;
-			item.useTime = 22;
-			item.useAnimation = 22;
+			item.useTime = 20;
+			item.useAnimation = 20;
 			item.useStyle = 1;
 			item.knockBack = 7;
 			item.value = Item.sellPrice(1, 1, 50, 0);
@@ -32,7 +32,7 @@ Blade of Night EX");
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("UmbreonSPProjectile");
 			item.shootSpeed = 18f;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
             glowmaskDrawType = GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	

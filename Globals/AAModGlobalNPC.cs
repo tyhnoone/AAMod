@@ -3,12 +3,14 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using AAMod.NPCs.Bosses.Shen;
 using AAMod.NPCs.Bosses.Rajah;
 using AAMod.NPCs.Enemies.Terrarium.PreHM;
 using AAMod.NPCs.Enemies.Terrarium.Hardmode;
 using AAMod.NPCs.Enemies.Terrarium.PostPlant;
 using AAMod.NPCs.Bosses.Serpent;
 using AAMod.NPCs.Enemies.Snow;
+using AAMod.NPCs.Enemies.Sky;
 using System;
 using Terraria.Localization;
 
@@ -65,6 +67,7 @@ namespace AAMod
 
         public override void SetDefaults(NPC npc)
         {
+            base.SetDefaults(npc); 
             if (AAWorld.downedShen == true)
             {
                 if (npc.type == NPCID.GoblinSummoner)   //this is where you choose the npc you want
@@ -76,6 +79,11 @@ namespace AAMod
                     npc.value = 50000f;
                 }
             }
+            if (NPCID.Sets.TownCritter[npc.type] == true)   //this is where you choose the npc you want
+            {
+                npc.dontTakeDamageFromHostiles = true;
+            }
+            return;
         }
 
         public int RiftTimer;
@@ -175,10 +183,26 @@ namespace AAMod
                 {
                     npc.lifeRegen = 0;
                 }
-                npc.lifeRegen -= 20;
-                if (damage < 10)
+                if (npc.type == mod.NPCType<ShenDoragon>() || npc.type == mod.NPCType<ShenA>())
                 {
-                    damage = 10;
+                    npc.lifeRegen -= 30;
+                    if (damage < 30)
+                    {
+                        damage = 30;
+                    }
+                }
+                else
+                {
+                    npc.lifeRegen -= 10;
+                    if (damage < 10)
+                    {
+                        damage = 10;
+                    }
+                }
+                npc.lifeRegen -= 16;
+                if (damage < 2)
+                {
+                    damage = 2;
                 }
             }
 
@@ -590,20 +614,20 @@ namespace AAMod
                 int bunnyKills = NPC.killCount[Item.NPCtoBanner(NPCID.Bunny)];
                 if (bunnyKills % 100 == 0 && bunnyKills < 1000)
                 {
-                    BaseMod.BaseUtility.Chat("Those who slaughter the innocent must be PUNISHED!", 107, 137, 179);
+                    if (Main.netMode != 1) BaseMod.BaseUtility.Chat("Those who slaughter the innocent must be PUNISHED!", 107, 137, 179);
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Rajah"), npc.Center);
                     SpawnRajah(player, true, new Vector2(npc.Center.X, npc.Center.Y - 2000), "Rajah Rabbit");
 
                 }
                 if (bunnyKills % 100 == 0 && bunnyKills >= 1000)
                 {
-                    BaseMod.BaseUtility.Chat("YOU HAVE COMMITTED AN UNFORGIVABLE SIN! I SHALL WIPE YOU FROM THIS MORTAL REALM! PREPARE FOR TRUE PAIN AND PUNISHMENT, " + player.name.ToUpper() + "!", 107, 137, 179);
+                    if (Main.netMode != 1) BaseMod.BaseUtility.Chat("YOU HAVE COMMITTED AN UNFORGIVABLE SIN! I SHALL WIPE YOU FROM THIS MORTAL REALM! PREPARE FOR TRUE PAIN AND PUNISHMENT, " + player.name.ToUpper() + "!", 107, 137, 179);
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Rajah"), npc.Center);
                     SpawnRajah(player, true, new Vector2(npc.Center.X, npc.Center.Y - 2000), "Rajah Rabbit");
                 }
                 if (bunnyKills % 50 == 0 && bunnyKills % 100 != 0)
                 {
-                    BaseMod.BaseUtility.Chat("The eyes of a wrathful creature gaze upon you...", 107, 137, 179);
+                    if (Main.netMode != 1) BaseMod.BaseUtility.Chat("The eyes of a wrathful creature gaze upon you...", 107, 137, 179);
                 }
             }
         }
@@ -612,7 +636,7 @@ namespace AAMod
         {
             if (damage > npc.lifeMax / 8)
             {
-                BaseMod.BaseUtility.Chat(Text, TextColor);
+                if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Text, TextColor);
                 damage = 0;
             }
         }
@@ -625,7 +649,7 @@ namespace AAMod
                 if (Main.rand.Next(4) < 3)
                 {
                     Lighting.AddLight((int)npc.Center.X / 16, (int)npc.Center.Y / 16, 0.3f, 0.8f, 1.1f);
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 75, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 2f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 75, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 2f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -656,7 +680,7 @@ namespace AAMod
             {
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadB"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadB"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -669,7 +693,7 @@ namespace AAMod
                 Lighting.AddLight(npc.position, 0.1f, 0.3f, 0.7f);
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadR"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadR"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -682,7 +706,7 @@ namespace AAMod
                 Lighting.AddLight(npc.position, 0.7f, 0.2f, 0.2f);
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadG"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadG"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -695,7 +719,7 @@ namespace AAMod
                 Lighting.AddLight(npc.position, 0.1f, 0.7f, 0.1f);
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadY"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadY"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -708,7 +732,7 @@ namespace AAMod
                 Lighting.AddLight(npc.position, 0.5f, 0.5f, 0.1f);
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadP"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadP"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -721,7 +745,7 @@ namespace AAMod
                 Lighting.AddLight(npc.position, 0.6f, 0.1f, 0.6f);
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadO"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, mod.DustType("InfinityOverloadO"), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -736,7 +760,7 @@ namespace AAMod
 
             if (Moonraze)
             {
-                int dustCount = Math.Max(1, Math.Min(5, (Math.Max(npc.width, npc.height) / 10)));
+                int dustCount = Math.Max(1, Math.Min(5, Math.Max(npc.width, npc.height) / 10));
                 for (int i = 0; i < dustCount; i++)
                 {
                     int num4 = Dust.NewDust(hitbox.TopLeft(), npc.width, npc.height, mod.DustType<Dusts.Moonraze>(), 0f, 1f, 0);
@@ -825,7 +849,7 @@ namespace AAMod
             {
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 107, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, mod.DustType<Dusts.VoidDust>(), default(Color), 3.5f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 107, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, mod.DustType<Dusts.VoidDust>(), default, 3.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -853,8 +877,6 @@ namespace AAMod
                     {
                         if (mnpc.mod.Name.Equals("GRealm")) //do not remove GRealm spawns!
                             keepPool.Add(npcID, kvp.Value);
-                        if (npcID == mod.NPCType("StanLee")) //do not remove GRealm spawns!
-                            keepPool.Add(npcID, kvp.Value);
                     }
                 }
                 pool.Clear();
@@ -866,15 +888,12 @@ namespace AAMod
             }
             catch (Exception e)
             {
-                BaseMod.BaseUtility.Chat(e.StackTrace);
+                if (Main.netMode != 1) BaseMod.BaseUtility.Chat(e.StackTrace);
             }
         }
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.player[Main.myPlayer];
-
-
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneStars)
             {
                 if (Main.dayTime)
@@ -890,7 +909,7 @@ namespace AAMod
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneInferno)
             {
                 ClearPoolWithExceptions(pool);
-                if ((player.position.Y < (Main.worldSurface * 16.0)) && (Main.dayTime || AAWorld.downedAkuma))
+                if ((spawnInfo.player.position.Y < (Main.worldSurface * 16.0)) && (Main.dayTime || AAWorld.downedAkuma))
                 {
                     pool.Add(mod.NPCType("Wyrmling"), .25f);
                     pool.Add(mod.NPCType("InfernalSlime"), .05f);
@@ -900,11 +919,10 @@ namespace AAMod
                     if (Main.hardMode)
                     {
                         pool.Add(mod.NPCType("MagmaSwimmer"), SpawnCondition.WaterCritter.Chance * 0.2f);
-                        pool.Add(mod.NPCType("Wyvern"), .2f);
                         pool.Add(mod.NPCType("BlazePhoenix"), .1f);
                     }
                 }
-                else if (player.position.Y > (Main.worldSurface * 16.0))
+                else if (spawnInfo.player.position.Y > (Main.worldSurface * 16.0))
                 {
                     pool.Add(mod.NPCType("Wyrmling"), .25f);
                     pool.Add(mod.NPCType("Flamebrute"), .25f);
@@ -912,16 +930,15 @@ namespace AAMod
                     pool.Add(mod.NPCType("DragonClaw"), .05f);
                     if (Main.hardMode)
                     {
-                        pool.Add(mod.NPCType("HotWasp"), .05f);
                         pool.Add(mod.NPCType("MagmaSwimmer"), SpawnCondition.WaterCritter.Chance * 0.2f);
                         pool.Add(mod.NPCType("Wyvern"), .1f);
                         pool.Add(mod.NPCType("Wyrm"), .008f);
                         pool.Add(mod.NPCType("ChaoticDawn"), .01f);
-                        if (player.ZoneSnow)
+                        if (spawnInfo.player.ZoneSnow)
                         {
                             pool.Add(mod.NPCType("Dragron"), .01f);
                         }
-                        if (player.ZoneUndergroundDesert)
+                        if (spawnInfo.player.ZoneUndergroundDesert)
                         {
                             pool.Add(mod.NPCType("InfernoGhoul"), .1f);
                         }
@@ -940,7 +957,7 @@ namespace AAMod
             if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneMire)
             {
                 ClearPoolWithExceptions(pool);
-                if ((player.position.Y < (Main.worldSurface * 16.0)) && (!Main.dayTime || AAWorld.downedYamata))
+                if ((spawnInfo.player.position.Y < (Main.worldSurface * 16.0)) && (!Main.dayTime || AAWorld.downedYamata))
                 {
                     pool.Add(mod.NPCType("Mosster"), .05f);
                     pool.Add(mod.NPCType("Newt"), .1f);
@@ -954,7 +971,7 @@ namespace AAMod
                         pool.Add(mod.NPCType("Kappa"), .05f);
                     }
                 }
-                else if (player.position.Y > (Main.worldSurface * 16.0))
+                else if (spawnInfo.player.position.Y > (Main.worldSurface * 16.0))
                 {
                     pool.Add(mod.NPCType("Mosster"), .05f);
                     pool.Add(mod.NPCType("Newt"), .1f);
@@ -965,11 +982,11 @@ namespace AAMod
                         pool.Add(mod.NPCType("FogAngler"), SpawnCondition.WaterCritter.Chance * 0.2f);
                         pool.Add(mod.NPCType("Miresquito"), .05f);
                         pool.Add(mod.NPCType("ChaoticTwilight"), .01f);
-                        if (player.ZoneSnow)
+                        if (spawnInfo.player.ZoneSnow)
                         {
                             pool.Add(mod.NPCType("Miregron"), .01f);
                         }
-                        if (player.ZoneUndergroundDesert)
+                        if (spawnInfo.player.ZoneUndergroundDesert)
                         {
                             pool.Add(mod.NPCType("MireGhoul"), .05f);
                         }
@@ -1040,6 +1057,16 @@ namespace AAMod
                     pool.Add(mod.NPCType<PuritySquid>(), .05f);
                 }
             }
+
+            if (spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneAcropolis)
+            {
+                ClearPoolWithExceptions(pool);
+                pool.Add(NPCID.Harpy, .06f);
+                if (NPC.downedPlantBoss)
+                {
+                    pool.Add(mod.NPCType<Seraph>(), .03f);
+                }
+            }
         }
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
@@ -1103,7 +1130,7 @@ namespace AAMod
         public static void SpawnBoss(Player player, int bossType, bool spawnMessage = true, int overrideDirection = 0, int overrideDirectionY = 0, string overrideDisplayName = "", bool namePlural = false)
         {
             if (overrideDirection == 0)
-                overrideDirection = (Main.rand.Next(2) == 0 ? -1 : 1);
+                overrideDirection = Main.rand.Next(2) == 0 ? -1 : 1;
             if (overrideDirectionY == 0)
                 overrideDirectionY = -1;
             Vector2 npcCenter = player.Center + new Vector2(MathHelper.Lerp(500f, 800f, (float)Main.rand.NextDouble()) * overrideDirection, 800f * overrideDirectionY);
@@ -1111,16 +1138,16 @@ namespace AAMod
         }
 
         // SpawnBoss(player, "MyBoss", true, player.Center + new Vector2(0, -800f), "DerpFromAbove", false);
-        public static void SpawnBoss(Player player, string type, bool spawnMessage = true, Vector2 npcCenter = default(Vector2), string overrideDisplayName = "", bool namePlural = false)
+        public static void SpawnBoss(Player player, string type, bool spawnMessage = true, Vector2 npcCenter = default, string overrideDisplayName = "", bool namePlural = false)
         {
             Mod mod = AAMod.instance;
             SpawnBoss(player, mod.NPCType(type), spawnMessage, npcCenter, overrideDisplayName, namePlural);
         }
 
         // SpawnBoss(player, mod.NPCType("MyBoss"), true, player.Center + new Vector2(0, 800f), "DerpFromBelow", false);
-        public static void SpawnBoss(Player player, int bossType, bool spawnMessage = true, Vector2 npcCenter = default(Vector2), string overrideDisplayName = "", bool namePlural = false)
+        public static void SpawnBoss(Player player, int bossType, bool spawnMessage = true, Vector2 npcCenter = default, string overrideDisplayName = "", bool namePlural = false)
         {
-            if (npcCenter == default(Vector2))
+            if (npcCenter == default)
                 npcCenter = player.Center;
             if (Main.netMode != 1)
             {
@@ -1130,12 +1157,12 @@ namespace AAMod
                 Main.npc[npcID].netUpdate2 = true;
                 if (spawnMessage)
                 {
-                    string npcName = (!String.IsNullOrEmpty(Main.npc[npcID].GivenName) ? Main.npc[npcID].GivenName : overrideDisplayName);
+                    string npcName = !String.IsNullOrEmpty(Main.npc[npcID].GivenName) ? Main.npc[npcID].GivenName : overrideDisplayName;
                     if ((npcName == null || npcName.Equals("")) && Main.npc[npcID].modNPC != null)
                         npcName = Main.npc[npcID].modNPC.DisplayName.GetDefault();
                     if (namePlural)
                     {
-                        if (Main.netMode == 0) { BaseMod.BaseUtility.Chat(npcName + " have awoken!", 175, 75, 255, false); }
+                        if (Main.netMode == 0) { if (Main.netMode != 1) BaseMod.BaseUtility.Chat(npcName + " have awoken!", 175, 75, 255, false); }
                         else
                         if (Main.netMode == 2)
                         {
@@ -1144,7 +1171,7 @@ namespace AAMod
                     }
                     else
                     {
-                        if (Main.netMode == 0) { BaseMod.BaseUtility.Chat(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
+                        if (Main.netMode == 0) { if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
                         else
                         if (Main.netMode == 2)
                         {
@@ -1163,9 +1190,9 @@ namespace AAMod
             }
         }
 
-        public static void SpawnRajah(Player player, bool spawnMessage = false, Vector2 npcCenter = default(Vector2), string overrideDisplayName = "", bool namePlural = false)
+        public static void SpawnRajah(Player player, bool spawnMessage = false, Vector2 npcCenter = default, string overrideDisplayName = "", bool namePlural = false)
         {
-            if (npcCenter == default(Vector2))
+            if (npcCenter == default)
                 npcCenter = player.Center;
             Mod mod = AAMod.instance;
             int RajahType = mod.NPCType<Rajah>();

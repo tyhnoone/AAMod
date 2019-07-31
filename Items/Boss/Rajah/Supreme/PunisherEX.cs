@@ -21,12 +21,12 @@ namespace AAMod.Items.Boss.Rajah.Supreme
             item.knockBack = 7f;
             item.width = 30;
             item.height = 10;
-            item.damage = 400;
+            item.damage = 500;
             item.shoot = mod.ProjectileType<Projectiles.Rajah.Supreme.PunisherEX>();
             item.shootSpeed = 15f;
             item.UseSound = SoundID.Item1;
             item.rare = 9;
-            AARarity = 14;
+            item.expert = true; item.expertOnly = true;
             item.value = Item.sellPrice(0, 5, 0, 0);
             item.melee = true;
             item.noUseGraphic = true;

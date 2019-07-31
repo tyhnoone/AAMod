@@ -8,7 +8,7 @@ namespace AAMod.Items.Melee
         public override void SetDefaults()
         {
 
-            item.damage = 220;
+            item.damage = 350;
             item.melee = true;
             item.width = 80;
             item.height = 80;
@@ -26,6 +26,7 @@ namespace AAMod.Items.Melee
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "DarkEnergy", 5);
             recipe.AddIngredient(null, "DarkMatter", 12);
             recipe.AddTile(null, "QuantumFusionAccelerator");
             recipe.SetResult(this);

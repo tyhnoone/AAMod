@@ -38,7 +38,7 @@ namespace AAMod.Items.Accessories.Wings
 
         public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
         {
-            speed = 8f;
+            speed = 4f;
             acceleration *= 1f;
         }
 
@@ -46,7 +46,8 @@ namespace AAMod.Items.Accessories.Wings
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "vulture_feather", 15);
-			recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(null, "DesertMana", 5);
+            recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

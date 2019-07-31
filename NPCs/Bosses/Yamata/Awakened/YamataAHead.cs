@@ -16,6 +16,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             npc.lifeMax = (int)(npc.lifeMax * 0.5f * bossLifeScale);
+            npc.damage = (int)(npc.damage * .8f);
         }
 
         public override void SetDefaults()
@@ -24,7 +25,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             isAwakened = true;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Yamata2");
 
-            npc.damage = 68;
+            npc.damage = 260;
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
                 npc.buffImmune[k] = true;

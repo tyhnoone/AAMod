@@ -28,6 +28,7 @@ namespace AAMod.Items.Armor.TrueDoomite
             projectile.tileCollide = false;
             projectile.timeLeft *= 5;
             projectile.minion = true;
+            projectile.minionSlots = 0;
         }
 
         public override void AI()
@@ -38,9 +39,9 @@ namespace AAMod.Items.Armor.TrueDoomite
 				for (int num227 = 0; num227 < num226; num227++)
 				{
 					Vector2 vector6 = Vector2.Normalize(projectile.velocity) * new Vector2(projectile.width / 2f, projectile.height) * 0.75f;
-					vector6 = vector6.RotatedBy((num227 - (num226 / 2 - 1)) * 6.28318548f / num226, default(Vector2)) + projectile.Center;
+					vector6 = vector6.RotatedBy((num227 - (num226 / 2 - 1)) * 6.28318548f / num226, default) + projectile.Center;
 					Vector2 vector7 = vector6 - projectile.Center;
-					int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 235, vector7.X * 1.75f, vector7.Y * 1.75f, 100, default(Color), 1.1f);
+					int num228 = Dust.NewDust(vector6 + vector7, 0, 0, 235, vector7.X * 1.75f, vector7.Y * 1.75f, 100, default, 1.1f);
 					Main.dust[num228].noGravity = true;
 					Main.dust[num228].velocity = vector7;
 				}
@@ -50,25 +51,20 @@ namespace AAMod.Items.Armor.TrueDoomite
 			float num634 = 800f;
 			float num635 = 1200f;
 			float num636 = 150f;
-			bool flag64 = projectile.type == mod.ProjectileType("ScoutMinion");
 			Player player = Main.player[projectile.owner];
-			AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
-			player.AddBuff(mod.BuffType("ScoutMinion"), 3600);
-			if (flag64)
-			{
-				if (player.dead)
-				{
-					modPlayer.ScoutMinion = false;
-				}
-				if (modPlayer.ScoutMinion)
-				{
-					projectile.timeLeft = 2;
-				}
-			}
-			float num637 = 0.05f;
+            AAPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<AAPlayer>(mod);
+            if (player.dead)
+            {
+                modPlayer.ScoutMinion = false;
+            }
+            if (modPlayer.ScoutMinion)
+            {
+                projectile.timeLeft = 2;
+            }
+            float num637 = 0.05f;
 			for (int num638 = 0; num638 < 1000; num638++)
 			{
-				bool flag23 = (Main.projectile[num638].type == mod.ProjectileType("ScoutMinion"));
+				bool flag23 = Main.projectile[num638].type == mod.ProjectileType("ScoutMinion");
 				if (num638 != projectile.whoAmI && Main.projectile[num638].active && Main.projectile[num638].owner == projectile.owner && flag23 && Math.Abs(projectile.position.X - Main.projectile[num638].position.X) + Math.Abs(projectile.position.Y - Main.projectile[num638].position.Y) < projectile.width)
 				{
 					if (projectile.position.X < Main.projectile[num638].position.X)
@@ -152,7 +148,7 @@ namespace AAMod.Items.Armor.TrueDoomite
 				bool flag26 = false;
 				if (!flag26)
 				{
-					flag26 = (projectile.ai[0] == 1f);
+					flag26 = projectile.ai[0] == 1f;
 				}
 				float num650 = 6f;
 				if (flag26)

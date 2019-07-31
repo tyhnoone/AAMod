@@ -26,7 +26,7 @@ Cat's Eye Rifle EX");
 
         public override void SetDefaults()
         {
-            item.damage = 850; 
+            item.damage = 1750; 
             item.noMelee = true;
             item.ranged = true;
             item.width = 86; 
@@ -40,7 +40,7 @@ Cat's Eye Rifle EX");
             item.autoReuse = true; 
             item.shootSpeed = 25f; 
             item.crit = 5;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
             item.rare = 10;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.

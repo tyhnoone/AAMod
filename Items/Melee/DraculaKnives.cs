@@ -27,14 +27,14 @@ Vampire Knives EX");
             item.width = 18;
             item.height = 20;
             item.UseSound = SoundID.Item39;
-            item.useAnimation = 11;
-            item.useTime = 11;
+            item.useAnimation = 5;
+            item.useTime = 5;
             item.noUseGraphic = true;
             item.noMelee = true;
             item.value = Item.sellPrice(0, 30, 0, 0);
             item.knockBack = 2.75f;
             item.melee = true;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
 
             glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
             glowmaskDrawType = GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	
@@ -55,7 +55,7 @@ Vampire Knives EX");
             }
             return true;
             /*Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);
-            Vector2 value = Vector2.UnitX.RotatedBy((double)player.fullRotation, default(Vector2));
+            Vector2 value = Vector2.UnitX.RotatedBy((double)player.fullRotation, default);
             Vector2 vector3 = Main.MouseWorld - vector2;
             Vector2 vector4 = player.itemRotation.ToRotationVector2() * (float)player.direction;
             int num76 = item.damage;

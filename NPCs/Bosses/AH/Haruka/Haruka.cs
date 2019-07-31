@@ -21,6 +21,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
 
         public override void SetDefaults()
         {
+            internalAI[0] = 3;
             npc.width = 50;
             npc.height = 60;
             npc.friendly = false;
@@ -28,7 +29,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
             npc.defense = 120;
             npc.lifeMax = 150000;
             npc.HitSound = SoundID.NPCHit1;
-            npc.value = Item.sellPrice(0, 4, 0, 0);
+            npc.value = Item.sellPrice(0, 12, 0, 0);
             npc.knockBackResist = 0f;
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
@@ -55,12 +56,14 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
         public bool Invisible = false;
         public int Frame = 0;
 
+        public int damage = 0;
+
         public int[] internalAI = new int[6];
 
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if ((Main.netMode == 2 || Main.dedServ))
+            if (Main.netMode == 2 || Main.dedServ)
             {
                 writer.Write(internalAI[0]); //Used as the AI selector
                 writer.Write(internalAI[1]); //Used as the Frame Counter
@@ -129,14 +132,14 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HarukaTrophy"));
             }
             NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<HarukaVanish>());
-            BaseUtility.Chat("Rgh..! Ow...", new Color(72, 78, 117));
+            if (Main.netMode != 1) BaseUtility.Chat("Rgh..! Ow...", new Color(72, 78, 117));
             npc.value = 0f;
             npc.boss = false;
         }
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);
-            npc.damage = (int)(npc.damage * 0.6f);
+            npc.damage = (int)(npc.damage * 0.9f);
         }
 
         public bool SetMovePos = false;
@@ -149,6 +152,14 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
         public override void AI()
         {
             Player player = Main.player[npc.target];
+            if (Main.expertMode)
+            {
+                damage = npc.damage / 4;
+            }
+            else
+            {
+                damage = npc.damage / 2;
+            }
 
             Vector2 wantedVelocity = player.Center - new Vector2(pos, 0);
 
@@ -299,7 +310,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
                         for (int i = 0; i < 3; i++)
                         {
                             double offsetAngle = startAngle + (deltaAngle * i);
-                            Projectile.NewProjectile(npc.Center.X, npc.Center.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), projType, (int)(npc.damage / 1.5f), 5, Main.myPlayer);
+                            Projectile.NewProjectile(npc.Center.X, npc.Center.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), projType, damage, 5, Main.myPlayer);
                         }
                         npc.netUpdate = true;
                     }
@@ -362,7 +373,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
                         Vector2 targetCenter = player.position + new Vector2(player.width * 0.5f, player.height * 0.5f);
                         Vector2 fireTarget = npc.Center;
                         int projType = mod.ProjectileType<HarukaProj>();
-                        BaseAI.FireProjectile(targetCenter, fireTarget, projType, (int)(npc.damage * 1.3f), 0f, 18f);
+                        BaseAI.FireProjectile(targetCenter, fireTarget, projType, damage, 0f, 14f);
                         npc.netUpdate = true;
                     }
                     if (isSlashing && internalAI[2] > 9 && Main.netMode != 1)
@@ -391,8 +402,6 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
             else if (internalAI[0] == AISTATE_SLASH)
             {
                 internalAI[3]++;
-
-                SlashMovement(player.Center);
 
                 if (internalAI[2] < 17)
                 {
@@ -444,9 +453,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
                     npc.netUpdate = true;
                 }
 
-                MoveToPoint(MovePoint);
-
-                if ((Vector2.Distance(npc.Center, player.Center) > 300f || internalAI[4] > 120))
+                if (Vector2.Distance(npc.Center, player.Center) > 300f || internalAI[4] > 120)
                 {
                     npc.frameCounter = 0;
                     Frame = 0;
@@ -491,6 +498,10 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
             if (internalAI[0] == AISTATE_IDLE || internalAI[0] == AISTATE_PROJ) //When charging the player
             {
                 MoveToPoint(wantedVelocity);
+            }
+            else if (internalAI[0] == AISTATE_SPIN)
+            {
+                MoveToPoint(MovePoint);
             }
             else if (internalAI[0] == AISTATE_SLASH) //When charging the player
             {
@@ -615,20 +626,25 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
             }
             npc.frame.Y = Frame * frameHeight;
         }
+
         public void MoveToPoint(Vector2 point)
         {
-            float moveSpeed = 8f;
-            if (Vector2.Distance(npc.Center, point) > 500)
-            {
-                moveSpeed = 16;
-            }
+            float moveSpeed = 16f;
             if (internalAI[0] == AISTATE_SPIN)
             {
                 moveSpeed = 20f;
             }
+            if (Vector2.Distance(npc.Center, point) > 500)
+            {
+                moveSpeed = 25f;
+            }
+            if (internalAI[0] == AISTATE_SLASH)
+            {
+                moveSpeed = 30f;
+            }
             float velMultiplier = 1f;
             Vector2 dist = point - npc.Center;
-            float length = (dist == Vector2.Zero ? 0f : dist.Length());
+            float length = dist == Vector2.Zero ? 0f : dist.Length();
             if (length < moveSpeed)
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
@@ -645,18 +661,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
             {
                 moveSpeed *= 0.5f;
             }
-            npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
-            npc.velocity *= moveSpeed;
-            npc.velocity *= velMultiplier;
-        }
-        public void SlashMovement(Vector2 point)
-        {
-            float moveSpeed = 15f;
-            if (moveSpeed == 0f || npc.Center == point) return;
-            float velMultiplier = 1f;
-            Vector2 dist = point - npc.Center;
-            float length = (dist == Vector2.Zero ? 0f : dist.Length());
-            npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
+            npc.velocity = length == 0f ? Vector2.Zero : Vector2.Normalize(dist);
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
         }

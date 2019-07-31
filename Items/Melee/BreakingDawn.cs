@@ -36,6 +36,7 @@ namespace AAMod.Items.Melee
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "Stardust", 5);
             recipe.AddIngredient(null, "RadiumBar", 15);
             recipe.AddTile(null, "QuantumFusionAccelerator");
             recipe.SetResult(this);
@@ -45,7 +46,7 @@ namespace AAMod.Items.Melee
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             Dust dust;
-            dust = Dust.NewDustDirect(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType<Dusts.StarDust>(), 0f, 0f, 46, default(Color), 1.25f);
+            dust = Dust.NewDustDirect(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType<Dusts.StarDust>(), 0f, 0f, 46, default, 1.25f);
 			dust.noGravity = true;
         }
 	}

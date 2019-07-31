@@ -18,12 +18,12 @@ namespace AAMod.Items.Boss.Yamata
 
 	    public override void SetDefaults()
 	    {
-	        item.damage = 100;
+	        item.damage = 120;
 	        item.ranged = true;
 	        item.width = 60;
 	        item.height = 26;
-	        item.useTime = 14;
-	        item.useAnimation = 14;
+	        item.useTime = 17;
+	        item.useAnimation = 17;
 	        item.useStyle = 5;
 	        item.noMelee = true;
 	        item.knockBack = 4.5f;
@@ -42,7 +42,7 @@ namespace AAMod.Items.Boss.Yamata
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Rarity13;;
+                    line2.overrideColor = AAColor.Rarity13;
                 }
             }
         }
