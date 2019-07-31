@@ -17,6 +17,8 @@ The Ancients have Awakened. Chaos reigns, storms ravage, and reality tears at th
 
 4. Resprites, Bugfixes, and Multiplayer compatibility fixes
 
+5. Fixed a bug preventing players from regenerating life and taking way more damage from fire than they should
+
 -------
 
 This mod adds:
