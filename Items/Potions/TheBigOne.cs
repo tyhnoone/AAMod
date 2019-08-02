@@ -40,16 +40,5 @@ namespace AAMod.Items.Potions
 	            }
 	        }
 	    }
-
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "GrandHealingPotion");
-            recipe.AddIngredient(null, "GrandManaPotion");
-            recipe.AddRecipeGroup("AAMod:SuperAncientMaterials");
-            recipe.AddTile(null, "ACS");
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
 	}
 }

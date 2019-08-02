@@ -920,12 +920,6 @@ namespace AAMod
             });
             RecipeGroup.RegisterGroup("AAMod:AncientMaterials", group4);
 
-            RecipeGroup group5 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " superancient material", new int[]
-            {
-                AAMod.instance.ItemType("ChaosSoul")
-            });
-            RecipeGroup.RegisterGroup("AAMod:SuperAncientMaterials", group5);
-            
             RecipeGroup group6 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " world evil material", new int[]
             {
                 ItemID.Ichor,
