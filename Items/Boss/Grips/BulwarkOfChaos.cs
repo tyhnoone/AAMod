@@ -13,7 +13,7 @@ namespace AAMod.Items.Boss.Grips
             item.height = 32;
             item.value = Item.sellPrice(0, 5, 0, 0);
             item.rare = 2;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
             item.accessory = true;
             item.defense = 3;
         }
@@ -44,10 +44,6 @@ Allows you to dash into enemies, damaging them");
                 int maxAccessoryIndex = 5 + player.extraAccessorySlots;
                 for (int i = 3; i < 3 + maxAccessoryIndex; i++)
                 {
-                    if (slot != i && player.armor[i].type == mod.ItemType<Retriever.StormClaw>())
-                    {
-                        return false;
-                    }
                     if (slot != i && player.armor[i].type == mod.ItemType<ClawOfChaos>())
                     {
                         return false;

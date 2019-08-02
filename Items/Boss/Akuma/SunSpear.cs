@@ -20,7 +20,7 @@ Inflicts daybroken");
 
         public override void SetDefaults()
         {
-            item.damage =310;
+            item.damage =350;
             item.melee = true;
             item.width = 96;
             item.height = 96;
@@ -39,6 +39,17 @@ Inflicts daybroken");
             AARarity = 13;
             item.shoot = mod.ProjectileType("SunSpear");  //put your Spear projectile name
             item.shootSpeed = 7f;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> list)
+        {
+            foreach (TooltipLine line2 in list)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = AAColor.Rarity13;
+                }
+            }
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
@@ -62,24 +73,10 @@ Inflicts daybroken");
             );
         }
 
-        public override void ModifyTooltips(List<TooltipLine> list)
-        {
-            foreach (TooltipLine line2 in list)
-            {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
-                {
-                    line2.overrideColor = AAColor.Rarity13;
-                }
-            }
-        }
-
-
         public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[item.shoot] < 1; // This is to ensure the spear doesn't bug out when using autoReuse = true
 		}
-
-
 
         public override void AddRecipes()
         {

@@ -24,12 +24,12 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         public bool linesaid = false;
         public override void AI()
         {
-            if (Main.expertMode && !AAWorld.downedZero && !linesaid && !AAWorld.downedIZ)
+            if (Main.expertMode && !AAWorld.downedZero && !linesaid)
             {
                 Main.NewText("MISSI0N FAILED. SENDING DISTRESS SIGNAL T0 H0ME BASE.", Color.Red.R, Color.Red.G, Color.Red.B);
                 linesaid = true;
             }
-            if (Main.expertMode && AAWorld.downedZero && !linesaid && !AAWorld.downedIZ)
+            if (Main.expertMode && AAWorld.downedZero && !linesaid)
             {
                 Main.NewText("MISSI0N FAILED. ATTEMPTING DISTRESS SIGNAL AGAIN.", Color.Red.R, Color.Red.G, Color.Red.B);
                 linesaid = true;
@@ -49,7 +49,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         }
         public override void Kill(int timeLeft)
         {
-            if (!AAWorld.downedZero && Main.expertMode && !AAWorld.downedIZ)
+            if (!AAWorld.downedZero && Main.expertMode )
             {
                 Main.NewText("SENDING...", Color.Red.R, Color.Red.G, Color.Red.B);
             }

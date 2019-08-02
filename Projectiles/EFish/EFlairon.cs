@@ -47,7 +47,7 @@ namespace AAMod.Projectiles.EFish
                 projectile.direction = -1;
             }
             Main.player[projectile.owner].itemRotation = (vector54 * -1f * (float)projectile.direction).ToRotation();
-            projectile.spriteDirection = ((vector54.X > 0f) ? -1 : 1);
+            projectile.spriteDirection = (vector54.X > 0f) ? -1 : 1;
             if (projectile.ai[0] == 0f && vector54.Length() > 400f)
             {
                 projectile.ai[0] = 1f;
@@ -82,12 +82,12 @@ namespace AAMod.Projectiles.EFish
             {
                 projectile.alpha = 0;
             }
-            if ((int)projectile.ai[1] % 2 == 0 && projectile.owner == Main.myPlayer)
+            if ((int)projectile.ai[1] % 3 == 0 && projectile.owner == Main.myPlayer)
             {
                 Vector2 vector55 = vector54 * -1f;
                 vector55.Normalize();
                 vector55 *= (float)Main.rand.Next(45, 65) * 0.1f;
-                vector55 = vector55.RotatedBy((Main.rand.NextDouble() - 0.5) * 1.5707963705062866, default(Vector2));
+                vector55 = vector55.RotatedBy((Main.rand.NextDouble() - 0.5) * 1.5707963705062866, default);
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vector55.X, vector55.Y, 405, projectile.damage, projectile.knockBack, projectile.owner, -10f, 0f);
                 return;
             }

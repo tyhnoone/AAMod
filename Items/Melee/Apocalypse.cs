@@ -19,7 +19,7 @@ Horseman's Blade EX");
 		public override void SetDefaults()
 		{
             item.melee = true;
-            item.damage = 200;
+            item.damage = 1000;
             item.useStyle = 1;
             item.autoReuse = true;
             item.UseSound = SoundID.Item1;
@@ -27,10 +27,10 @@ Horseman's Blade EX");
             item.width = 54;
 			item.height = 54;    
             item.knockBack = 6.5f;
-            item.useTime = 17;
-			item.useAnimation = 17;
+            item.useTime = 5;
+			item.useAnimation = 5;
 			item.value = 1000000;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
 
 			glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
 			glowmaskDrawType = GLOWMASKTYPE_SWORD; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun	

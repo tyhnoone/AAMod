@@ -22,7 +22,7 @@ IInflicts Moonraze");
         
         public override void SetDefaults()
         {
-            item.damage = 290;            
+            item.damage = 470;            
             item.melee = true;            
             item.width = 42;              
             item.height = 52;             
@@ -66,12 +66,10 @@ IInflicts Moonraze");
             if (Main.rand.NextFloat() < 1f)
             {
                 Dust dust;
-                dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType<Dusts.YamataDust>(), 0f, 0f, 46, default(Color), 1.381579f)];
+                dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType<Dusts.YamataDust>(), 0f, 0f, 46, default, 1.381579f)];
                 dust.noGravity = true;
             }
         }
-
-
 
         public override void ModifyTooltips(List<TooltipLine> list)
         {
@@ -79,7 +77,7 @@ IInflicts Moonraze");
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = AAColor.Rarity13;;
+                    line2.overrideColor = AAColor.Rarity13;
                 }
             }
         }

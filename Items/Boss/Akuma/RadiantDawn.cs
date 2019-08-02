@@ -20,7 +20,7 @@ namespace AAMod.Items.Boss.Akuma
             item.width = 34;
             item.height = 34;
             item.ranged = true;
-            item.damage = 400;
+            item.damage = 325;
             item.shoot = mod.ProjectileType("RadiantDawn");
             item.useTime = 10;
             item.useAnimation = 10;
@@ -33,6 +33,16 @@ namespace AAMod.Items.Boss.Akuma
             item.noUseGraphic = true;
         }
 
+        public override void ModifyTooltips(System.Collections.Generic.List<TooltipLine> list)
+        {
+            foreach (TooltipLine line2 in list)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = AAColor.Rarity13;
+                }
+            }
+        }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {

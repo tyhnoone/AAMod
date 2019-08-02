@@ -26,7 +26,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             npc.damage = 150;
             npc.defense = 40;
             npc.lifeMax = 140000;
-            npc.value = Item.sellPrice(0, 4, 0, 0);
+            npc.value = Item.sellPrice(0, 12, 0, 0);
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
                 npc.buffImmune[k] = true;
@@ -49,7 +49,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if ((Main.netMode == 2 || Main.dedServ))
+            if (Main.netMode == 2 || Main.dedServ)
             {
                 writer.Write(internalAI[0]);
                 writer.Write(internalAI[1]);
@@ -96,6 +96,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
         public bool Health1 = false;
         public int Frame = 0;
 
+        public int damage = 0;
 
         public static int AISTATE_HOVER = 0, AISTATE_CAST1 = 1, AISTATE_CAST2 = 2, AISTATE_CAST3 = 3, AISTATE_CAST4 = 4, AISTATE_MELEE = 5, AISTATE_DRAGON = 6, AISTATE_VORTEX = 7;
 
@@ -103,6 +104,14 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
         {
             Player player = Main.player[npc.target];
             bool AsheType = npc.type == mod.NPCType<Ashe>();
+            if (Main.expertMode)
+            {
+                damage = npc.damage / 4;
+            }
+            else
+            {
+                damage = npc.damage / 2;
+            }
 
             RingEffects();
             RingEffects2();
@@ -164,7 +173,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                         if (npc2 != null && npc2.active)
                         {
                             int dustID = Dust.NewDust(npc2.position, npc2.width, npc2.height, mod.DustType<Dusts.AkumaDustLight>());
-                            Main.dust[dustID].position += (npc.position - npc.oldPosition);
+                            Main.dust[dustID].position += npc.position - npc.oldPosition;
                             Main.dust[dustID].velocity = (npc.Center - npc2.Center) * 0.10f;
                             Main.dust[dustID].alpha = 100;
                             Main.dust[dustID].noGravity = true;
@@ -533,8 +542,8 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             int VortexType = mod.NPCType("AsheOrbiter");
             if (internalAI[0] == 1)
             {
-                int speedX = 14;
-                int speedY = 14;
+                int speedX = 11;
+                int speedY = 11;
                 float spread = 75f * 0.0174f;
                 float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));
                 double startAngle = Math.Atan2(speedX, speedY) - .1d;
@@ -542,12 +551,12 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                 for (int i = 0; i < 5; i++)
                 {
                     double offsetAngle = startAngle + (deltaAngle * i);
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, baseSpeed * (float)Math.Sin(offsetAngle) * npc.direction, baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType<AsheShot>(), npc.damage, 4);
+                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, baseSpeed * (float)Math.Sin(offsetAngle) * npc.direction, baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType<AsheShot>(), damage, 4);
                 }
             }
             else if (internalAI[0] == 2)
             {
-                BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjectileType<AsheFlamethrower>(), ref shootAI[0], 5, npc.damage / 2, 12);
+                BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjectileType<AsheFlamethrower>(), ref shootAI[0], 5, damage, 14);
             }
             else if (internalAI[0] == 3)
             {
@@ -557,13 +566,13 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                 double offsetAngle;
                 for (int i = 0; i < (Main.expertMode ? 6 : 4); i++)
                 {
-                    offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, (float)(Math.Sin(offsetAngle) * 7f), (float)(Math.Cos(offsetAngle) * 7f), mod.ProjectileType<AsheSpell>(), npc.damage, 0, Main.myPlayer, 0f, 0f);
+                    offsetAngle = startAngle + deltaAngle * (i + i * i) / 2f + 32f * i;
+                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, (float)(Math.Sin(offsetAngle) * 9f), (float)(Math.Cos(offsetAngle) * 9f), mod.ProjectileType<AsheSpell>(), damage, 0, Main.myPlayer, 0f, 0f);
                 }
             }
             else if (internalAI[0] == AISTATE_CAST4)
             {
-                BaseAI.FireProjectile(player.Center, npc, mod.ProjectileType<AsheFire>(), npc.damage, 3, 14f, 0, 0, -1);
+                BaseAI.FireProjectile(player.Center, npc, mod.ProjectileType<AsheFire>(), damage, 3, 16f, 0, 0, -1);
             }
 
             else if (internalAI[0] == AISTATE_VORTEX)
@@ -607,7 +616,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             }
             int DeathAnim = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<AsheVanish>(), 0);
             Main.npc[DeathAnim].velocity = npc.velocity;
-            BaseUtility.Chat("OW..! THAT HURT, YOU KNOW!", new Color(102, 20, 48));
+            if (Main.netMode != 1) BaseUtility.Chat("OW..! THAT HURT, YOU KNOW!", new Color(102, 20, 48));
             npc.value = 0f;
             npc.boss = false;
         }
@@ -619,8 +628,8 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);  //boss life scale in expertmode
-            npc.damage = (int)(npc.damage * 1.3f);  //boss damage increase in expermode
+            npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);  
+            npc.damage = (int)(npc.damage * 0.6f);
         }
 
 
@@ -745,11 +754,11 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             return false;
         }
 
-        public static void DrawAfterimage(object sb, Texture2D texture, int shader, Vector2 position, int width, int height, Vector2[] oldPoints, float scale = 1f, float rotation = 0f, int direction = 0, int framecount = 1, Rectangle frame = default(Rectangle), float distanceScalar = 1.0F, float sizeScalar = 1f, int imageCount = 7, bool useOldPos = true, float offsetX = 0f, float offsetY = 0f, bool drawCentered = false, Color? overrideColor = null)
+        public static void DrawAfterimage(object sb, Texture2D texture, int shader, Vector2 position, int width, int height, Vector2[] oldPoints, float scale = 1f, float rotation = 0f, int direction = 0, int framecount = 1, Rectangle frame = default, float distanceScalar = 1.0F, float sizeScalar = 1f, int imageCount = 7, bool useOldPos = true, float offsetX = 0f, float offsetY = 0f, bool drawCentered = false, Color? overrideColor = null)
         {
             Vector2 origin = new Vector2(texture.Width / 2, texture.Height / framecount / 2);
             Color lightColor = overrideColor != null ? (Color)overrideColor : BaseDrawing.GetLightColor(position + new Vector2(width * 0.5f, height * 0.5f));
-            Vector2 velAddon = default(Vector2);
+            Vector2 velAddon = default;
             Vector2 originalpos = position;
             Vector2 offset = new Vector2(offsetX, offsetY);
             for (int m = 1; m <= imageCount; m++)
@@ -762,12 +771,12 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
                 newLightColor.A = (byte)(newLightColor.A * (imageCount + 3 - m) / (imageCount + 9));
                 if (useOldPos)
                 {
-                    position = Vector2.Lerp(originalpos, (m - 1 >= oldPoints.Length ? oldPoints[oldPoints.Length - 1] : oldPoints[m - 1]), distanceScalar);
+                    position = Vector2.Lerp(originalpos, m - 1 >= oldPoints.Length ? oldPoints[oldPoints.Length - 1] : oldPoints[m - 1], distanceScalar);
                     BaseDrawing.DrawTexture(sb, texture, shader, position + offset, width, height, scale, rotation, direction, framecount, frame, newLightColor, drawCentered ? true : false);
                 }
                 else
                 {
-                    Vector2 velocity = (m - 1 >= oldPoints.Length ? oldPoints[oldPoints.Length - 1] : oldPoints[m - 1]);
+                    Vector2 velocity = m - 1 >= oldPoints.Length ? oldPoints[oldPoints.Length - 1] : oldPoints[m - 1];
                     velAddon += velocity * distanceScalar;
                     BaseDrawing.DrawTexture(sb, texture, shader, position + offset - velAddon, width, height, scale, rotation, direction, framecount, frame, newLightColor, drawCentered ? true : false);
                 }
@@ -779,7 +788,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             float moveSpeed = 16f;
             float velMultiplier = 1f;
             Vector2 dist = point - npc.Center;
-            float length = (dist == Vector2.Zero ? 0f : dist.Length());
+            float length = dist == Vector2.Zero ? 0f : dist.Length();
             if (length < moveSpeed)
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
@@ -796,7 +805,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             {
                 moveSpeed *= 0.5f;
             }
-            npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
+            npc.velocity = length == 0f ? Vector2.Zero : Vector2.Normalize(dist);
             npc.velocity *= moveSpeed;
             npc.velocity *= velMultiplier;
         }
@@ -809,12 +818,12 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             }
             float velMultiplier = 1f;
             Vector2 dist = point - npc.Center;
-            float length = (dist == Vector2.Zero ? 0f : dist.Length());
+            float length = dist == Vector2.Zero ? 0f : dist.Length();
             if (length < MeleeSpeed)
             {
                 velMultiplier = MathHelper.Lerp(0f, 1f, length / MeleeSpeed);
             }
-            npc.velocity = (length == 0f ? Vector2.Zero : Vector2.Normalize(dist));
+            npc.velocity = length == 0f ? Vector2.Zero : Vector2.Normalize(dist);
             npc.velocity *= MeleeSpeed;
             npc.velocity *= velMultiplier;
         }

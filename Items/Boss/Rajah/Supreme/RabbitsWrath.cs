@@ -19,8 +19,9 @@ namespace AAMod.Items.Boss.Rajah.Supreme
             item.mana = 5;
             item.width = 32;
             item.height = 32;
-            item.useTime = 5;
-            item.useAnimation = 20;
+            item.useTime = 6;
+            item.useAnimation = 10;
+            item.reuseDelay = 10;
             item.useStyle = 5;
             item.noMelee = true;
             item.knockBack = .5f;
@@ -32,7 +33,18 @@ namespace AAMod.Items.Boss.Rajah.Supreme
             AARarity = 14;
         }
 
-		public override Vector2? HoldoutOffset()
+        public override void ModifyTooltips(System.Collections.Generic.List<Terraria.ModLoader.TooltipLine> list)
+        {
+            foreach (Terraria.ModLoader.TooltipLine line2 in list)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = AAColor.Rarity14;
+                }
+            }
+        }
+
+        public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-2, -2);
 		}

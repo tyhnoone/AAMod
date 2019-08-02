@@ -21,12 +21,12 @@ namespace AAMod.Items.Melee
 			item.width = 64;
 			item.height = 64;
 			item.useTime = 20;
-			item.useAnimation = 20;
+			item.useAnimation = 10;
 			item.useStyle = 3;
 			item.knockBack =20;
             item.value = Item.sellPrice(0, 10, 0, 0);
             item.rare = 9;
-			item.expert = true;
+			item.expert = true; item.expertOnly = true;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
             item.shoot = mod.ProjectileType("TrueCopperShot");

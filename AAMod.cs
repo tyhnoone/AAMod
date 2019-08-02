@@ -233,6 +233,10 @@ namespace AAMod
             if (Main.rand == null)
                 Main.rand = new UnifiedRandom();
 
+            Ref<Effect> screenRef = new Ref<Effect>(GetEffect("Effects/Shockwave"));
+            Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef, "Shockwave"), EffectPriority.VeryHigh);
+            Filters.Scene["Shockwave"].Load();
+
             GameShaders.Armor.BindShader(ItemType("BlazingDye"), new ArmorShaderData(Main.PixelShaderRef, "ArmorLivingFlame")).UseColor(Color.SkyBlue.R / 255f, Color.SkyBlue.G / 255f, Color.SkyBlue.B / 255f).UseSecondaryColor(Color.DeepSkyBlue.R / 255f, Color.DeepSkyBlue.G / 255f, Color.DeepSkyBlue.B / 255f);
             GameShaders.Armor.BindShader(ItemType("AbyssalDye"), new ArmorShaderData(Main.PixelShaderRef, "ArmorLivingFlame").UseColor(146f / 255f, 30f / 255f, 68f / 255f).UseSecondaryColor(105f / 255f, 20f / 255f, 50f / 255f));
             GameShaders.Armor.BindShader(ItemType("DoomsdayDye"), new ArmorShaderData(Main.PixelShaderRef, "ArmorVortex")).UseImage("Images/Misc/noise").UseColor(0f, 0f, 0f).UseSecondaryColor(1f, 0f, 0f).UseSaturation(1f);
@@ -283,6 +287,7 @@ namespace AAMod
             PremultiplyTexture(GetTexture("Backgrounds/YamataBeam"));
             PremultiplyTexture(GetTexture("Backgrounds/AkumaAMeteor"));
             PremultiplyTexture(GetTexture("Backgrounds/AkumaMeteor"));
+            PremultiplyTexture(GetTexture("Backgrounds/SkyTex"));
             PremultiplyTexture(GetTexture("NPCs/Bosses/Zero/ZeroShield"));
             PremultiplyTexture(GetTexture("NPCs/Bosses/AH/Ashe/AsheBarrier"));
             PremultiplyTexture(GetTexture("Projectiles/RadiumStar"));
@@ -304,7 +309,6 @@ namespace AAMod
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Djinn"), ItemType("DjinnBox"), TileType("DjinnBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TODE"), ItemType("ToadBox"), TileType("ToadBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Boss6"), ItemType("SerpentBox"), TileType("SerpentBox"));
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Siege"), ItemType("SiegeBox"), TileType("SiegeBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/RajahTheme"), ItemType("RajahBox"), TileType("RajahBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Equinox"), ItemType("Equibox"), TileType("Equibox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Stars"), ItemType("StarBox"), TileType("StarBox"));
@@ -510,7 +514,6 @@ namespace AAMod
 
             AAPlayer Ancients = player.GetModPlayer<AAPlayer>();
 
-            bool zoneIZ = Ancients.ZoneVoid && !AAWorld.downedIZ;
             bool zoneShen = (Ancients.ZoneRisingSunPagoda || Ancients.ZoneRisingMoonLake) && !AAWorld.downedShen;
 
             if (zoneShen && AAWorld.downedAllAncients)
@@ -521,11 +524,25 @@ namespace AAMod
                 return;
             }
 
-            if (zoneIZ && AAWorld.downedZero && !player.ZoneRockLayerHeight)
+            if (Ancients.ZoneVoid && AAWorld.downedZero && !player.ZoneRockLayerHeight)
             {
                 priority = MusicPriority.Event;
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingGiant");
 
+                return;
+            }
+
+            if (Ancients.ZoneHoard)
+            {
+                priority = MusicPriority.Event;
+                music = GetSoundSlot(SoundType.Music, "Sounds/Music/Hoard");
+                return;
+            }
+
+            if (Ancients.ZoneAcropolis)
+            {
+                priority = MusicPriority.Event;
+                music = GetSoundSlot(SoundType.Music, "Sounds/Music/Acropolis");
                 return;
             }
 
@@ -562,6 +579,18 @@ namespace AAMod
 
             if (Ancients.ZoneInferno)
             {
+                if (player.ZoneRockLayerHeight)
+                {
+                    priority = MusicPriority.BiomeHigh;
+                    music = GetSoundSlot(SoundType.Music, "Sounds/Music/InfernoUnderground");
+                    return;
+                }
+                if (!Main.dayTime)
+                {
+                    priority = MusicPriority.BiomeHigh;
+                    music = GetSoundSlot(SoundType.Music, "Sounds/Music/IN");
+                    return;
+                }
                 if (Ancients.ZoneRisingSunPagoda && NPC.downedMoonlord && !AAWorld.downedAkuma)
                 {
                     priority = MusicPriority.BiomeHigh;
@@ -570,13 +599,6 @@ namespace AAMod
                     return;
                 }
 
-                if (player.ZoneRockLayerHeight)
-                {
-                    priority = MusicPriority.BiomeMedium;
-                    music = GetSoundSlot(SoundType.Music, "Sounds/Music/InfernoUnderground");
-
-                    return;
-                }
                 else
                 {
                     priority = MusicPriority.BiomeHigh;
@@ -597,7 +619,7 @@ namespace AAMod
 
                 if (player.ZoneRockLayerHeight)
                 {
-                    priority = MusicPriority.BiomeMedium;
+                    priority = MusicPriority.BiomeHigh;
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/MireUnderground");
 
                     return;
@@ -659,11 +681,6 @@ namespace AAMod
                         case "grips":
                         case "gripsofchaos": return AAWorld.downedGrips;
                         case "tode": return AAWorld.downedToad;
-                        case "retriever": return AAWorld.downedRetriever;
-                        case "orthrus": return AAWorld.downedOrthrus;
-                        case "raider": return AAWorld.downedRaider;
-                        case "stormany": return AAWorld.downedStormAny;
-                        case "stormall": return AAWorld.downedStormAll;
                         case "daybringer": return AAWorld.downedDB;
                         case "nightcrawler": return AAWorld.downedNC;
                         case "equinox": return AAWorld.downedEquinox;
@@ -672,17 +689,11 @@ namespace AAMod
                         case "sancient":
                         case "sancientany": return AAWorld.downedSAncient;
                         case "gripsS":
-                        case "discordgrips": return AAWorld.downedGripsS;
-                        case "kraken": return AAWorld.downedKraken;
                         case "akuma": return AAWorld.downedAkuma;
                         case "yamata": return AAWorld.downedYamata;
                         case "zero": return AAWorld.downedZero;
                         case "shen":
                         case "shendoragon": return AAWorld.downedShen;
-                        case "iz":
-                        case "infinityzero": return AAWorld.downedIZ;
-                        case "soc":
-                        case "soulofcthulhu": return AAWorld.downedSoC;
                     }
                 };
                 return downed;

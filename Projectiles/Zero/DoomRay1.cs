@@ -48,7 +48,7 @@ namespace AAMod.Projectiles.Zero
             return false;
         }
 
-        public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, int damage, float rotation = 0f, float scale = 1f, float maxDist = 2000f, Color color = default(Color), int transDist = 50)
+        public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, int damage, float rotation = 0f, float scale = 1f, float maxDist = 2000f, Color color = default, int transDist = 50)
         {
             float r = unit.ToRotation() + rotation;
 
@@ -89,6 +89,10 @@ namespace AAMod.Projectiles.Zero
             Player player = Main.player[projectile.owner];
             projectile.position = player.Center + projectile.velocity * MOVE_DISTANCE;
             projectile.timeLeft = 2;
+            if (!player.CheckMana(player.inventory[player.selectedItem].mana, true, false))
+            {
+                projectile.Kill();
+            }
 
             UpdatePlayer(player);
             ChargeLaser(player);
@@ -156,10 +160,6 @@ namespace AAMod.Projectiles.Zero
             }
             else
             {
-                if (Main.time % 10 < 1 && !player.CheckMana(player.inventory[player.selectedItem].mana, true))
-                {
-                    projectile.Kill();
-                }
                 Vector2 offset = projectile.velocity;
                 offset *= MOVE_DISTANCE - 20;
                 Vector2 pos = player.Center + offset - new Vector2(10, 10);

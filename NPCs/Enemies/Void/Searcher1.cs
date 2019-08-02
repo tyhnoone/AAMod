@@ -38,8 +38,8 @@ namespace AAMod.NPCs.Enemies.Void
             bool isDead = npc.life <= 0;
             for (int m = 0; m < (isDead ? 25 : 5); m++)
             {
-                int dustType = (mod.DustType<Dusts.VoidDust>());
-                Dust.NewDust(npc.position, npc.width, npc.height, dustType, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, (isDead ? 2f : 1.1f));
+                int dustType = mod.DustType<Dusts.VoidDust>();
+                Dust.NewDust(npc.position, npc.width, npc.height, dustType, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, isDead ? 2f : 1.1f);
             }
 
             if (npc.life <= 0)
@@ -49,14 +49,12 @@ namespace AAMod.NPCs.Enemies.Void
             }
         }
 
-        float shootAI = 0;
         public override void AI()
         {
             BaseAI.AIEater(npc, ref npc.ai, .022f, 4, .6f, false, true);
             Player player = Main.player[npc.target];
             bool playerActive = player != null && player.active && !player.dead;
-            BaseAI.LookAt((playerActive ? player.Center : (npc.Center + npc.velocity)), npc, 0);
-            
+            BaseAI.LookAt(playerActive ? player.Center : (npc.Center + npc.velocity), npc, 0);         
         }
 
         public override void NPCLoot()

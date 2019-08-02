@@ -49,7 +49,9 @@ namespace AAMod.Items.Armor.Dev.Tied
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("TiedsMaskABonus");
+            player.setBonus = @"'The soviets have got nothing on me'
+All of your melee attacks inflict cursed inferno
+A spooky friend lights your way";
             player.GetModPlayer<AAPlayer>(mod).Tied = true;
             if (!player.HasBuff(mod.BuffType("TiedemiesBuff")))
             {

@@ -5,16 +5,26 @@ namespace AAMod.Items.Boss.AH
 {
     public class AshRain : BaseAAItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ash Rain");
 			Tooltip.SetDefault(@"Shoots fireball which explodes on hit or after some time");
         }
 
+        public override void ModifyTooltips(System.Collections.Generic.List<Terraria.ModLoader.TooltipLine> list)
+        {
+            foreach (Terraria.ModLoader.TooltipLine line2 in list)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = AAColor.Rarity12;
+                }
+            }
+        }
+
         public override void SetDefaults()
         {
-            item.damage = 150;                        
+            item.damage = 315;                        
             item.magic = true;            
             item.width = 24;
             item.height = 28;

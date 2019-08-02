@@ -11,6 +11,8 @@ using Terraria.World.Generation;
 using BaseMod;
 using AAMod.Tiles;
 using AAMod.Walls;
+using Terraria.Utilities;
+using System.Linq;
 
 namespace AAMod.Worldgeneration
 {
@@ -27,26 +29,30 @@ namespace AAMod.Worldgeneration
             GrassWall = (byte)mod.WallType<LivingBogleafWall>(), JungleWall = (byte)mod.WallType<MireJungleWall>();
 
 			int worldSize = GetWorldSize();
-			int biomeRadius = (worldSize == 3 ? 240 : worldSize == 2 ? 200 : 180), biomeRadiusHalf = biomeRadius / 2; //how deep the biome is (scaled by world size)	
-			
-            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
-            colorToTile[new Color(0, 0, 255)] = mod.TileType("Depthstone");
-            colorToTile[new Color(255, 128, 0)] = mod.TileType("Darkmud");
-            colorToTile[new Color(0, 255, 0)] = mod.TileType("AbyssGrass");
-            colorToTile[new Color(255, 0, 0)] = mod.TileType("AbyssWood");
-            colorToTile[new Color(128, 0, 0)] = mod.TileType("AbyssWoodSolid");
-            colorToTile[new Color(255, 255, 0)] = mod.TileType("AbyssVines");
-            colorToTile[new Color(0, 255, 255)] = mod.TileType("DepthMoss");
-            colorToTile[new Color(255, 0, 255)] = mod.TileType("AbyssLeaves");
-            colorToTile[new Color(128, 0, 0)] = mod.TileType("AbyssWoodSolid");
-            colorToTile[new Color(150, 150, 150)] = -2; //turn into air
-            colorToTile[Color.Black] = -1; //don't touch when genning
+			int biomeRadius = worldSize == 3 ? 240 : worldSize == 2 ? 200 : 180; //how deep the biome is (scaled by world size)	
 
-            Dictionary<Color, int> colorToWall = new Dictionary<Color, int>();
-            colorToWall[new Color(0, 0, 255)] = mod.WallType("DepthstoneWall");
-            colorToWall[Color.Black] = -1; //don't touch when genning
-			
-			TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Lake"), colorToTile, mod.GetTexture("Worldgeneration/LakeWalls"), colorToWall, mod.GetTexture("Worldgeneration/LakeWater"));
+            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>
+            {
+                [new Color(0, 0, 255)] = mod.TileType("Depthstone"),
+                [new Color(255, 128, 0)] = mod.TileType("Darkmud"),
+                [new Color(0, 255, 0)] = mod.TileType("AbyssGrass"),
+                [new Color(255, 0, 0)] = mod.TileType("AbyssWood"),
+                [new Color(128, 0, 0)] = mod.TileType("AbyssWoodSolid"),
+                [new Color(255, 255, 0)] = mod.TileType("AbyssVines"),
+                [new Color(0, 255, 255)] = mod.TileType("DepthMoss"),
+                [new Color(255, 0, 255)] = mod.TileType("AbyssLeaves"),
+                [new Color(128, 0, 0)] = mod.TileType("AbyssWoodSolid"),
+                [new Color(150, 150, 150)] = -2, //turn into air
+                [Color.Black] = -1 //don't touch when genning
+            };
+
+            Dictionary<Color, int> colorToWall = new Dictionary<Color, int>
+            {
+                [new Color(0, 0, 255)] = mod.WallType("DepthstoneWall"),
+                [Color.Black] = -1 //don't touch when genning
+            };
+
+            TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Lake"), colorToTile, mod.GetTexture("Worldgeneration/LakeWalls"), colorToWall, mod.GetTexture("Worldgeneration/LakeWater"));
 			Point newOrigin = new Point(origin.X, origin.Y - 10); //biomeRadius);
 
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //gen grass...
@@ -154,6 +160,7 @@ namespace AAMod.Worldgeneration
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
                 new PlaceModWall(JungleWall, true)
             }));
+
             int genX = origin.X - (gen.width / 2);
             int genY = origin.Y - 30;
             gen.Generate(genX, genY, true, true);
@@ -188,7 +195,6 @@ namespace AAMod.Worldgeneration
                 {
                     for (int AltarY = yAxis - 45; AltarY < yAxis + 45; AltarY++)
                     {
-                        Tile tile = Main.tile[AltarX, AltarY];
                         if (Main.rand.Next(15) == 0)
                         {
                             WorldGen.PlaceObject(AltarX, AltarY - 1, mod.TileType<ChaosAltar1>());
@@ -215,15 +221,17 @@ namespace AAMod.Worldgeneration
 
             Mod mod = AAMod.instance;
 
-            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
-            colorToTile[new Color(0, 0, 255)] = -2;
-            colorToTile[new Color(255, 128, 0)] = -2;
-            colorToTile[new Color(0, 255, 0)] = -2;
-            colorToTile[new Color(255, 0, 0)] = -2;
-            colorToTile[new Color(128, 0, 0)] = -2;
-            colorToTile[new Color(255, 255, 0)] = -2;
-            colorToTile[new Color(255, 0, 255)] = -2;
-            colorToTile[Color.Black] = -1;
+            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>
+            {
+                [new Color(0, 0, 255)] = -2,
+                [new Color(255, 128, 0)] = -2,
+                [new Color(0, 255, 0)] = -2,
+                [new Color(255, 0, 0)] = -2,
+                [new Color(128, 0, 0)] = -2,
+                [new Color(255, 255, 0)] = -2,
+                [new Color(255, 0, 255)] = -2,
+                [Color.Black] = -1
+            };
 
             TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Lake"), colorToTile);
 			int genX = origin.X - (gen.width / 2);
@@ -258,25 +266,28 @@ namespace AAMod.Worldgeneration
 
 
             int worldSize = GetWorldSize();
-            int biomeRadius = (worldSize == 3 ? 240 : worldSize == 2 ? 200 : 180);
+            int biomeRadius = worldSize == 3 ? 240 : worldSize == 2 ? 200 : 180;
 
-            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
-            colorToTile[new Color(255, 0, 0)] = mod.TileType("Torchstone");
-            colorToTile[new Color(0, 0, 255)] = mod.TileType("Torchstone");
-            colorToTile[new Color(0, 255, 0)] = mod.TileType("ScorchedDynastyWoodS");
-            colorToTile[new Color(255, 255, 0)] = mod.TileType("ScorchedShinglesS");
-            colorToTile[new Color(255, 0, 255)] = mod.TileType("ScorchedPlatform");
-            colorToTile[new Color(150, 150, 150)] = -2; //turn into air
-            colorToTile[Color.Black] = -1; //don't touch when genning
+            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>
+            {
+                [new Color(255, 0, 0)] = mod.TileType("Torchstone"),
+                [new Color(0, 0, 255)] = mod.TileType("Torchstone"),
+                [new Color(0, 255, 0)] = mod.TileType("ScorchedDynastyWoodS"),
+                [new Color(255, 255, 0)] = mod.TileType("ScorchedShinglesS"),
+                [new Color(255, 0, 255)] = mod.TileType("ScorchedPlatform"),
+                [new Color(150, 150, 150)] = -2, //turn into air
+                [Color.Black] = -1 //don't touch when genning
+            };
 
-            Dictionary<Color, int> colorToWall = new Dictionary<Color, int>();
-            colorToWall[new Color(255, 0, 0)] = mod.WallType("TorchstoneWall");
-            colorToWall[new Color(0, 0, 255)] = mod.WallType("BurnedDynastyWall");
-            colorToWall[Color.Black] = -1; //don't touch when genning				
+            Dictionary<Color, int> colorToWall = new Dictionary<Color, int>
+            {
+                [new Color(255, 0, 0)] = mod.WallType("TorchstoneWall"),
+                [new Color(0, 0, 255)] = mod.WallType("BurnedDynastyWall"),
+                [Color.Black] = -1 //don't touch when genning				
+            };
 
             TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Volcano"), colorToTile, mod.GetTexture("Worldgeneration/VolcanoWalls"), colorToWall, mod.GetTexture("Worldgeneration/VolcanoLava"));
             Point newOrigin = new Point(origin.X, origin.Y - 30); //biomeRadius);
-            
 
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //remove all fluids in sphere...
 			{
@@ -337,6 +348,14 @@ namespace AAMod.Worldgeneration
                 new Modifiers.OnlyTiles(new ushort[]{ TileID.Sandstone, TileID.CorruptSandstone, TileID.CrimsonSandstone }),
                 new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
                 new SetModTile(tileSandstone, true, true)
+            }));
+
+            WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //...and sandstone.
+			{
+                new InWorld(),
+                new Modifiers.OnlyTiles(new ushort[]{ TileID.LeafBlock }),
+                new Modifiers.RadialDither(biomeRadius - 5, biomeRadius),
+                new SetModTile(LivingLeaves, true, true)
             }));
             WorldUtils.Gen(newOrigin, new Shapes.Circle(biomeRadius), Actions.Chain(new GenAction[] //...and Living Wood.
 			{
@@ -440,17 +459,18 @@ namespace AAMod.Worldgeneration
 
             Mod mod = AAMod.instance;
 
-            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
-            colorToTile[new Color(255, 0, 0)] = -2;
-            colorToTile[new Color(0, 0, 255)] = -2;
-            colorToTile[new Color(0, 255, 0)] = -2;
-            colorToTile[new Color(255, 255, 0)] = -2;
-            colorToTile[new Color(255, 0, 255)] = -2;
-            colorToTile[new Color(150, 150, 150)] = -2;
-            colorToTile[Color.Black] = -1;
+            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>
+            {
+                [new Color(255, 0, 0)] = -2,
+                [new Color(0, 0, 255)] = -2,
+                [new Color(0, 255, 0)] = -2,
+                [new Color(255, 255, 0)] = -2,
+                [new Color(255, 0, 255)] = -2,
+                [new Color(150, 150, 150)] = -2,
+                [Color.Black] = -1
+            };
 
             TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Volcano"), colorToTile);
-            Point newOrigin = new Point(origin.X, origin.Y - 30);
             int genX = origin.X - (gen.width / 2);
             int genY = origin.Y - 80;		
             gen.Generate(genX, genY, true, true);						
@@ -468,8 +488,8 @@ namespace AAMod.Worldgeneration
             ushort tileGrass = (ushort)mod.TileType("Mycelium"); //change to types in your mod
 
             int worldSize = GetWorldSize();
-            int biomeWidth = (worldSize == 3 ? 200 : worldSize == 2 ? 180 : 150), biomeWidthHalf = biomeWidth / 2; //how wide the biome is (scaled by world size)
-            int biomeHeight = (worldSize == 3 ? 200 : worldSize == 2 ? 180 : 150), biomeHeightHalf = biomeHeight / 2; //how deep the biome is (scaled by world size)   
+            int biomeWidth = worldSize == 3 ? 200 : worldSize == 2 ? 180 : 150, biomeWidthHalf = biomeWidth / 2; //how wide the biome is (scaled by world size)
+            int biomeHeight = worldSize == 3 ? 200 : worldSize == 2 ? 180 : 150;
 
             //ok time to check to see if this spot is actually a good place to gen
             Dictionary<ushort, int> dictionary = new Dictionary<ushort, int>();
@@ -517,9 +537,7 @@ namespace AAMod.Worldgeneration
 
     public class TerrariumDelete : MicroBiome
     {
-
         Texture2D Terrasphere = null;
-
         public override bool Place(Point origin, StructureMap structures)
         {
             //this handles generating the actual tiles, but you still need to add things like treegen etc. I know next to nothing about treegen so you're on your own there, lol.
@@ -528,9 +546,11 @@ namespace AAMod.Worldgeneration
             int worldSize = GetWorldSize();
             int biomeRadius = worldSize == 3 ? 400 : worldSize == 2 ? 300 : 200;
 
-            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
-            colorToTile[new Color(0, 255, 0)] = -2;
-            colorToTile[Color.Black] = -1; //don't touch when genning		
+            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>
+            {
+                [new Color(0, 255, 0)] = -2,
+                [Color.Black] = -1 //don't touch when genning		
+            };
 
 
             Dictionary<Color, int> colorToWall = new Dictionary<Color, int>();
@@ -594,17 +614,21 @@ namespace AAMod.Worldgeneration
             int worldSize = GetWorldSize();
             int biomeRadius = worldSize == 3 ? 400 : worldSize == 2 ? 300 : 200;
 
-            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
-            colorToTile[new Color(0, 255, 0)] = mod.TileType("TerraCrystal");
-            colorToTile[new Color(255, 0, 255)] = mod.TileType("TerraWood");
-            colorToTile[new Color(255, 255, 0)] = mod.TileType("TerraLeaves");
-            colorToTile[new Color(0, 0, 255)] = -2; //turn into air
-            colorToTile[Color.Black] = -1; //don't touch when genning		
+            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>
+            {
+                [new Color(0, 255, 0)] = mod.TileType("TerraCrystal"),
+                [new Color(255, 0, 255)] = mod.TileType("TerraWood"),
+                [new Color(255, 255, 0)] = mod.TileType("TerraLeaves"),
+                [new Color(0, 0, 255)] = -2, //turn into air
+                [Color.Black] = -1 //don't touch when genning		
+            };
 
-            Dictionary<Color, int> colorToWall = new Dictionary<Color, int>();
-            colorToWall[new Color(0, 255, 0)] = -2;
-            colorToWall[Color.Black] = -1; //don't touch when genning				
-            
+            Dictionary<Color, int> colorToWall = new Dictionary<Color, int>
+            {
+                [new Color(0, 255, 0)] = -2,
+                [Color.Black] = -1 //don't touch when genning				
+            };
+
 
             Texture2D TerraSmall = mod.GetTexture("Worldgeneration/Terrarium");
             Texture2D TerraMed = mod.GetTexture("Worldgeneration/TerrariumMed");
@@ -655,87 +679,14 @@ namespace AAMod.Worldgeneration
         }
     }
 
-   
-
-    public class Parthenan : MicroBiome
-    {
-        public override bool Place(Point origin, StructureMap structures)
-        {
-            //this handles generating the actual tiles, but you still need to add things like treegen etc. I know next to nothing about treegen so you're on your own there, lol.
-
-            Mod mod = AAMod.instance;
-            
-
-            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
-            colorToTile[new Color(0, 255, 0)] = mod.TileType("FulguritePlatingS");
-            colorToTile[new Color(255, 0, 0)] = mod.TileType("FulguriteBrickS");
-            colorToTile[new Color(0, 0, 255)] = mod.TileType("StormCloud");
-            colorToTile[new Color(255, 0, 255)] = mod.TileType("FulgurGlassS");
-            colorToTile[new Color(150, 150, 150)] = -2; //turn into air
-            colorToTile[Color.Black] = -1; //don't touch when genning		
-
-            Dictionary<Color, int> colorToWall = new Dictionary<Color, int>();
-            colorToWall[new Color(0, 255, 0)] = mod.WallType("FulguritePlatingWallS");
-            colorToWall[new Color(255, 0, 255)] = mod.TileType("FulgurGlassWall");
-            colorToWall[Color.Black] = -1; //don't touch when genning				
-
-            TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Parthenan"), colorToTile, mod.GetTexture("Worldgeneration/ParthenanWalls"), colorToWall);
-            
-            gen.Generate(origin.X, origin.Y, true, true);
-            WorldGen.PlaceObject(origin.X + 34, (origin.Y) + 47, (ushort)mod.TileType("DataBank"));
-            WorldGen.PlaceChest((origin.X) + 32, (origin.Y) + 47, (ushort)mod.TileType("StormChest"), true);
-            WorldGen.PlaceChest((origin.X) + 41, (origin.Y) + 47, (ushort)mod.TileType("StormChest"), true);
-            return true;
-        }
-    }
-
-    public class BOTE : MicroBiome
-    {
-        public override bool Place(Point origin, StructureMap structures)
-        {
-            //this handles generating the actual tiles, but you still need to add things like treegen etc. I know next to nothing about treegen so you're on your own there, lol.
-            Mod mod = AAMod.instance;
-
-            Dictionary<Color, int> colorToTile = new Dictionary<Color, int>();
-            colorToTile[new Color(255, 0, 0)] = mod.TileType("RottedDynastyWoodS");
-            colorToTile[new Color(0, 255, 0)] = mod.TileType("RottedPlatform");
-            //colorToTile[new Color(0, 0, 255)] = TileID.Rope;
-            colorToTile[new Color(0, 255, 255)] = mod.TileType("CthulhuPortal");
-            colorToTile[new Color(255, 255, 0)] = TileID.Sand;			
-            colorToTile[new Color(150, 150, 150)] = -2;
-            colorToTile[Color.Black] = -1; //don't touch when genning		
-
-            Dictionary<Color, int> colorToWall = new Dictionary<Color, int>();
-            colorToWall[new Color(255, 0, 0)] = mod.WallType("RottedFence");
-            colorToWall[new Color(255, 255, 0)] = mod.WallType("RottedWall");
-            colorToWall[new Color(255, 255, 255)] = mod.WallType("RottedWall");
-            colorToWall[new Color(0, 255, 255)] = mod.WallType("RottedWall");
-            colorToWall[new Color(255, 0, 255)] = mod.WallType("RottedWall");
-            colorToWall[new Color(0, 255, 0)] = mod.WallType("RottedWall");
-            colorToWall[new Color(0, 0, 255)] = WallID.Sail;
-            colorToWall[new Color(150, 150, 150)] = -2;
-            colorToWall[Color.Black] = -1; //don't touch when genning				
-
-            TexGen gen = BaseWorldGenTex.GetTexGenerator(mod.GetTexture("Worldgeneration/Ship"), colorToTile, mod.GetTexture("Worldgeneration/ShipWalls"), colorToWall, mod.GetTexture("Worldgeneration/ShipWater"));
-
-			int newOriginX = origin.X - (gen.width / 2);
-			int newOriginY = origin.Y - (gen.height / 2) + 10;
-            gen.Generate(newOriginX, newOriginY, true, true);
-            
-            //WorldGen.PlaceChest(newOriginX + 130, newOriginY + 102, (ushort)mod.TileType("SunkenChest"), true);
-            return true;
-        }
-    }
-
     public class RadialDitherTopMiddle2 : GenAction
 	{
-		private int _width, _height;
-		private float _innerRadius, _outerRadius;
+        private readonly int _width;
+        private readonly float _innerRadius, _outerRadius;
 
-		public RadialDitherTopMiddle2(int width, int height, float innerRadius, float outerRadius)
+		public RadialDitherTopMiddle2(int width, float innerRadius, float outerRadius)
 		{
 			_width = width;
-			_height = height;
 			_innerRadius = innerRadius;
 			_outerRadius = outerRadius;
 		}
@@ -748,9 +699,9 @@ namespace AAMod.Worldgeneration
 			float num2 = Math.Max(0f, Math.Min(1f, (num - this._innerRadius) / (this._outerRadius - this._innerRadius)));
 			if (_random.NextDouble() > num2)
 			{
-				return base.UnitApply(origin, x, y, args);
+				return UnitApply(origin, x, y, args);
 			}
-			return base.Fail();
+			return Fail();
 		}
 	}	
 
@@ -763,8 +714,8 @@ namespace AAMod.Worldgeneration
 		public override bool Apply(Point origin, int x, int y, params object[] args)
 		{
 			if(x < 0 || x > Main.maxTilesX || y < 0 || y > Main.maxTilesY)
-				return base.Fail();
-			return base.UnitApply(origin, x, y, args);
+				return Fail();
+			return UnitApply(origin, x, y, args);
 		}
 	}	
 }

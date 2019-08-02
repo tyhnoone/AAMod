@@ -17,7 +17,7 @@ namespace AAMod.Items.Ranged
         public override void SetDefaults()
         {
 
-            item.damage = 200;
+            item.damage = 275;
             item.noMelee = true;
             item.ranged = true;
             item.width = 50;
@@ -32,7 +32,7 @@ namespace AAMod.Items.Ranged
             item.rare = 8;
             item.UseSound = SoundID.Item14;
             item.shootSpeed = 12f;
-            item.expert = true;
+            item.expert = true; item.expertOnly = true;
             item.autoReuse = true;
         }
 
@@ -55,7 +55,7 @@ namespace AAMod.Items.Ranged
             }
             for (int m = 0; m < 2; m++)
             {
-                Projectile.NewProjectile(position.X, position.Y, speedX * 1f, speedY * 1f, (m == 0 ? mod.ProjectileType("ChaosShot2") : mod.ProjectileType("ChaosShot3")), damage, knockBack, player.whoAmI, 0, 1);
+                Projectile.NewProjectile(position.X, position.Y, speedX * 1f, speedY * 1f, m == 0 ? mod.ProjectileType("ChaosShot2") : mod.ProjectileType("ChaosShot3"), damage, knockBack, player.whoAmI, 0, 1);
             }
 
             Projectile.NewProjectile(position.X, position.Y, speedX * 1f, speedY * 1f, mod.ProjectileType("ChaosShot1"), damage, knockBack, player.whoAmI, 0, 1);

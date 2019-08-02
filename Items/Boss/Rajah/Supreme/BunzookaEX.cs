@@ -17,7 +17,7 @@ Bunnyzooka EX");
 
         public override void SetDefaults()
         {
-            item.damage = 500;
+            item.damage = 550;
             item.ranged = true;
             item.width = 66;
             item.height = 28;
@@ -33,8 +33,9 @@ Bunnyzooka EX");
             item.shoot = mod.ProjectileType("RabbitRocketEX");
             item.useAmmo = AmmoID.Rocket;
             item.rare = 9;
-            AARarity = 14;
+            item.expert = true; item.expertOnly = true;
         }
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-20, -6);

@@ -14,6 +14,7 @@ namespace AAMod.Items.Potions
 		
 		public override void SetDefaults()
 		{
+            item.rare = 11;
 			item.width = 20;
 			item.height = 38;
 			item.useTurn = true;
@@ -39,16 +40,5 @@ namespace AAMod.Items.Potions
 	            }
 	        }
 	    }
-
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "GrandHealingPotion");
-            recipe.AddIngredient(null, "GrandManaPotion");
-            recipe.AddRecipeGroup("AAMod:SuperAncientMaterials");
-            recipe.AddTile(null, "ACS");
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
 	}
 }

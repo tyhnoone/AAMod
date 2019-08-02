@@ -13,7 +13,7 @@ namespace AAMod.Items.Boss.Akuma   //where is located
         {
             
             DisplayName.SetDefault("Dragon Shiv");
-            Tooltip.SetDefault(@"Slow, but has massive knockback explodes on contact with an enemy
+            Tooltip.SetDefault(@"Slow, but hits like a celestial body
 Inflicts Daybroken");
             
         }
@@ -41,7 +41,7 @@ Inflicts Daybroken");
 
         public override void SetDefaults()
         {
-            item.damage = 350;
+            item.damage = 2000;
             item.melee = true;
             item.width = 42;
             item.height = 52;
@@ -55,6 +55,17 @@ Inflicts Daybroken");
             item.useTurn = true;
             item.rare = 9;
             AARarity = 13;
+        }
+
+        public override void ModifyTooltips(System.Collections.Generic.List<TooltipLine> list)
+        {
+            foreach (TooltipLine line2 in list)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = AAColor.Rarity13;
+                }
+            }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)

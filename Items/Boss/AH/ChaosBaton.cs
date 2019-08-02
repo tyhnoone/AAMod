@@ -35,6 +35,17 @@ namespace AAMod.Items.Boss.AH
             item.noUseGraphic = true;
         }
 
+        public override void ModifyTooltips(System.Collections.Generic.List<TooltipLine> list)
+        {
+            foreach (TooltipLine line2 in list)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = AAColor.Rarity12;
+                }
+            }
+        }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int shootMe = Main.rand.Next(2);
@@ -60,7 +71,7 @@ namespace AAMod.Items.Boss.AH
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "CyberBaton", 1);
+            recipe.AddIngredient(null, "ClawBaton", 1);
             recipe.AddIngredient(null, "DaybreakIncinerite", 5);
             recipe.AddIngredient(null, "EventideAbyssium", 5);
             recipe.AddTile(null, "QuantumFusionAccelerator");

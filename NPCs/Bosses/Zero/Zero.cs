@@ -165,7 +165,7 @@ namespace AAMod.NPCs.Bosses.Zero
                 npc.DropLoot(mod.ItemType(lootTable[loot]));
                 npc.DropLoot(Items.Vanity.Mask.ZeroMask.type, 1f / 7);
                 npc.DropLoot(Items.Boss.Zero.ZeroTrophy.type, 1f / 10);
-                npc.DropLoot(Items.Boss.EXSoul.type, 1f / 10);
+                npc.DropLoot(mod.ItemType<Items.Boss.EXSoul>(), 1f / 10);
                 if (Main.rand.Next(50) == 0 && AAWorld.downedAllAncients)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("RealityStone"));
@@ -681,7 +681,7 @@ namespace AAMod.NPCs.Bosses.Zero
                 Texture2D Arm = mod.GetTexture("NPCs/Bosses/Zero/ZeroArm");
                 Texture2D ArmGlow = mod.GetTexture("Glowmasks/ZeroArm_Glow");
                 spriteBatch.Draw(Arm, new Vector2(vector7.X - Main.screenPosition.X, vector7.Y - Main.screenPosition.Y), new Rectangle?(new Rectangle(0, 0, Arm.Width, Arm.Height)), drawColor, rotation7, new Vector2(Arm.Width * 0.5f, Arm.Height * 0.5f), 1f, SpriteEffects.None, 0f);
-                spriteBatch.Draw(ArmGlow, new Vector2(vector7.X - Main.screenPosition.X, vector7.Y - Main.screenPosition.Y), new Rectangle?(new Rectangle(0, 0, Arm.Width, Arm.Height)), GenericUtils.COLOR_GLOWPULSE, rotation7, new Vector2(Arm.Width * 0.5f, Arm.Height * 0.5f), 1f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(ArmGlow, new Vector2(vector7.X - Main.screenPosition.X, vector7.Y - Main.screenPosition.Y), new Rectangle?(new Rectangle(0, 0, Arm.Width, Arm.Height)), ColorUtils.COLOR_GLOWPULSE, rotation7, new Vector2(Arm.Width * 0.5f, Arm.Height * 0.5f), 1f, SpriteEffects.None, 0f);
                 if (l == 0)
                 {
                     vector7.X += num21 * num23 / 2f;

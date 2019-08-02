@@ -20,14 +20,14 @@ namespace AAMod.Buffs
 			{
 				modPlayer.ScoutMinion = true;
 			}
-			if (!modPlayer.ScoutMinion)
+			if (!modPlayer.TrueDoomite)
 			{
 				player.DelBuff(buffIndex);
 				buffIndex--;
 			}
 			else
 			{
-				player.buffTime[buffIndex] = 18000;
+				player.buffTime[buffIndex] = 2;
 			}
 		}
 	}

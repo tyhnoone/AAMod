@@ -17,12 +17,12 @@ Fires an explosive ghast skull every other shot");
 
         public override void SetDefaults()
 		{
-			item.damage = 75;
+			item.damage = 50;
 			item.ranged = true;
 			item.width = 46;
 			item.height = 86;
-			item.useTime = 16;
-			item.useAnimation = 16;
+			item.useTime = 30;
+			item.useAnimation = 30;
 			item.useStyle = 5;
 			item.noMelee = true; //so the item's animation doesn't do damage
 			item.knockBack = 0;
@@ -42,7 +42,7 @@ Fires an explosive ghast skull every other shot");
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            player.statLife += (damage / 8);
+            player.statLife += damage / 8;
             player.HealEffect(damage / 8);
         }
 

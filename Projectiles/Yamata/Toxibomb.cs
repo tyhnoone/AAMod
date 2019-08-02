@@ -26,7 +26,7 @@ namespace AAMod.Projectiles.Yamata
 			projectile.aiStyle = 1;             
 			projectile.friendly = true;         
 			projectile.hostile = false;         
-			projectile.ranged = true;           
+			projectile.magic = true;           
 			projectile.penetrate = 1;           
 			projectile.timeLeft = 600;          
 			projectile.alpha = 20;              
@@ -113,7 +113,7 @@ namespace AAMod.Projectiles.Yamata
             double deltaAngle = spread / 4;
             for (int i = 0; i < 2; i++)
             {
-                double offsetAngle = (startAngle + deltaAngle * (i + i * i) / 2f) + 32f * i;
+                double offsetAngle = startAngle + deltaAngle * (i + i * i) / 2f + 32f * i;
                 int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)(Math.Sin(offsetAngle) * 3f) * 5, (float)(Math.Cos(offsetAngle) * 3f) * 5, mod.ProjectileType("YWSplit"), projectile.damage / 6, projectile.knockBack, projectile.owner, 0f, 0f);
                 Main.projectile[proj].melee = false;
                 Main.projectile[proj].magic = true;
@@ -124,11 +124,11 @@ namespace AAMod.Projectiles.Yamata
             for (int num468 = 0; num468 < 20; num468++)
             {
                 int num469 = Dust.NewDust(new Vector2(projectile.width, projectile.height), projectile.width, projectile.height, mod.DustType<Dusts.YamataADust>(), -projectile.velocity.X * 0.2f,
-                    -projectile.velocity.Y * 0.2f, 100, default(Color), 2f);
+                    -projectile.velocity.Y * 0.2f, 100, default, 2f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
                 num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.YamataADust>(), -projectile.velocity.X * 0.2f,
-                    -projectile.velocity.Y * 0.2f, 100, default(Color));
+                    -projectile.velocity.Y * 0.2f, 100, default);
                 Main.dust[num469].velocity *= 2f;
             }
             Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("Toxiboom"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);

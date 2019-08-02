@@ -52,15 +52,15 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
         {
             for (int Money = 0; Money < 5; Money++)
             {
-                if (Main.rand.Next(7) == 0 || Main.rand.Next(7) == 1)
+                if (Main.rand.Next(7) == 0 || Main.rand.Next(7) == 1 || Main.rand.Next(7) == 2 || Main.rand.Next(7) == 3)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.CopperCoin);       //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
                 }
-                if (Main.rand.Next(7) == 2 || Main.rand.Next(7) == 3 || Main.rand.Next(7) == 4)
+                if (Main.rand.Next(7) == 4 || Main.rand.Next(7) == 5)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.SilverCoin);       //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
                 }
-                if (Main.rand.Next(7) == 5 || Main.rand.Next(7) == 6)
+                if (Main.rand.Next(7) == 6)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.GoldCoin);       //Main.rand.Next part is the length of the buff, so 8.3 seconds to 16.6 seconds
                 }
@@ -180,12 +180,12 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
                     if (npc.direction == -1)
                     {
                         //Main.PlaySound(SoundID.Item3, (int)npc.position.X, (int)npc.position.Y);
-                        Projectile.NewProjectile((new Vector2(npc.position.X + 17f, npc.position.Y + 18f)), new Vector2(-6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("AcidProj"), 15, 3);
+                        Projectile.NewProjectile(new Vector2(npc.position.X + 17f, npc.position.Y + 18f), new Vector2(-6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("AcidProj"), 15, 3);
                     }
                     else
                     {
                         //Main.PlaySound(SoundID.Item3, (int)npc.position.X, (int)npc.position.Y);
-                        Projectile.NewProjectile((new Vector2(npc.position.X + 57f, npc.position.Y + 18f)), new Vector2(6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("AcidProj"), 15, 3);
+                        Projectile.NewProjectile(new Vector2(npc.position.X + 57f, npc.position.Y + 18f), new Vector2(6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-4, 0)), mod.ProjectileType("AcidProj"), 15, 3);
                     }
                 }
                 if (tongueTimer >= 100)

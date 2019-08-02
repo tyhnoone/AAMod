@@ -270,7 +270,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             }
             if (Main.rand.Next(5) == 0)
             {
-                int num371 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y + (npc.height * 0.25f)), npc.width, (int)(npc.height * 0.5f), 5, npc.velocity.X, 2f, 0, default(Color), 1f);
+                int num371 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y + (npc.height * 0.25f)), npc.width, (int)(npc.height * 0.5f), 5, npc.velocity.X, 2f, 0, default, 1f);
                 Dust expr_12582_cp_0 = Main.dust[num371];
                 expr_12582_cp_0.velocity.X = expr_12582_cp_0.velocity.X * 0.5f;
                 Dust expr_125A2_cp_0 = Main.dust[num371];
@@ -526,12 +526,12 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
                         Main.PlaySound(3, (int)npc.position.X, (int)npc.position.Y, 1, 1f, 0f);
                         for (int num388 = 0; num388 < 20; num388++)
                         {
-                            Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f, 0, default(Color), 1f);
+                            Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f, 0, default, 1f);
                         }
                         Main.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0, 1f, 0f);
                     }
                 }
-                Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f, 0, default(Color), 1f);
+                Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f, 0, default, 1f);
                 npc.velocity.X = npc.velocity.X * 0.98f;
                 npc.velocity.Y = npc.velocity.Y * 0.98f;
                 if (npc.velocity.X > -0.1 && npc.velocity.X < 0.1)

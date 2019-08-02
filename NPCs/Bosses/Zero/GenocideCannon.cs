@@ -268,7 +268,7 @@ namespace AAMod.NPCs.Bosses.Zero
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             Texture2D glowTex = mod.GetTexture("Glowmasks/GenocideCannon_Glow");
-            BaseMod.BaseDrawing.DrawTexture(spriteBatch, glowTex, 0, npc, GenericUtils.COLOR_GLOWPULSE);
+            BaseMod.BaseDrawing.DrawTexture(spriteBatch, glowTex, 0, npc, ColorUtils.COLOR_GLOWPULSE) ;
         }
     }
 }

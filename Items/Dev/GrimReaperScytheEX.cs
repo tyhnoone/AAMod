@@ -28,7 +28,7 @@ Scythe of the Grim Reaper EX");
 			item.knockBack = 6f;
 			item.width = 24;
 			item.height = 28;
-			item.damage = 150;
+			item.damage = 225;
 			item.crit = 14;
 			item.scale = 1.15f;
 			item.UseSound = SoundID.Item71;
@@ -82,7 +82,7 @@ Scythe of the Grim Reaper EX");
 				for (int num123 = 0; num123 < num122; num123++)
 				{
 					float num124 = num123 - (num122 - 1f) / 2f;
-					Vector2 vector15 = vector14.RotatedBy(num121 * num124, default(Vector2));
+					Vector2 vector15 = vector14.RotatedBy(num121 * num124, default);
 					if (!flag11)
 					{
 						vector15 -= vector14;

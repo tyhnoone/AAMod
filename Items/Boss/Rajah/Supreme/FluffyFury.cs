@@ -9,17 +9,18 @@ namespace AAMod.Items.Boss.Rajah.Supreme
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fluffy Fury");
-            Tooltip.SetDefault("Converts arrows into splitting Carrows");
+            Tooltip.SetDefault(@"Converts arrows into splitting Carrows
+Potential lag warning");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 300;
+            item.damage = 400;
             item.ranged = true;
             item.width = 44;
             item.height = 76;
-            item.useTime = 15;
-            item.useAnimation = 15;
+            item.useTime = 10;
+            item.useAnimation = 10;
             item.useStyle = 5;
             item.noMelee = true;
             item.knockBack = 3f;
@@ -31,6 +32,17 @@ namespace AAMod.Items.Boss.Rajah.Supreme
             item.useAmmo = AmmoID.Arrow;
             item.rare = 9;
             AARarity = 14;
+        }
+
+        public override void ModifyTooltips(System.Collections.Generic.List<Terraria.ModLoader.TooltipLine> list)
+        {
+            foreach (Terraria.ModLoader.TooltipLine line2 in list)
+            {
+                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                {
+                    line2.overrideColor = AAColor.Rarity14;
+                }
+            }
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

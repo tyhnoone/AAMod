@@ -19,7 +19,7 @@ Terra Rose EX");
 
 		public override void SetDefaults()
 		{
-			item.damage = 300;
+			item.damage = 500;
 			item.magic = true;
 			item.mana = 15;
 			item.width = 68;
@@ -34,7 +34,7 @@ Terra Rose EX");
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("TerraRoseShotEX");
-			item.shootSpeed = 15f;
+			item.shootSpeed = 20f;
         }
 		
 		public override void AddRecipes()
