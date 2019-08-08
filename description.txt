@@ -6,6 +6,16 @@ The Ancients have Awakened. Chaos reigns, storms ravage, and reality tears at th
 
 **NOTE 2: Small worlds are heavilly discouraged with this mod. Things break because we have a lot of worldgen.**
 
+**Note 3: for this mod to work, go into your modloader folder (usually in Documents\My Games\Terraria\ModLoader) and make sure 4KSupport and 8K support are enabled**
+
+
+0.8.3.2
+-------
+
+1. Fixed an issue with Multiplayer loading
+
+2. Fixed a few armor crafting recipes
+
 0.8.3.0
 -------
 
