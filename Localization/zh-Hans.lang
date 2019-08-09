@@ -1669,7 +1669,7 @@ ItemName.AshRain=灰烬之雨
 ItemTooltip.AshRain=发射在击中或一段时间后爆炸的火球
 
 ItemName.FireSpiritStaff=烈焰漩涡法杖
-ItemTooltip.FireSpiritStaff=召唤烈焰火球,增加你的召唤物伤害\n每个球占用一个召唤上限\n第一次召唤必须有两个可用召唤栏
+ItemTooltip.FireSpiritStaff=召唤烈焰火球,增加你的召唤物伤害\n每个球占用一个召唤上限\n最好至少有两个可用召唤栏来进行召唤
 
 ItemName.FuryFlame=暴怒烈焰
 ItemTooltip.FuryFlame=让你可以向你的敌人发射爆炸火焰
@@ -2104,7 +2104,7 @@ ItemName.SickleShot=镰弯击弓
 ItemTooltip.SickleShot=快速连续发射两波两支冰箭
 
 ItemName.SnakeStaff=绝零蛇杖
-ItemTooltip.SnakeStaff=召唤一个冰蛇为你而战\n每个召唤物占用两个召唤栏
+ItemTooltip.SnakeStaff=召唤一个冰蛇为你而战\n每个召唤栏召唤两节
 
 ItemName.SnowflakeShuriken=薄霜手里剑
 
@@ -2275,7 +2275,7 @@ ItemTooltip.Neutralizer=发射弹跳激光，墙壁反弹使得它们会变得�
 ItemName.RealityCannon=现实破坏炮
 ItemTooltip.RealityCannon=快速射出深色激光
 
-ItemName.RiftShredder=世界割裂臂
+ItemName.RiftShredder=世界割裂器
 ItemTooltip.RiftShredder=发射虚空之星，撕裂路过的一切现实
 
 ItemName.TeslaHand=破损武器-0
@@ -2375,8 +2375,8 @@ ItemTooltip.FlamesOfAnarchy=在这个古老的瓷器中燃烧着冥昧之焰\n�
 ItemName.GoldenCarrot=十克拉胡罗卜
 ItemTooltip.GoldenCarrot=召唤一个凶猛的惩罚者
 
-ItemName.GoldenGrub=金欲食物
-ItemTooltip.GoldenGrub=召唤贪欲魔像\n只能在欲望金窟中的魔欲祭坛处使用\n“非常闪耀”
+ItemName.GoldenGrub=金欲诱饵
+ItemTooltip.GoldenGrub=召唤金食饕餮\n只能在贪欲金窟中的原欲祭坛处使用\n“非常闪耀”
 
 ItemName.HydraChow=九头蛇果粮
 ItemTooltip.HydraChow=拿着这个就会让你捂着嘴\n召唤九头渊蛇\n只能在晚上使用
@@ -3306,7 +3306,7 @@ ItemTooltip.SunLance=弧形挥动,沿光标攻击敌人
 ItemName.SwampSlasher=污泽砍刀
 ItemTooltip.SwampSlasher=用潭渊的污泽之力挥击敌人
 
-ItemName.SwimmingHydra=九头蛇泳刃
+ItemName.SwimmingHydra=九头蛇泳刃鱼
 
 ItemName.TechneciumSword=闪锝大剑
 
@@ -4562,6 +4562,18 @@ NPCName.GripOfChaosRed=燎狱巨爪
 
 NPCName.HydraClawM=九头蛇之爪
 
+// AAMod.NPCs.Bosses.Greed
+
+NPCName.GreedSpawn=欲望之星
+
+NPCName.Scavenger=拾金婪虫
+NPCName.ScavengerBody=拾金婪虫
+NPCName.ScavengerTail=拾金婪虫
+
+NPCName.Greed=金食饕餮
+NPCName.GreedBody=金食饕餮
+NPCName.GreedTail=金食饕餮
+
 
 // AAMod.NPCs.Bosses.Hydra
 
@@ -4641,7 +4653,7 @@ NPCName.Rajah7=巨兔王公
 NPCName.Rajah8=巨兔王公
 NPCName.Rajah9=巨兔王公
 
-NPCName.SupremeRajah=至尊巨兔王公-无辜的保护者
+NPCName.SupremeRajah=至尊巨兔王公 无辜的保护者
 NPCName.SupremeRajahDefeat=巨兔王公
 
 
@@ -4766,7 +4778,7 @@ NPCName.WyrmlingTail2=燎狱游虫
 
 NPCName.HarukaY=潭渊妖女 八歧遥香
 
-NPCName.YamataA=觉醒之八歧大蛇 雷霆潭渊的化身
+NPCName.YamataA=觉醒之八歧大蛇 震怒潭渊的化身
 
 NPCName.YamataAHead=觉醒之八歧大蛇的头
 
@@ -4805,7 +4817,7 @@ NPCName.OmegaVolley=欧米伽排炮
 
 NPCName.RealityCannon=现实破坏炮
 
-NPCName.RiftShredder=世界割裂臂
+NPCName.RiftShredder=世界割裂器
 
 NPCName.SearcherZero=搜索者-0型
 
