@@ -12,6 +12,7 @@ namespace AAMod.Items.Throwing
 			item.useTime = 25;
             item.CloneDefaults(ItemID.LightDisc);
             item.melee = true;
+            item.maxStack = 5;
             item.damage = 42;                            
             item.value = 6;
             item.rare = 5;
@@ -33,7 +34,15 @@ namespace AAMod.Items.Throwing
 
         public override bool CanUseItem(Player player)       //this make that you can shoot only 1 boomerang at once
         {
-            if (AAGlobalProjectile.CountProjectiles(mod.ProjectileType("HellBallP")) > 5)
+            int num = 0;
+            for (int i = 0; i < 200; i++)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].type == mod.ProjectileType("HellBallP"))
+                {
+                    num++;
+                }
+            }
+            if (num > item.stack)
             {
                 return false;
             }

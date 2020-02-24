@@ -3,6 +3,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Doomsday
@@ -44,7 +45,7 @@ The power to destroy entire planets rests in this armor");
 			item.width = 18;
 			item.height = 18;
 			item.value = 3000000;
-			item.defense = 30;
+			item.defense = 32;
             item.rare = 9;
             AARarity = 13;
         }
@@ -74,12 +75,12 @@ The power to destroy entire planets rests in this armor");
 		public override void UpdateArmorSet(Player player)
 		{
 			
-			player.setBonus = Lang.ArmorBonus("DoomsdayHelmetBonus");
+			player.setBonus = Language.GetTextValue("Mods.AAMod.Common.DoomsdayHelmetBonus");
 
             player.manaCost *= .7f;
             player.AddBuff(BuffID.Hunter, 2);
             player.AddBuff(BuffID.NightOwl, 2);
-            player.GetModPlayer<AAPlayer>(mod).zeroSet = true;
+            player.GetModPlayer<AAPlayer>().zeroSet = true;
 		}
 
 		public override void AddRecipes()

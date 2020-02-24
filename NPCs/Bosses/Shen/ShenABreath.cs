@@ -22,6 +22,7 @@ namespace AAMod.NPCs.Bosses.Shen
             projectile.penetrate = 1;
             projectile.alpha = 255;
             projectile.timeLeft = 100;
+            projectile.tileCollide = false;
         }
 
         public override void AI()
@@ -46,12 +47,12 @@ namespace AAMod.NPCs.Bosses.Shen
                     num296 = 0.75f;
                 }
                 projectile.ai[0] += 1f;
-                int num297 = mod.DustType<Dusts.Discord>();
+                int num297 = ModContent.DustType<Dusts.Discord>();
                 if (Main.rand.Next(2) == 0)
                 {
                     for (int num298 = 0; num298 < 8; num298++)
                     {
-                        int num299 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, num297, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100);
+                        int num299 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, num297, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, Color.White, 2) ;
                         Main.dust[num299].noGravity = true;
                         if (Main.rand.Next(3) == 0)
                         {
@@ -84,7 +85,7 @@ namespace AAMod.NPCs.Bosses.Shen
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType<Buffs.DiscordInferno>(), 180);
+            target.AddBuff(ModContent.BuffType<Buffs.DiscordInferno>(), 180);
         }
     }
 }

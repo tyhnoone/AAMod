@@ -2,7 +2,6 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Projectiles.EFish
@@ -35,7 +34,6 @@ namespace AAMod.Projectiles.EFish
             }
             Main.player[projectile.owner].itemAnimation = 10;
             Main.player[projectile.owner].itemTime = 10;
-            float arg_1C53D_0 = vector54.X;
             if (vector54.X < 0f)
             {
                 Main.player[projectile.owner].ChangeDir(1);
@@ -46,7 +44,7 @@ namespace AAMod.Projectiles.EFish
                 Main.player[projectile.owner].ChangeDir(-1);
                 projectile.direction = -1;
             }
-            Main.player[projectile.owner].itemRotation = (vector54 * -1f * (float)projectile.direction).ToRotation();
+            Main.player[projectile.owner].itemRotation = (vector54 * -1f * projectile.direction).ToRotation();
             projectile.spriteDirection = (vector54.X > 0f) ? -1 : 1;
             if (projectile.ai[0] == 0f && vector54.Length() > 400f)
             {
@@ -86,7 +84,7 @@ namespace AAMod.Projectiles.EFish
             {
                 Vector2 vector55 = vector54 * -1f;
                 vector55.Normalize();
-                vector55 *= (float)Main.rand.Next(45, 65) * 0.1f;
+                vector55 *= Main.rand.Next(45, 65) * 0.1f;
                 vector55 = vector55.RotatedBy((Main.rand.NextDouble() - 0.5) * 1.5707963705062866, default);
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vector55.X, vector55.Y, 405, projectile.damage, projectile.knockBack, projectile.owner, -10f, 0f);
                 return;
@@ -139,7 +137,7 @@ namespace AAMod.Projectiles.EFish
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
 
-            Texture2D texture = ModContent.GetTexture("AAMod/Projectiles/EFish/EFlairon_Chain");
+            Texture2D texture = mod.GetTexture("Chains/EFlairon_Chain");
 
             Vector2 position = projectile.Center;
             Vector2 mountedCenter = Main.player[projectile.owner].MountedCenter;

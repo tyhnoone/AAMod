@@ -12,9 +12,10 @@ namespace AAMod.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMerge[Type][mod.TileType("AbyssGrass")] = true;
             Main.tileMerge[Type][mod.TileType("AbyssWoodSolid")] = true;
-            Main.tileBlendAll[this.Type] = false;
+            Main.tileBlendAll[Type] = false;
 			Main.tileMerge[TileID.Mud][Type] = true;
             Main.tileLighted[Type] = false;
+            Main.tileBlockLight[Type] = true;
             soundType = 21;
             dustType = mod.DustType("DeepAbyssiumDust");
             AddMapEntry(new Color(0, 0, 100));

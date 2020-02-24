@@ -10,7 +10,7 @@ namespace AAMod.Items.Boss.AH
     {
 		public override void SetDefaults()
 		{
-			item.damage = 120;
+			item.damage = 140;
 			item.ranged = true;
 			item.width = 14;
 			item.height = 34;
@@ -52,7 +52,7 @@ namespace AAMod.Items.Boss.AH
             for (int i = 0; i < 3; i++)
             {
                 offsetAngle = startAngle + (deltaAngle * i);
-                int proj = Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), type, damage, knockBack, item.owner);
+                int proj = Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), type, damage, knockBack, Main.myPlayer);
                 Main.projectile[proj].ranged = false;
                 Main.projectile[proj].magic = true;
             }

@@ -18,14 +18,14 @@ namespace AAMod.Items.Boss.Zero
 		public override void SetDefaults()
 		{
             
-			item.damage = 370;
+			item.damage = 190;
 			item.melee = true;
 			item.width = 94;
 			item.height = 70;
-			item.useTime = 30;
+			item.useTime = 22;
             item.shoot = mod.ProjectileType("Rift");
             item.shootSpeed = 10f;
-            item.useAnimation = 30;
+            item.useAnimation = 22;
 			item.useStyle = 1;
 			item.knockBack = 3;
 			item.value = Item.sellPrice(0, 30, 0, 0);
@@ -80,7 +80,7 @@ namespace AAMod.Items.Boss.Zero
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             Dust dust;
-            dust = Dust.NewDustDirect(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType<Dusts.VoidDust>(), 0f, 0f, 46, default, 1.25f);
+            dust = Dust.NewDustDirect(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, ModContent.DustType<Dusts.VoidDust>(), 0f, 0f, 46, default, 1.25f);
 			dust.noGravity = true;
         }
 	}

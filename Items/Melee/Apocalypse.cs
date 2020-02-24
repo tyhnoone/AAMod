@@ -19,7 +19,7 @@ Horseman's Blade EX");
 		public override void SetDefaults()
 		{
             item.melee = true;
-            item.damage = 200;
+            item.damage = 1000;
             item.useStyle = 1;
             item.autoReuse = true;
             item.UseSound = SoundID.Item1;
@@ -27,8 +27,8 @@ Horseman's Blade EX");
             item.width = 54;
 			item.height = 54;    
             item.knockBack = 6.5f;
-            item.useTime = 17;
-			item.useAnimation = 17;
+            item.useTime = 5;
+			item.useAnimation = 5;
 			item.value = 1000000;
             item.expert = true; item.expertOnly = true;
 
@@ -68,7 +68,7 @@ Horseman's Blade EX");
             num6 = num5 / num6;
             velocityX *= num6;
             velocityY *= num6;
-            Projectile p = Projectile.NewProjectileDirect(new Vector2(screenX, screenY), new Vector2(velocityX, velocityY), mod.ProjectileType<Projectiles.Apocalypse>(), damage, 0f, player.whoAmI);
+            Projectile p = Projectile.NewProjectileDirect(new Vector2(screenX, screenY), new Vector2(velocityX, velocityY), ModContent.ProjectileType<Projectiles.Apocalypse>(), damage, 0f, player.whoAmI);
             p.tileCollide = false;
             target.AddBuff(BuffID.OnFire, 400);
         }

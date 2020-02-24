@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.Witch
 {
@@ -56,12 +57,12 @@ A hood enchanted with the firey spirit of a supreme dragon acolyte");
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("WitchHoodBonus");
+			player.setBonus = Language.GetTextValue("Mods.AAMod.Common.WitchHoodBonus");
             player.magicDamage += .2f;
             player.minionDamage += .2f;
             player.maxMinions += 4;
 
-            player.GetModPlayer<AAPlayer>(mod).Witch = true;
+            player.GetModPlayer<AAPlayer>().Witch = true;
 
             if (player.whoAmI == Main.myPlayer)
             {

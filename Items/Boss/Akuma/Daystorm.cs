@@ -1,51 +1,75 @@
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
 namespace AAMod.Items.Boss.Akuma
 {
-    /*public class Daystorm : BaseAAItem //extend BaseAAItem
-    {
+    public class Daystorm : BaseAAItem
+    { 
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Daystorm");
-            Tooltip.SetDefault("Rapidly fires scorching hot lasers");					
-        }
+            Tooltip.SetDefault(@"Incinerate your enemies in a storm of scorching fiery mayhem");
+        }       
 
         public override void SetDefaults()
-        {
-            item.useStyle = 5;
-            item.useAnimation = 20;
-            item.useTime = 20;
-            item.shootSpeed = 20f;
-            item.knockBack = 2f;
-            item.width = 20;
-            item.height = 12;
-            item.damage = 150;
-            item.shoot = mod.ProjectileType("Daystorm");
-            item.mana = 6;
-            item.rare = 9;
-            AARarity = 13;
-            item.value = Item.sellPrice(0, 30, 0, 0);
-            item.noMelee = true;
-            item.noUseGraphic = true;
-            item.magic = true;
-            item.channel = true;
-
-			glowmaskTexture = "Glowmasks/" + GetType().Name + "_Glow"; //the glowmask texture path.
-			glowmaskDrawType = BaseAAItem.GLOWMASKTYPE_NONE; //what type it is when drawn in the hand, _NONE == no draw, _SWORD == like a sword, _GUN == like a gun
-			glowmaskDrawColor = Color.White; //glowmask draw color
-			customNameColor = AAColor.Akuma; //custom name color	
+		{
+			item.damage = 225;
+			item.magic = true;
+			item.mana = 9;
+			item.width = 100;
+			item.height = 100;
+			item.useTime = 7;
+			item.useAnimation = 7;
+			item.useStyle = 5;
+			item.noMelee = true; 
+			item.knockBack = 0;
+            item.value = Item.sellPrice(0, 7, 0, 0);
+            item.rare = 8;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Dayshot");
+			item.autoReuse = true;
+			item.shoot = 10;
+			item.shootSpeed = 30;
         }
 
-        public override void ModifyTooltips(System.Collections.Generic.List<Terraria.ModLoader.TooltipLine> list)
+        public override Vector2? HoldoutOffset()
         {
-            foreach (Terraria.ModLoader.TooltipLine line2 in list)
+            return new Vector2(-3, 0);
+        }
+
+        int shoot = 0;
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
+            //    Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("Dayser"), damage, knockBack, player.whoAmI);
+            //}
+            if (shoot++ > 6) shoot = 0;
+
+            for (int i = 0; i < 4; i++)
             {
-                if (line2.mod == "Terraria" && line2.Name == "ItemName")
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15)) * .5f;
+                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("Daystormbullet"), damage, knockBack, player.whoAmI);
+            }
+
+            if (Main.rand.Next(3) == 0)
+            {
+                //Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
+                //Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("Dayser"), damage * 2, knockBack, player.whoAmI);
+                //shoot = 0;
+                for (int i = 0; i < Main.rand.Next(2); i++)
                 {
-                    line2.overrideColor = AAColor.Rarity13;
+                    Vector2 perturbedSpeed2 = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
+                    Projectile.NewProjectile(position.X, position.Y, perturbedSpeed2.X, perturbedSpeed2.Y, mod.ProjectileType("DaystormbulletA"), (int)(damage * 1.5f), knockBack, player.whoAmI);
                 }
             }
+            return false;
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DaybreakIncinerite", 5);
@@ -55,5 +79,5 @@ namespace AAMod.Items.Boss.Akuma
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-    }*/
+    }
 }

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.PerfectChaos
 {
@@ -13,8 +14,9 @@ namespace AAMod.Items.Armor.PerfectChaos
             DisplayName.SetDefault("Chaos Slayer Visor");
             Tooltip.SetDefault(@"45% increased ranged damage
 38% increased ranged critical strike chance
-12% increased damage resistance
+3% increased damage resistance
 25% reduced ammo consumption
++15 Max Life
 The power of discordian rage radiates from this hood");
         }
 
@@ -45,17 +47,18 @@ The power of discordian rage radiates from this hood");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("PerfectChaosVisorBonus");
-            player.GetModPlayer<AAPlayer>(mod).perfectChaosRa = true;
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.PerfectChaosVisorBonus");
+            player.GetModPlayer<AAPlayer>().perfectChaosRa = true;
             player.AddBuff(mod.BuffType("ChaosWrath"), 2);
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage *= 1.45f;
+            player.rangedDamage += .45f;
             player.rangedCrit += 38;
-            player.endurance *= 1.1f;
+            player.endurance += .03f;
             player.ammoCost75 = true;
+            player.statLifeMax2 += 15;
         }
 
         public override void AddRecipes()
@@ -64,7 +67,7 @@ The power of discordian rage radiates from this hood");
             recipe.AddIngredient(null, "DreadHelm", 1);
             recipe.AddIngredient(null, "Discordium", 6);
             recipe.AddIngredient(null, "ChaosScale", 6);
-            recipe.AddTile(null, "AncientForge");
+            recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

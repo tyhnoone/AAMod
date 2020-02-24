@@ -52,9 +52,7 @@ namespace AAMod.Projectiles
 
         public override void AI()
         {
-            int num309 = Dust.NewDust(new Vector2(projectile.position.X - projectile.velocity.X * 4f + 2f, projectile.position.Y + 2f - projectile.velocity.Y * 4f), 8, 8, mod.DustType<Dusts.InfinityOverloadG>(), projectile.oldVelocity.X, projectile.oldVelocity.Y, 100, default, 1.25f);
-            Main.dust[num309].velocity *= -0.25f;
-            num309 = Dust.NewDust(new Vector2(projectile.position.X - projectile.velocity.X * 4f + 2f, projectile.position.Y + 2f - projectile.velocity.Y * 4f), 8, 8, mod.DustType<Dusts.InfinityOverloadG>(), projectile.oldVelocity.X, projectile.oldVelocity.Y, 100, default, 1.25f);
+            int num309 = Dust.NewDust(new Vector2(projectile.position.X - projectile.velocity.X * 4f + 2f, projectile.position.Y + 2f - projectile.velocity.Y * 4f), 8, 8, ModContent.DustType<Dusts.InfinityOverloadG>(), projectile.oldVelocity.X, projectile.oldVelocity.Y, 100, default, 1.25f);
             Main.dust[num309].velocity *= -0.25f;
             Main.dust[num309].position -= projectile.velocity * 0.5f;
 
@@ -79,11 +77,13 @@ namespace AAMod.Projectiles
 
             if (projectile.velocity.X < 0f)
             {
+                projectile.direction = -1;
                 projectile.spriteDirection = -1;
                 projectile.rotation = (float)Math.Atan2(-projectile.velocity.Y, -projectile.velocity.X) - 1.57f;
             }
             else
             {
+                projectile.direction = 1;
                 projectile.spriteDirection = 1;
                 projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             }
@@ -112,7 +112,7 @@ namespace AAMod.Projectiles
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(SoundID.Item14, projectile.position);
-            int p = Projectile.NewProjectile(projectile.Center, new Vector2(0, 0), projectile.ai[1] == 1 ? mod.ProjectileType<Ducksplosion1>() : mod.ProjectileType<Ducksplosion>(), projectile.damage, projectile.knockBack, projectile.owner);
+            int p = Projectile.NewProjectile(projectile.Center, new Vector2(0, 0), projectile.ai[1] == 1 ? ModContent.ProjectileType<Ducksplosion1>() : ModContent.ProjectileType<Ducksplosion>(), projectile.damage, projectile.knockBack, projectile.owner);
             Main.projectile[p].Center = projectile.Center;
         }
 
@@ -120,7 +120,7 @@ namespace AAMod.Projectiles
         {
             Rectangle frame = BaseDrawing.GetFrame(projectile.frame, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 14, 0, 0);
             BaseDrawing.DrawAfterimage(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile, .5f, 1f, 10, false, 0f, 0f, new Color(100, 200, 0, 0), frame, 14);
-            BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, 0, 14, frame, Color.White, true);
+            BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, projectile.direction, 14, frame, Color.White, true);
             return false;
         }
     }

@@ -18,7 +18,7 @@ namespace AAMod.Items.Boss.Serpent
             item.expert = true; item.expertOnly = true;
         }
 
-        public override void UpdateEquip(Player p)
+        public override void UpdateAccessory(Player p, bool hideVisual)
         {
 			if(p.ZoneRain && p.ZoneSnow)
 			{
@@ -41,7 +41,7 @@ namespace AAMod.Items.Boss.Serpent
                 int maxAccessoryIndex = 5 + player.extraAccessorySlots;
                 for (int i = 3; i < 3 + maxAccessoryIndex; i++)
                 {
-                    if (slot != i && player.armor[i].type == mod.ItemType<FireFrostMedallion>())
+                    if (slot != i && player.armor[i].type == Terraria.ModLoader.ModContent.ItemType<FireFrostMedallion>())
                     {
                         return false;
                     }

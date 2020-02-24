@@ -2,6 +2,7 @@ using AAMod.Backgrounds;
 using AAMod.Globals;
 using AAMod.UI;
 using AAMod.UI.Core;
+using AAMod.Items.Dev.Invoker;
 using BaseMod;
 using log4net;
 using Microsoft.Xna.Framework;
@@ -15,6 +16,7 @@ using Terraria.GameContent.UI;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.Utilities;
@@ -25,15 +27,20 @@ namespace AAMod
     {
         // Miscellaneous
         public static int GoblinSoul = -1;
+        public static int BloodRune = -1;
+        public static int PirateBooty = -1;
+        public static int MonsterSoul = -1;
+        public static int HalloweenTreat = -1;
+        public static int ChristmasCheer = -1;
+        public static int MartianCredit = -1;
+
         public static int BoneAmmo = 10000;
 
         // Hotkeys
-        public static ModHotKey InfinityHotKey;
         public static ModHotKey AccessoryAbilityKey;
         public static ModHotKey ArmorAbilityKey;
         public static ModHotKey Rift;
         public static ModHotKey RiftReturn;
-        public static ModHotKey TimeStone;
 
         // Textures
         public static IDictionary<string, Texture2D> Textures = null;
@@ -49,18 +56,18 @@ namespace AAMod
         internal TerratoolZUI TerratoolZState;
         internal TerratoolSUI TerratoolSState;
         internal TerratoolKipUI TerratoolKipState;
+        internal TerratoolLizUI TerratoolLizState;
+        internal TerratoolGroxUI TerratoolGroxState;
+        internal TerratoolEXUI TerratoolEXState;
 
         public static SpriteFont fontMouseText;
 
-        public static int[] SNAKETYPES = new int[0];
-        public static int[] SERPENTTYPES = new int[0];
-
-        public static bool thoriumLoaded = false;
-        public static bool calamityLoaded = false;
 
         internal static AAMod instance;
         public static AAMod self = null;
         internal ILog Logging = LogManager.GetLogger("AAMod");
+
+        public static bool isFullyReady;
 
         public AAMod()
         {
@@ -76,7 +83,7 @@ namespace AAMod
 
         public static void SetupBannerItemTextures()
         {
-            if (Main.netMode == 2 || Main.dedServ) return; //don't do any texture stuff on a server lol
+            if (Main.netMode == NetmodeID.Server || Main.dedServ) return; //don't do any texture stuff on a server lol
             try
             {
                 int fx = 16;
@@ -205,13 +212,9 @@ namespace AAMod
         {
             WeakReferences.PerformModSupport();
 
-            Mod Thorium = ModLoader.GetMod("ThoriumMod");
-            Mod Calamity = ModLoader.GetMod("CalamityMod");
+            Array.Resize(ref AASets.Goblins, NPCLoader.NPCCount);
 
-            if (Thorium != null)
-                thoriumLoaded = true;
-            if (Calamity != null)
-                calamityLoaded = true;
+            isFullyReady = true;
         }
 
         public static void PremultiplyTexture(Texture2D texture)
@@ -228,8 +231,22 @@ namespace AAMod
 
         public override void Load()
         {
+            string text = "If you like AAmod, thanks for your support: ";
+            string webtext = "patreon.com/alphakip";
+            Main.versionNumber = "Terraria v1.3.5.2\nAncientsAwakened v" + instance.Version.ToString() + "\n" + text + webtext;
+
+            Config.Load();
+            Logger.InfoFormat("{0} AA log", Name);
+
             instance = this;
-            GoblinSoul = CustomCurrencyManager.RegisterCurrency(new Items.Currency.GSouls(ItemType<Items.Currency.GoblinSoul>()));
+            GoblinSoul = CustomCurrencyManager.RegisterCurrency(new Items.Currency.GSouls(ModContent.ItemType<Items.Currency.GoblinSoul>()));
+            BloodRune = CustomCurrencyManager.RegisterCurrency(new Items.Currency.BRune(ModContent.ItemType<Items.Currency.BloodRune>()));
+            PirateBooty = CustomCurrencyManager.RegisterCurrency(new Items.Currency.PBooty(ModContent.ItemType<Items.Currency.PirateBooty>()));
+            MonsterSoul = CustomCurrencyManager.RegisterCurrency(new Items.Currency.MSouls(ModContent.ItemType<Items.Currency.MonsterSoul>()));
+            HalloweenTreat = CustomCurrencyManager.RegisterCurrency(new Items.Currency.HTreat(ModContent.ItemType<Items.Currency.HalloweenTreat>()));
+            ChristmasCheer = CustomCurrencyManager.RegisterCurrency(new Items.Currency.CCheer(ModContent.ItemType<Items.Currency.ChristmasCheer>()));
+            MartianCredit = CustomCurrencyManager.RegisterCurrency(new Items.Currency.MCredit(ModContent.ItemType<Items.Currency.MartianCredit>()));
+
             BoneAmmo = ItemID.Bone;
             if (Main.rand == null)
                 Main.rand = new UnifiedRandom();
@@ -242,15 +259,11 @@ namespace AAMod
             GameShaders.Armor.BindShader(ItemType("AbyssalWrathDye"), new ArmorShaderData(Main.PixelShaderRef, "ArmorHades").UseColor(146f / 255f, 30f / 255f, 68f / 255f).UseSecondaryColor(105f / 255f, 20f / 255f, 50f / 255f));
             GameShaders.Armor.BindShader(ItemType("BlazingFuryDye"), new ArmorShaderData(Main.PixelShaderRef, "ArmorHades")).UseColor(Color.SkyBlue.R / 255f, Color.SkyBlue.G / 255f, Color.SkyBlue.B / 255f).UseSecondaryColor(Color.DeepSkyBlue.R / 255f, Color.DeepSkyBlue.G / 255f, Color.DeepSkyBlue.B / 255f);
 
-            InfinityHotKey = RegisterHotKey("Snap", "G");
+            Rift = RegisterHotKey(Lang.Hotkey("Rifthotkey"), "C");
+            RiftReturn = RegisterHotKey(Lang.Hotkey("RiftReturnhotkey"), "X");
 
-            Rift = RegisterHotKey("Rift Home", "C");
-            RiftReturn = RegisterHotKey("Rift Back", "X");
-
-            AccessoryAbilityKey = RegisterHotKey("AA Accessory Ability", "U");
-            ArmorAbilityKey = RegisterHotKey("AA Armor Ability", "Y");
-
-            TimeStone = RegisterHotKey("Time Stone", "K");
+            AccessoryAbilityKey = RegisterHotKey(Lang.Hotkey("AccessoryAbilityKey"), "U");
+            ArmorAbilityKey = RegisterHotKey(Lang.Hotkey("ArmorAbilityKey"), "Y");
 
             if (!Main.dedServ)
             {
@@ -275,7 +288,30 @@ namespace AAMod
             TerratoolSState.Activate();
             TerratoolKipState = new TerratoolKipUI();
             TerratoolKipState.Activate();
+            TerratoolLizState = new TerratoolLizUI();
+            TerratoolLizState.Activate();
+            TerratoolGroxState = new TerratoolGroxUI();
+            TerratoolGroxState.Activate();
+            TerratoolEXState = new TerratoolEXUI();
+            TerratoolEXState.Activate();
 
+            Ref<Effect> screenRef = new Ref<Effect>(GetEffect("Effects/Shockwave"));
+            Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef, "Shockwave"), EffectPriority.VeryHigh);
+            Filters.Scene["Shockwave"].Load();
+
+            BackupVanillaBG(-1);
+            BackupVanillaBG(-2);
+            BackupVanillaBG(-3);
+
+            BackupVanillaBG(0);
+            BackupVanillaBG(171);
+            BackupVanillaBG(172);
+            BackupVanillaBG(173);
+            BackupVanillaBG(24);
+            BackupVanillaBG(25);
+            BackupVanillaBG(56);
+            BackupVanillaBG(57);
+            BackupVanillaBG(58);
 
             PremultiplyTexture(GetTexture("Backgrounds/VoidBH"));
             PremultiplyTexture(GetTexture("Backgrounds/Moon"));
@@ -286,11 +322,18 @@ namespace AAMod
             PremultiplyTexture(GetTexture("Backgrounds/YamataBeam"));
             PremultiplyTexture(GetTexture("Backgrounds/AkumaAMeteor"));
             PremultiplyTexture(GetTexture("Backgrounds/AkumaMeteor"));
+            PremultiplyTexture(GetTexture("Backgrounds/SkyTex"));
+            PremultiplyTexture(GetTexture("Backgrounds/ShenMeteor"));
+            PremultiplyTexture(GetTexture("Backgrounds/AthenaBolt"));
+            PremultiplyTexture(GetTexture("Backgrounds/AthenaFlash"));
             PremultiplyTexture(GetTexture("NPCs/Bosses/Zero/ZeroShield"));
-            PremultiplyTexture(GetTexture("NPCs/Bosses/AH/Ashe/AsheBarrier"));
             PremultiplyTexture(GetTexture("Projectiles/RadiumStar"));
             PremultiplyTexture(GetTexture("Projectiles/Stars"));
             PremultiplyTexture(GetTexture("NPCs/Bosses/Toad/ToadBubble"));
+            PremultiplyTexture(GetTexture("NPCs/Bosses/Greed/GreedSpawn"));
+            PremultiplyTexture(GetTexture("NPCs/Bosses/Greed/GreedSpawn1"));
+            PremultiplyTexture(GetTexture("NPCs/Bosses/Greed/GreedSpawn2"));
+            PremultiplyTexture(GetTexture("NPCs/Bosses/Zero/Protocol/ProtoStar"));
 
             if (GetSoundSlot(SoundType.Music, "Sounds/Music/Monarch") != 0) //ensure music was loaded!
             {
@@ -304,13 +347,23 @@ namespace AAMod
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MireSurface"), ItemType("MireBox"), TileType("MireBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/InfernoUnderground"), ItemType("InfernoUBox"), TileType("InfernoUBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MireUnderground"), ItemType("MireUBox"), TileType("MireUBox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Void"), ItemType("VoidBox"), TileType("VoidBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Djinn"), ItemType("DjinnBox"), TileType("DjinnBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TODE"), ItemType("ToadBox"), TileType("ToadBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Boss6"), ItemType("SerpentBox"), TileType("SerpentBox"));
+                //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Sagittarius"), ItemType("SagBox"), TileType("SagBox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Anubis"), ItemType("AnubisBox"), TileType("AnubisBox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Acropolis"), ItemType("AcropolisBox"), TileType("AcropolisBox"));
+                //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Hoard"), ItemType("HoardBox"), TileType("HoardBox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Greed"), ItemType("GreedBox"), TileType("GreedBox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Athena"), ItemType("AthenaBox"), TileType("AthenaBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/RajahTheme"), ItemType("RajahBox"), TileType("RajahBox"));
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Equinox"), ItemType("Equibox"), TileType("Equibox"));
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Stars"), ItemType("StarBox"), TileType("StarBox"));
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Void"), ItemType("VoidBox"), TileType("VoidBox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/GreedA"), ItemType("GreedABox"), TileType("GreedABox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/AthenaA"), ItemType("AthenaABox"), TileType("AthenaABox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/AnubisA"), ItemType("AnubisFBox"), TileType("AnubisFBox"));
+                //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Equinox"), ItemType("Equibox"), TileType("Equibox"));
+                //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Stars"), ItemType("StarBox"), TileType("StarBox"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/AH"), ItemType("SistersBox"), TileType("SistersBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/VoidButNowItsSpooky"), ItemType("FateBox"), TileType("FateBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Shrines"), ItemType("LakeBox"), TileType("LakeBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/AkumaShrine"), ItemType("PagodaBox"), TileType("PagodaBox"));
@@ -321,69 +374,142 @@ namespace AAMod
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Yamata"), ItemType("YamataBox"), TileType("YamataBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Yamata2"), ItemType("YamataABox"), TileType("YamataABox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Terrarium"), ItemType("TerrariumBox"), TileType("TerrariumBox"));
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingDragon"), ItemType("SDBox"), TileType("SDBox"));
+                //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingDragon"), ItemType("SDBox"), TileType("SDBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingGiant"), ItemType("SGBox"), TileType("SGBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Shen"), ItemType("ShenBox"), TileType("ShenBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/ShenA"), ItemType("ShenABox"), TileType("ShenABox"));
-                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/SupremeRajah"), ItemType("SRajahBox"), TileType("SRajahBox"));
+                //(GetSoundSlot(SoundType.Music, "Sounds/Music/SupremeRajah"), ItemType("SRajahBox"), TileType("SRajahBox"));
             }
 
             Filters.Scene["AAMod:ShenSky"] = new Filter(new ShenSkyData("FilterMiniTower").UseColor(.5f, 0f, .5f).UseOpacity(0.2f), EffectPriority.VeryHigh);
             SkyManager.Instance["AAMod:ShenSky"] = new ShenSky();
-            ShenSky.SkyTex = GetTexture("Backgrounds/ShenBg");
+            ShenSky.SkyTex = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/ShenBg");
 
             Filters.Scene["AAMod:ShenASky"] = new Filter(new ShenASkyData("FilterMiniTower").UseColor(.7f, 0f, .7f).UseOpacity(0.2f), EffectPriority.VeryHigh);
             SkyManager.Instance["AAMod:ShenASky"] = new ShenASky();
-            ShenASky.SkyTex = GetTexture("Backgrounds/ShenSky");
-            ShenASky.MeteorTexture = GetTexture("Backgrounds/ShenMeteor");
+            ShenASky.SkyTex = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/ShenSky");
+            ShenASky.MeteorTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/ShenMeteor");
 
             Filters.Scene["AAMod:MireSky"] = new Filter(new MireSkyData("FilterMiniTower").UseColor(0f, 0.20f, 1f).UseOpacity(0.3f), EffectPriority.High);
             SkyManager.Instance["AAMod:MireSky"] = new MireSky();
-            MireSky.PlanetTexture = GetTexture("Backgrounds/Moon");
-            MireSky.SkyTexture = GetTexture("Backgrounds/MireSky");
+            MireSky.PlanetTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Moon");
+            MireSky.SkyTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/MireSky");
 
             Filters.Scene["AAMod:VoidSky"] = new Filter(new VoidSkyData("FilterMiniTower").UseColor(0.15f, 0.1f, 0.1f).UseOpacity(0.3f), EffectPriority.High);
             SkyManager.Instance["AAMod:VoidSky"] = new VoidSky();
-            VoidSky.PlanetTexture = GetTexture("Backgrounds/VoidBH");
-            VoidSky.Asteroids1 = GetTexture("Backgrounds/Asteroids1");
-            VoidSky.Asteroids2 = GetTexture("Backgrounds/Asteroids2");
-            VoidSky.Asteroids3 = GetTexture("Backgrounds/Asteroids3");
-            VoidSky.Echo = GetTexture("Backgrounds/Echo");
-            VoidSky.LB = GetTexture("Backgrounds/LB");
-            VoidSky.boltTexture = GetTexture("Backgrounds/VoidBolt");
-            VoidSky.flashTexture = GetTexture("Backgrounds/VoidFlash");
-            VoidSky.Stars = GetTexture("Backgrounds/Void_Starfield");
-            VoidSky.SkyTexture = GetTexture("Backgrounds/SkyTex");
+            VoidSky.PlanetTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/VoidBH");
+            VoidSky.Asteroids1 = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Asteroids1");
+            VoidSky.Asteroids2 = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Asteroids2");
+            VoidSky.Asteroids3 = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Asteroids3");
+            VoidSky.Echo = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Echo");
+            VoidSky.LB = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/LB");
+            VoidSky.boltTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/VoidBolt");
+            VoidSky.flashTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/VoidFlash");
+            VoidSky.Stars = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Void_Starfield");
+            VoidSky.SkyTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/SkyTex");
+
+
+            Filters.Scene["AAMod:AthenaSky"] = new Filter(new VoidSkyData("FilterMiniTower").UseColor(0f, 0.1f, 0.1f).UseOpacity(0.3f), EffectPriority.High);
+            SkyManager.Instance["AAMod:AthenaSky"] = new AthenaSky();
+            AthenaSky.boltTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/AthenaBolt");
+            AthenaSky.flashTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/AthenaFlash");
 
             Filters.Scene["AAMod:InfernoSky"] = new Filter(new InfernoSkyData("FilterMiniTower").UseColor(1f, 0.20f, 0f).UseOpacity(0.3f), EffectPriority.High);
             SkyManager.Instance["AAMod:InfernoSky"] = new InfernoSky();
-            InfernoSky.PlanetTexture = GetTexture("Backgrounds/Sun");
-            InfernoSky.SkyTex = GetTexture("Backgrounds/SkyTex");
-            InfernoSky.MeteorTexture = GetTexture("Backgrounds/AkumaMeteor");
+            InfernoSky.PlanetTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Sun");
+            InfernoSky.SkyTex = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/SkyTex");
+            InfernoSky.MeteorTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/AkumaMeteor");
 
             Filters.Scene["AAMod:AkumaSky"] = new Filter(new AkumaSkyData("FilterMiniTower").UseColor(0f, 0.3f, 0.4f).UseOpacity(0.5f), EffectPriority.VeryHigh);
             SkyManager.Instance["AAMod:AkumaSky"] = new AkumaSky();
-            AkumaSky.PlanetTexture = GetTexture("Backgrounds/AkumaSun");
-            AkumaSky.SkyTex = GetTexture("Backgrounds/SkyTex");
-            AkumaSky.MeteorTexture = GetTexture("Backgrounds/AkumaAMeteor");
+            AkumaSky.PlanetTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/AkumaSun");
+            AkumaSky.SkyTex = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/SkyTex");
+            AkumaSky.MeteorTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/AkumaAMeteor");
 
             Filters.Scene["AAMod:YamataSky"] = new Filter(new YamataSkyData("FilterMiniTower").UseColor(.7f, 0f, 0f).UseOpacity(0.5f), EffectPriority.VeryHigh);
             SkyManager.Instance["AAMod:YamataSky"] = new YamataSky();
-            YamataSky.PlanetTexture = GetTexture("Backgrounds/YamataMoon");
-            YamataSky.SkyTex = GetTexture("Backgrounds/YamataStars");
-            YamataSky.BeamTexture = GetTexture("Backgrounds/YamataBeam");
+            YamataSky.PlanetTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/YamataMoon");
+            YamataSky.SkyTex = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/YamataStars");
+            YamataSky.BeamTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/YamataBeam");
+
+            Filters.Scene["AAMod:AnubisSky"] = new Filter(new AnubisSkyData("FilterMiniTower").UseColor(.2f, .5f, .2f).UseOpacity(0.5f), EffectPriority.VeryHigh);
+            SkyManager.Instance["AAMod:AnubisSky"] = new AnubisSky();
+            AnubisSky.BeamTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/AnubisBeam");
+            for (int a = 0; a < 8; a++)
+            {
+                AnubisSky.RuneTextures[a] = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Runes/Rune" + a);
+            }
 
             ReplaceItemTexture(3460, "Resprites/Luminite");
             ReplaceItemTexture(512, "Resprites/SoulOfNight");
 
             sunTextureBackup = Main.sunTexture;
             sun3TextureBackup = Main.sun3Texture;
+
+            AddEquipTexture(new InvokedCaligulaHead(), null, EquipType.Head, "InvokedCaligulaHead", "AAMod/Items/Dev/Invoker/InvokedCaligula_Head", "", "");
+            AddEquipTexture(new InvokedCaligulaBody(), null, EquipType.Body, "InvokedCaligulaBody", "AAMod/Items/Dev/Invoker/InvokedCaligula_Body", "AAMod/Items/Dev/Invoker/InvokedCaligula_Arms", "");
+            AddEquipTexture(new InvokedCaligulaLegs(), null, EquipType.Legs, "InvokedCaligulaLegs", "AAMod/Items/Dev/Invoker/InvokedCaligula_Legs", "", "");
+
+            AddEquipTexture(new InvokerHead(), null, EquipType.Head, "InvokerHead", "AAMod/Items/Vanity/Invoker/InvokerHood_Head", "", "");
+            AddEquipTexture(new InvokerBody(), null, EquipType.Body, "InvokerBody", "AAMod/Items/Vanity/Invoker/InvokerRobe_Body", "AAMod/Items/Vanity/Invoker/InvokerRobe_Arms", "");
+            AddEquipTexture(new InvokerLegs(), null, EquipType.Legs, "InvokerLegs", "AAMod/Items/Vanity/Invoker/InvokerPants_Legs", "", "");
+
+            AddEquipTexture(null, EquipType.Legs, "CCRobe_Legs", "AAMod/Items/Vanity/CC/CCRobe_Legs");
         }
 
         //DO NOT MAKE THESE STATIC! DOING SO WILL PREVENT WHAT IT FIXES FROM HAPPENING.
         private Texture2D sunTextureBackup = null;
         private Texture2D sun3TextureBackup = null;
         public Dictionary<int, Texture2D> vanillaTextureBackups = new Dictionary<int, Texture2D>();
+        public Dictionary<int, Texture2D> vanillaBGBackups = new Dictionary<int, Texture2D>();
+
+        public static bool AAloadedOnly = true;
+
+        public override void PostAddRecipes()
+		{
+            LuckyCheckProgress();
+            foreach(Mod mo in ModLoader.Mods)
+            {
+                if(mo.Name != "ModLoader" && mo.Name != "AAMod" && mo.Name != "BaseMod")
+                {
+                    AAloadedOnly = false;
+                }
+            }
+			Config.SaveConfig();
+		}
+
+        private void LuckyCheckProgress()
+        {
+            Config.LuckyOre.Clear();
+            Config.LuckyPotion.Clear();
+            Config.ListRareNpc.Clear();
+            Item item = new Item();
+            for (int i = -48; i < ItemLoader.ItemCount; i++)
+			{
+				item.netDefaults(i);
+                if(item.createTile > 0 && Main.tileValue[item.createTile] > 0 && !Main.tileContainer[item.createTile] && item.createTile != 441 && item.createTile != 468)
+                {
+                    Config.LuckyOre.Add(item.type, Main.tileValue[item.createTile]);
+                }
+                if(item.buffType > 0 && item.buffType != 26 && item.buffTime > 0 && item.type >= 3930)
+                {
+                    Config.LuckyPotion.Add(item.type, item.value);
+                }
+            }
+            NPC npc = new NPC();
+            for (int i = -65; i < NPCLoader.NPCCount; i++)
+			{
+				if (i != 0)
+				{
+					npc.SetDefaults(i, -1);
+                }
+                if (npc.rarity >= 1)
+                {
+                    Config.ListRareNpc.Add(i);
+                }
+            }
+        }
+
         public void ReplaceItemTexture(int id, string texturePath)
         {
             vanillaTextureBackups.Add(id, Main.itemTexture[id]);
@@ -397,21 +523,70 @@ namespace AAMod
             }
         }
 
+        public void BackupVanillaBG(int id)
+        {
+            if(id > 0)
+            {
+                vanillaBGBackups.Add(id, Main.backgroundTexture[id]);
+            }
+            else if(id == -1)
+            {
+                vanillaBGBackups.Add(-1, Main.logoTexture);
+            }
+            else if(id == -2)
+            {
+                vanillaBGBackups.Add(-2, Main.logo2Texture);
+            }
+            else if(id == -3)
+            {
+                vanillaBGBackups.Add(-3, Main.sunTexture);
+            }
+           
+        }
+
+        public void ResetBGTexture(int id)
+        {
+            if (vanillaBGBackups.ContainsKey(id))
+            {
+                if(id > 0)
+                {
+                    Main.backgroundTexture[id] = vanillaBGBackups[id];
+                }
+                else if(id == -1)
+                {
+                    Main.logoTexture = vanillaBGBackups[-1];
+                }
+                else if(id == -2)
+                {
+                    Main.logo2Texture = vanillaBGBackups[-2];
+                }
+                else if(id == -3)
+                {
+                    Main.sunTexture = vanillaBGBackups[-3];
+                }
+            }
+        }
+
         public override void Unload()
         {
+            Main.versionNumber = "Terraria v1.3.5.2";
+            AAMenuset = false;
+
+            if (!Main.dedServ)
+            {
+                CleanAAmenu();
+                UnloadClient();
+            }
+            
             CleanupStaticArrays();
+
             instance = null;
-            InfinityHotKey = null;
             Rift = null;
             RiftReturn = null;
             AccessoryAbilityKey = null;
             ArmorAbilityKey = null;
-            TimeStone = null;
 
-            if (!Main.dedServ)
-            {
-                UnloadClient();
-            }
+            isFullyReady = false;
         }
 
         public void UnloadClient()
@@ -423,6 +598,24 @@ namespace AAMod
                 Main.sunTexture = sunTextureBackup;
             if (sun3TextureBackup != null)
                 Main.sun3Texture = sun3TextureBackup;
+        }
+
+        public void CleanAAmenu()
+        {
+            ResetBGTexture(-1);
+            ResetBGTexture(-2);
+            ResetBGTexture(-3);
+            //Main.logoTexture = ModContent.GetTexture("Logo");
+            //Main.logo2Texture = ModContent.GetTexture("Logo2");
+            ResetBGTexture(0);
+            ResetBGTexture(171);
+            ResetBGTexture(172);
+            ResetBGTexture(173);
+            ResetBGTexture(24);
+            ResetBGTexture(25);
+            ResetBGTexture(56);
+            ResetBGTexture(57);
+            ResetBGTexture(58);
         }
 
         public void CleanupStaticArrays()
@@ -483,6 +676,158 @@ namespace AAMod
             }
         }
 
+        public override void PostUpdateInput()
+		{
+            if (!isFullyReady)
+            {
+                return;
+            }
+            if (Main.gameMenu && Main.menuMode >= 0)
+            {
+                if(Main.menuMode == 0)
+                {
+                    AAMenuset = true;
+                }
+                if(Main.menuMode >= 10002 && Main.menuMode <= 10006)
+                {
+                    AAMenuset = false;
+                }
+                if(AAConfigClient.Instance != null && AAConfigClient.Instance.AAStyleMainPage && (Main.bgStyle == 1 || Main.bgStyle == 0) && AAMenuset)
+                {
+                    AAMenuReset = true;
+                    WorldGen.setBG(0, 6);
+                    switch(Main.moonPhase % 3)
+                    {
+                        case 0:
+                            Main.numClouds = 10;
+                            if(Main.LogoB <= 255)
+                            {
+                                Main.logoTexture = ModContent.GetTexture("Terraria/Logo");
+                            }
+                            if(Main.LogoB < 10 || (!Main.dayTime && Main.LogoA <= 255))
+                            {
+                                Main.logo2Texture = ModContent.GetTexture("Terraria/Logo2");
+                            }
+                            Main.sunTexture = ModContent.GetTexture("Terraria/Sun");
+                            if(SkyManager.Instance["AAMod:MireSky"].IsActive()) SkyManager.Instance.Deactivate("AAMod:MireSky", new object[0]);
+                            if(SkyManager.Instance["AAMod:VoidSky"].IsActive()) SkyManager.Instance.Deactivate("AAMod:VoidSky", new object[0]);
+
+                            if(Main.dayTime && (Main.bgAlpha2[0] < 0.10f || Main.bgAlpha2[0] == 1f))
+                            {
+                                Main.treeBG[0] = 173;
+                                Main.backgroundTexture[0] = ModContent.GetTexture("Terraria/Background_" + 0);
+                                Main.backgroundTexture[171] = ModContent.GetTexture("Terraria/Background_" + 171);
+                                Main.backgroundTexture[172] = ModContent.GetTexture("Terraria/Background_" + 172);
+                                Main.backgroundTexture[173] = ModContent.GetTexture("Terraria/Background_" + 173);
+                                Main.backgroundTexture[24] = ModContent.GetTexture("Terraria/Background_" + 24);
+                                Main.backgroundTexture[25] = ModContent.GetTexture("Terraria/Background_" + 25);
+                                Main.backgroundTexture[56] = ModContent.GetTexture("Terraria/Background_" + 56);
+                                Main.backgroundTexture[57] = ModContent.GetTexture("Terraria/Background_" + 57);
+                                Main.backgroundTexture[58] = ModContent.GetTexture("Terraria/Background_" + 58);
+                            }
+                            break;
+                        case 1:
+                            Main.numClouds = 0;
+                            if(Main.dayTime)
+                            {
+                                Main.sunTexture = instance.GetTexture("Backgrounds/Sun");
+                            }
+                            else
+                            {
+                                if(SkyManager.Instance["AAMod:MireSky"] != null) SkyManager.Instance.Activate("AAMod:MireSky",default(Vector2), new object[0]);
+                            }
+                            if(Main.LogoB <= 255)
+                            {
+                                Main.logoTexture = instance.GetTexture("UI/LogoInferno");
+                            }
+                            if(Main.LogoB < 10 || (!Main.dayTime && Main.LogoA <= 255))
+                            {
+                                Main.logo2Texture = instance.GetTexture("UI/LogoMire");
+                            }
+                            if(Main.dayTime && (Main.bgAlpha2[0] < 0.10f || Main.bgAlpha2[0] == 1f))
+                            {
+                                Main.backgroundTexture[0] = instance.GetTexture("Backgrounds/InfernoSky");
+                                Main.backgroundTexture[171] = instance.GetTexture("Backgrounds/InfernoBG");
+                                Main.backgroundTexture[172] = instance.GetTexture("Backgrounds/InfernoBG");
+                                Main.backgroundTexture[173] = instance.GetTexture("Backgrounds/InfernoBG");
+                                Main.backgroundTexture[24] = instance.GetTexture("Backgrounds/MireBG");
+                                Main.backgroundTexture[25] = instance.GetTexture("Backgrounds/MireFG2");
+                                Main.backgroundTexture[56] = instance.GetTexture("Backgrounds/MireFG1");
+                                Main.backgroundTexture[57] = instance.GetTexture("Backgrounds/MireFG1");
+                                Main.backgroundTexture[58] = instance.GetTexture("Backgrounds/MireFG1");
+                            }
+                            if(!Main.dayTime && (Main.bgAlpha2[2] < 0.10f || Main.bgAlpha2[2] == 1f))
+                            {
+                                Main.backgroundTexture[0] = instance.GetTexture("Backgrounds/YamataStars");
+                            }
+                            break;
+                        case 2:
+                            Main.numClouds = 0;
+                            if(Main.LogoB <= 255)
+                            {
+                                Main.logoTexture = instance.GetTexture("UI/LogoVoid");
+                            }
+                            if(Main.LogoB < 10 || (!Main.dayTime && Main.LogoA <= 255))
+                            {
+                                Main.logo2Texture = instance.GetTexture("UI/LogoVoid");
+                            }
+                            if(SkyManager.Instance["AAMod:VoidSky"] != null) SkyManager.Instance.Activate("AAMod:VoidSky",default(Vector2), new object[0]);
+                            if(Main.dayTime && (Main.bgAlpha2[0] < 0.10f || Main.bgAlpha2[0] == 1f))
+                            {
+                                Main.backgroundTexture[0] = instance.GetTexture("BlankTex");
+                                Main.backgroundTexture[171] = instance.GetTexture("BlankTex");
+                                Main.backgroundTexture[172] = instance.GetTexture("BlankTex");
+                                Main.backgroundTexture[173] = instance.GetTexture("BlankTex");
+                                Main.backgroundTexture[24] = instance.GetTexture("BlankTex");
+                                Main.backgroundTexture[25] = instance.GetTexture("BlankTex");
+                                Main.backgroundTexture[56] = instance.GetTexture("BlankTex");
+                                Main.backgroundTexture[57] = instance.GetTexture("BlankTex");
+                                Main.backgroundTexture[58] = instance.GetTexture("BlankTex");
+                            }
+                            break;
+                        default:
+                            goto case 0;
+                    }
+                }
+                else if(AAMenuReset)
+                {
+                    if(SkyManager.Instance["AAMod:MireSky"].IsActive()) SkyManager.Instance.Deactivate("AAMod:MireSky", new object[0]);
+                    if(SkyManager.Instance["AAMod:VoidSky"].IsActive()) SkyManager.Instance.Deactivate("AAMod:VoidSky", new object[0]);
+                    Main.sunTexture = ModContent.GetTexture("Terraria/Sun");
+                    Main.logoTexture = ModContent.GetTexture("Terraria/Logo");
+                    Main.logo2Texture = ModContent.GetTexture("Terraria/Logo2");
+                    AAMenuReset = false;
+                    Main.backgroundTexture[0] = ModContent.GetTexture("Terraria/Background_" + 0);
+                    Main.backgroundTexture[171] = ModContent.GetTexture("Terraria/Background_" + 171);
+                    Main.backgroundTexture[172] = ModContent.GetTexture("Terraria/Background_" + 172);
+                    Main.backgroundTexture[173] = ModContent.GetTexture("Terraria/Background_" + 173);
+                    Main.backgroundTexture[24] = ModContent.GetTexture("Terraria/Background_" + 24);
+                    Main.backgroundTexture[25] = ModContent.GetTexture("Terraria/Background_" + 25);
+                    Main.backgroundTexture[56] = ModContent.GetTexture("Terraria/Background_" + 56);
+                    Main.backgroundTexture[57] = ModContent.GetTexture("Terraria/Background_" + 57);
+                    Main.backgroundTexture[58] = ModContent.GetTexture("Terraria/Background_" + 58);
+                }
+            }
+            else if(AAMenuReset)
+            {
+                AAMenuReset = false;
+                Main.sunTexture = ModContent.GetTexture("Terraria/Sun");
+                if(SkyManager.Instance["AAMod:MireSky"].IsActive()) SkyManager.Instance.Deactivate("AAMod:MireSky", new object[0]);
+                if(SkyManager.Instance["AAMod:VoidSky"].IsActive()) SkyManager.Instance.Deactivate("AAMod:VoidSky", new object[0]);
+                Main.backgroundTexture[0] = ModContent.GetTexture("Terraria/Background_" + 0);
+                Main.backgroundTexture[171] = ModContent.GetTexture("Terraria/Background_" + 171);
+                Main.backgroundTexture[172] = ModContent.GetTexture("Terraria/Background_" + 172);
+                Main.backgroundTexture[173] = ModContent.GetTexture("Terraria/Background_" + 173);
+                Main.backgroundTexture[24] = ModContent.GetTexture("Terraria/Background_" + 24);
+                Main.backgroundTexture[25] = ModContent.GetTexture("Terraria/Background_" + 25);
+                Main.backgroundTexture[56] = ModContent.GetTexture("Terraria/Background_" + 56);
+                Main.backgroundTexture[57] = ModContent.GetTexture("Terraria/Background_" + 57);
+                Main.backgroundTexture[58] = ModContent.GetTexture("Terraria/Background_" + 58);
+            }
+		}
+        public bool AAMenuset = false;
+        public bool AAMenuReset = true;
+
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int wireSelectionLayerIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Wire Selection"));
@@ -528,7 +873,8 @@ namespace AAMod
             if (zoneShen && AAWorld.downedAllAncients)
             {
                 priority = MusicPriority.Event;
-                music = GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingDragon");
+                //music = GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingDragon");
+                music = GetSoundSlot(SoundType.Music, "Sounds/Music/SleepingGiant");
 
                 return;
             }
@@ -541,18 +887,26 @@ namespace AAMod
                 return;
             }
 
+            if (Ancients.ZoneHoard)
+            {
+                priority = MusicPriority.Event;
+                music = MusicID.Temple;
+                //music = GetSoundSlot(SoundType.Music, "Sounds/Music/Hoard");
+                return;
+            }
+
+            if (Ancients.ZoneAcropolis)
+            {
+                priority = MusicPriority.Event;
+                music = GetSoundSlot(SoundType.Music, "Sounds/Music/Acropolis");
+                return;
+            }
+
             if (Ancients.ZoneVoid)
             {
                 priority = MusicPriority.Event;
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/Void");
 
-                if (player.ZoneRockLayerHeight)
-                {
-                    priority = MusicPriority.BiomeMedium;
-                    music = GetSoundSlot(SoundType.Music, "Sounds/Music/UGVoid");
-
-                    return;
-                }
 
                 if (NPC.downedMoonlord && !AAWorld.downedZero)
                 {
@@ -564,13 +918,13 @@ namespace AAMod
                 return;
             }
 
-            if (Ancients.ZoneShip)
+            /*if (Ancients.ZoneShip)
             {
                 priority = MusicPriority.Event;
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/Ship");
 
                 return;
-            }
+            }*/
 
             if (Ancients.ZoneInferno)
             {
@@ -580,22 +934,21 @@ namespace AAMod
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/InfernoUnderground");
                     return;
                 }
-                if (!Main.dayTime)
-                {
-                    priority = MusicPriority.BiomeHigh;
-                    music = GetSoundSlot(SoundType.Music, "Sounds/Music/IN");
-                    return;
-                }
-                if (Ancients.ZoneRisingSunPagoda && NPC.downedMoonlord && !AAWorld.downedAkuma)
-                {
-                    priority = MusicPriority.BiomeHigh;
-                    music = GetSoundSlot(SoundType.Music, "Sounds/Music/AkumaShrine");
-
-                    return;
-                }
-
                 else
                 {
+                    if (!Main.dayTime)
+                    {
+                        priority = MusicPriority.BiomeHigh;
+                        music = GetSoundSlot(SoundType.Music, "Sounds/Music/IN");
+                        return;
+                    }
+                    if (Ancients.ZoneRisingSunPagoda && NPC.downedMoonlord && !AAWorld.downedAkuma)
+                    {
+                        priority = MusicPriority.BiomeHigh;
+                        music = GetSoundSlot(SoundType.Music, "Sounds/Music/AkumaShrine");
+
+                        return;
+                    }
                     priority = MusicPriority.BiomeHigh;
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/InfernoSurface");
 
@@ -605,13 +958,6 @@ namespace AAMod
 
             if (Ancients.ZoneMire)
             {
-                if (Ancients.ZoneRisingMoonLake && NPC.downedMoonlord && !AAWorld.downedYamata)
-                {
-                    priority = MusicPriority.BiomeHigh;
-                    music = GetSoundSlot(SoundType.Music, "Sounds/Music/Shrines");
-                    return;
-                }
-
                 if (player.ZoneRockLayerHeight)
                 {
                     priority = MusicPriority.BiomeHigh;
@@ -621,6 +967,20 @@ namespace AAMod
                 }
                 else
                 {
+                    if (Main.dayTime)
+                    {
+                        priority = MusicPriority.BiomeHigh;
+                        music = GetSoundSlot(SoundType.Music, "Sounds/Music/DM");
+                        return;
+                    }
+
+                    if (Ancients.ZoneRisingMoonLake && NPC.downedMoonlord && !AAWorld.downedYamata)
+                    {
+                        priority = MusicPriority.BiomeHigh;
+                        music = GetSoundSlot(SoundType.Music, "Sounds/Music/Shrines");
+                        return;
+                    }
+
                     priority = MusicPriority.BiomeHigh;
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/MireSurface");
 
@@ -628,13 +988,13 @@ namespace AAMod
                 }
             }
 
-            if (Ancients.ZoneStars)
+            /*if (Ancients.ZoneStars)
             {
                 priority = MusicPriority.Event;
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/Stars");
 
                 return;
-            }
+            }*/
 
             if (Ancients.Terrarium)
             {
@@ -652,6 +1012,26 @@ namespace AAMod
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/Shroom");
 
                 return;
+            }
+        }
+
+        public static void Chat(string s, Color color, bool sync = true)
+        {
+            Chat(s, color.R, color.G, color.B, sync);
+        }
+
+        /*
+         * Sends the given string to chat, with the given color values.
+         */
+        public static void Chat(string s, byte colorR = 255, byte colorG = 255, byte colorB = 255, bool sync = true)
+        {
+            if (!AAConfigClient.Instance.NoBossDialogue)
+            {
+                if (Main.netMode == 0) { Main.NewText(s, colorR, colorG, colorB); }
+                else
+                if (Main.netMode == 1) { Main.NewText(s, colorR, colorG, colorB); }
+                else //if(sync){ NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(s), new Color(colorR, colorG, colorB), Main.myPlayer); } }else
+                if (sync && Main.netMode == 2) { NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(s), new Color(colorR, colorG, colorB), -1); }
             }
         }
 

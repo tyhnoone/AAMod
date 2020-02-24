@@ -16,15 +16,15 @@ namespace AAMod.Items.Accessories
             item.defense = 3;
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<AAPlayer>(mod).DragonsGuard = true;
+            player.GetModPlayer<AAPlayer>().DragonsGuard = true;
         }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dragon's Guard");
-            Tooltip.SetDefault(@"Enemies that strike you are set ablaze");
+            Tooltip.SetDefault(@"Enemies that you strike are set ablaze");
         }
     }
 }

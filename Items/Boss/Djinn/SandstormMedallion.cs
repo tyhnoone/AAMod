@@ -18,7 +18,7 @@ namespace AAMod.Items.Boss.Djinn
             item.expert = true; item.expertOnly = true;
         }
 
-        public override void UpdateEquip(Player p)
+        public override void UpdateAccessory(Player p, bool hideVisual)
         {
 			if(p.ZoneSandstorm)
 			{
@@ -40,7 +40,7 @@ namespace AAMod.Items.Boss.Djinn
                 int maxAccessoryIndex = 5 + player.extraAccessorySlots;
                 for (int i = 3; i < 3 + maxAccessoryIndex; i++)
                 {
-                    if (slot != i && player.armor[i].type == mod.ItemType<FireFrostMedallion>())
+                    if (slot != i && player.armor[i].type == Terraria.ModLoader.ModContent.ItemType<FireFrostMedallion>())
                     {
                         return false;
                     }

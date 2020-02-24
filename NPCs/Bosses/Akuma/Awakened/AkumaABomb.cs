@@ -33,8 +33,6 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             return Color.White;
         }
 
-        bool DidntHitPlayer = false;
-
         public override void AI()
         {
             if (projectile.timeLeft > 0)
@@ -43,7 +41,6 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             }
             if (projectile.timeLeft == 0)
             {
-                DidntHitPlayer = true;
                 projectile.Kill();
             }
 
@@ -60,7 +57,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             const int aislotHomingCooldown = 0;
             const int homingDelay = 0;
-            const float desiredFlySpeedInPixelsPerFrame = 10;
+            const float desiredFlySpeedInPixelsPerFrame = 12;
             const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
 
             projectile.ai[aislotHomingCooldown]++;
@@ -78,7 +75,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             }
             for (int num189 = 0; num189 < 1; num189++)
             {
-                int num190 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0);
+                int num190 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.AkumaADust>(), 0f, 0f, 0);
 
                 Main.dust[num190].scale *= 1.3f;
                 Main.dust[num190].fadeIn = 1f;
@@ -89,26 +86,11 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(mod.BuffType("DragonFire"), 600);
-            Kill(0);
         }
 
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(new Terraria.Audio.LegacySoundStyle(2, 124, Terraria.Audio.SoundType.Sound));
-            float spread = 12f * 0.0174f;
-            double startAngle = Math.Atan2(projectile.velocity.X, projectile.velocity.Y) - spread / 2;
-            double deltaAngle = spread / 4f;
-            double betaAngle = spread / 7f;
-            double offsetAngle;
-            int i;
-            if (projectile.owner == Main.myPlayer && !DidntHitPlayer)
-            {
-                for (i = 0; i < 3; i++)
-                {
-                    offsetAngle = startAngle + deltaAngle * (i + i * i) / 2f + 32f * i;
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)(Math.Sin(offsetAngle) * 6f), (float)(Math.Cos(offsetAngle) * 6f), mod.ProjectileType("HomingFireballA"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
-                }
-            }
             Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("AkumaABoom"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
             
         }

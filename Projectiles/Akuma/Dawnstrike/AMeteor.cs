@@ -22,13 +22,14 @@ namespace AAMod.Projectiles.Akuma.Dawnstrike
             projectile.friendly = true;
             projectile.hostile = false;
 			projectile.extraUpdates = 1;
+            projectile.ranged = true;
         }
 
 
         public override void AI()
         {
             projectile.rotation = projectile.velocity.ToRotation() + 1.57079637f;
-            int dustType = mod.DustType<Dusts.AkumaADust>();
+            int dustType = ModContent.DustType<Dusts.AkumaADust>();
             if (projectile.localAI[0] == 0f)
             {
                 projectile.localAI[0] = 1f;
@@ -44,7 +45,7 @@ namespace AAMod.Projectiles.Akuma.Dawnstrike
         }
         public override void Kill(int timeLeft)
         {
-            int dustType =  mod.DustType<Dusts.AkumaADust>();
+            int dustType = ModContent.DustType<Dusts.AkumaADust>();
             int pieCut = 20;
 			for(int m = 0; m < pieCut; m++)
 			{

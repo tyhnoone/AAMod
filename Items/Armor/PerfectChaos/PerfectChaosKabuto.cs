@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.PerfectChaos
 {
@@ -12,8 +13,9 @@ namespace AAMod.Items.Armor.PerfectChaos
         {
             DisplayName.SetDefault("Chaos Slayer Kabuto");
             Tooltip.SetDefault(@"30% increased Melee damage & critical strike chance
-15% increased damage resistance
+5% increased damage resistance
 15% increased melee speed
++25 Max Life
 The power of discordian rage radiates from this armor");
         }
 
@@ -44,17 +46,18 @@ The power of discordian rage radiates from this armor");
 		}
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("PerfectChaosKabutoBonus");
-            player.GetModPlayer<AAPlayer>(mod).perfectChaosMe = true;
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.PerfectChaosKabutoBonus");
+            player.GetModPlayer<AAPlayer>().perfectChaosMe = true;
             player.AddBuff(mod.BuffType("ChaosWrath"), 2);
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.meleeDamage *= 1.3f;
+            player.meleeDamage += .3f;
             player.meleeCrit += 30;
-            player.endurance *= 1.15f;
-            player.meleeSpeed *= 1.15f;
+            player.endurance += .05f;
+            player.meleeSpeed += .15f;
+            player.statLifeMax2 += 25;
         }
 
         public override void AddRecipes()
@@ -63,7 +66,7 @@ The power of discordian rage radiates from this armor");
             recipe.AddIngredient(null, "DracoHelm", 1);
             recipe.AddIngredient(null, "Discordium", 6);
             recipe.AddIngredient(null, "ChaosScale", 6);
-            recipe.AddTile(null, "AncientForge");
+            recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

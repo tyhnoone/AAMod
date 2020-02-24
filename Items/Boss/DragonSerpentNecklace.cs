@@ -10,7 +10,7 @@ namespace AAMod.Items.Boss
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dragon Serpent Necklace");
-            Tooltip.SetDefault(@"7% increased damage and damage resistance
+            Tooltip.SetDefault(@"7% increased damage and 3% increased damage resistance
 Ignores 5 Enemy defense");
         }
         public override void SetDefaults()
@@ -34,15 +34,11 @@ Ignores 5 Enemy defense");
             recipe.AddRecipe();
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.endurance += .07f;
-            player.meleeDamage += .07f;
-            player.rangedDamage += .07f;
-            player.magicDamage += .07f;
-            player.minionDamage += .07f;
-            player.thrownDamage += .07f;
-            player.GetModPlayer<AAPlayer>(mod).clawsOfChaos = true;
+            player.endurance += .03f;
+            player.allDamage += .07f;
+            player.GetModPlayer<AAPlayer>().clawsOfChaos = true;
         }
 
         public override bool CanEquipAccessory(Player player, int slot)
@@ -52,11 +48,15 @@ Ignores 5 Enemy defense");
                 int maxAccessoryIndex = 5 + player.extraAccessorySlots;
                 for (int i = 3; i < 3 + maxAccessoryIndex; i++)
                 {
-                    if (slot != i && player.armor[i].type == mod.ItemType<Broodmother.DragonCape>())
+                    if (slot != i && player.armor[i].type == ModContent.ItemType<Broodmother.DragonCape>())
                     {
                         return false;
                     }
-                    if (slot != i && player.armor[i].type == mod.ItemType<Hydra.HydraPendant>())
+                    if (slot != i && player.armor[i].type == ModContent.ItemType<Hydra.HydraPendant>())
+                    {
+                        return false;
+                    }
+                    if (slot != i && player.armor[i].type == ItemID.WormScarf)
                     {
                         return false;
                     }

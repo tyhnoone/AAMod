@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using AAMod.Tiles.Trees;
 
 namespace AAMod.Tiles
 {
@@ -15,7 +16,7 @@ namespace AAMod.Tiles
             SetModTree(new OroborosTree());
             soundType = 21;
             Main.tileBlockLight[Type] = true;
-            drop = mod.ItemType("Doomstone");   //put your CustomBlock name
+            drop = mod.ItemType("Doomstone");   
             dustType = mod.DustType("DoomDust");
             AddMapEntry(new Color(21, 21, 31));
 			minPick = 225;
@@ -38,10 +39,9 @@ namespace AAMod.Tiles
             return AAWorld.downedZero;
         }
 
-        public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0, int random = -1, int direction = -1)
+        public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int random = -1, int direction = -1)
         {
-            TileObject toBePlaced;
-            if (!TileObject.CanPlace(x, y, type, style, direction, out toBePlaced, false))
+            if (!TileObject.CanPlace(x, y, type, style, direction, out TileObject toBePlaced, false))
             {
                 return false;
             }

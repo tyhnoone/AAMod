@@ -11,6 +11,7 @@ namespace AAMod.Items.Armor.Assassin
             DisplayName.SetDefault("Midnight Assassin Shirt");
             Tooltip.SetDefault(@"14% increased melee/ranged damage and critical strike chance
 20% decreased ammo consumption
++50 Max Life
 A dark armor infused with the shadow of midnight");
         }
 
@@ -39,8 +40,9 @@ A dark armor infused with the shadow of midnight");
         {
             player.meleeCrit += 14;
             player.rangedCrit += 14;
-            player.magicDamage += .14f;
-            player.minionDamage += .14f;
+            player.meleeDamage += .14f;
+            player.rangedDamage += .14f;
+            player.statLifeMax2 += 50;
             player.ammoCost80 = true;
         }
 

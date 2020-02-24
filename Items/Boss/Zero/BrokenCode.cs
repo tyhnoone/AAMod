@@ -20,9 +20,8 @@ Grapple to Glitch
 Grants immunity to the Unstable debuff
 While cooldown is occurring, your speed is increased, you gain invincibility frames
 While cooldown is occurring, your magic/summon weapons require no mana and have 20% increased damage
-'You don't look so good'");
-            // ticksperframe, frameCount
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 36));
+'You don't look so good'
+WARNING: May permanently displace appendages until game restart. This is a feature.");
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
 
@@ -51,12 +50,12 @@ While cooldown is occurring, your magic/summon weapons require no mana and have 
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return AAColor.Oblivion;
+            return AAColor.COLOR_WHITEFADE1;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.buffImmune[mod.BuffType<Buffs.Unstable>()] = true;
+            player.buffImmune[ModContent.BuffType<Buffs.Unstable>()] = true;
             if (player.controlHook && CodeCD == 0 && Main.myPlayer == player.whoAmI)
             {
                 Vector2 vector32;
@@ -80,7 +79,7 @@ While cooldown is occurring, your magic/summon weapons require no mana and have 
                         NetMessage.SendData(65, -1, -1, null, 0, player.whoAmI, vector32.X, vector32.Y, 1, 0, 0);
                         Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Glitch"));
                         CodeCD = 300;
-                        player.AddBuff(mod.BuffType<Buffs.Glitched>(), 300);
+                        player.AddBuff(ModContent.BuffType<Buffs.Glitched>(), 300);
                     }
                 }
             }
@@ -133,7 +132,7 @@ While cooldown is occurring, your magic/summon weapons require no mana and have 
 
         public override void PostUpdate()
         {
-            Lighting.AddLight(item.Center, AAColor.Oblivion.ToVector3() * 0.55f * Main.essScale);
+            Lighting.AddLight(item.Center, Color.Red.ToVector3() * 0.55f * Main.essScale);
         }
     }
 }

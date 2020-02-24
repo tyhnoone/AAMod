@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using AAMod.Tiles.Plants;
 
 namespace AAMod.Tiles
 {
@@ -23,7 +24,7 @@ namespace AAMod.Tiles
             soundType = 21;
             minPick = 65;
             AddMapEntry(new Color(0, 50, 140));
-            drop = mod.ItemType<Items.Blocks.Depthstone>();
+            drop = ModContent.ItemType<Items.Blocks.Depthstone>();
         }
 
         public override void RandomUpdate(int i, int j)
@@ -45,10 +46,9 @@ namespace AAMod.Tiles
             }
         }
 
-        public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0, int random = -1, int direction = -1)
+        public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int random = -1, int direction = -1)
         {
-            TileObject toBePlaced;
-            if (!TileObject.CanPlace(x, y, type, style, direction, out toBePlaced, false))
+            if (!TileObject.CanPlace(x, y, type, style, direction, out TileObject toBePlaced, false))
             {
                 return false;
             }

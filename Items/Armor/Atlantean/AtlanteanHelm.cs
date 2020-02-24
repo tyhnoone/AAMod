@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ID;
 
@@ -38,7 +39,7 @@ Allows to breath underwater");
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("AtlanteanBonus");
+			player.setBonus = Language.GetTextValue("Mods.AAMod.Common.AtlanteanBonus");
 			if (player.wet)
 			{
 				player.AddBuff(mod.BuffType("AtlanteanBuff"), 2);
@@ -46,12 +47,24 @@ Allows to breath underwater");
         }
 		
 		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("OceanHelm"));
-			recipe.AddTile(TileID.DemonAltar);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
+        {
+            ModRecipe recipe;
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("OceanHelm"));
+            recipe.AddIngredient(mod.ItemType("HydraHide"), 5);
+            recipe.AddIngredient(null, "RelicBar", 5);
+            recipe.AddIngredient(null, "Doomite", 5);
+            recipe.AddTile(TileID.DemonAltar);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("OceanHelm"));
+            recipe.AddIngredient(mod.ItemType("BroodScale"), 5);
+            recipe.AddIngredient(ItemID.FossilOre, 5);
+            recipe.AddIngredient(null, "Doomite", 5);
+            recipe.AddTile(TileID.DemonAltar);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
 	}
 }

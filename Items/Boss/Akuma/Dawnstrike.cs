@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Akuma
@@ -33,7 +32,7 @@ namespace AAMod.Items.Boss.Akuma
             item.value = Item.sellPrice(0, 30, 0, 0);
             item.rare = 9;
             item.shootSpeed = 8f;
-            item.crit += 5;
+            item.crit = 5;
             item.rare = 9; AARarity = 13;
         }
 

@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Armor.Assassin
@@ -50,15 +51,17 @@ A dark hood infused with the shadow of midnight");
 
 		public override void UpdateArmorSet(Player player)
 		{
-            player.setBonus = Lang.ArmorBonus("AssassinBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.AssassinBonus");
             //Double tap down to go into stealth mode
             //Movement is not impeded while in stealth mode
             //Melee and Ranged damage increased while in stealth";
-            player.dash = 2;
-            player.aggro -= 6;
-            player.rangedDamage += .2f;
-            player.meleeDamage += .2f;
-            player.GetModPlayer<AAPlayer>(mod).Assassin = true;
+            player.meleeSpeed += .3f;
+            
+            //player.dash = 2;
+            //player.aggro -= 6;
+            //player.rangedDamage += .2f;
+            //player.meleeDamage += .2f;
+            player.GetModPlayer<AAPlayer>().Assassin = true;
         }
 	}
 }

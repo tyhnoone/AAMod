@@ -1,5 +1,4 @@
 using BaseMod;
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -51,7 +50,7 @@ namespace AAMod.Projectiles.Akuma
             if (Main.rand.Next(2) == 0)
             {
                 Vector2 vector135 = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
-                Dust dust31 = Main.dust[Dust.NewDust(projectile.Center - vector135 * 30f, 0, 0, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default, 1f)];
+                Dust dust31 = Main.dust[Dust.NewDust(projectile.Center - vector135 * 30f, 0, 0, ModContent.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default, 1f)];
                 dust31.noGravity = true;
                 dust31.position = projectile.Center - vector135 * Main.rand.Next(10, 21);
                 dust31.velocity = vector135.RotatedBy(1.5707963705062866, default) * 6f;
@@ -62,7 +61,7 @@ namespace AAMod.Projectiles.Akuma
             if (Main.rand.Next(2) == 0)
             {
                 Vector2 vector136 = Vector2.UnitY.RotatedByRandom(6.2831854820251465);
-                Dust dust32 = Main.dust[Dust.NewDust(projectile.Center - vector136 * 30f, 0, 0, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default, 1f)];
+                Dust dust32 = Main.dust[Dust.NewDust(projectile.Center - vector136 * 30f, 0, 0, ModContent.DustType<Dusts.AkumaADust>(), 0f, 0f, 0, default, 1f)];
                 dust32.noGravity = true;
                 dust32.position = projectile.Center - vector136 * 30f;
                 dust32.velocity = vector136.RotatedBy(-1.5707963705062866, default) * 3f;
@@ -73,7 +72,7 @@ namespace AAMod.Projectiles.Akuma
             if (projectile.ai[0] < 0f)
             {
                 Vector2 center15 = projectile.Center;
-                int num1059 = Dust.NewDust(center15 - Vector2.One * 8f, 16, 16, mod.DustType<Dusts.AkumaADust>(), projectile.velocity.X / 2f, projectile.velocity.Y / 2f, 0);
+                int num1059 = Dust.NewDust(center15 - Vector2.One * 8f, 16, 16, ModContent.DustType<Dusts.AkumaADust>(), projectile.velocity.X / 2f, projectile.velocity.Y / 2f, 0);
                 Main.dust[num1059].velocity *= 2f;
                 Main.dust[num1059].noGravity = true;
                 Main.dust[num1059].scale = Utils.SelectRandom(Main.rand, new float[]
@@ -91,34 +90,10 @@ namespace AAMod.Projectiles.Akuma
                 
             }
 			
-			  float num633 = 700f;
+			float num633 = 700f;
             float num634 = 800f;
             float num635 = 1200f;
             float num636 = 150f;
-            float num637 = 0.05f;
-            for (int num638 = 0; num638 < 1000; num638++)
-            {
-                bool flag23 = Main.projectile[num638].type == mod.ProjectileType("HallowedPrism");
-                if (num638 != projectile.whoAmI && Main.projectile[num638].active && Main.projectile[num638].owner == projectile.owner && flag23 && Math.Abs(projectile.position.X - Main.projectile[num638].position.X) + Math.Abs(projectile.position.Y - Main.projectile[num638].position.Y) < projectile.width)
-                {
-                    if (projectile.position.X < Main.projectile[num638].position.X)
-                    {
-                        projectile.velocity.X = projectile.velocity.X - num637;
-                    }
-                    else
-                    {
-                        projectile.velocity.X = projectile.velocity.X + num637;
-                    }
-                    if (projectile.position.Y < Main.projectile[num638].position.Y)
-                    {
-                        projectile.velocity.Y = projectile.velocity.Y - num637;
-                    }
-                    else
-                    {
-                        projectile.velocity.Y = projectile.velocity.Y + num637;
-                    }
-                }
-            }
             bool flag24 = false;
             if (projectile.ai[0] == 2f)
             {
@@ -247,8 +222,7 @@ namespace AAMod.Projectiles.Akuma
             }
             if (projectile.ai[0] == 0f)
             {
-                float scaleFactor3 = 8f;
-                int num658 = mod.ProjectileType<FlamingMeteor>();
+                int num658 = ModContent.ProjectileType<FlamingMeteor>();
                 if (flag25 && projectile.ai[1] == 0f)
                 {
                     projectile.ai[1] += 1f;
@@ -256,7 +230,7 @@ namespace AAMod.Projectiles.Akuma
                     {
                         Vector2 value19 = vector46 - projectile.Center;
                         value19.Normalize();
-                        value19 *= scaleFactor3;
+                        value19 *= 8;
 						Vector2 perturbedSpeed = value19.RotatedByRandom(MathHelper.ToRadians(10));
                         int num659 = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, num658, projectile.damage, 0f, Main.myPlayer, 0f, 0f);
                         Main.projectile[num659].timeLeft = 300;

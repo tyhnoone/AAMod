@@ -58,21 +58,15 @@ namespace AAMod.Projectiles.Akuma
         {
             target.AddBuff(BuffID.Daybreak, 600);
 			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
-			int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, 0f, 0f, mod.ProjectileType("AkumaExp"), projectile.damage*2, projectile.knockBack, projectile.owner);
-			Main.projectile[p].melee = true;
-			Main.projectile[p].friendly = true;
-			Main.projectile[p].hostile = false;
-			Main.projectile[p].usesLocalNPCImmunity = true;
-			Main.projectile[p].localNPCHitCooldown = 6;
         }
 
         public override void AI()
         {
             //dust!
-            int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width / 2, projectile.height + 5, mod.DustType<Dusts.AkumaADust>(), projectile.velocity.X * 0.2f,
+            int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width / 2, projectile.height + 5, ModContent.DustType<Dusts.AkumaADust>(), projectile.velocity.X * 0.2f,
                 projectile.velocity.Y * 0.2f, 100, default, 2f);
             Main.dust[dustId].noGravity = true;
-            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width / 2, projectile.height + 5, mod.DustType<Dusts.AkumaADust>(), projectile.velocity.X * 0.2f,
+            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width / 2, projectile.height + 5, ModContent.DustType<Dusts.AkumaADust>(), projectile.velocity.X * 0.2f,
                 projectile.velocity.Y * 0.2f, 100, default, 2f);
             Main.dust[dustId3].noGravity = true;
 
@@ -122,11 +116,15 @@ namespace AAMod.Projectiles.Akuma
                 Dust dust1;
                 Dust dust2;
                 Vector2 position = projectile.position;
-                dust1 = Main.dust[Dust.NewDust(position, 0, 0, mod.DustType<Dusts.AkumaDust>(), 4.736842f, 0f, 46, default, 1f)];
-                dust2 = Main.dust[Dust.NewDust(position, 0, 0, mod.DustType<Dusts.AkumaADust>(), 4.736842f, 0f, 46, default, 1f)];
+                dust1 = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<Dusts.AkumaDust>(), 4.736842f, 0f, 46, default, 1f)];
+                dust2 = Main.dust[Dust.NewDust(position, 0, 0, ModContent.DustType<Dusts.AkumaADust>(), 4.736842f, 0f, 46, default, 1f)];
                 dust1.noGravity = true;
                 dust2.noGravity = true;
             }
+			if (projectile.timeLeft == 80)
+			{
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X*0.75f, projectile.velocity.Y*0.75f, mod.ProjectileType("SunSpearProj"), projectile.damage, projectile.knockBack, projectile.owner);
+			}
         }
     }
 }

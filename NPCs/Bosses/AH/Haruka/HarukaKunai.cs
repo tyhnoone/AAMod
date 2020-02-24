@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.AH.Haruka
@@ -20,7 +19,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
 
         public override void AI()
         {
-            BaseMod.BaseAI.AIThrownWeapon(projectile, ref projectile.ai, false, 40);
+            BaseMod.BaseAI.AIThrownWeapon(projectile, ref projectile.ai, projectile.timeLeft < 1160, 800);
         }
 
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
@@ -37,7 +36,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType<Buffs.HydraToxin>(), 180);
+            target.AddBuff(ModContent.BuffType<Buffs.HydraToxin>(), 180);
             projectile.netUpdate = true;
         }
 
@@ -45,7 +44,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
 		{
 			for (int k = 0; k < 5; k++)
 			{
-			     Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, mod.DustType<Dusts.CthulhuAuraDust>(), projectile.oldVelocity.X * 0.1f, projectile.oldVelocity.Y * 0.1f);
+			     Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<Dusts.CthulhuAuraDust>(), projectile.oldVelocity.X * 0.1f, projectile.oldVelocity.Y * 0.1f);
 			}
 			Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 0);
 			

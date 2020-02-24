@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -7,12 +5,17 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using BaseMod;
 using Terraria.Graphics.Shaders;
+using System;
 
 namespace AAMod.NPCs.Bosses.AH.Ashe
 {
     [AutoloadBossHead]
     public class Ashe : ModNPC
     {
+        public int OrbiterCount = Main.expertMode ? 10 : 8;
+
+        public bool Health = false;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ashe Akuma");
@@ -23,9 +26,9 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
         {
             npc.width = 40;
             npc.height = 100;
-            npc.damage = 150;
+            npc.damage = 130;
             npc.defense = 40;
-            npc.lifeMax = 140000;
+            npc.lifeMax = 160000;
             npc.value = Item.sellPrice(0, 12, 0, 0);
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
@@ -44,552 +47,482 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             bossBag = mod.ItemType("AHBag");
         }
 
-        public float[] internalAI = new float[5];
-
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            base.SendExtraAI(writer);
-            if (Main.netMode == 2 || Main.dedServ)
-            {
-                writer.Write(internalAI[0]);
-                writer.Write(internalAI[1]);
-                writer.Write(internalAI[2]);
-                writer.Write(internalAI[3]);
-                writer.Write(internalAI[4]);
-            }
-        }
-
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
-            {
-                internalAI[0] = reader.ReadFloat();
-                internalAI[1] = reader.ReadFloat();
-                internalAI[2] = reader.ReadFloat();
-                internalAI[3] = reader.ReadFloat();
-                internalAI[4] = reader.ReadFloat();
-            }
-        }
-
-        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
-        {
-            scale = 1.5f;
-            return null;
-        }
-
-        public float moveSpeed;
-        public bool FlyingBack = false;
-        public bool FlyingPositive = false;
-        public bool FlyingNegative = false;
-        public float MeleeSpeed = 6f;
-        public float pos = 250f;
-        private bool HasFiredProj = false;
-
-        public Vector2 MovePoint;
-        public bool SelectPoint = false;
-
         public int[] Vortexes = null;
 
-        public bool Health3 = false;
-        public bool Health2 = false;
-        public bool Health1 = false;
-        public int Frame = 0;
-
-
-        public static int AISTATE_HOVER = 0, AISTATE_CAST1 = 1, AISTATE_CAST2 = 2, AISTATE_CAST3 = 3, AISTATE_CAST4 = 4, AISTATE_MELEE = 5, AISTATE_DRAGON = 6, AISTATE_VORTEX = 7;
+        public bool RuneCrash = false;
 
         public override void AI()
         {
             Player player = Main.player[npc.target];
-            bool AsheType = npc.type == mod.NPCType<Ashe>();
 
+            Vector2 wantedVelocity = player.Center - new Vector2(pos, 250);
+
+            npc.direction = npc.spriteDirection = npc.position.X < player.position.X ? 1 : -1;
             RingEffects();
-            RingEffects2();
-            if (Main.netMode != 1)
-            {
-                if (internalAI[1]++ >= 8)
-                {
-                    internalAI[1] = 0;
-                    internalAI[2]++;
-                    npc.netUpdate = true;
-                }
-            }
 
-            if (player.dead || !player.active || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
+            npc.damage = npc.defDamage * VortexDamage();
+
+            Vector2 targetPos;
+
+            switch (npc.ai[0])
             {
-                npc.TargetClosest(false);
-                if (player.dead || !player.active || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 6000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 6000f)
-                {
-                    if (Main.netMode != 1)
+                case 0:
+                    if (!AliveCheck(player))
+                        break;
+                    IdlePhase();
+                    break;
+                case 1:
+                    if (!AliveCheck(player))
+                        break;
+
+                    MoveToPoint(wantedVelocity);
+
+                    BaseAI.ShootPeriodic(npc, player.Center + new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-10, 10)), player.width, player.height, ModContent.ProjectileType<AsheShot>(), ref npc.ai[2], 18, npc.damage / 4, 9, false);
+                    if (npc.ai[1]++ > (Main.expertMode ? 180 : 280))
                     {
-                        int DeathAnim = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<AsheVanish>(), 0);
-                        Main.npc[DeathAnim].velocity = npc.velocity;
-                        Main.npc[DeathAnim].netUpdate = true;
+                        AIChange();
                     }
-                    npc.active = false;
-                }
-                return;
-            }
+                    break;
+                case 2:
+                    if (!AliveCheck(player))
+                        break;
+                    IdlePhase();
+                    break;
+                case 3:
+                    if (!AliveCheck(player))
+                        break;
+                    IdlePhase();
+                    break;
+                case 4:
+                    if (!AliveCheck(player))
+                        break;
 
-            if (Main.netMode != 1)
-            {
-                if (npc.life <= (npc.lifeMax * .75f) && !Health3 && !NPC.AnyNPCs(mod.NPCType<AsheOrbiter>()) && AsheType)
-                {
-                    Health3 = true;
-                    internalAI[0] = AISTATE_VORTEX;
-                }
-                if (npc.life <= (npc.lifeMax * .5f) && !Health2 && !NPC.AnyNPCs(mod.NPCType<AsheOrbiter>()) && AsheType)
-                {
-                    Health2 = true;
-                    internalAI[0] = AISTATE_VORTEX;
-                }
-                if (npc.life <= (npc.lifeMax * .25f) && !Health1 && !NPC.AnyNPCs(mod.NPCType<AsheOrbiter>()) && AsheType)
-                {
-                    Health1 = true;
-                    internalAI[0] = AISTATE_VORTEX;
-                }
-                npc.netUpdate = true;
-            }
-
-            Vortexes = BaseAI.GetNPCs(npc.Center, mod.NPCType("AsheOrbiter"), 1500f);
-
-            if (Vortexes != null && Vortexes.Length > 0)
-            {
-                if (Main.netMode != 2 && Main.player[Main.myPlayer].miscCounter % 2 == 0)
-                {
-                    for (int m = 0; m < Vortexes.Length; m++)
+                    int firepos;
+                    if (player.Center.X > npc.Center.X) //If NPC's X position is less than the player's
                     {
-                        NPC npc2 = Main.npc[Vortexes[m]];
-                        if (npc2 != null && npc2.active)
+                        firepos = 500;
+                    }
+                    else
+                    {
+                        firepos = -500;
+                    }
+
+                    wantedVelocity = player.Center - new Vector2(firepos, 0);
+
+                    MoveToPoint(wantedVelocity);
+                    
+                    if (npc.ai[1] > 60 && npc.ai[1] <= 180)
+                    {
+                        BaseAI.ShootPeriodic(npc, player.Center, player.width, player.height, ModContent.ProjectileType<AsheFlamethrower>(), ref npc.ai[2], 5, npc.damage / 4, 16, false);
+                    }
+
+                    if (npc.ai[1]++ > (npc.life < npc.lifeMax/2 ? 180:300))
+                    {
+                        npc.ai[1] = 0;
+                        AIChange();
+                    }
+                    break;
+                case 5: //draw dash frame
+                    if (!AliveCheck(player))
+                        break;
+                    MoveToPoint(wantedVelocity);
+                    if (++npc.ai[1] > 30)
+                    {
+                        npc.ai[1] = 0;
+                        npc.ai[0]++;
+                        npc.netUpdate = true;
+                    }
+                    break;
+                case 6: //prepare for fishron dash
+                    if (!AliveCheck(player))
+                        break;
+                    targetPos = player.Center + player.DirectionTo(npc.Center) * 600;
+                    Movement(targetPos, 0.8f);
+                    if (++npc.ai[1] > 20)
+                    {
+                        npc.ai[0]++;
+                        npc.ai[1] = 0;
+                        npc.netUpdate = true;
+                        npc.velocity = npc.DirectionTo(player.Center) * (npc.life < npc.lifeMax/3 ? 50:40);
+                        if(npc.velocity.Length() < 40f)
                         {
-                            int dustID = Dust.NewDust(npc2.position, npc2.width, npc2.height, mod.DustType<Dusts.AkumaDustLight>());
-                            Main.dust[dustID].position += npc.position - npc.oldPosition;
-                            Main.dust[dustID].velocity = (npc.Center - npc2.Center) * 0.10f;
-                            Main.dust[dustID].alpha = 100;
-                            Main.dust[dustID].noGravity = true;
+                            npc.velocity = Vector2.Normalize(npc.DirectionTo(targetPos)) * (npc.life < npc.lifeMax/3 ? 50:40);
                         }
                     }
-                }
-            }
+                    break;
 
-            if (NPC.AnyNPCs(mod.NPCType<AsheDragon>()))
-            {
-                internalAI[4] = 1200;
-            }
-
-            if (internalAI[4] > 0)
-            {
-                internalAI[4]--;
-            }
-
-            if (internalAI[0] == AISTATE_HOVER || internalAI[0] == AISTATE_DRAGON) //Hovering/Summoning Dragon
-            {
-                if (Main.netMode != 1 && internalAI[0] == AISTATE_HOVER) //Only randomly select AI if not doing a dragon summon
-                {
-                    internalAI[3]++;
-                    if (internalAI[3] >= 90)
+                case 7: //dashing
+                    if (++npc.ai[2] > 3)
                     {
-                        internalAI[3] = 0;
-                        if (NPC.CountNPCS(mod.NPCType<AsheDragon>()) < 1 && internalAI[4] <= 0)
+                        npc.ai[2] = 0;
+                        if (Main.netMode != 1)
                         {
-                            internalAI[0] = Main.rand.Next(7);
+                            const float ai0 = 0.01f;
+                            Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(Math.PI / 2), mod.ProjectileType("AsheSpell"), npc.damage / 4, 0f, Main.myPlayer, ai0);
+                            Projectile.NewProjectile(npc.Center, Vector2.Normalize(npc.velocity).RotatedBy(-Math.PI / 2), mod.ProjectileType("AsheSpell"), npc.damage / 4, 0f, Main.myPlayer, ai0);
+                        }
+                    }
+                    if (++npc.ai[1] > 40)
+                    {
+                        npc.ai[1] = 0;
+                        npc.ai[2] = 0;
+                        if (++npc.ai[3] >= (npc.life < npc.lifeMax/3 ? 4:3)) //dash three/Four times
+                        {
+                            if(npc.life < npc.lifeMax / 3)
+                            {
+                                npc.ai[0] = Main.rand.Next(4) == 0? 4:9;
+                            }
+                            else
+                            {
+                                npc.ai[0]++;
+                            }
+                            npc.ai[3] = 0;
                         }
                         else
                         {
-                            internalAI[0] = Main.rand.Next(6);
+                            npc.ai[0]--;
                         }
-                        if (internalAI[0] == AISTATE_MELEE)
-                        {
-                            moveSpeed = 6f;
-                            SelectPoint = true;
-                        }
-                        if (internalAI[0] == AISTATE_HOVER)
-                        {
-                            ChangePos();
-                        }
-                        npc.ai = new float[4];
                         npc.netUpdate = true;
                     }
-                }
-                
+                    npc.rotation = npc.velocity.ToRotation();
+                    if (npc.velocity.X < 0)
+                        npc.rotation += (float)Math.PI;
+                    break;
+                case 8:
+                    if (!AliveCheck(player))
+                        break;
+                    IdlePhase();
+                    break;
+                case 9:
+                    if (!AliveCheck(player))
+                        break;
+                    
+                    if (npc.ai[1] == 100)
+                    {
+                        pos = - pos;
+                    }
+                    if (npc.ai[1] > 100)
+                    {
+                        MoveToPoint(player.Center + new Vector2((player.velocity.X > 0? 1 : -1) * 600, -400));
+                    }
+                    else
+                    {
+                        MoveToPoint(wantedVelocity);
+                    }
+                    if (npc.life > npc.lifeMax / 3 || npc.ai[1] < 100)
+                    {
+                        BaseAI.ShootPeriodic(npc, player.Center, player.width, player.height, ModContent.ProjectileType<AsheFire>(), ref npc.ai[2], npc.life < npc.lifeMax * 0.666f ? 30 : 60, npc.damage / 4, 8, false);
+                    }
+                    if (npc.ai[1]++ > (Main.expertMode ? 180 : 280))
+                    {
+                        if (npc.life < npc.lifeMax / 3)
+                        {
+                            for(int i = 0; i < 8; i++)
+                            {
+                                Vector2 shoot = new Vector2((float)Math.Sin(i * 0.25f * 3.1415926f), (float)Math.Cos(i * 0.25f * 3.1415926f));
+                                shoot *= 8f;
+                                Projectile.NewProjectile(npc.Center.X, npc.Center.Y, shoot.X, shoot.Y, ModContent.ProjectileType<AsheFire>(), npc.damage / 4, 5, Main.myPlayer, 0f, 0f);
+                            }
+                            if(Main.rand.Next(3) == 0) goto case 5;
+                        }
+                        AIChange();
+                    }
+                    break;
+                case 10:
+                    if (!AliveCheck(player))
+                        break;
+                    if (NPC.AnyNPCs(ModContent.NPCType<AsheDragon>()))
+                    {
+                        npc.ai[0] = 12;
+                        goto case 12;
+                    }
+                    else
+                    {
+                        npc.ai[0] = 11;
+                        goto case 11;
+                    }
+                case 11:
+                    if (!AliveCheck(player))
+                        break;
+                    MoveToPoint(wantedVelocity);
+                    if (npc.ai[1]++ > 200)
+                    {
+                        NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, ModContent.NPCType<AsheDragon>());
+                        AIChange();
+                    }
+                    break;
+                case 12:
+                    if (!AliveCheck(player))
+                        break;
+                    FireMagic(npc);
+                    IdlePhase();
+                    break;
+                default:
+                    npc.ai[0] = 0;
+                    goto case 0;
+            }
 
-            }
-            else if (internalAI[0] == AISTATE_CAST4 || internalAI[0] == AISTATE_MELEE || internalAI[0] == AISTATE_VORTEX) //Strong
+            if (npc.ai[0] != 6 && npc.ai[0] != 7)
             {
-                if (internalAI[2] == 20 && internalAI[1] == 4 && internalAI[0] != AISTATE_MELEE && !HasFiredProj) //Only Shoot if not in melee mode
-                {
-                    if (Main.netMode != 1)
-                    {
-                        FireMagic(npc);
-                        HasFiredProj = true;
-                        npc.netUpdate = true;
-                    }
-                }
-                if (internalAI[2] < 16) 
-                {
-                    internalAI[1] = 0;
-                    internalAI[2] = 16;
-                }
-                if (internalAI[2] > 23)
-                {
-                    if (internalAI[0] == AISTATE_MELEE)
-                    {
-                        pos = -pos;
-                    }
-                    npc.frameCounter = 0;
-                    Frame = 0;
-                    if (Main.netMode != 1)
-                    {
-                        HasFiredProj = false;
-                        internalAI[0] = 0;
-                        internalAI[1] = 0;
-                        internalAI[2] = 0;
-                        internalAI[3] = 0;
-                        moveSpeed = 16f;
-                        npc.ai = new float[4];
-                        npc.netUpdate = true;
-                    }
-                }
+                npc.rotation = 0;
             }
-            else if (internalAI[0] == AISTATE_CAST2)
+
+            if (npc.ai[0] == 2 || npc.ai[0] == 3 || npc.ai[0] == 8)
             {
-                if (internalAI[2] > 11)
-                {
-                    if (Main.netMode != 1)
-                    {
-                        FireMagic(npc);
-                        npc.netUpdate = true;
-                    }
-                }
-                if (internalAI[2] < 8)
-                {
-                    internalAI[1] = 0;
-                    internalAI[2] = 8;
-                }
-                if (internalAI[2] > 15)
-                {
-                    npc.frameCounter = 0;
-                    Frame = 0;
-                    if (Main.netMode != 1)
-                    {
-                        HasFiredProj = false;
-                        internalAI[0] = 0;
-                        internalAI[1] = 0;
-                        internalAI[2] = 0;
-                        internalAI[3] = 0;
-                        npc.ai = new float[4];
-                        npc.netUpdate = true;
-                    }
-                }
+                if((npc.ai[1] == 0 && (Main.rand.Next(6) == 0 || npc.life < npc.lifeMax * 0.66f && Main.rand.Next(3) == 0)) || npc.life < npc.lifeMax * 0.33f) RuneCrash = true;
             }
             else
             {
-                if (internalAI[2] == 12 && internalAI[1] == 4 && !HasFiredProj)
+                RuneCrash = false;
+            }
+
+            if (RuneCrash)
+            {
+                if(npc.ai[2]++ > 5)
                 {
-                    if (Main.netMode != 1)
-                    {
-                        FireMagic(npc);
-                        HasFiredProj = true;
-                        npc.netUpdate = true;
-                    }
-                }
-                if (internalAI[2] < 8)
-                {
-                    internalAI[1] = 0;
-                    internalAI[2] = 8;
-                }
-                if (internalAI[2] > 15)
-                {
-                    npc.frameCounter = 0;
-                    Frame = 0;
-                    if (Main.netMode != 1)
-                    {
-                        HasFiredProj = false;
-                        internalAI[0] = 0;
-                        internalAI[1] = 0;
-                        internalAI[2] = 0;
-                        internalAI[3] = 0;
-                        npc.ai = new float[4];
-                        npc.netUpdate = true;
-                    }
+                    Vector2 Runeposition = new Vector2(0,0);
+                    Runeposition = npc.Center + new Vector2((250f + 4f * Main.rand.Next(-7, 7)) * (float)Math.Sin(5.18f * Main.rand.Next(30) * 3.1415926f), (250f + 4f * Main.rand.Next(-7, 7)) * (float)Math.Cos(5.18f * Main.rand.Next(30) * 3.1415926f));
+                    
+                    float RunepositionX = Runeposition.X;
+                    float RunepositionY = Runeposition.Y;
+                    NPC.NewNPC((int)RunepositionX, (int)RunepositionY, ModContent.NPCType<AsheRune>(), 0, RunepositionX, RunepositionY, npc.damage / 4, npc.whoAmI, player.whoAmI);
+                    npc.ai[2] = 0;
                 }
             }
-
-
-            if (npc.velocity.X > 0) //Flying in the positive X direction
-            {
-                FlyingPositive = true;
-                FlyingNegative = false;
-            }
-            else //Flying in the nagative X direction
-            {
-                FlyingPositive = false;
-                FlyingNegative = true;
-            }
-
-            if (internalAI[0] == AISTATE_MELEE) //Melee Damage/Speed boost
-            {
-                npc.damage++;
-                if (npc.damage > 160)
-                {
-                    npc.damage = 160;
-                }
-                if (internalAI[2] > 21)
-                {
-                    MeleeSpeed -= .01f;
-                    npc.damage = 100;
-                }
-            }
-            else //Reset Stats
-            {
-                npc.damage = 100;
-                MeleeSpeed = 0;
-            }
-
-
-            if (internalAI[0] == AISTATE_MELEE) //When charging the player
-            {
-                if (Main.netMode != 1)
-                {
-                    if (SelectPoint)
-                    {
-                        float Point = 500 * npc.direction;
-                        MovePoint = player.Center + new Vector2(Point, 500f);
-                        SelectPoint = false;
-                        npc.netUpdate = true;
-                    }
-                }
-                MeleeMovement(MovePoint);
-            }
-            else //Anything else
-            {
-                Vector2 wantedVelocity = player.Center - new Vector2(pos, 250);
-                MoveToPoint(wantedVelocity);
-            }
-
-            
-            if (internalAI[0] == AISTATE_DRAGON) //Summoning a dragon
-            {
-                internalAI[3]++;
-                if (internalAI[3] > 240)
-                {
-                    npc.frameCounter = 0;
-                    Frame = 0;
-                    if (Main.netMode != 1)
-                    {
-                        NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<AsheDragon>(), 0);
-                        internalAI[0] = 0;
-                        internalAI[1] = 0;
-                        internalAI[2] = 0;
-                        internalAI[3] = 0;
-                        npc.ai = new float[4];
-                        npc.netUpdate = true;
-                    }
-                }
-            }
-
-            if (NPC.AnyNPCs(mod.NPCType<AsheOrbiter>()) || internalAI[0] == AISTATE_DRAGON)
-            {
-                npc.dontTakeDamage = true;
-                npc.reflectingProjectiles = true;
-            }
-            else
-            {
-                npc.dontTakeDamage = false;
-                npc.reflectingProjectiles = false;
-            }
-
-            npc.rotation = 0; //No ugly rotation.
         }
 
-        public void ChangePos()
-        {
-            npc.ai[1] = Main.rand.Next(2);
-            if (npc.ai[1] == 0)
-            {
-                pos = -250;
-            }
-            else
-            {
-                pos = 250;
-            }
-            npc.netUpdate = false;
-        }
-
-        public override void PostAI()
+        public void IdlePhase()
         {
             Player player = Main.player[npc.target];
-            if (internalAI[0] != AISTATE_MELEE)
+            Vector2 wantedVelocity = player.Center - new Vector2(pos, 250);
+            MoveToPoint(wantedVelocity);
+
+            if (npc.ai[1]++ > (Main.expertMode ? 240 : 340))
             {
-                if (player.Center.X > npc.Center.X) //If NPC's X position is less than the player's
-                {
-                    if (pos == -250)
-                    {
-                        pos = 250;
-                    }
-
-                    npc.direction = 1;
-
-                    if (FlyingPositive)
-                    {
-                        FlyingBack = true;
-                    }
-                    else
-                    {
-                        FlyingBack = false;
-                    }
-                }
-                else //If NPC's X position is higher than the player's
-                {
-                    if (pos == 250)
-                    {
-                        pos = -250;
-                    }
-
-                    npc.direction = -1;
-
-                    if (FlyingNegative)
-                    {
-                        FlyingBack = true;
-                    }
-                    else
-                    {
-                        FlyingBack = false;
-                    }
-                }
-            }
-            else
-            {
-                npc.direction = npc.velocity.X > 0 ? 1 : -1;
+                AIChange();
             }
         }
+
+        public int Frame = 0;
 
         public override void FindFrame(int frameHeight)
         {
-            if (npc.frameCounter++ >= 8) //IAI[1] is the frame counter
+            if (npc.ai[0] == 1 || npc.ai[0] == 4 || npc.ai[0] == 9)
             {
-                npc.frameCounter = 0;
-                Frame++;
-            }
-            if (internalAI[0] == AISTATE_HOVER || internalAI[0] == AISTATE_DRAGON) //Hovering/Summoning Dragon
-            {
-                if (FlyingBack)
+                if (npc.frameCounter++ >= 10)
                 {
-                    if (Frame > 3)
+                    npc.frameCounter = 0;
+                    Frame++;
+                }
+            }
+            else if (npc.ai[0] == 5)
+            {
+                if (npc.frameCounter++ >= 10)
+                {
+                    npc.frameCounter = 0;
+                    Frame++;
+                }
+            }
+            else
+            {
+                if (npc.frameCounter++ >= 7)
+                {
+                    npc.frameCounter = 0;
+                    Frame++;
+                }
+            }
+            
+            if (npc.ai[0] == 5)
+            {
+                if (Frame < 8 || Frame > 10)
+                {
+                    Frame = 8;
+                }
+            }
+            else if (npc.ai[0] == 6 || npc.ai[0] == 7)
+            {
+                if (Frame >= 14 || Frame < 11)
+                {
+                    Frame = 11;
+                }
+            }
+            else if (npc.ai[0] == 1 || npc.ai[0] == 4)
+            {
+                if (Frame < 15 || Frame > 18)
+                {
+                    Frame = 15;
+                }
+            }
+            else if (npc.ai[0] == 9)
+            {
+                if (npc.life < npc.lifeMax / 3 && npc.ai[1] >= (Main.expertMode ? 140 : 240))
+                {
+                    if (Frame > 23 || Frame < 20)
                     {
-                        npc.frameCounter = 0;
-                        Frame = 0;
+                        Frame = 20;
                     }
                 }
                 else
                 {
-                    if (Frame > 7 || Frame < 4)
+                    if (Frame < 15 || Frame > 18)
                     {
-                        npc.frameCounter = 0;
-                        Frame = 4;
+                        Frame = 15;
                     }
                 }
             }
-            else if (internalAI[0] == AISTATE_CAST4 || internalAI[0] == AISTATE_MELEE || internalAI[0] == AISTATE_VORTEX)
+            else if (RuneCrash)
             {
-                if (Frame < 16)
+                if (Frame < 19 || Frame > 20)
                 {
-                    npc.frameCounter = 0;
-                    Frame = 16;
+                    Frame = 19;
                 }
             }
-            else if (internalAI[0] == AISTATE_CAST2)
+            else if (!FlyingBack)
             {
-                if (Frame < 8)
+                if (Frame > 3)
                 {
-                    npc.frameCounter = 0;
-                    Frame = 8;
+                    Frame = 0;
                 }
             }
             else
             {
-                if (Frame < 8)
+                if (Frame >= 8 || Frame < 4)
                 {
-                    npc.frameCounter = 0;
-                    Frame = 8;
+                    Frame = 4;
                 }
             }
+
+            if (Frame > 23)
+            {
+                Frame = 0;
+            }
+
             npc.frame.Y = Frame * frameHeight;
         }
 
-        public static int VortexDamage(Mod mod)
+        private void Movement(Vector2 targetPos, float speedModifier)
         {
-            return  1 + (NPC.CountNPCS(mod.NPCType<AsheOrbiter>()) / 15);
+            if (npc.Center.X < targetPos.X)
+            {
+                npc.velocity.X += speedModifier;
+                if (npc.velocity.X < 0)
+                    npc.velocity.X += speedModifier * 2;
+            }
+            else
+            {
+                npc.velocity.X -= speedModifier;
+                if (npc.velocity.X > 0)
+                    npc.velocity.X -= speedModifier * 2;
+            }
+            if (npc.Center.Y < targetPos.Y)
+            {
+                npc.velocity.Y += speedModifier;
+                if (npc.velocity.Y < 0)
+                    npc.velocity.Y += speedModifier * 2;
+            }
+            else
+            {
+                npc.velocity.Y -= speedModifier;
+                if (npc.velocity.Y > 0)
+                    npc.velocity.Y -= speedModifier * 2;
+            }
+            if (npc.velocity.X > 30 || npc.velocity.X < -30)
+                npc.velocity.X = 30 * (npc.velocity.X > 0 ? 1:-1);
+            if (npc.velocity.Y > 30 || npc.velocity.Y < -30)
+                npc.velocity.Y = 30 * (npc.velocity.Y > 0 ? 1:-1);
         }
 
-        public float[] shootAI = new float[4];
+        private bool AliveCheck(Player player)
+        {
+            if (player.dead || !player.active || (npc.position.X - Main.player[npc.target].position.X) > 6000f || (npc.position.X - Main.player[npc.target].position.X) < -6000f || (npc.position.Y - Main.player[npc.target].position.Y) > 6000f || (npc.position.Y - Main.player[npc.target].position.Y) < -6000f)
+            {
+                npc.TargetClosest(true);
+                if (Main.netMode != 1)
+                {
+                    int DeathAnim = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<AsheVanish>(), 0);
+                    Main.npc[DeathAnim].velocity = npc.velocity;
+                    Main.npc[DeathAnim].netUpdate = true;
+                }
+                npc.active = false;
+                return false;
+            }
+            if (npc.timeLeft < 600)
+                npc.timeLeft = 600;
+            return true;
+        }
 
-        public int OrbiterCount = Main.expertMode ? 10 : 8;
+        private void AIChange()
+        {
+            npc.ai[0]++;
+            npc.ai[1] = 0;
+            npc.ai[2] = 0;
+            npc.ai[3] = 0;
+        }
+
+        public static int VortexDamage()
+        {
+            return  1 + (NPC.CountNPCS(ModContent.NPCType<AsheOrbiter>()) / 15);
+        }
 
         public void FireMagic(NPC npc)
         {
-            Player player = Main.player[npc.target];
-            int VortexType = mod.NPCType("AsheOrbiter");
-            if (internalAI[0] == 1)
+            if (Main.netMode != 1)
             {
-                int speedX = 11;
-                int speedY = 11;
-                float spread = 75f * 0.0174f;
-                float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));
-                double startAngle = Math.Atan2(speedX, speedY) - .1d;
-                double deltaAngle = spread / 6f;
-                for (int i = 0; i < 5; i++)
+                if (Health)
                 {
-                    double offsetAngle = startAngle + (deltaAngle * i);
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, baseSpeed * (float)Math.Sin(offsetAngle) * npc.direction, baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType<AsheShot>(), npc.damage / (Main.expertMode ? 2 : 4), 4);
+                    for(int i = 0; i < 200; i++)
+                    {
+                        if(Main.npc[i].type == mod.NPCType("AsheOrbiter"))
+                        {
+                            Main.npc[i].life = 0;
+                            Main.npc[i].active = false;
+                        } 
+                    }
                 }
-            }
-            else if (internalAI[0] == 2)
-            {
-                BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjectileType<AsheFlamethrower>(), ref shootAI[0], 5, npc.damage / 2, 14);
-            }
-            else if (internalAI[0] == 3)
-            {
-                float spread = 60f * 0.0174f;
-                double startAngle = Math.Atan2(npc.velocity.X, -npc.velocity.Y) - spread / 2;
-                double deltaAngle = spread / (Main.expertMode ? 6 : 4);
-                double offsetAngle;
-                for (int i = 0; i < (Main.expertMode ? 6 : 4); i++)
+                const float distance = 125f;
+                float rotation = 2f * (float)Math.PI / OrbiterCount;
+                if (Health && npc.life >= npc.lifeMax * .66f)
                 {
-                    offsetAngle = startAngle + deltaAngle * (i + i * i) / 2f + 32f * i;
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, (float)(Math.Sin(offsetAngle) * 9f), (float)(Math.Cos(offsetAngle) * 9f), mod.ProjectileType<AsheSpell>(), npc.damage / (Main.expertMode ? 2 : 4), 0, Main.myPlayer, 0f, 0f);
+                    Health = false;
+                    rotation = 2f * (float)Math.PI / 4;
+                    for (int m = 0; m < 4; m++)
+                    {
+                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AsheOrbiter"), 0, npc.whoAmI, distance, 300, rotation * m);
+                        if (Main.netMode == 2 && n < 200)
+                            NetMessage.SendData(23, -1, -1, null, n);
+                    }
                 }
-            }
-            else if (internalAI[0] == AISTATE_CAST4)
-            {
-                BaseAI.FireProjectile(player.Center, npc, mod.ProjectileType<AsheFire>(), npc.damage, 3, 16f, 0, 0, -1);
-            }
-
-            else if (internalAI[0] == AISTATE_VORTEX)
-            {
-                if (Main.netMode != 1)
+                if (Health && npc.life < npc.lifeMax * .66f && npc.life >= npc.lifeMax * .33f)
                 {
+                    Health = false;
                     for (int m = 0; m < OrbiterCount; m++)
                     {
-                        int npcID = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, VortexType, 0);
-                        Main.npc[npcID].Center = npc.Center;
-                        Main.npc[npcID].velocity = new Vector2(MathHelper.Lerp(-1f, 1f, (float)Main.rand.NextDouble()), MathHelper.Lerp(-1f, 1f, (float)Main.rand.NextDouble()));
-                        Main.npc[npcID].velocity *= 8f;
-                        Main.npc[npcID].ai[0] = m;
-                        Main.npc[npcID].netUpdate2 = true; Main.npc[npcID].netUpdate = true;
+                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AsheOrbiter"), 0, npc.whoAmI, distance, 300, rotation * m);
+                        if (Main.netMode == 2 && n < 200)
+                            NetMessage.SendData(23, -1, -1, null, n);
                     }
+                }
+                if (Health && npc.life < npc.lifeMax * .33f)
+                {
+                    OrbiterCount += 2;
+                    Health = false;
+                    for (int m = 0; m < OrbiterCount; m++)
+                    {
+                        int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AsheOrbiter"), 0, npc.whoAmI, distance, 300, rotation * m);
+                        if (Main.netMode == 2 && n < 200)
+                            NetMessage.SendData(23, -1, -1, null, n);
+                    }
+                    OrbiterCount -= 2;
                 }
             }
         }
-
 
         public override void NPCLoot()
         {
             int Haruka = NPC.CountNPCS(mod.NPCType("Haruka"));
             if (Haruka == 0)
             {
-                NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<AHDeath>());
+                NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<AHDeath>());
                 if (Main.expertMode)
                 {
                     npc.DropBossBags();
@@ -605,7 +538,7 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             {
                 Item.NewItem((int)npc.Center.X, (int)npc.Center.Y, npc.width, npc.height, mod.ItemType("AsheTrophy"));
             }
-            int DeathAnim = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<AsheVanish>(), 0);
+            int DeathAnim = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<AsheVanish>(), 0);
             Main.npc[DeathAnim].velocity = npc.velocity;
             if (Main.netMode != 1) BaseUtility.Chat(Lang.BossChat("AsheDowned"), new Color(102, 20, 48));
             npc.value = 0f;
@@ -614,7 +547,14 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
 
         public override void BossLoot(ref string name, ref int potionType)
         {
-            potionType = 0;
+            if (NPC.AnyNPCs(ModContent.NPCType<Haruka.Haruka>()))
+            {
+                potionType = 0;
+            }
+            else
+            {
+                potionType = ItemID.SuperHealingPotion;
+            }
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -623,160 +563,82 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             npc.damage = (int)(npc.damage * 0.6f);
         }
 
+        #region movement stuff
 
-        public bool Summon = false;
-        
-        public float scale = 0;
-        public float RingRotation = 0;
-        
-        public float scale2 = 0;
-        public float RingRotation2 = 0;
+        public bool FlyingBack = false;
+        public bool FlyingPositive = false;
+        public bool FlyingNegative = false;
+        public float pos = 350f;
 
-        private void RingEffects()
+        public void ChangePos()
         {
-            if (internalAI[0] == AISTATE_DRAGON) //If summoning noodle
+            pos = - pos;
+            npc.netUpdate = false;
+        }
+
+        public override void PostAI()
+        {
+            Player player = Main.player[npc.target];
+
+            if (npc.velocity.X > 0) //Flying in the positive X direction
             {
-                RingRotation += 0.02f;
-                if (scale < 1f)
-                {
-                    scale += .02f; //Raise Scale
-                }
-                if (scale >= 1f)
-                {
-                    scale = 1f;
-                }
+                FlyingPositive = true;
+                FlyingNegative = false;
+            }
+            else //Flying in the nagative X direction
+            {
+                FlyingPositive = false;
+                FlyingNegative = true;
+            }
+            if (npc.ai[0] == 6 || npc.ai[0] == 7)
+            {
+                npc.direction = npc.velocity.X > 0 ? 1 : -1;
             }
             else
             {
-                RingRotation -= 0.02f;
-                if (scale < .1f)
+                if (player.Center.X > npc.Center.X) //If NPC's X position is less than the player's
                 {
-                    scale = 0;
+                    if (pos == -600)
+                    {
+                        pos = 600;
+                    }
+
+                    npc.direction = 1;
+
+                    if (FlyingPositive)
+                    {
+                        FlyingBack = true;
+                    }
+                    else
+                    {
+                        FlyingBack = false;
+                    }
                 }
-                if (scale > 0)
+                else //If NPC's X position is higher than the player's
                 {
-                    scale -= .02f;
+                    if (pos == 600)
+                    {
+                        pos = -600;
+                    }
+
+                    npc.direction = -1;
+
+                    if (FlyingNegative)
+                    {
+                        FlyingBack = true;
+                    }
+                    else
+                    {
+                        FlyingBack = false;
+                    }
                 }
-            }
-        }
-
-        private void RingEffects2()
-        {
-            if (internalAI[0] == AISTATE_DRAGON || NPC.AnyNPCs(mod.NPCType<AsheOrbiter>())) //If summoning noodle
-            {
-                RingRotation2 += 0.02f;
-                if (scale2 < 1f)
-                {
-                    scale2 += .02f; //Raise Scale
-                }
-                if (scale2 >= 1f)
-                {
-                    scale2 = 1f;
-                }
-            }
-            else
-            {
-                RingRotation2 -= 0.02f;
-                if (scale2 < .1f)
-                {
-                    scale2 = 0;
-                }
-                if (scale2 > 0)
-                {
-                    scale2 -= .02f;
-                }
-            }
-        }
-
-
-        public float auraPercent = 0f;
-        public bool auraDirection = true;
-
-        public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
-        {
-            Texture2D glowTex = mod.GetTexture("Glowmasks/Ashe_Glow");
-            Texture2D eyeTex = mod.GetTexture("Glowmasks/AsheEyes");
-
-            Texture2D RingTex = mod.GetTexture("NPCs/Bosses/AH/Ashe/AsheRing1");
-            Texture2D RingTex1 = mod.GetTexture("NPCs/Bosses/AH/Ashe/AsheRing2");
-            Texture2D RitualTex = mod.GetTexture("NPCs/Bosses/AH/Ashe/AsheRitual");
-            Texture2D ShieldTex = mod.GetTexture("NPCs/Bosses/AH/Ashe/AsheShield");
-            Texture2D Barrier = mod.GetTexture("NPCs/Bosses/AH/Ashe/AsheBarrier");
-            Rectangle RingFrame = new Rectangle(0, 0, RingTex.Width, RingTex.Height);
-            Rectangle RitualFrame = new Rectangle(0, 0, RitualTex.Width, RitualTex.Height);
-            Rectangle BarrierFrame = new Rectangle(0, 0, ShieldTex.Width, ShieldTex.Height);
-            Rectangle ShieldFrame = new Rectangle(0, 0, Barrier.Width, Barrier.Height);
-
-            int blue = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
-            int red = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingFlameDye);
-
-            Color alphaColor = new Color(Color.White.R, Color.White.G, Color.White.B);
-
-            if (auraDirection) { auraPercent += 0.1f; auraDirection = auraPercent < 1f; }
-            else { auraPercent -= 0.1f; auraDirection = auraPercent <= 0f; }
-
-            if (internalAI[0] == AISTATE_MELEE)
-            {
-                BaseDrawing.DrawAfterimage(spritebatch, Main.npcTexture[npc.type], 0, npc, 1.5f, 1f, 5, false, 0f, 0f, Color.Orange);
-            }
-
-            if (scale > 0) //Only draw if summoning a noodle
-            {
-                BaseDrawing.DrawTexture(spritebatch, RitualTex, blue, npc.position, npc.width, npc.height, scale, RingRotation, 0, 1, RitualFrame, alphaColor, true);
-                BaseDrawing.DrawTexture(spritebatch, RingTex, red, npc.position, npc.width, npc.height, scale, -RingRotation, 0, 1, RingFrame, alphaColor, true);
-                BaseDrawing.DrawTexture(spritebatch, RingTex1, blue, npc.position, npc.width, npc.height, scale, -RingRotation, 0, 1, RingFrame, alphaColor, true);
-            }
-
-            BaseDrawing.DrawTexture(spritebatch, Main.npcTexture[npc.type], 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 24, npc.frame, dColor, true);
-            BaseDrawing.DrawTexture(spritebatch, glowTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 24, npc.frame, Color.White, true);
-            BaseDrawing.DrawTexture(spritebatch, eyeTex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, 24, npc.frame, Color.White, true);
-            BaseDrawing.DrawAfterimage(spritebatch, eyeTex, 0, npc, 0.8f, 1f, 4, true, 0f, 0f, Color.White, npc.frame, 24);
-
-            if (NPC.AnyNPCs(mod.NPCType<AsheOrbiter>()))
-            {
-                DrawAfterimage(spritebatch, eyeTex, 0, npc.position, npc.width, npc.height, npc.oldPos, 1f, 0f, npc.direction, 24, npc.frame, 1f, 1f, 7, true, 0f, 0f, true, Color.DeepSkyBlue);
-                //BaseDrawing.DrawAfterimage(spritebatch, eyeTex, 0, npc, 1f, 1f, 7, false, 0f, 0f, Color.DeepSkyBlue);
-            }
-            if (scale2 > 0)
-            {
-                BaseDrawing.DrawTexture(spritebatch, Barrier, red, npc.position, npc.width, npc.height, scale2, -RingRotation2, 0, 1, BarrierFrame, dColor, true);
-                BaseDrawing.DrawTexture(spritebatch, ShieldTex, blue, npc.position, npc.width, npc.height, scale2, RingRotation2, 0, 1, ShieldFrame, dColor, true);
-            }
-            return false;
-        }
-
-        public static void DrawAfterimage(object sb, Texture2D texture, int shader, Vector2 position, int width, int height, Vector2[] oldPoints, float scale = 1f, float rotation = 0f, int direction = 0, int framecount = 1, Rectangle frame = default, float distanceScalar = 1.0F, float sizeScalar = 1f, int imageCount = 7, bool useOldPos = true, float offsetX = 0f, float offsetY = 0f, bool drawCentered = false, Color? overrideColor = null)
-        {
-            Vector2 origin = new Vector2(texture.Width / 2, texture.Height / framecount / 2);
-            Color lightColor = overrideColor != null ? (Color)overrideColor : BaseDrawing.GetLightColor(position + new Vector2(width * 0.5f, height * 0.5f));
-            Vector2 velAddon = default;
-            Vector2 originalpos = position;
-            Vector2 offset = new Vector2(offsetX, offsetY);
-            for (int m = 1; m <= imageCount; m++)
-            {
-                scale *= sizeScalar;
-                Color newLightColor = lightColor;
-                newLightColor.R = (byte)(newLightColor.R * (imageCount + 3 - m) / (imageCount + 9));
-                newLightColor.G = (byte)(newLightColor.G * (imageCount + 3 - m) / (imageCount + 9));
-                newLightColor.B = (byte)(newLightColor.B * (imageCount + 3 - m) / (imageCount + 9));
-                newLightColor.A = (byte)(newLightColor.A * (imageCount + 3 - m) / (imageCount + 9));
-                if (useOldPos)
-                {
-                    position = Vector2.Lerp(originalpos, m - 1 >= oldPoints.Length ? oldPoints[oldPoints.Length - 1] : oldPoints[m - 1], distanceScalar);
-                    BaseDrawing.DrawTexture(sb, texture, shader, position + offset, width, height, scale, rotation, direction, framecount, frame, newLightColor, drawCentered ? true : false);
-                }
-                else
-                {
-                    Vector2 velocity = m - 1 >= oldPoints.Length ? oldPoints[oldPoints.Length - 1] : oldPoints[m - 1];
-                    velAddon += velocity * distanceScalar;
-                    BaseDrawing.DrawTexture(sb, texture, shader, position + offset - velAddon, width, height, scale, rotation, direction, framecount, frame, newLightColor, drawCentered ? true : false);
-                }
+                npc.direction = player.position.X > npc.position.X ? 1 : -1;
             }
         }
 
         public void MoveToPoint(Vector2 point)
         {
-            float moveSpeed = 16f;
+            float moveSpeed = 20f;
             float velMultiplier = 1f;
             Vector2 dist = point - npc.Center;
             float length = dist == Vector2.Zero ? 0f : dist.Length();
@@ -801,23 +663,118 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             npc.velocity *= velMultiplier;
         }
 
-        public void MeleeMovement(Vector2 point)
+        #endregion
+
+        #region draw stuff
+
+        public override bool PreDraw(SpriteBatch spritebatch, Color dColor)
         {
-            if (MeleeSpeed < 25f)
+            Texture2D Tex = Main.npcTexture[npc.type];
+            Texture2D Glow = mod.GetTexture("Glowmasks/Ashe_Glow");
+
+            Texture2D RingTex = mod.GetTexture("NPCs/Bosses/AH/Ashe/AsheRing1");
+            Texture2D RingTex1 = mod.GetTexture("NPCs/Bosses/AH/Ashe/AsheRing2");
+            Texture2D RitualTex = mod.GetTexture("NPCs/Bosses/AH/Ashe/AsheRitual");
+            Texture2D ShieldTex = mod.GetTexture("NPCs/Bosses/AH/Ashe/AsheShield");
+
+            int blue = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingOceanDye);
+            int red = GameShaders.Armor.GetShaderIdFromItemId(ItemID.LivingFlameDye);
+
+            if (scale > 0)
             {
-                MeleeSpeed += .5f;
+                BaseDrawing.DrawTexture(spritebatch, RitualTex, blue, npc.position, npc.width, npc.height, scale, RingRotation, 0, 1, new Rectangle(0, 0, RitualTex.Width, RitualTex.Height), dColor, true);
+                BaseDrawing.DrawTexture(spritebatch, RingTex, red, npc.position, npc.width, npc.height, scale, -RingRotation, 0, 1, new Rectangle(0, 0, RingTex.Width, RingTex.Height), dColor, true);
+                BaseDrawing.DrawTexture(spritebatch, RingTex1, blue, npc.position, npc.width, npc.height, scale, -RingRotation, 0, 1, new Rectangle(0, 0, RingTex1.Width, RingTex1.Height), dColor, true);
             }
-            float velMultiplier = 1f;
-            Vector2 dist = point - npc.Center;
-            float length = dist == Vector2.Zero ? 0f : dist.Length();
-            if (length < MeleeSpeed)
+            if (scale2 > 0)
             {
-                velMultiplier = MathHelper.Lerp(0f, 1f, length / MeleeSpeed);
+                BaseDrawing.DrawTexture(spritebatch, ShieldTex, red, npc.position, npc.width, npc.height, scale2, RingRotation2, 0, 1, new Rectangle(0, 0, ShieldTex.Width, ShieldTex.Height), dColor, true);
             }
-            npc.velocity = length == 0f ? Vector2.Zero : Vector2.Normalize(dist);
-            npc.velocity *= MeleeSpeed;
-            npc.velocity *= velMultiplier;
+
+            BaseDrawing.DrawTexture(spritebatch, Tex, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, Main.npcFrameCount[npc.type], npc.frame, dColor, true);
+            BaseDrawing.DrawTexture(spritebatch, Glow, 0, npc.position, npc.width, npc.height, npc.scale, npc.rotation, npc.direction, Main.npcFrameCount[npc.type], npc.frame, Color.White, true);
+
+            return false;
         }
+
+        public float scale = 0;
+        public float RingRotation = 0;
+
+        public float scale2 = 0;
+        public float RingRotation2 = 0;
+
+        private void RingEffects()
+        {
+            RingRotation += 0.02f;
+            if (npc.ai[0] == 12 || NPC.AnyNPCs(ModContent.NPCType<AsheOrbiter>()))
+            {
+                if (scale >= 1f)
+                {
+                    scale = 1f;
+
+                    if(NPC.CountNPCS(ModContent.NPCType<AsheOrbiter>()) < OrbiterCount)
+                    {
+                        Health = true;
+                    }
+                }
+                else
+                {
+                    scale += .02f;
+                }
+            }
+            else
+            {
+                RingRotation -= 0.02f;
+                if (scale > .1f)
+                {
+                    scale -= .02f;
+                }
+                else
+                {
+                    scale = 0;
+                }
+            }
+
+            if (npc.ai[0] == 1 || npc.ai[0] == 6 || npc.ai[0] == 11)
+            {
+                if (scale2 >= 1f)
+                {
+                    scale2 = 1f;
+                }
+                else
+                {
+                    scale2 += .02f;
+                }
+            }
+            else
+            {
+                if (scale2 > .1f)
+                {
+                    scale2 -= .02f;
+                }
+                else
+                {
+                    scale2 = 0;
+                }
+            }
+
+            if(scale >= 1f || scale2 >= 1f)
+            {
+                npc.dontTakeDamage = true;
+            }
+            else
+            {
+                npc.dontTakeDamage = false;
+            }
+        }
+
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            scale = 1.5f;
+            return null;
+        }
+
+        #endregion
     }
 }
 

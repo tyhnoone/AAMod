@@ -11,7 +11,7 @@ namespace AAMod.Items.Boss.Toad
 
 		public override void SetDefaults()
 		{
-			item.damage = 40;
+			item.damage = 15;
 			item.magic = true;
 			item.mana = 6;
 			item.width = 58;
@@ -19,7 +19,7 @@ namespace AAMod.Items.Boss.Toad
 			item.useStyle = 1;
 			item.noMelee = true;
 			item.knockBack = 5;
-			item.value = 1000000;
+			item.value = 100000;
 			item.rare = 4;
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = true;

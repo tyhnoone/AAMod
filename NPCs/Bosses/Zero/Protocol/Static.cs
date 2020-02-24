@@ -27,9 +27,25 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
 
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
-            if (Main.rand.Next(7) == 0)
+            if (Main.rand.Next(3) == 0)
             {
-                target.AddBuff(mod.BuffType<Buffs.Unstable>(), 180);
+                target.AddBuff(ModContent.BuffType<Buffs.Unstable>(), 360);
+            }
+        }
+
+        int a = 0;
+
+        public override void PostAI()
+        {
+            if (Main.netMode != 1) a++;
+            if (a == 40)
+            {
+                projectile.tileCollide = true;
+                projectile.netUpdate = true;
+            }
+            if (a < 40)
+            {
+                projectile.tileCollide = false;
             }
         }
 

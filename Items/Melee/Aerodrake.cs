@@ -18,9 +18,9 @@ namespace AAMod.Items.Melee
             item.rare = 9;
             item.UseSound = SoundID.DD2_SonicBoomBladeSlash;
             item.useStyle = 1;
-            item.damage = 300;
-            item.useAnimation = 25;
-            item.useTime = 25;
+            item.damage = 1250;
+            item.useAnimation = 15;
+            item.useTime = 15;
             item.width = 82;
             item.height = 102;
             item.knockBack = 5.5f;
@@ -28,7 +28,7 @@ namespace AAMod.Items.Melee
             item.value = Item.sellPrice(1, 0, 0, 0);
             item.autoReuse = true;
             item.useTurn = false;
-            item.shoot = mod.ProjectileType<Projectiles.Aerodrake>();
+            item.shoot = ModContent.ProjectileType<Projectiles.Aerodrake>();
             item.shootSpeed = 17f;
             item.expert = true; item.expertOnly = true;
 

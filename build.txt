@@ -8,4 +8,3 @@ hideResources = true
 includeSource = false
 modReferences = BaseMod
 homepage = https://discord.gg/MmpCpj4
-weakReferences = CalamityMod

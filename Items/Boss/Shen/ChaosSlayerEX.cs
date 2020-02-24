@@ -11,7 +11,8 @@ namespace AAMod.Items.Boss.Shen
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ikari");
-            Tooltip.SetDefault(@"Unleashes explosive piercing blades of chaos to smite your foes
+            Tooltip.SetDefault(@"Unleashes explosive blades of chaos to smite your foes
+blades go through tiles
 Chaos Slayer EX");
         }
 
@@ -21,10 +22,10 @@ Chaos Slayer EX");
             item.height = 85;
             item.value = Item.sellPrice(3, 0, 0, 0);
             item.useStyle = 1;
-            item.useAnimation = 26;
-            item.useTime = 26;
+            item.useAnimation = 40;
+            item.useTime = 40;
             item.UseSound = SoundID.Item103;
-            item.damage = 380;
+            item.damage = 666;
             item.knockBack = 12;
             item.melee = true;
             item.expert = true; item.expertOnly = true;
@@ -62,7 +63,7 @@ Chaos Slayer EX");
             recipe.AddIngredient(null, "ChaosSlayer");
             recipe.AddIngredient(null, "PerfectChaos");
             recipe.AddIngredient(null, "EXSoul");
-            recipe.AddTile(null, "AncientForge");
+            recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

@@ -1,9 +1,6 @@
-using Terraria;
-using Terraria.ModLoader;
-
 namespace AAMod.Buffs
 {
-    public class ScoutMinion : ModBuff
+    /*public class ScoutMinion : ModBuff
 	{
 		public override void SetDefaults()
 		{
@@ -15,7 +12,7 @@ namespace AAMod.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+			AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 			if (player.ownedProjectileCounts[mod.ProjectileType("ScoutMinion")] > 0)
 			{
 				modPlayer.ScoutMinion = true;
@@ -30,5 +27,5 @@ namespace AAMod.Buffs
 				player.buffTime[buffIndex] = 2;
 			}
 		}
-	}
+	}*/
 }

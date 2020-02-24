@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Demon
@@ -11,8 +12,7 @@ namespace AAMod.Items.Armor.Demon
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Demon Cowl");
-            Tooltip.SetDefault(@"9% Increased Minion damage
-+2 Minion slots");
+            Tooltip.SetDefault(@"9% Increased Minion damage");
         }
 
         public override void SetDefaults()
@@ -27,7 +27,6 @@ namespace AAMod.Items.Armor.Demon
         public override void UpdateEquip(Player player)
         {
             player.minionDamage += 0.09f;
-            player.maxMinions += 2;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -38,8 +37,8 @@ namespace AAMod.Items.Armor.Demon
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("DemonHoodBonus");
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.DemonHoodBonus");
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             modPlayer.impSet = true;
             modPlayer.demonBonus = true;
             if (player.whoAmI == Main.myPlayer)
@@ -60,9 +59,9 @@ namespace AAMod.Items.Armor.Demon
             {
                 ModRecipe recipe = new ModRecipe(mod);
                 recipe.AddIngredient(null, "ImpHood", 1);
-                recipe.AddIngredient(ItemID.NecroHelmet, 1);
-                recipe.AddIngredient(ItemID.JungleHat, 1);
-                recipe.AddIngredient(ItemID.CrimsonHelmet, 1);
+                recipe.AddIngredient(ItemID.Bone, 5);
+                recipe.AddIngredient(ItemID.JungleSpores, 5);
+                recipe.AddIngredient(ItemID.ShadowScale, 5);
                 recipe.AddTile(TileID.DemonAltar);
                 recipe.SetResult(this);
                 recipe.AddRecipe();
@@ -70,9 +69,9 @@ namespace AAMod.Items.Armor.Demon
             {
                 ModRecipe recipe = new ModRecipe(mod);
                 recipe.AddIngredient(null, "ImpHood", 1);
-                recipe.AddIngredient(ItemID.NecroHelmet, 1);
-                recipe.AddIngredient(ItemID.JungleHat, 1);
-                recipe.AddIngredient(ItemID.ShadowHelmet, 1);
+                recipe.AddIngredient(ItemID.Bone, 5);
+                recipe.AddIngredient(ItemID.JungleSpores, 5);
+                recipe.AddIngredient(ItemID.TissueSample, 5);
                 recipe.AddTile(TileID.DemonAltar);
                 recipe.SetResult(this);
                 recipe.AddRecipe();

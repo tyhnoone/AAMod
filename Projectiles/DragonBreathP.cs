@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using System.IO;
 using BaseMod;
@@ -32,7 +31,7 @@ namespace AAMod.Projectiles   //The directory for your .cs and .png; Example: Tu
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if (Main.netMode == 2 || Main.dedServ)
+            if (Main.netMode == NetmodeID.Server || Main.dedServ)
             {
                 writer.Write(internalAI[0]);
             }
@@ -41,7 +40,7 @@ namespace AAMod.Projectiles   //The directory for your .cs and .png; Example: Tu
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 internalAI[0] = reader.ReadFloat();
             }
@@ -53,7 +52,7 @@ namespace AAMod.Projectiles   //The directory for your .cs and .png; Example: Tu
             if (Target != -1)
             {
                 NPC target = Main.npc[Target];
-                BaseAI.ShootPeriodic(projectile, target.position, 14, 14, mod.ProjectileType<DragonBreath>(), ref internalAI[0], 5, projectile.damage, 5, true);
+                BaseAI.ShootPeriodic(projectile, target.position, 14, 14, ModContent.ProjectileType<DragonBreath>(), ref internalAI[0], 5, projectile.damage, 4, true);
             }
         }
     }

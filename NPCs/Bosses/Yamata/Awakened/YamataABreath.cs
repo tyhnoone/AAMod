@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.NPCs.Bosses.Yamata.Awakened
@@ -21,7 +22,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             projectile.ignoreWater = true;
             projectile.penetrate = 1;
             projectile.alpha = 255;
-            projectile.timeLeft = 100;
+            projectile.timeLeft = 420;
             projectile.aiStyle = -1;
         }
 
@@ -32,6 +33,12 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
 
         public override void AI()
         {
+            if (projectile.localAI[0] == 0)
+            {
+                projectile.localAI[0] = 1;
+                Main.PlaySound(SoundID.Item34, projectile.Center);
+            }
+            projectile.velocity *= 0.97f;
             if (projectile.ai[0] > 7f)
             {
                 float num296 = 1f;
@@ -48,7 +55,7 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
                     num296 = 0.75f;
                 }
                 projectile.ai[0] += 1f;
-                int num297 = mod.DustType<Dusts.YamataADust>();
+                int num297 = ModContent.DustType<Dusts.YamataADust>();
                 if (Main.rand.Next(2) == 0)
                 {
                     for (int num298 = 0; num298 < 3; num298++)
@@ -80,6 +87,8 @@ namespace AAMod.NPCs.Bosses.Yamata.Awakened
             else
             {
                 projectile.ai[0] += 1f;
+                projectile.width += 6;
+                projectile.height += 6;
             }
             projectile.rotation += 0.3f * projectile.direction;
         }

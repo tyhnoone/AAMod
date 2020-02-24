@@ -32,18 +32,12 @@ namespace AAMod.NPCs.Bosses.Yamata
             npc.noTileCollide = true;
             npc.boss = false;
             npc.noGravity = true;
-            npc.chaseable = false;
-            npc.damage = 230;
+            npc.damage = 80;
             NPCID.Sets.TechnicallyABoss[npc.type] = true;
             npc.DeathSound = mod.GetLegacySoundSlot(SoundType.NPCKilled, "Sounds/Sounds/YamataRoar");
             for (int k = 0; k < npc.buffImmune.Length; k++)
             {
                 npc.buffImmune[k] = true;
-            }
-            if (AAWorld.downedShen)
-            {
-                npc.lifeMax = 50000;
-                npc.damage = 350;
             }
         }
 
@@ -51,7 +45,7 @@ namespace AAMod.NPCs.Bosses.Yamata
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if (Main.netMode == 2 || Main.dedServ)
+            if (Main.netMode == NetmodeID.Server || Main.dedServ)
             {
                 writer.Write(customAI[0]);
                 writer.Write(customAI[1]);
@@ -63,7 +57,7 @@ namespace AAMod.NPCs.Bosses.Yamata
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 customAI[0] = reader.ReadFloat();
                 customAI[1] = reader.ReadFloat();
@@ -92,7 +86,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             if (Body == null)
             {
                 NPC npcBody = Main.npc[(int)npc.ai[0]];
-                if (npcBody.type == mod.NPCType<Yamata>() || npcBody.type == mod.NPCType<YamataA>())
+                if (npcBody.type == ModContent.NPCType<Yamata>() || npcBody.type == ModContent.NPCType<YamataA>())
                 {
                     Body = (Yamata)npcBody.modNPC;
                 }
@@ -163,6 +157,13 @@ namespace AAMod.NPCs.Bosses.Yamata
             {
                 Body.TeleportMe3 = false;
                 npc.Center = Body.npc.Center;
+                for (int i = 0; i < 5; ++i)
+                {
+                    Main.PlaySound(2, (int)npc.Center.X, (int)npc.Center.Y, 20);
+                    Vector2 dir = Vector2.Normalize(targetPlayer.Center - npc.Center);
+                    dir *= 5f;
+                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, isAwakened ? mod.ProjectileType("YamataABreath") : mod.ProjectileType("YamataBreath"), npc.damage / 4, 0f, Main.myPlayer);
+                }
                 return;
             }
             if (Body.TeleportMe4)
@@ -200,7 +201,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                         Main.PlaySound(2, (int)npc.Center.X, (int)npc.Center.Y, 20);
                         Vector2 dir = Vector2.Normalize(targetPlayer.Center - npc.Center);
                         dir *= 5f;
-                        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, isAwakened ? mod.ProjectileType("YamataABreath") : mod.ProjectileType("YamataBreath"), Main.expertMode ? npc.damage / 4 : npc.damage / 2, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, dir.X, dir.Y, isAwakened ? mod.ProjectileType("YamataABreath") : mod.ProjectileType("YamataBreath"), npc.damage / 4, 0f, Main.myPlayer);
                     }
                 }
                 else
@@ -239,7 +240,7 @@ namespace AAMod.NPCs.Bosses.Yamata
         {
             if (npc.life <= 0)
             {
-                if (Main.netMode != 1) BaseUtility.Chat(Lang.BossChat("Yamata16"), new Color(45, 46, 70));
+                CombatText.NewText(npc.getRect(), new Color(45, 46, 70), Lang.BossChat("YamataHead"), true, true);
             }
         }
 
@@ -258,7 +259,7 @@ namespace AAMod.NPCs.Bosses.Yamata
             }
             if (projectile.penetrate == -1 && !projectile.minion)
             {
-                projectile.damage *= (int).2;
+                damage = (int)(damage * .2f);
             }
             else if (projectile.penetrate >= 1)
             {
@@ -279,7 +280,7 @@ namespace AAMod.NPCs.Bosses.Yamata
 
         public override bool CheckActive()
         {
-            if (NPC.AnyNPCs(mod.NPCType<Yamata>()) || NPC.AnyNPCs(mod.NPCType<YamataA>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<Yamata>()) || NPC.AnyNPCs(ModContent.NPCType<YamataA>()))
             {
                 return false;
             }

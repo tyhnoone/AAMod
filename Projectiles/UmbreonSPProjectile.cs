@@ -13,6 +13,7 @@ namespace AAMod.Projectiles
 			projectile.width = 54;
 			projectile.height = 22;
 			projectile.friendly = true;
+			projectile.melee = true;
 			projectile.penetrate = 3;
 			projectile.aiStyle = -1;
 			projectile.timeLeft = 1200;
@@ -72,7 +73,7 @@ namespace AAMod.Projectiles
 			
 			if (Main.rand.Next(1) == 0)
 			{
-				int dustnumber = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.UmbreonSPDust>(), 0f, 0f, 200, default, 0.8f);
+				int dustnumber = Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Dusts.UmbreonSPDust>(), 0f, 0f, 200, default, 0.8f);
 				Main.dust[dustnumber].velocity *= 0.3f;
 			}
 		}

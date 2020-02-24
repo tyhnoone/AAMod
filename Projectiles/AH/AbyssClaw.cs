@@ -47,7 +47,7 @@ namespace AAMod.Projectiles.AH
 			float num15 = 1200f;
 			float num16 = 150f;
 			Player player = Main.player[projectile.owner];
-			AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+			AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 			player.AddBuff(mod.BuffType("ChaosClaw"), 3600);
             if (player.dead)
             {
@@ -89,10 +89,11 @@ namespace AAMod.Projectiles.AH
 			{
 				projectile.tileCollide = false;
 			}
-			for (int num645 = 0; num645 < 200; num645++)
+
+			if (player.HasMinionAttackTargetNPC)
 			{
-				NPC target = Main.npc[num645];
-				if (target.CanBeChasedBy(projectile, false))
+				NPC target = Main.npc[player.MinionAttackTargetNPC];
+                if (target.CanBeChasedBy(projectile, false))
 				{
 					float distance = Vector2.Distance(target.Center, projectile.Center);
 					if (((Vector2.Distance(projectile.Center, position) > distance && distance < radius) || !foundTarget) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, target.position, target.width, target.height))
@@ -100,6 +101,23 @@ namespace AAMod.Projectiles.AH
 						radius = distance;
 						position = target.Center;
 						foundTarget = true;
+					}
+				}
+			}
+			else
+			{
+				for (int num645 = 0; num645 < 200; num645++)
+				{
+					NPC target = Main.npc[num645];
+					if (target.CanBeChasedBy(projectile, false))
+					{
+						float distance = Vector2.Distance(target.Center, projectile.Center);
+						if (((Vector2.Distance(projectile.Center, position) > distance && distance < radius) || !foundTarget) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, target.position, target.width, target.height))
+						{
+							radius = distance;
+							position = target.Center;
+							foundTarget = true;
+						}
 					}
 				}
 			}
@@ -175,18 +193,20 @@ namespace AAMod.Projectiles.AH
 				}
 			}
 			if (foundTarget)
-			{
-				projectile.rotation = (position - projectile.Center).ToRotation() + 3.14159274f;
+            {
+				projectile.spriteDirection = (position - projectile.Center).X > 0 ? 1 : -1;
+                projectile.rotation = (position - projectile.Center).ToRotation() + 1.57f;
 			}
 			else
 			{
-				projectile.rotation = projectile.velocity.ToRotation() + 3.14159274f;
+				projectile.spriteDirection = projectile.velocity.X > 0 ? 1 : -1;
+				projectile.rotation = projectile.velocity.ToRotation() + 1.57f;
 			}
 			if (projectile.ai[1] > 0f)
 			{
 				projectile.ai[1] += Main.rand.Next(1, 4);
 			}
-			if (projectile.ai[1] > 90f)
+			if (projectile.ai[1] > 60f)
 			{
 				projectile.ai[1] = 0f;
 				projectile.netUpdate = true;

@@ -25,13 +25,19 @@ namespace AAMod.Items.Summoning.Minions
             projectile.tileCollide = false;
             projectile.alpha = 255;
             projectile.netImportant = true;
-            projectile.minionSlots = .25f;
+            projectile.minionSlots = .5f;
             projectile.hide = true;
+            projectile.GetGlobalProjectile<AAGlobalProjectile>().LongMinion = true;
         }
 
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
+        }
+
+        public override void OnHitNPC(NPC npc, int damage, float knockback, bool crit)
+        {
+            npc.immune[projectile.owner] = 6;
         }
 
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles,
@@ -54,7 +60,7 @@ namespace AAMod.Items.Summoning.Minions
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 
             if ((int) Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
@@ -99,7 +105,7 @@ namespace AAMod.Items.Summoning.Minions
             if (projectile.alpha > 0)
                 for (int num1054 = 0; num1054 < 2; num1054++)
                 {
-                    int num1055 = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default, 2f);
+                    int num1055 = Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default, 2f);
                     Main.dust[num1055].noGravity = true;
                     Main.dust[num1055].noLight = true;
                 }
@@ -121,6 +127,8 @@ namespace AAMod.Items.Summoning.Minions
             projectile.Center = projectile.position;
             if (vector134 != Vector2.Zero) projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
             projectile.spriteDirection = vector134.X > 0f ? 1 : -1;
+
+            projectile.damage = Main.projectile[byUUID].damage;
         }
 
         public override void Kill(int timeLeft)

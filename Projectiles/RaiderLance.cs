@@ -37,7 +37,7 @@ namespace AAMod.Projectiles
         	projectile.position += projectile.velocity * projectile.ai[0];
         	if (Main.rand.Next(5) == 0)
             {
-            	Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, mod.DustType<Dusts.SnowDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+            	Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, ModContent.DustType<Dusts.SnowDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
             }
         	if(projectile.ai[0] == 0f)
         	{
@@ -67,11 +67,6 @@ namespace AAMod.Projectiles
         	{
         		projectile.rotation -= 1.57f;
         	}
-        }
-        
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-        	target.immune[projectile.owner] = 5;
         }
     }
 }

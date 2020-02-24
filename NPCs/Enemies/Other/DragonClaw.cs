@@ -18,7 +18,7 @@ namespace AAMod.NPCs.Enemies.Other
             npc.width = 28;
             npc.height = 24;
             npc.friendly = false;
-            npc.damage = 8;
+            npc.damage = 2;
             npc.defense = 8;
             npc.lifeMax = 25;
             npc.HitSound = SoundID.NPCHit1;
@@ -65,8 +65,8 @@ namespace AAMod.NPCs.Enemies.Other
             {
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/DragonClawGore1"), 1f);
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/DragonClawGore2"), 1f);
-                Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/DragonClawGore3"), 1f);
-                Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/DragonClawGore4"), 1f);
+                Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/DragonClawGore2"), 1f);
+                Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/DragonClawGore2"), 1f);
             }
         }
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
@@ -75,7 +75,7 @@ namespace AAMod.NPCs.Enemies.Other
         }
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DragonClaw"));
+            npc.DropLoot(mod.ItemType("DragonClaw"), 1);
         }
     }
 }

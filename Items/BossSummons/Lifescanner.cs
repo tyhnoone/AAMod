@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using BaseMod;
 
 namespace AAMod.Items.BossSummons
@@ -11,6 +12,7 @@ namespace AAMod.Items.BossSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lifescanner");
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
             Tooltip.SetDefault(@"Summons Sagittarius
 Can only be used in the Void");
         }
@@ -29,21 +31,21 @@ Can only be used in the Void");
 
         public override bool UseItem(Player player)
         {
-            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("Sagittarius"), true, 0, 0, "Sagittarius", false);
+            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("Sagittarius"), true, 0, 0, Language.GetTextValue("Mods.AAMod.Common.Sagittarius"), false);
             Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
             return true;
         }
 
         public override bool CanUseItem(Player player)
         {
-            if (!player.GetModPlayer<AAPlayer>(mod).ZoneVoid)
+            if (!player.GetModPlayer<AAPlayer>().ZoneVoid)
             {
-                if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("LifescannerFalse"), new Color(216, 60, 0), false);
+                if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.LifescannerFalse"), new Color(216, 60, 0), false);
                 return false;
             }
-            if (NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Sagittarius.Sagittarius>()) || NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Sagittarius.SagittariusFree>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<NPCs.Bosses.Sagittarius.Sagittarius>()) || NPC.AnyNPCs(ModContent.NPCType<NPCs.Bosses.Sagittarius.SagittariusFree>()))
             {
-                if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("LifescannerFalse"), new Color(216, 60, 0), false);
+                if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.LifescannerFalse"), new Color(216, 60, 0), false);
                 return false;
             }
             return true;

@@ -20,7 +20,7 @@ namespace AAMod.Items.Armor.Nights
             item.height = 18;
             item.value = 90000;
             item.rare = 4;
-            item.defense = 10;
+            item.defense = 7;
         }
 
         public override void UpdateEquip(Player player)
@@ -32,9 +32,9 @@ namespace AAMod.Items.Armor.Nights
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.ShadowGreaves, 1);
-            recipe.AddIngredient(ItemID.JunglePants, 1);
-            recipe.AddIngredient(ItemID.NecroGreaves, 1);
-            recipe.AddIngredient(null, "ImpBoots", 1);
+            recipe.AddIngredient(ItemID.JungleSpores, 6);
+            recipe.AddIngredient(ItemID.Bone, 6);
+            recipe.AddIngredient(null, "DevilSilk", 6);
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
             recipe.AddRecipe();

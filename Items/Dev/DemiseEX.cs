@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using System.Collections.Generic;
 
 namespace AAMod.Items.Dev
 {
@@ -14,7 +13,7 @@ namespace AAMod.Items.Dev
 			Tooltip.SetDefault(@"An almighty greatblade that was once wielded by the demon lord
 Left Click to unleash destructive demonic energy
 Right Click to unleash catastrophic blades that fall from the sky
-True Melee Strikes have a chance to instantly devour an enemy’s soul
+True Melee Strikes have a chance to instantly devour an enemy's soul
 Demise EX");
 		}
 		public override void SetDefaults()
@@ -50,6 +49,7 @@ Demise EX");
                 item.useStyle = 1;
                 item.noMelee = false;
                 item.shoot = mod.ProjectileType("DemiseBladeEX");
+                item.shootSpeed = 15f;
             }
             else
             {
@@ -57,6 +57,7 @@ Demise EX");
                 item.useStyle = 5;
                 item.noMelee = true;
                 item.shoot = mod.ProjectileType("DemiseSphereEX");
+                item.shootSpeed = 13f;
             }
             return base.CanUseItem(player);
         }
@@ -99,17 +100,6 @@ Demise EX");
                 }
             }
             return false;
-        }
-
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
-        {
-            if (Main.rand.Next(20) == 0)
-            {
-                if (Main.netMode != 1) BaseMod.BaseUtility.Chat("The struck enemy's soul bursts", new Color(77, 20, 102));
-                target.life = 0;
-                int p = Projectile.NewProjectile((int)target.Center.X, (int)target.Center.Y, 0, 0, mod.ProjectileType<Projectiles.DemiseBlast>(), item.damage, item.knockBack, Main.myPlayer);
-                Main.projectile[p].Center = target.Center;
-            }
         }
 
         public override void AddRecipes()

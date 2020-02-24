@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria.UI;
-using AAMod.Items.Boss.Zero;
 
 namespace AAMod.UI
 {
     internal sealed class TerratoolZUI : TerratoolUI
     {
-        public static int Pick = 0;
+        public static int Pick = 300;
 
         public static int Hammer = 0;
 
@@ -20,7 +19,7 @@ namespace AAMod.UI
 
         public override UIState State => AAMod.instance.TerratoolZState;
 
-        public override int HeldItemType => AAMod.instance.ItemType<ZeroTerratool>();
+        public override int HeldItemType => AAMod.instance.ItemType("ZeroTerratool");
 
         public override void ButtonClicked(int index)
         {

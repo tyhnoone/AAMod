@@ -35,8 +35,8 @@ namespace AAMod.Projectiles.EFish
             }
             bool flag64 = projectile.type == mod.ProjectileType("Fishnado");
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
-            player.AddBuff(mod.BuffType<Buffs.Fishnado>(), 3600);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
+            player.AddBuff(ModContent.BuffType<Buffs.Fishnado>(), 3600);
             if (flag64)
             {
                 if (player.dead)
@@ -76,7 +76,6 @@ namespace AAMod.Projectiles.EFish
             float num10 = 400f;
 
             bool flag = false;
-            int num11 = -1;
             projectile.tileCollide = false;
             if (Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
             {
@@ -110,7 +109,6 @@ namespace AAMod.Projectiles.EFish
                     num10 = num12;
                     vector = vector2;
                     flag = true;
-                    num11 = ownerMinionAttackTargetNPC.whoAmI;
                 }
             }
             if (!flag)
@@ -127,7 +125,6 @@ namespace AAMod.Projectiles.EFish
                             num10 = num13;
                             vector = vector3;
                             flag = true;
-                            num11 = k;
                         }
                     }
                 }
@@ -259,6 +256,7 @@ namespace AAMod.Projectiles.EFish
                             value4.Normalize();
                             value4 *= scaleFactor4;
                             int num33 = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, value4.X*4, value4.Y*4, num29, projectile.damage, 0f, Main.myPlayer, 0f, 0f);
+                            Main.projectile[num33].extraUpdates = 1;
                             Main.projectile[num33].minion = true;
                             Main.projectile[num33].timeLeft = 300;
                             Main.projectile[num33].netUpdate = true;

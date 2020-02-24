@@ -8,12 +8,14 @@ namespace AAMod.Items.Magic
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Spectrum");
-			Tooltip.SetDefault("Focuses a devastating beam of light");
+            Tooltip.SetDefault(@"Focuses a devastating beam of light
+Last Prism EX");
+           
 		}
 
 	    public override void SetDefaults()
 	    {
-	        item.damage = 118;
+	        item.damage = 150;
 	        item.magic = true;
 	        item.mana = 14;
 	        item.width = 16;
@@ -38,7 +40,7 @@ namespace AAMod.Items.Magic
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.LastPrism);
 			recipe.AddIngredient(mod.ItemType("EXSoul"));
-			recipe.AddTile(null, "AncientForge");
+			recipe.AddTile(null, "ACS");
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

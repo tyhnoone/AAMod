@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Boss.Yamata
@@ -18,12 +17,12 @@ Inflicts Moonrazed");
 
         public override void SetDefaults()
         {
-            item.damage = 300;
+            item.damage = 425;
             item.ranged = true;
             item.width = 44;
             item.height = 34;
-            item.useTime = 20;
-            item.useAnimation = 20;
+            item.useTime = 19;
+            item.useAnimation = 19;
             item.useStyle = 5;
             item.useAmmo = AmmoID.Rocket;
             item.knockBack = 8f;

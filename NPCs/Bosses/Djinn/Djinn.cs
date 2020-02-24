@@ -14,6 +14,8 @@ namespace AAMod.NPCs.Bosses.Djinn
     [AutoloadBossHead]
     public class Djinn : ModNPC
     {
+        public int damage = 0;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Desert Djinn");
@@ -26,7 +28,7 @@ namespace AAMod.NPCs.Bosses.Djinn
             npc.height = 80;
             npc.aiStyle = -1;
             npc.damage = 30;
-            npc.defense = 25;
+            npc.defense = 15;
             npc.lifeMax = 6000;
             npc.buffImmune[20] = true;
             npc.buffImmune[44] = true;
@@ -38,13 +40,13 @@ namespace AAMod.NPCs.Bosses.Djinn
             npc.noGravity = true;
             npc.noTileCollide = true;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/Djinn");
-            bossBag = mod.ItemType<Items.Boss.Djinn.DjinnBag>();
+            bossBag = ModContent.ItemType<Items.Boss.Djinn.DjinnBag>();
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             npc.lifeMax = (int)(npc.lifeMax * 0.8f * bossLifeScale);
-            npc.damage = (int)(npc.damage * 0.6f);
+            npc.damage = (int)(npc.damage * 1.6f);
             npc.defense = (int)(npc.defense * 1.2f);
         }
 
@@ -55,7 +57,7 @@ namespace AAMod.NPCs.Bosses.Djinn
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if (Main.netMode == 2 || Main.dedServ)
+            if (Main.netMode == NetmodeID.Server || Main.dedServ)
             {
                 writer.Write(internalAI[0]);
                 writer.Write(internalAI[1]);
@@ -67,7 +69,7 @@ namespace AAMod.NPCs.Bosses.Djinn
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 internalAI[0] = reader.ReadFloat();
                 internalAI[1] = reader.ReadFloat();
@@ -78,16 +80,29 @@ namespace AAMod.NPCs.Bosses.Djinn
 
         bool selectPoint = false;
         Vector2 MovePoint;
+        bool soundPlayed = false;
 
         public override void AI()
         {
+            if (Main.expertMode)
+            {
+                damage = npc.damage / 4;
+            }
+            else
+            {
+                damage = npc.damage / 2;
+            }
             Player player = Main.player[npc.target];
             if (runonce == 0)
             {
                 StartSandstorm();
                 runonce += 1;
             }
-
+	        if (internalAI[0] == 2 && npc.ai[3] < 60)
+            {
+					npc.velocity.X *= 0.97f;
+			}
+		
             if (internalAI[0] == 2 && npc.ai[3] > 120)
             {
                 if (npc.velocity.X > 0)
@@ -103,25 +118,46 @@ namespace AAMod.NPCs.Bosses.Djinn
             {
                 if (player.Center.X > npc.Center.X)
                 {
-                    npc.direction = -1;
+                    npc.direction = 1;
                 }
                 else
                 {
-                    npc.direction = 1;
+                    npc.direction = -1;
                 }
             }
 
-            if (!player.ZoneDesert || player.dead || !Main.dayTime)
+            if (player.dead || !player.active)
             {
                 npc.TargetClosest(true);
-                if (!player.ZoneDesert || player.dead || !Main.dayTime)
+                if (player.dead || !player.active)
                 {
                     FuriousFlexing();
                     return;
                 }
             }
+            else if (!player.ZoneDesert)
+            {
+                if (!soundPlayed)
+                {
+                    soundPlayed = true;
+                    Main.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
+                }
+                npc.damage = 200;
+                npc.defense = 1000;
+                npc.ai[3]++;
+                BaseAI.AIFlier(npc, ref npc.ai, true, 0.3f, 0.3f, 16f, 16f, false, 300);
+
+                if (npc.localAI[0]++ > 50)
+                {
+                    npc.localAI[0] = 0;
+                    Projectile.NewProjectile(npc.Center.X + Main.rand.Next(-200, 200), npc.Center.Y + Main.rand.Next(-100, 100), 0, 0, ModContent.ProjectileType<Menacing>(), 0, 0, Main.myPlayer);
+                }
+                return;
+            }
             else
             {
+                soundPlayed = false;
+                npc.defense = 15;
                 Sandstorm.TimeLeft = 10;
                 if (npc.alpha <= 0)
                 {
@@ -136,9 +172,11 @@ namespace AAMod.NPCs.Bosses.Djinn
 
             if (Main.netMode != 1)
             {
+                npc.damage = 30;
                 internalAI[1]++;
                 if (internalAI[1] >= 300)
                 {
+					
                     selectPoint = true; ;
                     internalAI[0] = Main.rand.Next(3);
                     internalAI[1] = 0;
@@ -150,34 +188,11 @@ namespace AAMod.NPCs.Bosses.Djinn
 
             if (internalAI[0] == 0)
             {
+                npc.damage = 30;
                 npc.ai[3]++;
                 npc.velocity.X = 0;
                 npc.velocity.Y = 0;
-                if (npc.ai[3] == 9)
-                {
-                    if (Main.netMode != 1 && AAGlobalProjectile.CountProjectiles(658) < 5)
-                    {
-                        FireProjectile();
-                        npc.netUpdate = true;
-                    }
-                }
-                if (npc.ai[3] == 36)
-                {
-                    if (Main.netMode != 1 && AAGlobalProjectile.CountProjectiles(658) < 5)
-                    {
-                        FireProjectile();
-                        npc.netUpdate = true;
-                    }
-                }
-                if (npc.ai[3] == 72)
-                {
-                    if (Main.netMode != 1 && AAGlobalProjectile.CountProjectiles(658) < 5)
-                    {
-                        FireProjectile();
-                        npc.netUpdate = true;
-                    }
-                }
-                if (npc.ai[3] > 81)
+                if (npc.ai[3] == 9 || npc.ai[3] == 36 || npc.ai[3] == 72)
                 {
                     if (Main.netMode != 1 && AAGlobalProjectile.CountProjectiles(658) < 5)
                     {
@@ -212,16 +227,19 @@ namespace AAMod.NPCs.Bosses.Djinn
             else if (internalAI[0] == 2)
             {
                 npc.ai[3]++;
-
+				
                 npc.damage = 50;
-                if (npc.ai[3] < 120)
+                if (npc.ai[3] < 120 && npc.ai[3] > 60)
                 {
                     if (Main.netMode != 1)
                     {
                         if (selectPoint)
                         {
-                            float point = 500 * -npc.direction;
-                            MovePoint = player.Center + new Vector2(-point, 0);
+							
+							 
+                            float point = 700 * npc.direction;
+                            MovePoint = player.Center + new Vector2(point, 0);
+							MoveToPoint(MovePoint, 10f);
                             selectPoint = false;
                             npc.netUpdate = true;
                         }
@@ -235,8 +253,10 @@ namespace AAMod.NPCs.Bosses.Djinn
                     {
                         if (npc.ai[3] == 120)
                         {
-                            float point = 500 * npc.direction;
-                            MovePoint = player.Center + new Vector2(point, 0);
+							 
+                            //float point = 500 * npc.direction;
+                            MovePoint = new Vector2(player.Center.X, npc.position.Y);
+							MoveToPoint(MovePoint, 10f);
                             npc.netUpdate = true;
                         }
                         npc.damage = 40;
@@ -244,7 +264,7 @@ namespace AAMod.NPCs.Bosses.Djinn
                     }
                 }
 
-                MoveToPoint(MovePoint, 10f);
+               
 
                 if (npc.ai[3] > 160 && Main.netMode != 1)
                 {
@@ -312,9 +332,9 @@ namespace AAMod.NPCs.Bosses.Djinn
                 npc.frame.Y = Frame * frameHeight;
                 return;
             }
-            else if (internalAI[0] == 1)
+            else if (internalAI[0] == 1 || !Main.player[npc.target].ZoneDesert)
             {
-                if (npc.frameCounter > 9)
+                if (npc.frameCounter > 5)
                 {
                     npc.frame.Y += frameHeight;
                     npc.frameCounter = 0;
@@ -327,8 +347,9 @@ namespace AAMod.NPCs.Bosses.Djinn
             }
             else if (internalAI[0] == 2)
             {
-                if (npc.ai[3] < 180)
+                if (npc.ai[3] < 60)
                 {
+					
                     if (npc.frameCounter > 9)
                     {
                         npc.frame.Y += frameHeight;
@@ -341,20 +362,23 @@ namespace AAMod.NPCs.Bosses.Djinn
                 }
                 else
                 {
+					
                     if (npc.frame.Y < FrameHeight * 4)
                     {
-                        npc.frame.Y = 4;
+                        npc.frame.Y = FrameHeight * 4;
                     }
                     if (npc.frameCounter > 9)
                     {
                         npc.frame.Y += frameHeight;
                         npc.frameCounter = 0;
                     }
-                }
-                if (npc.frame.Y > FrameHeight * 7)
+			    if (npc.frame.Y > FrameHeight * 7)
                 {
-                    npc.frame.Y = 4;
+					
+                     npc.frame.Y = FrameHeight * 5;
                 }
+                }
+               
                 return;
             }
             else
@@ -417,9 +441,7 @@ namespace AAMod.NPCs.Bosses.Djinn
                 if (!flag118)
                 {
                     int startY = point14.Y - 20;
-                    int num1470;
-                    int num1471;
-                    Collision.ExpandVertically(num1469, startY, out num1470, out num1471, 1, 51);
+                    Collision.ExpandVertically(num1469, startY, out int num1470, out int num1471, 1, 51);
                     if (StrayMethods.CanSpawnSandstormHostile(new Vector2(num1469, num1471 - 15) * 16f, 15, 15))
                     {
                         list4.Add(new Point(num1469, num1471 - 15));
@@ -429,7 +451,7 @@ namespace AAMod.NPCs.Bosses.Djinn
             }
             foreach (Point current2 in list4)
             {
-                Projectile.NewProjectile(current2.X * 16, current2.Y * 16, 0f, 0f, 658, npc.damage / (Main.expertMode ? 2 : 4), 0f, Main.myPlayer, 0f, 0f);
+                Projectile.NewProjectile(current2.X * 16, current2.Y * 16, 0f, 0f, 658, damage, 0f, Main.myPlayer, 0f, 0f);
             }
         }
 
@@ -439,20 +461,25 @@ namespace AAMod.NPCs.Bosses.Djinn
             npc.position.Y = npc.position.Y + npc.height / 2;
             npc.position.X = npc.position.X - npc.width / 2;
             npc.position.Y = npc.position.Y - npc.height / 2;
-            int dust = mod.DustType<Dusts.SandDust>();
+            int dust = ModContent.DustType<Dusts.SandDust>();
             for (int Loop = 0; Loop < 5; Loop++)
             {
-                Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust, 0f, 0f, 0);
-                Main.dust[dust].velocity.Y = hitDirection * 0.1F;
-                Main.dust[dust].noGravity = false;
+                int d = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust, 0f, 0f, 0);
+                Main.dust[d].velocity.Y = hitDirection * 0.1F;
+                Main.dust[d].noGravity = false;
             }
             if (npc.life <= 0)
             {
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/DjinnGore1"), 1f);
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/DjinnGore2"), 1f);
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/DjinnGore3"), 1f);
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/DjinnGore4"), 1f);
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/DjinnGore5"), 1f);
                 for (int Loop = 0; Loop < 5; Loop++)
                 {
-                    Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust, 0f, 0f, 0);
-                    Main.dust[dust].velocity.X *= 0f;
-                    Main.dust[dust].noGravity = false;
+                    int d = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust, 0f, 0f, 0);
+                    Main.dust[d].velocity.X *= 0f;
+                    Main.dust[d].noGravity = false;
                 }
             }
         }
@@ -537,7 +564,7 @@ namespace AAMod.NPCs.Bosses.Djinn
             Texture2D MudaMuda = mod.GetTexture("NPCs/Bosses/Djinn/DesertDjinnMudaMuda");
             Texture2D Punch = mod.GetTexture("NPCs/Bosses/Djinn/DesertDjinnPunch");
 
-            if (internalAI[0] == 1)
+            if (internalAI[0] == 1 || !Main.player[npc.target].ZoneDesert)
             {
                 CurrentTex = MudaMuda;
             }
@@ -551,6 +578,12 @@ namespace AAMod.NPCs.Bosses.Djinn
             }
 
             var effects = npc.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            if (!Main.player[npc.target].ZoneDesert)
+            {
+                drawColor = Color.Goldenrod;
+                BaseDrawing.DrawAfterimage(spriteBatch, CurrentTex, 0, npc, 1, 1, 7, false, 0, 0, drawColor, npc.frame, 15);
+            }
 
             spriteBatch.Draw(CurrentTex, npc.Center - Main.screenPosition, npc.frame, drawColor, npc.rotation, npc.frame.Size() / 2, npc.scale, effects, 0);
 

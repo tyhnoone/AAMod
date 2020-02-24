@@ -8,11 +8,10 @@ namespace AAMod.Items.Materials
     {
         public override void SetDefaults()
         {
-
             item.width = 32;
             item.height = 30;
             item.maxStack = 99;
-			
+			item.value = Terraria.Item.sellPrice(0, 3, 0, 0);
         }
 
         public override void SetStaticDefaults()
@@ -27,11 +26,10 @@ namespace AAMod.Items.Materials
             {
                 if (line2.mod == "Terraria" && line2.Name == "ItemName")
                 {
-                    line2.overrideColor = new Color(90, 0, 20);
+                    line2.overrideColor = AAColor.Rarity13;
                 }
             }
         }
-
         public override void AddRecipes()
         {                                                   
             ModRecipe recipe = new ModRecipe(mod);

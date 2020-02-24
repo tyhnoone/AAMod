@@ -7,7 +7,8 @@ namespace AAMod.Projectiles
 {
     public class ApocalypseHeal : ModProjectile
     {
-    	public override void SetStaticDefaults()
+        public override string Texture => "AAMod/BlankTex";
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Heal");
 		}
@@ -22,6 +23,7 @@ namespace AAMod.Projectiles
             projectile.alpha = 255;
             projectile.penetrate = 1;
             projectile.timeLeft = 480;
+            projectile.melee = true;
         }
 
         public override void AI()

@@ -2,8 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Graphics;
 using Terraria.Graphics.Effects;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.Utilities;
 
 namespace AAMod.Backgrounds
@@ -31,15 +32,15 @@ namespace AAMod.Backgrounds
 
         public override void OnLoad()
         {
-            PlanetTexture = TextureManager.Load("Backgrounds/YamataMoon");
-            BeamTexture = TextureManager.Load("Backgrounds/YamataBeam");
+            PlanetTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/YamataMoon");
+            BeamTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/YamataBeam");
             RockTextures = new Texture2D[3];
             for (int i = 0; i < RockTextures.Length; i++)
             {
-                RockTextures[i] = TextureManager.Load("Backgrounds/YamataRock" + i);
+                RockTextures[i] = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/YamataRock" + i);
             }
 
-            SkyTex = TextureManager.Load("Backgrounds/YamataStars");
+            SkyTex = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/YamataStars");
         }
 
         public override void Update(GameTime gameTime)
@@ -71,7 +72,7 @@ namespace AAMod.Backgrounds
                     spriteBatch.Draw(SkyTex, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
                     double bgTop = (int)((-Main.screenPosition.Y) / (Main.worldSurface * 16.0 - 600.0) * 200.0);
                     Main.bgColor = Color.White;
-                    if (Main.gameMenu || Main.netMode == 2)
+                    if (Main.gameMenu || Main.netMode == NetmodeID.Server)
                     {
                         bgTop = -200;
                     }

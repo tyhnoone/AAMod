@@ -1,7 +1,9 @@
 using BaseMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Projectiles.Zero
@@ -21,7 +23,7 @@ namespace AAMod.Projectiles.Zero
 		
 		public override void AI()
 		{
-            int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
+            int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
                        -projectile.velocity.Y * 0.2f, 46, default, 1.184211f);
             Main.dust[num469].noGravity = true;
             Main.dust[num469].velocity *= 2f;
@@ -42,6 +44,26 @@ namespace AAMod.Projectiles.Zero
                     NPC n = Main.npc[foundTarget];
                     Vector2 desiredVelocity = projectile.DirectionTo(n.Center) * desiredFlySpeedInPixelsPerFrame;
                     projectile.velocity = Vector2.Lerp(projectile.velocity, desiredVelocity, 1f / amountOfFramesToLerpBy);
+                }
+            }
+
+            for (int u = 0; u < 200; u++)
+            {
+                NPC target = Main.npc[u];
+
+                if (target.active && (target.type < 548 || target.type > 578) && target.type != NPCID.TargetDummy && !target.friendly && !target.boss && target.CanBeChasedBy(projectile, false) && Vector2.Distance(projectile.Center, target.Center) < 100)
+                {
+                    float num3 = 10f;
+                    Vector2 vector = new Vector2(target.position.X + target.width / 2, target.position.Y + target.height / 2);
+                    float num4 = projectile.Center.X - vector.X;
+                    float num5 = projectile.Center.Y - vector.Y;
+                    float num6 = (float)Math.Sqrt(num4 * num4 + num5 * num5);
+                    num6 = num3 / num6;
+                    num4 *= num6;
+                    num5 *= num6;
+                    int num7 = 5;
+                    target.velocity.X = (target.velocity.X * (num7 - 1) + num4) / num7;
+                    target.velocity.Y = (target.velocity.Y * (num7 - 1) + num5) / num7;
                 }
             }
         }
@@ -78,11 +100,11 @@ namespace AAMod.Projectiles.Zero
         {
             for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 46, default, 1.184211f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.VoidDust>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 46, default, 1.184211f);
                 Main.dust[num469].velocity *= 2f;
             }

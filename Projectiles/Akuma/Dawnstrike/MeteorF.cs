@@ -1,9 +1,6 @@
-﻿using System;
-using BaseMod;
+﻿using BaseMod;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,13 +17,14 @@ namespace AAMod.Projectiles.Akuma.Dawnstrike
             projectile.friendly = true;
             projectile.hostile = false;
             projectile.extraUpdates = 1;
+            projectile.ranged = true;
         }
 
 
         public override void AI()
         {
             projectile.rotation = projectile.velocity.ToRotation() + 1.57079637f;
-            int dustType = mod.DustType<Dusts.AkumaDust>();
+            int dustType = ModContent.DustType<Dusts.AkumaDust>();
             if (projectile.localAI[0] == 0f)
             {
                 projectile.localAI[0] = 1f;
@@ -42,7 +40,7 @@ namespace AAMod.Projectiles.Akuma.Dawnstrike
         }
         public override void Kill(int timeLeft)
         {
-            int dustType = mod.DustType<Dusts.AkumaDust>();
+            int dustType = ModContent.DustType<Dusts.AkumaDust>();
             int pieCut = 20;
             for (int m = 0; m < pieCut; m++)
             {

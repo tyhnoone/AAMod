@@ -1,7 +1,6 @@
-using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Armor.Chaos
 {
@@ -19,7 +18,7 @@ namespace AAMod.Items.Armor.Chaos
 		{
             item.width = 22;
             item.height = 16;
-            item.defense = 22;
+            item.defense = 20;
             item.rare = 7;
         }
 
@@ -31,10 +30,10 @@ namespace AAMod.Items.Armor.Chaos
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(AAMod.instance);
+            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup("AAMod:ChaosBoots");
             recipe.AddIngredient(null, "ChaosCrystal");
-            recipe.AddTile(null, "TruePaladinsSmeltery");
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

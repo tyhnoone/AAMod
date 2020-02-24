@@ -53,16 +53,8 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public override void PostAI()
         {
-            if (NPC.AnyNPCs(mod.NPCType<Rajah>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah2>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah3>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah4>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah5>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah6>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah7>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah8>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah9>()) ||
-                   NPC.AnyNPCs(mod.NPCType<SupremeRajah>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<Rajah>()) ||
+                   NPC.AnyNPCs(ModContent.NPCType<SupremeRajah>()))
             {
                 if (npc.alpha > 0)
                 {
@@ -91,7 +83,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if (Main.netMode == 2 || Main.dedServ)
+            if (Main.netMode == NetmodeID.Server || Main.dedServ)
             {
                 writer.Write(SetLife);
             }
@@ -100,7 +92,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 SetLife = reader.ReadBool(); //Set Lifex
             }
@@ -112,16 +104,8 @@ namespace AAMod.NPCs.Bosses.Rajah
             npc.knockBackResist = 0.4f * Main.knockBackMultiplier;
             npc.noGravity = true;
             npc.rotation = ((npc.rotation * 9f) + (npc.velocity.X * 0.1f)) / 10f;
-            if (!(NPC.AnyNPCs(mod.NPCType<Rajah>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah2>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah3>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah4>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah5>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah6>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah7>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah8>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah9>()) ||
-                NPC.AnyNPCs(mod.NPCType<SupremeRajah>())))
+            if (!(NPC.AnyNPCs(ModContent.NPCType<Rajah>()) ||
+                NPC.AnyNPCs(ModContent.NPCType<SupremeRajah>())))
             {
                 if (npc.timeLeft > 5)
 					npc.timeLeft = 5;
@@ -357,40 +341,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
         }
     }
-    public class RabbitcopterSoldier1 : RabbitcopterSoldier
-    {
-        public override string Texture => "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier";
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            npc.damage = 110;
-            npc.defense = 30;
-            npc.lifeMax = 500;
-        }
-    }
     public class RabbitcopterSoldier2 : RabbitcopterSoldier
-    {
-        public override string Texture => "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier";
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            npc.damage = 130;
-            npc.defense = 40;
-            npc.lifeMax = 650;
-        }
-    }
-    public class RabbitcopterSoldier3 : RabbitcopterSoldier
-    {
-        public override string Texture => "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier";
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            npc.damage = 150;
-            npc.defense = 50;
-            npc.lifeMax = 750;
-        }
-    }
-    public class RabbitcopterSoldier4 : RabbitcopterSoldier
     {
         public override string Texture => "AAMod/NPCs/Bosses/Rajah/RabbitcopterSoldier";
         public override void SetDefaults()
@@ -407,7 +358,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            if (NPC.AnyNPCs(mod.NPCType<SupremeRajah>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<SupremeRajah>()))
             {
                 BaseDrawing.DrawAfterimage(spriteBatch, Main.npcTexture[npc.type], 0, npc, 1f, 1f, 10, false, 0f, 0f, Main.DiscoColor);
             }

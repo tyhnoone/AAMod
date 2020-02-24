@@ -9,10 +9,10 @@ namespace AAMod.Items.Boss.Rajah.Supreme
         public override void SetDefaults()
         {
             item.mana = 5;
-            item.damage = 200;
+            item.damage = 260;
             item.useStyle = 5;
             item.shootSpeed = 9f;
-            item.shoot = mod.ProjectileType<Projectiles.Rajah.Supreme.CarrotEX>();
+            item.shoot = Terraria.ModLoader.ModContent.ProjectileType<Projectiles.Rajah.Supreme.CarrotEX>();
             item.width = 58;
             item.height = 57;
             item.UseSound = SoundID.Item39;
@@ -44,7 +44,7 @@ Royal Scepter EX");
 		    for (int i = 0; i < 5; i++)
 		    {
 		    	offsetAngle = startAngle + (deltaAngle * i);
-		    	int proj = Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, item.owner);
+		    	int proj = Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, Main.myPlayer);
                 Main.projectile[proj].ranged = false;
                 Main.projectile[proj].magic = true;
             }

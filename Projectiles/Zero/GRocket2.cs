@@ -15,14 +15,15 @@ namespace AAMod.Projectiles.Zero
     	
         public override void SetDefaults()
         {
-            projectile.width = 50;
-            projectile.height = 50;
+            projectile.width = 14;
+            projectile.height = 14;
             projectile.hostile = false;
             projectile.friendly = true;
             projectile.ignoreWater = true;
             projectile.penetrate = 1;
             cooldownSlot = 1;
             projectile.damage = 6;
+            projectile.ranged = true;
         }
 
         public override Color? GetAlpha(Color lightColor)

@@ -13,22 +13,24 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			base.SendExtraAI(writer);
-			if(Main.netMode == 2 || Main.dedServ)
+			if(Main.netMode == NetmodeID.Server || Main.dedServ)
 			{
 				writer.Write(internalAI[0]);
 				writer.Write(internalAI[1]);
                 writer.Write(internalAI[2]);
+                writer.Write(internalAI[3]);
             }
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			base.ReceiveExtraAI(reader);
-			if(Main.netMode == 1)
+			if(Main.netMode == NetmodeID.MultiplayerClient)
 			{
 				internalAI[0] = reader.ReadFloat();
 				internalAI[1] = reader.ReadFloat();
                 internalAI[2] = reader.ReadFloat();
+                internalAI[3] = reader.ReadFloat();
             }	
 		}	
 
@@ -45,7 +47,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             npc.defense = 12;    //boss defense
             npc.knockBackResist = 0f;   //this boss will behavior like the DemonEye  //boss frame/animation 
             npc.value = Item.sellPrice(0, 0, 50, 0);
-            npc.aiStyle = 26;
+            npc.aiStyle = -1;
             npc.width = 74;
             npc.height = 108;
             npc.npcSlots = 1f;
@@ -70,12 +72,30 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         }
 
         public static int AISTATE_WALK = 0, AISTATE_JUMP = 1, AISTATE_CHARGE = 2, AISTATE_FLY = 3;
-		public float[] internalAI = new float[3];
+		public float[] internalAI = new float[4];
 		
         public override void AI()
         {
-            Player player = Main.player[npc.target]; // makes it so you can reference the player the npc is targetting
+            npc.TargetClosest();
 
+            Player player = Main.player[npc.target];
+
+            if (player == null)
+            {
+                npc.TargetClosest();
+            }
+
+            if (player.dead || !player.active || Vector2.Distance(player.Center, npc.Center) > 5000)
+            {
+                npc.TargetClosest();
+
+                if (player.dead || !player.active || Vector2.Distance(player.Center, npc.Center) > 5000)
+                {
+                    Projectile.NewProjectile(npc.Center, new Vector2(0f, 0f), mod.ProjectileType("MonarchRUNAWAY"), 0, 0);
+                    npc.active = false;
+                    return;
+                }
+            }
 
             float dist = npc.Distance(player.Center);
 
@@ -145,6 +165,35 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             {
                 npc.spriteDirection = 1;
             }
+
+            if (npc.velocity.X == 0)
+            {
+                internalAI[1] = AISTATE_JUMP;
+                
+            }
+            else if (((player.Center.Y - npc.Center.Y) < -150f && (internalAI[1] == AISTATE_WALK || internalAI[1] == AISTATE_CHARGE)) || Collision.SolidCollision(new Vector2(npc.Center.X, npc.position.Y - npc.height/2 + 10), npc.width, npc.height))
+            {
+                internalAI[1] = AISTATE_FLY;
+                npc.ai = new float[4];
+                npc.netUpdate = true;
+            }
+            else if ((player.Center.Y - npc.Center.Y) > 100f && internalAI[1] != AISTATE_FLY) // player is below the npc.
+            {
+                internalAI[3] = internalAI[1]; //record the action
+                internalAI[1] = AISTATE_WALK;
+                npc.ai = new float[4];
+                npc.netUpdate = true;
+            }
+            else if(internalAI[1] != AISTATE_WALK)
+            {
+                internalAI[3] = internalAI[1];
+            }
+            else
+            {
+                internalAI[1] = internalAI[3];
+            }
+
+            
 			if(Main.netMode != 1)
 			{
                 if (!Main.dayTime)
@@ -164,42 +213,67 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                     npc.ai = new float[4];
                     npc.netUpdate = true;
                 }
-                else if (!Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
-                {
-                    internalAI[1] = AISTATE_FLY;
-                    npc.ai = new float[4];
-                    npc.netUpdate = true;
-                }
 			}
 			if(internalAI[1] == AISTATE_WALK) //fighter
 			{
+                npc.noGravity = false;
                 if (Main.netMode != 1)
                 {
                     internalAI[2]++;
                 }
-                if (NPC.CountNPCS(mod.NPCType<RedMushling>()) < 4)
+                if ((player.Center.Y - npc.Center.Y) > 60f) // player is below the npc.
+                {
+                    npc.noTileCollide = true;
+                }
+                else
+                {
+                    npc.noTileCollide = false;
+                }
+
+                if (NPC.CountNPCS(ModContent.NPCType<RedMushling>()) < 4)
                 {
                     for (int i = 0; i < 2; i++)
                     {
-                        int Minion = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<RedMushling>(), 0);
+                        int Minion = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<RedMushling>(), 0);
                         Main.npc[Minion].netUpdate = true;
                     }
                     internalAI[2] = 0;
                 }
-                AAAI.InfernoFighterAI(npc, ref npc.ai, true, false, 0, 0.07f, 3f, 3, 4, 60, true, 10, 60, true, null, false);				
+                AAAI.InfernoFighterAI(npc, ref npc.ai, true, false, 0, 0.07f, 3f, 3, 4, 60, true, 10, 60, true, null, false);	
 			}else
 			if(internalAI[1] == AISTATE_JUMP)//jumper
 			{
-				if(npc.ai[0] < -10) npc.ai[0] = -10; //force rapid jumping
-                BaseAI.AISlime(npc, ref npc.ai, true, 30, 6f, -8f, 6f, -10f);				
+                npc.noGravity = false;
+                npc.noTileCollide = false;
+                if(npc.ai[0] < -10) npc.ai[0] = -10; //force rapid jumping
+                BaseAI.AISlime(npc, ref npc.ai, true, 30, 6f, -8f, 6f, -10f);
+								
 			}
             else if (internalAI[1] == AISTATE_FLY)//fly
             {
                 npc.noTileCollide = true;
                 npc.noGravity = true;
-                BaseAI.AISpaceOctopus(npc, ref npc.ai, .05f, 8, 250, 0, null);
+                if((player.Center.Y - npc.Center.Y) > 60f)
+                {  
+                    if (NPC.CountNPCS(ModContent.NPCType<RedMushling>()) < 6)
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            int Minion = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<RedMushling>(), 0);
+                            Main.npc[Minion].netUpdate = true;
+                        }
+                    }
+                    MoveToPoint(player.Center);
+                    
+                }
+                else
+                {
+                    BaseAI.AISpaceOctopus(npc, ref npc.ai, .05f, 8, 250, 0, null);
+                }
+                
+                
                 npc.rotation = 0;
-                if (Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
+                if ((player.Center.Y - npc.Center.Y) > 30f && !Collision.SolidCollision(new Vector2(npc.Center.X, npc.position.Y - npc.height/2 + 10), npc.width, npc.height))
                 {
                     npc.rotation = 0;
                     npc.noGravity = false;
@@ -209,12 +283,50 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                     npc.netUpdate = true;
                     npc.noTileCollide = false;
                 }
-            }else //charger
-			{			
+            }
+            else //charger
+			{
                 BaseAI.AICharger(npc, ref npc.ai, 0.07f, 10f, false, 30);				
 			}
-        }
 
+            if (!Main.dayTime)
+            {
+                Projectile.NewProjectile(npc.Center, new Vector2(0f, 0f), mod.ProjectileType("MonarchRUNAWAY"), 0, 0);
+                npc.active = false;
+                return;
+            }
+        }
+        
+        public void MoveToPoint(Vector2 point)
+        {
+            float moveSpeed = 8f;
+            if (Vector2.Distance(npc.Center, point) > 500)
+            {
+                moveSpeed = 12f;
+            }
+            float velMultiplier = 1f;
+            Vector2 dist = point - npc.Center;
+            float length = dist == Vector2.Zero ? 0f : dist.Length();
+            if (length < moveSpeed)
+            {
+                velMultiplier = MathHelper.Lerp(0f, 1f, length / moveSpeed);
+            }
+            if (length < 200f)
+            {
+                moveSpeed *= 0.5f;
+            }
+            if (length < 100f)
+            {
+                moveSpeed *= 0.5f;
+            }
+            if (length < 50f)
+            {
+                moveSpeed *= 0.5f;
+            }
+            npc.velocity = length == 0f ? Vector2.Zero : Vector2.Normalize(dist);
+            npc.velocity *= moveSpeed;
+            npc.velocity *= velMultiplier;
+        }
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.LesserHealingPotion;

@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +13,7 @@ namespace AAMod.Items.Armor.Abyssal
             base.SetStaticDefaults();
             DisplayName.SetDefault("Abyssal Fukumen");
             Tooltip.SetDefault(@"35% increased movement speed
-12% increased ranged damage
+15% increased ranged damage
 Weightless as shadow itself");
         }
 
@@ -22,13 +23,14 @@ Weightless as shadow itself");
 			item.height = 20;
 			item.value = 10000;
 			item.rare = 3;
-			item.defense = 5;
+			item.defense = 6;
 		}
 
         public override void UpdateEquip(Player player)
         {
-            player.rangedDamage += .12f;
+            player.rangedDamage += .15f;
             player.moveSpeed += .35f;
+            player.GetModPlayer<AAPlayer>().MaxMovespeedboost += .35f;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -38,8 +40,8 @@ Weightless as shadow itself");
 
 		public override void UpdateArmorSet(Player player)
 		{
-            player.setBonus = Lang.ArmorBonus("AbyssalBonus");
-            player.GetModPlayer<AAPlayer>(mod).depthSet = true;
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.AbyssalBonus");
+            player.GetModPlayer<AAPlayer>().depthSet = true;
             player.aggro -= 3;
             player.ammoCost80 = true;
         }
@@ -48,9 +50,9 @@ Weightless as shadow itself");
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DepthFukumen", 1);
-            recipe.AddIngredient(null, "DoomiteUHelm", 1);
-            recipe.AddIngredient(null, "VikingHelm", 1);
-            recipe.AddIngredient(null, "OceanHelm", 1);
+            recipe.AddIngredient(null, "RelicBar", 5);
+            recipe.AddIngredient(ItemID.Coral, 5);
+            recipe.AddIngredient(null, "Doomite", 5);
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
             recipe.AddRecipe();

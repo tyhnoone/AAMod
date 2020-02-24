@@ -18,12 +18,12 @@ Blade of Night EX");
 		
 		public override void SetDefaults()
 		{
-			item.damage = 425;
+			item.damage = 436;
 			item.melee = true;
 			item.width = 100;
 			item.height = 100;
-			item.useTime = 22;
-			item.useAnimation = 22;
+			item.useTime = 20;
+			item.useAnimation = 20;
 			item.useStyle = 1;
 			item.knockBack = 7;
 			item.value = Item.sellPrice(1, 1, 50, 0);
@@ -49,7 +49,7 @@ Blade of Night EX");
 		    for (int i = 0; i < 3; i++)
 		    {
 		    	offsetAngle = startAngle + (deltaAngle * i);
-                Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
+                Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, Main.myPlayer);
 		    }
 		    return false;
 		}

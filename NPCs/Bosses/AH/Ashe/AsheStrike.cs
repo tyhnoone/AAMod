@@ -22,6 +22,9 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.timeLeft = 600;
+
+            drawOffsetX = -49;
+			drawOriginOffsetY = -49;
         }
 
         public override void AI()
@@ -47,13 +50,12 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType<Buffs.DragonFire>(), 200);
+            target.AddBuff(ModContent.BuffType<Buffs.DragonFire>(), 200);
         }
 
         public override void Kill(int timeLeft)
         {
             projectile.timeLeft = 0;
         }
-
     }
 }

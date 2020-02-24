@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.Doomite
 {
@@ -34,9 +35,9 @@ namespace AAMod.Items.Armor.Doomite
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("DoomiteVisorBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.DoomiteVisorBonus");
             player.maxMinions += 1;
-            player.GetModPlayer<AAPlayer>(mod).doomite = true;
+            player.GetModPlayer<AAPlayer>().doomite = true;
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.FindBuffIndex(mod.BuffType("Searcher")) == -1)
@@ -53,7 +54,11 @@ namespace AAMod.Items.Armor.Doomite
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Doomite", 10);
+            recipe.AddIngredient(null, "DoomiteUHelm");
+            recipe.AddIngredient(null, "Doomite", 5);
+            recipe.AddIngredient(ItemID.Coral, 5);
+            recipe.AddIngredient(ItemID.FossilOre, 5);
+            recipe.AddIngredient(null, "BroodScale", 5);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

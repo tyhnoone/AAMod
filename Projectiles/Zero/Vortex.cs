@@ -29,15 +29,15 @@ namespace AAMod.Projectiles.Zero   //The directory for your .cs and .png; Exampl
 
         public override void SetDefaults()
         {
-            projectile.extraUpdates = 0;
+            projectile.extraUpdates = 5;
             projectile.width = 48;
             projectile.height = 48;          
             projectile.aiStyle = 99;
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.melee = true;
-            ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = 30f;
-            ProjectileID.Sets.YoyosMaximumRange[projectile.type] = 400f;
+            ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = 60f;
+            ProjectileID.Sets.YoyosMaximumRange[projectile.type] = 1000f;
             ProjectileID.Sets.YoyosTopSpeed[projectile.type] = 15f;
         }
         int ProjTimer = 0;
@@ -52,9 +52,9 @@ namespace AAMod.Projectiles.Zero   //The directory for your .cs and .png; Exampl
                     ProjTimer = 0;
                     int NPCTarget = Target();
 
-                    if (NPCTarget != -1 && AAGlobalProjectile.CountProjectiles(mod.ProjectileType<VortexProj>()) < 5)
+                    if (NPCTarget != -1 && AAGlobalProjectile.CountProjectiles(ModContent.ProjectileType<VortexProj>()) < 5)
                     {
-                        Projectile.NewProjectile(projectile.position, projectile.velocity, mod.ProjectileType<VortexProj>(), projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(projectile.position, projectile.velocity, ModContent.ProjectileType<VortexProj>(), projectile.damage, projectile.knockBack, projectile.owner);
                     }
                 }
             }
@@ -63,7 +63,7 @@ namespace AAMod.Projectiles.Zero   //The directory for your .cs and .png; Exampl
         private int Target()
         {
             const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 300;
+            const float homingMaximumRangeInPixels = 500;
 
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)

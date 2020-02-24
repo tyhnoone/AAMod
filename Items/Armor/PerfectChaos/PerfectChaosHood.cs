@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.PerfectChaos
 {
@@ -13,7 +14,7 @@ namespace AAMod.Items.Armor.PerfectChaos
             DisplayName.SetDefault("Chaos Slayer Hood");
             Tooltip.SetDefault(@"32% increased Magic damage
 20% increased Magic critical strike chance
-10% increased damage resistance
+2% increased damage resistance
 30% reduced Mana consumption
 150 increased maximum mana
 The power of discordian rage radiates from this hood");
@@ -47,16 +48,16 @@ The power of discordian rage radiates from this hood");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("PerfectChaosHoodBonus");
-            player.GetModPlayer<AAPlayer>(mod).perfectChaosMa = true;
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.PerfectChaosHoodBonus");
+            player.GetModPlayer<AAPlayer>().perfectChaosMa = true;
             player.AddBuff(mod.BuffType("ChaosWrath"), 2);
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.magicDamage *= 1.32f;
+            player.magicDamage += .32f;
             player.magicCrit += 20;
-            player.endurance *= 1.1f;
+            player.endurance += .02f;
             player.manaCost *= .7f;
             player.statManaMax2 += 150;
         }
@@ -67,7 +68,7 @@ The power of discordian rage radiates from this hood");
             recipe.AddIngredient(null, "DoomsdayHelmet", 1);
             recipe.AddIngredient(null, "Discordium", 6);
             recipe.AddIngredient(null, "ChaosScale", 6);
-            recipe.AddTile(null, "AncientForge");
+            recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

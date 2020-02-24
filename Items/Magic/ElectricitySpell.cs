@@ -11,21 +11,21 @@ namespace AAMod.Items.Magic
         {
 
             item.damage = 90;                        
-            item.magic = true;                     //this make the item do magic damage
+            item.magic = true;                     
             item.width = 32;
             item.height = 32;
 
             item.useTime = 20;
             item.useAnimation = 20;
-            item.useStyle = 1;        //this is how the item is holded
+            item.useStyle = 1;        
             item.noMelee = true;
             item.knockBack = 3;
             item.value = Item.sellPrice(0, 1, 0, 0);
             item.rare = 6;
-            item.mana = 4;             //mana use
-            item.UseSound = SoundID.Item21;            //this is the sound when you use the item
+            item.mana = 4;             
+            item.UseSound = SoundID.Item21;            
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType ("ElectricitySpellP");  //this make the item shoot your projectile
+            item.shoot = mod.ProjectileType ("ElectricitySpellP");  
             item.shootSpeed = 11f;     
         }   
 
@@ -46,7 +46,7 @@ namespace AAMod.Items.Magic
 		for (i = 0; i < 5;i++ )
 		{
 			offsetAngle = startAngle + (deltaAngle * i);
-                Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
+                Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, Main.myPlayer);
 		}
 		return false;
 		}
@@ -58,7 +58,7 @@ namespace AAMod.Items.Magic
         {
             if (npc.type == NPCID.AngryNimbus && Main.rand.Next(6) == 0)
             {
-                npc.DropLoot(mod.ItemType<ElectricitySpell>());
+                npc.DropLoot(ModContent.ItemType<ElectricitySpell>());
             }
         }
     }

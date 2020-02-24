@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Dynaskull
@@ -37,16 +38,19 @@ namespace AAMod.Items.Armor.Dynaskull
 		public override void UpdateArmorSet(Player player)
 		{
 
-            player.setBonus = Lang.ArmorBonus("DynaskullBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.DynaskullBonus");
             
-			player.GetModPlayer<AAPlayer>(mod).DynaskullSet = true;
+			player.GetModPlayer<AAPlayer>().DynaskullSet = true;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.FossilHelm, 1);
-            recipe.AddIngredient(null, "DynaskullOre", 30);
+            recipe.AddIngredient(null, "DynaskullOre", 15);
+            recipe.AddIngredient(null, "Doomite", 5);
+            recipe.AddIngredient(ItemID.Coral, 5);
+            recipe.AddIngredient(null, "BroodScale", 5);
             recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

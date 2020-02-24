@@ -20,9 +20,9 @@ namespace AAMod.Items.Magic
             item.autoReuse = true;
             item.mana = 11;
             item.useStyle = 5;
-            item.damage = 230;
-            item.useAnimation = 6;
-            item.useTime = 6;
+            item.damage = 220;
+            item.useAnimation = 3;
+            item.useTime = 3;
             item.width = 62;
             item.height = 62;
             item.shoot = mod.ProjectileType("SubzeroSnowflake");
@@ -58,7 +58,7 @@ namespace AAMod.Items.Magic
                 num82 *= num83;
                 float speedX4 = num81 + Main.rand.Next(-40, 41) * 0.02f;
                 float speedY5 = num82 + Main.rand.Next(-40, 41) * 0.02f;
-                Projectile.NewProjectile(vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockBack, item.owner, 0f, Main.rand.Next(5));
+                Projectile.NewProjectile(vector2.X, vector2.Y, speedX4, speedY5, type, damage, knockBack, Main.myPlayer, 0f, Main.rand.Next(5));
             }
             return false;
         }

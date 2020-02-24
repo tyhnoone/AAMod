@@ -11,7 +11,7 @@ namespace AAMod.Items.Magic
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hive Artillery");
-			Tooltip.SetDefault("Shoots dozens of evil african bees"
+			Tooltip.SetDefault("Shoots dozens of terrifying bees"
 			+"\nBees ignore enemy invincibility frames"
 			+"\nBee Gun EX");
         }
@@ -19,10 +19,10 @@ namespace AAMod.Items.Magic
 		public override void SetDefaults()
 		{
 			item.CloneDefaults(ItemID.BeeGun);
-			item.damage = 20;
+			item.damage = 40;
 			item.mana = 6;
-			item.useAnimation = 5;
-			item.useTime = 5;
+			item.useAnimation = 2;
+			item.useTime = 2;
 			item.scale = 1f;
 		}
 		
@@ -87,10 +87,10 @@ namespace AAMod.Items.Magic
             if (player.strongBees && Main.rand.Next(2) == 0)
             {
                 makeStrongBee = true;
-                return mod.ProjectileType<Projectiles.BeeStrong>();
+                return ModContent.ProjectileType<Projectiles.BeeStrong>();
             }
             makeStrongBee = false;
-            return mod.ProjectileType<Projectiles.Bee>();
+            return ModContent.ProjectileType<Projectiles.Bee>();
         }
 
         public int BeeDamage(int dmg)

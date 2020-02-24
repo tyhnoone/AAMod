@@ -25,6 +25,7 @@ namespace AAMod.Items.Summoning.Minions
             projectile.tileCollide = false;
             projectile.alpha = 255;
             projectile.netImportant = true;
+            projectile.GetGlobalProjectile<AAGlobalProjectile>().LongMinion = true;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -43,10 +44,15 @@ namespace AAMod.Items.Summoning.Minions
             return false;
         }
 
+        public override void OnHitNPC(NPC npc, int damage, float knockback, bool crit)
+        {
+            npc.immune[projectile.owner] = 6;
+        }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 
             if ((int) Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
@@ -163,6 +169,9 @@ namespace AAMod.Items.Summoning.Minions
                     projectile.alpha = 0;
                 }
             }
+
+            float DamageBoost = Main.player[projectile.owner].minionDamage + Main.player[projectile.owner].allDamage - 1f;
+            projectile.damage = (int)(DamageBoost > 0f? ((50 + (projectile.localAI[0] - 1) * 25) * DamageBoost) : 1);
         }
     }
 }

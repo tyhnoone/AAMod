@@ -8,8 +8,8 @@ namespace AAMod.Water
 	{
 		public override bool ChooseWaterStyle()
         {
-            Player player = Main.player[Main.myPlayer];
-            if (Main.bgStyle == mod.GetSurfaceBgStyleSlot("InfernoSurfaceBgStyle") || Main.bgStyle == mod.GetSurfaceBgStyleSlot("InfernoDesertBgStyle") || (player.ZoneSnow && player.GetModPlayer<AAPlayer>(mod).ZoneInferno))
+            Player player = Main.LocalPlayer;
+            if (Main.bgStyle == mod.GetSurfaceBgStyleSlot("InfernoSurfaceBgStyle") || Main.bgStyle == mod.GetSurfaceBgStyleSlot("InfernoDesertBgStyle") || (player.ZoneSnow && player.GetModPlayer<AAPlayer>().ZoneInferno))
             {
                 return true;
             }

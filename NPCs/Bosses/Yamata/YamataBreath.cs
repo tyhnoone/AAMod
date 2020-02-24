@@ -49,7 +49,7 @@ namespace AAMod.NPCs.Bosses.Yamata
                     num296 = 0.75f;
                 }
                 projectile.ai[0] += 1f;
-                int num297 = mod.DustType<Dusts.YamataDust>();
+                int num297 = ModContent.DustType<Dusts.YamataDust>();
                 if (Main.rand.Next(2) == 0)
                 {
                     for (int num298 = 0; num298 < 1; num298++)
@@ -81,6 +81,8 @@ namespace AAMod.NPCs.Bosses.Yamata
             else
             {
                 projectile.ai[0] += 1f;
+                projectile.width += 6;
+                projectile.height += 6;
             }
             projectile.rotation += 0.3f * projectile.direction;
         }

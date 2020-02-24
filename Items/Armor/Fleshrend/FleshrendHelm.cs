@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Fleshrend
@@ -21,7 +22,7 @@ namespace AAMod.Items.Armor.Fleshrend
 			item.height = 26;
 			item.value = 90000;
 			item.rare = 4;
-			item.defense = 10;
+			item.defense = 7;
 		}
 		
 		public override void UpdateEquip(Player player)
@@ -37,19 +38,19 @@ namespace AAMod.Items.Armor.Fleshrend
 		public override void UpdateArmorSet(Player player)
 		{
 
-            player.setBonus = Lang.ArmorBonus("FleshrendHelmBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.FleshrendHelmBonus");
 
             player.crimsonRegen = true;
-			player.GetModPlayer<AAPlayer>(mod).fleshrendSet = true;
+			player.GetModPlayer<AAPlayer>().fleshrendSet = true;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.CrimsonHelmet, 1);
-			recipe.AddIngredient(ItemID.JungleHat, 1);
-            recipe.AddIngredient(ItemID.NecroHelmet, 1);
-            recipe.AddIngredient(null, "ImpHood", 1);
+            recipe.AddIngredient(ItemID.JungleSpores, 5);
+            recipe.AddIngredient(ItemID.Bone, 5);
+            recipe.AddIngredient(null, "DevilSilk", 5);
             recipe.AddTile(TileID.DemonAltar);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

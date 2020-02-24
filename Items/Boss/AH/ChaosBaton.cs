@@ -18,7 +18,7 @@ namespace AAMod.Items.Boss.AH
             item.useStyle = 1;
             item.shootSpeed = 14f;
             item.shoot = mod.ProjectileType("ChaosBaton");
-            item.damage = 120;
+            item.damage = 100;
             item.width = 52;
             item.noMelee = true;
             item.height = 52;
@@ -65,6 +65,21 @@ namespace AAMod.Items.Boss.AH
             vector2.X = Main.mouseX + Main.screenPosition.X;
             vector2.Y = Main.mouseY + Main.screenPosition.Y;
             Projectile.NewProjectile(vector2.X, vector2.Y, 0, 0, shootMe, damage, 5, item.owner, 0f, 0f);
+            return true;
+        }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2 && player.controlUseItem && player.releaseUseItem)
+            {
+                player.MinionNPCTargetAim();
+                player.UpdateMinionTarget();
+            }
             return true;
         }
 

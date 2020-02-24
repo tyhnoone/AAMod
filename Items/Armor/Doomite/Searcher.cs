@@ -11,7 +11,6 @@ namespace AAMod.Items.Armor.Doomite
 		{
 			DisplayName.SetDefault("Searcher");
 			Main.projFrames[projectile.type] = 5;
-            projectile.minionSlots = 0;
         }
     	
         public override void SetDefaults()
@@ -21,12 +20,12 @@ namespace AAMod.Items.Armor.Doomite
             projectile.netImportant = true;
             projectile.friendly = true;
             projectile.ignoreWater = true;
-            projectile.minionSlots = 0.5f;
             projectile.timeLeft = 18000;
             projectile.penetrate = -1;
             projectile.tileCollide = false;
             projectile.timeLeft *= 5;
             projectile.minion = true;
+            projectile.minionSlots = 0;
         }
 
         public int FrameTimer = 0;
@@ -34,12 +33,12 @@ namespace AAMod.Items.Armor.Doomite
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             if (player.dead)
             {
                 modPlayer.Searcher = false;
             }
-            if (modPlayer.Searcher)
+            if (modPlayer.doomite)
             {
                 projectile.timeLeft = 2;
             }
@@ -203,7 +202,7 @@ namespace AAMod.Items.Armor.Doomite
 			if (projectile.ai[0] == 0f)
 			{
 				float scaleFactor3 = 8f;
-				int num658 = mod.ProjectileType<Summoning.Minions.ProbeShot>();
+				int num658 = ModContent.ProjectileType<Summoning.Minions.ProbeShot>();
 				if (flag25 && projectile.ai[1] == 0f)
 				{
 					projectile.ai[1] += 1f;

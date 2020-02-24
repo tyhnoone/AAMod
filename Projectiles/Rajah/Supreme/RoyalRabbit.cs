@@ -34,7 +34,7 @@ namespace AAMod.Projectiles.Rajah.Supreme
         {
 			bool flag64 = projectile.type == mod.ProjectileType("RoyalRabbit");
 			Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             if (!player.active)
             {
                 projectile.active = false;
@@ -155,10 +155,9 @@ namespace AAMod.Projectiles.Rajah.Supreme
                     num22 = 15f;
                 }
                 Vector2 center2 = projectile.Center;
-                Vector2 vector6 = player.Center - center2 + new Vector2(0f, -60f);
                 projectile.ai[1] = 3600f;
                 projectile.netUpdate = true;
-                vector6 = player.Center - center2;
+                Vector2 vector6 = player.Center - center2;
                 int num23 = 1;
                 for (int m = 0; m < projectile.whoAmI; m++)
                 {
@@ -219,7 +218,7 @@ namespace AAMod.Projectiles.Rajah.Supreme
                     projectile.ai[1] += 1f;
                 }
             }
-            if (projectile.ai[1] > Main.rand.Next(30, 60))
+            if (projectile.ai[1] > Main.rand.Next(180, 900))
             {
                 projectile.ai[1] = 0f;
                 projectile.netUpdate = true;
@@ -227,7 +226,7 @@ namespace AAMod.Projectiles.Rajah.Supreme
             if (projectile.ai[0] == 0f)
             {
                 float scaleFactor4 = 11f;
-                int num29 = mod.ProjectileType<RabbitBeam>();
+                int num29 = ModContent.ProjectileType<RabbitBeam>();
                 
                 if (flag)
                 {
@@ -333,7 +332,7 @@ namespace AAMod.Projectiles.Rajah.Supreme
                 Main.dust[num15].noGravity = true;
                 Main.dust[num15].scale = 1f + 3 / 3f;
             }
-            target.AddBuff(mod.BuffType<Buffs.InfinityOverload>(), 200);
+            target.AddBuff(ModContent.BuffType<Buffs.InfinityOverload>(), 200);
         }
 
         public override void Kill(int timeLeft)
@@ -341,7 +340,7 @@ namespace AAMod.Projectiles.Rajah.Supreme
             Main.PlaySound(SoundID.Item10, projectile.position);
             for (int num585 = 0; num585 < 20; num585++)
             {
-                int num586 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), 0f, 0f, 100, Main.DiscoColor, 2f);
+                int num586 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.InfinityOverloadB>(), 0f, 0f, 100, Main.DiscoColor, 2f);
                 Main.dust[num586].noGravity = true;
                 Main.dust[num586].velocity *= 4f;
             }

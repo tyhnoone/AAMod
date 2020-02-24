@@ -2,8 +2,9 @@ using BaseMod;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
+using Terraria.Localization;
+using Terraria.ID;
 
 namespace AAMod.Items.BossSummons
 {
@@ -14,6 +15,7 @@ namespace AAMod.Items.BossSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("ERR0R_NULL");
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
             Tooltip.SetDefault(@"ACTIVATES THE GR0UND ZER0 C0DE F0R THE NEAREST ZER0 UNIT
 N0N-C0NSUMABLE");
         }
@@ -43,34 +45,35 @@ N0N-C0NSUMABLE");
         // We use the CanUseItem hook to prevent a player from using this item while the boss is present in the world.
         public override bool CanUseItem(Player player)
         {
-            if (player.GetModPlayer<AAPlayer>(mod).ZoneVoid)
+            if (player.GetModPlayer<AAPlayer>().ZoneVoid)
             {
                 if (NPC.AnyNPCs(mod.NPCType("Zero")))
                 {
-                    if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("ZeroFalse"), new Color(255, 0, 0), false);
+                    if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.ZeroUnitFalse"), new Color(255, 0, 0), false);
                     return false;
                 }
-                if (NPC.AnyNPCs(mod.NPCType("ZeroAwakened")))
+                if (NPC.AnyNPCs(mod.NPCType("ZeroProtocol")))
                 {
-                    if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("ZeroFalse"), new Color(255, 0, 0), false);
+                    if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.ZeroUnitFalse"), new Color(255, 0, 0), false);
                     return false;
                 }
                 return true;
             }
-            if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("ZeroVoidZoneFalse"), new Color(255, 0, 0), false);
+            if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.ZeroUnitVoidZoneFalse"), new Color(255, 0, 0), false);
             return false;
         }
 
         public override bool UseItem(Player player)
         {
-            if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("ZeroRuneTrue"), Color.Red.R, Color.Red.G, Color.Red.B);
+            if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.ZeroUnitRuneTrue"), Color.Red.R, Color.Red.G, Color.Red.B);
 
             if (Main.netMode != 1)
             {
                 AAWorld.zeroUS = true;
                 if (!NPC.AnyNPCs(mod.NPCType("ZeroDeactivated")))
-                    NPC.NewNPC((int)player.position.X + Main.rand.Next(-2200, 2200), (int)player.position.Y + 1200, mod.NPCType("ZeroAwakened"));
+                    NPC.NewNPC((int)player.position.X, (int)player.position.Y - 300, mod.NPCType("ZeroProtocol"));
             }
+
             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/ZeroDeath"));
             return true;
         }

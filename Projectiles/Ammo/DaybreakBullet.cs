@@ -7,7 +7,7 @@ namespace AAMod.Projectiles.Ammo
 {
     public class DaybreakBullet : ModProjectile
     {
-        //Thank you Qwerty3.14 for letting us use his Oricalcum bullet code.
+        
         public override void SetDefaults()
         {
             projectile.width = 4;
@@ -39,22 +39,22 @@ namespace AAMod.Projectiles.Ammo
             Main.PlaySound(SoundID.Item14, projectile.position);
             for (int num565 = 0; num565 < 7; num565++)
             {
-                Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default, 1.5f);
+                Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default, 1.5f);
             }
             for (int num566 = 0; num566 < 3; num566++)
             {
-                int num567 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 100);
+                int num567 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.AkumaADust>(), 0f, 0f, 100);
                 Main.dust[num567].noGravity = true;
                 Main.dust[num567].velocity *= 3f;
-                num567 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 100);
+                num567 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.AkumaADust>(), 0f, 0f, 100);
                 Main.dust[num567].velocity *= 2f;
             }
             int num568 = Gore.NewGore(new Vector2(projectile.position.X - 10f, projectile.position.Y - 10f), default, Main.rand.Next(61, 64), 1f);
             Main.gore[num568].velocity *= 0.3f;
             Gore expr_12836_cp_0 = Main.gore[num568];
-            expr_12836_cp_0.velocity.X += (float)Main.rand.Next(-10, 11) * 0.05f;
+            expr_12836_cp_0.velocity.X += Main.rand.Next(-10, 11) * 0.05f;
             Gore expr_12866_cp_0 = Main.gore[num568];
-            expr_12866_cp_0.velocity.Y += (float)Main.rand.Next(-10, 11) * 0.05f;
+            expr_12866_cp_0.velocity.Y += Main.rand.Next(-10, 11) * 0.05f;
             if (projectile.owner == Main.myPlayer)
             {
                 projectile.localAI[1] = -1f;
@@ -69,9 +69,18 @@ namespace AAMod.Projectiles.Ammo
             }
         }
 
+
+
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[projectile.owner] = 5;
+            { }
+            target.AddBuff(BuffID.Daybreak, 200);
+            int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("FireProjBoom"), projectile.damage / 6, projectile.knockBack, projectile.owner, 0f, 0f);
+            Main.projectile[proj].melee = false;
+            Main.projectile[proj].ranged = true;
+
         }
     }
 }

@@ -18,14 +18,14 @@ namespace AAMod.Projectiles
             projectile.height = 16;
             projectile.friendly = true;
             projectile.aiStyle = -1;
-            projectile.melee = true;
+            projectile.ranged = true;
             projectile.penetrate = 1;
         }
 
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(SoundID.Item14, projectile.position);
-            Projectile.NewProjectile(projectile.position, Vector2.Zero, mod.ProjectileType<ChaosBoom>(), projectile.damage, projectile.knockBack, Main.myPlayer, Main.rand.Next(2), 0);
+            Projectile.NewProjectile(projectile.position, Vector2.Zero, ModContent.ProjectileType<ChaosBoom>(), projectile.damage, projectile.knockBack, Main.myPlayer, Main.rand.Next(2), 0);
         }
 
         public override void AI()

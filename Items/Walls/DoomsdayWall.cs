@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
-using Terraria;
+using Terraria.ModLoader;
 
 namespace AAMod.Items.Walls
 {
@@ -23,7 +22,7 @@ namespace AAMod.Items.Walls
         
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Doomsday Curcuit Wall");
+            DisplayName.SetDefault("Doomsday Circuit Wall");
         }
         public override void AddRecipes()
         {

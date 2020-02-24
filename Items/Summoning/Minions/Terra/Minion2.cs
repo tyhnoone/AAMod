@@ -1,10 +1,9 @@
-using System;
+using BaseMod;
 using Microsoft.Xna.Framework;
-
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using BaseMod;
 
 namespace AAMod.Items.Summoning.Minions.Terra
 {
@@ -50,7 +49,7 @@ namespace AAMod.Items.Summoning.Minions.Terra
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 			if (modPlayer.TerraSummon)
 			{
 				projectile.timeLeft = 2;
@@ -63,7 +62,7 @@ namespace AAMod.Items.Summoning.Minions.Terra
             {
                 projectile.active = false;
             }
-            if (Main.netMode == 1 && Main.myPlayer == projectile.owner && !syncSpawn) { syncSpawn = projectile.netUpdate2 = true; }
+            if (Main.netMode == NetmodeID.MultiplayerClient && Main.myPlayer == projectile.owner && !syncSpawn) { syncSpawn = projectile.netUpdate2 = true; }
             if (!player.active || player.dead) { projectile.Kill(); return; }
             Target();
             bool playerTarget = target != null && target.Equals(player);
@@ -98,14 +97,22 @@ namespace AAMod.Items.Summoning.Minions.Terra
 
         public void Target()
         {
+            Player player = Main.player[projectile.owner];
             Vector2 startPos = Main.player[projectile.owner].Center;
             if (target != null && target != Main.player[projectile.owner] && !CanTarget(target, startPos))
             {
                 target = null;
             }
-            if (target == null || target == Main.player[projectile.owner])
+            if (player.HasMinionAttackTargetNPC)
+			{
+				NPC targetNPC = Main.npc[player.MinionAttackTargetNPC];
+                float prevDist = 900;
+                float dist = Vector2.Distance(startPos, targetNPC.Center);
+                if (CanTarget(targetNPC, startPos) && dist < prevDist) { target = targetNPC; prevDist = dist; }
+			}
+            else if (target == null || target == Main.player[projectile.owner])
             {
-                int[] npcs = BaseAI.GetNPCs(startPos, -1, default(int[]), 900);
+                int[] npcs = BaseAI.GetNPCs(startPos, -1, default, 900);
                 float prevDist = 900;
                 foreach (int i in npcs)
                 {
@@ -119,9 +126,8 @@ namespace AAMod.Items.Summoning.Minions.Terra
 
         public bool CanTarget(Entity codable, Vector2 startPos)
         {
-            if (codable is NPC)
+            if (codable is NPC npc)
             {
-                NPC npc = (NPC)codable;
                 return npc.active && npc.life > 0 && !npc.friendly && !npc.dontTakeDamage && npc.lifeMax > 5 && Vector2.Distance(startPos, npc.Center) < 900 && Math.Abs(npc.Center.Y - startPos.Y) < (16f * (20 - 1)) && (BaseUtility.CanHit(projectile.Hitbox, npc.Hitbox) || BaseUtility.CanHit(Main.player[projectile.owner].Hitbox, npc.Hitbox));
             }
             return false;

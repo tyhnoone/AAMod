@@ -14,8 +14,8 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
 
         public override void SetDefaults()
         {
-            projectile.width = 16;
-            projectile.height = 16;
+            projectile.width = 32;
+            projectile.height = 32;
             projectile.friendly = false;
             projectile.hostile = true;
             projectile.aiStyle = -1;
@@ -29,7 +29,7 @@ namespace AAMod.NPCs.Bosses.Rajah.Supreme
         {
             Rectangle myRect = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
             bool flag3 = projectile.Colliding(myRect, target.getRect());
-            target.AddBuff(mod.BuffType<Buffs.SpearStuck>(), 2);
+            target.AddBuff(ModContent.BuffType<Buffs.SpearStuck>(), 2);
             if (flag3 && !StuckInEnemy)
             {
                 StuckInEnemy = true;

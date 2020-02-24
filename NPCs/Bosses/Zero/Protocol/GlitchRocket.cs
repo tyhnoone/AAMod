@@ -21,7 +21,8 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             projectile.ignoreWater = true;
             projectile.penetrate = 1;
             cooldownSlot = 1;
-            projectile.damage = 6;
+            projectile.damage = 10;
+            projectile.tileCollide = false;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -62,9 +63,9 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
 
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
-            if (Main.rand.Next(7) == 0)
+            if (Main.rand.Next(3) == 0)
             {
-                target.AddBuff(mod.BuffType<Buffs.Unstable>(), 180);
+                target.AddBuff(ModContent.BuffType<Buffs.Unstable>(), 360);
             }
         }
 

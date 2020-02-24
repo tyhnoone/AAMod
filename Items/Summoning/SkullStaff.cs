@@ -18,6 +18,7 @@ namespace AAMod.Items.Summoning
             item.useStyle = 1;
             item.shootSpeed = 14f;
             item.shoot = mod.ProjectileType("SkullMinion");
+            item.buffType = mod.BuffType("SkullMinion");
             item.damage = 19;
             item.width = 44;
             item.height = 44;
@@ -30,6 +31,20 @@ namespace AAMod.Items.Summoning
             item.rare = 1;
             item.summon = true;
             item.mana = 5;
+        }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

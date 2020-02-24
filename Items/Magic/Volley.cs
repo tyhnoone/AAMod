@@ -20,9 +20,9 @@ namespace AAMod.Items.Magic
             item.knockBack = 4;
             item.value = Item.sellPrice(0, 3, 0, 0);
             item.rare = 4;
-            item.mana = 10;
+            item.mana = 5;
             item.UseSound = SoundID.Item20;
-            item.autoReuse = true;
+            item.autoReuse = false;
             item.shoot = mod.ProjectileType("Volley");
             item.shootSpeed = 5f;
         }
@@ -43,7 +43,7 @@ namespace AAMod.Items.Magic
             for (int i = 0; i < 3; i++)
             {
                 offsetAngle = startAngle + (deltaAngle * i);
-                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
+                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, Main.myPlayer);
             }
             return false;
         }

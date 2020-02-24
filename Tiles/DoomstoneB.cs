@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using AAMod.Tiles.Trees;
 
 namespace AAMod.Tiles
 {
@@ -14,9 +15,10 @@ namespace AAMod.Tiles
             Main.tileMerge[Type][mod.TileType("Apocalyptite")] = true;
             Terraria.ID.TileID.Sets.Conversion.Stone[Type] = true;
             Main.tileMergeDirt[Type] = true;
+            Main.tileBlockLight[Type] = true;
             SetModTree(new OroborosTree());
             soundType = 21;
-            drop = mod.ItemType("DoomstoneB");   //put your CustomBlock name
+            drop = mod.ItemType("DoomstoneB");   
             dustType = mod.DustType("DoomDust");
             AddMapEntry(new Color(40, 20, 20));
 			minPick = 60;
@@ -24,8 +26,7 @@ namespace AAMod.Tiles
 
         public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0, int random = -1, int direction = -1)
         {
-            TileObject toBePlaced;
-            if (!TileObject.CanPlace(x, y, type, style, direction, out toBePlaced, false))
+            if (!TileObject.CanPlace(x, y, type, style, direction, out TileObject toBePlaced, false))
             {
                 return false;
             }

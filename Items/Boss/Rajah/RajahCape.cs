@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using System.Collections.Generic;
@@ -14,10 +15,10 @@ namespace AAMod.Items.Boss.Rajah
             Tooltip.SetDefault(@"Every 10% of health lost gives you:
 1. 12% extra attack power to your highest damage type boost
 2. 5% increased movement speed
-3. 4% damage resistance
 All effects of the Sash of Vengeance
 'You have been deemed a worthy successor by the Champion of the Innocent'");
         }
+
         public override void SetDefaults()
         {
             item.width = 66;
@@ -27,67 +28,66 @@ All effects of the Sash of Vengeance
             item.accessory = true;
             item.expert = true; item.expertOnly = true;
             item.defense = 10;
-            item.expert = true; item.expertOnly = true;
         }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             Player player = Main.player[item.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             Color damageColor = Color.Firebrick;
             string DamageType = "";
+
             if (modPlayer.MeleeHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Melee");
+                DamageType = Language.GetTextValue("Mods.AAMod.Common.RajahSPTooltipMelee");
                 damageColor = Color.Firebrick;
             }
             else if (modPlayer.RangedHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Ranged");
+                DamageType = Language.GetTextValue("Mods.AAMod.Common.RajahSPTooltipRanged");
                 damageColor = Color.SeaGreen;
             }
             else if (modPlayer.MagicHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Magic");
+                DamageType = Language.GetTextValue("Mods.AAMod.Common.RajahSPTooltipMagic");
                 damageColor = Color.Violet;
             }
             else if (modPlayer.SummonHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Summoning");
+                DamageType = Language.GetTextValue("Mods.AAMod.Common.RajahSPTooltipSummoning");
                 damageColor = Color.Cyan;
             }
             else if (modPlayer.ThrownHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Throwing");
+                DamageType = Language.GetTextValue("Mods.AAMod.Common.RajahSPTooltipThrowing");
                 damageColor = Color.DarkOrange;
             }
 
-            string DamageAmmount = (10 * DamageBoost(player)) + "% ";
-
-            string SpeedAmmount = (10 * Speed(player)) + "% ";
-
-            string ResAmmount = (10 * DamageRes(player)) + "% ";
-
-            TooltipLine DamageToltip = new TooltipLine(mod, "Damage Type", Lang.RajahSPTooltip("CurrentDamageBoost:+") + DamageAmmount + DamageType + Lang.RajahSPTooltip("Damage"))
+            string DamageAmount = (10 * DamageBoost(player)) + "% ";
+            TooltipLine DamageToltip = new TooltipLine(mod, "Damage Type", Language.GetTextValue("Mods.AAMod.Common.RajahSPDamageBoost") + DamageAmount + DamageType + Language.GetTextValue("Mods.AAMod.Common.RajahSPDamageInfo"))
             {
                 overrideColor = damageColor
             };
-            TooltipLine SpeedTooltip = new TooltipLine(mod, "Damage Type", Lang.RajahSPTooltip("CurrentSpeedBoost:") + SpeedAmmount);
-
-            TooltipLine ResTooltip = new TooltipLine(mod, "Damage Type", Lang.RajahSPTooltip("CurrentDamageResistance:") + ResAmmount);
-
             tooltips.Add(DamageToltip);
+
+            string SpeedAmount = (10 * Speed(player)) + "% ";
+            TooltipLine SpeedTooltip = new TooltipLine(mod, "Damage Type", Language.GetTextValue("Mods.AAMod.Common.RajahSPSpeedBoost") + SpeedAmount);
             tooltips.Add(SpeedTooltip);
-            tooltips.Add(ResTooltip);
+
             base.ModifyTooltips(tooltips);
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
+
             player.autoJump = true;
             Player.jumpHeight = 40;
             player.jumpSpeedBoost += 3.6f;
             player.noFallDmg = true;
+            player.moveSpeed += Speed(player);
+            player.GetModPlayer<AAPlayer>().MaxMovespeedboost += Speed(player);
+
             if (modPlayer.MeleeHighest(player))
             {
                 player.meleeDamage += DamageBoost(player);
@@ -108,8 +108,6 @@ All effects of the Sash of Vengeance
             {
                 player.thrownDamage += DamageBoost(player);
             }
-            player.moveSpeed += Speed(player);
-            player.endurance += DamageRes(player);
         }
 
         public float DamageBoost(Player player)
@@ -118,79 +116,39 @@ All effects of the Sash of Vengeance
             {
                 return 1.08f;
             }
-            if (player.statLife <= player.statLifeMax2 * .2f)
+            else if (player.statLife <= player.statLifeMax2 * .2f)
             {
                 return .96f;
             }
-            if (player.statLife <= player.statLifeMax2 * .3f)
+            else if (player.statLife <= player.statLifeMax2 * .3f)
             {
                 return .84f;
             }
-            if (player.statLife <= player.statLifeMax2 * .4f)
+            else if (player.statLife <= player.statLifeMax2 * .4f)
             {
                 return .72f;
             }
-            if (player.statLife <= player.statLifeMax2 * .5f)
+            else if (player.statLife <= player.statLifeMax2 * .5f)
             {
                 return .60f;
             }
-            if (player.statLife <= player.statLifeMax2 * .6f)
+            else if (player.statLife <= player.statLifeMax2 * .6f)
             {
                 return .48f;
             }
-            if (player.statLife <= player.statLifeMax2 * .7f)
+            else if (player.statLife <= player.statLifeMax2 * .7f)
             {
                 return .36f;
             }
-            if (player.statLife <= player.statLifeMax2 * .8f)
+            else if (player.statLife <= player.statLifeMax2 * .8f)
             {
                 return .24f;
             }
-            if (player.statLife <= player.statLifeMax2 * .9f)
+            else if (player.statLife <= player.statLifeMax2 * .9f)
             {
                 return .12f;
             }
-            return 0f;
-        }
 
-        public float DamageRes(Player player)
-        {
-            if (player.statLife <= player.statLifeMax2 * .1f)
-            {
-                return .36f;
-            }
-            if (player.statLife <= player.statLifeMax2 * .2f)
-            {
-                return .32f;
-            }
-            if (player.statLife <= player.statLifeMax2 * .3f)
-            {
-                return .28f;
-            }
-            if (player.statLife <= player.statLifeMax2 * .4f)
-            {
-                return .24f;
-            }
-            if (player.statLife <= player.statLifeMax2 * .5f)
-            {
-                return .20f;
-            }
-            if (player.statLife <= player.statLifeMax2 * .6f)
-            {
-                return .16f;
-            }
-            if (player.statLife <= player.statLifeMax2 * .7f)
-            {
-                return .12f;
-            }
-            if (player.statLife <= player.statLifeMax2 * .8f)
-            {
-                return .08f;
-            }
-            if (player.statLife <= player.statLifeMax2 * .9f)
-            {
-                return .04f;
-            }
             return 0f;
         }
 
@@ -200,38 +158,39 @@ All effects of the Sash of Vengeance
             {
                 return .45f;
             }
-            if (player.statLife <= player.statLifeMax2 * .2f)
+            else if (player.statLife <= player.statLifeMax2 * .2f)
             {
                 return .4f;
             }
-            if (player.statLife <= player.statLifeMax2 * .3f)
+            else if (player.statLife <= player.statLifeMax2 * .3f)
             {
                 return .35f;
             }
-            if (player.statLife <= player.statLifeMax2 * .4f)
+            else if (player.statLife <= player.statLifeMax2 * .4f)
             {
                 return .3f;
             }
-            if (player.statLife <= player.statLifeMax2 * .5f)
+            else if (player.statLife <= player.statLifeMax2 * .5f)
             {
                 return .25f;
             }
-            if (player.statLife <= player.statLifeMax2 * .6f)
+            else if (player.statLife <= player.statLifeMax2 * .6f)
             {
                 return .2f;
             }
-            if (player.statLife <= player.statLifeMax2 * .7f)
+            else if (player.statLife <= player.statLifeMax2 * .7f)
             {
                 return .15f;
             }
-            if (player.statLife <= player.statLifeMax2 * .8f)
+            else if (player.statLife <= player.statLifeMax2 * .8f)
             {
                 return .1f;
             }
-            if (player.statLife <= player.statLifeMax2 * .9f)
+            else if (player.statLife <= player.statLifeMax2 * .9f)
             {
                 return .05f;
             }
+
             return 0f;
         }
     }

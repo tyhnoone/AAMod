@@ -18,27 +18,6 @@ namespace AAMod.Items.Boss.Equinox
             item.expert = true; item.expertOnly = true;
         }
 
-        public override void UpdateEquip(Player player)
-        {
-            if (!Main.dayTime)
-            {
-                player.lifeRegen += 5;
-                player.statDefense += 8;
-                player.meleeSpeed += 0.10f;
-                player.meleeDamage += 0.3f;
-                player.meleeCrit += 4;
-                player.rangedDamage += 0.3f;
-                player.rangedCrit += 4;
-                player.magicDamage += 0.3f;
-                player.magicCrit += 4;
-                player.pickSpeed -= 0.30f;
-                player.minionDamage += 0.3f;
-                player.minionKB += 0.7f;
-                player.thrownDamage += 0.3f;
-                player.thrownCrit += 4;
-            }
-        }
-
         
         public override void SetStaticDefaults()
         {
@@ -72,6 +51,19 @@ namespace AAMod.Items.Boss.Equinox
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            if (!Main.dayTime)
+            {
+                player.lifeRegen += 5;
+                player.statDefense += 8;
+                player.meleeSpeed += 0.10f;
+                player.meleeCrit += 4;
+                player.rangedCrit += 4;
+                player.magicCrit += 4;
+                player.pickSpeed -= 0.30f;
+                player.minionKB += 0.7f;
+                player.allDamage += 0.17f;
+                player.thrownCrit += 4;
+            }
             player.nightVision = true;
         }
 

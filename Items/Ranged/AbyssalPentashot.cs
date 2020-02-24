@@ -2,6 +2,7 @@ using Terraria;
 using System;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace AAMod.Items.Ranged
 {
@@ -15,13 +16,13 @@ namespace AAMod.Items.Ranged
 
         public override void SetDefaults()
         {
-            item.damage = 35;
+            item.damage = 20;
             item.noMelee = true;
             item.ranged = true;
             item.width = 50;
             item.height = 20;
-            item.useTime = 45;
-            item.useAnimation = 45;
+            item.useTime = 40;
+            item.useAnimation = 40;
             item.useStyle = 5;
             item.shoot = 10;
             item.useAmmo = AmmoID.Bullet;
@@ -32,7 +33,7 @@ namespace AAMod.Items.Ranged
             item.shootSpeed = 12f;
         }
 
-		public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 		    float spread = 20f * 0.0174f;
 		    float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));
@@ -42,7 +43,7 @@ namespace AAMod.Items.Ranged
 		    for (int i = 0; i < 5; i++)
 		    {
 		    	offsetAngle = startAngle + (deltaAngle * i);
-		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, item.owner);
+		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, Main.myPlayer);
 		    }
 		    return false;
 		}

@@ -11,13 +11,14 @@ namespace AAMod.Items.Ranged
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Perfect Chaos Bustershot");
-            Tooltip.SetDefault("Fires a piercing dualblast as well as a spread of 10 bullets");
+            Tooltip.SetDefault(@"Fires a piercing dualblast as well as a spread of 10 bullets
+Chaos Bustershot EX");
         }
 
         public override void SetDefaults()
         {
 
-            item.damage = 200;
+            item.damage = 300;
             item.noMelee = true;
             item.ranged = true;
             item.width = 50;
@@ -51,7 +52,7 @@ namespace AAMod.Items.Ranged
 		    for (int i = 0; i < 10; i++)
 		    {
 		    	offsetAngle = startAngle + (deltaAngle * i);
-		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, item.owner);
+		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, Main.myPlayer);
             }
             for (int m = 0; m < 2; m++)
             {

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace AAMod.NPCs.Critters
 {
@@ -30,26 +31,30 @@ namespace AAMod.NPCs.Critters
             banner = npc.type;
             bannerItem = ItemID.BunnyBanner;
             npc.catchItem = (short)mod.ItemType("RoyalRabbit");
+            npc.rarity = 6;
         }
 
+        public override void NPCLoot()
+        {
+            Player player = Main.player[Player.FindClosest(npc.Center, npc.width, npc.height)];
+            int bunnyKills = NPC.killCount[Item.NPCtoBanner(NPCID.Bunny)];
+            if (bunnyKills % 100 == 0 && bunnyKills < 1000)
+            {
+                if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Lang.BossSummonsInfo("RoyalRabbit1"), 107, 137, 179);
+                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Rajah"), npc.Center);
+                AAModGlobalNPC.SpawnRajah(player, true, new Vector2(npc.Center.X, npc.Center.Y - 2000), Language.GetTextValue("Mods.AAMod.Common.RajahRabbit"));
+            }
+            if (bunnyKills % 100 == 0 && bunnyKills >= 1000)
+            {
+                if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Lang.BossSummonsInfo("RoyalRabbit2") + player.name.ToUpper() + "!!!", 107, 137, 179);
+                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Rajah"), npc.Center);
+                AAModGlobalNPC.SpawnRajah(player, true, new Vector2(npc.Center.X, npc.Center.Y - 2000), Language.GetTextValue("Mods.AAMod.Common.RajahRabbit"));
+            }
+        }
         public override void HitEffect(int hitDirection, double damage)
         {
             if (npc.life <= 0)
             {
-                Player player = Main.player[Player.FindClosest(npc.Center, npc.width, npc.height)];
-                int bunnyKills = NPC.killCount[Item.NPCtoBanner(NPCID.Bunny)];
-                if (bunnyKills % 100 == 0 && bunnyKills < 1000)
-                {
-                    if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Lang.BossSummonsInfo("RoyalRabbit1"), 107, 137, 179);
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Rajah"), npc.Center);
-                    AAModGlobalNPC.SpawnRajah(player, true, new Vector2(npc.Center.X, npc.Center.Y - 2000), "Rajah Rabbit");
-                }
-                if (bunnyKills % 100 == 0 && bunnyKills >= 1000)
-                {
-                    if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Lang.BossSummonsInfo("RoyalRabbit2") + player.name.ToUpper() + "!!!", 107, 137, 179);
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Rajah"), npc.Center);
-                    AAModGlobalNPC.SpawnRajah(player, true, new Vector2(npc.Center.X, npc.Center.Y - 2000), "Rajah Rabbit");
-                }
                 Gore.NewGore(npc.position, npc.velocity, 77, 1f);
                 Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/RoyalRabbit1"), 1f);
             }

@@ -28,11 +28,12 @@ namespace AAMod.NPCs.Enemies.Mire.Toxitoad
             npc.knockBackResist = 0.1f;
             npc.aiStyle = 3;
             aiType = NPCID.GoblinScout;
+            npc.rarity = 2;
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.hardMode && spawnInfo.player.GetModPlayer<AAPlayer>(mod).ZoneMire)
+            if (Main.hardMode && spawnInfo.player.GetModPlayer<AAPlayer>().ZoneMire)
             {
                 return SpawnCondition.OverworldNightMonster.Chance * 0.25f;
             }

@@ -60,7 +60,7 @@ Fires an explosive ghast skull every other shot");
 
             if (shoot >= 2)
             {
-                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("GhastSkull"), (int)(damage * 1.5), knockBack, player.whoAmI);
+                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("GhastSkull"), (int)(damage * 1.0), knockBack, player.whoAmI);
                 shoot = 0;
             }
             shoot = 0;
@@ -72,7 +72,7 @@ Fires an explosive ghast skull every other shot");
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "DeathlyLongbow", 1);
             recipe.AddIngredient(ItemID.Ectoplasm, 20);
-            recipe.AddIngredient(null, "DungeonCrystal", 1);
+            recipe.AddIngredient(null, "HeroShards", 1);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

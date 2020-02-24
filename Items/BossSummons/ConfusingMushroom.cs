@@ -3,6 +3,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using AAMod.NPCs.Bosses.MushroomMonarch;
 using Terraria.ModLoader;
+using Terraria.Localization;
 using BaseMod;
 
 namespace AAMod.Items.BossSummons
@@ -13,6 +14,7 @@ namespace AAMod.Items.BossSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Confusing Looking Mushroom");
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
             Tooltip.SetDefault(@"Summons the Feudal Fungus
 Can only be used in a glowing mushroom biome");
         }
@@ -32,7 +34,7 @@ Can only be used in a glowing mushroom biome");
 
         public override bool UseItem(Player player)
         {
-            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("FeudalFungus"), true, 0, 0, "The Feudal Fungus", false);
+            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("FeudalFungus"), true, 0, 0, Language.GetTextValue("Mods.AAMod.Common.FeudalFungus"), false);
             Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
             return true;
         }
@@ -45,12 +47,12 @@ Can only be used in a glowing mushroom biome");
             }
             if (!player.ZoneGlowshroom)
             {
-                if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("ConfusingMushroomFalse"), Color.SkyBlue, false);
+                if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.ConfusingMushroomFalse1"), Color.SkyBlue, false);
                 return false;
             }
-            if (NPC.AnyNPCs(mod.NPCType<FeudalFungus>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<FeudalFungus>()))
             {
-                if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("ConfusingMushroomTrue"), Color.SkyBlue, false);
+                if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.ConfusingMushroomFalse2"), Color.SkyBlue, false);
                 return false;
             }
             return false;

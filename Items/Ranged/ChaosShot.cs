@@ -17,13 +17,13 @@ namespace AAMod.Items.Ranged
         public override void SetDefaults()
         {
 
-            item.damage = 100;
+            item.damage = 37;
             item.noMelee = true;
             item.ranged = true;
             item.width = 50;
             item.height = 20;
-            item.useTime = 45;
-            item.useAnimation = 45;
+            item.useTime = 38;
+            item.useAnimation = 38;
             item.useStyle = 5;
             item.shoot = 10;
             item.useAmmo = AmmoID.Bullet;
@@ -31,7 +31,7 @@ namespace AAMod.Items.Ranged
             item.value = Item.sellPrice(0, 20, 0, 0);
             item.rare = 8;
             item.UseSound = SoundID.Item14;
-            item.shootSpeed = 12f;
+            item.shootSpeed = 20f;
             item.autoReuse = true;
         }
 
@@ -50,7 +50,7 @@ namespace AAMod.Items.Ranged
 		    for (int i = 0; i < 6; i++)
 		    {
 		    	offsetAngle = startAngle + (deltaAngle * i);
-		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, item.owner);
+		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, Main.myPlayer);
             }
             for (int m = 0; m < 2; m++)
             {

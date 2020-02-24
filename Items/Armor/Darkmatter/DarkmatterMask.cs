@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using System;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.Darkmatter
 {
@@ -61,15 +62,21 @@ Dark, yet still barely visible");
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("DarkmatterMaskBonus");
-            if (!Main.dayTime)
-            {
-                player.endurance += .08f;
-            }
-            player.statManaMax2 += 200;
-            player.manaCost *= 0.80f;
-            player.GetModPlayer<AAPlayer>(mod).darkmatterSetMa = true;
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.DarkmatterMaskBonus1") + (int)(100 * player.magicDamage) + " " + Language.GetTextValue("Mods.AAMod.Common.DarkmatterMaskBonus2") + player.magicCrit + Language.GetTextValue("Mods.AAMod.Common.DarkmatterMaskBonus3");
+            player.GetModPlayer<DarkmatterMaskEffects>().setBonus = true;
+            player.GetModPlayer<DarkmatterMaskEffects>().sunSiphon = false;
             player.armorEffectDrawShadowLokis = true;
+            
+            for (int i = 0; i < 15; i++)
+            {
+                Vector2 offset = new Vector2();
+                double angle = Main.rand.NextDouble() * 2d * Math.PI;
+                offset.X += (float)(Math.Sin(angle) * 300);
+                offset.Y += (float)(Math.Cos(angle) * 300);
+                Dust dust = Main.dust[Dust.NewDust(player.Center + offset - new Vector2(4, 4), 0, 0,  mod.DustType("DarkmatterDust"), 0, 0, 100, default(Color), 1f)];
+                dust.velocity = player.velocity;
+                dust.noGravity = true;
+            }
         }
 
 		public override void AddRecipes()
@@ -82,4 +89,43 @@ Dark, yet still barely visible");
             recipe.AddRecipe();
         }
 	}
+    public class DarkmatterMaskEffects : ModPlayer
+    {
+        public bool setBonus = false;
+        public int[] npcCooldown = new int[Main.npc.Length];
+        public bool sunSiphon = false;
+        public override void ResetEffects()
+        {
+            setBonus = false;
+            
+        }
+        public override void PreUpdate()
+        {
+            if(setBonus)
+            {
+                for (int n = 0; n < Main.npc.Length; n++)
+                {
+                    if (npcCooldown[n] > 0)
+                    {
+                        npcCooldown[n]--;
+                    }
+                    if (Main.npc[n].CanBeChasedBy() && npcCooldown[n] == 0 && (Main.npc[n].Center - player.Center).Length() < 300)
+                    {
+                        
+                        npcCooldown[n] = 30;
+                        int type = mod.ProjectileType("DarkLeech");
+                        if (sunSiphon)
+                        {
+                            type = mod.ProjectileType("SunSiphon");
+                        }
+                        
+                        Projectile.NewProjectile(Main.npc[n].Center, Vector2.Zero, type, (int)(100f * player.magicDamage), 0f, player.whoAmI, n);
+                    }
+                }
+            }
+            
+        }
+        
+    }
+    
 }

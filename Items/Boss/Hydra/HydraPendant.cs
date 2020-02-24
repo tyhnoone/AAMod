@@ -11,6 +11,7 @@ namespace AAMod.Items.Boss.Hydra
             DisplayName.SetDefault("Hydra Pendant");
             Tooltip.SetDefault(@"7% Increased damage");
         }
+
         public override void SetDefaults()
         {
             item.width = 26;
@@ -19,13 +20,10 @@ namespace AAMod.Items.Boss.Hydra
             item.accessory = true;
             item.expert = true; item.expertOnly = true;
         }
-        public override void UpdateEquip(Player player)
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.meleeDamage += .07f;
-            player.rangedDamage += .07f;
-            player.magicDamage += .07f;
-            player.minionDamage += .07f;
-            player.thrownDamage += .07f;
+            player.allDamage += .07f;
         }
 
         public override bool CanEquipAccessory(Player player, int slot)
@@ -35,7 +33,7 @@ namespace AAMod.Items.Boss.Hydra
                 int maxAccessoryIndex = 5 + player.extraAccessorySlots;
                 for (int i = 3; i < 3 + maxAccessoryIndex; i++)
                 {
-                    if (slot != i && player.armor[i].type == mod.ItemType<DragonSerpentNecklace>())
+                    if (slot != i && player.armor[i].type == ModContent.ItemType<DragonSerpentNecklace>())
                     {
                         return false;
                     }

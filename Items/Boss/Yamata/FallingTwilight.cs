@@ -16,13 +16,13 @@ namespace AAMod.Items.Boss.Yamata
 
         public override void SetDefaults()
         {
-            item.damage = 110;
+            item.damage = 170;
             item.ranged = true;
             item.width = 44;
             item.height = 76;
-            item.useAnimation = 15;
-            item.useTime = 5;
-            item.reuseDelay = 16;
+            item.useAnimation = 18;
+            item.useTime = 18;
+            item.reuseDelay = 0;
             item.useStyle = 5;
             item.noMelee = true;
             item.knockBack = 2.5f;
@@ -30,7 +30,7 @@ namespace AAMod.Items.Boss.Yamata
             item.UseSound = SoundID.Item5;
             item.autoReuse = true;
             item.shoot = 1;
-            item.shootSpeed = 14f;
+            item.shootSpeed = 20f;
             item.useAmmo = AmmoID.Arrow;
             item.rare = 9; AARarity = 13;
         }
@@ -45,19 +45,18 @@ namespace AAMod.Items.Boss.Yamata
                 }
             }
         }
-
-        public override bool ConsumeAmmo(Player player)
-        {
-            return !(player.itemAnimation < item.useAnimation - 1);
-        }
-        
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if (!(player.itemAnimation == 1))
+            float numberProjectiles = 4;
+            float rotation = MathHelper.ToRadians(4);
+            position += Vector2.Normalize(new Vector2(speedX, speedY)) * -45f;
+            for (int i = 0; i < numberProjectiles; i++)
             {
-                float SpeedX = speedX + Main.rand.Next(-25, 26) * 0.05f;
-                float SpeedY = speedY + Main.rand.Next(-25, 26) * 0.05f;
-                Projectile.NewProjectile(position.X, position.Y, SpeedX, SpeedY, mod.ProjectileType<YamataSoul>(), damage, knockBack, player.whoAmI, 0.0f, 0.0f);
+                Vector2 projectileOffset = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) *5f;
+                projectileOffset.X *= MathHelper.Lerp(0.8f, 1.2f, (float)Main.rand.NextDouble());
+                projectileOffset.Y *= MathHelper.Lerp(0.8f, 1.2f, (float)Main.rand.NextDouble());
+                Vector2 newSpeed = new Vector2(speedX, speedY) * MathHelper.Lerp(0.8f, 1.2f, (float)Main.rand.NextDouble());
+                Projectile.NewProjectile(position.X + projectileOffset.X, position.Y + projectileOffset.Y, newSpeed.X, newSpeed.Y, ModContent.ProjectileType<Projectiles.Yamata.NightSoul>(), damage, knockBack, player.whoAmI);
             }
             return false;
         }

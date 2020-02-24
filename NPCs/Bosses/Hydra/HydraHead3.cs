@@ -7,10 +7,7 @@ namespace AAMod.NPCs.Bosses.Hydra
         public override void SetDefaults()
         {
             base.SetDefaults();
-            leftHead = true;
-			middleHead = false;	
-			distFromBodyX = 60;			
-			distFromBodyY = 70;			
+            Head = 2;
         }
     }
 }

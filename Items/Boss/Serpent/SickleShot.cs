@@ -10,28 +10,28 @@ namespace AAMod.Items.Boss.Serpent
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sickleshot");
-            Tooltip.SetDefault("Shoots 2 waves of 2 ice arrows with high velocity in short succession");
+            Tooltip.SetDefault("Shoots 2 ice arrows with high velocity ");
         }
 
         public override void SetDefaults()
         {
 
-            item.damage = 25;
+            item.damage = 16;
             item.noMelee = true;
             item.ranged = true;
             item.width = 40;
             item.height = 62;
-            item.useTime = 25;
-            item.useAnimation = 28;
+            item.useTime = 30;
+            item.useAnimation = 30;
             item.useStyle = 5;
-            item.shoot = mod.ProjectileType<Projectiles.Serpent.IceArrow>();
+            item.shoot = Terraria.ModLoader.ModContent.ProjectileType<Projectiles.Serpent.IceArrow>();
             item.useAmmo = AmmoID.Arrow;
             item.knockBack = 2;
             item.value = Item.sellPrice(0, 5, 0, 0);
             item.rare = 3;
             item.UseSound = SoundID.Item5;
             item.autoReuse = true;
-            item.shootSpeed = 8f;
+            item.shootSpeed = 30f;
 
         }
 
@@ -45,7 +45,7 @@ namespace AAMod.Items.Boss.Serpent
 		    for (int i = 0; i < 2; i++)
 		    {
 		    	offsetAngle = startAngle + (deltaAngle * i);
-		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
+		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, Main.myPlayer);
 		    }
 		    return false;
 		}

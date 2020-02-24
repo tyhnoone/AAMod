@@ -15,16 +15,15 @@ namespace AAMod.Items.Accessories
             item.accessory = true;
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.endurance += 0.05f;
+            player.statLifeMax2 += 50;
         }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ornate Band");
-            Tooltip.SetDefault(
-@"5% Increased damage resistance");
+            Tooltip.SetDefault("+50 Max Life");
         }
 
     }

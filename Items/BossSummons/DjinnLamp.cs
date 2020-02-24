@@ -13,8 +13,8 @@ namespace AAMod.Items.BossSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Desert Lamp");
-            Tooltip.SetDefault(@"Summons the Desert Djinn
-Only usable during the day");
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
+            Tooltip.SetDefault(@"Summons the Desert Djinn");
 		}
 
 		public override void SetDefaults()
@@ -33,26 +33,21 @@ Only usable during the day");
 
         public override bool UseItem(Player player)
         {
-            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("Djinn"), true, 0, 0, "The Desert Djinn", false);
+            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("Djinn"), true, 0, 0, Language.GetTextValue("Mods.AAMod.Common.DesertDjinn"), false);
             Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
             return true;
         }
 
         public override bool CanUseItem(Player player)
         {
-            if (!Main.dayTime)
-            {
-                if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("DjinnLampDayTimeFalse"), Color.Goldenrod.R, Color.Goldenrod.G, Color.Goldenrod.B, false);
-                return false;
-            }
             if (!player.ZoneDesert)
             {
-                if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("DjinnLampDesertFalse"), Color.Goldenrod.R, Color.Goldenrod.G, Color.Goldenrod.B, false);
+                if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.DjinnLampDesertFalse1"), Color.Goldenrod.R, Color.Goldenrod.G, Color.Goldenrod.B, false);
                 return false;
             }
             if (NPC.AnyNPCs(mod.NPCType("Djinn")))
             {
-                if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("DjinnLampTrue"), Color.Goldenrod.R, Color.Goldenrod.G, Color.Goldenrod.B, false);
+                if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.DjinnLampDesertFalse2"), Color.Goldenrod.R, Color.Goldenrod.G, Color.Goldenrod.B, false);
                 return false;
             }
             return true;
@@ -68,9 +63,9 @@ Only usable during the day");
                 Main.npc[npcID].Center = player.Center - new Vector2(MathHelper.Lerp(-2000, 2000, (float)Main.rand.NextDouble()), 1200f);
                 Main.npc[npcID].netUpdate2 = true;
                 string npcName = !string.IsNullOrEmpty(Main.npc[npcID].GivenName) ? Main.npc[npcID].GivenName : displayName;
-                if (Main.netMode == 0) { if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
+                if (Main.netMode == NetmodeID.SinglePlayer) { if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
                 else
-                if (Main.netMode == 2)
+                if (Main.netMode == NetmodeID.Server)
                 {
                     NetMessage.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", new object[]
                     {

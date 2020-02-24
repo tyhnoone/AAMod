@@ -5,6 +5,7 @@ using AAMod.NPCs.Bosses.Equinox;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 
+
 namespace AAMod.Items.BossSummons
 {
     public class EquinoxWorm : BaseAAItem
@@ -12,6 +13,7 @@ namespace AAMod.Items.BossSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Equinox Worm");
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
             Tooltip.SetDefault(@"A worm created using celestial materials
 Summons the Equinox Worms
 Non-Consumable");
@@ -33,15 +35,17 @@ Non-Consumable");
         // We use the CanUseItem hook to prevent a player from using this item while the boss is present in the world.
         public override bool CanUseItem(Player player)
         {
-            return !NPC.AnyNPCs(mod.NPCType<NightcrawlerHead>()) && !NPC.AnyNPCs(mod.NPCType<DaybringerHead>());
+            return !NPC.AnyNPCs(ModContent.NPCType<NightcrawlerHead>()) && !NPC.AnyNPCs(ModContent.NPCType<DaybringerHead>());
         }
 
         public override bool UseItem(Player player)
         {
-            if (Main.netMode == 0) { if (Main.netMode != 1) BaseMod.BaseUtility.Chat("The Equinox Worms have awoken!", 175, 75, 255, false); }
+            if (Main.netMode == 0) { if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.EquinoxWormawoken"), 175, 75, 255, false); }
             else if (Main.netMode == 2)
+            if (Main.netMode == NetmodeID.SinglePlayer) { if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.EquinoxWormawoken"), 175, 75, 255, false); }
+            else if (Main.netMode == NetmodeID.Server)
             {
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("The Equinox Worms have awoken!"), new Color(175, 75, 255), -1);
+                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(Language.GetTextValue("Mods.AAMod.Common.EquinoxWormawoken")), new Color(175, 75, 255), -1);
             }
             AAModGlobalNPC.SpawnBoss(player, mod.NPCType("DaybringerHead"), false, 0, 0);
             AAModGlobalNPC.SpawnBoss(player, mod.NPCType("NightcrawlerHead"), false, 0, 0);			

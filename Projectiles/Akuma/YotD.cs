@@ -23,14 +23,16 @@ namespace AAMod.Projectiles.Akuma
             projectile.aiStyle = 34;
             projectile.friendly = true;
             projectile.ranged = true;
-            projectile.timeLeft = 45;
+            projectile.timeLeft = 100;
+            projectile.tileCollide = false;
+            projectile.ignoreWater = true;
         }
 
         public float[] internalAI = new float[1];
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if (Main.netMode == 2 || Main.dedServ)
+            if (Main.netMode == NetmodeID.Server || Main.dedServ)
             {
                 writer.Write(internalAI[0]);
             }
@@ -39,7 +41,7 @@ namespace AAMod.Projectiles.Akuma
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 internalAI[0] = reader.ReadFloat();
             }
@@ -65,8 +67,8 @@ namespace AAMod.Projectiles.Akuma
 				{
 					if (Main.npc[index].CanBeChasedBy(this, false) && (projectile.ai[1] == 0.0 || projectile.ai[1] == (double)(index + 1)))
 					{
-						float num7 = Main.npc[index].position.X + (float)(Main.npc[index].width / 2);
-						float num8 = Main.npc[index].position.Y + (float)(Main.npc[index].height / 2);
+						float num7 = Main.npc[index].position.X + Main.npc[index].width / 2;
+						float num8 = Main.npc[index].position.Y + Main.npc[index].height / 2;
 						float num9 = Math.Abs(projectile.position.X + (projectile.width / 2) - num7) + Math.Abs(projectile.position.Y + (projectile.height / 2) - num8);
 						if (num9 < num5 && Collision.CanHit(new Vector2(projectile.position.X + (projectile.width / 2), projectile.position.Y + (projectile.height / 2)), 1, 1, Main.npc[index].position, Main.npc[index].width, Main.npc[index].height))
 						{
@@ -79,7 +81,7 @@ namespace AAMod.Projectiles.Akuma
 					}
 				}
 				if (flag2)
-					projectile.ai[1] = (float)(num6 + 1);
+					projectile.ai[1] = num6 + 1;
 				flag2 = false;
 			}
 			if (projectile.ai[1] > 0.0)
@@ -87,11 +89,11 @@ namespace AAMod.Projectiles.Akuma
 				int index = (int)(projectile.ai[1] - 1.0);
 				if (Main.npc[index].active && Main.npc[index].CanBeChasedBy(this, true) && !Main.npc[index].dontTakeDamage)
 				{
-					if ((double)(Math.Abs(projectile.position.X + (projectile.width / 2) - (Main.npc[index].position.X + (float)(Main.npc[index].width / 2))) + Math.Abs(projectile.position.Y + (projectile.height / 2) - (Main.npc[index].position.Y + (float)(Main.npc[index].height / 2)))) < 1000.0)
+					if (Math.Abs(projectile.position.X + (projectile.width / 2) - (Main.npc[index].position.X + Main.npc[index].width / 2)) + Math.Abs(projectile.position.Y + (projectile.height / 2) - (Main.npc[index].position.Y + Main.npc[index].height / 2)) < 1000.0)
 					{
 						flag2 = true;
-						num3 = Main.npc[index].position.X + (float)(Main.npc[index].width / 2);
-						num4 = Main.npc[index].position.Y + (float)(Main.npc[index].height / 2);
+						num3 = Main.npc[index].position.X + Main.npc[index].width / 2;
+						num4 = Main.npc[index].position.Y + Main.npc[index].height / 2;
 					}
 				}
 				else
@@ -110,8 +112,8 @@ namespace AAMod.Projectiles.Akuma
 				float num12 = num8 * num11;
 				float num13 = num9 * num11;
 				int num14 = 8;
-				projectile.velocity.X = (projectile.velocity.X * (float)(num14 - 1) + num12) / num14;
-				projectile.velocity.Y = (projectile.velocity.Y * (float)(num14 - 1) + num13) / num14;
+				projectile.velocity.X = (projectile.velocity.X * (num14 - 1) + num12) / num14;
+				projectile.velocity.Y = (projectile.velocity.Y * (num14 - 1) + num13) / num14;
 			}			
 			
             projectile.rotation = projectile.velocity.ToRotation() + 1.57079637f;
@@ -122,7 +124,7 @@ namespace AAMod.Projectiles.Akuma
                 {
                     for (int num352 = 0; num352 < 8; num352++)
                     {
-                        int num353 = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default, 1.8f);
+                        int num353 = Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default, 1.8f);
                         Main.dust[num353].noGravity = true;
                         Main.dust[num353].velocity *= 3f;
                         Main.dust[num353].fadeIn = 0.5f;
@@ -132,15 +134,15 @@ namespace AAMod.Projectiles.Akuma
                 }
                 if (projectile.ai[0] > 2f)
                 {
-                    int num354 = Dust.NewDust(new Vector2(projectile.position.X + 2f, projectile.position.Y + 20f), 8, 8, mod.DustType<Dusts.AkumaDust>(), projectile.velocity.X, projectile.velocity.Y, 100, default, 1.2f);
+                    int num354 = Dust.NewDust(new Vector2(projectile.position.X + 2f, projectile.position.Y + 20f), 8, 8, ModContent.DustType<Dusts.AkumaDust>(), projectile.velocity.X, projectile.velocity.Y, 100, default, 1.2f);
                     Main.dust[num354].noGravity = true;
                     Main.dust[num354].velocity *= 0.2f;
                     Main.dust[num354].position = Main.dust[num354].position.RotatedBy(projectile.rotation, projectile.Center);
-                    num354 = Dust.NewDust(new Vector2(projectile.position.X + 2f, projectile.position.Y + 15f), 8, 8, mod.DustType<Dusts.AkumaDust>(), projectile.velocity.X, projectile.velocity.Y, 100, default, 1.2f);
+                    num354 = Dust.NewDust(new Vector2(projectile.position.X + 2f, projectile.position.Y + 15f), 8, 8, ModContent.DustType<Dusts.AkumaDust>(), projectile.velocity.X, projectile.velocity.Y, 100, default, 1.2f);
                     Main.dust[num354].noGravity = true;
                     Main.dust[num354].velocity *= 0.2f;
                     Main.dust[num354].position = Main.dust[num354].position.RotatedBy(projectile.rotation, projectile.Center);
-                    num354 = Dust.NewDust(new Vector2(projectile.position.X + 2f, projectile.position.Y + 10f), 8, 8, mod.DustType<Dusts.AkumaDust>(), projectile.velocity.X, projectile.velocity.Y, 100, default, 1.2f);
+                    num354 = Dust.NewDust(new Vector2(projectile.position.X + 2f, projectile.position.Y + 10f), 8, 8, ModContent.DustType<Dusts.AkumaDust>(), projectile.velocity.X, projectile.velocity.Y, 100, default, 1.2f);
                     Main.dust[num354].noGravity = true;
                     Main.dust[num354].velocity *= 0.2f;
                     Main.dust[num354].position = Main.dust[num354].position.RotatedBy(projectile.rotation, projectile.Center);
@@ -152,7 +154,7 @@ namespace AAMod.Projectiles.Akuma
                 projectile.ai[0] += 1f;
                 if (projectile.ai[0] > 4f)
                 {
-                    int num356 = Dust.NewDust(new Vector2(projectile.position.X + 2f, projectile.position.Y + 20f), 8, 8, mod.DustType<Dusts.AkumaADust>(), projectile.velocity.X, projectile.velocity.Y, 100, default, 1.2f);
+                    int num356 = Dust.NewDust(new Vector2(projectile.position.X + 2f, projectile.position.Y + 20f), 8, 8, ModContent.DustType<Dusts.AkumaADust>(), projectile.velocity.X, projectile.velocity.Y, 100, default, 1.2f);
                     Main.dust[num356].noGravity = true;
                     Main.dust[num356].velocity *= 0.2f;
                     Main.dust[num356].position = Main.dust[num356].position.RotatedBy(projectile.rotation, projectile.Center);
@@ -182,7 +184,7 @@ namespace AAMod.Projectiles.Akuma
                     {
                         Vector2 value28 = Vector2.Lerp(vector13, value27, num658 / num655);
                         float scaleFactor2 = MathHelper.Lerp(num654, value26, num658 / num655);
-                        int num659 = Dust.NewDust(projectile.Center, 6, 6, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default, 1.3f);
+                        int num659 = Dust.NewDust(projectile.Center, 6, 6, ModContent.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default, 1.3f);
                         Main.dust[num659].velocity *= 0.1f;
                         Main.dust[num659].noGravity = true;
                         Main.dust[num659].velocity += value28 * scaleFactor2;
@@ -199,7 +201,7 @@ namespace AAMod.Projectiles.Akuma
                     {
                         Vector2 value30 = Vector2.Lerp(vector13, value29, num662 / num655);
                         float scaleFactor3 = MathHelper.Lerp(num654, value26, num662 / num655) / 2f;
-                        int num663 = Dust.NewDust(projectile.Center, 6, 6, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default, 1.3f);
+                        int num663 = Dust.NewDust(projectile.Center, 6, 6, ModContent.DustType<Dusts.AkumaDust>(), 0f, 0f, 100, default, 1.3f);
                         Main.dust[num663].velocity *= 0.1f;
                         Main.dust[num663].noGravity = true;
                         Main.dust[num663].velocity += value30 * scaleFactor3;
@@ -210,7 +212,7 @@ namespace AAMod.Projectiles.Akuma
             for (int num664 = 0; num664 < 100; num664++)
             {
                 float num665 = num654;
-                int num667 = Dust.NewDust(projectile.Center, 6, 6, mod.DustType<Dusts.AkumaADust>(), 0f, 0f, 100);
+                int num667 = Dust.NewDust(projectile.Center, 6, 6, ModContent.DustType<Dusts.AkumaADust>(), 0f, 0f, 100);
                 float num668 = Main.dust[num667].velocity.X;
                 float num669 = Main.dust[num667].velocity.Y;
                 if (num668 == 0f && num669 == 0f)

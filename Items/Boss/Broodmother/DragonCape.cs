@@ -1,5 +1,6 @@
 using Terraria;
 using Microsoft.Xna.Framework; using Microsoft.Xna.Framework.Graphics; using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace AAMod.Items.Boss.Broodmother
 {
@@ -11,7 +12,7 @@ namespace AAMod.Items.Boss.Broodmother
         {
             DisplayName.SetDefault("Dragontamer's Cloak");
             Tooltip.SetDefault(
-@"7% Increased Damage Resistance");
+@"3% Increased Damage Resistance");
         }
         public override void SetDefaults()
         {
@@ -46,9 +47,9 @@ namespace AAMod.Items.Boss.Broodmother
             );
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.endurance += .07f;
+            player.endurance += .03f;
         }
 
         public override bool CanEquipAccessory(Player player, int slot)
@@ -58,7 +59,11 @@ namespace AAMod.Items.Boss.Broodmother
                 int maxAccessoryIndex = 5 + player.extraAccessorySlots;
                 for (int i = 3; i < 3 + maxAccessoryIndex; i++)
                 {
-                    if (slot != i && player.armor[i].type == mod.ItemType<DragonSerpentNecklace>())
+                    if (slot != i && player.armor[i].type == ModContent.ItemType<DragonSerpentNecklace>())
+                    {
+                        return false;
+                    }
+                    if (slot != i && player.armor[i].type == ItemID.WormScarf)
                     {
                         return false;
                     }

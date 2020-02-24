@@ -7,7 +7,7 @@ namespace AAMod.Items.Boss.Rajah.Supreme
 	{
 		public override void SetDefaults()
 		{
-			item.damage = 400;
+			item.damage = 500;
 			item.melee = true;
 			item.width = 80;
 			item.height = 80;
@@ -38,7 +38,7 @@ namespace AAMod.Items.Boss.Rajah.Supreme
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            target.AddBuff(mod.BuffType<Buffs.InfinityOverload>(), 120);
+            target.AddBuff(Terraria.ModLoader.ModContent.BuffType<Buffs.InfinityOverload>(), 120);
         }
     }
 }

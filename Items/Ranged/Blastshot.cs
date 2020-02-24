@@ -10,7 +10,7 @@ namespace AAMod.Items.Ranged
         
         public override void SetDefaults()
         {
-            item.damage = 70;
+            item.damage = 50;
             item.noMelee = true;
             item.ranged = true;
             item.width = 62;
@@ -19,7 +19,7 @@ namespace AAMod.Items.Ranged
             item.useAnimation = 22;
             item.useStyle = 5;
             item.useAmmo = AmmoID.Gel;
-            item.shoot = mod.ProjectileType<Projectiles.DragonfireProj>();
+            item.shoot = ModContent.ProjectileType<Projectiles.DragonfireProj>();
             item.knockBack = 0;
             item.value = 100000;
             item.rare = 5;

@@ -12,10 +12,12 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
     [AutoloadBossHead]
     public class FeudalFungus : ModNPC
     {
+        public int damage = 0;
+
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			base.SendExtraAI(writer);
-			if(Main.netMode == 2 || Main.dedServ)
+			if(Main.netMode == NetmodeID.Server || Main.dedServ)
 			{
 				writer.Write(internalAI[0]);
 				writer.Write(internalAI[1]);
@@ -27,7 +29,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			base.ReceiveExtraAI(reader);
-			if(Main.netMode == 1)
+			if(Main.netMode == NetmodeID.MultiplayerClient)
 			{
 				internalAI[0] = reader.ReadFloat();
 				internalAI[1] = reader.ReadFloat();
@@ -78,6 +80,14 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
 		
         public override void AI()
         {
+            if (Main.expertMode)
+            {
+                damage = npc.damage / 4;
+            }
+            else
+            {
+                damage = npc.damage / 2;
+            }
             Player player = Main.player[npc.target];
              
             if ((Main.dayTime && player.position.Y < Main.worldSurface) || !player.ZoneGlowshroom)
@@ -118,15 +128,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                 }
             }
 
-            if (!Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
-            {
-                npc.noTileCollide = true;
-                MoveToPoint(new Vector2(player.Center.X, player.Center.Y - 170f));
-            }
-            else
-            {
-                npc.noTileCollide = false;
-            }
+            npc.noTileCollide = true;
 
             if (Main.netMode != 1 && internalAI[1] != AISTATE_SHOOT)
 			{
@@ -173,7 +175,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         public void FireMagic(NPC npc, Vector2 velocity)
         {
             Player player = Main.player[npc.target];
-            BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjType("Mushshot"), ref shootAI[0], 5, npc.damage / (Main.expertMode ? 2 : 4), 8f, true, new Vector2(20f, 15f));
+            BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjType("Mushshot"), ref shootAI[0], 5, damage, 8f, true, new Vector2(20f, 15f));
         }
 
         public override void BossLoot(ref string name, ref int potionType)
@@ -212,11 +214,11 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
 
             if (Attack == 0)
             {
-                if (NPC.CountNPCS(mod.NPCType<Mushling>()) < 4)
+                if (NPC.CountNPCS(ModContent.NPCType<Mushling>()) < 4)
                 {
                     for (int i = 0; i < (Main.expertMode ? 3 : 2); i++)
                     {
-                        NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<Mushling>());
+                        NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<Mushling>());
                     }
                 }
                 else
@@ -226,7 +228,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<FungusFlier>());
+                    NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<FungusFlier>());
                 }
             }
             else if (Attack == 2)
@@ -238,14 +240,14 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
                 for (int i = 0; i < (Main.expertMode ? 5 : 4); i++)
                 {
                     offsetAngle = startAngle + deltaAngle * (i + i * i) / 2f + 32f * i;
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, (float)(Math.Sin(offsetAngle) * 6f), (float)(Math.Cos(offsetAngle) * 6f), mod.ProjectileType("FungusCloud"), npc.damage / (Main.expertMode ? 2 : 4), 0, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, (float)(Math.Sin(offsetAngle) * 6f), (float)(Math.Cos(offsetAngle) * 6f), mod.ProjectileType("FungusCloud"), damage, 0, Main.myPlayer, 0f, 0f);
                 }
             }
             else
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType<FungusSpore>(), 0, i);
+                    NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<FungusSpore>(), 0, i);
                 }
             }
         }

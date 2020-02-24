@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Deathly
@@ -20,7 +21,7 @@ namespace AAMod.Items.Armor.Deathly
             item.height = 34;
             item.value = 90000;
             item.rare = 4;
-            item.defense = 8;
+            item.defense = 6;
         }
 
         public override void UpdateEquip(Player player)
@@ -36,7 +37,7 @@ namespace AAMod.Items.Armor.Deathly
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("DeathlySkullBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.DeathlySkullBonus");
 
             player.aggro -= 5;
             player.ammoCost80 = true;
@@ -46,20 +47,20 @@ namespace AAMod.Items.Armor.Deathly
         {
             {
                 ModRecipe recipe = new ModRecipe(mod);
-                recipe.AddIngredient(null, "ImpHood", 1);
                 recipe.AddIngredient(ItemID.NecroHelmet, 1);
-                recipe.AddIngredient(ItemID.JungleHat, 1);
-                recipe.AddIngredient(ItemID.CrimsonHelmet, 1);
+                recipe.AddIngredient(ItemID.JungleSpores, 5);
+                recipe.AddIngredient(ItemID.ShadowScale, 5);
+                recipe.AddIngredient(null, "DevilSilk", 5);
                 recipe.AddTile(TileID.DemonAltar);
                 recipe.SetResult(this);
                 recipe.AddRecipe();
             }
             {
                 ModRecipe recipe = new ModRecipe(mod);
-                recipe.AddIngredient(null, "ImpHood", 1);
                 recipe.AddIngredient(ItemID.NecroHelmet, 1);
-                recipe.AddIngredient(ItemID.JungleHat, 1);
-                recipe.AddIngredient(ItemID.ShadowHelmet, 1);
+                recipe.AddIngredient(ItemID.JungleSpores, 5);
+                recipe.AddIngredient(ItemID.TissueSample, 5);
+                recipe.AddIngredient(null, "DevilSilk", 5);
                 recipe.AddTile(TileID.DemonAltar);
                 recipe.SetResult(this);
                 recipe.AddRecipe();

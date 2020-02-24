@@ -52,15 +52,18 @@ namespace AAMod.NPCs.TownNPCs
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
-		{
-			for (int k = 0; k < 255; k++)
-			{
-				Player player = Main.player[k];
-				if (player.active)
-				{
-                    if (AAWorld.downedGrips == true)
+        {
+            if (!AAConfigClient.Instance.NoAATownNPC)
+            {
+                for (int k = 0; k < 255; k++)
+                {
+                    Player player = Main.player[k];
+                    if (player.active)
                     {
-                        return true;
+                        if (AAWorld.downedGrips == true)
+                        {
+                            return true;
+                        }
                     }
                 }
 			}
@@ -141,13 +144,13 @@ namespace AAMod.NPCs.TownNPCs
             {
                 shop.item[nextSlot].SetDefaults(ItemID.RedDynastyShingles);
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Usable.InfernoSeeds>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Usable.InfernoSeeds>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Usable.Sunpowder>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Usable.Sunpowder>());
                 nextSlot++;
                 if (AAWorld.downedBrood == true)
                 {
-                    shop.item[nextSlot].SetDefaults(mod.ItemType<Items.BossSummons.DragonBell>());
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.BossSummons.DragonBell>());
                     shop.item[nextSlot].value = 100000;
                     nextSlot++;
                 }
@@ -156,17 +159,23 @@ namespace AAMod.NPCs.TownNPCs
             {
                 shop.item[nextSlot].SetDefaults(ItemID.BlueDynastyShingles);
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Usable.MireSeeds>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Usable.MireSeeds>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Usable.Moonpowder>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Usable.Moonpowder>());
                 nextSlot++;
                 if (AAWorld.downedHydra == true)
                 {
-                    shop.item[nextSlot].SetDefaults(mod.ItemType<Items.BossSummons.HydraChow>());
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.BossSummons.HydraChow>());
                     shop.item[nextSlot].value = 100000;
                     nextSlot++;
                 }
             }
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Potions.LuckyCracker>());
+            shop.item[nextSlot].value = 2000000;
+			nextSlot++;
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Potions.RoninPotion>());
+            shop.item[nextSlot].value = 50000;
+			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemID.Sake);
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemID.Pho);

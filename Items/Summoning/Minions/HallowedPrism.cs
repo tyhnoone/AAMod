@@ -50,7 +50,7 @@ namespace AAMod.Items.Summoning.Minions
             }
 
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             if (player.dead) modPlayer.HallowedPrism = false;
             if (modPlayer.HallowedPrism) projectile.timeLeft = 2;
 
@@ -60,7 +60,7 @@ namespace AAMod.Items.Summoning.Minions
                 int num501 = 20;
                 for (int num502 = 0; num502 < num501; num502++)
                 {
-                    int num503 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 16f), projectile.width, projectile.height - 16, mod.DustType<Dusts.InfinityOverloadB>(), 0f, 0f, 0, AAColor.Hallow, 1f);
+                    int num503 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 16f), projectile.width, projectile.height - 16, ModContent.DustType<Dusts.InfinityOverloadB>(), 0f, 0f, 0, AAColor.Hallow, 1f);
                     Main.dust[num503].velocity *= 2f;
                 }
             }
@@ -142,9 +142,9 @@ namespace AAMod.Items.Summoning.Minions
             {
                 projectile.tileCollide = false;
             }
-            for (int num645 = 0; num645 < 200; num645++)
-            {
-                NPC nPC2 = Main.npc[num645];
+            if (player.HasMinionAttackTargetNPC)
+			{
+				NPC nPC2 = Main.npc[player.MinionAttackTargetNPC];
                 if (nPC2.CanBeChasedBy(projectile, false))
                 {
                     float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
@@ -153,6 +153,23 @@ namespace AAMod.Items.Summoning.Minions
                         num633 = num646;
                         vector46 = nPC2.Center;
                         flag25 = true;
+                    }
+                }
+			}
+			else
+			{
+                for (int num645 = 0; num645 < 200; num645++)
+                {
+                    NPC nPC2 = Main.npc[num645];
+                    if (nPC2.CanBeChasedBy(projectile, false))
+                    {
+                        float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
+                        if (((Vector2.Distance(projectile.Center, vector46) > num646 && num646 < num633) || !flag25) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, nPC2.position, nPC2.width, nPC2.height))
+                        {
+                            num633 = num646;
+                            vector46 = nPC2.Center;
+                            flag25 = true;
+                        }
                     }
                 }
             }
@@ -239,7 +256,7 @@ namespace AAMod.Items.Summoning.Minions
             if (projectile.ai[0] == 0f)
             {
                 float scaleFactor3 = 24f;
-                int num658 = mod.ProjectileType<Prismshot>();
+                int num658 = ModContent.ProjectileType<Prismshot>();
                 if (flag25 && projectile.ai[1] == 0f)
                 {
                     projectile.ai[1] += 1f;

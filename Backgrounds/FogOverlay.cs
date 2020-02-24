@@ -7,12 +7,13 @@ using Terraria.Graphics;
 using AAMod.NPCs.Bosses.Yamata.Awakened;
 using Terraria.ModLoader;
 using BaseMod;
+using Terraria.ID;
 
 namespace AAMod.Backgrounds
 {
     public class FogOverlay : Overlay
     {
-        private Ref<Texture2D> texture;
+        private readonly Ref<Texture2D> texture;
         private ScreenShaderData shader;
         Mod mod = AAMod.instance;
 
@@ -22,7 +23,7 @@ namespace AAMod.Backgrounds
 
         public FogOverlay(string textureName, string shaderName = "Default", EffectPriority priority = EffectPriority.VeryLow, RenderLayers layer = RenderLayers.All) : base(priority, layer)
         {
-            texture = TextureManager.AsyncLoad((textureName == null) ? "" : textureName);
+            texture = TextureManager.AsyncLoad(textureName ?? "");
             shader = new ScreenShaderData(Main.ScreenShaderRef, shaderName);
         }
 
@@ -30,13 +31,13 @@ namespace AAMod.Backgrounds
         {
             if (fadeOpacity == 0f) return; //don't draw if no fog
             Main.spriteBatch.Begin();
-            Player player = Main.player[Main.myPlayer];
+            Player player = Main.LocalPlayer;
             Texture2D fog = mod.GetTexture("Backgrounds/FogTex");
 
             Color DefaultFog = new Color(62, 68, 100);
             Color YamataFog = new Color(100, 38, 62);
 
-            bool YamataA = NPC.AnyNPCs(mod.NPCType<YamataA>());
+            bool YamataA = NPC.AnyNPCs(ModContent.NPCType<YamataA>());
 
             Color fogColor = GetAlpha(YamataA ? YamataFog : DefaultFog, 0.4f * fadeOpacity * dayTimeOpacity);
 
@@ -66,13 +67,13 @@ namespace AAMod.Backgrounds
 
         public override void Update(GameTime gameTime)
         {
-            if (Main.netMode == 2 || Main.dedServ) return; //BEGONE SERVER HEATHENS! UPDATE ONLY CLIENTSIDE!
+            if (Main.netMode == NetmodeID.Server || Main.dedServ) return; //BEGONE SERVER HEATHENS! UPDATE ONLY CLIENTSIDE!
 
-            Player player = Main.player[Main.myPlayer];
+            Player player = Main.LocalPlayer;
 
             Texture2D fog = mod.GetTexture("Backgrounds/fog");
 
-            bool inMire = Main.player[Main.myPlayer].GetModPlayer<AAPlayer>(AAMod.instance).ZoneMire;
+            bool inMire = Main.LocalPlayer.GetModPlayer<AAPlayer>().ZoneMire;
             if (BasePlayer.HasAccessory(player, AAMod.instance.ItemType("Lantern"), true, false) || AAWorld.downedYamata) inMire = false;
 
             fogOffsetX += 1;
@@ -93,7 +94,7 @@ namespace AAMod.Backgrounds
 
         public override void Activate(Vector2 position, params object[] args)
         {
-            Main.player[Main.myPlayer].position = position;
+            Main.LocalPlayer.position = position;
             Mode = OverlayMode.FadeIn;
         }
 

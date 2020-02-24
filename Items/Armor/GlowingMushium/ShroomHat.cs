@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.GlowingMushium
@@ -10,7 +11,7 @@ namespace AAMod.Items.Armor.GlowingMushium
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Glowing Mushroom Hat");
+			DisplayName.SetDefault("Glowing Mushium Hat");
             Tooltip.SetDefault("2% increased mana regeneration");
 
 		}
@@ -24,7 +25,7 @@ namespace AAMod.Items.Armor.GlowingMushium
 			item.defense = 2;
             item.value = Item.sellPrice(0, 0, 25, 0);
         }
-		
+
 		public override void UpdateEquip(Player player)
         {
             player.manaRegenBonus += 2;
@@ -38,7 +39,7 @@ namespace AAMod.Items.Armor.GlowingMushium
 		public override void UpdateArmorSet(Player player)
 		{
 
-            player.setBonus = Lang.ArmorBonus("ShroomHatBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.ShroomHatBonus");
 
             player.buffImmune[BuffID.ManaSickness] = true;
 		}

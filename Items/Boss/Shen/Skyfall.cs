@@ -19,12 +19,12 @@ namespace AAMod.Items.Boss.Shen
 
         public override void SetDefaults()
         {
-            item.damage = 340;
+            item.damage = 210;
             item.ranged = true;
             item.width = 22;
             item.height = 50;
-            item.useTime = 10;
-            item.useAnimation = 10;
+            item.useTime = 5;
+            item.useAnimation = 5;
             item.useAmmo = AmmoID.Arrow;
             item.useStyle = 5;
             item.noMelee = true;
@@ -140,7 +140,7 @@ namespace AAMod.Items.Boss.Shen
             recipe.AddIngredient(null, "FallingTwilight", 1);
             recipe.AddIngredient(null, "ChaosScale", 5);
             recipe.AddIngredient(null, "Discordium", 5);
-            recipe.AddTile(null, "AncientForge");
+            recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

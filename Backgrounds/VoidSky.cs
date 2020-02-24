@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Graphics;
 using Terraria.Graphics.Effects;
 using Terraria.Utilities;
 using BaseMod;
+using Terraria.ModLoader;
 //using AAMod.NPCs.Bosses.Infinity;
 
 namespace AAMod.Backgrounds
@@ -44,15 +44,15 @@ namespace AAMod.Backgrounds
 
         public override void OnLoad()
         {
-            PlanetTexture = TextureManager.Load("Backgrounds/VoidBH");
-            Asteroids1 = TextureManager.Load("Backgrounds/Asteroids1");
-            Asteroids2 = TextureManager.Load("Backgrounds/Asteroids2");
-            Asteroids3 = TextureManager.Load("Backgrounds/Asteroids3");
-            Echo = TextureManager.Load("Backgrounds/Echo");
-            LB = TextureManager.Load("Backgrounds/LB");
-            boltTexture = TextureManager.Load("Backgrounds/VoidBolt");
-            flashTexture = TextureManager.Load("Backgrounds/VoidFlash");
-            Stars =  TextureManager.Load("Backgrounds/Void_Starfield");
+            PlanetTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/VoidBH");
+            Asteroids1 = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Asteroids1");
+            Asteroids2 = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Asteroids2");
+            Asteroids3 = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Asteroids3");
+            Echo = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Echo");
+            LB = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/LB");
+            boltTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/VoidBolt");
+            flashTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/VoidFlash");
+            Stars = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Void_Starfield");
         }
 
         public override void Update(GameTime gameTime)
@@ -110,6 +110,7 @@ namespace AAMod.Backgrounds
             Vector4 value = inColor.ToVector4();
             return new Color(Vector4.Lerp(value, Vector4.One, Intensity * 0.5f));
         }
+
         public float asteroidPercent1 = 0f;
         public float asteroidPercent2 = 0f;
         public float asteroidPercent3 = 0f;
@@ -157,7 +158,7 @@ namespace AAMod.Backgrounds
                 Asteroidpos1.Y += (float)Math.Sin(asteroidPercent1) * 16f;
                 Asteroidpos2.Y += (float)Math.Sin(asteroidPercent2) * -30f;
                 Asteroidpos3.Y += (float)Math.Sin(asteroidPercent3) * 20f;
-                if (!AAWorld.downedZero || !Main.player[Main.myPlayer].ZoneSkyHeight)
+                if (!AAWorld.downedZero)
                 {
                     spriteBatch.Draw(Stars, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White);
                 }
@@ -165,7 +166,7 @@ namespace AAMod.Backgrounds
                 {
                     spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * Intensity);
                     spriteBatch.Draw(PlanetTexture, planetPos, null, Color.White * 0.9f * Intensity, Rotation, new Vector2(PlanetTexture.Width >> 1, PlanetTexture.Height >> 1), 1f, SpriteEffects.None, 1f);
-                    float lightningIntensity = BaseUtility.MultiLerp(Main.player[Main.myPlayer].miscCounter % 100f / 100f, 0.2f, 0.8f, 0.2f);
+                    float lightningIntensity = BaseUtility.MultiLerp(Main.LocalPlayer.miscCounter % 100f / 100f, 0.2f, 0.8f, 0.2f);
                     spriteBatch.Draw(LB, planetPos, null, Color.White * 0.9f * Intensity * lightningIntensity, LBRotation, new Vector2(LB.Width >> 1, LB.Height >> 1), 1f, SpriteEffects.None, 1f);
                     if (AAWorld.downedZero)
                     {

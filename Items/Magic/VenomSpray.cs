@@ -11,19 +11,19 @@ namespace AAMod.Items.Magic
         {
 
             item.damage = 12;                        
-            item.magic = true;                     //this make the item do magic damage
+            item.magic = true;                     
             item.width = 24;
             item.height = 28;
-            item.useStyle = 5;        //this is how the item is holded
+            item.useStyle = 5;        
             item.noMelee = true;
             item.knockBack = 4;
             item.value = Item.sellPrice(0, 0, 20, 0);
             item.rare = 1;
-            item.mana = 5;             //mana use
-            item.UseSound = SoundID.Item21;            //this is the sound when you use the item
+            item.mana = 5;             
+            item.UseSound = SoundID.Item21;            
             item.autoReuse = true;
-            item.useTime = 6;
-            item.useAnimation = 18;
+            item.useTime = 12;
+            item.useAnimation = 12;
             item.shoot = mod.ProjectileType("Venom");
             item.shootSpeed = 9f;    
         }   
@@ -36,7 +36,7 @@ namespace AAMod.Items.Magic
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Projectile.NewProjectile(position, new Vector2(speedX, speedY), item.shoot, item.damage, item.knockBack, Main.myPlayer);
+            Projectile.NewProjectile(player.Center, new Vector2(speedX, speedY), item.shoot, item.damage, item.knockBack, Main.myPlayer);
             return false;
         }
 

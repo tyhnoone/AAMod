@@ -69,16 +69,16 @@ Super Skullshot EX");
             if (player.altFunctionUse == 2)
             {
                 item.useAmmo = AAMod.BoneAmmo;
-                item.damage = 400;
-                item.useAnimation = 27;
+                item.damage = 900;
+                item.useAnimation = 20;
                 item.useTime = 9;
                 item.reuseDelay = 20;
-                item.shoot = mod.ProjectileType<Projectiles.Hellshot>();
+                item.shoot = ModContent.ProjectileType<Projectiles.Hellshot>();
             }
             else
             {
                 item.useAmmo = AmmoID.Bullet;
-                item.damage = 180;
+                item.damage = 335;
                 item.useAnimation = 24;
                 item.useTime = 24;
                 item.reuseDelay = 0;
@@ -99,7 +99,7 @@ Super Skullshot EX");
             }
             else
             {
-                int proj = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType<Projectiles.Hellshot>(), damage, knockBack, Main.myPlayer, 0f, 0f);
+                int proj = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<Projectiles.Hellshot>(), damage, knockBack, Main.myPlayer, 0f, 0f);
                 Main.projectile[proj].ranged = true;
             }
             return false;

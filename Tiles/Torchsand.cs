@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
+using AAMod.Tiles.Trees;
 
 namespace AAMod.Tiles
 {
@@ -14,13 +15,15 @@ namespace AAMod.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlendAll[Type] = true;
+            Main.tileBlockLight[Type] = true;
+            Main.tileSand[Type] = true;
             drop = mod.ItemType("Torchsand");
             soundStyle = 18;
             AddMapEntry(new Color(50, 35, 22));
             SetModCactus(new Razetus());
             SetModPalmTree(new RazePalmTree());
             TileID.Sets.Conversion.Sand[Type] = true;
-            dustType = mod.DustType<Dusts.RazewoodDust>();
+            dustType = ModContent.DustType<Dusts.RazewoodDust>();
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -31,7 +34,7 @@ namespace AAMod.Tiles
             int tileType = tile.type;
             if (!WorldGen.noTileActions && tile.active() && (tileType == Type))
             {
-                if (Main.netMode == 0)
+                if (Main.netMode == NetmodeID.SinglePlayer)
                 {
                     if (tile3 != null && !tile3.active())
                     {
@@ -52,7 +55,7 @@ namespace AAMod.Tiles
                         }
                     }
                 }
-                else if (Main.netMode == 2 && tile3 != null && !tile3.active())
+                else if (Main.netMode == NetmodeID.Server && tile3 != null && !tile3.active())
                 {
                     bool flag19 = !(tile2.active() && (TileID.Sets.BasicChest[tile2.type] || TileID.Sets.BasicChestFake[tile2.type] || tile2.type == 323 || TileLoader.IsDresser(tile2.type)));
                     if (flag19)

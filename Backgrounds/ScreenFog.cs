@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using BaseMod;
 using Terraria.ModLoader;
+using Terraria.ID;
+using Terraria.Graphics.Shaders;
 
 namespace AAMod.Backgrounds
 {
@@ -13,6 +15,7 @@ namespace AAMod.Backgrounds
 		public float fadeOpacity = 0f;
 		public float dayTimeOpacity = 0f;
 		public bool backgroundFog = false;
+        public static bool Shadow = false;
 
 		public ScreenFog(bool bg)
 		{
@@ -21,11 +24,12 @@ namespace AAMod.Backgrounds
 
         public void Update(Texture2D texture)
         {
-			if(Main.netMode == 2 || Main.dedServ) return; //BEGONE SERVER HEATHENS! UPDATE ONLY CLIENTSIDE!
+			if(Main.netMode == NetmodeID.Server || Main.dedServ) return; //BEGONE SERVER HEATHENS! UPDATE ONLY CLIENTSIDE!
 
-			Player player = Main.player[Main.myPlayer];
-			bool inMire = Main.player[Main.myPlayer].GetModPlayer<AAPlayer>(AAMod.instance).ZoneMire;
+			Player player = Main.LocalPlayer;
+			bool inMire = Main.LocalPlayer.GetModPlayer<AAPlayer>().ZoneMire;
 			if(!backgroundFog && (BasePlayer.HasAccessory(player, AAMod.instance.ItemType("Lantern"), true, false) || AAWorld.downedYamata)) inMire = false;
+            Shadow = inMire;
 			
 			fogOffsetX += 1;
 			if(fogOffsetX >= texture.Width) fogOffsetX = 0;
@@ -54,12 +58,12 @@ namespace AAMod.Backgrounds
 			if(fadeOpacity == 0f) return; //don't draw if no fog
             if(setSB) Main.spriteBatch.Begin();
             Mod mod = AAMod.instance;
-            Player player = Main.player[Main.myPlayer];
+            Player player = Main.LocalPlayer;
 
             Color DefaultFog = new Color(62, 68, 100);
             Color YamataFog = new Color(100, 38, 62);
 
-            bool YamataA = NPC.AnyNPCs(mod.NPCType<YamataA>());
+            bool YamataA = NPC.AnyNPCs(ModContent.NPCType<YamataA>());
 
 			Color fogColor = GetAlpha(YamataA ? YamataFog : DefaultFog, 0.4f * fadeOpacity * dayTimeOpacity);
 
@@ -99,5 +103,162 @@ namespace AAMod.Backgrounds
 			if (newA > 255) newA = 255;		
 			return new Color(newR, newG, newB, newA);
 		}		
+    }
+
+
+    public class SilhouetteWorld : ModWorld
+    {
+        public static bool SilouetteMode = !Main.gameMenu && !Main.dayTime && Main.LocalPlayer.GetModPlayer<AAPlayer>().ZoneMire && (!BasePlayer.HasAccessory(Main.LocalPlayer, AAMod.instance.ItemType("Lantern"), true, false) || !AAWorld.downedYamata);
+
+        public override void PreUpdate()
+        {
+            if (SilouetteMode)
+            {
+                foreach (Dust dust in Main.dust)
+                {
+                    dust.shader = GameShaders.Armor.GetShaderFromItemId(ItemID.ShadowDye);
+                }
+            }
+        }
+    }
+    public class SilhouetteProjectile : GlobalProjectile
+    {
+        public override void PostDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
+        {
+            if (SilhouetteWorld.SilouetteMode)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.EffectMatrix);
+            }
+        }
+        public override bool PreDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
+        {
+            if (SilhouetteWorld.SilouetteMode)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                GameShaders.Armor.GetShaderFromItemId(ItemID.ShadowDye).Apply(null);
+            }
+            return true;
+        }
+    }
+    public class SilhouetteNPC : GlobalNPC
+    {
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color lightColor)
+        {
+            if (SilhouetteWorld.SilouetteMode)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.EffectMatrix);
+            }
+        }
+        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Color lightColor)
+        {
+            if (SilhouetteWorld.SilouetteMode)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                GameShaders.Armor.GetShaderFromItemId(ItemID.ShadowDye).Apply(null);
+            }
+            return true;
+        }
+    }
+    public class SilhouetteItem : GlobalItem
+    {
+        public override void PostDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            if (SilhouetteWorld.SilouetteMode)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.EffectMatrix);
+            }
+        }
+        public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            if (SilhouetteWorld.SilouetteMode)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                GameShaders.Armor.GetShaderFromItemId(ItemID.ShadowDye).Apply(null);
+
+            }
+            return true;
+        }
+        public override void PostDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+            if (SilhouetteWorld.SilouetteMode)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.EffectMatrix);
+            }
+        }
+        public override bool PreDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            if (SilhouetteWorld.SilouetteMode)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                GameShaders.Armor.GetShaderFromItemId(ItemID.ShadowDye).Apply(null);
+
+            }
+            return true;
+        }
+    }
+    public class SilhouetteTile : GlobalTile
+    {
+        public override void PostDraw(int i, int j, int type, SpriteBatch spriteBatch)
+        {
+            if (i * 16 > Main.screenPosition.X - 16 && i * 16 < Main.screenPosition.X + Main.screenWidth + 16 && j * 16 > Main.screenPosition.Y - 16 && j * 16 < Main.screenPosition.Y + Main.screenHeight + 16)
+            {
+                if (SilhouetteWorld.SilouetteMode)
+                {
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.EffectMatrix);
+                }
+            }
+
+        }
+        public override bool PreDraw(int i, int j, int type, SpriteBatch spriteBatch)
+        {
+            if (i * 16 > Main.screenPosition.X - 16 && i * 16 < Main.screenPosition.X + Main.screenWidth + 16 && j * 16 > Main.screenPosition.Y - 16 && j * 16 < Main.screenPosition.Y + Main.screenHeight + 16)
+            {
+                if (SilhouetteWorld.SilouetteMode)
+                {
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                    GameShaders.Armor.GetShaderFromItemId(ItemID.ShadowDye).Apply(null);
+
+                }
+            }
+            return true;
+        }
+    }
+    public class SilhouetteWall : GlobalWall
+    {
+        public override void PostDraw(int i, int j, int type, SpriteBatch spriteBatch)
+        {
+            if (i * 16 > Main.screenPosition.X - 16 && i * 16 < Main.screenPosition.X + Main.screenWidth + 16 && j * 16 > Main.screenPosition.Y - 16 && j * 16 < Main.screenPosition.Y + Main.screenHeight + 16)
+            {
+                if (SilhouetteWorld.SilouetteMode)
+                {
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.EffectMatrix);
+                }
+            }
+        }
+        public override bool PreDraw(int i, int j, int type, SpriteBatch spriteBatch)
+        {
+            if (i * 16 > Main.screenPosition.X - 16 && i * 16 < Main.screenPosition.X + Main.screenWidth + 16 && j * 16 > Main.screenPosition.Y - 16 && j * 16 < Main.screenPosition.Y + Main.screenHeight + 16)
+            {
+                if (SilhouetteWorld.SilouetteMode)
+                {
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                    GameShaders.Armor.GetShaderFromItemId(ItemID.ShadowDye).Apply(null);
+
+                }
+            }
+            return true;
+        }
     }
 }

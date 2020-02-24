@@ -14,7 +14,6 @@ namespace AAMod.NPCs.Bosses.Zero
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Neutralizer");
-            Main.npcFrameCount[npc.type] = 2;
             NPCID.Sets.TechnicallyABoss[npc.type] = true;
         }
 
@@ -52,31 +51,16 @@ namespace AAMod.NPCs.Bosses.Zero
 
         public override bool CheckActive()
         {
-            if (NPC.AnyNPCs(mod.NPCType<Zero>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<Zero>()))
             {
                 return false;
             }
             return true;
         }
 
-
-        public override void FindFrame(int frameHeight)
-        {
-            if (npc.velocity.Y == 0.0)
-                npc.spriteDirection = npc.direction;
-            ++npc.frameCounter;
-            if (npc.frameCounter >= 8.0)
-            {
-                npc.frameCounter = 0.0;
-                npc.frame.Y += frameHeight;
-                if (npc.frame.Y / frameHeight >= 2)
-                    npc.frame.Y = 0;
-            }
-        }
-
         public override void HitEffect(int hitDirection, double damage)
         {
-            bool flag = npc.life <= 0 || (!npc.active && NPC.AnyNPCs(mod.NPCType<Zero>()));
+            bool flag = npc.life <= 0 || (!npc.active && NPC.AnyNPCs(ModContent.NPCType<Zero>()));
             if (flag && Main.netMode != 1)
             {
                 int ind = NPC.NewNPC((int)(npc.position.X + (double)(npc.width / 2)), (int)npc.position.Y + (npc.height / 2), mod.NPCType("TeslaHand"), npc.whoAmI, npc.ai[0], npc.ai[1], npc.ai[2], npc.ai[3], npc.target);
@@ -110,14 +94,9 @@ namespace AAMod.NPCs.Bosses.Zero
             }
             npc.oldPos[0] = npc.position;
 
-            if (((Zero)zero.modNPC).killArms && Main.netMode != 1)
-            {
-                npc.active = false;
-            }
-
             int probeNumber = ((Zero)zero.modNPC).WeaponCount;
             if (rotValue == -1f) rotValue = npc.ai[0] % probeNumber * ((float)Math.PI * 2f / probeNumber);
-            rotValue += 0f;
+            rotValue += Main.expertMode ? .05f : 0f;
             while (rotValue > (float)Math.PI * 2f) rotValue -= (float)Math.PI * 2f;
             npc.Center = BaseUtility.RotateVector(zero.Center, zero.Center + new Vector2(((Zero)zero.modNPC).Distance, 0f), rotValue);
 
@@ -134,7 +113,7 @@ namespace AAMod.NPCs.Bosses.Zero
                 int Arrows = Main.rand.Next(2, 5);
                 float spread = 45f * 0.0174f;
                 Vector2 dir = Vector2.Normalize(player.Center - npc.Center);
-                dir *= 6;
+                dir *= 14;
                 float baseSpeed = (float)Math.Sqrt((dir.X * dir.X) + (dir.Y * dir.Y));
                 double startAngle = Math.Atan2(dir.X, dir.Y) - .1d;
                 double deltaAngle = spread / Arrows * 2;
@@ -156,7 +135,7 @@ namespace AAMod.NPCs.Bosses.Zero
         {
             Texture2D tex = Main.npcTexture[npc.type];
             Texture2D glowTex = mod.GetTexture("Glowmasks/Neutralizer2_Glow");
-            BaseDrawing.DrawAfterimage(spriteBatch, tex, 0, npc, 1, 1, 6, true, 0, 0, Color.DarkRed, npc.frame, 2);
+            BaseDrawing.DrawAfterimage(spriteBatch, tex, 0, npc, 1, 1, 6, true, 0, 0, Color.DarkRed, npc.frame);
             BaseDrawing.DrawTexture(spriteBatch, tex, 0, npc, drawColor);
             BaseDrawing.DrawTexture(spriteBatch, glowTex, 0, npc, AAColor.ZeroShield);
             return false;

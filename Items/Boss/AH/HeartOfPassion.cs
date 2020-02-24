@@ -9,7 +9,7 @@ namespace AAMod.Items.Boss.AH
         {
             DisplayName.SetDefault("Heart of Passion");
             Tooltip.SetDefault(@"Your magic attacks and minions grow stronger the less health you have
-Magic attacks and Minions inflict Dragonfire
+Magic attacks and Minions inflict 'On Fire!'
 Below 2/3 of your maximum life, Your mana regenerates much faster
 Below 1/3 of your maximum life, your magic attacks and minions inflict Daybroken instead of 'On Fire'");
         }
@@ -25,11 +25,11 @@ Below 1/3 of your maximum life, your magic attacks and minions inflict Daybroken
         }
         
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.magicDamage += 1 - player.statLife / player.statLifeMax;
             player.minionDamage += 1 - player.statLife / player.statLifeMax;
-            player.GetModPlayer<AAPlayer>(mod).HeartP = true;
+            player.GetModPlayer<AAPlayer>().HeartP = true;
 
             if (player.statLife > (player.statLifeMax * (2/3)))
             {
@@ -44,7 +44,7 @@ Below 1/3 of your maximum life, your magic attacks and minions inflict Daybroken
                 int maxAccessoryIndex = 5 + player.extraAccessorySlots;
                 for (int i = 3; i < 3 + maxAccessoryIndex; i++)
                 {
-                    if (slot != i && player.armor[i].type == mod.ItemType<HeartOfSorrow>())
+                    if (slot != i && player.armor[i].type == ModContent.ItemType<HeartOfSorrow>())
                     {
                         return false;
                     }

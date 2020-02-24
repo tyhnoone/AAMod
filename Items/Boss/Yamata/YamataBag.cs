@@ -19,6 +19,7 @@ namespace AAMod.Items.Boss.Yamata
             item.width = 32;
             item.height = 32;
             item.rare = 10;
+            item.expert = true; item.expertOnly = true;
         }
 
         public override int BossBagNPC => mod.NPCType("YamataA");
@@ -57,13 +58,12 @@ namespace AAMod.Items.Boss.Yamata
             }
             if (Main.rand.Next(20) == 0)
             {
-                AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+                AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
                 modPlayer.PMLDevArmor();
             }
-            player.QuickSpawnItem(mod.ItemType("YamataMask"));
             player.QuickSpawnItem(mod.ItemType("DreadScale"), Main.rand.Next(30, 40));
             player.QuickSpawnItem(mod.ItemType("Naitokurosu"));
-            string[] lootTable = { "Flairdra", "Crescent", "Hydraslayer", "AbyssArrow", "HydraStabber", "MidnightWrath", "YamataTerratool" };
+            string[] lootTable = { "Flairdra", "Crescent", "Hydraslayer", "AbyssArrow", "HydraStabber", "MidnightWrath", "YamataTerratool", "Sevenshot"};
             int loot = Main.rand.Next(lootTable.Length);
             player.QuickSpawnItem(mod.ItemType(lootTable[loot]));
         }

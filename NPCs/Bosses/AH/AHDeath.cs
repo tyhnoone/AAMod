@@ -9,7 +9,8 @@ namespace AAMod.NPCs.Bosses.AH
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sisters Defear");
+            DisplayName.SetDefault("Sisters Defeat");
+            Terraria.ID.NPCID.Sets.TechnicallyABoss[npc.type] = true;
         }
 
         public override void SetDefaults()
@@ -36,6 +37,12 @@ namespace AAMod.NPCs.Bosses.AH
             npc.ai[1]++;
             npc.TargetClosest();
             Player player = Main.player[npc.target];
+
+            if (AAConfigClient.Instance.NoBossDialogue)
+            {
+                AAWorld.downedSisters = true;
+                npc.active = false;
+            }
 
             npc.Center = player.Center;
 

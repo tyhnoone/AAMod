@@ -19,7 +19,7 @@ namespace AAMod.Items.Ranged
             item.width = 30;
             item.height = 10;
             item.damage = 34;
-            item.shoot = mod.ProjectileType<Projectiles.OceanWhaler>();
+            item.shoot = ModContent.ProjectileType<Projectiles.OceanWhaler>();
             item.shootSpeed = 11f;
             item.UseSound = SoundID.Item10;
             item.rare = 2;
@@ -47,12 +47,6 @@ namespace AAMod.Items.Ranged
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Coral, 6);
-            recipe.AddIngredient(ItemID.Harpoon);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-            recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Coral, 6);
             recipe.AddIngredient(ItemID.Harpoon);
             recipe.AddTile(TileID.Anvils);

@@ -15,7 +15,7 @@ namespace AAMod.Items.Melee
 
 		public override void SetDefaults()
 		{
-			item.damage = 35;
+			item.damage = 19;
 			item.melee = true;
 			item.width = 60;
 			item.height = 60;
@@ -26,7 +26,7 @@ namespace AAMod.Items.Melee
             item.value = Item.sellPrice(0, 10, 0, 0);
             item.rare = 3;
 			item.UseSound = SoundID.Item1;
-			item.autoReuse = false;
+			item.autoReuse = true;
 		}
 
 		public override void AddRecipes()
@@ -46,7 +46,7 @@ namespace AAMod.Items.Melee
             if (Main.rand.NextFloat() < 1f)
             {
                 Dust dust;
-                dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 46, default, 1.381579f)];
+                dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, ModContent.DustType<Dusts.AbyssDust>(), 0f, 0f, 46, default, 1.381579f)];
                 dust.noGravity = true;
             }
         }

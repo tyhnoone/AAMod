@@ -14,9 +14,9 @@ namespace AAMod.Projectiles
 			projectile.width = 32;
 			projectile.height = 32;
 			projectile.friendly = true;
+			projectile.melee = true;
 			projectile.penetrate = 3;
 			projectile.aiStyle = -1;
-			projectile.timeLeft = 1200;
 			ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;
 			ProjectileID.Sets.TrailingMode[projectile.type] = 2;
 			projectile.penetrate = 1;

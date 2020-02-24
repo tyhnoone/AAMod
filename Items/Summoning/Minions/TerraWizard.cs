@@ -51,7 +51,7 @@ namespace AAMod.Items.Summoning.Minions
             }
 
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             if (player.dead) modPlayer.TerraMinion = false;
             if (modPlayer.TerraMinion) projectile.timeLeft = 2;
 
@@ -81,10 +81,7 @@ namespace AAMod.Items.Summoning.Minions
             num *= Main.essScale;
             Lighting.AddLight(projectile.Center, 1f * num, 0f * num, 0.15f * num);
             projectile.rotation = projectile.velocity.X * 0.04f;
-            if (Math.Abs(projectile.velocity.X) > 0.2)
-            {
-                projectile.spriteDirection = -projectile.direction;
-            }
+            
             float num633 = 700f;
             float num634 = 800f;
             float num635 = 1200f;
@@ -145,9 +142,9 @@ namespace AAMod.Items.Summoning.Minions
             {
                 projectile.tileCollide = false;
             }
-            for (int num645 = 0; num645 < 200; num645++)
-            {
-                NPC nPC2 = Main.npc[num645];
+            if (player.HasMinionAttackTargetNPC)
+			{
+				NPC nPC2 = Main.npc[player.MinionAttackTargetNPC];
                 if (nPC2.CanBeChasedBy(projectile, false))
                 {
                     float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
@@ -158,12 +155,39 @@ namespace AAMod.Items.Summoning.Minions
                         flag25 = true;
                     }
                 }
+			}
+			else
+			{
+                for (int num645 = 0; num645 < 200; num645++)
+                {
+                    NPC nPC2 = Main.npc[num645];
+                    if (nPC2.CanBeChasedBy(projectile, false))
+                    {
+                        float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
+                        if (((Vector2.Distance(projectile.Center, vector46) > num646 && num646 < num633) || !flag25) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, nPC2.position, nPC2.width, nPC2.height))
+                        {
+                            num633 = num646;
+                            vector46 = nPC2.Center;
+                            flag25 = true;
+                        }
+                    }
+                }
             }
             float num647 = num634;
             if (flag25)
             {
                 num647 = num635;
             }
+
+            if(flag25)
+            {
+                projectile.spriteDirection = ((vector46 - projectile.Center).X > 0? -1: 1);
+            }
+            else
+            {
+                projectile.spriteDirection = (projectile.velocity.X > 0? -1: 1);
+            }
+
             if (Vector2.Distance(player.Center, projectile.Center) > num647)
             {
                 projectile.ai[0] = 1f;
@@ -242,7 +266,7 @@ namespace AAMod.Items.Summoning.Minions
             if (projectile.ai[0] == 0f)
             {
                 float scaleFactor3 = 8f;
-                int num658 = mod.ProjectileType<TerraBlast>();
+                int num658 = ModContent.ProjectileType<TerraBlast>();
                 if (flag25 && projectile.ai[1] == 0f)
                 {
                     projectile.ai[1] += 1f;

@@ -23,7 +23,7 @@ namespace AAMod.Tiles.Banners
 			TileObjectData.newTile.CoordinatePadding = 0;		
 			TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);			
             TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.addTile(this.Type);
+            TileObjectData.addTile(Type);
 			dustType = -1;
 			disableSmartCursor = true;
 			ModTranslation name = CreateMapEntryName();
@@ -176,7 +176,7 @@ namespace AAMod.Tiles.Banners
 				string name = GetBannerName(Main.tile[x, y].frameX);
 				if(name == null) return;
 
-                Player player = Main.player[Main.myPlayer];	
+                Player player = Main.LocalPlayer;	
 				if(name.Contains("Snake")) //worms need to be specific
 				{
 					player.NPCBannerBuff[mod.NPCType(name + "Head")] = true;

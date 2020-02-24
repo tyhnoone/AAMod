@@ -20,7 +20,7 @@ namespace AAMod.Items.Boss
             item.expert = true; item.expertOnly = true;
         }
 
-        public override void UpdateEquip(Player p)
+        public override void UpdateAccessory(Player p, bool hideVisual)
         {
 			if(p.ZoneSandstorm || (p.ZoneRain && p.ZoneSnow))
 			{
@@ -52,11 +52,11 @@ namespace AAMod.Items.Boss
                 int maxAccessoryIndex = 5 + player.extraAccessorySlots;
                 for (int i = 3; i < 3 + maxAccessoryIndex; i++)
                 {
-                    if (slot != i && player.armor[i].type == mod.ItemType<Djinn.SandstormMedallion>())
+                    if (slot != i && player.armor[i].type == ModContent.ItemType<Djinn.SandstormMedallion>())
                     {
                         return false;
                     }
-                    if (slot != i && player.armor[i].type == mod.ItemType<Serpent.ArcticMedallion>())
+                    if (slot != i && player.armor[i].type == ModContent.ItemType<Serpent.ArcticMedallion>())
                     {
                         return false;
                     }

@@ -21,6 +21,7 @@ namespace AAMod.NPCs.Enemies.Other
             npc.noGravity = true;
             npc.noTileCollide = false;
             npc.knockBackResist = 0.5f;
+            npc.value = Item.sellPrice(0, 0, 8, 30);
             npc.npcSlots = 0f;
             npc.lavaImmune = true;
             npc.netAlways = true;
@@ -76,13 +77,13 @@ namespace AAMod.NPCs.Enemies.Other
         {
             for (int k = 0; k < 3; k++)
             {
-                Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? mod.DustType<Dusts.InfinityOverloadR>() : mod.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0);
+                Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? ModContent.DustType<Dusts.InfinityOverloadR>() : ModContent.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0);
             }
             if (npc.life <= 0)
             {
                 for (int k = 0; k < 15; k++)
                 {
-                    Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? mod.DustType<Dusts.InfinityOverloadR>() : mod.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0);
+                    Dust.NewDust(npc.position, npc.width, npc.height, Main.rand.Next(2) == 0 ? ModContent.DustType<Dusts.InfinityOverloadR>() : ModContent.DustType<Dusts.InfinityOverloadP>(), hitDirection, -1f, 0);
                 }
             }
         }

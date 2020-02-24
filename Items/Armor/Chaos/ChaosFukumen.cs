@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.Chaos
 {
@@ -33,12 +34,11 @@ namespace AAMod.Items.Armor.Chaos
             return body.type == mod.ItemType("ChaosDou") && legs.type == mod.ItemType("ChaosGreaves");
         }
 
-        public override void UpdateArmorSet(Player player)
-		{
-            player.setBonus = Lang.ArmorBonus("ChaosFukumenBonus");
-            player.rangedDamage += .20f;
+        public override void UpdateArmorSet(Player player){
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.ChaosFukumenBonus");
+            player.rangedDamage += .25f;
             player.aggro -= 7;
-            player.GetModPlayer<AAPlayer>(mod).ChaosRa = true;
+            player.GetModPlayer<AAPlayer>().ChaosRa = true;
             player.ammoCost75 = true;
             player.nightVision = true;
 			player.detectCreature = true;
@@ -46,12 +46,19 @@ namespace AAMod.Items.Armor.Chaos
 
         public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("TrueAbyssalFukumen"));
+            ModRecipe recipe;
+            recipe = new ModRecipe(mod);
+			recipe.AddIngredient(mod.ItemType("AbyssalFukumen"));
 			recipe.AddIngredient(null, "ChaosCrystal", 1);
-            recipe.AddTile(null, "TruePaladinsSmeltery");
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
 			recipe.AddRecipe();
-		}
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("Dynaskull"));
+            recipe.AddIngredient(null, "ChaosCrystal", 1);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

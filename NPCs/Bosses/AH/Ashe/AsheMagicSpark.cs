@@ -1,6 +1,7 @@
 ﻿using BaseMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -24,15 +25,20 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
             projectile.scale = 1.1f;
             projectile.ignoreWater = true;
             projectile.penetrate = 1;
-            projectile.alpha = 60;
             projectile.timeLeft = 180;
         }
 
         public override void AI()
         {
-            if (projectile.alpha < 255)
+            projectile.velocity *= 1f + Math.Abs(projectile.ai[0]);
+
+            Vector2 acceleration = projectile.velocity.RotatedBy(Math.PI / 2);
+            acceleration *= projectile.ai[1];
+            projectile.velocity += acceleration;
+
+            if (projectile.timeLeft < 60)
             {
-                projectile.alpha++;
+                projectile.alpha+= 5;
             }
             if (projectile.timeLeft == 0)
             {
@@ -55,12 +61,11 @@ namespace AAMod.NPCs.Bosses.AH.Ashe
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(mod.BuffType("DragonFire"), 600);
-            Kill(0);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Rectangle frame = BaseDrawing.GetFrame(projectile.frame, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 4, 0, 2);
+            Rectangle frame = BaseDrawing.GetFrame(projectile.frame, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 4, 0, 0);
             BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile.position, projectile.width, projectile.height, projectile.scale, projectile.rotation, projectile.direction, 4, frame, projectile.GetAlpha(Color.White), true);
             return false;
         }

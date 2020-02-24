@@ -10,7 +10,7 @@ namespace AAMod.NPCs.Bosses.AH.Haruka
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 80;
+			projectile.width = 48;
 			projectile.height = 48;
 			projectile.friendly = false;
             projectile.hostile = true;

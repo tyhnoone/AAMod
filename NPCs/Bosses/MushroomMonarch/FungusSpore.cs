@@ -12,7 +12,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if (Main.netMode == 2 || Main.dedServ)
+            if (Main.netMode == NetmodeID.Server || Main.dedServ)
             {
                 writer.Write(internalAI[0]);
                 writer.Write(internalAI[1]);
@@ -24,7 +24,7 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 internalAI[0] = reader.ReadFloat();
                 internalAI[1] = reader.ReadFloat();
@@ -79,6 +79,16 @@ namespace AAMod.NPCs.Bosses.MushroomMonarch
             
             BaseAI.AISpore(npc, ref internalAI, 0.1f, 0.02f, 5f, 1f);
             
+            if (Collision.SolidCollision(npc.position, npc.width, npc.height))
+            {
+                npc.velocity *= .96f;
+                npc.scale -= .5f;
+                if (npc.scale <= 0)
+                {
+                    npc.active = false;
+                    npc.netUpdate = true;
+                }
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ namespace AAMod.Projectiles.AH
 		public override void SetDefaults()
 		{
 			projectile.width = 54;
+			projectile.melee = true;
 			projectile.height = 22;
 			projectile.friendly = true;
 			projectile.penetrate = 3;
@@ -35,7 +36,6 @@ namespace AAMod.Projectiles.AH
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			projectile.ai[0] += 0.1f;
-			projectile.velocity *= 0.75f;
 		}
 		
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -55,7 +55,7 @@ namespace AAMod.Projectiles.AH
 			
 			if (Main.rand.Next(1) == 0)
 			{
-				int dustnumber = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType<Dusts.AbyssDust>(), 0f, 0f, 200, default, 0.8f);
+				int dustnumber = Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Dusts.AbyssDust>(), 0f, 0f, 200, default, 0.8f);
 				Main.dust[dustnumber].velocity *= 0.3f;
 			}
 		}

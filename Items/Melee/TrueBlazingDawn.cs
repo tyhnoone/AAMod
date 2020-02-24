@@ -42,7 +42,7 @@ namespace AAMod.Items.Melee
             if (Main.rand.NextFloat() < 1f)
             {
                 Dust dust;
-                dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType<Dusts.AkumaDust>(), 0f, 0f, 46, default, 1.381579f)];
+                dust = Main.dust[Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, ModContent.DustType<Dusts.AkumaDust>(), 0f, 0f, 46, default, 1.381579f)];
                 dust.noGravity = true;
             }
         }
@@ -53,14 +53,6 @@ namespace AAMod.Items.Melee
                 ModRecipe recipe = new ModRecipe(mod);
                 recipe.AddIngredient(mod, "BlazingDawn", 1);
                 recipe.AddIngredient(ItemID.BrokenHeroSword, 1);
-                recipe.AddTile(TileID.MythrilAnvil);
-                recipe.SetResult(this);
-                recipe.AddRecipe();
-            }
-            {
-                ModRecipe recipe = new ModRecipe(mod);
-                recipe.AddIngredient(mod, "BlazingDawn", 1);
-                recipe.AddIngredient(mod, "InfernoCrystal", 1);
                 recipe.AddTile(TileID.MythrilAnvil);
                 recipe.SetResult(this);
                 recipe.AddRecipe();

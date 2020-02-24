@@ -13,7 +13,7 @@ namespace AAMod.Items.Melee   //where is located
         {
             item.noUseGraphic = true;
             item.useStyle = 1;
-            item.damage = 250;
+            item.damage = 350;
             item.melee = true;           
             item.width = 56;              
             item.height = 56;          
@@ -22,8 +22,8 @@ namespace AAMod.Items.Melee   //where is located
             item.autoReuse = true;   
             item.useTurn = false;
             item.expert = true; item.expertOnly = true;
-            item.useAnimation = 25;
-            item.useTime = 28;
+            item.useAnimation = 17;
+            item.useTime = 17;
             item.shootSpeed = 5;
             item.shoot = mod.ProjectileType("ChaosScythe");
         }
@@ -55,7 +55,6 @@ Legendary Weapon");
             recipe.AddIngredient(ItemID.DeathSickle, 1);
             recipe.AddIngredient(ItemID.IceSickle, 1);
             recipe.AddIngredient(ItemID.Sickle, 1); ;
-            recipe.AddIngredient(null, "Discord", 1);
             recipe.AddIngredient(null, "EXSoul", 1);
             recipe.AddTile(null, "QuantumFusionAccelerator");
             recipe.SetResult(this);

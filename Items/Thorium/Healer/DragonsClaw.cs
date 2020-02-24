@@ -28,11 +28,11 @@ Grants 1 soul essence on direct hit");
             item.value = BaseUtility.CalcValue(0, 5, 50, 50);
 
             item.useStyle = 1;
-            item.useAnimation = 25;
-            item.useTime = 25;
+            item.useAnimation = 27;
+            item.useTime = 27;
             item.UseSound = SoundID.Item1;
-            item.damage = 11;
-            item.knockBack = 6;
+            item.damage = 14;
+            item.knockBack = 8;
 			item.noMelee = true;
 			item.noUseGraphic = true;
 			item.autoReuse = true;
@@ -64,7 +64,7 @@ Grants 1 soul essence on direct hit");
 
         public override void UpdateInventory(Player player)
         {
-            if (!AAMod.thoriumLoaded)
+            if (ModSupport.GetMod("ThoriumMod") == null)
             {
                 item.TurnToAir();
             }
@@ -93,7 +93,7 @@ Grants 1 soul essence on direct hit");
 
         public override void AddRecipes()
         {
-            if (!AAMod.thoriumLoaded) return;
+            if (ModSupport.GetMod("ThoriumMod") == null) return;
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "IncineriteBar", 8);
             recipe.AddTile(TileID.Anvils);

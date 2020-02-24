@@ -20,13 +20,13 @@ namespace AAMod.Items.Boss.Zero
         {
             
             item.useStyle = 5;
-            item.useAnimation = 6;
-            item.useTime = 6;
+            item.useAnimation = 15;
+            item.useTime = 15;
             item.shootSpeed = 16f;
             item.knockBack = 0f;
             item.width = 48;
             item.height = 26;
-            item.damage = 190;
+            item.damage = 300;
             item.UseSound = SoundID.Item12;
             item.shoot = mod.ProjectileType("RealityLaser");
             item.value = Item.sellPrice(0, 30, 0, 0);
@@ -80,7 +80,7 @@ namespace AAMod.Items.Boss.Zero
             for (int i = 0; i < 3; i++)
             {
                 offsetAngle = startAngle + (deltaAngle * i);
-                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), type, damage, knockBack, item.owner);
+                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), type, damage, knockBack, Main.myPlayer);
             }
             return false;
         }

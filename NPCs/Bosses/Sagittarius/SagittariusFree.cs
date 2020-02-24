@@ -10,8 +10,10 @@ using System.IO;
 namespace AAMod.NPCs.Bosses.Sagittarius
 {
     [AutoloadBossHead]
-    public class SagittariusFree : Sagittarius
+    public class SagittariusFree : ModNPC
 	{
+        public int damage = 0;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sagittarius-A");
@@ -23,7 +25,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             npc.lifeMax = 6000;
             npc.boss = true;
             npc.defense = 0;
-            npc.damage = 70;
+            npc.damage = 40;
             npc.width = 74;
             npc.height = 70;
             npc.aiStyle = -1;
@@ -36,11 +38,14 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             npc.alpha = 255;
             bossBag = mod.ItemType("SagBag");
         }
+
+        public float[] internalAI = new float[5];
+        public float[] shootAI = new float[1];
         
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if (Main.netMode == 2 || Main.dedServ)
+            if (Main.netMode == NetmodeID.Server || Main.dedServ)
             {
                 writer.Write(internalAI[0]);
                 writer.Write(internalAI[1]);
@@ -54,7 +59,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 internalAI[0] = reader.ReadFloat();
                 internalAI[1] = reader.ReadFloat();
@@ -67,26 +72,23 @@ namespace AAMod.NPCs.Bosses.Sagittarius
        
         public override void AI()
         {
+            if (Main.expertMode)
+            {
+                damage = npc.damage / 4;
+            }
+            else
+            {
+                damage = npc.damage / 2;
+            }
             npc.noGravity = true;
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
-            AAPlayer modplayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modplayer = player.GetModPlayer<AAPlayer>();
             RingRoatation += .05f;
             npc.ai[1]++;
             if (internalAI[3] > 0)
             {
                 internalAI[3]--;
-            }
-
-            npc.frameCounter++;
-            if (npc.frameCounter > 7)
-            {
-                npc.frame.Y += 72;
-                npc.frameCounter = 0;
-                if (npc.frame.Y > 72 * 4)
-                {
-                    npc.frame.Y = 0;
-                }
             }
 
             if (Main.player[npc.target].dead && Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 5000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 5000f)
@@ -156,7 +158,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 internalAI[4] = Main.rand.Next(2);
                 if (internalAI[2] == 2)
                 {
-                    if (Main.netMode != 1) BaseUtility.Chat(Lang.BossChat("SagittariusFree3"), Color.PaleVioletRed);
+                    CombatText.NewText(npc.Hitbox, Color.PaleVioletRed, Lang.BossChat("SagittariusFree3"));
                 }
                 npc.ai = new float[4];
                 npc.netUpdate = true;
@@ -166,7 +168,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             {
                 BaseAI.AIEater(npc, ref npc.ai, 0.05f, 4f, 0, false, true);
                 npc.rotation = 0;
-                BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjType("SagProj"), ref shootAI[0], 15, (int)(npc.damage * 0.25f), 10f, true, new Vector2(20f, 15f));
+                BaseAI.ShootPeriodic(npc, player.position, player.width, player.height, mod.ProjType("SagProj"), ref shootAI[0], 15, damage, 10f, true, new Vector2(20f, 15f));
             }
             else if (internalAI[2] == 2) //Shield Mode
             {
@@ -177,6 +179,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 }
                 internalAI[3] = 1200;
                 npc.life += 2;
+                CombatText.NewText(new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height), CombatText.HealLife, string.Concat(2), false, false);
                 BaseAI.AISpaceOctopus(npc, ref npc.ai, Main.player[npc.target].Center, 0.07f, 5f, 250f, 70f, ShootLaser);
             }
             else
@@ -243,7 +246,7 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 for (int i = 0; i < Main.rand.Next(1, 3); i++)
                 {
                     offsetAngle = startAngle + (deltaAngle * i);
-                    Projectile.NewProjectile(player.position.X, player.position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType<Zero.DeathLaser>(), npc.damage / 4, 2, Main.myPlayer);
+                    Projectile.NewProjectile(player.position.X, player.position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), ModContent.ProjectileType<Zero.DeathLaser>(), damage, 2, Main.myPlayer);
                 }
             }
         }
@@ -252,8 +255,8 @@ namespace AAMod.NPCs.Bosses.Sagittarius
         {
             if (npc.life <= 0)
             {
-                int dust1 = mod.DustType<Dusts.VoidDust>();
-                int dust2 = mod.DustType<Dusts.VoidDust>();
+                int dust1 = ModContent.DustType<Dusts.VoidDust>();
+                int dust2 = ModContent.DustType<Dusts.VoidDust>();
                 Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0);
                 Main.dust[dust1].velocity *= 0.5f;
                 Main.dust[dust1].scale *= 1.3f;
@@ -283,11 +286,26 @@ namespace AAMod.NPCs.Bosses.Sagittarius
                 string[] lootTable = { "SagCore", "NeutronStaff", "Legg" };
                 int loot = Main.rand.Next(lootTable.Length);
                 npc.DropLoot(mod.ItemType(lootTable[loot]));
-                Item.NewItem(npc.Center, mod.ItemType<Items.Materials.Doomite>(), Main.rand.Next(20, 30));
+                Item.NewItem(npc.Center, ModContent.ItemType<Items.Materials.Doomite>(), Main.rand.Next(20, 30));
             }
             else
             {
                 npc.DropBossBags();
+            }
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+
+            npc.frameCounter++;
+            if (npc.frameCounter > 10)
+            {
+                npc.frameCounter = 0;
+                npc.frame.Y += frameHeight;
+                if (npc.frame.Y > frameHeight * 4)
+                {
+                    npc.frame.Y = 0;
+                }
             }
         }
 
@@ -302,14 +320,14 @@ namespace AAMod.NPCs.Bosses.Sagittarius
             Texture2D GlowTex = mod.GetTexture("Glowmasks/SagittariusFree_Glow");
 
             BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, dColor, true);
-            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, GenericUtils.COLOR_GLOWPULSE, true);
+            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, ColorUtils.COLOR_GLOWPULSE, true);
 
             if (ShieldScale > 0)
             {
                 BaseDrawing.DrawTexture(sb, Shield, 0, npc.position, npc.width, npc.height, ShieldScale, 0, 0, 1, new Rectangle(0, 0, Shield.Width, Shield.Height), AAColor.ZeroShield, true);
             }
             BaseDrawing.DrawTexture(sb, Ring, 0, npc.position, npc.width, npc.height, 1, RingRoatation, 0, 1, new Rectangle(0, 0, Ring.Width, Ring.Height), dColor, true);
-            BaseDrawing.DrawTexture(sb, RingGlow, 0, npc.position, npc.width, npc.height, 1, RingRoatation, 0, 1, new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), GenericUtils.COLOR_GLOWPULSE, true);
+            BaseDrawing.DrawTexture(sb, RingGlow, 0, npc.position, npc.width, npc.height, 1, RingRoatation, 0, 1, new Rectangle(0, 0, RingGlow.Width, RingGlow.Height), ColorUtils.COLOR_GLOWPULSE, true);
             return false;
         }
     }

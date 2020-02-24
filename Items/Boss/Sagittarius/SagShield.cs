@@ -7,7 +7,7 @@ namespace AAMod.Items.Boss.Sagittarius
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sagittarius Shield");
-            Tooltip.SetDefault(@"Pressing the ability hotkey puts up a barrier around you to protect you from damage
+            Tooltip.SetDefault(@"Pressing the accessory ability hotkey puts up a barrier around you to protect you from damage
 While shielded, you cannot use items
 While shielded, your health regeneration is increased dramatically
 Shield lasts for 5 seconds
@@ -23,9 +23,9 @@ Shield has a 5 minute cooldown");
             item.expert = true; item.expertOnly = true;
         }
 
-        public override void UpdateEquip(Player p)
+        public override void UpdateAccessory(Player p, bool hideVisual)
         {
-            p.GetModPlayer<AAPlayer>(mod).SagShield = true;
+            p.GetModPlayer<AAPlayer>().SagShield = true;
         }
     }
 }

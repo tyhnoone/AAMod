@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,12 +19,12 @@ namespace AAMod.Items.Summoning.Minions
     	
         public override void SetDefaults()
         {
-            projectile.width = 20;
-            projectile.height = 20;
+            projectile.width = 44;
+            projectile.height = 44;
             projectile.netImportant = true;
             projectile.friendly = true;
             projectile.ignoreWater = true;
-            projectile.minionSlots = 0.5f;
+            projectile.minionSlots = 1;
             projectile.timeLeft = 18000;
             projectile.penetrate = -1;
             projectile.tileCollide = false;
@@ -34,7 +35,7 @@ namespace AAMod.Items.Summoning.Minions
         {
             bool flag64 = projectile.type == mod.ProjectileType("DemonEater");
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             player.AddBuff(mod.BuffType("EaterMinion"), 3600);
             if (flag64)
             {
@@ -91,10 +92,10 @@ namespace AAMod.Items.Summoning.Minions
 			{
 				projectile.tileCollide = false;
 			}
-			for (int num645 = 0; num645 < 200; num645++)
+			if (player.HasMinionAttackTargetNPC)
 			{
-				NPC nPC2 = Main.npc[num645];
-				if (nPC2.CanBeChasedBy(projectile, false))
+				NPC nPC2 = Main.npc[player.MinionAttackTargetNPC];
+                if (nPC2.CanBeChasedBy(projectile, false))
 				{
 					float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
 					if (((Vector2.Distance(projectile.Center, vector46) > num646 && num646 < num633) || !flag25) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, nPC2.position, nPC2.width, nPC2.height))
@@ -102,6 +103,23 @@ namespace AAMod.Items.Summoning.Minions
 						num633 = num646;
 						vector46 = nPC2.Center;
 						flag25 = true;
+					}
+				}
+			}
+			else
+			{
+				for (int num645 = 0; num645 < 200; num645++)
+				{
+					NPC nPC2 = Main.npc[num645];
+					if (nPC2.CanBeChasedBy(projectile, false))
+					{
+						float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
+						if (((Vector2.Distance(projectile.Center, vector46) > num646 && num646 < num633) || !flag25) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, nPC2.position, nPC2.width, nPC2.height))
+						{
+							num633 = num646;
+							vector46 = nPC2.Center;
+							flag25 = true;
+						}
 					}
 				}
 			}
@@ -189,7 +207,7 @@ namespace AAMod.Items.Summoning.Minions
 			{
 				projectile.ai[1] += Main.rand.Next(1, 4);
 			}
-			if (projectile.ai[1] > 90f)
+			if (projectile.ai[1] > 160f)
 			{
 				projectile.ai[1] = 0f;
 				projectile.netUpdate = true;
@@ -215,6 +233,11 @@ namespace AAMod.Items.Summoning.Minions
 				}
 			}
         }
-        
-    }
+
+		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			BaseMod.BaseDrawing.DrawTexture(spriteBatch, Main.projectileTexture[projectile.type], 0, projectile, Color.White, true);
+			return false;
+		}
+	}
 }

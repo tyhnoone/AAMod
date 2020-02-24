@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -17,11 +16,12 @@ namespace AAMod.Projectiles
             projectile.width = 98;
             projectile.height = 98;
             projectile.penetrate = -1;
-            projectile.friendly = false;
-            projectile.hostile = true;
+            projectile.friendly = true;
+            projectile.hostile = false;
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.timeLeft = 600;
+            projectile.magic = true;
         }
 
         public override void AI()
@@ -41,7 +41,7 @@ namespace AAMod.Projectiles
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType<Buffs.Electrified>(), 200);
+            target.AddBuff(ModContent.BuffType<Buffs.Electrified>(), 200);
         }
 
         public override void Kill(int timeLeft)

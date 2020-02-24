@@ -29,6 +29,7 @@ namespace AAMod.Items.Boss.Grips
         }
         public override void AI()
         {
+            projectile.spriteDirection = projectile.velocity.X > 0 ? -1 : 1;
             if (projectile.frameCounter++ > 5)
             {
                 projectile.frame++;
@@ -40,7 +41,7 @@ namespace AAMod.Items.Boss.Grips
             }
             bool flag64 = projectile.type == mod.ProjectileType("HydraClaw");
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             player.AddBuff(mod.BuffType("GripMinion"), 3600);
             if (flag64)
             {
@@ -87,8 +88,8 @@ namespace AAMod.Items.Boss.Grips
             {
                 projectile.ai[1] += 1f;
                 projectile.extraUpdates = 1;
-                projectile.rotation = projectile.velocity.ToRotation() + 3.14159274f;
-                
+                projectile.rotation = projectile.velocity.ToRotation() - 1.57f;
+
                 if (projectile.ai[1] > 40f)
                 {
                     projectile.ai[1] = 1f;
@@ -116,9 +117,9 @@ namespace AAMod.Items.Boss.Grips
             {
                 projectile.tileCollide = false;
             }
-            for (int num645 = 0; num645 < 200; num645++)
-            {
-                NPC nPC2 = Main.npc[num645];
+            if (player.HasMinionAttackTargetNPC)
+			{
+				NPC nPC2 = Main.npc[player.MinionAttackTargetNPC];
                 if (nPC2.CanBeChasedBy(projectile, false))
                 {
                     float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
@@ -127,6 +128,23 @@ namespace AAMod.Items.Boss.Grips
                         num633 = num646;
                         vector46 = nPC2.Center;
                         flag25 = true;
+                    }
+                }
+			}
+			else
+			{
+                for (int num645 = 0; num645 < 200; num645++)
+                {
+                    NPC nPC2 = Main.npc[num645];
+                    if (nPC2.CanBeChasedBy(projectile, false))
+                    {
+                        float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
+                        if (((Vector2.Distance(projectile.Center, vector46) > num646 && num646 < num633) || !flag25) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, nPC2.position, nPC2.width, nPC2.height))
+                        {
+                            num633 = num646;
+                            vector46 = nPC2.Center;
+                            flag25 = true;
+                        }
                     }
                 }
             }
@@ -201,7 +219,7 @@ namespace AAMod.Items.Boss.Grips
                     projectile.velocity.Y = -0.05f;
                 }
             }
-            projectile.rotation = projectile.velocity.ToRotation() + 3.14159274f;
+            projectile.rotation = projectile.velocity.ToRotation() - 1.57f;
             if (projectile.ai[1] > 0f)
             {
                 projectile.ai[1] += Main.rand.Next(1, 4);

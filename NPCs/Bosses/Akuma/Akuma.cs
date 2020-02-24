@@ -6,9 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using BaseMod;
 using System.IO;
-using AAMod.NPCs.Bosses.Akuma.Awakened;
-using Terraria.Graphics.Shaders;
-using Terraria.Localization;
 
 namespace AAMod.NPCs.Bosses.Akuma
 {
@@ -36,14 +33,14 @@ namespace AAMod.NPCs.Bosses.Akuma
         public override void SetDefaults()
         {
             npc.noTileCollide = true;
-            npc.height = 120;
-            npc.width = 84;
+            npc.height = 80;
+            npc.width = 80;
             npc.aiStyle = -1;
             npc.netAlways = true;
             npc.knockBackResist = 0f;
-            npc.damage = 59;
-            npc.defense = 250;
-            npc.lifeMax = 570000;
+            npc.damage = 140;
+            npc.defense = 80;
+            npc.lifeMax = 400000;
             if (Main.expertMode)
             {
                 npc.value = Item.sellPrice(0, 0, 0, 0);
@@ -69,19 +66,15 @@ namespace AAMod.NPCs.Bosses.Akuma
             npc.buffImmune[103] = false;
             npc.alpha = 255;
             musicPriority = MusicPriority.BossHigh;
-            if (AAWorld.downedAllAncients)
-            {
-                npc.damage = 120;
-                npc.defense = 160;
-                npc.lifeMax = 700000;
-            }
         }
+
         private bool fireAttack;
         private int attackFrame;
         private int attackCounter;
         private int attackTimer;
         public static int MinionCount = 0;
         public int MaxMinons = Main.expertMode ? 3 : 4;
+        public int damage = 0;
 
         public float[] internalAI = new float[4];
         public override void SendExtraAI(BinaryWriter writer)
@@ -117,7 +110,14 @@ namespace AAMod.NPCs.Bosses.Akuma
         public override bool PreAI()
         {
             Player player = Main.player[npc.target];
-
+            if (Main.expertMode)
+            {
+                damage = npc.damage / 4;
+            }
+            else
+            {
+                damage = npc.damage / 2;
+            }
 
             if (fireAttack == true || internalAI[0] >= 450)
             {
@@ -138,7 +138,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             {
                 QuoteSaid = false;
                 Roar(roarTimerMax, false);
-                internalAI[1] += 1;
+                internalAI[1] = Main.rand.Next(3);
             }
             if (internalAI[0] > 300)
             {
@@ -157,7 +157,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             if (fireAttack == true)
             {
                 attackTimer++;
-                if ((attackTimer == 20 || attackTimer == 50 || attackTimer == 79) && npc.HasBuff(BuffID.Wet))
+                if ((attackTimer % 20 == 0) && npc.HasBuff(BuffID.Wet))
                 {
                     for (int spawnDust = 0; spawnDust < 2; spawnDust++)
                     {
@@ -168,12 +168,12 @@ namespace AAMod.NPCs.Bosses.Akuma
                     if (weakness == false)
                     {
                         weakness = true;
-                        if (Main.netMode != 1) BaseUtility.Chat(Lang.BossChat("Akuma1"), new Color(180, 41, 32));
+                        if (Main.netMode != 1) AAMod.Chat(Lang.BossChat("Akuma1"), new Color(180, 41, 32));
                     }
                 }
                 else if (!npc.HasBuff(BuffID.Wet))
                 {
-                    AAAI.BreatheFire(npc, true, mod.ProjectileType<AkumaBreath>(), 2, 2);
+                    AAAI.BreatheFire(npc, true, ModContent.ProjectileType<AkumaBreath>(), 2, 4);
                 }
                 if (attackTimer >= 80)
                 {
@@ -211,32 +211,17 @@ namespace AAMod.NPCs.Bosses.Akuma
                 {
                     npc.realLife = npc.whoAmI;
                     int latestNPC = npc.whoAmI;
-
-                    for (int i = 0; i < 3; ++i)
+                    int[] Frame = { 1, 2, 0, 1, 2, 1, 2, 0, 1, 2, 1, 2, 0, 1, 2, 3, 4 };
+                    for (int i = 0; i < Frame.Length; ++i)
                     {
                         latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaBody"), npc.whoAmI, 0, latestNPC);
                         Main.npc[latestNPC].realLife = npc.whoAmI;
                         Main.npc[latestNPC].ai[3] = npc.whoAmI;
-
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaArms"), npc.whoAmI, 0, latestNPC);
-                        Main.npc[latestNPC].realLife = npc.whoAmI;
-                        Main.npc[latestNPC].ai[3] = npc.whoAmI;
+                        Main.npc[latestNPC].netUpdate = true;
+                        Main.npc[latestNPC].ai[2] = Frame[i];
                     }
-
-                    latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaBody"), npc.whoAmI, 0, latestNPC);
-                    Main.npc[latestNPC].realLife = npc.whoAmI;
-                    Main.npc[latestNPC].ai[3] = npc.whoAmI;
-
-                    latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaBody1"), npc.whoAmI, 0, latestNPC);
-                    Main.npc[latestNPC].realLife = npc.whoAmI;
-                    Main.npc[latestNPC].ai[3] = npc.whoAmI;
-
-                    latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AkumaTail"), npc.whoAmI, 0, latestNPC);
-                    Main.npc[latestNPC].realLife = npc.whoAmI;
-                    Main.npc[latestNPC].ai[3] = npc.whoAmI;
-
                     npc.ai[0] = 1;
-                    npc.netUpdate = true;
+                    npc.netUpdate2 = true;
                 }
             }
 
@@ -361,7 +346,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             {
                 if (loludided == false)
                 {
-                    if (Main.netMode != 1) BaseUtility.Chat(Lang.BossChat("Akuma2"), new Color(180, 41, 32));
+                    if (Main.netMode != 1) AAMod.Chat(Lang.BossChat("Akuma2"), new Color(180, 41, 32));
                     loludided = true;
                 }
                 npc.velocity.Y = npc.velocity.Y + 1f;
@@ -372,7 +357,7 @@ namespace AAMod.NPCs.Bosses.Akuma
             {
                 if (loludided == false)
                 {
-                    if (Main.netMode != 1) BaseUtility.Chat(Lang.BossChat("Akuma3"), new Color(180, 41, 32));
+                    if (Main.netMode != 1) AAMod.Chat(Lang.BossChat("Akuma3"), new Color(180, 41, 32));
                     loludided = true;
                 }
                 npc.velocity.Y = npc.velocity.Y - 1f;
@@ -414,16 +399,17 @@ namespace AAMod.NPCs.Bosses.Akuma
         public bool Quote2;
         public bool Quote3;
         public bool Quote4;
+        public bool Quote5;
         public bool QuoteSaid;
 
         public void Attack(NPC npc)
         {
-            Player player = Main.player[npc.target];
-            if (internalAI[1] == 1 || internalAI[1] == 5 || internalAI[1] == 9 || internalAI[1] == 16 || internalAI[1] == 18)
+            bool sayQuote = Main.rand.Next(4) == 0;
+            if (internalAI[1] == 0)
             {
-                if (!QuoteSaid)
+                if (!QuoteSaid && sayQuote)
                 {
-                    if (Main.netMode != 1) BaseUtility.Chat((!Quote1) ? Lang.BossChat("Akuma4") : Lang.BossChat("Akuma5"), new Color(180, 41, 32));
+                    if (Main.netMode != 1) AAMod.Chat((!Quote1) ? Lang.BossChat("Akuma4") : Lang.BossChat("Akuma5"), new Color(180, 41, 32));
                     QuoteSaid = true;
                     Quote1 = true;
                 }
@@ -437,43 +423,28 @@ namespace AAMod.NPCs.Bosses.Akuma
                 }
 
             }
-            else if (internalAI[1] == 3 || internalAI[1] == 8 || internalAI[1] == 13 || internalAI[1] == 11 || internalAI[1] == 20)
+            else if (internalAI[1] == 1)
             {
-                if (!QuoteSaid)
+                if (!QuoteSaid && sayQuote)
                 {
-                    if (!Quote2) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossChat("Akuma6"), new Color(180, 41, 32));
-                    QuoteSaid = true;
-                    Quote2 = true;
-                }
-                if (internalAI[0] == 400)
-                {
-                    if (NPC.CountNPCS(mod.NPCType<AncientLung>()) < (Main.expertMode ? 3 : 4))
-                    {
-                        AkumaAttacks.SpawnLung(player, mod, false);
-                        MinionCount += 1;
-                    }
-                }
-            }
-            else if (internalAI[1] == 4 || internalAI[1] == 6 || internalAI[1] == 10 || internalAI[1] == 14 || internalAI[1] == 17)
-            {
-                if (!QuoteSaid)
-                {
-                    if (Main.netMode != 1) BaseUtility.Chat((!Quote3) ? Lang.BossChat("Akuma7") : Lang.BossChat("Akuma8"), new Color(180, 41, 32));
+                    if (!Quote3 || Main.rand.Next(4) == 0)
+                        if (Main.netMode != 1) AAMod.Chat((!Quote3) ? Lang.BossChat("Akuma7") : Lang.BossChat("Akuma8"), new Color(180, 41, 32));
                     QuoteSaid = true;
                     Quote3 = true;
                 }
-                if (internalAI[0] == 400)
+                if (internalAI[0] == 350)
                 {
-                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, npc.velocity.X * 2, npc.velocity.Y, mod.ProjectileType<AkumaFireProj>(), npc.damage / (Main.expertMode ? 2 : 4), 3, Main.myPlayer);
+                    Projectile.NewProjectile(npc.Center.X, npc.Center.Y, npc.velocity.X * 2, npc.velocity.Y, ModContent.ProjectileType<AkumaFireProj>(), damage, 3, Main.myPlayer);
                 }
             }
             else
             {
-                if (!QuoteSaid)
+                if (!QuoteSaid && sayQuote)
                 {
-                    if (Main.netMode != 1) BaseUtility.Chat((!Quote4) ? Lang.BossChat("Akuma9") : Lang.BossChat("Akuma10"), new Color(180, 41, 32));
+                    if (!Quote5 || Main.rand.Next(4) == 0)
+                        if (Main.netMode != 1) AAMod.Chat((!Quote5) ? Lang.BossChat("Akuma13") : Lang.BossChat("Akuma14"), new Color(180, 41, 32));
                     QuoteSaid = true;
-                    Quote4 = true;
+                    Quote5 = true;
                 }
                 if (internalAI[0] == 350)
                 {
@@ -486,14 +457,9 @@ namespace AAMod.NPCs.Bosses.Akuma
                     for (int i = 0; i < Fireballs; i++)
                     {
                         offsetAngle = startAngle + (deltaAngle * i);
-                        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, baseSpeed * (float)Math.Sin(offsetAngle) * 2, baseSpeed * (float)Math.Cos(offsetAngle) * 2, mod.ProjectileType<AkumaBomb>(), npc.damage / (Main.expertMode ? 2 : 4), 3, Main.myPlayer);
+                        Projectile.NewProjectile(npc.Center.X, npc.Center.Y, baseSpeed * (float)Math.Sin(offsetAngle) * 2, baseSpeed * (float)Math.Cos(offsetAngle) * 2, ModContent.ProjectileType<AkumaBomb>(), damage, 3, Main.myPlayer);
                     }
                 }
-            }
-
-            if (internalAI[1] > 20)
-            {
-                internalAI[1] = 0;
             }
         }
 
@@ -524,13 +490,9 @@ namespace AAMod.NPCs.Bosses.Akuma
                 {
                     if (Main.netMode != 1) BaseUtility.Chat(Lang.BossChat("Akuma11"), Color.DarkOrange.R, Color.DarkOrange.G, Color.DarkOrange.B, false);
                 }
-                if (Main.rand.Next(50) == 0 && AAWorld.downedAllAncients)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PowerStone"));
-                }
                 string[] lootTable = { "AkumaTerratool", "DayStorm", "LungStaff", "MorningGlory", "RadiantDawn", "Solar", "SunSpear", "ReignOfFire", "DaybreakArrow", "Daycrusher", "Dawnstrike", "SunStorm", "SunStaff", "DragonSlasher" };
                 AAAI.DownedBoss(npc, mod, lootTable, AAWorld.downedAkuma, true, mod.ItemType("CrucibleScale"), 20, 30, false, false, true, 0, mod.ItemType("AkumaTrophy"), false);
-                if (Main.netMode != 1) BaseUtility.Chat(Lang.BossChat("Akuma12"), new Color(180, 41, 32));
+                if (Main.netMode != 1) AAMod.Chat(Lang.BossChat("Akuma12"), new Color(180, 41, 32));
 
             }
             if (Main.expertMode)
@@ -564,8 +526,8 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.position.Y = npc.position.Y + npc.height / 2;
                 npc.position.X = npc.position.X - npc.width / 2;
                 npc.position.Y = npc.position.Y - npc.height / 2;
-                int dust1 = mod.DustType<Dusts.AkumaDust>();
-                int dust2 = mod.DustType<Dusts.AkumaDust>();
+                int dust1 = ModContent.DustType<Dusts.AkumaDust>();
+                int dust2 = ModContent.DustType<Dusts.AkumaDust>();
                 Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, dust1, 0f, 0f, 0);
                 Main.dust[dust1].velocity *= 0.5f;
                 Main.dust[dust1].scale *= 1.3f;
@@ -616,40 +578,24 @@ namespace AAMod.NPCs.Bosses.Akuma
     }
 
     [AutoloadBossHead]
-    public class AkumaArms : Akuma
+    public class AkumaBody : Akuma
     {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/AkumaArms"; } }
-
+        public override string Texture => "AAMod/NPCs/Bosses/Akuma/AkumaBody";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Akuma; Draconian Demon");
+            DisplayName.SetDefault("Akuma, Draconian Demon");
+            Main.npcFrameCount[npc.type] = 5;
             NPCID.Sets.TechnicallyABoss[npc.type] = true;
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
-            npc.width = 60;
-            npc.height = 60;
+            npc.boss = false;
+            npc.width = 40;
+            npc.height = 40;
             npc.dontCountMe = true;
-
-            npc.alpha = 255;
-        }
-
-        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
-        {
-            return false;
-        }
-
-        public override bool PreNPCLoot()
-        {
-            return false;
-        }
-
-        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
-        {
-            damage *= .05f;
-            return true;
+            npc.chaseable = false;
         }
 
         public override bool PreAI()
@@ -663,6 +609,21 @@ namespace AAMod.NPCs.Bosses.Akuma
                 npc.TargetClosest(true);
             if (Main.player[npc.target].dead && npc.timeLeft > 300)
                 npc.timeLeft = 300;
+            if (npc.alpha != 0)
+            {
+                for (int spawnDust = 0; spawnDust < 2; spawnDust++)
+                {
+                    int num935 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, mod.DustType("AkumaDust"), 0f, 0f, 100, default, 2f);
+                    Main.dust[num935].noGravity = true;
+                    Main.dust[num935].noLight = true;
+                }
+            }
+            npc.alpha -= 12;
+            if (npc.alpha < 0)
+            {
+                npc.alpha = 0;
+            }
+
 
             if (Main.netMode != 1)
             {
@@ -709,74 +670,35 @@ namespace AAMod.NPCs.Bosses.Akuma
             return false;
         }
 
-        public override void BossHeadSpriteEffects(ref SpriteEffects spriteEffects)
+        public override bool StrikeNPC(ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            spriteEffects = npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            damage *= .1f;
+            return true;
         }
 
-        public override void BossHeadRotation(ref float rotation)
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
-            rotation = npc.rotation;
+            return false;
+        }
+
+        public override bool PreNPCLoot()
+        {
+            return false;
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+            npc.frame.Y = frameHeight * (int)npc.ai[2];
         }
 
         public override bool CheckActive()
         {
-            if (NPC.AnyNPCs(mod.NPCType<Akuma>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<Akuma>()))
             {
                 return false;
             }
             npc.active = false;
             return true;
-        }
-    }
-
-    [AutoloadBossHead]
-    public class AkumaBody : AkumaArms
-    {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/AkumaBody"; } }
-
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-        }
-
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-        }
-    }
-
-    [AutoloadBossHead]
-    public class AkumaBody1 : AkumaArms
-    {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/AkumaBody1"; } }
-
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-        }
-
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-        }
-    }
-
-    [AutoloadBossHead]
-    public class AkumaTail : AkumaArms
-    {
-        public override string Texture { get { return "AAMod/NPCs/Bosses/Akuma/AkumaTail"; } }
-
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-        }
-
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            npc.width = 80;
-            npc.height = 80;
         }
     }
 }

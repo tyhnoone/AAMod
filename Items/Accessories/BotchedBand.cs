@@ -15,14 +15,10 @@ namespace AAMod.Items.Accessories
             item.accessory = true;
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.moveSpeed += .1f;
-            player.magicDamage += .1f;
-            player.meleeDamage += .1f;
-            player.rangedDamage += .1f;
-            player.thrownDamage += .1f;
-            player.minionDamage += .1f;
+            player.allDamage += .1f;
         }
 
         public override void SetStaticDefaults()

@@ -1,6 +1,7 @@
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.Chaos
 {
@@ -12,6 +13,8 @@ namespace AAMod.Items.Armor.Chaos
 			base.SetStaticDefaults();
 			DisplayName.SetDefault("Chaos Mask");
             Tooltip.SetDefault(@"Decreases mana usage by 30%
+Increases magic damage by 20%
+Increases magic crit by 20%
 Allows you to breath underwater");
         }
 
@@ -27,8 +30,11 @@ Allows you to breath underwater");
 		public override void UpdateEquip(Player player)
 		{
 			player.manaCost -= 0.3f;
+            player.magicDamage += 0.20f;
             player.gills = true;
-		}
+            player.magicCrit += 20;
+
+        }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
@@ -37,7 +43,7 @@ Allows you to breath underwater");
 
         public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("ChaosMaskBonus");
+			player.setBonus = Language.GetTextValue("Mods.AAMod.Common.ChaosMaskBonus");
 			if (player.wet)
 			{
 				player.AddBuff(mod.BuffType("ChaosBuff"), 2);
@@ -49,9 +55,9 @@ Allows you to breath underwater");
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("TrueAtlanteanHelm"));
+			recipe.AddIngredient(mod.ItemType("AtlanteanHelm"));
 			recipe.AddIngredient(null, "ChaosCrystal", 1);
-            recipe.AddTile(null, "TruePaladinsSmeltery");
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

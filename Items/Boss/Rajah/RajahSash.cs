@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria;
+using Terraria.Localization;
 using System.Collections.Generic;
 
 namespace AAMod.Items.Boss.Rajah
@@ -25,71 +26,65 @@ Immunity to fall damage");
             item.rare = 9;
             item.accessory = true;
             item.expertOnly = true;
-            item.expert = true; item.expertOnly = true;
+            item.expert = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             Player player = Main.player[item.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             Color damageColor = Color.Firebrick;
             string DamageType = "";
+
             if (modPlayer.MeleeHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Melee");
+                DamageType = Language.GetTextValue("Mods.AAMod.Common.RajahSPTooltipMelee");
                 damageColor = Color.Firebrick;
             }
             else if (modPlayer.RangedHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Ranged");
+                DamageType = Language.GetTextValue("Mods.AAMod.Common.RajahSPTooltipRanged");
                 damageColor = Color.SeaGreen;
             }
             else if (modPlayer.MagicHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Magic");
+                DamageType = Language.GetTextValue("Mods.AAMod.Common.RajahSPTooltipMagic");
                 damageColor = Color.Violet;
             }
             else if (modPlayer.SummonHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Summoning");
+                DamageType = Language.GetTextValue("Mods.AAMod.Common.RajahSPTooltipSummoning");
                 damageColor = Color.Cyan;
             }
             else if (modPlayer.ThrownHighest(player))
             {
-                DamageType = Lang.RajahSPTooltip("Throwing");
+                DamageType = Language.GetTextValue("Mods.AAMod.Common.RajahSPTooltipThrowing");
                 damageColor = Color.DarkOrange;
             }
 
-            string DamageAmmount = (10 * DamageBoost(player)) + "% ";
-
-            TooltipLine DamageToltip = new TooltipLine (mod, "Damage Type", Lang.RajahSPTooltip("CurrentDamageBoost:+") + DamageAmmount + DamageType + Lang.RajahSPTooltip("Damage"))
+            string DamageAmount = (100 * DamageBoost(player)) + "% ";
+            TooltipLine DamageTooltip = new TooltipLine(mod, "Damage Type", Language.GetTextValue("Mods.AAMod.Common.RajahSPDamageBoost") + DamageAmount + DamageType + Language.GetTextValue("Mods.AAMod.Common.RajahSPDamageInfo"))
             {
                 overrideColor = damageColor
             };
+            tooltips.Add(DamageTooltip);
 
-            tooltips.Add(DamageToltip);
             base.ModifyTooltips(tooltips);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (player.wingTime > 0)
-            {
-                player.wingTime += 3;
-            }
-        }
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 
-        public override void UpdateEquip(Player player)
-        {
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
             player.autoJump = true;
-            Player.jumpHeight = 40;
+            Player.jumpHeight = 10;
             player.jumpSpeedBoost += 3.6f;
             player.noFallDmg = true;
             player.moveSpeed *= 1.4f;
+
             if (modPlayer.MeleeHighest(player))
             {
-                player.meleeDamage += DamageBoost(player); 
+                player.meleeDamage += DamageBoost(player);
             }
             else if (modPlayer.RangedHighest(player))
             {
@@ -115,39 +110,42 @@ Immunity to fall damage");
             {
                 return .72f;
             }
-            if (player.statLife <= player.statLifeMax * .2f)
+            else if (player.statLife <= player.statLifeMax * .2f)
             {
                 return .64f;
             }
-            if (player.statLife <= player.statLifeMax * .3f)
+            else if (player.statLife <= player.statLifeMax * .3f)
             {
                 return .56f;
             }
-            if (player.statLife <= player.statLifeMax * .4f)
+            else if (player.statLife <= player.statLifeMax * .4f)
             {
                 return .48f;
             }
-            if (player.statLife <= player.statLifeMax * .5f)
+            else if (player.statLife <= player.statLifeMax * .5f)
             {
                 return .4f;
             }
-            if (player.statLife <= player.statLifeMax * .6f)
+            else if (player.statLife <= player.statLifeMax * .6f)
             {
                 return .32f;
             }
-            if (player.statLife <= player.statLifeMax * .7f)
+            else if (player.statLife <= player.statLifeMax * .7f)
             {
                 return .24f;
             }
-            if (player.statLife <= player.statLifeMax * .8f)
+            else if (player.statLife <= player.statLifeMax * .8f)
             {
                 return .16f;
             }
-            if (player.statLife <= player.statLifeMax * .9f)
+            else if (player.statLife <= player.statLifeMax * .9f)
             {
-                return .8f;
+                return .08f;
             }
-            return 0f;
+            else
+            {
+                return 0f;
+            }
         }
     }
 }

@@ -19,9 +19,9 @@ namespace AAMod.Items.Boss.Djinn
 	        item.ranged = true;
 	        item.width = 40;
 	        item.height = 26;
-	        item.useTime = 20;
-	        item.reuseDelay = 24;
-	        item.useAnimation = 18;
+	        item.useTime = 19;
+	        item.reuseDelay = 0;
+	        item.useAnimation = 19;
 	        item.useStyle = 5;
 	        item.noMelee = true;
 	        item.knockBack = 2.5f;
@@ -40,10 +40,10 @@ namespace AAMod.Items.Boss.Djinn
             switch (Shoot)
             {
                 case 0:
-                    Shoot = mod.ProjectileType<Projectiles.Djinn.DesertBolt1>();
+                    Shoot = Terraria.ModLoader.ModContent.ProjectileType<Projectiles.Djinn.DesertBolt1>();
                     break;
                 default:
-                    Shoot = mod.ProjectileType<Projectiles.Djinn.DesertBolt2>();
+                    Shoot = Terraria.ModLoader.ModContent.ProjectileType<Projectiles.Djinn.DesertBolt2>();
                     break;
             }
             float baseSpeed = (float)Math.Sqrt((speedX * speedX) + (speedY * speedY));

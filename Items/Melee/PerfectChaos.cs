@@ -17,12 +17,12 @@ namespace AAMod.Items.Melee
 		public override void SetDefaults()
 		{
             
-			item.damage = 320;
+			item.damage = 375;
 			item.melee = true;
-			item.width = 84;
-			item.height = 84;
-			item.useTime = 30;
-			item.useAnimation = 30;
+			item.width = 120;
+			item.height = 120;
+			item.useTime = 20;
+			item.useAnimation = 20;
 			item.useStyle = 1;
 			item.knockBack = 10;
             item.value = Item.sellPrice(5, 0, 0, 0);
@@ -61,7 +61,7 @@ namespace AAMod.Items.Melee
 		    for (int i = 0; i < 3; i++)
 		    {
 		    	offsetAngle = startAngle + (deltaAngle * i);
-		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
+		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, Main.myPlayer);
 		    }
 		    return false;
 		}

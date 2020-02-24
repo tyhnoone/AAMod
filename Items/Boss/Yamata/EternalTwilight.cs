@@ -16,13 +16,13 @@ namespace AAMod.Items.Boss.Yamata
 
         public override void SetDefaults()
         {
-            item.damage = 200;
+            item.damage = 237;
             item.ranged = true;
             item.width = 44;
             item.height = 76;
-            item.useAnimation = 15;
+            item.useAnimation = 17;
             item.useTime = 5;
-            item.reuseDelay = 14;
+            item.reuseDelay = 7;
             item.useStyle = 5;
             item.noMelee = true;
             item.knockBack = 2.5f;
@@ -47,7 +47,7 @@ namespace AAMod.Items.Boss.Yamata
             {
                 float SpeedX = speedX + Main.rand.Next(-25, 26) * 0.05f;
                 float SpeedY = speedY + Main.rand.Next(-25, 26) * 0.05f;
-                Projectile.NewProjectile(position.X, position.Y, SpeedX, SpeedY, mod.ProjectileType<YamataPhantom>(), damage, knockBack, player.whoAmI, 0.0f, 0.0f);
+                Projectile.NewProjectile(position.X, position.Y, SpeedX, SpeedY, ModContent.ProjectileType<YamataPhantom>(), damage, knockBack, player.whoAmI, 0.0f, 0.0f);
             }
             return false;
         }

@@ -19,7 +19,7 @@ namespace AAMod.Items.Boss.Akuma
         public override void SetDefaults()
         {
             item.mana = 20;
-            item.damage = 90;
+            item.damage = 120;
             item.useStyle = 1;
             item.shootSpeed = 10f;
             item.shoot = mod.ProjectileType("LungHead");
@@ -72,6 +72,8 @@ namespace AAMod.Items.Boss.Akuma
             {
                 return false;
             }
+
+            if (player.maxMinions - player.slotsMinions < 0.5) return false;
 			
 			player.AddBuff(mod.BuffType("LungMinion"), 2, true);
 
@@ -87,11 +89,11 @@ namespace AAMod.Items.Boss.Akuma
             {
                 if (Main.projectile[num186].active && Main.projectile[num186].owner == Main.myPlayer)
                 {
-                    if (num184 == -1 && Main.projectile[num186].type == mod.ProjectileType<LungHead>())
+                    if (num184 == -1 && Main.projectile[num186].type == ModContent.ProjectileType<LungHead>())
                     {
                         num184 = num186;
                     }
-                    if (num185 == -1 && Main.projectile[num186].type == mod.ProjectileType<LungTail>())
+                    if (num185 == -1 && Main.projectile[num186].type == ModContent.ProjectileType<LungTail>())
                     {
                         num185 = num186;
                     }
@@ -101,6 +103,8 @@ namespace AAMod.Items.Boss.Akuma
                     }
                 }
             }
+
+
             if (num184 == -1 && num185 == -1)
             {
                 num81 = 0f;
@@ -108,16 +112,32 @@ namespace AAMod.Items.Boss.Akuma
                 vector2.X = Main.mouseX + Main.screenPosition.X;
                 vector2.Y = Main.mouseY + Main.screenPosition.Y;
                 int num187 = Projectile.NewProjectile(vector2.X, vector2.Y, num81, num82, num74, num76, num77, Main.myPlayer, 0f, 0f);
-                num187 = Projectile.NewProjectile(vector2.X, vector2.Y, num81, num82, mod.ProjectileType<LungBody>(), num76, num77, Main.myPlayer, num187, 0f);
+                num187 = Projectile.NewProjectile(vector2.X, vector2.Y, num81, num82, ModContent.ProjectileType<LungBody>(), num76, num77, Main.myPlayer, num187, 0f);
                 int num188 = num187;
-				for (int z = 0; z < player.maxMinions; z++)
+				for (int z = 0; z < (int)((player.maxMinions - player.slotsMinions) * 2); z++)
 				{
-					num187 = Projectile.NewProjectile(vector2.X, vector2.Y, num81, num82, mod.ProjectileType<LungBody>(), num76, num77, Main.myPlayer, num187, 0f);
+					num187 = Projectile.NewProjectile(vector2.X, vector2.Y, num81, num82, ModContent.ProjectileType<LungBody>(), num76, num77, Main.myPlayer, num187, 0f);
 					Main.projectile[num188].localAI[1] = num187;
 					num188 = num187;
 				}
-                num187 = Projectile.NewProjectile(vector2.X, vector2.Y, num81, num82, mod.ProjectileType<LungTail>(), num76, num77, Main.myPlayer, num187, 0f);
+                num187 = Projectile.NewProjectile(vector2.X, vector2.Y, num81, num82, ModContent.ProjectileType<LungTail>(), num76, num77, Main.myPlayer, num187, 0f);
                 Main.projectile[num188].localAI[1] = num187;
+            }
+            else
+            {
+                int previous = (int) Main.projectile[num185].ai[0];
+                int current = 0;
+
+                current = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("LungBody"), damage, knockBack, player.whoAmI,
+                Projectile.GetByUUID(Main.myPlayer, previous), 0f);
+
+                previous = current;
+
+                Main.projectile[current].localAI[1] = num185;
+                
+                Main.projectile[num185].ai[0] = current;
+                Main.projectile[num185].netUpdate = true;
+                Main.projectile[num185].ai[1] = 1f;
             }
             return false;
         }

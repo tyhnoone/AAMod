@@ -48,29 +48,20 @@ namespace AAMod.Items.Boss.Equinox
             );
         }
 
-        public override void UpdateEquip(Player player)
+		public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.lifeRegen += 6;
             player.statDefense += 9;
             player.meleeSpeed += 0.10f;
-            player.meleeDamage += 0.35f;
             player.meleeCrit += 5;
-            player.rangedDamage += 0.35f;
             player.rangedCrit += 5;
-            player.magicDamage += 0.35f;
             player.magicCrit += 5;
             player.pickSpeed -= 0.35f;
-            player.minionDamage += 0.35f;
             player.minionKB += 0.75f;
-            player.thrownDamage += 0.35f;
+            player.allDamage += 0.17f;
             player.thrownCrit += 5;
-        }
-        
-
-		public override void UpdateAccessory(Player player, bool hideVisual)
-        {
             player.nightVision = true;
-            player.GetModPlayer<AAPlayer>(mod).RStar = true;
+            player.GetModPlayer<AAPlayer>().RStar = true;
         }
         public override void AddRecipes()
         {

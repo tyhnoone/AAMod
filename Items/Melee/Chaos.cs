@@ -16,12 +16,12 @@ namespace AAMod.Items.Melee
 		public override void SetDefaults()
 		{
             
-			item.damage = 140;
+			item.damage = 105;
 			item.melee = true;
 			item.width = 84;
 			item.height = 84;
-			item.useTime = 23;
-			item.useAnimation = 23;
+			item.useTime = 35;
+			item.useAnimation = 35;
 			item.useStyle = 1;
 			item.knockBack = 10;
             item.value = Item.sellPrice(0, 20, 0, 0);
@@ -41,7 +41,6 @@ namespace AAMod.Items.Melee
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(mod, "TrueBlazingDawn", 1);
 			recipe.AddIngredient(mod, "TrueAbyssalTwilight", 1);
-            recipe.AddIngredient(mod, "Discord", 1);
             recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

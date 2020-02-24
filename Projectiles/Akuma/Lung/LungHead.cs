@@ -29,6 +29,7 @@ namespace AAMod.Projectiles.Akuma.Lung
             projectile.timeLeft *= 5;
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 5;
+            projectile.GetGlobalProjectile<AAGlobalProjectile>().LongMinion = true;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -47,6 +48,8 @@ namespace AAMod.Projectiles.Akuma.Lung
         {
             Texture2D texture2D13 = Main.projectileTexture[projectile.type];
             int num214 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
+            if(flaming) projectile.frame = 1;
+            else projectile.frame = 0;
             int y6 = num214 * projectile.frame;
             Main.spriteBatch.Draw(texture2D13, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Rectangle(0, y6, texture2D13.Width, num214),
                 projectile.GetAlpha(Color.White), projectile.rotation, new Vector2(texture2D13.Width / 2f, num214 / 2f), projectile.scale,
@@ -54,10 +57,17 @@ namespace AAMod.Projectiles.Akuma.Lung
             return false;
         }
 
+        public bool flaming = false;
+
+        public override void OnHitNPC(NPC npc, int damage, float knockback, bool crit)
+        {
+            npc.immune[projectile.owner] = 6;
+        }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 
             if ((int)Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
@@ -126,8 +136,21 @@ namespace AAMod.Projectiles.Akuma.Lung
                 (vector132.Y > 0f).ToDirectionInt();
                 float scaleFactor15 = 0.4f;
                 if (vector132.Length() < 600f) scaleFactor15 = 0.6f;
+                if (vector132.Length() < 500f && vector132.Length() >= 100f && projectile.velocity.X / vector132.X > 0)
+                {
+                    flaming = true;
+                    Vector2 shootspeed = Vector2.Normalize(projectile.velocity) * 20f;
+                    Vector2 shootpos = Vector2.Normalize(projectile.velocity).RotatedBy((float)Math.PI / 2 * projectile.direction) * projectile.height / 2;
+                    int fire = Projectile.NewProjectile(projectile.position.X + projectile.velocity.X + shootpos.X, projectile.position.Y + projectile.velocity.Y + shootpos.Y, shootspeed.X, shootspeed.Y, mod.ProjectileType("DragonfireProj"), (int)(projectile.damage / 1.5), 0, projectile.owner);
+                    Main.projectile[fire].minion = true;
+                    Main.projectile[fire].minionSlots = 0f;
+                }
+                else
+                {
+                    flaming = false;
+                }
                 if (vector132.Length() < 300f) scaleFactor15 = 0.8f;
-                if (vector132.Length() > nPC14.Size.Length() * 0.75f)
+                if (vector132.Length() > (nPC14.Size.Length() * 0.75f + 100f))
                 {
                     projectile.velocity += Vector2.Normalize(vector132) * scaleFactor15 * 1.5f;
                     if (Vector2.Dot(projectile.velocity, vector132) < 0.25f) projectile.velocity *= 0.8f;
@@ -174,6 +197,9 @@ namespace AAMod.Projectiles.Akuma.Lung
                     projectile.alpha = 0;
                 }
             }
+
+            float DamageBoost = Main.player[projectile.owner].minionDamage + Main.player[projectile.owner].allDamage - 1f;
+            projectile.damage = (int)(DamageBoost > 0f? (projectile.localAI[0] * 60 * DamageBoost) : 1);
         }
     }
 
@@ -194,7 +220,8 @@ namespace AAMod.Projectiles.Akuma.Lung
             projectile.timeLeft = 18000;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             projectile.timeLeft *= 5;
-            projectile.minionSlots = 1f;
+            projectile.minionSlots = .5f;
+            projectile.GetGlobalProjectile<AAGlobalProjectile>().LongMinion = true;
         }
         public override Color? GetAlpha(Color lightColor)
         {
@@ -221,10 +248,15 @@ namespace AAMod.Projectiles.Akuma.Lung
             return false;
         }
 
+        public override void OnHitNPC(NPC npc, int damage, float knockback, bool crit)
+        {
+            npc.immune[projectile.owner] = 6;
+        }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 
             if ((int)Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
@@ -304,6 +336,8 @@ namespace AAMod.Projectiles.Akuma.Lung
             projectile.Center = projectile.position;
             if (vector134 != Vector2.Zero) projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
             projectile.spriteDirection = vector134.X > 0f ? 1 : -1;
+
+            projectile.damage = Main.projectile[byUUID].damage;
         }
 
         public override void Kill(int timeLeft)
@@ -342,6 +376,7 @@ namespace AAMod.Projectiles.Akuma.Lung
             projectile.timeLeft = 18000;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             projectile.timeLeft *= 5;
+            projectile.GetGlobalProjectile<AAGlobalProjectile>().LongMinion = true;
         }
         public override Color? GetAlpha(Color lightColor)
         {
@@ -368,10 +403,15 @@ namespace AAMod.Projectiles.Akuma.Lung
             return false;
         }
 
+        public override void OnHitNPC(NPC npc, int damage, float knockback, bool crit)
+        {
+            npc.immune[projectile.owner] = 6;
+        }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 
             if ((int)Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
@@ -458,6 +498,8 @@ namespace AAMod.Projectiles.Akuma.Lung
             projectile.Center = projectile.position;
             if (vector134 != Vector2.Zero) projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
             projectile.spriteDirection = vector134.X > 0f ? 1 : -1;
+
+            projectile.damage = Main.projectile[byUUID].damage;
         }
     }
 }

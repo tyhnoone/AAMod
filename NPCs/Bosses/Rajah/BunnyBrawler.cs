@@ -49,7 +49,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if (Main.netMode == 2 || Main.dedServ)
+            if (Main.netMode == NetmodeID.Server || Main.dedServ)
             {
                 writer.Write(SetLife);
             }
@@ -58,7 +58,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 SetLife = reader.ReadBool(); //Set Lifex
             }
@@ -87,16 +87,8 @@ namespace AAMod.NPCs.Bosses.Rajah
 
         public override void PostAI()
         {
-            if (NPC.AnyNPCs(mod.NPCType<Rajah>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah2>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah3>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah4>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah5>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah6>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah7>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah8>()) ||
-                   NPC.AnyNPCs(mod.NPCType<Rajah9>()) ||
-                   NPC.AnyNPCs(mod.NPCType<SupremeRajah>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<Rajah>()) ||
+                   NPC.AnyNPCs(ModContent.NPCType<SupremeRajah>()))
             {
                 if (npc.alpha > 0)
                 {
@@ -121,40 +113,7 @@ namespace AAMod.NPCs.Bosses.Rajah
             }
         }
     }
-    public class BunnyBrawler1 : BunnyBrawler
-    {
-        public override string Texture => "AAMod/NPCs/Bosses/Rajah/BunnyBrawler";
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            npc.damage = 120;
-            npc.defense = 70;
-            npc.lifeMax = 600;
-        }
-    }
     public class BunnyBrawler2 : BunnyBrawler
-    {
-        public override string Texture => "AAMod/NPCs/Bosses/Rajah/BunnyBrawler";
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            npc.damage = 140;
-            npc.defense = 70;
-            npc.lifeMax = 800;
-        }
-    }
-    public class BunnyBrawler3 : BunnyBrawler
-    {
-        public override string Texture => "AAMod/NPCs/Bosses/Rajah/BunnyBrawler";
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            npc.damage = 155;
-            npc.defense = 90;
-            npc.lifeMax = 1200;
-        }
-    }
-    public class BunnyBrawler4 : BunnyBrawler
     {
         public override string Texture => "AAMod/NPCs/Bosses/Rajah/BunnyBrawler";
         public override void SetDefaults()
@@ -171,7 +130,7 @@ namespace AAMod.NPCs.Bosses.Rajah
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            if (NPC.AnyNPCs(mod.NPCType<SupremeRajah>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<SupremeRajah>()))
             {
                 BaseDrawing.DrawAfterimage(spriteBatch, Main.npcTexture[npc.type], 0, npc, 1f, 1f, 10, true, 0f, 0f, Main.DiscoColor);
             }

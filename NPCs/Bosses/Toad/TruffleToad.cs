@@ -13,11 +13,12 @@ namespace AAMod.NPCs.Bosses.Toad
     public class TruffleToad : ModNPC
     {
         public float bossLife;
+        public int damage = 0;
 
         public override void SendExtraAI(BinaryWriter writer)
         {
             base.SendExtraAI(writer);
-            if (Main.netMode == 2 || Main.dedServ)
+            if (Main.netMode == NetmodeID.Server || Main.dedServ)
             {
                 writer.Write(internalAI[0]);
                 writer.Write(internalAI[1]);
@@ -33,7 +34,7 @@ namespace AAMod.NPCs.Bosses.Toad
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             base.ReceiveExtraAI(reader);
-            if (Main.netMode == 1)
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 internalAI[0] = reader.ReadFloat();
                 internalAI[1] = reader.ReadFloat();
@@ -54,8 +55,8 @@ namespace AAMod.NPCs.Bosses.Toad
 
         public override void SetDefaults()
         {
-            npc.lifeMax = 3000;
-            npc.damage = 30;
+            npc.lifeMax = 2000;
+            npc.damage = 20;
             npc.defense = 10;
             npc.knockBackResist = 0f;
             npc.value = Item.sellPrice(0, 5, 0, 0);
@@ -88,6 +89,14 @@ namespace AAMod.NPCs.Bosses.Toad
 
         public override void AI()
         {
+            if (Main.expertMode)
+            {
+                damage = npc.damage / 4;
+            }
+            else
+            {
+                damage = npc.damage / 2;
+            }
             npc.TargetClosest();
             Player player = Main.player[npc.target]; // makes it so you can reference the player the npc is targetting
             AAModGlobalNPC.Toad = npc.whoAmI;
@@ -111,7 +120,7 @@ namespace AAMod.NPCs.Bosses.Toad
                 float dist = npc.Distance(player.Center);
                 if (dist > 800)
                 {
-                    npc.alpha += 5;
+                    npc.alpha += 3;
                     if (npc.alpha >= 255)
                     {
                         Vector2 tele = new Vector2(player.Center.X + (Main.rand.Next(2) == 0 ? 300 : -300), player.Center.Y - 16);
@@ -121,7 +130,7 @@ namespace AAMod.NPCs.Bosses.Toad
                 }
                 else
                 {
-                    npc.alpha -= 3;
+                    npc.alpha -= 5;
                     if (npc.alpha <= 0)
                     {
                         npc.alpha = 0;
@@ -137,14 +146,14 @@ namespace AAMod.NPCs.Bosses.Toad
                 npc.defense = (int)(npc.defDefense * ShroomCount);
                 AIChangeRate = 120;
                 JumpX = 8f; JumpY = -10f; JumpX2 = 10f; JumpY2 = -14f;
-                if (Main.netMode != 2 && Main.player[Main.myPlayer].miscCounter % 2 == 0)
+                if (Main.netMode != 2 && Main.LocalPlayer.miscCounter % 2 == 0)
                 {
                     for (int m = 0; m < Shrooms.Length; m++)
                     {
                         NPC npc2 = Main.npc[Shrooms[m]];
                         if (npc2 != null && npc2.active)
                         {
-                            int dustID = Dust.NewDust(npc2.position, npc2.width, npc2.height, mod.DustType<Dusts.ShroomDust>());
+                            int dustID = Dust.NewDust(npc2.position, npc2.width, npc2.height, ModContent.DustType<Dusts.ShroomDust>());
                             Main.dust[dustID].position += npc.position - npc.oldPosition;
                             Main.dust[dustID].velocity = (npc.Center - npc2.Center) * 0.10f;
                             Main.dust[dustID].noGravity = true;
@@ -219,11 +228,11 @@ namespace AAMod.NPCs.Bosses.Toad
                         internalAI[2] = 0;
                         if (npc.direction == -1)
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(-6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-2, 0)), mod.ProjectileType("ToadBomb"), 35, 3);
+                            Projectile.NewProjectile(npc.Center, new Vector2(-6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-2, 0)), mod.ProjectileType("ToadBomb"), damage, 3);
                         }
                         else
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-2, 0)), mod.ProjectileType("ToadBomb"), 35, 3);
+                            Projectile.NewProjectile(npc.Center, new Vector2(6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-2, 0)), mod.ProjectileType("ToadBomb"), damage, 3);
                         }
                         npc.netUpdate = true;
                     }
@@ -272,11 +281,11 @@ namespace AAMod.NPCs.Bosses.Toad
                         internalAI[2] = 0;
                         if (npc.direction == -1)
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(-6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-2, 0)), mod.ProjectileType("FungusBubble"), 35, 3);
+                            Projectile.NewProjectile(npc.Center, new Vector2(-6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-2, 0)), mod.ProjectileType("FungusBubble"), damage, 3);
                         }
                         else
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-2, 0)), mod.ProjectileType("FungusBubble"), 35, 3);
+                            Projectile.NewProjectile(npc.Center, new Vector2(6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-2, 0)), mod.ProjectileType("FungusBubble"), damage, 3); //Originally 35 damage
                         }
                         npc.netUpdate = true;
                     }
@@ -357,7 +366,7 @@ namespace AAMod.NPCs.Bosses.Toad
                         }
                         for (int a = 0; a < 4; a++)
                         {
-                            NPC.NewNPC((int)(npc.position.X + Main.rand.Next(40)), (int)(npc.position.Y + npc.height), mod.NPCType<GlowshroomGrow>());
+                            NPC.NewNPC((int)(npc.position.X + Main.rand.Next(40)), (int)(npc.position.Y + npc.height), ModContent.NPCType<GlowshroomGrow>());
                         }
                         internalAI[0] = AISTATE_JUMP;
                         internalAI[1] = 0;
@@ -426,11 +435,11 @@ namespace AAMod.NPCs.Bosses.Toad
                         internalAI[2] = 0;
                         if (npc.direction == -1)
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(-6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-1, 0)), mod.ProjectileType("ToadBubble"), 35, 3);
+                            Projectile.NewProjectile(npc.Center, new Vector2(-6 + Main.rand.Next(0, 6), -4 + Main.rand.Next(-1, 0)), mod.ProjectileType("ToadBubble"), damage, 3);
                         }
                         else
                         {
-                            Projectile.NewProjectile(npc.Center, new Vector2(6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-1, 0)), mod.ProjectileType("ToadBubble"), 35, 3);
+                            Projectile.NewProjectile(npc.Center, new Vector2(6 + Main.rand.Next(-6, 0), -4 + Main.rand.Next(-1, 0)), mod.ProjectileType("ToadBubble"), damage, 3);
                         }
                         npc.netUpdate = true;
                     }
@@ -452,9 +461,9 @@ namespace AAMod.NPCs.Bosses.Toad
                 npc.velocity.X *= .98f;
                 if (internalAI[1] == 35)
                 {
-                    NPC.NewNPC((int)(npc.Center.X - 30f), (int)(npc.Center.Y - 16), mod.NPCType<TinyToad>());
-                    NPC.NewNPC((int)npc.Center.X, (int)(npc.Center.Y - 16), mod.NPCType<TinyToad>());
-                    NPC.NewNPC((int)(npc.Center.X + 30f), (int)(npc.Center.Y - 16), mod.NPCType<TinyToad>());
+                    NPC.NewNPC((int)(npc.Center.X - 30f), (int)(npc.Center.Y - 16), ModContent.NPCType<TinyToad>());
+                    NPC.NewNPC((int)npc.Center.X, (int)(npc.Center.Y - 16), ModContent.NPCType<TinyToad>());
+                    NPC.NewNPC((int)(npc.Center.X + 30f), (int)(npc.Center.Y - 16), ModContent.NPCType<TinyToad>());
                 }
                 if (internalAI[1] >= 100)
                 {
@@ -540,7 +549,7 @@ namespace AAMod.NPCs.Bosses.Toad
             Texture2D GlowTex = mod.GetTexture("Glowmasks/TruffleToad_Glow");
 
             BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc, dColor, true);
-            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, GenericUtils.COLOR_GLOWPULSE, true);
+            BaseDrawing.DrawTexture(sb, GlowTex, 0, npc, ColorUtils.COLOR_GLOWPULSE, true);
             return false;
         }
     }

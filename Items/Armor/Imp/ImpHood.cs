@@ -1,5 +1,7 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Imp
@@ -36,9 +38,9 @@ namespace AAMod.Items.Armor.Imp
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("ImpHoodBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.ImpHoodBonus");
 
-            player.GetModPlayer<AAPlayer>(mod).impSet = true;
+            player.GetModPlayer<AAPlayer>().impSet = true;
         }
 
         public override void AddRecipes()
@@ -46,7 +48,7 @@ namespace AAMod.Items.Armor.Imp
             {
                 ModRecipe recipe = new ModRecipe(mod);
                 recipe.AddIngredient(null, "DevilSilk", 6);
-                recipe.AddTile(null, "HellstoneAnvil");
+                recipe.AddTile(TileID.Loom);
                 recipe.SetResult(this);
                 recipe.AddRecipe();
             }

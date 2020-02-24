@@ -6,6 +6,7 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
 {
     internal class AkumaABreath : ModProjectile
     {
+        public override string Texture => "AAMod/BlankTex";
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Blazing Fury");
@@ -46,22 +47,21 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                     num296 = 0.75f;
                 }
                 projectile.ai[0] += 1f;
-                int num297 = mod.DustType<Dusts.AkumaADust>();
+                int num297 = ModContent.DustType<Dusts.AkumaADust>();
                 if (Main.rand.Next(2) == 0)
                 {
                     for (int num298 = 0; num298 < 3; num298++)
                     {
                         int num299 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, num297, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100);
+                        Main.dust[num299].noGravity = true;
                         if (Main.rand.Next(3) == 0)
                         {
-                            Main.dust[num299].noGravity = true;
                             Main.dust[num299].scale *= 2f;
                             Dust expr_DD5D_cp_0 = Main.dust[num299];
                             expr_DD5D_cp_0.velocity.X *= 2f;
                             Dust expr_DD7D_cp_0 = Main.dust[num299];
                             expr_DD7D_cp_0.velocity.Y *= 2f;
                         }
-                        Main.dust[num299].scale *= 1f;
                         Dust expr_DDE2_cp_0 = Main.dust[num299];
                         expr_DDE2_cp_0.velocity.X *= 1.2f;
                         Dust expr_DE02_cp_0 = Main.dust[num299];

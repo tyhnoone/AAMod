@@ -1,8 +1,13 @@
+using BaseMod;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
+using AAMod.NPCs.Bosses.Anubis.Forsaken;
 
 namespace AAMod.NPCs.TownNPCs
 {
@@ -30,7 +35,27 @@ namespace AAMod.NPCs.TownNPCs
 			NPCID.Sets.HatOffsetY[npc.type] = 3;
 		}
 
-		public override void SetDefaults()
+        public float internalAI = 0;
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            if (Main.netMode == NetmodeID.Server || Main.dedServ)
+            {
+                writer.Write(internalAI);
+            }
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                internalAI = reader.ReadFloat();
+            }
+        }
+
+        public override void SetDefaults()
 		{
 			npc.townNPC = true;
 			npc.friendly = true;
@@ -56,26 +81,29 @@ namespace AAMod.NPCs.TownNPCs
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
-		{
-			for (int k = 0; k < 255; k++)
-			{
-				Player player = Main.player[k];
-				if (player.active)
-				{
+        {
+            for (int k = 0; k < 255; k++)
+            {
+                Player player = Main.player[k];
+                if (player.active && !NPC.AnyNPCs(ModContent.NPCType<Bosses.Anubis.Anubis>()) && 
+                    !NPC.AnyNPCs(ModContent.NPCType<FATransition>()) &&
+                    !NPC.AnyNPCs(ModContent.NPCType<FATransition2>()) &&
+                    !NPC.AnyNPCs(ModContent.NPCType<ForsakenAnubis>()))
+                {
                     return true;
                 }
-			}
-			return false;
+            }
+            return false;
 		}
 
 		public override string TownNPCName()
 		{
-			switch (WorldGen.genRand.Next(4))
-			{
-                default:
-					return "Anubis";
-			}
-		}
+            return "Anubis";
+        }
+
+        public override void PostAI()
+        {
+        }
 
         public static bool SwitchInfo = false;
         public static bool DoNext = false;
@@ -86,17 +114,19 @@ namespace AAMod.NPCs.TownNPCs
         public static bool Hydra = false;
         public static bool Djinn = false;
         public static bool Serpent = false;
-        public static bool Retriever = false;
-        public static bool Raider = false;
-        public static bool Orthrus = false;
-        public static bool Equinox = false;
         public static bool AnubisB = false;
+        public static bool Athena = false;
+        public static bool Greed = false;
+        public static bool Rajah = false;
+        public static bool AthenaA = false;
+        public static bool GreedA = false;
+        public static bool Equinox = false;
         public static bool Sisters = false;
         public static bool Akuma = false;
         public static bool Yamata = false;
         public static bool Zero = false;
         public static bool Shen = false;
-        public static bool Stones = false;
+        public static bool RajahC = false;
         public static bool BaseChat = false;
         public static int ChatNumber = 0;
 
@@ -111,14 +141,19 @@ namespace AAMod.NPCs.TownNPCs
             Hydra = false;
             Djinn = false;
             Serpent = false;
-            Equinox = false;
             AnubisB = false;
+            Athena = false;
+            Greed = false;
+            Rajah = false;
+            AthenaA = false;
+            GreedA = false;
+            Equinox = false;
             Sisters = false;
             Akuma = false;
             Yamata = false;
             Zero = false;
             Shen = false;
-            Stones = false;
+            RajahC = false;
         }
         
         public override void SetChatButtons(ref string button, ref string button2)
@@ -141,9 +176,19 @@ namespace AAMod.NPCs.TownNPCs
 
             string SerpentT = Lang.TownNPCAnubis("SetChatButtons9");
 
-            string EquinoxT = Lang.TownNPCAnubis("SetChatButtons13");
-
             string AnubisT = Lang.TownNPCAnubis("SetChatButtons14");
+
+            string AthenaT = Lang.TownNPCAnubis("SetChatButtons21");
+
+            string GreedT = Lang.TownNPCAnubis("SetChatButtons22");
+
+            string RajahT = Lang.TownNPCAnubis("SetChatButtons23");
+
+            string AthenaAT = Lang.TownNPCAnubis("SetChatButtons24");
+
+            string GreedAT = Lang.TownNPCAnubis("SetChatButtons25");
+
+            string EquinoxT = Lang.TownNPCAnubis("SetChatButtons13");
 
             string SistersT = Lang.TownNPCAnubis("SetChatButtons15");
 
@@ -155,7 +200,8 @@ namespace AAMod.NPCs.TownNPCs
 
             string ShenT = Lang.TownNPCAnubis("SetChatButtons19");
 
-            string StonesT = Lang.TownNPCAnubis("SetChatButtons20");
+            string RajahCT = Lang.TownNPCAnubis("SetChatButtons26");
+            
             button = SwitchInfoT;
 
             if (ChatNumber == 0)
@@ -198,45 +244,70 @@ namespace AAMod.NPCs.TownNPCs
                 button2 = SerpentT;
                 Serpent = true;
             }
-            else if (ChatNumber == 8 && NPC.downedMoonlord)
-            {
-                button2 = EquinoxT;
-                Equinox = true;
-            }
-            else if (ChatNumber == 9 && NPC.downedMoonlord)
+            else if (ChatNumber == 8 && NPC.downedPlantBoss)
             {
                 button2 = AnubisT;
                 AnubisB = true;
             }
-            else if (ChatNumber == 10 && NPC.downedMoonlord && AAWorld.downedEquinox)
+            else if (ChatNumber == 9 && AAWorld.downedAnubis)
+            {
+                button2 = AthenaT;
+                Athena = true;
+            }
+            else if (ChatNumber == 10 && AAWorld.downedAnubis)
+            {
+                button2 = GreedT;
+                Greed = true;
+            }
+            else if (ChatNumber == 11 && Main.hardMode)
+            {
+                button2 = RajahT;
+                Rajah = true;
+            }
+            else if (ChatNumber == 12 && NPC.downedMoonlord && AAWorld.downedAnubis && AAWorld.downedAthena)
+            {
+                button2 = AthenaAT;
+                AthenaA = true;
+            }
+            else if (ChatNumber == 13 && NPC.downedMoonlord && AAWorld.downedAnubis && AAWorld.downedGreed)
+            {
+                button2 = GreedAT;
+                GreedA = true;
+            }
+            else if (ChatNumber == 14 && AAWorld.downedGreedA && AAWorld.downedAthenaA)
+            {
+                button2 = EquinoxT;
+                Equinox = true;
+            }
+            else if (ChatNumber == 15 && NPC.downedMoonlord && AAWorld.downedEquinox)
             {
                 button2 = SistersT;
                 Sisters = true;
             }
-            else if (ChatNumber == 11 && NPC.downedMoonlord && AAWorld.downedSisters)
+            else if (ChatNumber == 16 && NPC.downedMoonlord && AAWorld.downedSisters)
             {
                 button2 = AkumaT;
                 Akuma = true;
             }
-            else if (ChatNumber == 12 && NPC.downedMoonlord && AAWorld.downedSisters)
+            else if (ChatNumber == 17 && NPC.downedMoonlord && AAWorld.downedSisters)
             {
                 button2 = YamataT;
                 Yamata = true;
             }
-            else if (ChatNumber == 13 && NPC.downedMoonlord && AAWorld.downedNC)
+            else if (ChatNumber == 18 && NPC.downedMoonlord && AAWorld.downedNC)
             {
                 button2 = ZeroT;
                 Zero = true;
             }
-            else if (ChatNumber == 14 && AAWorld.downedAllAncients)
+            else if (ChatNumber == 19 && AAWorld.downedAllAncients)
             {
                 button2 = ShenT;
                 Shen = true;
             }
-            else if (ChatNumber == 15 && AAWorld.downedShen)
+            else if (ChatNumber == 20 && AAWorld.downedRajahsRevenge)
             {
-                button2 = StonesT;
-                Stones = true;
+                button2 = RajahCT;
+                RajahC = true;
             }
             else
             {
@@ -248,6 +319,7 @@ namespace AAMod.NPCs.TownNPCs
 
         public void ResetBools()
         {
+            DoNext = false;
             Mushroom = false;
             Glowshroom = false;
             Grips = false;
@@ -255,14 +327,19 @@ namespace AAMod.NPCs.TownNPCs
             Hydra = false;
             Djinn = false;
             Serpent = false;
+            AnubisB = false;
+            Athena = false;
+            Greed = false;
+            Rajah = false;
+            AthenaA = false;
+            GreedA = false;
             Equinox = false;
-            DoNext = false;
             Sisters = false;
             Akuma = false;
             Yamata = false;
             Zero = false;
             Shen = false;
-            Stones = true;
+            RajahC = false;
         }
 
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -271,19 +348,153 @@ namespace AAMod.NPCs.TownNPCs
 			{
 				ResetBools();
 				ChatNumber += 1;
-				if (ChatNumber > 17)
+				if (ChatNumber > 23)
 				{
 					ChatNumber = 0;
 				}
 			}
 			else
-			{
-				Main.npcChatText = BossChat();
+            {
+                Player player = Main.LocalPlayer;
+                int Item = player.FindItem(ModContent.ItemType<Items.Misc.AnubisBook>());
+                if (Item >= 0 && !player.GetModPlayer<AAPlayer>().AnubisBook && Greed)
+                {
+                    player.inventory[Item].stack--;
+                    if (player.inventory[Item].stack <= 0)
+                    {
+                        player.inventory[Item] = new Item();
+                    }
+
+                    Main.npcChatText = Lang.TownNPCAnubis("GetBookChat");
+                    //player.QuickSpawnItem(Terraria.ModLoader.ModContent.ItemType<Items.Magic.AnubisTome>(), 1);
+
+                    Main.PlaySound(24, -1, -1, 1);
+                    return;
+                }
+                Main.npcChatText = BossChat();
 			}
 		}
 
+        public override bool PreAI()
+        {
+            if (NPC.AnyNPCs(ModContent.NPCType<Bosses.Anubis.Anubis>()) ||
+                NPC.AnyNPCs(ModContent.NPCType<FATransition>()) ||
+                NPC.AnyNPCs(ModContent.NPCType<FATransition2>()) ||
+                NPC.AnyNPCs(ModContent.NPCType<ForsakenAnubis>()))
+            {
+                TPDust();
+                npc.active = false;
+            }
+            if (Vector2.Distance(npc.position, new Vector2(npc.homeTileX, npc.homeTileY)) > 3000 && internalAI < 240 && !npc.homeless)
+            {
+                internalAI++;
+                if (internalAI >= 240)
+                {
+                    bool flag4 = true;
+                    int num3 = npc.homeTileY;
+                    for (int k = 0; k < 2; k++)
+                    {
+                        Rectangle rectangle = new Rectangle((int)(npc.position.X + npc.width / 2 - NPC.sWidth / 2 - NPC.safeRangeX), (int)(npc.position.Y + npc.height / 2 - NPC.sHeight / 2 - NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+                        if (k == 1)
+                        {
+                            rectangle = new Rectangle(npc.homeTileX * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+                        }
+                        for (int l = 0; l < 255; l++)
+                        {
+                            if (Main.player[l].active)
+                            {
+                                Rectangle rectangle2 = new Rectangle((int)Main.player[l].position.X, (int)Main.player[l].position.Y, Main.player[l].width, Main.player[l].height);
+                                if (rectangle2.Intersects(rectangle))
+                                {
+                                    flag4 = false;
+                                    break;
+                                }
+                            }
+                            if (!flag4)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    if (flag4)
+                    {
+                        if (!Collision.SolidTiles(npc.homeTileX - 1, npc.homeTileX + 1, num3 - 3, num3 - 1))
+                        {
+                            TPDust();
+                            CombatText.NewText(npc.Hitbox, Color.Gold, Lang.TownNPCAnubis("CombatTextChat"));
+                            npc.velocity.X = 0f;
+                            npc.velocity.Y = 0f;
+                            npc.position.X = npc.homeTileX * 16 + 8 - npc.width / 2;
+                            npc.position.Y = num3 * 16 - npc.height - 0.1f;
+                            npc.netUpdate = true;
+                            internalAI = 0;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            Texture2D t = mod.GetTexture(AAWorld.downedAnubisA ? "NPCs/TownNPCs/AnubisF" : "NPCs/TownNPCs/Anubis");
+            Texture2D g = mod.GetTexture(AAWorld.downedAnubisA ? "Glowmasks/AnubisF_Glow" : "Glowmasks/Anubis_Glow");
+            BaseDrawing.DrawTexture(spriteBatch, t, 0, npc, drawColor);
+            BaseDrawing.DrawTexture(spriteBatch, g, 0, npc, Color.White);
+            return false;
+        }
+
+        public void TPDust()
+        {
+            Vector2 position = npc.Center + (Vector2.One * -20f);
+            int num84 = 40;
+            int height3 = num84;
+            for (int num85 = 0; num85 < 3; num85++)
+            {
+                int num86 = Dust.NewDust(position, num84, height3, 240, 0f, 0f, 100, default, 1.5f);
+                Main.dust[num86].position = npc.Center + (Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * num84 / 2f);
+            }
+            for (int num87 = 0; num87 < 15; num87++)
+            {
+                int num88 = Dust.NewDust(position, num84, height3, DustID.GoldCoin, 0f, 0f, 50, default, 3.7f);
+                Main.dust[num88].position = npc.Center + (Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * num84 / 2f);
+                Main.dust[num88].noGravity = true;
+                Main.dust[num88].noLight = true;
+                Main.dust[num88].velocity *= 3f;
+                Main.dust[num88].velocity += npc.DirectionTo(Main.dust[num88].position) * (2f + (Main.rand.NextFloat() * 4f));
+                num88 = Dust.NewDust(position, num84, height3, DustID.GoldCoin, 0f, 0f, 25, default, 1.5f);
+                Main.dust[num88].position = npc.Center + (Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * num84 / 2f);
+                Main.dust[num88].velocity *= 2f;
+                Main.dust[num88].noGravity = true;
+                Main.dust[num88].fadeIn = 1f;
+                Main.dust[num88].color = Color.Black * 0.5f;
+                Main.dust[num88].noLight = true;
+                Main.dust[num88].velocity += npc.DirectionTo(Main.dust[num88].position) * 8f;
+            }
+            for (int num89 = 0; num89 < 10; num89++)
+            {
+                int num90 = Dust.NewDust(position, num84, height3, DustID.GoldCoin, 0f, 0f, 0, default, 2.7f);
+                Main.dust[num90].position = npc.Center + (Vector2.UnitX.RotatedByRandom(3.1415927410125732).RotatedBy(npc.velocity.ToRotation(), default) * num84 / 2f);
+                Main.dust[num90].noGravity = true;
+                Main.dust[num90].noLight = true;
+                Main.dust[num90].velocity *= 3f;
+                Main.dust[num90].velocity += npc.DirectionTo(Main.dust[num90].position) * 2f;
+            }
+            for (int num91 = 0; num91 < 30; num91++)
+            {
+                int num92 = Dust.NewDust(position, num84, height3, DustID.GoldCoin, 0f, 0f, 0, default, 1.5f);
+                Main.dust[num92].position = npc.Center + (Vector2.UnitX.RotatedByRandom(3.1415927410125732).RotatedBy(npc.velocity.ToRotation(), default) * num84 / 2f);
+                Main.dust[num92].noGravity = true;
+                Main.dust[num92].velocity *= 3f;
+                Main.dust[num92].velocity += npc.DirectionTo(Main.dust[num92].position) * 3f;
+            }
+        }
+
+        public static bool DoG => (bool)ModSupport.GetModWorldConditions("CalamityMod", "CalamityWorld", "downedDoG", false, true);
+
         public static string BossChat()
         {
+            Player player = Main.LocalPlayer;
             if (Mushroom)
             {
                 return AAWorld.downedMonarch ? Lang.TownNPCAnubis("downedMonarchY") : 
@@ -319,14 +530,54 @@ namespace AAMod.NPCs.TownNPCs
                 return AAWorld.downedSerpent ? Lang.TownNPCAnubis("downedSerpentY") : 
                     Lang.TownNPCAnubis("downedSerpentN");
             }
+            else if (AnubisB)
+            {
+                if (!BasePlayer.HasItem(player, ModContent.ItemType<Items.BossSummons.Scepter>()))
+                {
+                    player.QuickSpawnItem(ModContent.ItemType<Items.BossSummons.Scepter>(), 1);
+                    return Lang.TownNPCAnubis("AnubisScapterLost"); 
+                }
+
+                return AAWorld.downedAnubis ? Lang.TownNPCAnubis("downedAnubisBY") :
+                    Lang.TownNPCAnubis("downedAnubisBN");
+            }
+            else if (Athena)
+            {
+                return AAWorld.downedAthena ? Lang.TownNPCAnubis("downedAthenaY") :
+                    Lang.TownNPCAnubis("downedAthenaN");
+            }
+            else if (Greed)
+            {
+                return AAWorld.downedGreed ? (player.GetModPlayer<AAPlayer>().AnubisBook ? Lang.TownNPCAnubis("downedGreedYBookY") : 
+                    Lang.TownNPCAnubis("downedGreedYBookN")) :
+                    Lang.TownNPCAnubis("downedGreedN");
+            }
+            else if (Rajah)
+            {
+                return AAWorld.downedRajah ? Lang.TownNPCAnubis("downedRajahY") :
+                    Lang.TownNPCAnubis("downedRajahN");
+            }
+            else if (AthenaA)
+            {
+                return AAWorld.downedAthenaA ? Lang.TownNPCAnubis("downedAthenaAY") :
+                    Lang.TownNPCAnubis("downedAthenaAN");
+            }
+            else if (GreedA)
+            {
+                if (ModSupport.GetMod("CalamityMod") != null)
+                {
+                    if (DoG && AAWorld.downedGreedA)
+                    {
+                        return Lang.TownNPCAnubis("GreedACalamityMod");
+                    }
+                }
+                return AAWorld.downedGreedA ? Lang.TownNPCAnubis("downedGreedAY") :
+                    Lang.TownNPCAnubis("downedGreedAN");
+            }
             else if (Equinox)
             {
                 return AAWorld.downedEquinox ? Lang.TownNPCAnubis("downedEquinoxY") : 
                     Lang.TownNPCAnubis("downedEquinoxN");
-            }
-            else if (AnubisB)
-            {
-                return Lang.TownNPCAnubis("AnubisB");
             }
             else if (Sisters)
             {
@@ -353,29 +604,30 @@ namespace AAMod.NPCs.TownNPCs
                 return AAWorld.downedShen ? Lang.TownNPCAnubis("downedShenY") :
                     Lang.TownNPCAnubis("downedShenN");
             }
-            else if (Stones)
+            else if (RajahC)
             {
-                return Lang.TownNPCAnubis("Stones");
+                return AAWorld.downedShen ?  Lang.TownNPCAnubis("downedRajahCY") :
+                    Lang.TownNPCAnubis("downedRajahCN");
             }
             else
             {
-                return Lang.TownNPCAnubis("else");
+                return GuideChat();
             }
         }
 
-        public string GuideChat()
+        public static string GuideChat()
         {
             WeightedRandom<string> chat = new WeightedRandom<string>();
 
-            if (!AAWorld.downedAkuma)
+            if (!AAWorld.downedYamata)
             {
                 chat.Add(Lang.TownNPCAnubis("AkumaGuideChat"));
             }
-            if (!AAWorld.downedYamata)
+
+            if (!AAWorld.downedAkuma)
             {
                 chat.Add(Lang.TownNPCAnubis("YamataGuideChat"));
             }
-            chat.Add(Lang.TownNPCAnubis("JungleGuideChat"));
             if (Main.rand.Next(2) == 0)
             {
                 chat.Add(Lang.TownNPCAnubis("BroodMotherGuideChat"));
@@ -390,10 +642,7 @@ namespace AAMod.NPCs.TownNPCs
                 chat.Add(Lang.TownNPCAnubis("HardModeGuideChat1"));
                 chat.Add(Lang.TownNPCAnubis("HardModeGuideChat2"));
             }
-            if (NPC.downedPlantBoss)
-            {
-                chat.Add(Lang.TownNPCAnubis("PlantBossGuideChat"));
-            }
+
             if (AAWorld.downedEquinox)
             {
                 chat.Add(Lang.TownNPCAnubis("EquinoxBossGuideChat"));
@@ -403,18 +652,26 @@ namespace AAMod.NPCs.TownNPCs
 
         public override string GetChat()
         {
-            Mod GRealm = ModLoader.GetMod("Grealm");
-            Mod Fargos = ModLoader.GetMod("Fargowiltas");
-            Mod Redemption = ModLoader.GetMod("Redemption");
-            Mod Thorium = ModLoader.GetMod("ThoriumMod");
+            Mod GRealm = ModSupport.GetMod("Grealm");
+            Mod Fargos = ModSupport.GetMod("Fargowiltas");
+            Mod Redemption = ModSupport.GetMod("Redemption");
+            Mod Thorium = ModSupport.GetMod("ThoriumMod");
 
-            int HordeZombie = GRealm == null ? -1 : NPC.FindFirstNPC(GRealm.NPCType("HordeZombie"));
-            int Mutant = Fargos == null ? -1 : NPC.FindFirstNPC(Fargos.NPCType("Mutant"));
-            int Newb = Redemption == null ? -1 : NPC.FindFirstNPC(Redemption.NPCType("Newb"));
-            int Cobbler = Thorium == null ? -1 : NPC.FindFirstNPC(Thorium.NPCType("Cobbler"));
-            int ConfusedZombie = Thorium == null ? -1 : NPC.FindFirstNPC(Thorium.NPCType("ConfusedZombie"));
+            int HordeZombie = GRealm == null ? -1 : NPC.FindFirstNPC(ModSupport.GetModNPC("GRealm", "HordeZombie").npc.type);
+            int Mutant = Fargos == null ? -1 : NPC.FindFirstNPC(ModSupport.GetModNPC("Fargowiltas", "Mutant").npc.type);
+            int Newb = Redemption == null ? -1 : NPC.FindFirstNPC(ModSupport.GetModNPC("Redemption", "Newb").npc.type);
+            int Cobbler = Thorium == null ? -1 : NPC.FindFirstNPC(ModSupport.GetModNPC("ThoriumMod", "Cobbler").npc.type);
+            int ConfusedZombie = Thorium == null ? -1 : NPC.FindFirstNPC(ModSupport.GetModNPC("ThoriumMod", "ConfusedZombie").npc.type);
 
             WeightedRandom<string> chat = new WeightedRandom<string>();
+
+            Player player = Main.LocalPlayer;
+            AAPlayer mPlayer = player.GetModPlayer<AAPlayer>();
+
+            if (player.head == ModContent.ItemType<Items.Vanity.Mask.AnubisMask>() && Main.rand.Next(5) == 0)
+            {
+                return Lang.TownNPCAnubis("AnubisChatMask");
+            }
 
             chat.Add(Lang.TownNPCAnubis("AnubisChat1"));
             chat.Add(Lang.TownNPCAnubis("AnubisChat2"));
@@ -432,7 +689,6 @@ namespace AAMod.NPCs.TownNPCs
             chat.Add(Lang.TownNPCAnubis("AnubisChat11") + (WorldGen.crimson ? Lang.TownNPCAnubis("AnubisChat12") : Lang.TownNPCAnubis("AnubisChat13")) + Lang.TownNPCAnubis("AnubisChat14"));
             chat.Add(Lang.TownNPCAnubis("AnubisChat15"));
             
-            Player player = Main.player[Main.myPlayer];
 
 
             int FemaleNPC = NPC.FindFirstNPC(FindFemaleNPC());
@@ -455,11 +711,6 @@ namespace AAMod.NPCs.TownNPCs
             if (BirthdayParty.GenuineParty || BirthdayParty.ManualParty)
             {
                 chat.Add(Lang.TownNPCAnubis("AnubisChat21"));
-            }
-
-            if (AAWorld.DiscoBall > 0)
-            {
-                chat.Add(Lang.TownNPCAnubis("AnubisChat22"));
             }
 
             if (HordeZombie >= 0)
@@ -487,6 +738,16 @@ namespace AAMod.NPCs.TownNPCs
                 chat.Add(Lang.TownNPCAnubis("AnubisChat30") + Main.npc[ConfusedZombie].GivenName + Lang.TownNPCAnubis("AnubisChat31"));
             }
 
+            if (AAWorld.AMessage && !BasePlayer.HasItem(player, ModContent.ItemType<Items.BossSummons.Scepter>()))
+            {
+                if (!mPlayer.GivenAnuSummon)
+                {
+                    mPlayer.GivenAnuSummon = true;
+                    player.QuickSpawnItem(ModContent.ItemType<Items.BossSummons.Scepter>(), 1);
+                    return Lang.TownNPCAnubis("GetSummonItemChat");
+                }
+            }
+
             return chat;
         }
 
@@ -511,7 +772,7 @@ namespace AAMod.NPCs.TownNPCs
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
-            projType = mod.ProjectileType<JudgementNPC>();
+            projType = ModContent.ProjectileType<JudgementNPC>();
             attackDelay = 5;
         }
 

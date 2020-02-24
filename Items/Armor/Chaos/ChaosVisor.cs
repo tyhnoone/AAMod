@@ -1,6 +1,7 @@
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.Chaos
 {
@@ -35,9 +36,9 @@ namespace AAMod.Items.Armor.Chaos
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("ChaosVisorBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.ChaosVisorBonus");
             player.maxMinions += 4;
-            player.GetModPlayer<AAPlayer>(mod).doomite = true;
+            player.GetModPlayer<AAPlayer>().doomite = true;
             if (player.whoAmI == Main.myPlayer)
             {
                 if (player.FindBuffIndex(mod.BuffType("ScoutMinion")) == -1)
@@ -54,9 +55,9 @@ namespace AAMod.Items.Armor.Chaos
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("TrueDoomiteVisor"));
+			recipe.AddIngredient(mod.ItemType("DoomiteVisor"));
 			recipe.AddIngredient(null, "ChaosCrystal", 1);
-            recipe.AddTile(null, "TruePaladinsSmeltery");
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

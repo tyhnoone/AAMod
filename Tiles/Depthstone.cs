@@ -16,11 +16,12 @@ namespace AAMod.Tiles
             Main.tileBlendAll[Type] = false;
 			Main.tileMerge[TileID.Mud][Type] = true;
             Main.tileLighted[Type] = false;
+            Main.tileBlockLight[Type] = true;
             soundType = 21;
             minPick = 65;
             TileID.Sets.JungleSpecial[Type] = true;
             dustType = mod.DustType("DeepAbyssiumDust");
-            drop = mod.ItemType("Depthstone");   //put your CustomBlock name
+            drop = mod.ItemType("Depthstone");   
             AddMapEntry(new Color(27, 19, 50));
         }
     }

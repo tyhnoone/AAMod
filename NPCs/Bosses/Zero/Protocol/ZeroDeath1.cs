@@ -9,7 +9,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zero");
-            Main.projFrames[projectile.type] = 9;
+            Main.projFrames[projectile.type] = 7;
         }
         public override void SetDefaults()
         {
@@ -26,13 +26,13 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         {
             if (Main.expertMode && !AAWorld.downedZero && !linesaid)
             {
-                if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Lang.BossChat("ZeroDeath1"), Color.Red.R, Color.Red.G, Color.Red.B);
+                if (Main.netMode != 1) AAMod.Chat(Lang.BossChat("ZeroDeath1"), Color.Red.R, Color.Red.G, Color.Red.B);
                 linesaid = true;
             }
-            if (++projectile.frameCounter >= 7)
+            if (++projectile.frameCounter >= 6)
             {
                 projectile.frameCounter = 0;
-                if (++projectile.frame >= 9)
+                if (++projectile.frame >= 7)
                 {
                     projectile.Kill();
                    
@@ -46,9 +46,10 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         {
             if (!AAWorld.downedZero && Main.expertMode)
             {
-                if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Lang.BossChat("ZeroDeath3"), Color.Red.R, Color.Red.G, Color.Red.B);
+                if (Main.netMode != 1) AAMod.Chat(Lang.BossChat("ZeroDeath3"), Color.Red.R, Color.Red.G, Color.Red.B);
             }
-            Projectile.NewProjectile(new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0f, 0f), mod.ProjectileType("ZeroDeath2"), 0, 0);
+            int p = Projectile.NewProjectile(new Vector2(projectile.Center.X, projectile.Center.Y), new Vector2(0f, 0f), mod.ProjectileType("ZeroDeath2"), 0, 0);
+            Main.projectile[p].Center = projectile.Center;
         }
     }
 }

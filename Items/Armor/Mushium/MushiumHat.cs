@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Mushium
@@ -11,7 +12,7 @@ namespace AAMod.Items.Armor.Mushium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Mushium Hat");
-			Tooltip.SetDefault("2% Increased life regeneration");
+			Tooltip.SetDefault("1% Increased life regeneration");
 
 		}
 
@@ -27,7 +28,7 @@ namespace AAMod.Items.Armor.Mushium
 		
 		public override void UpdateEquip(Player player)
         {
-            player.lifeRegen += 2;
+            player.lifeRegen += 1;
         }
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -37,7 +38,7 @@ namespace AAMod.Items.Armor.Mushium
 
 		public override void UpdateArmorSet(Player player)
 		{
-            player.setBonus = Lang.ArmorBonus("MushiumHatBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.MushiumHatBonus");
             player.pStone = true;
 		}
 

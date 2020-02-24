@@ -16,7 +16,7 @@ namespace AAMod.Items.Summoning
         public override void SetDefaults()
         {
             item.mana = 20;
-            item.damage = 90;
+            item.damage = 50;
             item.useStyle = 1;
             item.shootSpeed = 10f;
             item.shoot = mod.ProjectileType("DragonHead");
@@ -41,8 +41,27 @@ namespace AAMod.Items.Summoning
 			}
 		}
 
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2 && player.controlUseItem && player.releaseUseItem)
+            {
+                player.MinionNPCTargetAim();
+                player.UpdateMinionTarget();
+            }
+            return true;
+        }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            if (player.altFunctionUse == 2)
+            {
+                return false;
+            }
             //to fix tail disapearing meme
             float slotsUsed = 0;
 
@@ -97,7 +116,7 @@ namespace AAMod.Items.Summoning
                 }
 
                 Main.projectile[current].localAI[1] = tailCheck;
-
+                
                 Main.projectile[tailCheck].ai[0] = current;
                 Main.projectile[tailCheck].netUpdate = true;
                 Main.projectile[tailCheck].ai[1] = 1f;

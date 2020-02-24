@@ -18,12 +18,12 @@ namespace AAMod.Items.Boss.Yamata
 
 	    public override void SetDefaults()
 	    {
-	        item.damage = 110;
+	        item.damage = 130;
 	        item.ranged = true;
 	        item.width = 60;
 	        item.height = 26;
-	        item.useTime = 14;
-	        item.useAnimation = 14;
+	        item.useTime = 16;
+	        item.useAnimation = 16;
 	        item.useStyle = 5;
 	        item.noMelee = true;
 	        item.knockBack = 4.5f;
@@ -56,7 +56,7 @@ namespace AAMod.Items.Boss.Yamata
 		{
 		    float SpeedX = speedX + Main.rand.Next(-25, 26) * 0.05f;
 		    float SpeedY = speedY + Main.rand.Next(-25, 26) * 0.05f;
-		    Projectile.NewProjectile(position.X, position.Y, SpeedX, SpeedY, mod.ProjectileType<Moonblow>(), (int)(damage * 1.5f), knockBack, player.whoAmI, 0.0f, 0.0f);
+		    Projectile.NewProjectile(position.X, position.Y, SpeedX, SpeedY, ModContent.ProjectileType<Moonblow>(), (int)(damage * 1.5f), knockBack, player.whoAmI, 0.0f, 0.0f);
 		    for (int i = 0; i <= 6; i++)
 		    {
 		    	float SpeedNewX = speedX + Main.rand.Next(-45, 46) * 0.05f;

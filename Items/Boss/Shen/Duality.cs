@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -14,9 +14,8 @@ namespace AAMod.Items.Boss.Shen
             Tooltip.SetDefault(@"Chaos flares from this ancient talisman
 Combines the effects of the Taiyang Baolei and the Naitokurosu, while granting their strongest effects at all times
 Your attacks inflict Discordian Inferno
-Enemies that hit you are inflicted with Discordian Inferno
 You are immune to Terrablaze, Dragonfire, Hydratoxin, Discordian Inferno
-Attack is multiplied by 13%
+Attack is multiplied by 15%
 While in the chaos biomes, your attack multiplier is increased to 30%
 While in the Inferno, your defense is increased by 10
 While in the Mire, your speed is increased by 50%
@@ -44,7 +43,7 @@ Grants a strong dash that shreds through enemies in a fiery blaze of glory");
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             player.buffImmune[20] = true;
             player.buffImmune[22] = true;
             player.buffImmune[23] = true;
@@ -79,42 +78,19 @@ Grants a strong dash that shreds through enemies in a fiery blaze of glory");
             player.blackBelt = true;
             player.spikedBoots = 2;
             modPlayer.clawsOfChaos = true;
-            modPlayer.StormClaw = true;
-            modPlayer.AADash = 1;
             player.moveSpeed += 2f;
-            player.endurance += 0.2f;
+            player.endurance += 0.06f;
             player.dash = 3;
-            if (player.GetModPlayer<AAPlayer>(mod).ZoneMire)
+            player.moveSpeed += player.GetModPlayer<AAPlayer>().ZoneMire ? .5f : 0f;
+            item.defense = player.GetModPlayer<AAPlayer>().ZoneInferno ? 18 : 8;
+
+            if (player.GetModPlayer<AAPlayer>().ZoneInferno || player.GetModPlayer<AAPlayer>().ZoneMire)
             {
-                player.moveSpeed += .5f;
+                player.allDamage += .3f;
             }
             else
             {
-                player.moveSpeed += 0f;
-            }
-            if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno)
-            {
-                item.defense = 18;
-            }
-            else
-            {
-                item.defense = 8;
-            }
-            if (player.GetModPlayer<AAPlayer>(mod).ZoneInferno || player.GetModPlayer<AAPlayer>(mod).ZoneMire)
-            {
-                player.meleeDamage += .3f;
-                player.magicDamage += .3f;
-                player.rangedDamage += .3f;
-                player.minionDamage += .3f;
-                player.thrownDamage += .3f;
-            }
-            else
-            {
-                player.meleeDamage += .13f;
-                player.magicDamage += .13f;
-                player.rangedDamage += .13f;
-                player.minionDamage += .13f;
-                player.thrownDamage += .13f;
+                player.allDamage += .15f;
             }
         }
 
@@ -129,13 +105,13 @@ Grants a strong dash that shreds through enemies in a fiery blaze of glory");
             }
         }
 
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "TaiyangBaolei", 1);
             recipe.AddIngredient(null, "Naitokurosu", 1);
             recipe.AddIngredient(null, "ChaosSoul", 1);
-            recipe.AddTile(null, "AncientForge");
+            recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

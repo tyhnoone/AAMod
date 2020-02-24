@@ -12,6 +12,7 @@ namespace AAMod.Items.BossSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ten Karat Carrot");
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
             Tooltip.SetDefault(@"Summons the Pouncing Punisher himself");
         }
 
@@ -33,29 +34,21 @@ namespace AAMod.Items.BossSummons
         // We use the CanUseItem hook to prevent a player from using this item while the boss is present in the world.
         public override bool CanUseItem(Player player)
         {
-            return !(NPC.AnyNPCs(mod.NPCType<Rajah>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah2>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah3>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah4>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah5>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah6>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah7>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah8>()) ||
-                NPC.AnyNPCs(mod.NPCType<Rajah9>()) ||
-                NPC.AnyNPCs(mod.NPCType<SupremeRajah>()));
+            return !(NPC.AnyNPCs(ModContent.NPCType<Rajah>()) ||
+                NPC.AnyNPCs(ModContent.NPCType<SupremeRajah>()));
         }
 
         public override bool UseItem(Player player)
         {
             int overrideDirection = Main.rand.Next(2) == 0 ? -1 : 1;
-            SpawnBoss(player, mod.NPCType("Rajah"), true, player.Center + new Vector2(MathHelper.Lerp(500f, 800f, (float)Main.rand.NextDouble()) * overrideDirection, -1200), "Rajah Rabbit");
+            SpawnBoss(player, mod.NPCType("Rajah"), true, player.Center + new Vector2(MathHelper.Lerp(500f, 800f, (float)Main.rand.NextDouble()) * overrideDirection, -1200), Language.GetTextValue("Mods.AAMod.Common.RajahRabbit"));
             return true;
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType<Potions.Carrot>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<Potions.Carrot>(), 5);
             recipe.AddIngredient(ItemID.GoldBar, 10);
             recipe.AddIngredient(ItemID.GoldBunny, 1);
             recipe.AddTile(TileID.MythrilAnvil);
@@ -81,18 +74,18 @@ namespace AAMod.Items.BossSummons
                         npcName = Main.npc[npcID].modNPC.DisplayName.GetDefault();
                     if (namePlural)
                     {
-                        if (Main.netMode == 0) { if (Main.netMode != 1) BaseMod.BaseUtility.Chat(npcName + Lang.BossSummonsInfo("BossAwoken"), 175, 75, 255, false); }
+                        if (Main.netMode == NetmodeID.SinglePlayer) { if (Main.netMode != 1) BaseMod.BaseUtility.Chat(npcName + Language.GetTextValue("Mods.AAMod.Common.BosshasAwoken"), 175, 75, 255, false); }
                         else
-                        if (Main.netMode == 2)
+                        if (Main.netMode == NetmodeID.Server)
                         {
-                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(npcName + Lang.BossSummonsInfo("BossAwoken")), new Color(175, 75, 255), -1);
+                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(npcName + Language.GetTextValue("Mods.AAMod.Common.BosshasAwoken")), new Color(175, 75, 255), -1);
                         }
                     }
                     else
                     {
-                        if (Main.netMode == 0) { if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
+                        if (Main.netMode == NetmodeID.SinglePlayer) { if (Main.netMode != 1) BaseMod.BaseUtility.Chat(Language.GetTextValue("Announcement.HasAwoken", npcName), 175, 75, 255, false); }
                         else
-                        if (Main.netMode == 2)
+                        if (Main.netMode == NetmodeID.Server)
                         {
                             NetMessage.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", new object[]
                             {

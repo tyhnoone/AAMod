@@ -12,7 +12,7 @@ namespace AAMod.Items.Boss.Rajah
             item.damage = 80;
             item.useStyle = 5;
             item.shootSpeed = 9f;
-            item.shoot = mod.ProjectileType<Projectiles.Rajah.Carrot>();
+            item.shoot = Terraria.ModLoader.ModContent.ProjectileType<Projectiles.Rajah.Carrot>();
             item.width = 58;
             item.height = 57;
             item.UseSound = SoundID.Item39;
@@ -43,7 +43,7 @@ namespace AAMod.Items.Boss.Rajah
 		    for (int i = 0; i < 3; i++)
 		    {
 		    	offsetAngle = startAngle + (deltaAngle * i);
-		    	int proj = Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, item.owner);
+		    	int proj = Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, Main.myPlayer);
                 Main.projectile[proj].ranged = false;
                 Main.projectile[proj].magic = false;
             }

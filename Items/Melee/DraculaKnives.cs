@@ -27,8 +27,8 @@ Vampire Knives EX");
             item.width = 18;
             item.height = 20;
             item.UseSound = SoundID.Item39;
-            item.useAnimation = 11;
-            item.useTime = 11;
+            item.useAnimation = 5;
+            item.useTime = 5;
             item.noUseGraphic = true;
             item.noMelee = true;
             item.value = Item.sellPrice(0, 30, 0, 0);
@@ -51,7 +51,7 @@ Vampire Knives EX");
             for (int i = 0; i < 5; i++)
             {
                 offsetAngle = startAngle + (deltaAngle * i);
-                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
+                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, Main.myPlayer);
             }
             return true;
             /*Vector2 vector2 = player.RotatedRelativePoint(player.MountedCenter, true);

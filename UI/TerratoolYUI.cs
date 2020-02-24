@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria.UI;
-using AAMod.Items.Boss.Yamata;
 
 namespace AAMod.UI
 {
     internal sealed class TerratoolYUI : TerratoolUI
     {
-        public static int Pick = 0;
+        public static int Pick = 300;
 
         public static int Hammer = 0;
 
@@ -20,7 +19,7 @@ namespace AAMod.UI
 
         public override UIState State => AAMod.instance.TerratoolYState;
 		
-        public override int HeldItemType => AAMod.instance.ItemType<YamataTerratool>();
+        public override int HeldItemType => AAMod.instance.ItemType("YamataTerratool");
 
         public override void ButtonClicked(int index)
         {

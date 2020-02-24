@@ -37,7 +37,7 @@ namespace AAMod.Projectiles
         	projectile.position += projectile.velocity * projectile.ai[0];
         	if (Main.rand.Next(5) == 0)
             {
-            	Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? mod.DustType<Dusts.AkumaDust>() : mod.DustType<Dusts.YamataAuraDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+            	Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? ModContent.DustType<Dusts.AkumaDust>() : ModContent.DustType<Dusts.YamataAuraDust>(), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
             }
         	if(projectile.ai[0] == 0f)
         	{
@@ -47,7 +47,7 @@ namespace AAMod.Projectiles
         	if(Main.player[projectile.owner].itemAnimation < Main.player[projectile.owner].itemAnimationMax / 3)
         	{
         		projectile.ai[0] -= 2.4f;
-				if (projectile.localAI[0] == 0f && Main.myPlayer == projectile.owner && !AAGlobalProjectile.AnyProjectiless(mod.ProjectileType("ChaosYariShot")))
+				if (projectile.localAI[0] == 0f && Main.myPlayer == projectile.owner && !AAGlobalProjectile.AnyProjectiles(mod.ProjectileType("ChaosYariShot")))
 				{
 					projectile.localAI[0] = 1f;
 					Projectile.NewProjectile(Main.player[projectile.owner].position.X, Main.player[projectile.owner].position.Y, projectile.velocity.X * 1.4f, projectile.velocity.Y * 1.4f, mod.ProjectileType("ChaosYariShot"), (int)((double)projectile.damage * 0.85f), projectile.knockBack * 0.85f, projectile.owner, 0f, 0f);

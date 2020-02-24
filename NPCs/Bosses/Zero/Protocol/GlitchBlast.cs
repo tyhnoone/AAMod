@@ -23,6 +23,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
             projectile.extraUpdates = 2;
             projectile.timeLeft = 1000;
             cooldownSlot = 1;
+            projectile.tileCollide = false;
         }
 
         public bool playedSound = false;
@@ -40,7 +41,7 @@ namespace AAMod.NPCs.Bosses.Zero.Protocol
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Sounds/Glitch"), (int)projectile.Center.X, (int)projectile.Center.Y);
-            Projectile.NewProjectile(projectile.position, Vector2.Zero, mod.ProjectileType<GlitchBoom>(), projectile.damage, 2, projectile.owner);
+            Projectile.NewProjectile(projectile.position, Vector2.Zero, ModContent.ProjectileType<GlitchBoom>(), projectile.damage, 2, projectile.owner);
         }
 
         public virtual void Effects()

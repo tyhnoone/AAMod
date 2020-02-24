@@ -44,7 +44,7 @@ namespace AAMod.Projectiles     //We need this to basically indicate the folder 
         {
             Player player = Main.player[projectile.owner];
 
-            Color color = BaseUtility.MultiLerpColor(Main.player[Main.myPlayer].miscCounter % 100 / 100f, AAColor.CursedInferno, AAColor.Ichor);
+            Color color = BaseUtility.MultiLerpColor(Main.LocalPlayer.miscCounter % 100 / 100f, AAColor.CursedInferno, AAColor.Ichor);
             if (Main.myPlayer == projectile.owner)
             {
                 if (!player.channel || player.noItems || player.CCed)
@@ -95,7 +95,7 @@ namespace AAMod.Projectiles     //We need this to basically indicate the folder 
                     }
                     num22 *= num24;
                     num23 *= num24;
-                    int a = Projectile.NewProjectile(vector.X, vector.Y, num22, num23, mod.ProjectileType<DecayScytheProj>(), projectile.damage, projectile.knockBack, player.whoAmI, 0f, 0f);
+                    int a = Projectile.NewProjectile(vector.X, vector.Y, num22, num23, ModContent.ProjectileType<DecayScytheProj>(), projectile.damage, projectile.knockBack, player.whoAmI, 0f, 0f);
                     Main.projectile[a].netUpdate = true;
                     Main.PlaySound(SoundID.Item71, projectile.Center);
                 }

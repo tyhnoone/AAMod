@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.GameContent.UI;
 using Terraria.Localization;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Items.Currency
 {
@@ -13,7 +13,6 @@ namespace AAMod.Items.Currency
         {
             DisplayName.SetDefault("Goblin Soul");
             Tooltip.SetDefault("The soul of a goblin");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[item.type] = true;
             ItemID.Sets.ItemIconPulse[item.type] = true;
             ItemID.Sets.ItemNoGravity[item.type] = true;
@@ -33,6 +32,29 @@ namespace AAMod.Items.Currency
             item.value = 1000;
             item.rare = 3;
         }
+
+        static int counter = 0;
+        static int cframe = 0;
+
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            if (counter++ > 4)
+            {
+                cframe++;
+                counter = 0;
+                if (cframe > 3)
+                {
+                    cframe = 0;
+                }
+            }
+
+            Texture2D itemTex = mod.GetTexture("Items/Currency/GoblinSoulA");
+
+            Rectangle iframe = BaseMod.BaseDrawing.GetFrame(cframe, itemTex.Width, itemTex.Height / 4, 0, 0);
+
+            BaseMod.BaseDrawing.DrawTexture(spriteBatch, itemTex, 0, item.position, item.width, item.height, scale, rotation, item.direction, 4, iframe, lightColor, true);
+            return false;
+        }
     }
     public class GSouls : CustomCurrencySingleCoin
     {
@@ -50,9 +72,9 @@ namespace AAMod.Items.Currency
                 color2.R,
                 color2.G,
                 color2.B,
-                Language.GetText(Lang.ItemsInfo("GoblinSoulBuyprice")),
+                Language.GetTextValue("Mods.AAMod.Common.PlayerBuyPrice"),
                 price,
-                (price == 1 ? Lang.ItemsInfo("GoblinSoul") : Lang.ItemsInfo("GoblinSouls"))
+                price == 1 ? Language.GetTextValue("Mods.AAMod.Common.GoblinSoul") : Language.GetTextValue("Mods.AAMod.Common.GoblinSouls")
             });
         }
     }

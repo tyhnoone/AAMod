@@ -21,6 +21,7 @@ namespace AAMod.Projectiles.Akuma.Dawnstrike
             projectile.tileCollide = false;
             projectile.ignoreWater = true;
             projectile.timeLeft = 600;
+            projectile.ranged = true;
         }
 
         public override void AI()
@@ -41,7 +42,7 @@ namespace AAMod.Projectiles.Akuma.Dawnstrike
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(mod.BuffType<Buffs.DragonFire>(), 200);
+            target.AddBuff(ModContent.BuffType<Buffs.DragonFire>(), 200);
         }
 
         public override void Kill(int timeLeft)

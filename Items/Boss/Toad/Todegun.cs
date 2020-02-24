@@ -23,7 +23,7 @@ namespace AAMod.Items.Boss.Toad
             item.knockBack = 3f;
             item.width = 16;
             item.height = 16;
-            item.damage = 25;
+            item.damage = 15;
             item.UseSound = SoundID.DD2_BetsysWrathShot;
             item.rare = 4;
             item.value = Item.sellPrice(0, 0, 70, 0);
@@ -43,7 +43,7 @@ namespace AAMod.Items.Boss.Toad
             for (int i = 0; i < 3; i++)
             {
                 offsetAngle = startAngle + (deltaAngle * i);
-                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, item.owner);
+                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), item.shoot, damage, knockBack, Main.myPlayer);
             }
             return false;
         }

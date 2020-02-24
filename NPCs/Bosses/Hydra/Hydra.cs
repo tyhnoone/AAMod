@@ -6,28 +6,35 @@ using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using BaseMod;
+using System.IO;
 
 namespace AAMod.NPCs.Bosses.Hydra
 {
     [AutoloadBossHead]
-    public class Hydra : YamataBoss
+    public class Hydra : ModNPC
     {
         public NPC Head1;
         public NPC Head2;
         public NPC Head3;
+        public NPC Head4;
+        public NPC Head5;
+        public NPC Head6;
+        public NPC Head7;
+        public NPC Head8;
+        public NPC Head9;
         public bool HeadsSpawned = false;
 
         public override void SetStaticDefaults()
         {
-            displayName = "Hydra";
+            DisplayName.SetDefault("Hydra");
             Main.npcFrameCount[npc.type] = 15;
         }
 
         public override void SetDefaults()
         {
             npc.npcSlots = 100;
-            npc.width = 96;
-            npc.height = 78;
+            npc.width = 130;
+            npc.height = 116;
             npc.aiStyle = -1;
             npc.damage = 40;
             npc.defense = 300;
@@ -41,10 +48,6 @@ namespace AAMod.NPCs.Bosses.Hydra
             npc.netAlways = true;
             music = mod.GetSoundSlot(Terraria.ModLoader.SoundType.Music, "Sounds/Music/HydraTheme");
             npc.buffImmune[BuffID.Poisoned] = true;
-            frameWidth = 94;
-            frameHeight = 76;
-            npc.frame = BaseDrawing.GetFrame(frameCount, frameWidth, frameHeight, 0, 2);
-            frameBottom = BaseDrawing.GetFrame(frameCount, frameWidth, 44, 0, 2);
             bossBag = mod.ItemType("HydraBag");
         }
 
@@ -102,11 +105,12 @@ namespace AAMod.NPCs.Bosses.Hydra
 					Head3.netUpdate = true;
 					HeadsSpawned = true;
 				}
-			}else
+			}
+            else
 			{
 				if(!HeadsSpawned)
 				{
-					int[] npcs = BaseAI.GetNPCs(npc.Center, -1, default(int[]), 200f, null);
+					int[] npcs = BaseAI.GetNPCs(npc.Center, -1, default, 200f, null);
 					if (npcs != null && npcs.Length > 0)
 					{
 						foreach (int npcID in npcs)
@@ -137,27 +141,12 @@ namespace AAMod.NPCs.Bosses.Hydra
 			}
 		}
 
-        public override void HitEffect(int hitDir, double damage)
-        {
-            if (HeadsSpawned)
-            {
-                Head1.life -= (int)damage;
-                Head2.life -= (int)damage;
-                Head3.life -= (int)damage;
-            }
-        }
-
         public override void AI()
         {
-            bool noHeads = !NPC.AnyNPCs(mod.NPCType<HydraHead1>()) && !NPC.AnyNPCs(mod.NPCType<HydraHead2>()) && !NPC.AnyNPCs(mod.NPCType<HydraHead3>());
-            if (HeadsSpawned && noHeads)
+
+            if (Main.dayTime)
             {
-                if (Main.netMode != 1)
-                {
-                    npc.life = 0;
-                    npc.checkDead();
-                    npc.netUpdate = true;
-                }
+                AIMovementRunAway();
                 return;
             }
 
@@ -166,7 +155,7 @@ namespace AAMod.NPCs.Bosses.Hydra
             if (playerTarget != null)
             {
                 float dist = npc.Distance(playerTarget.Center);
-                if (!playerTarget.GetModPlayer<AAPlayer>(mod).ZoneMire)
+                if (!playerTarget.GetModPlayer<AAPlayer>().ZoneMire)
                 {
                     npc.alpha += 3;
                     if (npc.alpha >= 255)
@@ -233,46 +222,85 @@ namespace AAMod.NPCs.Bosses.Hydra
             {
                 runningAway = true;
                 AIMovementRunAway();
+                return;
+            }
+            
+            bool noHeads = !NPC.AnyNPCs(ModContent.NPCType<HydraHead1>()) && !NPC.AnyNPCs(ModContent.NPCType<HydraHead2>()) && !NPC.AnyNPCs(ModContent.NPCType<HydraHead3>()) &&
+                !NPC.AnyNPCs(ModContent.NPCType<HydraHead4>()) && !NPC.AnyNPCs(ModContent.NPCType<HydraHead5>()) && !NPC.AnyNPCs(ModContent.NPCType<HydraHead6>()) &&
+                !NPC.AnyNPCs(ModContent.NPCType<HydraHead7>()) && !NPC.AnyNPCs(ModContent.NPCType<HydraHead8>()) && !NPC.AnyNPCs(ModContent.NPCType<HydraHead9>());
+
+            if (HeadsSpawned && noHeads)
+            {
+                if (Main.netMode != 1)
+                {
+                    npc.life = 0;
+                    npc.checkDead();
+                    npc.netUpdate = true;
+                }
+                return;
             }
         }
 
-        public override void PostAI()
+        public float[] internalAI = new float[1];
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            if (Main.netMode == 2 || Main.dedServ)
+            {
+                writer.Write(internalAI[0]);
+            }
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            if (Main.netMode == 1)
+            {
+                internalAI[0] = reader.ReadFloat();
+            }
+        }
+
+        public override void FindFrame(int frameHeight)
         {
             if (npc.velocity.X != 0)
                 npc.spriteDirection = npc.velocity.X > 0 ? 1 : -1;
 
-            nextFrameCounter--;
-            if (nextFrameCounter <= 0)
+            npc.frameCounter--;
+            if (npc.frameCounter <= 0)
             {
-                nextFrameCounter = 2;
-                frameCount++;
-                if (frameCount > 14)
-                    frameCount = 1;
+                npc.frameCounter = 5;
+                npc.frame.Y += frameHeight;
+                if (npc.frame.Y > frameHeight * 14)
+                {
+                    npc.frame.Y = frameHeight * 2;
+                }
             }
             if (npc.velocity.X == 0)
             {
-                nextFrameCounter = 0;
-                frameCount = 1;
+                npc.frameCounter = 0;
+                npc.frame.Y = 0;
             }
             if (npc.velocity.Y != 0)
             {
-                nextFrameCounter = 0;
-                frameCount = 0;
+                npc.frameCounter = 0;
+                npc.frame.Y = frameHeight;
             }
         }
 
         public void AIMovementRunAway()
         {
-            npc.alpha += 10;
-            if (npc.alpha >= 255)
+            npc.alpha += 2;
+            if (Main.netMode != 1) internalAI[0] += 2;
+            if (internalAI[0] >= 255)
             {
                 npc.active = false;
+                npc.netUpdate = true;
             }
         }
 
-        public void AIMovementNormal(float movementScalar = 1f, float playerDistance = -1f)
+        public void AIMovementNormal()
         {
-            BaseAI.AIZombie(npc, ref npc.ai, false, false, -1, 0.07f, 1f, 14, 20, 1, true, 1, 1, true, null, false);
+            BaseAI.AIZombie(npc, ref npc.ai, false, false, -1, 0.07f, 3f, 14, 20, 1, true, 1, 1, true, null, false);
             npc.rotation = 0f;
         }
 
@@ -314,6 +342,18 @@ namespace AAMod.NPCs.Bosses.Hydra
             return null;
         }
 
+        public override void HitEffect(int hitDirection, double damage)
+        {
+            if (npc.life <= 0)
+            {
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/HydraGoreBody"), 1f);
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/HydraGoreLeg"), 1f);
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/HydraGoreLeg"), 1f);
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/HydraGoreLeg"), 1f);
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/HydraGoreLeg"), 1f);
+                Gore.NewGore(npc.position, npc.velocity * 0.2f, mod.GetGoreSlot("Gores/HydraGoreTail"), 1f);
+            }
+        }
 
         public void DrawHead(SpriteBatch spriteBatch, string headTexture, string glowMaskTexture, NPC head, Color drawColor)
         {
@@ -332,16 +372,64 @@ namespace AAMod.NPCs.Bosses.Hydra
         public override bool PreDraw(SpriteBatch sb, Color dColor)
         {
             dColor = npc.GetAlpha(dColor);
-            if (Head1 != null && Head2 != null && Head3 != null)
-            {
-                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead2", "NPCs/Bosses/Hydra/HydraHead2_Glow", Head2, dColor);
-                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead3", "NPCs/Bosses/Hydra/HydraHead3_Glow", Head3, dColor);
-                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead1", "NPCs/Bosses/Hydra/HydraHead1_Glow", Head1, dColor); //draw main head last!
-            }
+
+            int frameWidth = 152;
+            frameBottom = BaseDrawing.GetFrame(0, frameWidth, 44, 0, 2);
+
+            HeadDraw(sb, dColor);
+
             string tailTex = "NPCs/Bosses/Hydra/HydraTail";
             BaseDrawing.DrawTexture(sb, mod.GetTexture(tailTex), 0, npc.position + new Vector2(0f, npc.gfxOffY - 30), npc.width, npc.height, npc.scale, npc.rotation, npc.spriteDirection, 1, frameBottom, dColor, false);
             BaseDrawing.DrawTexture(sb, Main.npcTexture[npc.type], 0, npc.position + new Vector2(0f, npc.gfxOffY), npc.width, npc.height, npc.scale, npc.rotation, npc.spriteDirection, Main.npcFrameCount[npc.type], npc.frame, dColor, false);
+
+            if (Head1 != null)
+            {
+                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead1", "Glowmasks/HydraHead1_Glow", Head1, dColor); //draw main head last!
+            }
             return false;
+        }
+
+        public void HeadDraw(SpriteBatch sb, Color dColor)
+        {
+            if (Head2 != null)
+            {
+                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead2", "Glowmasks/HydraHead2_Glow", Head2, dColor);
+            }
+
+            if (Head3 != null)
+            {
+                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead3", "Glowmasks/HydraHead3_Glow", Head3, dColor);
+            }
+
+            if (Head4 != null)
+            {
+                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead4", "Glowmasks/HydraHead4_Glow", Head4, dColor);
+            }
+
+            if (Head5 != null)
+            {
+                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead5", "Glowmasks/HydraHead5_Glow", Head5, dColor);
+            }
+
+            if (Head6 != null)
+            {
+                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead6", "Glowmasks/HydraHead6_Glow", Head6, dColor);
+            }
+
+            if (Head7 != null)
+            {
+                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead7", "Glowmasks/HydraHead5_Glow", Head7, dColor);
+            }
+
+            if (Head8 != null)
+            {
+                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead8", "Glowmasks/HydraHead4_Glow", Head8, dColor);
+            }
+
+            if (Head9 != null)
+            {
+                DrawHead(sb, "NPCs/Bosses/Hydra/HydraHead9", "Glowmasks/HydraHead6_Glow", Head9, dColor);
+            }
         }
     }
 }

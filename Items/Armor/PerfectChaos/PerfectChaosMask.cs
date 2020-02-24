@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.PerfectChaos
 {
@@ -12,7 +13,7 @@ namespace AAMod.Items.Armor.PerfectChaos
         {
             DisplayName.SetDefault("Chaos Slayer Mask");
             Tooltip.SetDefault(@"70% increased minion damage
-5% increased damage resistance
+1% increased damage resistance
 +6 maximum Minions
 +2 maximum sentries 
 The power of discordian rage radiates from this hood");
@@ -46,15 +47,15 @@ The power of discordian rage radiates from this hood");
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Lang.ArmorBonus("PerfectChaosMaskBonus");
-            player.GetModPlayer<AAPlayer>(mod).perfectChaosSu = true;
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.PerfectChaosMaskBonus");
+            player.GetModPlayer<AAPlayer>().perfectChaosSu = true;
             player.AddBuff(mod.BuffType("ChaosWrath"), 2);
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.minionDamage *= 1.7f;
-            player.endurance *= 1.05f;
+            player.minionDamage += .7f;
+            player.endurance += .01f;
             player.maxMinions += 6;
             player.maxTurrets += 2;
         }
@@ -65,7 +66,7 @@ The power of discordian rage radiates from this hood");
             recipe.AddIngredient(null, "DoomsdayMask", 1);
             recipe.AddIngredient(null, "Discordium", 6);
             recipe.AddIngredient(null, "ChaosScale", 6);
-            recipe.AddTile(null, "AncientForge");
+            recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

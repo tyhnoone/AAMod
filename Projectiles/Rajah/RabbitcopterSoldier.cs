@@ -33,7 +33,7 @@ namespace AAMod.Projectiles.Rajah
         {
             bool flag64 = projectile.type == mod.ProjectileType("RabbitcopterSoldier");
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             if (!player.active)
             {
                 projectile.active = false;
@@ -112,9 +112,9 @@ namespace AAMod.Projectiles.Rajah
             {
                 projectile.tileCollide = false;
             }
-            for (int num645 = 0; num645 < 200; num645++)
-            {
-                NPC nPC2 = Main.npc[num645];
+            if (player.HasMinionAttackTargetNPC)
+			{
+				NPC nPC2 = Main.npc[player.MinionAttackTargetNPC];
                 if (nPC2.CanBeChasedBy(projectile, false))
                 {
                     float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
@@ -123,6 +123,23 @@ namespace AAMod.Projectiles.Rajah
                         num633 = num646;
                         vector46 = nPC2.Center;
                         flag25 = true;
+                    }
+                }
+			}
+			else
+			{
+                for (int num645 = 0; num645 < 200; num645++)
+                {
+                    NPC nPC2 = Main.npc[num645];
+                    if (nPC2.CanBeChasedBy(projectile, false))
+                    {
+                        float num646 = Vector2.Distance(nPC2.Center, projectile.Center);
+                        if (((Vector2.Distance(projectile.Center, vector46) > num646 && num646 < num633) || !flag25) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, nPC2.position, nPC2.width, nPC2.height))
+                        {
+                            num633 = num646;
+                            vector46 = nPC2.Center;
+                            flag25 = true;
+                        }
                     }
                 }
             }
@@ -144,13 +161,13 @@ namespace AAMod.Projectiles.Rajah
                 vector47.Normalize();
                 if (num648 > 200f)
                 {
-                    float scaleFactor2 = 8f;
+                    float scaleFactor2 = 14f;
                     vector47 *= scaleFactor2;
                     projectile.velocity = (projectile.velocity * 40f + vector47) / 41f;
                 }
                 else
                 {
-                    float num649 = 4f;
+                    float num649 = 6f;
                     vector47 *= -num649;
                     projectile.velocity = (projectile.velocity * 40f + vector47) / 41f;
                 }
@@ -162,7 +179,7 @@ namespace AAMod.Projectiles.Rajah
                 {
                     flag26 = projectile.ai[0] == 1f;
                 }
-                float num650 = 6f;
+                float num650 = 9f;
                 if (flag26)
                 {
                     num650 = 15f;
@@ -172,7 +189,7 @@ namespace AAMod.Projectiles.Rajah
                 float num651 = vector48.Length();
                 if (num651 > 200f && num650 < 8f)
                 {
-                    num650 = 8f;
+                    num650 = 12f;
                 }
                 if (num651 < num636 && flag26 && !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
                 {

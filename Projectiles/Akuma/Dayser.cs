@@ -22,7 +22,7 @@ namespace AAMod.Projectiles.Akuma
             projectile.friendly = true;
             projectile.alpha = 255;
             projectile.scale = 1f;
-            projectile.timeLeft = 600;
+            projectile.timeLeft = 500;
             projectile.magic = true;
             projectile.ignoreWater = true;
             
@@ -30,6 +30,14 @@ namespace AAMod.Projectiles.Akuma
 
         public override void AI()
         {
+            if (projectile.alpha > 0)
+            {
+                projectile.alpha -= 25;
+            }
+            if (projectile.alpha < 0)
+            {
+                projectile.alpha = 0;
+            }
             projectile.frameCounter++;
             if (projectile.frameCounter > 4)
             {
@@ -51,12 +59,16 @@ namespace AAMod.Projectiles.Akuma
                 projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X);
             }
 
-            int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, mod.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
-                projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
-            Main.dust[dustId].noGravity = true;
-            int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, mod.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
-                projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
-            Main.dust[dustId3].noGravity = true;
+            if(projectile.alpha < 150)
+            {
+                
+                int dustId = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, ModContent.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
+                    projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
+                Main.dust[dustId].noGravity = true;
+                int dustId3 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + 2f), projectile.width, projectile.height + 5, ModContent.DustType<Dusts.InfinityOverloadB>(), projectile.velocity.X * 0.2f,
+                    projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
+                Main.dust[dustId3].noGravity = true;
+            }
 
             const int aislotHomingCooldown = 0;
             const int homingDelay = 10;
@@ -106,11 +118,11 @@ namespace AAMod.Projectiles.Akuma
         {
             for (int num468 = 0; num468 < 20; num468++)
             {
-                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
+                int num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188), 2f);
                 Main.dust[num469].noGravity = true;
                 Main.dust[num469].velocity *= 2f;
-                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, mod.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
+                num469 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.InfinityOverloadB>(), -projectile.velocity.X * 0.2f,
                     -projectile.velocity.Y * 0.2f, 100, new Color(86, 191, 188));
                 Main.dust[num469].velocity *= 2f;
             }

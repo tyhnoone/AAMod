@@ -24,13 +24,13 @@ namespace AAMod.Items.Boss.Zero
             item.width = 122;
             item.reuseDelay = 5;
             item.height = 32;
-            item.damage = 200;
+            item.damage = 483;
             item.channel = true;
             item.rare = 5;
             item.useTime = 20;
             item.UseSound = SoundID.Item13;
             item.useAnimation = 20;
-            item.shoot = mod.ProjectileType<Projectiles.Zero.DoomRay1>();
+            item.shoot = ModContent.ProjectileType<Projectiles.Zero.DoomRay1>();
             item.value = Item.sellPrice(0, 30, 0, 0);
             item.noMelee = true;
             item.magic = true;

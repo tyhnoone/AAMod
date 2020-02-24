@@ -33,11 +33,24 @@ Allows to freely move in liquids");
 		
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("OceanBoots"));
-			recipe.AddTile(TileID.DemonAltar);
+            ModRecipe recipe;
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("OceanBoots"));
+            recipe.AddIngredient(mod.ItemType("HydraHide"), 6);
+            recipe.AddIngredient(null, "RelicBar", 6);
+            recipe.AddIngredient(null, "Doomite", 6);
+            recipe.AddTile(TileID.DemonAltar);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-		}
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("OceanBoots"));
+            recipe.AddIngredient(mod.ItemType("BroodScale"), 6);
+            recipe.AddIngredient(ItemID.FossilOre, 6);
+            recipe.AddIngredient(null, "Doomite", 6);
+            recipe.AddTile(TileID.DemonAltar);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+
+        }
 	}
 }

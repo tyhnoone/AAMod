@@ -12,7 +12,7 @@ namespace AAMod.Items.Armor.PerfectChaos
 		{
 			DisplayName.SetDefault("Chaos Slayer Greaves");
             Tooltip.SetDefault(@"45% increased movement speed
-15% increased damage resistance
+2% increased damage resistance
 The power of discordian rage radiates from this armor");
         }
 
@@ -39,8 +39,8 @@ The power of discordian rage radiates from this armor");
 
         public override void UpdateEquip(Player player)
         {
-            player.endurance *= 1.15f;
-            player.moveSpeed *= 1.45f;
+            player.endurance += .02f;
+            player.moveSpeed += .45f;
         }
 
         public override void AddRecipes()
@@ -50,7 +50,7 @@ The power of discordian rage radiates from this armor");
             recipe.AddIngredient(null, "DreadBoots", 1);
             recipe.AddIngredient(null, "Discordium", 4);
             recipe.AddIngredient(null, "ChaosScale", 4);
-            recipe.AddTile(null, "AncientForge");
+            recipe.AddTile(null, "ACS");
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

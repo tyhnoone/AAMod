@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Tribal
@@ -38,7 +39,7 @@ Increases maximum mana by 20");
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("TribalHatBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.TribalHatBonus");
 
             player.manaCost *= 0.7f;
             player.manaFlower = true;
@@ -49,9 +50,9 @@ Increases maximum mana by 20");
             {
                 ModRecipe recipe = new ModRecipe(mod);
                 recipe.AddIngredient(ItemID.JungleHat, 1);
-                recipe.AddIngredient(ItemID.CrimsonHelmet, 1);
-                recipe.AddIngredient(ItemID.NecroHelmet, 1);
-                recipe.AddIngredient(null, "ImpHood", 1);
+                recipe.AddIngredient(ItemID.ShadowScale, 8);
+                recipe.AddIngredient(ItemID.Bone, 8);
+                recipe.AddIngredient(null, "DevilSilk", 8);
                 recipe.AddTile(TileID.DemonAltar);
                 recipe.SetResult(this);
                 recipe.AddRecipe();
@@ -59,9 +60,9 @@ Increases maximum mana by 20");
             {
                 ModRecipe recipe = new ModRecipe(mod);
                 recipe.AddIngredient(ItemID.JungleHat, 1);
-                recipe.AddIngredient(ItemID.ShadowHelmet, 1);
-                recipe.AddIngredient(ItemID.NecroHelmet, 1);
-                recipe.AddIngredient(null, "ImpHood", 1);
+                recipe.AddIngredient(ItemID.TissueSample, 8);
+                recipe.AddIngredient(ItemID.Bone, 8);
+                recipe.AddIngredient(null, "DevilSilk", 8);
                 recipe.AddTile(TileID.DemonAltar);
                 recipe.SetResult(this);
                 recipe.AddRecipe();

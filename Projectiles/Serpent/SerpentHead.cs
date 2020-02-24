@@ -27,6 +27,7 @@ namespace AAMod.Projectiles.Serpent
             projectile.penetrate = -1;
             projectile.timeLeft = 18000;
             projectile.timeLeft *= 5;
+            projectile.GetGlobalProjectile<AAGlobalProjectile>().LongMinion = true;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -54,7 +55,7 @@ namespace AAMod.Projectiles.Serpent
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 
             if ((int)Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
@@ -86,18 +87,11 @@ namespace AAMod.Projectiles.Serpent
                     if (num1043 < num1040 * 2f)
                     {
                         num1042 = ownerMinionAttackTargetNPC5.whoAmI;
-                        if (ownerMinionAttackTargetNPC5.boss)
-                        {
-                            int arg_2D352_0 = ownerMinionAttackTargetNPC5.whoAmI;
-                        }
-                        else
-                        {
-                            int arg_2D35E_0 = ownerMinionAttackTargetNPC5.whoAmI;
-                        }
                     }
                 }
 
                 if (num1042 < 0)
+                {
                     for (int num1044 = 0; num1044 < 200; num1044++)
                     {
                         NPC nPC13 = Main.npc[num1044];
@@ -107,10 +101,10 @@ namespace AAMod.Projectiles.Serpent
                             if (num1045 < num1040)
                             {
                                 num1042 = num1044;
-                                bool arg_2D3CE_0 = nPC13.boss;
                             }
                         }
                     }
+                }
             }
 
             if (num1042 != -1)
@@ -169,8 +163,12 @@ namespace AAMod.Projectiles.Serpent
                     projectile.alpha = 0;
                 }
             }
+
+            float DamageBoost = Main.player[projectile.owner].minionDamage + Main.player[projectile.owner].allDamage - 1f;
+            projectile.damage = (int)(DamageBoost > 0f? ((10 + projectile.localAI[0] - 1) * DamageBoost) : 1);
         }
     }
+
 
     public class SerpentBody : ModProjectile
     {
@@ -189,7 +187,8 @@ namespace AAMod.Projectiles.Serpent
             projectile.timeLeft = 18000;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             projectile.timeLeft *= 5;
-            projectile.minionSlots = 1f;
+            projectile.minionSlots = .5f;
+            projectile.GetGlobalProjectile<AAGlobalProjectile>().LongMinion = true;
         }
         public override Color? GetAlpha(Color lightColor)
         {
@@ -219,7 +218,7 @@ namespace AAMod.Projectiles.Serpent
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 
             if ((int)Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
@@ -228,27 +227,12 @@ namespace AAMod.Projectiles.Serpent
                 return;
             }
 
-            int num1038 = 10;
+            int num1038 = 30;
             if (player.dead) modPlayer.SnakeMinion = false;
             if (modPlayer.SnakeMinion) projectile.timeLeft = 2;
-            num1038 = 30;
-
-            //D U S T
-            /*if (Main.rand.Next(30) == 0)
-            {
-                int num1039 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f, 0, default, 2f);
-                Main.dust[num1039].noGravity = true;
-                Main.dust[num1039].fadeIn = 2f;
-                Point point4 = Main.dust[num1039].position.ToTileCoordinates();
-                if (WorldGen.InWorld(point4.X, point4.Y, 5) && WorldGen.SolidTile(point4.X, point4.Y))
-                {
-                    Main.dust[num1039].noLight = true;
-                }
-            }*/
 
             bool flag67 = false;
             Vector2 value67 = Vector2.Zero;
-            Vector2 arg_2D865_0 = Vector2.Zero;
             float num1052 = 0f;
             float scaleFactor16 = 0f;
             float scaleFactor17 = 1f;
@@ -263,12 +247,10 @@ namespace AAMod.Projectiles.Serpent
             {
                 flag67 = true;
                 value67 = Main.projectile[byUUID].Center;
-                Vector2 arg_2D957_0 = Main.projectile[byUUID].velocity;
                 num1052 = Main.projectile[byUUID].rotation;
                 float num1053 = MathHelper.Clamp(Main.projectile[byUUID].scale, 0f, 50f);
                 scaleFactor17 = num1053;
                 scaleFactor16 = 16f;
-                int arg_2D9AD_0 = Main.projectile[byUUID].alpha;
                 Main.projectile[byUUID].localAI[0] = projectile.localAI[0] + 1f;
                 if (Main.projectile[byUUID].type != mod.ProjectileType("SerpentHead")) Main.projectile[byUUID].localAI[1] = projectile.whoAmI;
             }
@@ -299,6 +281,8 @@ namespace AAMod.Projectiles.Serpent
             projectile.Center = projectile.position;
             if (vector134 != Vector2.Zero) projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
             projectile.spriteDirection = vector134.X > 0f ? 1 : -1;
+
+            projectile.damage = Main.projectile[byUUID].damage;
         }
 
         public override void Kill(int timeLeft)
@@ -337,19 +321,19 @@ namespace AAMod.Projectiles.Serpent
             projectile.timeLeft = 18000;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
             projectile.timeLeft *= 5;
+            projectile.GetGlobalProjectile<AAGlobalProjectile>().LongMinion = true;
+            projectile.minionSlots = 0;
         }
-
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
         }
-
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Serpent Head");
+            DisplayName.SetDefault("Ancient Serpent");
         }
-
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles,
+           List<int> drawCacheProjsOverWiresUI)
         {
             drawCacheProjsBehindProjectiles.Add(index);
         }
@@ -368,7 +352,7 @@ namespace AAMod.Projectiles.Serpent
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
 
             if ((int)Main.time % 120 == 0) projectile.netUpdate = true;
             if (!player.active)
@@ -378,30 +362,13 @@ namespace AAMod.Projectiles.Serpent
             }
 
 
-            int num1038 = 10;
             if (player.dead) modPlayer.SnakeMinion = false;
             if (modPlayer.SnakeMinion) projectile.timeLeft = 2;
-            num1038 = 30;
-
-            //D U S T
-            /*if (Main.rand.Next(30) == 0)
-            {
-                int num1039 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 135, 0f, 0f, 0, default, 2f);
-                Main.dust[num1039].noGravity = true;
-                Main.dust[num1039].fadeIn = 2f;
-                Point point4 = Main.dust[num1039].position.ToTileCoordinates();
-                if (WorldGen.InWorld(point4.X, point4.Y, 5) && WorldGen.SolidTile(point4.X, point4.Y))
-                {
-                    Main.dust[num1039].noLight = true;
-                }
-            }*/
+            int num1038 = 30;
 
             bool flag67 = false;
             Vector2 value67 = Vector2.Zero;
-            Vector2 arg_2D865_0 = Vector2.Zero;
             float num1052 = 0f;
-            float scaleFactor16 = 0f;
-            float scaleFactor17 = 1f;
             if (projectile.ai[1] == 1f)
             {
                 projectile.ai[1] = 0f;
@@ -413,12 +380,7 @@ namespace AAMod.Projectiles.Serpent
             {
                 flag67 = true;
                 value67 = Main.projectile[byUUID].Center;
-                Vector2 arg_2D957_0 = Main.projectile[byUUID].velocity;
                 num1052 = Main.projectile[byUUID].rotation;
-                float num1053 = MathHelper.Clamp(Main.projectile[byUUID].scale, 0f, 50f);
-                scaleFactor17 = num1053;
-                scaleFactor16 = 16f;
-                int arg_2D9AD_0 = Main.projectile[byUUID].alpha;
                 Main.projectile[byUUID].localAI[0] = projectile.localAI[0] + 1f;
                 if (Main.projectile[byUUID].type != mod.ProjectileType("SerpentHead")) Main.projectile[byUUID].localAI[1] = projectile.whoAmI;
                 if (projectile.owner == player.whoAmI && Main.projectile[byUUID].type == mod.ProjectileType("SerpentHead"))
@@ -450,10 +412,9 @@ namespace AAMod.Projectiles.Serpent
 
             projectile.rotation = vector134.ToRotation() + 1.57079637f;
             projectile.position = projectile.Center;
-            projectile.scale = scaleFactor17;
             projectile.width = projectile.height = (int)(num1038 * projectile.scale);
             projectile.Center = projectile.position;
-            if (vector134 != Vector2.Zero) projectile.Center = value67 - Vector2.Normalize(vector134) * scaleFactor16 * scaleFactor17;
+            if (vector134 != Vector2.Zero) projectile.Center = value67 - Vector2.Normalize(vector134) * 31;
             projectile.spriteDirection = vector134.X > 0f ? 1 : -1;
         }
     }

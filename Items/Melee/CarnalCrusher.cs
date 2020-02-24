@@ -9,7 +9,7 @@ namespace AAMod.Items.Melee
     {
         public override void SetDefaults()
         {
-            item.damage = 110;
+            item.damage = 260;
             item.melee = true;
             item.width = 90;
             item.height = 90;
@@ -55,11 +55,11 @@ namespace AAMod.Items.Melee
             {
                 return;
             }
-            if (Main.player[Main.myPlayer].lifeSteal <= 0f)
+            if (Main.LocalPlayer.lifeSteal <= 0f)
             {
                 return;
             }
-            Main.player[Main.myPlayer].lifeSteal -= num;
+            Main.LocalPlayer.lifeSteal -= num;
             int num2 = item.owner;
             if (crit)
             {

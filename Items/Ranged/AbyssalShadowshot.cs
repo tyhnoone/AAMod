@@ -15,7 +15,7 @@ namespace AAMod.Items.Ranged
 
         public override void SetDefaults()
         {
-            item.damage = 45;
+            item.damage = 29;
             item.noMelee = true;
             item.ranged = true;
             item.width = 50;
@@ -42,9 +42,9 @@ namespace AAMod.Items.Ranged
 		    for (int i = 0; i < 6; i++)
 		    {
 		    	offsetAngle = startAngle + (deltaAngle * i);
-		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, item.owner);
+		    	Projectile.NewProjectile(position.X, position.Y, baseSpeed*(float)Math.Sin(offsetAngle), baseSpeed*(float)Math.Cos(offsetAngle), type, damage, knockBack, Main.myPlayer);
             }
-            Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType<Projectiles.Shadowshot>(), (int)(damage * 1.5f), knockBack, item.owner);
+            Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<Projectiles.Shadowshot>(), (int)(damage * 1.0f), knockBack, Main.myPlayer);
             return false;
 		}
 
@@ -52,7 +52,7 @@ namespace AAMod.Items.Ranged
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "AbyssalPentashot", 1);
-            recipe.AddIngredient(null, "MireCrystal", 1);
+            recipe.AddIngredient(null, "HeroShards", 1);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

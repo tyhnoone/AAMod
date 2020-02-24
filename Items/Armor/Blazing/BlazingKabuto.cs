@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Blazing
@@ -11,7 +12,8 @@ namespace AAMod.Items.Armor.Blazing
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blazing Kabuto");
-			Tooltip.SetDefault(@"2% increased Damage Resistance
+			Tooltip.SetDefault(@"1% increased Damage Resistance
+3% increased Melee Damage
 Forged in the flames of the blazing sun");
         }
 
@@ -26,7 +28,8 @@ Forged in the flames of the blazing sun");
 
         public override void UpdateEquip(Player player)
         {
-            player.endurance += .02f;
+            player.endurance += .01f;
+            player.meleeDamage += 0.03f;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -36,19 +39,18 @@ Forged in the flames of the blazing sun");
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("BlazingBonus");
-            player.endurance = .05f;
+			player.setBonus = Language.GetTextValue("Mods.AAMod.Common.BlazingBonus");
             player.aggro += 4;
-            player.GetModPlayer<AAPlayer>(mod).kindledSet = true;
+            player.GetModPlayer<AAPlayer>().kindledSet = true;
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("KindledKabuto"));
-            recipe.AddIngredient(mod.ItemType("OceanHelm"));
-            recipe.AddIngredient(ItemID.FossilHelm);
-            recipe.AddIngredient(mod.ItemType("DoomiteUHelm"));
+            recipe.AddIngredient(ItemID.Coral, 5);
+            recipe.AddIngredient(ItemID.FossilOre, 5);
+            recipe.AddIngredient(mod.ItemType("Doomite"), 5);
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace AAMod.Items.Armor.Raider
 {
@@ -11,7 +12,7 @@ namespace AAMod.Items.Armor.Raider
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Raider Chestplate");
-
+			DisplayName.SetDefault(" ");
 		}
 
 		public override void SetDefaults()
@@ -30,7 +31,7 @@ namespace AAMod.Items.Armor.Raider
 
 		public override void UpdateArmorSet(Player player)
 		{
-            player.setBonus = Lang.ArmorBonus("RaiderChestBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.RaiderChestBonus");
             player.noKnockback = true;
             player.endurance += (1 - (player.statLife / player.statLifeMax)) * .1f;
         }
@@ -39,9 +40,9 @@ namespace AAMod.Items.Armor.Raider
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(mod.ItemType("VikingPlate"));
-            recipe.AddIngredient(mod.ItemType("DepthGi"));
-            recipe.AddIngredient(mod.ItemType("OceanShirt"));
-            recipe.AddIngredient(mod.ItemType("DoomiteUPlate"));
+            recipe.AddIngredient(ItemID.Coral, 8);
+            recipe.AddIngredient(mod.ItemType("HydraHide"), 8);
+            recipe.AddIngredient(mod.ItemType("Doomite"), 8);
             recipe.AddTile(TileID.DemonAltar);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Graphics;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.Utilities;
@@ -31,14 +30,14 @@ namespace AAMod.Backgrounds
         private Meteor[] Meteors;
         public static Texture2D MeteorTexture;
         public static Texture2D SkyTex;
-        private UnifiedRandom _random = new UnifiedRandom();
+        private readonly UnifiedRandom _random = new UnifiedRandom();
 
         public override void OnLoad()
         {
-            PlanetTexture = TextureManager.Load("Backgrounds/Sun");
-            demonSun = TextureManager.Load("Backgrounds/DemonSun");
-            MeteorTexture = TextureManager.Load("Backgrounds/AkumaMeteors");
-            SkyTex = TextureManager.Load("Backgrounds/SkyTex");
+            PlanetTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/Sun");
+            demonSun = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/DemonSun");
+            MeteorTexture = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/AkumaMeteor");
+            SkyTex = ModLoader.GetMod("AAMod").GetTexture("Backgrounds/SkyTex");
         }
 
         public override void Update(GameTime gameTime)
@@ -78,7 +77,6 @@ namespace AAMod.Backgrounds
                     float num22 = 1f;
                     float rotation = (float)(Main.time / 54000.0) * 2f - 7.3f;
                     double bgTop = (-Main.screenPosition.Y) / (Main.worldSurface * 16.0 - 600.0) * 200.0;
-                    float rotation2 = (float)(Main.time / 32400.0) * 2f - 7.3f;
                     if (Main.dayTime)
                     {
                         double num26;
@@ -95,7 +93,7 @@ namespace AAMod.Backgrounds
                         num22 = (float)(1.2 - num26 * 0.4);
                     }
                     Color color6 = new Color((byte)(255f * num64), (byte)(Color.White.G * num64), (byte)(Color.White.B * num64), (byte)(255f * num64));
-                    if (BaseMod.BasePlayer.HasAccessory(Main.LocalPlayer, AAMod.instance.ItemType<Items.Vanity.HappySunSticker>(), true, true))
+                    if (BaseMod.BasePlayer.HasAccessory(Main.LocalPlayer, ModContent.ItemType<Items.Vanity.HappySunSticker>(), true, true))
                     {
                         Main.spriteBatch.Draw(demonSun, new Vector2(num20, num21 + Main.sunModY), new Microsoft.Xna.Framework.Rectangle?(new Rectangle(0, 0, demonSun.Width, demonSun.Height)), color6, rotation, new Vector2(PlanetTexture.Width / 2, PlanetTexture.Height / 2), num22, SpriteEffects.None, 0f);
                     }
@@ -107,8 +105,7 @@ namespace AAMod.Backgrounds
             }
             int num = -1;
             int num2 = 0;
-            Mod mod = AAMod.instance;
-            if (NPC.AnyNPCs(mod.NPCType<NPCs.Bosses.Akuma.Akuma>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<NPCs.Bosses.Akuma.Akuma>()))
             {
                 for (int i = 0; i < Meteors.Length; i++)
                 {
@@ -157,21 +154,21 @@ namespace AAMod.Backgrounds
             for (int i = 0; i < Meteors.Length; i++)
             {
                 float num = i / (float)Meteors.Length;
-                Meteors[i].Position.X = num * (Main.maxTilesX * 16f) + this._random.NextFloat() * 40f - 20f;
-                Meteors[i].Position.Y = this._random.NextFloat() * -((float)Main.worldSurface * 16f + 10000f) - 10000f;
-                if (this._random.Next(3) != 0)
+                Meteors[i].Position.X = num * (Main.maxTilesX * 16f) + _random.NextFloat() * 40f - 20f;
+                Meteors[i].Position.Y = _random.NextFloat() * -((float)Main.worldSurface * 16f + 10000f) - 10000f;
+                if (_random.Next(3) != 0)
                 {
-                    Meteors[i].Depth = this._random.NextFloat() * 3f + 1.8f;
+                    Meteors[i].Depth = _random.NextFloat() * 3f + 1.8f;
                 }
                 else
                 {
-                    Meteors[i].Depth = this._random.NextFloat() * 5f + 4.8f;
+                    Meteors[i].Depth = _random.NextFloat() * 5f + 4.8f;
                 }
-                Meteors[i].FrameCounter = this._random.Next(12);
-                Meteors[i].Scale = this._random.NextFloat() * 0.5f + 1f;
+                Meteors[i].FrameCounter = _random.Next(12);
+                Meteors[i].Scale = _random.NextFloat() * 0.5f + 1f;
                 Meteors[i].StartX = Meteors[i].Position.X;
             }
-            Array.Sort(Meteors, new Comparison<Meteor>(this.SortMethod));
+            Array.Sort(Meteors, new Comparison<Meteor>(SortMethod));
         }
         private int SortMethod(Meteor meteor1, Meteor meteor2)
         {

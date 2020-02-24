@@ -1,6 +1,8 @@
+using AAMod.Items.Armor.Darkmatter;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Radium
@@ -39,14 +41,11 @@ Shines with the light of a starry night sky");
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = Lang.ArmorBonus("RadiumHeadgearBonus");
+            player.setBonus = Language.GetTextValue("Mods.AAMod.Common.RadiumHeadgearBonus");
 
-            player.GetModPlayer<AAPlayer>(mod).Radium = true;
-            player.GetModPlayer<AAPlayer>(mod).radiumRa = true;
-            player.ammoCost75 = true;
-            player.rangedCrit += 20;
-            player.panic = true;
-            player.starCloak = true;
+
+            player.GetModPlayer<VisorEffects>().setBonus = true;
+            player.GetModPlayer<VisorEffects>().sunPortal = true;
         }
 
         public override void AddRecipes()

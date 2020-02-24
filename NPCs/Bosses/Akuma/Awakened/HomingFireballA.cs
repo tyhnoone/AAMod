@@ -56,8 +56,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
             projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             const int aislotHomingCooldown = 0;
             const int homingDelay = 0;
-            const float desiredFlySpeedInPixelsPerFrame = 5;
-            const float amountOfFramesToLerpBy = 30; // minimum of 1, please keep in full numbers even though it's a float!
+            const float desiredFlySpeedInPixelsPerFrame = 6;
+            const float amountOfFramesToLerpBy = 20; // minimum of 1, please keep in full numbers even though it's a float!
 
             projectile.ai[aislotHomingCooldown]++;
             if (projectile.ai[aislotHomingCooldown] > homingDelay)
@@ -77,24 +77,19 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(mod.BuffType("DragonFire"), 300);
-            Kill(0);
         }
 
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 20);
             Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("HomingBoom"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
-            for (int dust = 0; dust <= 3; dust++)
-            {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, mod.DustType<Dusts.AkumaADust>(), projectile.oldVelocity.X * 0.5f, projectile.oldVelocity.Y * 0.5f);
-            }
         }
 
         private int HomeOnTarget()
         {
             const bool homingCanAimAtWetEnemies = true;
-            const float homingMaximumRangeInPixels = 500;
-
+            const float homingMaximumRangeInPixels = 2000;
+			
             int selectedTarget = -1;
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -110,7 +105,8 @@ namespace AAMod.NPCs.Bosses.Akuma.Awakened
                         selectedTarget = i;
                 }
             }
-
+			//projectile.velocity.X *= 1.032f;
+			//projectile.velocity.Y *= 1.032f;
             return selectedTarget;
         }
 

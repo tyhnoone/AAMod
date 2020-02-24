@@ -1,5 +1,7 @@
 using Terraria;
 using Terraria.ID;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace AAMod.Items.Boss.AH
 {
@@ -8,10 +10,11 @@ namespace AAMod.Items.Boss.AH
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ash Rain");
-			Tooltip.SetDefault(@"Shoots fireball which explodes on hit or after some time");
+			Tooltip.SetDefault(@"Shoots fireball which explodes on hit or after some time
+Right click to detonate fireballs");
         }
 
-        public override void ModifyTooltips(System.Collections.Generic.List<Terraria.ModLoader.TooltipLine> list)
+        public override void ModifyTooltips(List<Terraria.ModLoader.TooltipLine> list)
         {
             foreach (Terraria.ModLoader.TooltipLine line2 in list)
             {
@@ -24,7 +27,7 @@ namespace AAMod.Items.Boss.AH
 
         public override void SetDefaults()
         {
-            item.damage = 150;                        
+            item.damage = 315;                        
             item.magic = true;            
             item.width = 24;
             item.height = 28;
@@ -36,11 +39,44 @@ namespace AAMod.Items.Boss.AH
             item.value = Item.sellPrice(0, 25, 0, 0);
             item.rare = 9;
             AARarity = 12;
-            item.mana = 5;          
-            item.UseSound = SoundID.Item20;      
+            item.mana = 5;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("FireMagic"); 
-            item.shootSpeed = 11f; 
+            item.shootSpeed = 11f;
         }
+
+        
+        private List<int> AshRainFire = new List<int>();
+        public override bool CanUseItem(Player player)
+        {
+            if(player.altFunctionUse != 2)
+            {
+                item.shoot = mod.ProjectileType("FireMagic");
+                item.UseSound = SoundID.Item20;
+            }
+            if (player.altFunctionUse == 2)
+            {
+                foreach(int P in AshRainFire)
+                {
+                    if(Main.projectile[P].type == mod.ProjectileType("FireMagic")) Main.projectile[P].Kill();
+                }
+                item.UseSound = null;
+                AshRainFire.Clear();
+            }
+            return true;
+        }
+        
+        public override bool AltFunctionUse(Player player)
+		{
+			return true;
+		}
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
+            if (player.altFunctionUse != 2)
+			{
+				int P = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("FireMagic"), damage, knockBack, player.whoAmI, 0f, 0f);
+                AshRainFire.Add(P);
+			}
+			return false;
+		}
     }
 }

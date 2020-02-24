@@ -3,7 +3,6 @@ using BaseMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Armor.Chaos
@@ -41,7 +40,7 @@ namespace AAMod.Items.Armor.Chaos
                 }
             }
             Player player = Main.player[projectile.owner];
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             player.AddBuff(mod.BuffType("DragonSpirit"), 3600);
             if (player.dead)
             {

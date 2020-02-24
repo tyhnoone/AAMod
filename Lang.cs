@@ -1,26 +1,10 @@
-using AAMod.Backgrounds;
-using AAMod.Globals;
-using BaseMod;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using Terraria;
-using Terraria.GameContent.UI;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
-using Terraria.ModLoader;
-using Terraria.UI;
-using Terraria.Utilities;
 using Terraria.Localization;
 
 namespace AAMod
 {
     public class Lang
     {
-        public static string Worldtext(String WorldInfo)
+        public static string Worldtext(string WorldInfo)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -56,6 +40,8 @@ namespace AAMod
                         return "虚空枯萎机器重新运转";
                         case "downedPlantBossInfo3":
                         return "地下的恶魔开始密谋";
+                        case "downedPlantBossInfo4":
+                        return "嘿, 小子, 是我, 阿努比斯. 回城找我帮我个忙, 我想和你说点事.";
                         case "downedStormAnyInfo":
                         return "山洞里一道霹雳轰鸣...";
                         case "hardModeInfo":
@@ -64,6 +50,50 @@ namespace AAMod
                         return "真正的冥昧之息在大气中翻涌...";
                     }
                 }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+            {
+                switch(WorldInfo)
+                {
+                    case "YttriumInfo":
+                    return "Ваш мир благословлен иттрием!";
+                    case "UraniumInfo":
+                    return "Ваш мир благословлен ураном!";
+                    case "TechneciumInfo":
+                    return "Ваш мир благословлен технецием!";
+                    case "downedEquinoxInfo":
+                    return "Дар небожителей искрится в атмосфере...";
+                    case "downedMoonlordInfo1":
+                    return "Древние Пробудились!";
+                    case "downedMoonlordInfo2":
+                    return "Эссенция Лунного Лорда искрится в пещерах под вами...";
+                    case "downedMechBossAnyInfo":
+                    return "Пещеры искрятся светом на долю секунды.";
+                    case "downedSistersInfo":
+                    return "Хаотическая энергия растет в самых глубоких частях этого мира... ";
+                    case "downedBoss2Info":
+                    return "Вы слышите гармоничный гул, доносящийся из Террариума после поражения великого демона...";
+                    case "downedBoss3Info1":
+                    return "Кости древнего прошлого разрываются энергией!";
+                    case "downedBoss3Info2":
+                    return "Ветры пустыни зашевелились..";
+                    case "downedBoss3Info3":
+                    return "Холмы тундры грохочут...";
+                    case "downedPlantBossInfo1":
+                    return "Хор единства звучит из Террариума.";
+                    case "downedPlantBossInfo2":
+                    return "Побитые машины пустоты снова активируются...";
+                    case "downedPlantBossInfo3":
+                    return "Красные Дьяволы подземного мира начинают строить козни...";
+                    case "downedPlantBossInfo4":
+                    return "Эй, малой, это Анубис. Сделай мне одолжение и встреться со мной в городе. Нам нужно поговорить.";
+                    case "downedStormAnyInfo":
+                    return "Хлопок молнии слышен в пещерах.";
+                    case "hardModeInfo":
+                    return "На волю выпущены духи гнева и ярости!";
+                    case "downedAllAncientsInfo":
+                    return "Хаус начинает шевелиться в атмосфере...";
+                }
+            }
             else
                 {
                     switch(WorldInfo)
@@ -85,7 +115,7 @@ namespace AAMod
                         case "downedSistersInfo":
                         return "Chaotic energy grows in the deepest parts of the world.";
                         case "downedBoss2Info":
-                        return "You hear a hum of harmony from the Terrarium after the defeat of a great evil...";
+                        return "You hear a hum of harmony from the Terrarium after the defeat of a great demon...";
                         case "downedBoss3Info1":
                         return "Bones of the ancient past burst with energy!";
                         case "downedBoss3Info2":
@@ -98,6 +128,8 @@ namespace AAMod
                         return "The withered machines of the emptiness reactivate.";
                         case "downedPlantBossInfo3":
                         return "Devils in the underworld begin to plot.";
+                        case "downedPlantBossInfo4":
+                        return "Hey kid, it's me, Anubis. Do me a favor and meet me back in town, I wanna talk to ya about somethin'.";
                         case "downedStormAnyInfo":
                         return "The clap of a thunderbolt roars in the caverns...";
                         case "hardModeInfo":
@@ -108,7 +140,7 @@ namespace AAMod
                 }
             return "";
         }
-        public static string AAPlayerChat(String PlayerInfo)
+        public static string AAPlayerChat(string PlayerInfo)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -136,6 +168,32 @@ namespace AAMod
                         return "…凡人。 如果我没有老眼昏花的话, 你的世界就没有远古觉醒的内容。 创造一个新的世界最吼的。 ";
                     }
                 }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+            {
+                switch(PlayerInfo)
+                {
+                    case "UnstableSoulInfo":
+                    return "Вашу душу разрывает...";
+                    case "InfinityGauntletInfo":
+                    return "Безупречный баланс. Эталон гармонии...";
+                    case "WorldgenReminderInfo1":
+                    return "Эй, эх...дитя? Поправь меня если я не прав, но я думаю, что в твоем мире отсутствуют биомы из нашего мода. Я бы сделал новый мир.";
+                    case "WorldgenReminderInfo2":
+                    return "ТЫ ИМБЕЦИЛ!!! В ТВОЕМ МИРЕ НЕТ КОНТЕНТА ИЗ МОЕГО МОДА!!! СЕЙЧАС-ЖЕ ДЕЛАЙ НОВЫЙ! РЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕ";
+                    case "WorldgenReminderInfo3":
+                    return "КРИТИЧЕСКАЯ 0ШИБКА. В МИРЕ 0ТСУТСВУЕТ К0НТЕНТ ИЗ AAmod.tmod. ПОЖАЛУЙСТА, СГЕНЕРИРУЙТЕ НОВЫЙ МИР.";
+                    case "WorldgenReminderInfo4":
+                    return "ЭЙ! У тебя нет контента из нашего мода! Сделай новый, или полетишь на Марс!";
+                    case "WorldgenReminderInfo5":
+                    return "Эй, эх... Я не вижу у тебя контента из мода. Может быть сделаешь новый мир или что-то тип того?";
+                    case "WorldgenReminderInfo6":
+                    return "Эй, ты, межпространственное существо. Похоже, что ты забыл сделать новый мир. Сделай новый, если хочешь весь контент из мода.";
+                    case "WorldgenReminderInfo7":
+                    return "Делай новый мир...или грибное безумие тебя...убьет...маленький терраниан";
+                    case "WorldgenReminderInfo8":
+                    return "... Смертный, если мой старые глаза меня не обманывают, то в твоем мире нет контента из Ancients Awakened. Сгенерировать новый мир будет оптимальным решением.";
+                }
+            }
             else
                 {
                     switch(PlayerInfo)
@@ -159,12 +217,12 @@ namespace AAMod
                         case "WorldgenReminderInfo7":
                         return "Make...new world....or mushmad...will squish...little terrarian...";
                         case "WorldgenReminderInfo8":
-                        return "...Mortal. Your world doesn't have Ancients Awakened content if my old eyes are not lying to me. Generating a new world would be optimal.";
+                        return "...Mortal. Your world doesn't have Ancients Awakened content if my old eyes do not deceive me. Generating a new world would be optimal.";
                     }
                 }
             return"";
         }
-        public static string Newtext(String Newtext)
+        public static string Newtext(string Newtext)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -174,7 +232,107 @@ namespace AAMod
                 }
             return"";
         }
-        public static string GlobalNPCSInfo(String NPCsummon)
+
+        public static string GreedChest(string Greed)
+        {
+            if(Language.ActiveCulture == GameCulture.Chinese)
+                {
+                    switch(Greed)
+                    {
+                        case "GreedChest1":
+                        return "你脚下的地面轻微震动着...";
+                        case "GreedChest2":
+                        return "你听到一声尖啸在洞穴中回荡...";
+                        case "GreedChest3":
+                        return "把 老 子 的 东 西 放 下， 你 这 个 野 猴 子 小 偷!!!";
+                    }
+                }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(Greed)
+                    {
+                        case "GreedChest1":
+                        return "Земля под вами немного грохочет";
+                        case "GreedChest2":
+                        return "Вы слышите, как крик раздается эхом через пещеры...";
+                        case "GreedChest3":
+                        return "УБРАЛ РУКИ ОТ МОИХ ПРЕЛЕСТЕЙ, ТЫ, ВОРУЮЩАЯ ОБЕЗЬЯНА!";
+                    }
+                }
+            else
+                {
+                    switch(Greed)
+                    {
+                        case "GreedChest1":
+                        return "The ground below you trembles slightly...";
+                        case "GreedChest2":
+                        return "You hear a scream echo through the caverns...";
+                        case "GreedChest3":
+                        return "HANDS OFF MY LOOT YOU THIEVING APE!!!";
+                    }
+                }
+            return"";
+        }
+
+        public static string BossSummonName(string Boss)
+        {
+            if(Language.ActiveCulture == GameCulture.Chinese)
+                {
+                }
+            else
+                {
+                }
+            return"";
+        }
+
+        public static string Hotkey(string key)
+        {
+            if(Language.ActiveCulture == GameCulture.Chinese)
+                {
+                    switch(key)
+                    {
+                        case "Rifthotkey":
+                        return "裂位回家";
+                        case "RiftReturnhotkey":
+                        return "裂位返程";
+                        case "AccessoryAbilityKey":
+                        return "远古觉醒饰品能力";
+                        case "ArmorAbilityKey":
+                        return "远古觉醒套装能力";
+                    }
+                }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(key)
+                    {
+                        case "Rifthotkey":
+                        return "Телепортирут домой";
+                        case "RiftReturnhotkey":
+                        return "Телепортирует обратно";
+                        case "AccessoryAbilityKey":
+                        return "AA Активировать способность аксессуара";
+                        case "ArmorAbilityKey":
+                        return "AA Активировать способность брони";
+                    }
+                }
+            else
+                {
+                    switch(key)
+                    {
+                        case "Rifthotkey":
+                        return "Rift Home";
+                        case "RiftReturnhotkey":
+                        return "Rift Back";
+                        case "AccessoryAbilityKey":
+                        return "AA Accessory Ability";
+                        case "ArmorAbilityKey":
+                        return "AA Armor Ability";
+                    }
+                }
+            return"";
+        }
+
+        public static string GlobalNPCSInfo(string NPCsummon)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -182,6 +340,14 @@ namespace AAMod
                     {
                         case "NPCarrive":
                         return " 到了!";
+                    }
+                }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(NPCsummon)
+                    {
+                        case "NPCarrive":
+                        return " пробудился!";
                     }
                 }
             else
@@ -194,71 +360,8 @@ namespace AAMod
                 }
             return"";
         }
-        public static string TownNPCStanLee(String StanLee)
-        {
-            if(Language.ActiveCulture == GameCulture.Chinese)
-                {
-                    switch(StanLee)
-                    {
-                        case "StanLeeName":
-                        return "插画绘师";
-                        case "StanLeeChat1":
-                        return "你知道, 我想一个人可以有所作为. -牛津纳菲尔德学院如是说";
-                        case "StanLeeChat2":
-                        return "我觉得你高了";
-                        case "StanLeeChat3":
-                        return "你看见我的鞋了吗? ";
-                        case "StanLeeChat4":
-                        return "曾经我也是保安， 但是， 呃……后来我被解雇了……";
-                        case "StanLeeChat5":
-                        return "精益求精. ";
-                        case "StanLeeChat6":
-                        return "嘿， 如果你有报纸的话， 我可以借体育栏目看看吗? ";
-                        case "StanLeeChat7":
-                        return "我记得当我是一个邮车司机的时候， 我要送一些邮件给名人. 我想， 他叫托尼…史塔克? ";
-                        case "StanLeeChat8":
-                        return "哈……!太搞笑了!";
-                        case "StanLeeChat9":
-                        return "喔!很合身";
-                        case "StanLeeChat10":
-                        return "别逼我用鞭子抽你， 你这个小混蛋. ";
-                        case "StanLeeChat11":
-                        return "你有毛病吗， 你以前从没见过宇宙飞船? ";
-                    }
-                }
-            else
-                {
-                    switch(StanLee)
-                    {
-                        case "StanLeeName":
-                        return "Illustrator";
-                        case "StanLeeChat1":
-                        return "You know, I guess one person can make a difference. 'Nuff said.";
-                        case "StanLeeChat2":
-                        return "I thought you'd be taller.";
-                        case "StanLeeChat3":
-                        return "Have you seen my shoe?";
-                        case "StanLeeChat4":
-                        return "And then there was this one time I was a security guard, but uh...then I got fired...";
-                        case "StanLeeChat5":
-                        return "Excelsior.";
-                        case "StanLeeChat6":
-                        return "Hey, if you got a newspaper, could I borrow the sports section?";
-                        case "StanLeeChat7":
-                        return "I remember when I was a mail truck driver, got to deliver some mail to some famous guy. I think his name was Tony...Stank?";
-                        case "StanLeeChat8":
-                        return "HAH..! THAT'S HILARIOUS!";
-                        case "StanLeeChat9":
-                        return "Wow, nice suit.";
-                        case "StanLeeChat10":
-                        return "Don't make me whip ya, you little punk.";
-                        case "StanLeeChat11":
-                        return "Whats'a matter with you, ya never seen a spaceship before?";
-                    }
-                }
-            return"";
-        }
-        public static string TownNPCAnubis(String Anubis)
+
+        public static string TownNPCAnubis(string Anubis)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -283,7 +386,7 @@ namespace AAMod
                         case "SetChatButtons8":
                         return "三个愿望";
                         case "SetChatButtons9":
-                        return "蛇. 怎么总是蛇? ";
+                        return "冰凉";
                         case "SetChatButtons10":
                         return "了解";
                         case "SetChatButtons11":
@@ -305,7 +408,29 @@ namespace AAMod
                         case "SetChatButtons19":
                         return "冥昧末日预言者";
                         case "SetChatButtons20":
-                        return "石匠";
+                        return "宝石持有者";
+                        case "SetChatButtons21":
+                        return "吵得头疼的婊子";
+                        case "SetChatButtons22":
+                        return "一条大虫子";
+                        case "SetChatButtons23":
+                        return "兔子恶棍";
+                        case "SetChatButtons24":
+                        return "鸟妖女人又来了";
+                        case "SetChatButtons25":
+                        return "拿钱, 送命";
+                        case "SetChatButtons26":
+                        return "战兔之怒";
+
+                        case "GetBookChat":
+                        return @"你找到啦! 我的限量典藏版传记! 太感谢了, 哥们. 知道吗? 这书作为礼物, 就送给你了. 这, 我再给你签个名.
+...哎呀，我不小心用了我的符文羽毛笔签了名。哦，没事，这东西有魔力.";
+                        case "GetSummonItemChat":
+                        return "嘿，感谢你回来找我. 我想试试你的能力. 你打败那些机械怪物之后，我想看看是不是有实力和像我一样的人战斗. 拿着这把权杖，准备好了就去沙漠里用. 我时刻准备就绪.";
+
+                        case "CombatTextChat":
+                        return "我回家了. 真安静.";
+
                         case "downedMonarchY":
                         return "…就这样? ";
                         case "downedMonarchN":
@@ -315,7 +440,7 @@ namespace AAMod
                         case "downedFungusN":
                         return "绚烂的蘑菇洞总让我觉得有点毛骨悚然。 无论如何, 你想要更好的魔法能力？ 有一个巨大的蘑菇怪物, 身体内充满了强大的魔法能力。 只不过你在它下面的时候需要堵住你的鼻子。 ";
                         case "downedGripsY":
-                        return "把那些大爪子打下来很不错。 也许小东西们能让我一个人呆一会。 ";
+                        return "把那些大爪子打下来很不错。 也许小东西们能让我好好歇一歇。 ";
                         case "downedGripsN":
                         return "那些飞着的爪子在晚上简直就是一场让我害怕的噩梦。 我旅行中, 遇到过两个大大的。 也许如果你杀了他们, 小东西们就会被赶走。 也许你杀一点小爪子, 就能显示召唤出他们的方法。 ";
                         case "downedBroodY":
@@ -329,7 +454,7 @@ namespace AAMod
                         case "downedDjinnY":
                         return "哈！你这个沙子废物, 看看现在谁强！";
                         case "downedDjinnN":
-                        return "那 个 狗 娘 养--哦, 嗨。 对不起, 我只是有点生气, 因为我和沙漠巨灵发生了一场小争执。 你能去教教那个会魔法的傻瓜和他的蠢货打手们别对着我伸肌肉了吗？ ";
+                        return "那 个 狗 娘 养--哦, 嗨。 对不起, 我只是有点生气, 因为我和沙漠巨灵发生了一场小争执。 你能去教教那个会魔法的傻瓜和他的蠢货打手们别对着我秀肌肉了吗？ ";
                         case "downedSerpentY":
                         return "希望你没有被“冻伤”！*砰-咚-锵*（译者注：打击乐中用来活跃气氛的节拍伴奏）...我知道那得一瘸一拐。 ";
                         case "downedSerpentN":
@@ -350,10 +475,38 @@ namespace AAMod
                         return "除掉昼夜虫干得不错。 不过我可以告诉你现在好像过了一个星期。 希望我没有错过护士的预约…";
                         case "downedEquinoxN":
                         return "喜欢虫子？ 我也不喜欢, 你猜怎么着？ 有两个虫子控制日夜的流动, 而且很强力。 祝你好运。 ";
-                        case "AnubisB":
-                        return "我听说有个万人迷家伙帅的一批, 而且所有的女人都爱他, 因为他有惊人的灵魂判断力。 好家伙！";
+                        case "AnubisScapterLost":
+                        return "你把杖给弄 丢 了?! 我可没法像发糖一样天天给你弄一个, 懂吗! 还好, 我还有一个.";
+                        case "downedAnubisBY":
+                        return "你出手可以轻点，懂吗。我现在背还疼着";
+                        case "downedAnubisBN":
+                        return "我听说有个万人迷家伙帅的一批, 而且所有的女人都爱他, 因为他有惊人的灵魂判断力。 真尼玛牛逼！";
+                        case "downedAthenaY":
+                        return "感天谢地, 你终于让那堆烦人的臭鸟闭嘴了! 他们要是再敢冲我嚷嚷，我就抓一只做成烤鸡当晚餐";
+                        case "downedAthenaN":
+                        return "你知道那些整天在天上叽叽喳喳的臭鸟吗? 好，有一种叫六翼鸟妖的完全就不会闭嘴!!! 在东边的天宫里有一个她们的头. 要是你能给她来两拳，也许她们就可以闭上她们的臭嘴";
+                        case "downedRajahY":
+                        return "你打败了王公兔? 漂亮, 是, 我以前一直以为它是神, 所以我觉得你是没法打败它的..!";
+                        case "downedRajahN":
+                        return "嘿，你知道那些总是蹦蹦跳跳的兔子吗？如果我是你，我不会骚扰他们。这里有一个传说，有一个“守护者”，一直在保护它们远离危险。为什么是传说？因为很明显没人能活着从它手里出来。简洁的故事，嗯？";
+                        case "downedGreedYBookY":
+                        return "嘿，谢谢你把我的书拿回来。前一阵子金食饕餮偷它可能是因为我用来装裱它用了金亮的外皮。看看那个山洞，也许他还偷了别的东西？";
+                        case "downedGreedYBookN":
+                        return "嘿 啊...你找到我的东西了吗? 没? 把那的赃物堆好好翻翻, 我敢确定就在那.";
+                        case "downedGreedN":
+                        return "嘿 啊, 在地下有一个巨大的金洞里面充满了琳琅满目的财宝, 但它被一条很小气的虫子看着. 你应该去瞅瞅有没有什么战利品, 不过嗯...那里面还有我的东西. 你可以去帮我取回来吗? 别担心你不认识, 当你看见它的时候, 你就会知道那是我的东西.";
+                        case "downedAthenaAY":
+                        return "哈? 你问我Varian? 我有些年头没听过这个词了...太久远我都忘了这个名字了. 虽然我好像能记起来什么人一直在四处闲逛...";
+                        case "downedAthenaAN":
+                        return "嘿, 那个烦人的小鸟妖找你了吗? 很抱歉向她透露了你的位置, 主要是她一直在我耳边嚷嚷. 不管怎么样, 雅典娜好像确实想重比一场. 保持警惕, 哥们. 我觉得这是个陷阱";
+                        case "GreedACalamityMod":
+                        return "你应该知道, 你和神明吞噬者的战斗让我有点想到了金食饕餮...我是说想象一下. 它们都可以虫洞穿越而且喜欢吃东西. 它们可能是...啊, 那可太不可思议了...或者..?";
+                        case "downedGreedAY":
+                        return "所以它一直在隐藏它的真实实力. 我想知道为什么, 虽然...大概是, 它想躲着什么东西..?";
+                        case "downedGreedAN":
+                        return "你知道吗, 我依稀记得一个有关贪婪的虫子偷走你的垃圾的故事. 当它再一次出现时，它会比你把它打的屁滚尿流的时候强得多. 也许随着时间的推移它变得越来越菜...？或者...不，那不可能...";
                         case "downedSistersY":
-                        return "漂亮！你给那俩宠坏的小孩好好上了一课！那俩没看见这个！";
+                        return "漂亮！你给那俩宠坏的小孩好好上了一课！那俩没尝过苦头！";
                         case "downedSistersN":
                         return "还记得育母炎龙和九头渊蛇？ 好, 那俩有女儿。 而且她们讨厌“男 人”。 。 ！每次我去混沌之地的时候, 这俩都会等在那毁了我的一天！你去给她们俩点教训？ ";
                         case "downedAkumaY":
@@ -372,6 +525,10 @@ namespace AAMod
                         return "天哪——我知道你有这种感觉, 伙计！太棒了！尽管……你打他时他看起来很生气……几乎和他被打时一样——呃, 别再生气了。  ";
                         case "downedShenN":
                         return "邪鬼巨龙和八歧大蛇...你知道吗, 他们两个曾经是一个生物。 很糟糕的是, 它很强。 他曾经一度把两个文明世界合二为一。 不说了, 你需要啥？ ";
+                        case "downedRajahCY":
+                        return "所以巨兔王公最终决定移交权力？似乎他认为你是保护那些需要帮助的人的合适人选。如果是我的话我会照他说的做。在我看来，这是正确的做法。";
+                        case "downedRajahCN":
+                        return "他们兔子最近很生气。有点不对劲。我只是感觉到…";
                         case "Stones":
                         return "你知道……在你与上神应龙交战之后, 我感觉到一些……非常古老的魔法在激活。 也许你应该去拜访一下你遇到的那些强硬的BOSS？ 顺便问一下, 你最近见过哥布林召唤师吗？ 天哪, 她变得很强。 不知道她会掉落什么东西。 ";
                         case "else":
@@ -396,6 +553,8 @@ namespace AAMod
                         return "你听到泰拉心球里传来的音乐了吗？ 我觉得下面有些新东西。 看看你能不能弄到他们持有的绿色棱镜。 我想你可以用它建造一个牛逼的制作台。 ";
                         case "EquinoxBossGuideChat":
                         return "你知道天空中那些发光的球吗？ 如果我没记错， 它们会随时间而变化。 如果你一天不同的时间去， 也许你能得到不同的东西？ ";
+                        case "AnubisChatMask":
+                        return "嘿, 看上去帅的一批.";
                         case "AnubisChat1":
                         return "你不会恰巧擅长揉肚子吧? ";
                         case "AnubisChat2":
@@ -413,9 +572,9 @@ namespace AAMod
                         case "AnubisChat8":
                         return "沙漠巨灵被打败了但是它没从我这得到任何东西! 核实一下!";
                         case "AnubisChat9":
-                        return "顺便感谢你让我掉在这. 在沙漠里走了几千年的滋味真不好受. ";
+                        return "顺便感谢你让我在这落脚. 在沙漠里走了几千年的滋味真不好受. ";
                         case "AnubisChat10":
-                        return "对了, 我写了泰拉史记. 但是我也写了另外一本伟大的书. 《阿努比斯生命史诗历险记》! 要看看? ";
+                        return "对了, 我写了泰拉史记. 但是我也写了另外一本伟大的书, 《阿努比斯生命史诗历险记》! 要看看? ";
                         case "AnubisChat11":
                         return "你不觉得讨厌吗, 当";
                         case "AnubisChat12":
@@ -429,7 +588,7 @@ namespace AAMod
                         case "AnubisChat16":
                         return "天哪, 我之前试过和他们搭讪, ";
                         case "AnubisChat17":
-                        return "把我给踢出来了. 我想知道, 这些女人和血月是怎么回事? ";
+                        return "不想让我加入他们的聊天. 我想知道, 这些女人和血月是怎么回事? ";
                         case "AnubisChat18":
                         return "我试着和";
                         case "AnubisChat19":
@@ -460,6 +619,264 @@ namespace AAMod
                         return ", 他的商品哪来的. 很讨厌. ";
                     }
                 }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(Anubis)
+                    {
+                       case "AnubisName":
+                        return "Летописец";
+                        case "SetChatButtons1":
+                        return "Поменять";
+                        case "SetChatButtons2":
+                        return "Что мне теперь делать? ";
+                        case "SetChatButtons3":
+                        return "Грибы. Я серьезно. ";
+                        case "SetChatButtons4":
+                        return "Больше грибов. ";
+                        case "SetChatButtons5":
+                        return "Тиски Хаоса.";
+                        case "SetChatButtons6":
+                        return "Жирная Дракониха";
+                        case "SetChatButtons7":
+                        return "Трехголовый Урод";
+                        case "SetChatButtons8":
+                        return "Три желанья";
+                        case "SetChatButtons9":
+                        return "Крута как лед";
+                        case "SetChatButtons10":
+                        return "Попался";
+                        case "SetChatButtons11":
+                        return "Механическая Масса";
+                        case "SetChatButtons12":
+                        return "Две головы, но нуль мозгов";
+                        case "SetChatButtons13":
+                        return "Еще один босс червь, черт";
+                        case "SetChatButtons14":
+                        return "Древний Суда";
+                        case "SetChatButtons15":
+                        return "Ужасные близняшки";
+                        case "SetChatButtons16":
+                        return "Древний Ярости";
+                        case "SetChatButtons17":
+                        return "Древний Гнева";
+                        case "SetChatButtons18":
+                        return "Древний Гибели";
+                        case "SetChatButtons19":
+                        return "Вестник Раздора";
+                        case "SetChatButtons20":
+                        return "Каменные хранители";
+                        case "SetChatButtons21":
+                        return "Скрипящая головная боль";
+                        case "SetChatButtons22":
+                        return "Что за червь";
+                        case "SetChatButtons23":
+                        return "Прыгающий громила";
+                        case "SetChatButtons24":
+                        return "Карга-гарпия вернулась";
+                        case "SetChatButtons25":
+                        return "Богатеет и убивает тебя";
+                        case "SetChatButtons26":
+                        return "Гнев Кролика";
+
+                        case "GetBookChat":
+                        return @"Ты достал ее! Мою лимитированную копию моей-же почитаемой биографии! Спасибо, друг. А знаешь что? Можешь забирать ее, как подарок. Смотри, я даже афтограф оставлю...
+Ой, кажется, я использовал свое рунное перо для этого. Ну, теперь она волшебная.";
+                        case "GetSummonItemChat":
+                        return "После того, как ты разнес(ла) те механические болванки, мне стало интересно насколько ты будешь хорош(а) против меня. Вот, возьми этот скипетр и используй его в пустыне, когда будешь готов(а). ";
+
+                        case "CombatTextChat":
+                        return "Я пошел домой, мир тебе.";
+
+                        case "downedMonarchY":
+                        return "...и все? ";
+                        case "downedMonarchN":
+                        return "Эй, видел(а) эти маленькие красные грибы повсюду? Я слышал, что если объединить их в одну массу и помахать немного, придет их король и попытается тебя убить. Я должен это видеть. ";
+                        case "downedFungusY":
+                        return "Хорошая работа. А теперь честно, ты на грибах сейчас? ";
+                        case "downedFungusN":
+                        return "Пещеры светящихся грибов всегда заставляли меня чувствовать себя спятевшим по какой-то причине. В любом случае, хочешь магические способности получше? Там обитает огромный гриб-монстер, в котором сокрыты отличные возможности для магии. Просто заткни свой нос, пока ты там. ";
+                        case "downedGripsY":
+                        return "Неплохо сработано с теми гигантскими тисками. Может быть, мелкие, наконец, отстанут. ";
+                        case "downedGripsN":
+                        return "Эти летающие ночные когти - это кошмар, и они меня бесят. В своих путешествиях я сталкивался с двумя ОООООООЧЕНЬ крупными такими. Может, если убить их, то и более меньшие уберутся отсюда. Возможно, если ты убьешь нескольких из них и покажешь, это привлечет их больших собратьев. ";
+                        case "downedBroodY":
+                        return "Она была самым жирным драконом, которого я видел. ";
+                        case "downedBroodN":
+                        return "Драконы нравятся? Нет? Вот беда! Хочешь вооружение получше? Тогда, тебе нужно убить ОГРОМНУЮ дракониху сделанную из лавы. Она большая, страшная и слишком ЖИРНААЯЯЯ, чтобы летать, но она все равно летает. ";
+                        case "downedHydraY":
+                        return "Эта Гидра была ужасно надоедливой, скатертью ей дорога. Ну, хотя бы ее дочка будет помягче...хмм? Кто? Объясню тебе позже. ";
+                        case "downedHydraN":
+                        return "Трясина всегда была местом собрания для всех самых омерзительных зверей, но там есть одна большая, и у нее 3 головы. Она постоянно ворчливая, и неважно, когда я пытаюсь зайти к ней в лого, она вегда пытается СЪЕСТЬ меня!";
+                        case "downedDjinnY":
+                        return "Ха! И кто теперь крутой парень, ты, мешок с песком!";
+                        case "downedDjinnN":
+                        return "ЭТА СУ-- Ой, привет! Извини, я был просто немного зол насчет драки, которая у меня была с Пустынным Джинном. Этот волшебный идиот и его придурки зафлексили меня своими мускулами. Не мог(ла) бы ты пойти и преподать им пару уроков? ";
+                        case "downedSerpentY":
+                        return "Надеюсь, что ты себе ничего не 'ОТМОРОЗИЛ(А)'! Бадум-тсс...Да, я знаю, что это было плохо";
+                        case "downedSerpentN":
+                        return "Змеи! И откуда там только змеи? Я ненавижу их! В любом случае, недавно, в тундре, были эти снежные змеи, которые не оставляют меня в покое. Можешь поиграть в истребителя и узнать по пути, что они делали? ";
+                        case "downedRetrieverY":
+                        return "Тебе не попадалась моя третья версия ’Жизнь и Эпические приключения Анубиса, собаки-путешественника!’? ";
+                        case "downedRetrieverN":
+                        return "Помнишь Тиски Хаоса? Те мерзкие, желающие схватиться за все ручонки? Так вот, есть их робо-версия и она ворует мой вещи. Можешь оказать мне услугу и швырнуть в нее гаечный ключ, или что-то тип того? ";
+                        case "downedRaiderY":
+                        return "Так это был всего лишь огромный робот? Ну, иногда люди просто раздувают из мухи слона. Это штука была почти такая же жирная, как Мать Стаи. ";
+                        case "downedRaiderN":
+                        return "Люди говорили, что видели огромную тень в одну из ночей. Она была настолько большая, что закрыла собой всю луну на секунду. Ты должен(а) разгадать эту тайну и сделать что-нибудь. ";
+                        case "downedOrthrusY":
+                        return "Я думаю, что Орф-X сейчас - это то, что он ест... ";
+                        case "downedOrthrusN":
+                        return "Помнишь Гидру? Так вот, появилась еще одна, и она еще больше. И еще она робот. И...э -...она стреляет... молниями? Так что... э -...удачи!";
+                        case "downedEquinoxY":
+                        return "Неплохо ты сработал(а) с Червями Равноденствия. Я уверен в этом, потому что уже неделя прошла. Надеюсь, что не пропустил встречу с моей медсестрой...";
+                        case "downedEquinoxN":
+                        return "Любишь червей? Я тоже нет, но угадай, что. В небе два больших червя, которые контролируют смену дня и ночи, и они оба конченые и жестокие. Удачи";
+                        case "AnubisScapterLost":
+                        return "Ты ПОТЕРЯЛ(А) скипетр?! Я не могу раздавать их, как конфеты! В любом случае, вот еще один.";
+                        case "downedAnubisBY":
+                        return "Мог(ла) быть и подобрее со мной, знаешь ли. До сих пор спина болит.";
+                        case "downedAnubisBN":
+                        return "Я слышал, что есть летописец, который очень накаченный и красивый, и все леди любят его за потрясающие способности судьи душ. Что за парень!";
+                        case "downedAthenaY":
+                        return "Слава равноденствию, ты заткнул(а) этих маленьких засранцев! Если бы они бы накричали на меня хотя бы еще раз, я бы поджарил одного из них на вертеле и поел бы жареной курочки на ужин.";
+                        case "downedAthenaN":
+                        return "Ты знаешь о визжащих гарпиях в небесах? Они очень противные существа, называющие себя серафимами, КОТОРЫЕ ПРОСТО НЕ МОГУТ ЗАТКНУТЬСЯ! У них есть лидер в небесном дворце на востоке, может если ты ее проучишь, то они наконец заткнут свои рты!";
+                        case "downedRajahY":
+                        return "Ты победил(а) Раджу?! Пффт, ага, конечно, я видел, как он наказывал мнимых богов. Невозможно!";
+                        case "downedRajahN":
+                        return "Ты видел(а) этих кроликов, прыгающих вокруг все время? Я...ну...я бы их не трогал на твоем месте. Есть легенд о 'Защитнике', который их зашищает от угроз нашего мира. Почему легенда? Потому что, нет существа, которе с ним сражалось и выжило. Неплохая история, а? ";
+                        case "downedGreedYBookY":
+                        return "Эй, спасибо, что вернул(а) мою книгу. Жадность украл ее когда-то, скорее всего из-за блестяшек, которые я наколдовал на нее. Покопайся там, в этой пещере, может быть есть еще вещи, которые он украл. ";
+                        case "downedGreedYBookN":
+                        return "Эй..э-...ты нашел(ла) мою книгу? Нет? Покопайся в горе наворованного барахла в пещерах. Я уверен, что она там.";
+                        case "downedGreedN":
+                        return "Эй, эх, под землей есть огромная куча сокровищ, но она охраняется скупым червем. Ты должен(на) пойти и проверить это место на наличие кучи сокровищ, но...эх, там есть кое-что мое. Можешь сбегать туда  и забрать это для меня? Не волнуйся, когда ты видишь, то сразу поймешь, что это мое. ";
+                        case "downedAthenaAY":
+                        return "Хм? Что такой Вариан спрашиваешь? Я этого слова годами не слышал... так давно, что еле помню имя. Хотя, я припоминаю что-то про еще одного, который где-то здесь.";
+                        case "downedAthenaAN":
+                        return "Эй, мелкая надоедливая ведьма нашла тебя? Извини, что рассказал ей про то, где ты. Она не переставала визжать мне в ухо. В любом случае, похоже, что Афина хочет реванш. Будь осторожен(а), друг, звучит как ловушка.";
+                        case "GreedACalamityMod":
+                        return "Знаешь, твое сражение с Пожирателем Богов напомнило мне Жадность немного... Я имею ввиду, подумай над этим. У них обоих есть возможность создавать червоточины, и они оба адаптируются к тому, что они едят. Могут ли они быть... не, это бред...или..?";
+                        case "downedGreedAY":
+                        return "Так, все это время, он скрывал свое истинную силу. Интересно почему...может ли он от кого то скрываться, возможно..?";
+                        case "downedGreedAN":
+                        return "Знаешь, я помню историю о старом добром хвататель-воровать-твое-барахло. Когда только появился, он был намного сильнее, чем когда ты победил(а) его. Может он стал слабее со временем..? Или, может...не, невозможно. ";
+                        case "downedSistersY":
+                        return "Прекрасно, ты задал этим двум нажравшимся крысам урок! Они этого явно не ожидали!";
+                        case "downedSistersN":
+                        return "Помнишь старых добрых Гидру и Мать Стаи? Ну, у этих двоих есть дочери. И БОЖЕ, какие они надоедливые..! Каждый раз, когда я иду в биомы хаоса, эти двое так и ждут момента, что бы испортить мой день! Можешь преподать им урок или два? ";
+                        case "downedAkumaY":
+                        return "Акума думает, что он весь такой крутой и дерзкий. Как по мне, он пролетает мимо, при этом пытаясь выглядеть слишком круто и полностью проваливаясь в этом . В любом случае, может ты хочешь налить себе немного воды на волосы. Ты там немного подгорел(а). ";
+                        case "downedAkumaN":
+                        return "Кто вообще будет называть змея солнца демоном? Я вообще без понятия...Но Акуме уже пора уйти. Он постоянно превращают мой пустыни в стекло своем огненным дыханием и это меня бесит! ";
+                        case "downedYamataY":
+                        return "Спасибо за то, что заткнул(а) это 7-голового гада! Из-за него я хотел вырвать себе всю шкуру! ";
+                        case "downedYamataN":
+                        return "Ямата, сопливый нытик! Он жалуется на все И ОН НИКОГДА, БЛ###, НЕ ЗАТЫКАЕТСЯ! СЕРЬЕЗНО, ТЫ попробуй разобраться с 7 противными кричащим головами-драконами, которые еще и постоянно перекрикивают друг-друга!";
+                        case "downedZeroY":
+                        return "…Я буду честен. Мне не нравиться, что эта штука сказала после смерти... ";
+                        case "downedZeroN":
+                        return "Бывал(а) в Пустоте? Летающие страшные острова на востоке? Там есть БОЛЬШАЯ страшная машина, которая всегда просто там летает! В любом случае, после того, как ты пришлепнул(а) Лунного Лорда, я услышал массивную шоковую волну из Пустоты. Можешь сходить туда и проверить, для меня? ";
+                        case "downedShenY":
+                        return "БОЖЕ-- Я знал, что в тебе что-то есть! Потрясающе! Хотя... он был очень зол, когда ты победил(а) его...такой же злой, как когда его побед--эхм, забудь.  ";
+                        case "downedShenN":
+                        return "Акума и Ямата... знаешь ли, эти двое, когда-то были одним целым. И боже, этот парень был силен. Он стер с лица земли 2 цивилизаций. В любом случае, ты что-то хотел(а)? ";
+                        case "downedRajahCY":
+                        return "Так старый добрый Раджа отдал свой скипетр? Похоже, что он считает тебя идеальным выбором следующего защитника. Я бы так же поступил. По моему мнению, он поступил правильно.";
+                        case "downedRajahCN":
+                        return "Кролики были взбешены в последнее время. Что-то не так, я чувствую...";
+                        case "Stones":
+                        return "После смерти старика Шена, я почувствовал, как...очень древняя магия активировалась. Может попробовать снова сразиться с сильнейшими врагами, которых ты встретил(а)? Кстати, ты видел(а) гоблина призывателя? Боже, она стала сильной. Интересно, что это с ней. ";
+                        case "else":
+                        return "Я не знаю? Спрашивай меня об любых сильных существах, с которыми ты можешь сразиться.  ";
+                        case "AkumaGuideChat":
+                        return "На твоем месте, я бы не приходил в трясину днем. Там становиться очень туманно и ничего не видно. Я думаю, что ты можешь сделать фонарь из когтей пламени. ";
+                        case "YamataGuideChat":
+                        return "По какой-то причине, Вулкан в Инферно становиться активным ночью. Днем он спокоен. Может, ты сможешь пройти там ночью, если сделаешь подобие прикрытия из когтей гидры. Их пепел не трогает.";
+                        case "JungleGuideChat":
+                        return "Я заметил, что враги в джунглях оставляют странные листья после смерти. Они очень жесткие, хотя, может сделать из них обмундирование? ";
+                        case "BroodMotherGuideChat":
+                        return "Ты видел(а) яйца в глубине вулкана Инферно? Ага, эх, будь я на твоем месте, не трогал бы их. Если конечно не хочешь биться с очень злой драконихой. ";
+                        case "HydraGuideChat":
+                        return "Под озером, в трясине есть коконы... чего-то. Я даже знать не хочу, что эта Гидра ест. Но я и не ломал бы их, эта ящерица очень раздражается, когда что-то трогает ее еду. ";
+                        case "VoidGuideChat":
+                        return "Летающие острова на востоке пугают меня. Они... просто там. Мне кажется, что там есть какие-то дома, но подыматься туда я не собираюсь.  ";
+                        case "HardModeGuideChat1":
+                        return "Эй, если ты спустишься в пещеры биомов хаоса, то можешь достать души, по типу тех, которые можно собрать в биомах зла. ";
+                        case "HardModeGuideChat2":
+                        return "Эй, встречал(а) лягушек в трясине? Я слышал, что в них накоплена куча монет. Так что, иди, побей их немного и БУМ! Деньжата! ";
+                        case "PlantBossGuideChat":
+                        return "Ты слышал(а) музыку, идущую из Террариума? Мне кажется, что там появилось что-то новое. Посмотрим, сможешь ли ты положить свои ручонки на их новые зеленые призмы. Я думаю, что из них ты можешь сделать новую безумную крафтинговую станцию. ";
+                        case "EquinoxBossGuideChat":
+                        return "Видел(а) эти светящиеся сферы в атмосфере? Если я точно помню, то они меняются в зависимости от времени суток. Может ты получшиь что-то новое с них, если пойдешь в другое время суток? ";
+                        case "AnubisChatMask":
+                        return "Эй, неплохо выглядишь, очаровашка!";
+                        case "AnubisChat1":
+                        return "А ты хорош(а) в чесании пузика? ";
+                        case "AnubisChat2":
+                        return "Знаешь  ужасное чувство, когда на пляже  песок попадает в твой штаны. А теперь представь, что с тобой такое постоянно. Добро пожаловать в мою жизнь! ";
+                        case "AnubisChat3":
+                        return "В сотый раз говорю, Я НЕ ФУРРИ!!!";
+                        case "AnubisChat4":
+                        return "Эй, можешь почесать у меня за спинкой? ";
+                        case "AnubisChat5":
+                        return @"Нет, я не надену ошейник от блох.
+						*чешет себя*";
+                        case "AnubisChat6":
+                        return "Все у меня спрашивают, кто хороший мальчик, но никогда не дают ответа. ";
+                        case "AnubisChat7":
+                        return "Ты видел мой хвост? Мне надо его проучить! ";
+                        case "AnubisChat8":
+                        return "Пустынный Джинн может и ходячая груда мышц, но посмотри на это!";
+                        case "AnubisChat9":
+                        return "Кстать, спасибо, что разрешил поселиться здесь. Устаешь, когда бродишь по пустыне несколько сотен лет. ";
+                        case "AnubisChat10":
+                        return "Да, я написал ’История Террарии’. Но так же, я написал еще одну великую книгу ’Жизнь и Эпические приключения Анубиса, собаки-путешественника!’.  ";
+                        case "AnubisChat11":
+                        return "А тебя не выбешивает, когда";
+                        case "AnubisChat12":
+                        return "Красная мясная зараза";
+                        case "AnubisChat13":
+                        return "Фиолетовая гнилая зараза";
+                        case "AnubisChat14":
+                        return "Захватывает твой биом? Отвратительно! ";
+                        case "AnubisChat15":
+                        return "Какое существо я больше всего ненавижу? Ох, это просто, Королевский Слизень. Если он упадет на тебя, удачи с очисткой одежды или шкуры от слизи без паяльной лампы. ";
+                        case "AnubisChat16":
+                        return "Боже, я попытался познакомиться с девушкой недавно, ";
+                        case "AnubisChat17":
+                        return "а она ударила меня со всей силы. Что не так с девушками и кровавыми лунами?  ";
+                        case "AnubisChat18":
+                        return "Я попытался познакомиться с девушкой,";
+                        case "AnubisChat19":
+                        return "и она была со мной абсолютна добра. Это...странно...учитывая, что тогда была кровавая луна... ";
+                        case "AnubisChat20":
+                        return "Эй, неплохой костюмчик! ";
+                        case "AnubisChat21":
+                        return "Эй, нравиться моя летающая праздничная шапка? Магия бывает веселой. ";
+                        case "AnubisChat22":
+                        return "Диско все еще нравиться террарианам, да? Я буги умею танцевать. ";
+                        case "AnubisChat23":
+                        return "Эй, эх... если кто спросит. ";
+                        case "AnubisChat24":
+                        return "достал все его информацию от меня, понял? ";
+                        case "AnubisChat25":
+                        return "Это";
+                        case "AnubisChat26":
+                        return "немного пугает. Он тоже много знает о боссах... надеюсь, он не преследует меня, или что-то тип того. ";
+                        case "AnubisChat27":
+                        return "Я думаю, ";
+                        case "AnubisChat28":
+                        return "что он не признает, насколько он умный на самом деле. Я имею ввиду, посмотри на это лицо. Просто. Чистый. Гений.  ";
+                        case "AnubisChat29":
+                        return "продолжает кричать на меня за то, что я ем всю обувь, которую он делает. Это не моя вина, что вся его обувь сделана из особого материала. ";
+                        case "AnubisChat30":
+                        return "Не спрашивай";
+                        case "AnubisChat31":
+                        return "где он достает свое барахло? Оно такое мерзкое. ";
+
+                    }
+                }
             else
                 {
                     switch(Anubis)
@@ -483,7 +900,7 @@ namespace AAMod
                         case "SetChatButtons8":
                         return "3 Wishes";
                         case "SetChatButtons9":
-                        return "Snakes. Why is it always snakes?";
+                        return "Cool as Ice";
                         case "SetChatButtons10":
                         return "Gotcha'";
                         case "SetChatButtons11":
@@ -506,6 +923,28 @@ namespace AAMod
                         return "Discordian Doomsayer";
                         case "SetChatButtons20":
                         return "The Stonekeepers";
+                        case "SetChatButtons21":
+                        return "Squakin' Headache";
+                        case "SetChatButtons22":
+                        return "What a Worm";
+                        case "SetChatButtons23":
+                        return "Hopping Hoodlum";
+                        case "SetChatButtons24":
+                        return "Harpy Hags are back";
+                        case "SetChatButtons25":
+                        return "Riches and R.I.P. you";
+                        case "SetChatButtons26":
+                        return "Wrath of the Wabbit";
+
+                        case "GetBookChat":
+                        return @"You got it! My limited edition copy of my esteemed biogrophy! Thanks, pal. You know what? As a gift, you can have it. Here, I'll even autograph it for you.
+...Whoops, I accidentally used my runic quill to sign it. Oh well, now it's magic.";
+                        case "GetSummonItemChat":
+                        return "Hey, thanks for getting back to me. I wanna test your strength. After you thrashed those mechanical meatheads, I'm interested in seeing how you fair against someone like me. Here, take this scepter and go use it in the desert on the surface whenever you're ready. I'm ready whenever.";
+
+                        case "CombatTextChat":
+                        return "I'm headed home. Peace.";
+
                         case "downedMonarchY":
                         return "...that was it?";
                         case "downedMonarchN":
@@ -550,8 +989,36 @@ namespace AAMod
                         return "Nice job taking out the Equinox worms. I could tell you did because it's like a week later now. I hope I didn't miss my nurse's appointment...";
                         case "downedEquinoxN":
                         return "Like worms? Me neither, but guess what? There are 2 big ones that control the flow of day and night, and they're tough buggers. Good luck.";
-                        case "AnubisB":
+                        case "AnubisScapterLost":
+                        return "You LOST the scepter?! I can't go handing these things out like candy, you know! Anyways, here's another one.";
+                        case "downedAnubisBY":
+                        return "You could have gone a little easier on me, ya know. My back still hurts from that.";
+                        case "downedAnubisBN":
                         return "I hear there’s this lorekeeper guy that’s really jacked and handsome, and all the ladies love him for his amazing soul-judging abilities. What a guy.";
+                        case "downedAthenaY":
+                        return "Thank the Equinox, you shut those annoying little squakers up! I was about to roast one of them over a spit and have fried chicken for dinner if they shrieked at me one more time.";
+                        case "downedAthenaN":
+                        return "You know those screechin' harpies up in the sky? Well there are these REALLY obnoxious ones called seraphs who just WILL NOT SHUT UP!!! They have a leader in that sky palace to the east. Maybe if you give her the ol' one-two, they'll shut their yappers.";
+                        case "downedGreedYBookY":
+                        return "Hey thanks for getting my book back. Greed stole it a while ago, probably because of the gold highlights I used to bind it. Look around that cave, maybe there's some other stuff he's stolen?";
+                        case "downedGreedYBookN":
+                        return "Hey uh...did you find my thing yet? No? Just dig around in that loot pile down there, I'm sure it's there somewhere.";
+                        case "downedGreedN":
+                        return "Hey uh, there's this HUGE hoard of treasure underground somewhere with lots of gold in it, but it's guarded by this really stingy worm. You should go check it out for a boatload of booty, but uh...there's something of mine down there. Could you go get it for me? Don't worry, when you see it, you'll know it's mine.";
+                        case "downedRajahY":
+                        return "You bested Rajah? Pft, yeah right, I've seen him trounce supposed gods before, there is no way you beat him..!";
+                        case "downedRajahN":
+                        return "Hey, you know those bunnies that hop around all the time? I uh...I wouldn't harass them if I were you. There's a legend around here of a sort of 'Guardian' of sorts that prtotects them from danger. Why is it a legend? Because apparently nobody has ever fought this thing and lived. Neat story, eh?";
+                        case "downedAthenaAY":
+                        return "Huh? What's a Varian you ask? That's something I haven't heard in years...so long ago that I barely even remember the name. Although I do recall something about another one kicking around somewhere...";
+                        case "downedAthenaAN":
+                        return "Hey, did that annoying little witch find you? Sorry for telling her where you were, she wouldn't stop screeching in my ear. Anyways, looks like Athena wants a rematch. Stay on your guard, bud. This seems like a trap...";
+                        case "GreedACalamityMod":
+                        return "Ya know, you duking it out with the Devourer of Gods reminded me of Greed a bit...I mean think about it. They both have wormhole capabilities and they both adapt to what they eat. Could they possibly be...nah, that'd be rediculous...or..?";
+                        case "downedGreedAY":
+                        return "So he WAS hiding his true power all along. I wonder why, though...could he be hiding from something, perhaps..?";
+                        case "downedGreedAN":
+                        return "You know, I seem to remember a story about ol' grabby-mc-steal-your-crap. When he first showed up in these parts, he was much stronger than he was when you kicked his rear end. Maybe he got weaker as time went on..? Or maybe...nah, that couldn't be it.";
                         case "downedSistersY":
                         return "Nice, you taught those two spoiled brats a lesson! Those two didn't see it coming!";
                         case "downedSistersN":
@@ -572,6 +1039,10 @@ namespace AAMod
                         return "Holy-- I knew you had it in you, man! Awesome job! Although...he seemed pretty angry when you beat him...almost as angry as when he got beat by-- er, nevermind that.";
                         case "downedShenN":
                         return "Akuma and Yamata...you know, those two were once one being. And hot dang, that guy was powerful. He leveled 2 civilizations one time. Anyways, so what was it that you needed?";
+                        case "downedRajahCY":
+                        return "So ol' Rajah finally decided to hang up the scepter? Seems like he thought you were the right pick to protect those in need. I'd do what he says. It's the right thing to do, in my opinion.";
+                        case "downedRajahCN":
+                        return "Them bunnies have been getting pretty riled up lately. Something ain't right. I just feel it...";
                         case "Stones":
                         return "You know...after you whooped ol' Shen, I felt some...very old magic activate. Maybe you should pay a visit to some of the tougher bosses you've come across? By the way, have you seen the Goblin Summoner recently? Jeeze she got tough. Wonder what her deal is.";
                         case "else":
@@ -596,6 +1067,9 @@ namespace AAMod
                         return "Did you hear that music coming from the Terrarium? I think there's something new down there. See if you can get your hands on one of those green prisms they have. I think you can make a crazy new crafting station with it.";
                         case "EquinoxBossGuideChat":
                         return "You know those glowing spheres in the sky? If I remember correctly, they change depending on the time of day. Maybe you can get something different from them if you go at different points in the day?";
+                        
+                        case "AnubisChatMask":
+                        return "Hey, lookin' good handsome.";
                         case "AnubisChat1":
                         return "You wouldn’t happen to be good at belly rubs would you?";
                         case "AnubisChat2":
@@ -664,7 +1138,8 @@ namespace AAMod
                 }
             return"";
         }
-        public static string TownNPCGoblinSlayer(String GoblinSlayer)
+
+        public static string TownNPCGoblinSlayer(string GoblinSlayer)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -692,6 +1167,36 @@ namespace AAMod
                         return "嘿, 你在外面能帮我杀些哥布林吗? 把他们的灵魂给我, 我给你我额外的哥布林杀手装备. ";
                     }
                 }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(GoblinSlayer)
+                    {
+                        case "GoblinSlayerName":
+                        return "Убийца Гоблинов";
+                        case "GoblinSlayerChat1":
+                        return "Я не доверяю";
+                        case "GoblinSlayerChat2":
+                        return ". Есть что-то в нем, что мне не нравиться.";
+                        case "GoblinSlayerChat3":
+                        return "рассказал мне, что в землях, откуда он пришел, они убивают очень много гоблинов. Как-нибудь посещу это место. Звучит прекрасно. ";
+                        case "GoblinSlayerChat4":
+                        return "Я не люблю гоблинов. ";
+                        case "GoblinSlayerChat5":
+                        return "Видел каких-нибудь гоблинов, которых я могу убить? ";
+                        case "GoblinSlayerChat6":
+                        return "Гоблины-бедствие этой земли. ";
+                        case "GoblinSlayerChat7":
+                        return "Видели какие-нибудь лагеря гоблинов? ";
+                        case "GoblinSlayerChat8":
+                        return "Почему я ненавижу гоблинов? Потому что они гоблины. ";
+                        case "GoblinSlayerChat9":
+                        return "Эй, пока ты будешь там, можешь убить парочку гоблинов? Я обменяю их души на новое вооружение для уничтожения гоблинов. ";
+						case "GoblinSlayerChat10":
+                        return "Сока.";
+						case "GoblinSlayerChat11":
+                        return "Есть и другие армии, вторгающийся в этот мир, как например ужасающие гоблины. К счастью, избиение этих тварей подготовило меня . Принеси мне особый лут с них, и я дам тебе специальное вооружение, которое достал с них.";
+                    }
+                }
             else
                 {
                     switch(GoblinSlayer)
@@ -716,11 +1221,16 @@ namespace AAMod
                         return "Why do I hate goblins? Because they're goblins.";
                         case "GoblinSlayerChat9":
                         return "Hey, while you're out there, can you kill some goblins for me? Give me their souls and I'll trade you for some of my extra goblin slaying gear.";
-                    }
+                        case "GoblinSlayerChat10":
+                        return "Souka.";
+                        case "GoblinSlayerChat11":
+                        return "There are other armies invading this land like those dreaded goblins. Fortunately, beating the snot out of those little twerps has prepared me. Bring me some special things from them and I'll give you some of the stuff I've picked up from them.";
+
                 }
+            }
             return"";
         }
-        public static string TownNPCLovecraftian(String Lovecraftian)
+        public static string TownNPCLovecraftian(string Lovecraftian)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -790,6 +1300,76 @@ namespace AAMod
                         return "这是我研究需要的物品清单. 如果你丢了, 我很乐意为你写一篇新的. ";
                         case "NothingChat":
                         return "嗯……没东西? 我需要一些研究的东西. 我想要一些来自各种环境的重要材料. 怪物碎片、植物等. ";
+                    }
+                }
+                else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(Lovecraftian)
+                    {
+                        case "button1":
+                        return "Магазин";
+                        case "button2":
+                        return "Отдать ингредиенты";
+                        case "LovecraftianChat1":
+                        return "Ты знаешь, откуда я, оттуда, что в вашем мире называется ‘горячим’";
+                        case "LovecraftianChat2":
+                        return "Я не единственное существо, пришедшее в этот мир. Куча всего другого пришло сюда со мной. Но Глаз и Мозг Ктулху всегда были тут, без понятия, кто они такие. ";
+                        case "LovecraftianChat3":
+                        return "...на что ты смотришь? Ведешь себя так, как-будто никогда не видел женщину с щупальцами. ";
+                        case "LovecraftianChat4":
+                        return "Да, я женщина. Что такого? Тебя моя тентаклевая борода смущает? ";
+                        case "LovecraftianChat5":
+                        return "Если у тебя есть хотя бы какое-то чувство самосохранения, то не лезь в затонувший корабль. Ужасные вещи таятся там, особенно опасен...неважно. ";
+                        case "LovecraftianChat6":
+                        return "Никогда не находил странные вещи в своих тентаклях? Нет? Только я? ";
+                        case "LovecraftianChat7":
+                        return "Хей, твой мир очень интересный. Не мог бы ты принести мне некоторые образцы из разных биомов мне для изучения? Если так, то я могу сделать некоторые крутые штуки для обмена с тобой ";
+                        case "LovecraftianChat8":
+                        return "Ох. Это странно. Бедняга. ";
+                        case "LovecraftianChat9":
+                        return ". это его корабль был уничтожен, когда я выпала из разрыва. ";
+                        case "LovecraftianChat10":
+                        return "Этот";
+                        case "LovecraftianChat11":
+                        return "говорит своей з#######. Ктулху бы раздавил его до того, как он скажет 'ауч' ";
+                        case "LovecraftianChat12":
+                        return "Этот мертвый чувак, шатающийся вокруг, меня пугает, и это о чем то да говорит, учитывая, что я ходячий ужас. Я не знаю, у меня просто такое чувство, что он знает слишком много.";
+                        case "LovecraftianChat13":
+                        return "Интересный факт; Ктулху и Лунный Лорд- братья. По крайней мере, мне так сказала розовая леди-пикси.";
+                        case "PurityFlaskChat":
+                        return "Ох! Это что, осколки чистоты? Идеально! Вот, держи. Ты можешь очищать большиство биомов этим новым типом раствора. ";
+                        case "AshJarChat":
+                        return "Драконы, эх? Я и пострашнее видела. В любом случае, вот новый раствор. Осторожно, он горячий. ";
+                        case "DarkwaterFlaskChat":
+                        return "Что это..? Это буквально шар...чего то. Я исследую это. Вот, новый раствор. Делай что хочешь. ";
+                        case "CorruptionFlaskChat":
+                        return "Почему ты затыкаешь нос? Есть вещи, которые пахнет намного хуже чем это. Это же просто гниющая плоть. ";
+                        case "CrimsonFlaskChat":
+                        return "Хм...Кости? Я уже видела похожие. Похожи на кости из моего мира ";
+                        case "MeanGreenStewChat":
+                        return "Что это? Она... блестящее? В любом случае, я исследую это. Вот новый раствор. ";
+                        case "VoidFlaskChat":
+                        return "Вау! Вот это тяжелый металл! Никогда такого еще не видела. Ох, да. Новый раствор. Вот. ";
+                        case "FungicideChat":
+                        return "Хмм... светящиеся споры? Никогда такого не видела, ну, кроме светящихся грибов. Говоря о грибах, я нашла рецепт для очень хорошего фунгицида. Я сделала его раствором.  ";
+                        case "SporeSacChat1":
+                        return "Что это? Оно такое мягкое... Я поработаю над этим, полагаю. А, кстати, ";
+                        case "SporeSacChat2":
+                        return "научил меня делать грибные споры. Используй их, когда хочешь. ";
+                        case "GlowingSporeSacChat1":
+                        return "Хм, эти довольно светящиеся. *Нюхает* О великий Ктулху! Мой ноздри горят! Ладно, вот, я сделала светящуюся версию спор";
+                        case "GlowingSporeSacChat2":
+                        return " ";
+                        case "JungleFlaskChat":
+                        return "Ох! Спасибо! Эти маленькие жала очень хорошо сработают для самодельных шприцов. Вот, я разработала совершенно новый раствор, который превращает лес в джунгли! Вонючий, да? ";
+                        case "IceFlaskChat":
+                        return "А вот ЭТО будет полезно! Спасибо. Насчет льда, смотри. Раствор тундры И удаляющий раствор! Нравиться? Два по цене одного!";
+                        case "ForestFlaskChat":
+                        return "Хотелось бы таких в моем мире. Они милахи~! Ох, но я была бы поаккуратней с этими милахами. Дриада рассказала мне, что их защищает огромный монстер...в любом случае, пока ты уходил, я сделала новый раствор. Он превращает джунгли в лес. Будь с ним поосторожнее. ";
+                        case "SquidListChat":
+                        return "Вот лист всего, что нужно для мойх исследований. Если потеряешь этот, то я просто напишу новый. ";
+                        case "NothingChat":
+                        return "Хмм...ничего? Для исследований, мне нужны вещи из списка. Мне могут подойти материалы из биомов. Части монстров, растения и так далее. ";
                     }
                 }
                 else
@@ -864,7 +1444,7 @@ namespace AAMod
                 }
             return"";
         }
-        public static string TownNPCMushman(String Mushman)
+        public static string TownNPCMushman(string Mushman)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -904,6 +1484,46 @@ namespace AAMod
                         return "这里. 更多的彩色蘑菇满足你的炼药需要. 只是…不要吃它们. ";
                         case "MushroomChat3":
                         return "我要这些染料做什么用? 呃…麻烦. 离我远点, 我有事情要做!";
+                    }
+                }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(Mushman)
+                    {
+                        case "button1":
+                        return "Магазин";
+                        case "button2":
+                        return "Странные растения";
+                        case "MushmanChat1":
+                        return "Эти светящиеся трюфели такие тупицы. ";
+                        case "MushmanChat2":
+                        return "предложил мне залезть в его джакузи. Я отказался, потому что у меня были дела поважнее. ";
+                        case "MushmanChat3":
+                        return "Знаешь, грибной Монарх не тот кем кажется. ";
+                        case "MushmanChat4":
+                        return "Не спрашивай, где я беру грибы на зелья. ";
+                        case "MushmanChat5":
+                        return "У меня есть зелья, у тебя есть деньги. Обменяемся? ";
+                        case "MushmanChat6":
+                        return "как то раз спросил меня, настолько ли красные трфели вкусны, как синие. Конечно нет.  ";
+                        case "NoMushroomChat1":
+                        return "Мне нужны странные растения для кое-чего. Принеси мне парочку, и я дам тебе редкие алхимические грибы.  ";
+                        case "NoMushroomChat2":
+                        return "...нет растений? ";
+                        case "NoMushroomChat3":
+                        return "Растения, пожалуйста. Я не дам тебе грибы без них. ";
+                        case "SpecialChat1":
+                        return "Гриб безумия? Миленько! Дам тебе в награду особый тип гриба. Он очень полезный...просто не ешь его. ";
+                        case "SpecialChat2":
+                        return "Ох, гриб безумия! Люблю их за особые свойства! Вот, держи парочку радужных грибов.";
+                        case "SpecialChat3":
+                        return "Знаешь ли, ты можешь находить грибы безумия в обоих типах грибного биома. Так что, проверяй их оба, на всякий случай.  ";
+                        case "MushroomChat1":
+                        return "Спасибо. Эти грибы намного полезнее, чем никчемные красители, верно? ";
+                        case "MushroomChat2":
+                        return "Вот. Больше разноцветных грибов для всех твоих алхимических нужд. Просто... не ешь их.";
+                        case "MushroomChat3":
+                        return "Для чего я использую странные растения? Эм...для чего-то. А теперь оставь меня, у меня есть незаконченные дела!";
                     }
                 }
             else
@@ -949,56 +1569,8 @@ namespace AAMod
                 }
             return"";
         }
-        public static string TownNPCSamurai(String Samurai)
+        public static string TownNPCSamurai(string Samurai)
         {
-            if(Language.ActiveCulture == GameCulture.English)
-                {
-                    switch(Samurai)
-                    {
-                        case "SamuraiChat1":
-                        return "I've known ";
-                        case "SamuraiChat2":
-                        return " for a while. He's quite the man of culture.";
-                        case "SamuraiChat3":
-                        return "I'm not really a fan of ";
-                        case "SamuraiChat4":
-                        return "'s ale. It's a bit strong for my taste. I prefer Sake to be entirely honest.";
-                        case "SamuraiChat5":
-                        return "The chaos biomes weren't always so.... err.... chaotic.";
-                        case "SamuraiChat6":
-                        return "Have you seen my sword? I can't seem to find it anywhere.";
-                        case "SamuraiChat7":
-                        return "We used to be the most powerful nation in all of terraria... then... HE came...";
-                        case "SamuraiChat8":
-                        return "I remember my old master giving me wise words such as: 'YOU ARE TRYING TO VIEW FLASH CONTENT BUT YOU DO NOT HAVE A FLASH PLAYER INSTALLED'... I’m still trying to figure that one out.";
-                        case "SamuraiChat9":
-                        return "I'll be honest, I get half my lines from fortune cookies. Want one?";
-                        case "SamuraiChat10":
-                        return "If you refuse to accept anything but the best, you very often get it.";
-                        case "SamuraiChat11":
-                        return "Change can hurt, but it leads a path to something better.";
-                        case "SamuraiChat12":
-                        return "You cannot love life until you live the life you love.";
-                        case "SamuraiChat13":
-                        return "Land is always on the mind of a flying bird.";
-                        case "SamuraiChat14":
-                        return "Our deeds determine us, as much as we determine our deeds.";
-                        case "SamuraiChat15":
-                        return "Never give up. You're not a failure if you don't give up.";
-                        case "SamuraiChat16":
-                        return "You already know the answer to the questions lingering inside your head.";
-                        case "SamuraiChat17":
-                        return "It is now, and in this world, that we must live.";
-                        case "SamuraiChat18":
-                        return "You can make your own happiness.";
-                        case "SamuraiChat19":
-                        return "If winter comes, can spring be far behind?";
-                        case "SamuraiChat20":
-                        return "A stranger is a friend you have not spoken to yet.";
-                        case "SamuraiChat21":
-                        return "Your shoes will make you happy today.";
-                    }
-                }
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
                     switch(Samurai)
@@ -1047,9 +1619,105 @@ namespace AAMod
                         return "今天你的鞋子让你快乐. ";
                     }
                 }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(Samurai)
+                    {
+                        case "SamuraiChat1":
+                        return "Я общался с";
+                        case "SamuraiChat2":
+                        return "он культурный человек. ";
+                        case "SamuraiChat3":
+                        return "Я не большой фанат эля";
+                        case "SamuraiChat4":
+                        return ". Как по мне, он слишком сильный. Если честно, предпочитаю саке. ";
+                        case "SamuraiChat5":
+                        return "Биома хаоса не всегда были такие...хаотичные. ";
+                        case "SamuraiChat6":
+                        return "Ты видел мой меч? Я не могу его нигде найти. ";
+                        case "SamuraiChat7":
+                        return "Когда то, мы были самой могущественной нацией в террарии...потом...ОН пришел...";
+                        case "SamuraiChat8":
+                        return "Я помню, как мастер мне сказал слова истины 'ВЫ ПЫТАЕТЕСЬ СМОТРЕТЬ FLASH КОНТЕНТ, НО У ВАС НЕ УСТАНОВЛЕН FLASH PLAYER'...я до сих пор думаю над этими словами. ";
+                        case "SamuraiChat9":
+                        return "Буду честен, я понимаю только половину строк из печенек с предсказаньем. Хочешь одно? ";
+                        case "SamuraiChat10":
+                        return "Забавно в жизни вот что: если вы отказываетесь принимать любые вещи, кроме самых лучших, то очень часто именно их и получаете.";
+                        case "SamuraiChat11":
+                        return "Изменения могут ранить, но они всегда ведут к лучшему. ";
+                        case "SamuraiChat12":
+                        return "Ты не можешь любить жизнь, пока не начнешь ей жить. ";
+                        case "SamuraiChat13":
+                        return "Земля всегда в голове летающей птицы. ";
+                        case "SamuraiChat14":
+                        return "Наши поступки определяют нас так же, как мы определяем наши поступки.";
+                        case "SamuraiChat15":
+                        return "Никогда не сдавайся. Ты не неудачник, если не сдаешься. ";
+                        case "SamuraiChat16":
+                        return "Ты уже знаешь ответ на вопросы в твоей голове. ";
+                        case "SamuraiChat17":
+                        return "Все пройсходит сейчас, в этом мире, ты должен жить. ";
+                        case "SamuraiChat18":
+                        return "Ты сам можешь сделать себе счастье. ";
+                        case "SamuraiChat19":
+                        return "Если зима пришла, то так ли далеко весна?";
+                        case "SamuraiChat20":
+                        return "Незнакомец, это просто друг, с которым ты еще не говорил. ";
+                        case "SamuraiChat21":
+                        return "Твой ботинки тебя сегодня осчастливят. ";
+                    }
+                }
+            else
+                {
+                    switch(Samurai)
+                    {
+                        case "SamuraiChat1":
+                        return "I've known ";
+                        case "SamuraiChat2":
+                        return " for a while. He's quite the man of culture.";
+                        case "SamuraiChat3":
+                        return "I'm not really a fan of ";
+                        case "SamuraiChat4":
+                        return "'s ale. It's a bit strong for my taste. I prefer Sake to be entirely honest.";
+                        case "SamuraiChat5":
+                        return "The chaos biomes weren't always so.... err.... chaotic.";
+                        case "SamuraiChat6":
+                        return "Have you seen my sword? I can't seem to find it anywhere.";
+                        case "SamuraiChat7":
+                        return "We used to be the most powerful nation in all of terraria... then... HE came...";
+                        case "SamuraiChat8":
+                        return "I remember my old master giving me wise words such as: 'YOU ARE TRYING TO VIEW FLASH CONTENT BUT YOU DO NOT HAVE A FLASH PLAYER INSTALLED'... I’m still trying to figure that one out.";
+                        case "SamuraiChat9":
+                        return "I'll be honest, I get half my lines from fortune cookies. Want one?";
+                        case "SamuraiChat10":
+                        return "If you refuse to accept anything but the best, you very often get it.";
+                        case "SamuraiChat11":
+                        return "Change can hurt, but it leads a path to something better.";
+                        case "SamuraiChat12":
+                        return "You cannot love life until you live the life you love.";
+                        case "SamuraiChat13":
+                        return "Land is always on the mind of a flying bird.";
+                        case "SamuraiChat14":
+                        return "Our deeds determine us, as much as we determine our deeds.";
+                        case "SamuraiChat15":
+                        return "Never give up. You're not a failure if you don't give up.";
+                        case "SamuraiChat16":
+                        return "You already know the answer to the questions lingering inside your head.";
+                        case "SamuraiChat17":
+                        return "It is now, and in this world, that we must live.";
+                        case "SamuraiChat18":
+                        return "You can make your own happiness.";
+                        case "SamuraiChat19":
+                        return "If winter comes, can spring be far behind?";
+                        case "SamuraiChat20":
+                        return "A stranger is a friend you have not spoken to yet.";
+                        case "SamuraiChat21":
+                        return "Your shoes will make you happy today.";
+                    }
+                }
             return"";
         }
-        public static string BossChat(String BossInfo)
+        public static string BossChat(string BossInfo)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -1059,10 +1727,16 @@ namespace AAMod
                         return "他";
                         case "fimale":
                         return "她";
+                        case "male2":
+                        return " 他 ";
+                        case "fimale2":
+                        return " 她 ";
+
                         case "boy":
-                        return "少年";
+                        return ", 少年";
                         case "girl":
-                        return "少女";
+                        return ", 少女";
+
                         case "AHDeath1":
                         return "啊啊啊啊啊! 别又这样了!!!";
                         case "AHDeath2":
@@ -1098,7 +1772,7 @@ namespace AAMod
                         case "AHSpawn9":
                         return "别再叫我遥酱了...从现在起. ";
                         case "AsheDowned":
-                        return "哦啊. . ! 很疼, 你知道吗!";
+                        return "哦啊. . ! 很疼, 你这个小鬼!";
                         case "HarukaDowned":
                         return "啊. . ! 哦啊...";
                         case "Akuma1":
@@ -1118,13 +1792,18 @@ namespace AAMod
                         case "Akuma8":
                         return "我来了!";
                         case "Akuma9":
-                        return "面对绝望之火吧, 小子!";
+                        return "小子, 阳光普照之处没有阴凉可乘!";
                         case "Akuma10":
-                        return "抬头, 小子!";
+                        return "热起来了, 对吗?";
                         case "Akuma11":
                         return "燎狱的火山终于平息了...";
                         case "Akuma12":
                         return "哈...你小子还不错, 但还不够强. 等你再强一点再回来找我. ";
+                        case "Akuma13":
+                        return "面对绝望之火吧!小子!";
+                        case "Akuma14":
+                        return "注意集中, 小子!";
+
                         case "AkumaA1":
                         return "艾希? 再来帮你一次亲爱的老爸料理这小子!";
                         case "AkumaA2":
@@ -1150,7 +1829,7 @@ namespace AAMod
                         case "AkumaA12":
                         return "好好好. 你作弊. 你应该像一个真正的男子汉一样来专家模式挑战我. ";
                         case "AkumaA13":
-                        return "天又塌了! 集中注意!";
+                        return "天又要塌了! 集中注意!";
                         case "AkumaA14":
                         return "愤怒之火再次从天而降!";
                         case "AkumaA15":
@@ -1158,13 +1837,18 @@ namespace AAMod
                         case "AkumaA16":
                         return "烈火永不熄灭, 小子!";
                         case "AkumaA17":
-                        return "抬头! 火山喷发了, 小子!";
+                        return "注意点! 火山喷发了, 小子!";
                         case "AkumaA18":
                         return "来了!";
                         case "AkumaA19":
                         return "嘿小子? 喜欢烟花吗? 不? 真糟糕!";
                         case "AkumaA20":
                         return "该完美收场了, 小子!";
+                        case "AkumaA21":
+                        return "白昼不息烈日不止, 小子!";
+                        case "AkumaA22":
+                        return "面对烈日的怒火吧!";
+
                         case "AkumaAAshe1":
                         return "爸, 不! 啊! 你! 下次我们再见的时候, 我要把你活烤了. . !";
                         case "AkumaAAshe2":
@@ -1181,6 +1865,162 @@ namespace AAMod
                         return "只会让他们更猛烈!";
                         case "AkumaTransition6":
                         return "你周围的空气开始升温...";
+
+                        case "AnubisFalse":
+                        return "哈! 再回去练练吧-- 或者, 打磨一下自己.";
+
+                        case "AnubisGuys":
+                        return "伙计们";
+                        case "Anubisbud":
+                        return "哥们";
+
+                        case "Anubis1":
+                        return "好, ";
+                        case "Anubis2":
+                        return ". 到地方了.";
+                        case "Anubis3":
+                        return "我希望你已经准备好了真正的战斗.";
+                        case "Anubis4":
+                        return "尤其是因为我现在处于我的超强形态.";
+                        case "Anubis5":
+                        return "准备好了吗? 我拿巴掌抽你的时候可不会手下留情!";
+                        case "Anubis6":
+                        return "开始吧!";
+                        case "Anubis7":
+                        return "再比一次吗? 好, 那可太有意思了!";
+
+                        case "AnubisTransition1":
+                        return "...呼哈...";
+                        case "AnubisTransition2":
+                        return "...好了.";
+                        case "AnubisTransition3":
+                        return "我觉得...是时候了.";
+                        case "AnubisTransition4":
+                        return "有些事情已经无法阻止了.";
+                        case "AnubisTransition5":
+                        return "如果你想要和这个世界上的黑暗势力搏杀的话...";
+                        case "AnubisTransition6":
+                        return "我就必须确认你已经完全准备好了, 因为...倘若你还没准备好...";
+                        case "AnubisTransition7":
+                        return "...为你好，有些东西你还是不碰为妙.";
+
+                        case "FAnubis":
+                        return "...对不起, 看来你还没准备好.";
+
+                        case "Athena1":
+                        return "哈..!";
+                        case "Athena2":
+                        return "们";
+                        case "Athena3":
+                        return "你! 地上的凡人";
+                        case "Athena4":
+                        return "我的六翼小天使们告诉我你一直在攻击他们! 为什么?!";
+                        case "Athena5":
+                        return "那我要给你好好上一课, 你这个不懂规矩的小混蛋!";
+                        case "Athena6":
+                        return "准备开战!";
+                        case "Athena7":
+                        return "呼...";
+                        case "Athena8":
+                        return "咱们快点搞完. 我整天没这么多闲空.";
+                        case "Athena9":
+                        return "那就滚远点...白痴.";
+                        case "Athena10":
+                        return "不跟你闹着玩了, 电闪雷鸣, 风暴降临!";
+                        case "Athena11":
+                        return "哦! 好, 好..! 我不打扰你了! 看在上帝的份上, 你给我小心着点, 懂吗?";
+                        case "Athena12":
+                        return "...那么. 你来啦.";
+                        case "Athena13":
+                        return "是时候夺回我的荣耀了..!";
+                        case "Athena14":
+                        return "准备开战!";
+
+                        case "AthenaA1":
+                        return "那就滚远点...白痴.";
+                        case "AthenaA2":
+                        return "哦! 好, 好..! 我不打扰你了! 看在上帝的份上, 你给我小心着点, 懂吗?";
+
+                        case "AthenaDefeat1":
+                        return "...呼...呼...";
+                        case "AthenaDefeat2":
+                        return "...我还是输了.";
+                        case "AthenaDefeat3":
+                        return "不.";
+                        case "AthenaDefeat4":
+                        return "我不会这样轻易的放弃.";
+                        case "AthenaDefeat5":
+                        return "有一句我的人民赖以为生的名言, 地上的凡人.";
+                        case "AthenaDefeat6":
+                        return "最耀眼的黎明...";
+                        case "AthenaDefeat7":
+                        return "最漆黑的深夜...";
+                        case "AthenaDefeat8":
+                        return "即便失败...";
+                        case "AthenaDefeat9":
+                        return "战 士 不 会 在 最 后 一 战 前 倒 下!!!";
+
+                        case "Athena2Defeat1":
+                        return "...为什么?!";
+                        case "Athena2Defeat2":
+                        return "...我怎么就是赢不了?!";
+                        case "Athena2Defeat3":
+                        return "...这事咱俩还没完, 地上的凡人";
+                        case "Athena2Defeat4":
+                        return "们";
+                        case "Athena2Defeat5":
+                        return "我最终会夺回属于我的荣耀...";
+                        case "Athena2Defeat6":
+                        return "...那时, 你给我小心着点.";
+                        case "Athena2Defeat7":
+                        return "黑暗, 混沌的力量在最近苏醒.";
+                        case "Athena2Defeat8":
+                        return "希望“他”不会回来...";
+                        case "Athena2Defeat9":
+                        return "一切平安.";
+
+                        case "SeraphHerald1":
+                        return "嘿! 地 上 的 凡 人! 对, 就是你, 你 这 个 臭 傻 X!";
+                        case "SeraphHerald2":
+                        return "雅典娜女王要求你立即再次去天穹卫城觐见!";
+                        case "SeraphHerald3":
+                        return "她要求重比一次, 而且这次, 她不会让你这么轻易把她打败!";
+                        case "SeraphHerald4":
+                        return "我也许会说祝你好运, 如果你能出现的话!";
+                        case "SeraphHerald5":
+                        return "不见不散你个傻X!";
+                        case "SeraphHerald6":
+                        return "啊对了, 呃, 那个喜欢偷别人东西的恶心虫子也想跟你再打一架.";
+
+                        case "GreedFalse1":
+                        return "呃呃呃呃呃呃 这 是 地 表 的 光! 太 亮 了! 太 刺 眼 了!";
+                        case "GreedFalse2":
+                        return "离 我 琳 琅 满 目 的 财 宝 远 点 你 这 个 臭 小 偷!";
+
+                        case "Greed1":
+                        return "谁在打扰我数钱?! 我忙的要死--";
+                        case "Greed2":
+                        return "...哦哦哦哦哦哦...那是...?";
+                        case "Greed3":
+                        return "你把我最喜欢吃的带来了..!";
+                        case "Greed4":
+                        return "金色大餐...";
+                        case "Greed5":
+                        return "以 及 一 个 泰 拉 人!!!";
+                        case "GreedName":
+                        return "金食饕餮";
+
+                        case "GreedTransition1":
+                        return "你..! 你 这 个 小--";
+                        case "GreedTransition2":
+                        return "好 了, 我 受 够 了!";
+                        case "GreedTransition3":
+                        return "你 想 偷 我 的 财 宝, 那 现 在...!";
+                        case "GreedTransition4":
+                        return "我 要 你 的 命! 呵 呵 呵 呵 呵!!!";
+                        case "GreedAName":
+                        return "鎏金万蟲王";
+
                         case "Rajah1":
                         return "正 义 不 会 被 欺 骗";
                         case "Rajah2":
@@ -1230,9 +2070,9 @@ namespace AAMod
                         case "SupremeRajahDefeat15":
                         return "...看你了, 年轻人. ";
                         case "SupremeRajahDefeat16":
-                        return "忍者兔的讲话温暖了你的内心. 你决定从此不再伤害兔子. 成为他的骄傲. ";
+                        return "王公兔的讲话温暖了你的内心. 你决定从此不再伤害兔子. 成为他的骄傲. ";
                         case "YamataAHead":
-                        return "喂!!!";
+                        return "哦呃!!!";
                         case "Yamata1":
                         return "哈! 我对你很宽容! 当你真正强大的时候再来, 我们来真正的比试!";
                         case "Yamata2":
@@ -1240,7 +2080,7 @@ namespace AAMod
                         case "Yamata3":
                         return "潭渊里没有太阳!!! 呵呵呵呵呵呵!!!";
                         case "Yamata4":
-                        return "非非非非常讨厌!!! 这个太阳! 好, 我出来了!";
+                        return "非非非非常讨厌!!! 这太阳! 我走了!";
                         case "Yamata5":
                         return "你 觉 我 已 经 不 行 了 对 吗? ! 我 可 不 这 么 认 为!!!";
                         case "Yamata6":
@@ -1260,11 +2100,11 @@ namespace AAMod
                         case "Yamata13":
                         return "我不懂你为什么要一直和我打! 我各方面都比你强!";
                         case "Yamata14":
-                        return "我又有点沮丧!";
+                        return "真 让 人 摸 不 着 头 脑!";
                         case "Yamata15":
                         return "我讨厌和你打! 非常非常非常讨厌!!!";
                         case "YamataHead":
-                        return "喂!!!";
+                        return "哦啊!!!";
                         case "YamataTransition1":
                         return "呀哈哈哈哈哈哈哈哈哈~";
                         case "YamataTransition2":
@@ -1276,7 +2116,7 @@ namespace AAMod
                         case "YamataTransition5":
                         return "八歧大蛇已经觉醒!";
                         case "YamataTransition6":
-                        return "现在有七个头了！啊哈哈哈哈哈哈哈哈哈!!!!!";
+                        return "七头重生！啊哈哈哈哈哈哈哈哈哈!!!!!";
                         case "YamataTransition7":
                         return "你开始感到来自灵魂的压力...";
                         case "YamataA1":
@@ -1310,13 +2150,13 @@ namespace AAMod
                         case "YamataA15":
                         return "我的好闺女. . !";
                         case "YamataA16":
-                        return "哦, 亲爱的. . ! 想帮爸爸打这个小虫子吗? ";
+                        return "哦, 亲爱的. . ! 想帮爸爸拍死这个小虫子吗? ";
                         case "YamataA17":
                         return "哎...是的爸爸";
                         case "HarukaY1":
-                        return "爸爸, 你这个白痴……不论怎样, 我不能说我没看到这个. ";
+                        return "爸爸, 你这个白痴……不论怎样, 我不能说我没预料到. ";
                         case "HarukaY2":
-                        return "就这样吧. 我凉了, 你来对付他们, 爸爸. ";
+                        return "我尽力了. 我输了, 交给你了, 爸爸. ";
                         case "YamataHead1":
                         return "尝尝酸液的滋味, 你这讨厌的蛆虫!!!!";
                         case "YamataHead2":
@@ -1389,6 +2229,8 @@ namespace AAMod
                         return "旋 转 协 议 加 载. ";
                         case "ZeroBoss10":
                         return "武 器 单 元 重 新 加 载";
+                        case "ZeroBoss11":
+                        return "重 载 武 器 单 元";
                         case "ZeroAwakened1":
                         return "厄劫石停止发光. 现在你可以挖掘了. ";
                         case "ZeroAwakened2":
@@ -1403,6 +2245,24 @@ namespace AAMod
                         return "目 标 被 毁 灭. 返 回 初 始 轨 道. ";
                         case "ZeroAwakened7":
                         return "目 标 丢 失. 返 回 初 始 轨 道. ";
+                        case "ZeroAwakened8":
+                        return @"自 组 织 充 能 完 成...";
+                        case "ZeroAwakened9":
+                        return @"以 自 组 织 模 式 启 动 系 统...";
+                        case "ZeroAwakened10":
+                        return @"允 许 程 序 C:\TERRARIA\AAMOD\ZERO\PROTOCOL\SELF-ORGNAZATION.EXE ? <Y/N>...";
+                        case "ZeroAwakened11":
+                        return @"=== 屠 杀 开 始 ===";
+
+                        case "ZeroDeath1":
+                        return "任 务 失 败. 向 基 地 发 送 遇 难 信 号. ";
+                        case "ZeroDeath2":
+                        return "任 务 失 败. 再 次 尝 试 发 送 遇 难 信 号. ";
+                        case "ZeroDeath3":
+                        return "信 号 发 送 中...";
+                        case "ZeroDeath4":
+                        return "收 到 遇 难 信 号. ";
+                        
                         case "FuryAshe1":
                         return "爸, 不! 你要为此付出代价, ";
                         case "FuryAshe2":
@@ -1411,38 +2271,55 @@ namespace AAMod
                         return "父亲! 呃啊. . ! 下次再见的时候, 我要让你命丧于此!";
                         case "WrathHaruka2":
                         return "呃...对不起, 父亲...我坚持不住了...";
+
                         case "ShenA1":
-                        return "我不得不说, 孩子. 你让我印象深刻. ";
+                        return "你将面临一次真正的战斗, 孩子.";
                         case "ShenA2":
-                        return "直面它吧, 孩子! 你永远也无法打败本身就是混沌的存在!";
+                        return "搞清楚你的位置, 泰拉人. 你自作自受. 仪式, 符文? 全都是你自己.";
                         case "ShenA3":
-                        return "即使面临困难， 你依旧在战斗";
+                        return "一切总将在争端中结束.";
                         case "ShenA4":
-                        return "你执意要这样? 真有意思...";
+                        return "你为何要再起争端? 为力量? 还是荣耀?";
                         case "ShenA5":
-                        return "老实说， 你让我想起了我自己...";
+                        return "你有点让我回想起了自己...";
                         case "ShenA6":
-                        return "你知道难逃一死之时， 你就与之抗争...";
+                        return "不管怎样，我会说这将是你的最后一次!";
                         case "ShenA7":
-                        return "也许有一天， 你会成为你自己领地的统治者...";
+                        return "你也很强. 鼓起勇气和你所拥有的东西战斗";
                         case "ShenA8":
-                        return "现在别再这样了!站住， 像个男人一样!";
+                        return "你想打败我几次? 或者说你会放弃?";
+                        /* 
                         case "ShenA9":
-                        return "然而如今， 我们对立而战!现在我看看你有什么能耐!";
+                        return "But today, we clash! Now show me what you got!";
                         case "ShenA10":
-                        return "微 不 足 道 的 一 只 蝼 蚁! 你 已 经 死 了!";
+                        return "DIE ALREADY YOU INSIGNIFICANT LITTLE WORM!!";
+                        */
                         case "ShenA11":
-                        return "继续来? 真令我印象深刻. 给我看看你真正的实力!";
+                        return "呼..! 又到这个地步, 离终点越来越近了. 我可不会心慈手软!";
                         case "ShenA12":
-                        return "什 么? ! 你 怎 么 - 够 了! 你 很 快 就 会 直 到 永 劫 的 混 沌 意 味 着 什 么!";
-                        case "ShenA13": 
-                        return "来! 继续努力!";
+                        return "哈..?! 你还没当场去世? 那好...我们换种玩法!";
+                        case "ShenA13":
+                        return "游戏收尾才越发动人心弦, 记住了, 孩子!";
                         case "ShenA14":
-                        return "不! 我 怎 么 会! 输 给 你!";
+                        return "你这个小..! 等死吧!";
                         case "ShenA15":
-                        return "给 我 看 看! 给 我 看 看 你 有 什 么 真 本 事!";
+                        return "正是如此! 尾声将至, 所以你不敢退缩!";
                         case "ShenA16":
-                        return "哦啊啊啊啊啊!!!";
+                        return "这不可能--! 怎么回事?!";
+
+                        case "ShenAThorium":
+                        return "你知道吗, 我一直关注着你击败灾难之灵和它的三个使徒. 不得不说, 非常令人深刻.";
+                        case "ShenACalamity":
+                        return "考虑到你把那个狂怒的至尊灾厄之影女巫安排的明明白白, 我还是由衷地恭喜你.";
+                        case "ShenAGRealm":
+                        return "我看到你在丛林里踩扁了那只让人头疼的昆虫了.";
+                        case "ShenARedemption":
+                        return "不过, 在你击溃了宇宙天使之后, 连我都被你的水平吓到了.";
+                        case "ShenASpirit":
+                        return "现在我一想, 虽然, 你把魂灵的监察者像一个鸡蛋一样踩碎了, 那也是相当需要力气的.";
+                        case "ShenANoMod":
+                        return "你所击败的一切, 无论神明或是怪兽, 都使我尊敬你.";
+
                         case "ShenDeath1":
                         return "重新分离...";
                         case "ShenDeath2":
@@ -1498,13 +2375,26 @@ namespace AAMod
                         case "ShenDoragon14":
                         return "什么? 你还能打? 为什么? !";
                         case "ShenDoragon15":
-                        return "一个超远古之神的失败给予了石匠们新的力量";
+                        return "一个超远古之神的失败给予了宝石持有者们新的力量";
                         case "ShenDoragon16":
-                        return "呵呵, 好吧. 我想我会让你单独呆会. 但是如果你回来变得更强, 我会给你展示展示永劫混沌的真实实力...";
+                        return "呵呵, 好吧. 我想我会让你歇息一会. 但是如果你回来变得更强, 我会给你展示展示永劫混沌的真实实力...";
                         case "ShenDoragon17":
-                        return "一个超远古之神的失败给予了石匠们新的力量";
+                        return "一个超远古之神的失败给予了宝石持有者们新的力量";
                         case "ShenDoragon18":
                         return "一场好戏, 孩子, 真是一场好戏. 你的战斗力仍然让我印象深刻!也许有一天我会给你看看我的真正实力. ";
+                        case "ShenDoragon19":
+                        return "颇有水平, 孩子.";
+                        case "ShenDoragon20":
+                        return "这是? 什么样的能力? 难以置信.";
+                        case "ShenDoragon21":
+                        return "你应该知道你是个真正的勇士. 那就站好让我烤熟了你.";
+                        case "ShenDoragon22":
+                        return "天地草创, 混沌君临, 孩子. 你们泰拉人从未领悟其意.";
+                        case "ShenDoragon23":
+                        return "看上去你还想力挽狂澜, 那并不会太久!";
+                        case "ShenDoragon24":
+                        return "哼嗯嗯...还要打, 嗯?";
+
                         case "ShenSpawn1":
                         return "又看到我们了是不是很惊讶, 小子? ";
                         case "ShenSpawn2":
@@ -1524,9 +2414,9 @@ namespace AAMod
                         case "ShenSpawn9":
                         return "吾 乃 上 神 应 龙, 混 乱 与 动 荡 的 原 初 之 皇!";
                         case "ShenSpawn10":
-                        return "而你, 我的孩子, 将会面临混沌的恐惧和怒火. . !";
+                        return "而你, 我的孩子. . !";
                         case "ShenSpawn11":
-                        return "只有一个字 死!!!";
+                        return "神 形 俱 灭!!!";
                         case "ShenTransition1":
                         return "呵呵...";
                         case "ShenTransition2":
@@ -1534,15 +2424,745 @@ namespace AAMod
                         case "ShenTransition3":
                         return "哈哈哈哈哈哈哈!!!";
                         case "ShenTransition4":
-                        return "你是不是已经忘了我们最后一次战斗...? ";
+                        return "你是不是已经忘了我们的上次战斗...? ";
                         case "ShenTransition5":
-                        return "总会还有一次战斗, 小子...";
+                        return "咱们之间的争斗才刚刚开始, 天真的孩子...";
                         case "ShenTransition6":
-                        return "我只是用了一部分我的能力...而现在...呵呵呵呵...";
+                        return "然而现在, 你挡住了我的去路...";
                         case "ShenTransition7":
                         return "上神应龙觉醒了!";
                         case "ShenTransition8":
-                        return "你 将 在 混 律 业 火 中 焚 烧 殆 尽!!!";
+                        return "你 将 在 混 律 业 火 中 被 焚 烧 殆 尽!!!";
+                    }
+                }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(BossInfo)
+                    {
+						case "male":
+                        return "him";
+                        case "fimale":
+                        return "her";
+                        case "male2":
+                        return "HIM";
+                        case "fimale2":
+                        return "HER";
+                        case "boy":
+                        return ", BOY";
+                        case "girl":
+                        return ", GIRL";
+
+                        case "AHDeath1":
+                        return "РРРРРРРГХ! НЕТ, ТОЛЬКО НЕ СНОВА!!!";
+                        case "AHDeath2":
+                        return "Видишь, Аше?? Я говорила тебе, что это тупая идея, но ТЫ не слушаешь...";
+                        case "AHDeath3":
+                        return "Почему я снова и снова иду за тобой..? Если честно, то я уже просто должна оставить тебя один на один с ними.";
+                        case "AHDeath4":
+                        return "Заткнись! Я думала, что если мы объединимся ";
+                        case "AHDeath5":
+                        return ", то сможем уничтожить их!";
+                        case "AHDeath6":
+                        return "Рхг..! Заткнись..!";
+                        case "AHDeath7":
+                        return "В любом случае...Я иду домой. КТО-ТО должен расказать папе об этом.";
+                        case "AHDeath8":
+                        return "Хмпф..! Ладно! Я возвращаюсь в Инферно!";
+
+                        case "AHSpawn1":
+                        return "Ну привет, какой сюрприз увидеть ТЕБЯ здесь~!";
+                        case "AHSpawn2":
+                        return "Ах, да, я про тебя много слышала, сопляк...ты тот теплокровный, который убил мою мать..!";
+                        case "AHSpawn3":
+                        return "Ах, да, я про тебя много слышала, сопляк...ты создал кучу проблем...";
+                        case "AHSpawn4":
+                        return "И мою...";
+                        case "AHSpawn5":
+                        return "...ты убил(а) и мою мать...";
+                        case "AHSpawn6":
+                        return "Ты очень надоедлив(а)";
+                        case "AHSpawn7":
+                        return "Так что, теперь..! Хехе...";
+                        case "AHSpawn8":
+                        return "Мы заставим тебя кричать от боли! Давай, Хаки, сожжем этого теплокровного~!";
+                        case "AHSpawn9":
+                        return "Пожалуйста, больше никогда не называй меня Хаки...";
+
+                        case "AsheDowned":
+                        return "АУЧ..! ВООБЩЕ ТО БОЛЬНО, ПРИДУРОК!";
+                        case "HarukaDowned":
+                        return "Ргх..! Ау...";
+
+                        case "Akuma1":
+                        return "Вода?! АК..! Я НЕ МОГУ ДЫШАТЬ!";
+                        case "Akuma2":
+                        return "*Зевает* Прости, сопляк, я устал. Мне надо выспаться. Возвращайся завтра.";
+                        case "Akuma3":
+                        return "А я думал что вы, террарианы, даете более серьезный бой. Похоже, нет.";
+                        case "Akuma4":
+                        return "Эй, сопляк! Смотри, небеса падают!";
+                        case "Akuma5":
+                        return "Вниз падают огонь и ярость!";
+                        case "Akuma6":
+                        return "Духи вулкана! Помогите мне раздавить этого сопляка!";
+                        case "Akuma7":
+                        return "Эй, сопляк! Смотри!";
+                        case "Akuma8":
+                        return "Смотри!";
+                        case "Akuma9":
+                        return "Солнце светит, и тени нигде не видно, сопляк!";
+                        case "Akuma10":
+                        return "Становиться жарковато, не так ли?";
+                        case "Akuma11":
+                        return "The volcanoes of the inferno are finally quelled...";
+                        case "Akuma12":
+                        return "Хмпф...ты хорош, сопляк, но не достаточно хорош. Возвращайся, когда будешь получше.";
+                        case "Akuma13":
+                        return "Встань лицом к лицу с огнями безнадеги, сопляк!";
+                        case "Akuma14":
+                        return "Спасайся, сопляк!";
+
+                        case "AkumaA1":
+                        return "Аше? Помоги своему старому папе справиться с этим сопляком снова!";
+                        case "AkumaA2":
+                        return "У тебя получиться, папочка..!";
+                        case "AkumaA3":
+                        return "Эй! Убрал руки от моего папы!";
+                        case "AkumaA4":
+                        return "Моя девочка!";
+                        case "AkumaA5":
+                        return "Все еще жив, а? В тебе есть стержень! Мне это в тебе нравиться, сопляк!";
+                        case "AkumaA6":
+                        return "Что?! Как ты продерживаешься так долго?! Почему ты... Я отказываюсь быть побежденным террарианом снова! Получай!";
+                        case "AkumaA7":
+                        return "АК..! ВОДА! Я НЕНАВИЖУ ВОДУ!!!";
+                        case "AkumaA8":
+                        return "В этот раз, ночь тебя не спасет, сопляк! День перерождается!";
+                        case "AkumaA9":
+                        return "Ты только, что сгорел, сопляк.";
+                        case "AkumaA10":
+                        return "Хех, не такой убогий в этот раз, сопляк. Я впечатлен. Вот. Бери свой приз.";
+                        case "AkumaA11":
+                        return "ГРАХ..! КАК!? КАК Я МОГ ПРОЙГРАТЬ СМЕРТНОМУ ТЕРРАРИАНУ?! Хмпф...ладно, сопляк, ты выйграл честно. Вот твой приз.";
+                        case "AkumaA12":
+                        return "Мило. Ты сжульничал. А теперь сразись со мной в эксперт моде, как настоящий мужчина.";
+                        case "AkumaA13":
+                        return "Небеса вновь падают!";
+                        case "AkumaA14":
+                        return "И вот снова вниз падают огонь и ярость!";
+                        case "AkumaA15":
+                        return "Ты недооцениваешь силу дракона, сопляк!";
+                        case "AkumaA16":
+                        return "Огни не сдаются до самого конца, сопляк!";
+                        case "AkumaA17":
+                        return "Осторожно! Вулкан извергаются снова";
+                        case "AkumaA18":
+                        return "СПАСАЙСЯ, СОПЛЯК!";
+                        case "AkumaA19":
+                        return "Эй, сопляк? Любишь фейрверки? Нет? Очень жаль!";
+                        case "AkumaA20":
+                        return "А вот и твой грандиозный финал, сопляк!";
+                        case "AkumaA21":
+                        return "Соленце не сдастся, пока день не закончиться, сопляк!";
+                        case "AkumaA22":
+                        return "Сразись лицом к лицу с яростью солнца!";
+
+                        case "AkumaAAshe1":
+                        return "Папочка, НЕТ! ЭЙ! YOU! Я зажарю тебя в следующий раз..!";
+                        case "AkumaAAshe2":
+                        return "АУ, ты урод..! Я все!";
+
+                        case "AkumaTransition1":
+                        return "Хех...";
+                        case "AkumaTransition2":
+                        return "Знаешь, сопляк";
+                        case "AkumaTransition3":
+                        return "То, что ты подул на огни не потушило их...";
+                        case "AkumaTransition4":
+                        return "Akuma has been Awakened!";
+                        case "AkumaTransition5":
+                        return "ЭТО ИХ ТОЛЬКО УСИЛИЛО!";
+                        case "AkumaTransition6":
+                        return "Воздух вокруг вас нагревается";
+
+                        case "AnubisFalse":
+                        return "ХАХ! Кого теперь облили вод-песком!";
+
+                        case "AnubisGuys":
+                        return "ребят";
+                        case "Anubisbud":
+                        return "дружок";
+
+                        case "Anubis1":
+                        return "Что же, ";
+                        case "Anubis2":
+                        return ". вот и тот самый момент.";
+                        case "Anubis3":
+                        return "Я надеюсь ты готов(а) к настоящему бою.";
+                        case "Anubis4":
+                        return "Учитывая, что я в своей самой сильной форме";
+                        case "Anubis5":
+                        return "Ты готов? Я не буду стесняться бить тебя!";
+                        case "Anubis6":
+                        return "Поехали!";
+                        case "Anubis7":
+                        return "Хочешь рематч, а? Ладненько, будет весело!";
+
+                        case "AnubisTransition1":
+                        return "...хргх...";
+                        case "AnubisTransition2":
+                        return "...ладно.";
+                        case "AnubisTransition3":
+                        return "Я думаю...что время пришло.";
+                        case "AnubisTransition4":
+                        return "Больше никаких детских игр.";
+                        case "AnubisTransition5":
+                        return "Если ты будешь сражаться с темными силами этого мира...";
+                        case "AnubisTransition6":
+                        return "Мне надо быть уверен, что ты готов...потому что если ты не готов...";
+                        case "AnubisTransition7":
+                        return "...некоторые вещи должны быть скрыты от тебя";
+
+                        case "FAnubis":
+                        return "...Извини, ты еще не готов.";
+
+                        case "Athena1":
+                        return "Хмпф..!";
+                        case "Athena2":
+                        return "s";
+                        case "Athena3":
+                        return "Ты! Землянин";
+                        case "Athena4":
+                        return "Мой серафимы доложили мне, что ты атаковал их! Зачем?!";
+                        case "Athena5":
+                        return "Я преподам тебе урок, крысенышь!";
+                        case "Athena6":
+                        return "En Garde!";
+                        case "Athena7":
+                        return "*Вздох*...";
+                        case "Athena8":
+                        return "Давай просто покончим с этим. У меня мало времени.";
+                        case "Athena9":
+                        return "И держись подальше...идиот";
+                        case "Athena10":
+                        return "Никаких больше игр, штормы зовут, и они идут за тобой!";
+                        case "Athena11":
+                        return "АУ! Ладно, ладно..! Я оставлю тебя в покое! Боже, ты не сдаешься, не так ли.";
+                        case "Athena12":
+                        return "...Так ты все таки пришел.";
+                        case "Athena13":
+                        return "Пришло время мне вернуть свою честь..!";
+                        case "Athena14":
+                        return "En Garde!";
+
+                        case "AthenaA1":
+                        return "И держись подальше...идиот";
+                        case "AthenaA2":
+                        return "АУ! Ладно, ладно..! Я оставлю тебя в покое! Боже, ты не сдаешься, не так ли.";
+
+                        case "AthenaDefeat1":
+                        return "...ха...хах...";
+                        case "AthenaDefeat2":
+                        return "...я опять проиграла";
+                        case "AthenaDefeat3":
+                        return "Нет.";
+                        case "AthenaDefeat4":
+                        return "Я так просто не сдамся.";
+                        case "AthenaDefeat5":
+                        return "Есть выражение, по которому живет мой народ, землянин.";
+                        case "AthenaDefeat6":
+                        return "В сиянии рассветной...";
+                        case "AthenaDefeat7":
+                        return "Во тьме ночной...";
+                        case "AthenaDefeat8":
+                        return "Даже в поражении....";
+                        case "AthenaDefeat9":
+                        return "ВАРИАНЕЦ ВСЕГДА ДАЕТ ПОСЛЕДНИЙ БОЙ";
+
+                        case "Athena2Defeat1":
+                        return "...ПОЧЕМУ?!";
+                        case "Athena2Defeat2":
+                        return "...Почему я не могу победить тебя?!";
+                        case "Athena2Defeat3":
+                        return "...Это еще не конец, землянин ";
+                        case "Athena2Defeat4":
+                        return "s";
+                        case "Athena2Defeat5":
+                        return "Я еще верну свою честь...";
+                        case "Athena2Defeat6":
+                        return "...а пока что, оглядывайся по сторонам.";
+                        case "Athena2Defeat7":
+                        return "Темные силы хаоса снова пробуждаются.";
+                        case "Athena2Defeat8":
+                        return "Надеюсь, что ОН не вернется...";
+                        case "Athena2Defeat9":
+                        return "Будь осторожен.";
+
+                        case "SeraphHerald1":
+                        return "ЭЙ! ЗЕМЛЯНИН! АГА, ТЫ, ТУПАЯ ОБЕЗЬЯНА!";
+                        case "SeraphHerald2":
+                        return "Королева Афина желает видеть тебя в акрополе немедленно!";
+                        case "SeraphHerald3":
+                        return "Она требует реванш, и вот этот раз, она не даст так легко себя победить!";
+                        case "SeraphHerald4":
+                        return "Я бы пожелала, что бы ты ноги себе обломал, но мы сами их обломаем, когда ты явишься!";
+                        case "SeraphHerald5":
+                        return "Увидимся, хам!";
+                        case "SeraphHerald6":
+                        return "Ах, да, и эх, тот противный червь-клептоман тоже хочет с тобой сразиться или что то типа того.";
+
+                        case "GreedFalse1":
+                        return "АААААААААА, СВЕТ С ПОВЕРХНОСТИ! СЛИШКОМ ЯРКО! СЛИШКОМ ЯРКО!";
+                        case "GreedFalse2":
+                        return "И ДЕРЖИСЬ ПОДАЛЬШЕ ОТ МОЙХ ДРАГОЦЕННЫХ СОКРОВИЩ, ВОРИШКА!";
+
+                        case "Greed1":
+                        return "Кто мешает мне считать монетки?! Я занят--";
+                        case "Greed2":
+                        return "...Оооо...это что...?";
+                        case "Greed3":
+                        return "Ты принес мою дюбимую вкусняшку..!";
+                        case "Greed4":
+                        return "Золотая гусеничка...";
+                        case "Greed5":
+                        return "ВМЕСТЕ С ТЕРРАРИАНОМ!!!";
+                        case "GreedName":
+                        return "Жадность";
+
+                        case "GreedTransition1":
+                        return "ТЫ..! ТЫ МАЛЕНЬКИЙ--";
+                        case "GreedTransition2":
+                        return "ВСЕ, ДОСТАТОЧНО!";
+                        case "GreedTransition3":
+                        return "ТЫ СМЕЕШЬ КРАСТЬ МОЮ ПРЕЛЕСТЬ, ПОЭТОМУ...!";
+                        case "GreedTransition4":
+                        return "Я УКРАДУ ТВОЮ ЖИЗНЬ! ХЕХЕХЕХЕХЕ!!!";
+                        case "GreedAName":
+                        return "Жадность";
+
+                        case "Rajah1":
+                        return "НЕЛЬЗЯ СЖУЛЬНИЧАТЬ В БОЮ С СПРАВЕДЛИВОСТЬЮ";
+                        case "Rajah2":
+                        return "Справедливость восторжествовала...";
+                        case "Rajah3":
+                        return "Трус.";
+                        case "Rajah4":
+                        return "Ты выйграл в этот раз, убийца...но я отомщу за тех, кого ты беспощадно убил...";
+                        case "Rajah5":
+                        return "ЭТО ЕЩЕ НЕ КОНЕЦ, ";
+                        case "Rajah6":
+                        return "! СОПЕРНИКИ СРАЖАЮТСЯ ДО КОНЦА!";
+                        case "Rajah7":
+                        return "И не вылезай.";
+                        case "Rajah8":
+                        return "Неплохо сражался, ";
+                        case "Rajah9":
+                        return ". Бери награду.";
+
+                        case "SupremeRajahDefeat1":
+                        return "Ргх...";
+                        case "SupremeRajahDefeat2":
+                        return "...так...";
+                        case "SupremeRajahDefeat3":
+                        return "Даже в моей самой сильной форме...";
+                        case "SupremeRajahDefeat4":
+                        return "...Я не могу победить тебя.";
+                        case "SupremeRajahDefeat5":
+                        return "...Террариан...может быть...";
+                        case "SupremeRajahDefeat6":
+                        return "Может быть, все это просто знак...может быть, это знак, что мое время в роли защитника...";
+                        case "SupremeRajahDefeat7":
+                        return "...наконец закончилось. Может быть, пришло время передать эстафету.";
+                        case "SupremeRajahDefeat8":
+                        return "...Я прощаю тебя за каждого кролика, которого ты убил, но взамен...Я хочу что бы ты встал на мое место...";
+                        case "SupremeRajahDefeat9":
+                        return "...как их защитник.";
+                        case "SupremeRajahDefeat10":
+                        return "Я желаю только всего найлучшего существам этого мира...и если ты сильнее меня...";
+                        case "SupremeRajahDefeat11":
+                        return "То кому еще занять мое место, ";
+                        case "SupremeRajahDefeat12":
+                        return "Будь тем, к кому невинные смогут обратиться в трудную минуту.";
+                        case "SupremeRajahDefeat13":
+                        return "Хотя бы подумай об этом.";
+                        case "SupremeRajahDefeat14":
+                        return "И если ты хочешь еще подраться...просто используй одну из тех особых морковок. Я буду рад восстановить свою честь.";
+                        case "SupremeRajahDefeat15":
+                        return "...Увидимся, дитя.";
+                        case "SupremeRajahDefeat16":
+                        return "Речь Кролика Раджи согревает ваше сердце. У вас больше нет желания вредить кроликам. Сделай так, что бы он гордился.";
+
+                        case "YamataAHead":
+                        return "АУЧЬ!!!";
+                        case "Yamata1":
+                        return "ХАХ! Я поддался тебе! Возвращайся, когда будешь по настоящему хорош и сможем устроить настоящий бой";
+                        case "Yamata2":
+                        return "Победа над Яматой заставлят туман в трясине подняться.";
+                        case "Yamata3":
+                        return "СОЛНЦЕ НЕ СВЕТИТ В ГЛУБИНАХ!!! НЬЕХЕХЕХЕХЕ!!!";
+                        case "Yamata4":
+                        return "ХССССС!!! СОООЛНЦЕЕЕЕ! Я ВСЕ!";
+                        case "Yamata5":
+                        return "ТЫ ДУМАЕШЬ СО МНОЙ ПОКОНЧЕНО?! Я ТАК НЕ ДУМАЮ!!!!";
+                        case "Yamata6":
+                        return "Ох, и даже не думай о полете! Мое эго настолько массивное, что оно притягивает все к себе! НЬЕХЕХЕХЕХЕ!!!";
+                        case "Yamata7":
+                        return "НЕВОЗМОЖНО СБЕЖАТЬ ИЗ БЕЗДНЫ!";
+                        case "Yamata8":
+                        return "Убегаешь?! Я ТАК НЕ ДУМАЮ!";
+                        case "Yamata9":
+                        return "НЬЕХЕХЕХЕХЕХЕХЕХЕ..! И не возвращайся";
+                        case "Yamata10":
+                        return "Защита не спасет тебя! А теперь хватит быть маленьким уродцем и дай мне уничтожить тебя!";
+                        case "Yamata11":
+                        return "ХВАТИТ УВОРАЧИВАТЬСЯ И ДАЙ МНЕ РАСТОПТАТЬ ТЕБЯ!!";
+                        case "Yamata12":
+                        return "НГААААААААААААААААААААААХ, ТЫ ОЧЕНЬ НАДОЕДЛИВЫЙ, ЗНАЕШЬ ЛИ..!";
+                        case "Yamata13":
+                        return "Я не понимаю, зачем ты продолжаешь сражаться со мной! Я лучше тебя во всем!";
+                        case "Yamata14":
+                        return "МЕНЯ СНОВА ПОБЕЖДАЮТ";
+                        case "Yamata15":
+                        return "Я НЕНАВИЖУ С ТОБОЙ СРАЖАТЬСЯ! НЕНАВИЖУ НЕНАВИЖУ НЕНАВИЖУ!!!";
+
+                        case "YamataHead":
+                        return "АУЧЬ!!!";
+                        case "YamataTransition1":
+                        return "НЬЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕ~!";
+                        case "YamataTransition2":
+                        return "Ты думал, что со мной ПОКОНЧЕНО..?!";
+                        case "YamataTransition3":
+                        return "АГА! ЕЩЕ БЫ!";
+                        case "YamataTransition4":
+                        return "Бездна голодает...";
+                        case "YamataTransition5":
+                        return "Ямата пробудился!";
+                        case "YamataTransition6":
+                        return "И У НЕГО СНОВА 7 ГОЛОВ! НЬЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕ!!!";
+                        case "YamataTransition7":
+                        return "Вы чувстуете, как ваша душа тянет вас вниз...";
+
+                        case "YamataA1":
+                        return "РЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕ";
+                        case "YamataA2":
+                        return "НЕТ...! НЕВОЗМОЖНО! ДАЖЕ В МОЕЙ ПРОБУЖДЕННОЙ ФОРМЕ?! ДА ТЫ ЖУЛИК! ГИААААААААХ..! ЛАДНО! БЕРИ СВОЙ ЛУТ! Я ПОШЕЛ..!";
+                        case "YamataA3":
+                        return "Победа над Яматой заставлят туман в трясине подняться.";
+                        case "YamataA4":
+                        return "НЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕТ!!! ТЫ, МАЛЕНЬКИЙ ВЫРОДОК!!! Я ПОЧТИ ВЫЙГРАЛ В ЭТОТ РАЗ!!! ЛАДНО, бери свое барахло, мне плевать!";
+                        case "YamataA5":
+                        return "ХАХ! Неплохая попытка! Возвращайся в эксперт моде, где ты не жульничаешь! Весь твой лут все еще МОЙ!";
+                        case "YamataA6":
+                        return "ТЫ ВСЕ ЕЩЕ СРАЖАЕШЬСЯ?! ДА ЧТО С ТОБОЙ НЕ ТАК?!";
+                        case "YamataA7":
+                        return "МНЕ НАДОЕЛИ ТВОИ ПРОДЕЛКИ!!! ЖРИ ЯД, МАЛЕНЬКИЙ ЗАСРАНЕЦ!!!";
+                        case "YamataA8":
+                        return "ПРЕКРАТИ ПРЕКРАТИ ПРЕКРАТИ!!! Я НЕ ДАМ ТЕБЕ ВЫЙГРАТЬ!!!";
+                        case "YamataA9":
+                        return "Ты маленький надоедливый жучара, знаешь ли!";
+                        case "YamataA10":
+                        return "УМРИ! ПОЧЕМУ ТЫ ПРОСТО НЕ УМРЕШЬ, НАКОНЕЦ?!";
+                        case "YamataA11":
+                        return "ПРЕКРАТИ!!! Я СНОВА ПРОИГРАЮ!!!";
+                        case "YamataA12":
+                        return "Чт-ЧТА?! УМРИ! УМРИ ТЫ, МАЛЕЬКИЙ ХАМ! УМРИУМРИУМРИУМРИУМРИУМРИУМРИУМРИУМРИ!!!!";
+                        case "YamataA13":
+                        return "НЕТ НЕТ НЕТ!!! ТОЛЬКО НЕ СНОВА!!! В ЭТОТ РАЗ Я ТЕБЯ РАСТОПЧУ!!!";
+                        case "YamataA14":
+                        return "Похожн мне придется вмешаться и спасти твой зад, па..";
+                        case "YamataA15":
+                        return "Вот это моя девочка!";
+                        case "YamataA16":
+                        return "Ох, милая..! Поможешь папе уничтожить этого мелкого червя?!";
+                        case "YamataA17":
+                        return "*Вздох*...конечно, па.";
+
+                        case "HarukaY1":
+                        return "Пап, ты придурок..! В любом случае, не могу сказать, что не ожидала этого.";
+                        case "HarukaY2":
+                        return "Достаточно. Я все, ТЫ сам с ним справляйся, как хочешь, па!";
+
+                        case "YamataHead1":
+                        return "ПОЧУСВУЙ КИСЛОТУ, ТЫ, НЕВЫНОСИМЫЙ ЛИЧИНУС!!!";
+                        case "YamataHead2":
+                        return "ХВАТИТ ДВИГАТЬСЯ И ДАЙ МНЕ РАСПЛАВИТЬ ТЕБЯ!!!";
+                        case "YamataHead3":
+                        return "Down Down DOWN THE VENOM GOES!!! When it will it stop? WHO KNOWS?! NYEHEHEHEHEHEH!!!";
+                        case "YamataHead4":
+                        return "УМРИУМРИУМРИУМРИУМРИУМРИУМРИУМРИУМРИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИ!!!";
+                        case "YamataHead5":
+                        return "БАМ! БУМ! ТЫ У МЕНЯ СЕЙЧАС ПОЛЕТИШЬ В СЛЕДУЮЩЕЕ ВОСКРЕСЕНЬЕ!!!";
+                        case "YamataHead6":
+                        return "НГААААААААААААААААААААААХ!!!";
+                        case "YamataHead7":
+                        return "ДОСТАНЬТЕ ИХ! СЬЕШТЕ ИХ! ПРОСТО ДОСТАНЬТЕ ";
+                        case "YamataHead8":
+                        return " ПРОЧЬ ОТ МОЕГО ЛИЦА!!!";
+                        case "YamataHead9":
+                        return "Я ЕЛ КРОЛИКОВ, КОТОРЫЕ БЫЛИ ПОКРУЧЕ, ЧЕМ ТЫ!!!!";
+                        case "YamataHead10":
+                        return "Я НАДЕЮСЬ, ТЫ ВЗЯЛ С СОБОЙ ЗОНТИК! ПОТОМУ ЧТО У НАС ТУТ ДОЖДЬ ИЗ БОЛИ!!! НЬЕХЕХЕХЕХЕ!!!";
+                        case "YamataHead11":
+                        return "ВНИЗ ТЕЧЕТ ЯД!!!НЬЕХЕХЕХЕХЕХЕХЕХЕ!";
+                        case "YamataHead12":
+                        return "ЖРИ ЭКТОПЛАЗМУ, НЕГОДНИК!";
+                        case "YamataHead13":
+                        return "НЬЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯХ!!!";
+                        case "YamataHead14":
+                        return "УПС! УРОНИЛ КИСЛОТУ! Надеюсь, что ты не разлагаешься..!";
+                        case "YamataHead15":
+                        return "УПС! СНОВА КИСЛОТУ УРОНИЛ! НЬЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕХЕ";
+                        case "YamataHead16":
+                        return "НЬЯЯЯЯЯЯЯЯЯЯЯЯХ! ЭТО ТЫ НЕ ПЕРЕЖИВЕШЬ!";
+                        case "YamataHead17":
+                        return "НУ ЖЕ!!! ВСТАНЬ РОВНО, ЧТО БЫ Я МОГ ОТПРАВИТЬ ТЕБЯ НА МАРС!";
+                        case "YamataHead18":
+                        return "НГААААААААААААХ ХВАААААААААААААТИИИИИИИТ ДВИГАААААААААААТЬСЯЯЯЯЯЯЯЯЯЯЯ!!!!!";
+                        case "YamataHead19":
+                        return "ВОТ ТЕБЕ ПОЛЕЗНАЯ ДЛЯ ЗДОРОВЬЯ ДОЗА КИСЛОТЫ!";
+                        case "YamataHead20":
+                        return "Я ТЕБЯ НА ЧАСТИ РАЗОВРУ, МАЛЕНЬКИЙ НЕГОДЯЙ!!!";
+                        case "YamataHead21":
+                        return "РЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕ!!!";
+
+                        case "Sagittarius1":
+                        return "цель(и) нейтрализованы. возвращаюсь в скрытный режим.";
+                        case "Sagittarius2":
+                        return "цель(и) потеряны. возвращаюсь в скрытный режим.";
+                        case "SagittariusFree1":
+                        return "цель(и) нейтрализованы. возвращаюсь в скрытный режим.";
+                        case "SagittariusFree2":
+                        return "цель(и) потеряны. возвращаюсь в скрытный режим.";
+                        case "SagittariusFree3":
+                        return "запускаю программу ремонта.";
+
+                        case "ZeroBoss1":
+                        return "ФИЗИЧЕСКИЙ М0ДУЛЬ ЗИР0 В КРИТИЧЕСК0М С0СТ0ЯНИИ. ЗАПУСКАЮ ПР0Т0КОЛ СУДН0Г0 ДНЯ.";
+                        case "ZeroBoss2":
+                        return "В ЗАПУСКЕ ПР0Т0КОЛА СУДН0Г0 ДНЯ ОТКАЗАН0. MAIN.EXPERT M0DE = FALSE.";
+                        case "ZeroBoss3":
+                        return "Камень рока перестает светиться. Теперь его можно добыть.";
+                        case "ZeroBoss4":
+                        return "ЗАПУСКАЮ ПР0Т0К0Л ЗАПАСНЫХ МОДУЛЕЙ.";
+                        case "ZeroBoss5":
+                        return "КРИТИЧЕСКАЯ 0ШИБКА: М0ДУЛИ РУК НЕ 0БНАРУЖЕНЫ. ПЕРЕАДРИСУЮ РЕСУРСЫ НА АТАКУЮЩИЕ ПР0Т0К0ЛЫ. ЩИТ ОПУЩЕН.";
+                        case "ZeroBoss6":
+                        return "ЦЕЛЬ НЕЙТРАЛИЗОВАНА. В0ЗВРАЩАЮСЬ НА 0РБИТУ.";
+                        case "ZeroBoss7":
+                        return "ЦЕЛЬ ПОТЕРЯНА. В0ЗВРАЩАЮСЬ НА 0РБИТУ.";
+                        case "ZeroBoss8":
+                        return "ЗАПУСКАЮ СИСТЕМУ СОЗДАНИЯ ЗОНДОВ.";
+                        case "ZeroBoss9":
+                        return "ПРОТОКОЛ ЦИКЛОНА ЗАПУЩЕН.";
+                        case "ZeroBoss10":
+                        return "ПЕРЕЗАПУСКАЮ МОДУЛИ ОРУЖИЯ";
+                        case "ZeroBoss11":
+                        return "ПЕРЕЗАПУСКАЮ МОДУЛИ ОРУЖИЯ";
+
+                        case "ZeroAwakened1":
+                        return "Камень рока перестает светиться. Теперь его можно добыть.";
+                        case "ZeroAwakened2":
+                        return "ВНИМАНИЕ. НАНЕСЕН КОЛОССАЛЬНЫЙ УРОН, ЕСТЬ УГРОЗА ПОРАЖЕНИЯ. ЗАПУСКАЮ ПРО";
+                        case "ZeroAwakened3":
+                        return "ВНИМАНИЕ. НАНЕСЕН КОЛОССАЛЬНЫЙ УРОН, СНОВА ЕСТЬ УГРОЗА ПОРАЖЕНИЯ. ENGAGE T0TAL 0FFENCE PR0T0C0L 0MEGA";
+                        case "ZeroAwakened4":
+                        return "ОБНАРУЖЕН ЧИТЕР ОБНАРУЖЕН ЧИТЕР. НИКАК0Г0 ДР0ПА ДЛЯ Т3БЯ.";
+                        case "ZeroAwakened5":
+                        return "ТВ0Й ИНСТРУМЕНТ 'МЯСНИК' ЗДЕСЬ ТЕБЯ НЕ СПАСЕТ";
+                        case "ZeroAwakened6":
+                        return "ЦЕЛЬ НЕЙТРАЛИЗОВАНА. В0ЗВРАЩАЮСЬ НА 0РБИТУ.";
+                        case "ZeroAwakened7":
+                        return "ЦЕЛЬ ПОТЕРЯНА. В0ЗВРАЩАЮСЬ НА 0РБИТУ.";
+                        case "ZeroAwakened8":
+                        return @"ЗАРЯДКА САМООРГАНИЗАЦИЙ ЗАВЕРШЕНА...";
+                        case "ZeroAwakened9":
+                        return @"ЗАПУСКАЮ РЕЖИМ САМООРГАНИЗАЦИЙ...";
+                        case "ZeroAwakened10":
+                        return @"ALLOW C:\TERRARIA\AAMOD\ZERO\PROTOCOL\SELF-ORGNAZATION.EXE ? <Y/N>...";
+                        case "ZeroAwakened11":
+                        return @"===Р Е З Н Я===";
+
+                        case "ZeroDeath1":
+                        return "МИССИЯ ПРОВАЛЕНА. 0ТПРАВКА СИГНАЛА БЕДСТВИЯ НА БАЗУ.";
+                        case "ZeroDeath2":
+                        return "МИССИЯ ПРОВАЛЕНА. ПЫТАЮСЬ СНОВА 0ТПРАВИТЬ СИГНАЛА БЕДСТВИЯ НА БАЗУ";
+                        case "ZeroDeath3":
+                        return "ОТПРАВЛЯЮ...";
+                        case "ZeroDeath4":
+                        return "СИГНАЛ БЕДСТВИЯ ПОЛУЧЕН.";
+                        case "FuryAshe1":
+                        return "Папа, НЕТ! ТЫ за это ЗАПЛАТИШЬ, ";
+                        case "FuryAshe2":
+                        return "АГХ! Прости, папа..! Мне надо бежать!";
+                        case "WrathHaruka1":
+                        return "Отец! Рргх..! В следующий раз, я спущу тебя с небес на землю!";
+                        case "WrathHaruka2":
+                        return "Нгх...прости, отец...Я больше не могу...";
+
+                        case "ShenA1":
+                        return "Ты даешь настоящий бой, дитя.";
+                        case "ShenA2":
+                        return "Посмотри, где ты, террариан. Это все ты сотворил. Ритуал, руна? Все ты.";
+                        case "ShenA3":
+                        return "Дерешься до самого конца.";
+                        case "ShenA4":
+                        return "Почему ты сражаешься? Ради силы? Ради славы?";
+                        case "ShenA5":
+                        return "Ты немного напоминаешь меня...";
+                        case "ShenA6":
+                        return "В любом случае, я лично сделаю так, что бы это был твой последний ритуал!";
+                        case "ShenA7":
+                        return "Ты силен. Требуется мужество, что бы сразиться с всем, чем ты сразился.";
+                        case "ShenA8":
+                        return "Сколько еще ты со мной будешь биться, что бы победить меня? Или ты сдашься?";
+                        /* 
+                        case "ShenA9":
+                        return "Но сегодня, мы сражаемся! Покажи все, что у тебя есть!";
+                        case "ShenA10":
+                        return "УМРИ НАКОНЕЦ, ТЫ, НИКЧЕМНЫЙ МЕЛКИЙ ЧЕРВЬ!!";
+                        */
+                        case "ShenA11":
+                        return "Хмпф..! Вот мы и снова здесь, приближаемся к концу черты. Я не сдамся!";
+                        case "ShenA12":
+                        return "Хм..?! Ты все еще жив? Ну тогда...Давай изменим это!";
+                        case "ShenA13":
+                        return "Конец игры-самая сложная часть, помни это, дитя!";
+                        case "ShenA14":
+                        return "Ты маленький..! Умри, наконец!";
+                        case "ShenA15":
+                        return "Ну вот и все! Конец близок, так что ты не имеешь права сдаваться!";
+                        case "ShenA16":
+                        return "Невозможно-- Как?!";
+
+                        case "ShenAThorium":
+                        return "Знаешь, я видел, как ты победит того бога-сферу и его 3 громил. Стоит признать, впечатляет.";
+                        case "ShenACalamity":
+                        return "Учитывая, что ты поставил ту тоскливую ведьму на место, ты заслуживаешь уважения.";
+                        case "ShenAGRealm":
+                        return "Я видел, как ты раздавил того вредителя-переростка в джунглях, впечатляет.";
+                        case "ShenARedemption":
+                        return "В любом случае, после того, как ты избил(а) ту космическую ханжу, даже я был шокирован уровнем твоего умения.";
+                        case "ShenASpirit":
+                        return "Теперь, когда я задумался об этом, ты разбивший надзирателя, как яйцо? Для такого нужно много сил.";
+                        case "ShenANoMod":
+                        return "Все, что ты сразил(а),подобно богам и монстрам, я уважаю это.";
+
+                        case "ShenDeath1":
+                        return "Снова разделились...";
+                        case "ShenDeath2":
+                        return "Это ТВОЯ вина, ты, дерзкий червь..! Я знаЛ, что нам надо было быть намного более агрессивными, но  НЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕТ..! Ты сказал, что мы раздавим их даже толком не пытаясь!";
+                        case "ShenDeath3":
+                        return "Войны";
+                        case "ShenDeath4":
+                        return ",когда-нибудь, ты снова встанешь лицом к лицу с нашей яростью...или, когда мы снова наберемся сил...";
+                        case "ShenDeath5":
+                        return "...или, когда ты снова решишься использовать печать..!";
+                        case "ShenDeath6":
+                        return "Твой выбор, дитя";
+                        case "ShenDeath7":
+                        return "ТЫ ИМБЕЦИЛ! МЫ ПРОЙГРАЛИ! СНООООООООООООООООООООООООООООООООООООООВА!!!";
+                        case "ShenDeath8":
+                        return "Ргх, моя голова...";
+                        case "ShenDeath9":
+                        return "КУЧКА КЛОУНОВ";
+                        case "ShenDeath10":
+                        return "А ТЫ, ";
+                        case "ShenDeath11":
+                        return "! В СЛЕДУЮЩИЙ РАЗ Я ОТОРВУ ТВОЮ ГОЛОВУ!!!";
+                        case "ShenDeath12":
+                        return "И поверь нам, дитя.";
+                        case "ShenDeath13":
+                        return "Всегда есть следующий раз";
+
+                        case "ShenDoragon1":
+                        return "ТЕРРА МАГИЯ?! НЕТ! Я ДУМАЛ, ЧТО ОНА БЫЛА СТЕРТА С ЛИЦА ЗЕМЛИ!";
+                        case "ShenDoragon2":
+                        return "Тиски! Помогите мне!";
+                        case "ShenDoragon3":
+                        return "Аше? Харука? Мне снова нужна ваша помощь..!";
+                        case "ShenDoragon4":
+                        return "Уже иду, папа~!";
+                        case "ShenDoragon5":
+                        return "Снова..?";
+                        case "ShenDoragon6":
+                        return "Девочки..? Помогите вашему отцу разобраться с этим никчемным смертным.";
+                        case "ShenDoragon7":
+                        return "С удовольствием, папа~!";
+                        case "ShenDoragon8":
+                        return "Конечно, отец.";
+                        case "ShenDoragon9":
+                        return "Ты стойкий, дитя. Мне это нравиться.";
+                        case "ShenDoragon10":
+                        return "Что это? Компететность? Неожидал...";
+                        case "ShenDoragon11":
+                        return "Настоящие войны беспощадны! И я уверен, что ты в том числе..!";
+                        case "ShenDoragon12":
+                        return "Сдавайся, дитя. Мир всегда впадает в хаос!";
+                        case "ShenDoragon13":
+                        return "БУДЬ БЕСПОЩАДЕН!";
+                        case "ShenDoragon14":
+                        return "Что? Ты все еще сражаешься? Почему?!";
+                        case "ShenDoragon15":
+                        return "Победа над сверхдревним запитала каменных хранителей.";
+                        case "ShenDoragon16":
+                        return "Хех, ладно. Я оставлю тебя в покое, полагаю. Но если ты вернешься и будешь сильнее, я покаже тебе силу истинного неукротимого раздора...";
+                        case "ShenDoragon17":
+                        return "Победа над сверхдревним запитала каменных хранителей";
+                        case "ShenDoragon18":
+                        return "Хорошое шоу, дитя, хорошое шоу. Твоя отвага все еще восхищает меня! Может быть, когда-нибудь, я покажу тебе свою истинную силу.";
+                        case "ShenDoragon19":
+                        return "Неплохие умения, дитя.";
+                        case "ShenDoragon20":
+                        return "Что это? Компететность? Впечатляет.";
+                        case "ShenDoragon21":
+                        return "Ты настоящий боец, знашеь ли. А теперь стой ровно и дай мне зажарить тебя.";
+                        case "ShenDoragon22":
+                        return "Хаус всегда правит, дитя. Вы, террарианы похоже никогда это не запомните.";
+                        case "ShenDoragon23":
+                        return "Похоже, что ты переворачиваешь ход событий, дитя, но не на долго!";
+                        case "ShenDoragon24":
+                        return "Хмм...все еще сражаешься, а?";
+                        
+
+
+                        case "ShenSpawn1":
+                        return "Не ожидал снова увидеть нас, дитя?";
+                        case "ShenSpawn2":
+                        return "НЬЕХЕХЕХЕХЕХЕЕХЕХЕХЕХЕХЕ..! Да..! Ты прям шокирован видеть нас здесь..! Но в этот раз, у нас есть 'НЕБОЛЬШОЙ' туз в рукаве..!";
+                        case "ShenSpawn3":
+                        return "Та печать, что ты использовал, вернула нам все наши силы, что позволит нам перевоплотиться в нашу истинную форму, могущественную форму..!";
+                        case "ShenSpawn4":
+                        return "Когда то, мы были одним существом..! Но потом террариан, по типу тебя, разделил нас на две части..! Но теперь...хехехе...";
+                        case "ShenSpawn5":
+                        return "МЫ СНОВА ЕДИНЫ";
+                        case "ShenSpawn6":
+                        return "Хех....хехех...";
+                        case "ShenSpawn7":
+                        return "Ты совершило гробовую ошибку, дитя...";
+                        case "ShenSpawn8":
+                        return "Видишь ли...";
+                        case "ShenSpawn9":
+                        return "Я, ШЕН ДОРАГОН, ИМПЕРАТОР ХАОСА И АНАРХИИ!";
+                        case "ShenSpawn10":
+                        return "А ты, дитя мое...";
+                        case "ShenSpawn11":
+                        return "ПОГИБНЕШЬ!!!";
+                        case "ShenTransition1":
+                        return "Хех...";
+                        case "ShenTransition2":
+                        return "Хехехех...";
+                        case "ShenTransition3":
+                        return "ХАХАХАХАХАХАХА!!!";
+                        case "ShenTransition4":
+                        return "Ты забыл наши последние битвы?...?";
+                        case "ShenTransition5":
+                        return "Всегда есть последний бой, дитя...";
+                        case "ShenTransition6":
+                        return "Но в этот раз ты стойшь у меня на пути...";
+                        case "ShenTransition7":
+                        return "Шен Дорагон пробудился!";
+                        case "ShenTransition8":
+                        return "ТЫ БУДЕШЬ ГОРЕТЬ В ОГНЯХ РАЗДОРА!!!";
                     }
                 }
             else
@@ -1553,10 +3173,15 @@ namespace AAMod
                         return "him";
                         case "fimale":
                         return "her";
+                        case "male2":
+                        return "HIM";
+                        case "fimale2":
+                        return "HER";
                         case "boy":
-                        return "BOY";
+                        return ", BOY";
                         case "girl":
-                        return "GIRL";
+                        return ", GIRL";
+
                         case "AHDeath1":
                         return "RRRRRRRRRGH! NOT AGAIN!!!";
                         case "AHDeath2":
@@ -1573,6 +3198,7 @@ namespace AAMod
                         return "Whatever...I'm going back home. SOMEONE has to tell dad about this kid.";
                         case "AHDeath8":
                         return "Hmpf..! Fine! Be that way! I'm going back to the inferno!";
+
                         case "AHSpawn1":
                         return "Well hello there, what a surprise to see YOU here~!";
                         case "AHSpawn2":
@@ -1591,10 +3217,12 @@ namespace AAMod
                         return "We're gonna give you something to absolutely SCREAM about..! Come on, Hakie, let's torch this little warm-blood~!";
                         case "AHSpawn9":
                         return "Please don't call me Hakie again...ever.";
+
                         case "AsheDowned":
-                        return "OW..! THAT HURT, YOU KNOW!";
+                        return "OW..! THAT HURT, YOU MEANIE!";
                         case "HarukaDowned":
                         return "Rgh..! Ow...";
+
                         case "Akuma1":
                         return "Water?! ACK..! I CAN'T BREATHE!";
                         case "Akuma2":
@@ -1612,13 +3240,18 @@ namespace AAMod
                         case "Akuma8":
                         return "Incoming!";
                         case "Akuma9":
-                        return "Face the flames of despair, kid!";
+                        return "Sun's shining, and there's no shade to be seen, kid!";
                         case "Akuma10":
-                        return "Heads up, kid!";
+                        return "Getting hotter, ain't it?";
                         case "Akuma11":
                         return "The volcanoes of the inferno are finally quelled...";
                         case "Akuma12":
                         return "Hmpf...you’re pretty good kid, but not good enough. Come back once you’ve gotten a bit better.";
+                        case "Akuma13":
+                        return "Face the flames of despair, kid!";
+                        case "Akuma14":
+                        return "Heads up, kid!";
+
                         case "AkumaA1":
                         return "Ashe? Help your dear old dad with this kid again!";
                         case "AkumaA2":
@@ -1659,10 +3292,16 @@ namespace AAMod
                         return "Hey Kid? Like Fireworks? No? Too Bad!";
                         case "AkumaA20":
                         return "Here comes the grand finale, kid!";
+                        case "AkumaA21":
+                        return "The Sun won't quit 'til the day is done, kid!";
+                        case "AkumaA22":
+                        return "Face the fury of the sun!";
+
                         case "AkumaAAshe1":
                         return "Papa, NO! HEY! YOU! I'm gonna bake you alive next time we meet..!";
                         case "AkumaAAshe2":
                         return "OW, you Jerk..! I'm out!";
+
                         case "AkumaTransition1":
                         return "Heh...";
                         case "AkumaTransition2":
@@ -1675,6 +3314,162 @@ namespace AAMod
                         return "IT ONLY MAKES THEM STRONGER!";
                         case "AkumaTransition6":
                         return "The air around you begins to heat up...";
+
+                        case "AnubisFalse":
+                        return "HAH! Get hosed-- er, sanded.";
+
+                        case "AnubisGuys":
+                        return "guys";
+                        case "Anubisbud":
+                        return "bud";
+
+                        case "Anubis1":
+                        return "Well, ";
+                        case "Anubis2":
+                        return ". Here we are.";
+                        case "Anubis3":
+                        return "I hope you're ready for a real fight.";
+                        case "Anubis4":
+                        return "Especially since I'm in my superior form.";
+                        case "Anubis5":
+                        return "You ready? I won't hesitate to slap you silly!";
+                        case "Anubis6":
+                        return "Let's go!";
+                        case "Anubis7":
+                        return "A rematch eh? Alright, this should be fun!";
+
+                        case "AnubisTransition1":
+                        return "...hrgh...";
+                        case "AnubisTransition2":
+                        return "...alright.";
+                        case "AnubisTransition3":
+                        return "I think...it's time.";
+                        case "AnubisTransition4":
+                        return "No more stops being pulled.";
+                        case "AnubisTransition5":
+                        return "If you're gonna be taking on the dark forces of the world...";
+                        case "AnubisTransition6":
+                        return "I need to make sure you're ready, because...unless you're ready...";
+                        case "AnubisTransition7":
+                        return "...Some things should stay locked away for your own good.";
+
+                        case "FAnubis":
+                        return "...Sorry, but you aren't ready yet.";
+
+                        case "Athena1":
+                        return "Hmpf..!";
+                        case "Athena2":
+                        return "s";
+                        case "Athena3":
+                        return "You! Earthwalker";
+                        case "Athena4":
+                        return "My seraphs tell me you've been attacking them! Why?!";
+                        case "Athena5":
+                        return "I'm gonna teach you a lesson, you little brat!";
+                        case "Athena6":
+                        return "En Garde!";
+                        case "Athena7":
+                        return "Sigh...";
+                        case "Athena8":
+                        return "Lets just get this overwith. I don't have all day.";
+                        case "Athena9":
+                        return "And stay away...idiot.";
+                        case "Athena10":
+                        return "No more kidding around, the storms are calling, and they're coming for you!";
+                        case "Athena11":
+                        return "OW! Fine, fine..! I'll leave you alone! Geez, you don't let up, do you.";
+                        case "Athena12":
+                        return "...So. You came.";
+                        case "Athena13":
+                        return "It's high time I won my honor back..!";
+                        case "Athena14":
+                        return "En Garde!";
+
+                        case "AthenaA1":
+                        return "And stay away...idiot.";
+                        case "AthenaA2":
+                        return "OW! Fine, fine..! I'll leave you alone! Geez, you don't let up, do you.";
+
+                        case "AthenaDefeat1":
+                        return "...hah...hah...";
+                        case "AthenaDefeat2":
+                        return "...I still lost.";
+                        case "AthenaDefeat3":
+                        return "No.";
+                        case "AthenaDefeat4":
+                        return "I'm not giving up that easilly.";
+                        case "AthenaDefeat5":
+                        return "There's a phrase my people live by, earthwalker.";
+                        case "AthenaDefeat6":
+                        return "Brightest of dawn...";
+                        case "AthenaDefeat7":
+                        return "Darkest of night...";
+                        case "AthenaDefeat8":
+                        return "Even in defeat...";
+                        case "AthenaDefeat9":
+                        return "A VARIAN ALWAYS PUTS UP ONE LAST FIGHT!!!";
+
+                        case "Athena2Defeat1":
+                        return "...WHY?!";
+                        case "Athena2Defeat2":
+                        return "...Why can't I win?!";
+                        case "Athena2Defeat3":
+                        return "...You haven't heard the end of me, earthwalker ";
+                        case "Athena2Defeat4":
+                        return "s";
+                        case "Athena2Defeat5":
+                        return "I will win back my honor eventually...";
+                        case "Athena2Defeat6":
+                        return "...until then, watch your back.";
+                        case "Athena2Defeat7":
+                        return "Dark, chaotic forces are waking up as of late.";
+                        case "Athena2Defeat8":
+                        return "hopefully HE doesn't come back...";
+                        case "Athena2Defeat9":
+                        return "Stay safe.";
+
+                        case "SeraphHerald1":
+                        return "HEY! EARTHWALKER! YEAH YOU, YA STUPID APE!";
+                        case "SeraphHerald2":
+                        return "Queen Athena requests your presence at the acropolis again immediately!";
+                        case "SeraphHerald3":
+                        return "She demands a rematch, and this time, she won't let you tear her down so easily!";
+                        case "SeraphHerald4":
+                        return "I would say break a leg, but we can do that ourselves when you show up!";
+                        case "SeraphHerald5":
+                        return "See ya twerp!";
+                        case "SeraphHerald6":
+                        return "Oh yeah, and uh, that obnoxious kleptomaniac worm wants to fight you again too or something.";
+
+                        case "GreedFalse1":
+                        return "EEEEEEEEEEEEEEEGH THE LIGHT OF THE SURFACE! TOO BRIGHT! TOO BRIGHT!";
+                        case "GreedFalse2":
+                        return "AND STAY AWAY FROM MY GLORIOUS RICHES YOU LITTLE THIEF!";
+
+                        case "Greed1":
+                        return "Who disturbs me from my coin-counting?! I'm busy--";
+                        case "Greed2":
+                        return "...Oooooh...is that...?";
+                        case "Greed3":
+                        return "You brought me my favorite dish..!";
+                        case "Greed4":
+                        return "Golden Grub...";
+                        case "Greed5":
+                        return "WITH A SIDE OF TERRARIAN!!!";
+                        case "GreedName":
+                        return "Greed";
+
+                        case "GreedTransition1":
+                        return "YOU..! YOU LITTLE--";
+                        case "GreedTransition2":
+                        return "THATS IT, I'VE HAD IT!";
+                        case "GreedTransition3":
+                        return "YOU TRY TO STEAL MY SHINIES, AND NOW...!";
+                        case "GreedTransition4":
+                        return "I WILL STEAL YOUR LIFE! HEEHEEHEEHEEHEEHEEHEEHEEHEEHEE!!!";
+                        case "GreedAName":
+                        return "Worm King Greed";
+
                         case "Rajah1":
                         return "JUSTICE CANNOT BE CHEATED";
                         case "Rajah2":
@@ -1693,6 +3488,7 @@ namespace AAMod
                         return "Well fought, ";
                         case "Rajah9":
                         return ". Take your reward.";
+
                         case "SupremeRajahDefeat1":
                         return "Rgh...";
                         case "SupremeRajahDefeat2":
@@ -1725,6 +3521,7 @@ namespace AAMod
                         return "...See ya, kiddo.";
                         case "SupremeRajahDefeat16":
                         return "Rajah Rabbit's speech warms your heart. You no longer have the will to harm rabbits. Do him proud.";
+
                         case "YamataAHead":
                         return "OWIE!!!";
                         case "Yamata1":
@@ -1744,7 +3541,7 @@ namespace AAMod
                         case "Yamata8":
                         return "Running away?! I DON'T THINK SO!";
                         case "Yamata9":
-                        return "NYEHEHEHEHEHEHEH..! And don�t come back!";
+                        return "NYEHEHEHEHEHEHEH..! And don't come back!";
                         case "Yamata10":
                         return "Resistance isn't gonna save you here! Now stop being a little brat and let me destroy you!";
                         case "Yamata11":
@@ -1757,6 +3554,7 @@ namespace AAMod
                         return "I'M GETTING FRUSTRATED AGAIN!";
                         case "Yamata15":
                         return "I HATE FIGHTING YOU! I HATE IT I HATE IT I HATE IT!!!";
+
                         case "YamataHead":
                         return "OWIE!!!";
                         case "YamataTransition1":
@@ -1773,6 +3571,7 @@ namespace AAMod
                         return "AND IT'S GOT 7 HEADS! NYEHEHEHEHEHEHEHEHEHEHEHEH!!!";
                         case "YamataTransition7":
                         return "You begin to feel as if your soul is weighing you down...";
+
                         case "YamataA1":
                         return "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
                         case "YamataA2":
@@ -1782,7 +3581,7 @@ namespace AAMod
                         case "YamataA4":
                         return "NOOOOOOOOOOOOOO!!! YOU LITTLE BRAT!!! I ALMOST HAD YOU THIS TIME!!! FINE, take your stuff, See if I care!";
                         case "YamataA5":
-                        return "HAH! Nice try! Come back in Expert mode when you don�t have to cheat to beat me! All your loot is MINE still!";
+                        return "HAH! Nice try! Come back in Expert mode when you don't have to cheat to beat me! All your loot is MINE still!";
                         case "YamataA6":
                         return "YOU'RE STILL FIGHTING?! WHAT THE HELL IS WRONG WITH YOU?!";
                         case "YamataA7":
@@ -1807,10 +3606,12 @@ namespace AAMod
                         return "Oh, sweetie..! Care to help daddy thrash this little worm?!";
                         case "YamataA17":
                         return "Sigh...yes dad.";
+
                         case "HarukaY1":
                         return "Dad, you moron..! Whatever, Can't really say I didn't see it coming.";
                         case "HarukaY2":
                         return "That's it. I'm done, YOU deal with them, dad.";
+
                         case "YamataHead1":
                         return "TASTE ACID YOU UNBEARABLE MAGGOT!!!";
                         case "YamataHead2":
@@ -1828,9 +3629,9 @@ namespace AAMod
                         case "YamataHead8":
                         return " OUT OF MY FACE!!!";
                         case "YamataHead9":
-                        return "I�VE EATEN RABBITS MORE INTIMIDATING THAN YOU!";
+                        return "I HAVE EATEN RABBITS MORE INTIMIDATING THAN YOU!";
                         case "YamataHead10":
-                        return "HOPE YOU BROUGHT YOUR UMBRELLA! BECAUSE IT�S RAINING PAIN!!! NYEHEHEHEHEHEHEHEH!!!";
+                        return "HOPE YOU BROUGHT YOUR UMBRELLA! BECAUSE IT'S RAINING PAIN!!! NYEHEHEHEHEHEHEHEH!!!";
                         case "YamataHead11":
                         return "DOWN COMES THE VENOM!!!NYEHEHEHEHEHEHEHEH!";
                         case "YamataHead12":
@@ -1842,7 +3643,7 @@ namespace AAMod
                         case "YamataHead15":
                         return "WHOOPS! DROPPED ACID AGAIN! NYEHEHEHEHEHEHEHEHEHEHEHEH";
                         case "YamataHead16":
-                        return "NYAAAAAAAH! YOU WON�T LIVE THROUGH THIS ONE!";
+                        return "NYAAAAAAAH! YOU WON'T LIVE THROUGH THIS ONE!";
                         case "YamataHead17":
                         return "COME ON!!! STAND STILL SO I CAN BLOW YOU TO MARS!";
                         case "YamataHead18":
@@ -1853,6 +3654,7 @@ namespace AAMod
                         return "I'M GONNA RIP YOU TO PIECES YOU LITTLE WRETCH!!!";
                         case "YamataHead21":
                         return "REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE!!!";
+
                         case "Sagittarius1":
                         return "target(s) neutralized. returning to stealth mode.";
                         case "Sagittarius2":
@@ -1863,6 +3665,7 @@ namespace AAMod
                         return "target(s) lost. returning to stealth mode.";
                         case "SagittariusFree3":
                         return "initializing repair program.";
+
                         case "ZeroBoss1":
                         return "PHYSICAL ZER0 UNIT IN CRITICAL C0NDITI0N. DISCARDING AND ENGAGING D00MSDAY PR0T0C0L.";
                         case "ZeroBoss2":
@@ -1883,6 +3686,9 @@ namespace AAMod
                         return "CYCLONE PROTOCOL ENGAGED";
                         case "ZeroBoss10":
                         return "RE-ESTABLISHING WEAP0N UNITS";
+                        case "ZeroBoss11":
+                        return "RE-wiogn WEAP0N UNITS";
+
                         case "ZeroAwakened1":
                         return "Doomstone stops glowing. You can now mine it.";
                         case "ZeroAwakened2":
@@ -1897,6 +3703,15 @@ namespace AAMod
                         return "TARGET NEUTRALIZED. RETURNING T0 0RBIT.";
                         case "ZeroAwakened7":
                         return "TARGET L0ST. RETURNING T0 0RBIT.";
+                        case "ZeroAwakened8":
+                        return @"SELF-ORGNAZATION CHARGING COMPLETED...";
+                        case "ZeroAwakened9":
+                        return @"BOOTING IN SELF ORGNAZATION MODE...";
+                        case "ZeroAwakened10":
+                        return @"ALLOW C:\TERRARIA\AAMOD\ZERO\PROTOCOL\SELF-ORGNAZATION.EXE ? <Y/N>...";
+                        case "ZeroAwakened11":
+                        return @"===C A R N A G E===";
+
                         case "ZeroDeath1":
                         return "MISSI0N FAILED. SENDING DISTRESS SIGNAL T0 H0ME BASE.";
                         case "ZeroDeath2":
@@ -1913,38 +3728,55 @@ namespace AAMod
                         return "Father! Rrgh..! Next time we meet, I'll strike you down!";
                         case "WrathHaruka2":
                         return "Ngh...sorry father...I can't carry on...";
+
                         case "ShenA1":
-                        return "I must say, child. You impress me.";
+                        return "You put up a real fight, kid.";
                         case "ShenA2":
-                        return "Face it, child! You’ll never defeat the living embodiment of disarray itself!";
+                        return "Look at where you are, terrarian. This is your own doing. The ritual, the rune? All you.";
                         case "ShenA3":
-                        return "You fight, even when the odds are stacked against you.";
+                        return "Brawlin' till the very end.";
                         case "ShenA4":
-                        return "You’re still going? How amusing...";
+                        return "Why do you instigate all these fights? Power? Glory?";
                         case "ShenA5":
-                        return "You remind me of myself quite a bit, to be honest...";
+                        return "You remind me of myself quite a bit...";
                         case "ShenA6":
-                        return "Putting up a fight when you know Death is inevitable...";
+                        return "Either way, I'll personally make sure this is your last one!";
                         case "ShenA7":
-                        return "Maybe some day, you'll have your own realm to rule over...";
+                        return "You're strong, too. Takes guts to fight most of what you have.";
                         case "ShenA8":
-                        return "Now stop making this hard! Stand still and take it like a man!";
+                        return "How many times will you fight to tear me down? Or will you give up?";
+                        /* 
                         case "ShenA9":
                         return "But today, we clash! Now show me what you got!";
                         case "ShenA10":
                         return "DIE ALREADY YOU INSIGNIFICANT LITTLE WORM!!";
+                        */
                         case "ShenA11":
-                        return "Still got it? I'm impressed. Show me your true power!";
+                        return "Hmpf..! Here we are again, gettin' close to the end of the line. I'm not holding back!";
                         case "ShenA12":
-                        return "WHAT?! HOW HAVE YOU- ENOUGH! YOU WILL KNOW WHAT IT MEANS TO FEEL UNYIELDING CHAOS!";
+                        return "Hm..?! You haven't kicked the bucket yet? Well then...Let's change that!";
                         case "ShenA13":
-                        return "Come on! KEEP PUSHING!";
+                        return "The end of a game is the most stressful, keep that in mind, kid!";
                         case "ShenA14":
-                        return "NO! I WILL NOT LOSE! NOT TO YOU!";
+                        return "You little..! Die already!";
                         case "ShenA15":
-                        return "SHOW ME! SHOW ME THE TRUE POWER YOU HOLD!";
+                        return "This is it! The end is near, so don't you dare hold back!";
                         case "ShenA16":
-                        return "GRAAAAAAAAAH!!!";
+                        return "This can't be--! How?!";
+
+                        case "ShenAThorium":
+                        return "You know, I was watching you beat down that god-sphere and its 3 goons. Gotta admit, pretty impressive.";
+                        case "ShenACalamity":
+                        return "Considering you put that angsty witch in her place, gotta hand it to ya.";
+                        case "ShenAGRealm":
+                        return "Seeing you squashed that oversided insect in the jungle, that's quite a head-turner.";
+                        case "ShenARedemption":
+                        return "However, after you walloped that cosmic prude, even I was taken aback by that level of skill.";
+                        case "ShenASpirit":
+                        return "Now that I think about it, though, you cracking open that overseer like an egg? Quite the strength that had to have needed.";
+                        case "ShenANoMod":
+                        return "Everything you've torn down, gods and monsters alike, I respect that.";
+
                         case "ShenDeath1":
                         return "Split again...";
                         case "ShenDeath2":
@@ -1964,13 +3796,14 @@ namespace AAMod
                         case "ShenDeath9":
                         return "BUNCH OF CLOWNS";
                         case "ShenDeath10":
-                        return "And YOU, ";
+                        return "And YOU";
                         case "ShenDeath11":
                         return "! NEXT TIME I'M GONNA TEAR YOUR HEADS OFF!!!";
                         case "ShenDeath12":
                         return "And trust us, kid.";
                         case "ShenDeath13":
                         return "There's always a next time.";
+
                         case "ShenDoragon1":
                         return "TERRA MAGIC?! NO! I THOUGHT IT WAS WIPED FROM THE EARTH!";
                         case "ShenDoragon2":
@@ -2007,6 +3840,21 @@ namespace AAMod
                         return "The defeat of a superancient empowers the stonekeepers.";
                         case "ShenDoragon18":
                         return "Good show, child, good show. Your combat prowess still impresses me! Maybe some day I'll show you my true power.";
+                        case "ShenDoragon19":
+                        return "Quite the skill, kid.";
+                        case "ShenDoragon20":
+                        return "What's this? Competence? Impressive.";
+                        case "ShenDoragon21":
+                        return "You're a real fighter, you know. Now stand still and let me grill you.";
+                        case "ShenDoragon22":
+                        return "Chaos always reigns, kid. You terrarians never seem to learn that.";
+                        case "ShenDoragon23":
+                        return "Looks like you're turning tide, but not for long!";
+                        case "ShenDoragon24":
+                        return "Hmm...still fighting, eh?";
+                        
+
+
                         case "ShenSpawn1":
                         return "Surprised to see us again, Kid?";
                         case "ShenSpawn2":
@@ -2026,9 +3874,9 @@ namespace AAMod
                         case "ShenSpawn9":
                         return "I AM SHEN DORAGON, EMPEROR OF CHAOS AND ANARCHY!";
                         case "ShenSpawn10":
-                        return "And you, my child, will face the wrath and fury of chaos itself..!";
+                        return "And you, my child...";
                         case "ShenSpawn11":
-                        return "DIE!!!";
+                        return "WILL PERISH!!!";
                         case "ShenTransition1":
                         return "Heh...";
                         case "ShenTransition2":
@@ -2040,7 +3888,7 @@ namespace AAMod
                         case "ShenTransition5":
                         return "There's always a last stand, kiddo...";
                         case "ShenTransition6":
-                        return "I have only been using a fraction of my true power...and now...heheheh...";
+                        return "But now, you stand in my path...";
                         case "ShenTransition7":
                         return "Shen Doragon has been Awakened!";
                         case "ShenTransition8":
@@ -2049,7 +3897,7 @@ namespace AAMod
                 }
             return"";
         }
-        public static string BossSummonsInfo(String BossName)
+        public static string BossSummonsInfo(string BossName)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -2057,6 +3905,8 @@ namespace AAMod
                     {
                         case "BossAwoken":
                         return "已经苏醒!";
+                        case "EquinoxWormawoken":
+                        return "昼夜双虫已经苏醒!";
                         case "ChaosRuneYamataFalse":
                         return "一幅凶煞邪魔的图像在你脑海中一闪而过...";
                         case "ChaosRuneAkumaFalse":
@@ -2219,12 +4069,184 @@ namespace AAMod
                         return "你要为你的罪过付出代价, ";
                     }
                 }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                   switch(BossName)
+                    {
+                        case "BossAwoken":
+                        return " пробудился!";
+                        case "EquinoxWormawoken":
+                        return "Черви Равнодествия пробудилсь!";
+                        case "ChaosRuneYamataFalse":
+                        return "Картина полыхающего демона проскользает у вас в голове...";
+                        case "ChaosRuneAkumaFalse":
+                        return "Картина 7-голового террора проскользает у вас в голове...";
+                        case "ChaosRuneFalse":
+                        return "ХАХ! Я хотел бы, что бы здесь было 2 меня, которые тебя закопают!";
+                        case "ChaosRuneAncientsFalse":
+                        return "Руна ничего не делает...";
+                        case "ChaosRuneTrue1":
+                        return "Шен Дорагон пробудился";
+                        case "ChaosRuneTrue2":
+                        return "Сразу к веселой части, а? Ты мне нравишься, дитя.";
+                        case "ChaosSigilFalse1":
+                        return "Только синяя часть печати загорается...";
+                        case "ChaosSigilFalse2":
+                        return "Только красная часть печати загорается...";
+                        case "ChaosSigilFalse3":
+                        return "ХАХ! Я хотел бы, что бы здесь было 2 меня, которые тебя закопают!";
+                        case "ChaosSigilFalse4":
+                        return "Печать хаоса загорается и картина алтарей хаоса проскользает у вас в голове";
+                        case "ChaosSigilFalse5":
+                        return "Печать ничего не делает...";
+                        case "ChaosSigilTrue1":
+                        return "Большая ошибка, дитя...";
+                        case "ChaosSigilTrue2":
+                        return "Хмпф...Снова..? Ладно, даваой просто покончим с этим.";
+                        case "ConfusingMushroomFalse":
+                        return "Грибы светятся, и их запах заставляет вас чувстовать себя чокнутым.";
+                        case "ConfusingMushroomTrue":
+                        return "Феодальный Гриб продолжает атаковать вас.";
+                        case "CuriousClawTrue":
+                        return "Тиски уже здесь!!";
+                        case "CuriousClawFalse":
+                        return "Коготь прихрамывает у вас в руке. Мерзко.";
+                        case "CyberneticBellFalse":
+                        return "Колокл звонит, но ничего не пройсходит.";
+                        case "CyberneticBellTrue":
+                        return "Рейдер слышит звон, но продолжает пытаться убить вас.";
+                        case "CyberneticClawFalse":
+                        return "Коготь просто хромает у вас в руке";
+                        case "CyberneticClawTrue":
+                        return "Ретривер все еще пытается схватить вас.";
+                        case "CyberneticShroomFalse":
+                        return "Хватит махать металлическм грибом как психопат.";
+                        case "CyberneticShroomTrue":
+                        return "Техно-Трюфель уже существует.";
+                        case "DiamondCarrotRajahText":
+                        return "СМЕРТЕЛЬНАЯ ОШИБКА, ТЕРРАРИАН!";
+                        case "DiamondCarrotRajahText2":
+                        return "Покажи, что можешь, ";
+                        case "DjinnLampDayTimeFalse":
+                        return "Лампа мерцает в лунном свете, но ничего не пройсходит";
+                        case "DjinnLampDesertFalse":
+                        return "Лампа льет песок наземь, когда вы ее трете.";
+                        case "DjinnLampTrue":
+                        return "Никакое количество трений лампы вам не поможет.";
+                        case "DraconianDayTimeFalse":
+                        return "Боже, сопляк. Может дракон поспать немного? Возвращайся утром.";
+                        case "DraconianRuneFalse1":
+                        return "Картина сгоревшей башни на вершине Инферно проскользает у вас в голове";
+                        case "DraconianRuneFalse2":
+                        return "Эй, сопляк, эта руна работает только единожды, знаешь ли.";
+                        case "DraconianRuneInfernoFalse":
+                        return "Ты можешь использовать эту руну только в Инферно, сопляк.";
+                        case "DraconianRuneInfernoFalse2":
+                        return "Эта печать должна быть использована на алтаре солнца, сопляк. Она в центре Инферно.";
+                        case "DraconianRuneTrue1":
+                        return "Водух вокруг вас нагревается...";
+                        case "DraconianRuneTrue2":
+                        return "Сразу с места в карьер, как я вижу..? Ну ладно, приготовься к аду..!";
+                        case "DraconianSigilFalse":
+                        return "Эй, сопляк, эта печать работает только единожды, знаешь ли.";
+                        case "DraconianSigilInfernoFalse":
+                        return "Ты можешь использовать эту печать только в Инферно, сопляк.";
+                        case "DraconianSignalTrue1":
+                        return "Хех, я надеюсь ты готов сразиться лицом к лицу с яростью пылающего солнца";
+                        case "DraconianSignalTrue2":
+                        return "Вернулся за еще одной порцией, сопляк? Тебе заняться нечем? Ты уже победил меня однажды.  Ладно, но учти, я не буду с тобой мягок.";
+                        case "DragonBellDayTimeFalse":
+                        return "Звон колокола не доходит до нужных ушей. Драконы сейчас спят.";
+                        case "DragonBellTrue":
+                        return "Мать Стаи уже здесь.";
+                        case "DragonBellFalse":
+                        return "Звон колокола не доходит до нужных ушей. Драконы сейчас спят.";
+                        case "DreadRuneTrue1":
+                        return "Ямата пробудился!";
+                        case "DreadRuneTrue2":
+                        return "Да-да, я знаю, что моя первая фаза - говно. Давай просто покончим с этим..!";
+                        case "DreadTimeFalse":
+                        return "НЕТ! Я НЕ ХОЧУ СЕЙЧАС ДРАТЬСЯ С ТОБОЙ! МНЕ НУЖЕН МОЙ ПРЕКРАСНЫЙ СОН! ВОЗВРАЩАЙСЯ НОЧЬЮ!";
+                        case "DreadFalse1":
+                        return "Картина странного дерева в сердце Трясины проскользает у вас в голове";
+                        case "DreadFalse2":
+                        return "ЧТО ТЫ ТВОРИШЬ?! Я УЖЕ ЗДЕСЬ!!!";
+                        case "DreadMireFalse":
+                        return "Эй, тупица! Трясина вообще-то там!";
+                        case "DreadMireFalse2":
+                        return "Тебе стоит попробовать использовать эту печать в центре Трясины! Ничего плохого не произойдет, отвечаю!";
+                        case "DreadSigilTrue1":
+                        return "Ты ПОСМЕЛ зайти на мою территорию, террариан?! НЬЕХЕХЕХЕХЕ..! Большая ошибка..!";
+                        case "DreadSigilTrue2":
+                        return "Вернулся за добавкой..?! В этот раз тебе не повезет, маленький засранец..!";
+                        case "SistersDownedInfo1":
+                        return "Снова..!? Разве прошлый раз не научил тебя? Ну ладно, я сейчас создам шар, который превратит тебя в пыль!!";
+                        case "SistersDownedInfo2":
+                        return "В любом случае, давай просто покончим с этим.";
+                        case "SistersInfo1":
+                        return "*Вздох*... Поехали снова...";
+                        case "SistersInfo2":
+                        return "В ЭТОТ РАЗ Я НЕ ПРОЙГРАЮ! Ты почувствуешь вкус поражения, отвратительный теплокровный!";
+                        case "HydraChowTimeFalse":
+                        return "Ничего не пройсходит. Существа Трясины спят.";
+                        case "HydraChowTrue":
+                        return "Гидра хочет эту еду.";
+                        case "HydraChowFalse":
+                        return "Ничего не пройсходит. Вы выглядите глупо, держа в воздухе этот вонючий шар.";
+                        case "InterestingClawTrue":
+                        return "Тиски Хаоса уже здесь!";
+                        case "InterestingClawFalse":
+                        return "Коготь прихрамывает у вас в руке. Мерзко.";
+                        case "IntimidatingMushroomFalse":
+                        return "Гриб просто пугающе смотрит на вас.";
+                        case "IntimidatingMushroomTrue":
+                        return "Грибной Монарх продолжает пытаться растоптать вас.";
+                        case "LifescannerFalse":
+                        return "Сканер Жизни ничего не делает.";
+                        case "ScrapHeapFalse":
+                        return "Вы чувстуете статический шок, когда используете это. Может быть оно пытается отослать сигнал?";
+                        case "ScrapHeapTrue":
+                        return "Орф-X хочет съесть это И вас.";
+                        case "SubzeroCrystalTimeFalse":
+                        return "Кристалл просто тает на солнце.";
+                        case "SubzeroCrystalSnowZoneFalse":
+                        return "Кристалл показывает картину ближайшей тундры.";
+                        case "SubzeroCrystalTrue":
+                        return "Тундровая Змея продолжает атаковать";
+                        case "ToadstoolFalse":
+                        return "Поганка квакает..?";
+                        case "ToadstoolTrue":
+                        return "Трюфельная Жаба квакает";
+                        case "ZeroFalse":
+                        return "0ШИБКА. БОЕВАЯ ЕДИНИЦА ЗЕР0 УЖЕ АКТИВНА. ПОЖАЛУЙСТА, ПОПРОБУЙТЕ СНОВА ПОЗЖЕ.";
+                        case "ZeroVoidZoneFalse":
+                        return "0ШИБКА. PLAYER.GETM0DPLAYER<AAPLAYER>(M0D).Z0NEV0ID == FALSE. ПОЖАЛУЙСТА, ПОПРОБУЙТЕ ПОЗЖЕ.";
+                        case "ZeroRuneTrue":
+                        return "ПР0Т0К0Л СУДН0Г0 ДНЯ АКТИВИРОВАН. СИСТЕМЫ УНИЧТ0ЖЕНИЯ РАБОТАЮТ В П0ЛНУЮ СИЛУ.";
+                        case "ZeroTesseractTrue":
+                        return "БОЕВАЯ ЕДИНИЦА ЗЕР0 АКТИВИР0ВАНА. ЗАПУСКАЮ.";
+                        case "ZeroTesseractDownedTrue":
+                        return "ЦЕЛЬ ЗАХВАЧЕНА. ПРОВАЛ В ВЫПОЛНЕНИЙ МИСИИ В ЭТОТ РАЗ НЕВОЗМОЖЕН.";
+                        case "RajahGlobalInfo1":
+                        return "Те кто убивают невинных должны быть НАКАЗАНЫ!";
+                        case "RajahGlobalInfo2":
+                        return "ТЫ СОВЕРШИЛ НЕПРОСТИТЕЛЬНЫЙ ГРЕХ! Я ИЗБАВЛЮ ЭТОТ СМЕРТНЫЙ МИР ОТ ТЕБЯ! ПРИГОТОВЬСЯ К БОЛИ И НАКАЗАНИЮ, ";
+                        case "RajahGlobalInfo3":
+                        return "Глаз разгневанного существа смотрит на вас...";
+                        case "RoyalRabbit1":
+                        return "Те кто убивают невинных должны быть НАКАЗАНЫ";
+                        case "RoyalRabbit2":
+                        return "ТЫ ЗАПЛАТИШЬ ЗА СВОИ ГРЕХИ, ";
+                    }
+                }
             else
                 {
                     switch(BossName)
                     {
                         case "BossAwoken":
                         return " have awoken!";
+                        case "EquinoxWormawoken":
+                        return "The Equinox Worms have awoken!";
                         case "ChaosRuneYamataFalse":
                         return "The imagery of a blazing demon flashes through your mind...";
                         case "ChaosRuneAkumaFalse":
@@ -2312,7 +4334,7 @@ namespace AAMod
                         case "DreadRuneTrue1":
                         return "Yamata has been Awakened!";
                         case "DreadRuneTrue2":
-                        return "Yeah, yeah I get it, my first phase is obnoxious. Let�s just get this over with..!";
+                        return "Yeah, yeah I get it, my first phase is obnoxious. Let's just get this over with..!";
                         case "DreadTimeFalse":
                         return "NO! I DON'T WANNA FIGHT NOW! I NEED MY BEAUTY SLEEP! COME BACK AT NIGHT!";
                         case "DreadFalse1":
@@ -2326,7 +4348,7 @@ namespace AAMod
                         case "DreadSigilTrue1":
                         return "You DARE enter my territory, Terrarian?! NYEHEHEHEHEH..! Big mistake..!";
                         case "DreadSigilTrue2":
-                        return "Back for more..?! This time you won�t be so lucky you little whelp..!";
+                        return "Back for more..?! This time you won't be so lucky you little whelp..!";
                         case "SistersDownedInfo1":
                         return "Again..!? Didin't you learn from last time? Oh well, I'm gonna have a ball blasting you to shreds!";
                         case "SistersDownedInfo2":
@@ -2389,7 +4411,7 @@ namespace AAMod
                 }
             return"";
         }
-        public static string BossCheck(String Boss)
+        public static string BossCheck(string Boss)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -2412,7 +4434,7 @@ namespace AAMod
                         case "FeudalFungus":
                         return "真菌帝";
                         case "FeudalFungusInfo":
-                        return " 在荧光蘑菇地, 或者在晚上召唤";
+                        return " 在荧光蘑菇地召唤";
                         case "GripsofChaos":
                         return "混沌双爪";
                         case "Broodmother":
@@ -2432,13 +4454,37 @@ namespace AAMod
                         case "DesertDjinnInfo":
                         return " 白天在沙漠召唤";
                         case "Sagittarius":
-                        return "射手座-虚空人马";
+                        return "虚空人马";
                         case "SagittariusInfo":
                         return " 在虚空浮岛召唤";
                         case "TruffleToad":
                         return "松露蟾蜍";
                         case "TruffleToadInfo":
                         return " 在荧光蘑菇环境召唤";
+                        case "Greed":
+                        return "金食饕餮";
+                        case "GreedInfo":
+                        return " 在欲望金窟的原欲祭坛\n处召唤. 或者打开3个欲望金窟的贪欲宝箱";
+                        case "Athena":
+                        return "穹武鸮姬";
+                        case "AthenaInfo":
+                        return " 在天穹卫城的天鸮祭坛\n上召唤.";
+                        case "Anubis":
+                        return "阿努比斯 史诗记述者";
+                        case "AnubisInfo":
+                        return " 在沙漠中召唤";
+                        case "AthenaA":
+                        return "复仇的鸮姬";
+                        case "AthenaAInfo":
+                        return "月球领主后击败穹武鸮姬";
+                        case "GreedA":
+                        return "鎏金万蟲王";
+                        case "GreedAInfo":
+                        return "月球领主后击败金食饕餮";
+                        case "AnubisA":
+                        return "逝落断罪师";
+                        case "AnubisAInfo":
+                        return "月球领主后击败阿努比斯";
                         case "Retriever":
                         return "捕猎者-电子猎犬爪";
                         case "TechnoTruffle":
@@ -2448,31 +4494,139 @@ namespace AAMod
                         case "OrthrusX":
                         return "食腐者-双头狗俄耳托斯X型";
                         case "RajahRabbit":
-                        return "忍者巨兔";
+                        return "巨兔王公";
                         case "RajahRabbitInfo":
                         return " 或者像一个无耻混蛋 一样杀100只兔子";
                         case "NightcrawlerDaybringer":
                         return "昼夜双虫";
                         case "SistersofDiscord":
-                        return "混沌姐妹";
+                        return "(远古者)混沌姐妹";
                         case "Yamata":
-                        return "远古之八歧大蛇";
+                        return "(远古者)八歧大蛇";
                         case "YamataInfo":
                         return " 在夜晚潭渊召唤";
                         case "Akuma":
-                        return "远古之邪鬼巨龙";
+                        return "(远古者)邪鬼巨龙";
                         case "AkumaInfo":
                         return " 在白天燎狱召唤";
                         case "Zero":
-                        return "零械单元";
+                        return "(远古者)零械单元";
                         case "ZeroInfo":
                         return " 在浮岛虚空召唤";
                         case "ShenDoragon":
-                        return "上神应龙";
+                        return "(原古者)上神应龙";
                         case "RajahRabbitRevenge":
-                        return "至尊忍者巨兔";
+                        return "(原古者)至尊巨兔王公";
                         case "RajahRabbitRevengeInfo":
                         return " 或者总计杀死1000只 兔子后, 每杀死100只兔子";
+                    }
+                }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(Boss)
+                    {
+                        case "Usean":
+                        return "Используйте ";
+                        case "Usea":
+                        return "Используйте ";
+                        case "Usethe":
+                        return "Используйте ";
+                        case "or":
+                        return " или ";
+                        case "atnight":
+                        return " ночью";
+                        case "MushroomMonarch":
+                        return "Грибной Монарх";
+                        case "MushroomMonarchInfo":
+                        return " днем.";
+                        case "FeudalFungus":
+                        return "Феодальный Гриб";
+                        case "FeudalFungusInfo":
+                        return " в святящемся грибном биоме";
+                        case "GripsofChaos":
+                        return "Тиски Хаоса";
+                        case "Broodmother":
+                        return "Мать Стаи";
+                        case "BroodmotherInfo":
+                        return " в Инферно днем";
+                        case "Hydra":
+                        return "Гидра";
+                        case "HydraInfo":
+                        return " в Трясине ночью";
+                        case "SubzeroSerpent":
+                        return "Тундровая Змея";
+                        case "SubzeroSerpentInfo":
+                        return " в биоме Тундры ночью";
+                        case "DesertDjinn":
+                        return "Пустынный Джинн";
+                        case "DesertDjinnInfo":
+                        return " в биоме Пустыни днем.";
+                        case "Sagittarius":
+                        return "Саггитариус";
+                        case "SagittariusInfo":
+                        return " в Пустоте";
+                        case "TruffleToad":
+                        return "Трюфельная Жаба";
+                        case "TruffleToadInfo":
+                        return " в святящемся грибном биоме";
+                        case "Greed":
+                        return "Жадность";
+                        case "GreedInfo":
+                        return " на Алтаре Желаний в Сокровищнице, или откройте 3 Сундука Жадности в Сокровищнице.";
+                        case "Athena":
+                        return "Афина";
+                        case "AthenaInfo":
+                        return " на Алтаре Совы в Акрополе.";
+                        case "Anubis":
+                        return "Анубис Летописец";
+                        case "AnubisInfo":
+                        return " в биоме Пустыни";
+                        case "AthenaA":
+                        return "Реванш Афины";
+                        case "AthenaAInfo":
+                        return "победите Афину в пост-Мунлорде";
+                        case "GreedA":
+                        return "Король червей Жадность";
+                        case "GreedAInfo":
+                        return "победите Жадность в пост-Мунлорде";
+                        case "AnubisA":
+                        return "Забытый Анубис";
+                        case "AnubisAInfo":
+                        return "победите Анубиса в пост-Мунлорде";
+                        case "Retriever":
+                        return "Ретривер";
+                        case "TechnoTruffle":
+                        return "Техно-Трюфель";
+                        case "RaiderUltima":
+                        return "Рейдер Ультима";
+                        case "OrthrusX":
+                        return "ОрФ Х";
+                        case "RajahRabbit":
+                        return "Кролик Раджа";
+                        case "RajahRabbitInfo":
+                        return " или убейте 100 кроликов как подонок";
+                        case "NightcrawlerDaybringer":
+                        return "Ночной Ползун & Приносящий свет";
+                        case "SistersofDiscord":
+                        return "Сестры Раздора";
+                        case "Yamata":
+                        return "Ямата";
+                        case "YamataInfo":
+                        return " в Трясине ночью";
+                        case "Akuma":
+                        return "Akuma";
+                        case "AkumaInfo":
+                        return " в Инферно днем";
+                        case "Zero":
+                        return "Зер0";
+                        case "ZeroInfo":
+                        return " в Пустоте";
+                        case "ShenDoragon":
+                        return "Шен Дорагон";
+                        case "RajahRabbitRevenge":
+                        return "Месть Кролика Раджи";
+                        case "RajahRabbitRevengeInfo":
+                        return " или каждые 100 кроликов после 1000.";
                     }
                 }
             else
@@ -2496,7 +4650,7 @@ namespace AAMod
                         case "FeudalFungus":
                         return "The Feudal Fungus";
                         case "FeudalFungusInfo":
-                        return " in a Glowing Mushroom Biome or at night";
+                        return " in a Glowing Mushroom Biome";
                         case "GripsofChaos":
                         return "Grips of Chaos";
                         case "Broodmother":
@@ -2523,6 +4677,30 @@ namespace AAMod
                         return "Truffle Toad";
                         case "TruffleToadInfo":
                         return " in a glowing mushroom biome";
+                        case "Greed":
+                        return "Greed";
+                        case "GreedInfo":
+                        return " at the Altar of Desire in the Hoard, or open 3 Greed Chests in Hoard.";
+                        case "Athena":
+                        return "Athena";
+                        case "AthenaInfo":
+                        return " at the owl altar in the Acropolis.";
+                        case "Anubis":
+                        return "Anubis Legendscribe";
+                        case "AnubisInfo":
+                        return " in the desert";
+                        case "AthenaA":
+                        return "Athena Rematch";
+                        case "AthenaAInfo":
+                        return "Defeat Athena post-Moon Lord";
+                        case "GreedA":
+                        return "Worm King Greed";
+                        case "GreedAInfo":
+                        return "Defeat Greed post-Moon Lord";
+                        case "AnubisA":
+                        return "Forsaken Anubis";
+                        case "AnubisAInfo":
+                        return "Defeat Anubis post-Moon Lord";
                         case "Retriever":
                         return "Retriever";
                         case "TechnoTruffle":
@@ -2561,39 +4739,7 @@ namespace AAMod
                 }
             return"";
         }
-        public static string ItemsInfo(String Itemsname)
-        {
-            if(Language.ActiveCulture == GameCulture.Chinese)
-                {
-                    switch(Itemsname)
-                    {
-                        case "GoblinDollInfo":
-                        return "灵魂宝石在你手中具象化";
-                        case "GoblinSoulBuyprice":
-                        return "购买价格:";
-                        case "GoblinSoul":
-                        return "哥布林亡魂";
-                        case "GoblinSouls":
-                        return "哥布林亡魂";
-                    }
-                }
-            else
-                {
-                    switch(Itemsname)
-                    {
-                        case "GoblinDollInfo":
-                        return "The soul stone materializes in your hand";
-                        case "GoblinSoulBuyprice":
-                        return "Buy price:";
-                        case "GoblinSoul":
-                        return "Goblin Soul";
-                        case "GoblinSouls":
-                        return "Goblin Souls";
-                    }
-                }
-            return"";
-        }
-        public static string RajahSPTooltip(String RajahSash)
+        public static string RajahSPTooltip(string RajahSash)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -2616,9 +4762,35 @@ namespace AAMod
                         case "CurrentSpeedBoost:":
                         return "当前速度增加: ";
                         case "CurrentDamageResistance:":
-                        return "当前伤害抗性增加: ";
+                        return "当前伤害减免增加: ";
                         case "Damage":
                         return "伤害";
+                    }
+                }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(RajahSash)
+                    {
+                        case "Melee":
+                        return "ближний";
+                        case "Ranged":
+                        return "Дальний";
+                        case "Magic":
+                        return "Магический";
+                        case "Summoning":
+                        return "Призывной";
+                        case "Throwing":
+                        return "Метательный";
+                        case "DamageType":
+                        return "Тип урона";
+                        case "CurrentDamageBoost:+":
+                        return "Увеличение урона на данный момент: +";
+                        case "CurrentSpeedBoost:":
+                        return "Увеличение скорости на данный момент: +";
+                        case "CurrentDamageResistance:":
+                        return "Уменьшение урона на данный момент: ";
+                        case "Damage":
+                        return "Урон";
                     }
                 }
             else
@@ -2649,7 +4821,93 @@ namespace AAMod
                 }
             return"";
         }
-        public static string TilesInfo(String Tiles)
+        public static string GreedTooltip(string Greed)
+        {
+            if(Language.ActiveCulture == GameCulture.Chinese)
+                {
+                    switch(Greed)
+                    {
+                        case "CurrentDamageBoost:+":
+                        return "当前伤害提升: +";
+                    }
+                }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(Greed)
+                    {
+                        case "CurrentDamageBoost:+":
+                        return "Увеличение урона на данный момент: +";
+                    }
+                }
+            else
+                {
+                    switch(Greed)
+                    {
+                        case "CurrentDamageBoost:+":
+                        return "Current Damage Boost: +";
+                    }
+                }
+            return"";
+        }
+        public static string questFish(string questFishtext)
+        {
+            if(Language.ActiveCulture == GameCulture.Chinese)
+                {
+                    switch(questFishtext)
+                    {
+                        case "Fishmother":
+                        return "好, 那么, 我正穿过燎狱寻找一些热的东西来搞我的传奇恶作剧, 恰巧我看到了这个水下大胖鱼把它周围的水都煮沸了. 我感觉 '完美!' 但是我没法抓住它因为我没带鱼竿. 去抓住它, 我的仆人.";
+                        case "FishmotherLocation":
+                        return "燎狱的任何位置";
+                        case "TriHeadedKoi":
+                        return "我讨厌潭渊. 在我睡觉时间以外什么也看不见, 但是我知道那有一条杀人鱼, 那东西有, 三 个 头. 你能去给我抓来吗?";
+                        case "TriHeadedKoiLocation":
+                        return "潭渊的任何位置";
+                        case "GlitchFish":
+                        return "我曾经一觉醒来看见我头上的恐怖岛屿里有条奇怪的鱼，大概在西边。你去给我抓过来。你说为什么空岛上会有水？自己想办法。";
+                        case "GlitchFishLocation":
+                        return "虚空的任何位置";
+                    }
+                }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(questFishtext)
+                    {
+                        case "Fishmother":
+                        return "Так вот, я ходил по Инферно в поисках чего-нибудь горячего для моего пранка. Тогда я увидел толстую рыбу под водой, кипятящую воду вокруг себя. Я подумал 'ИДЕАЛЬНО', но не мог поймать ее, так как забыл удочку. Иди, достань ее, раб.";
+                        case "FishmotherLocation":
+                        return "Поймано в Инферно";
+                        case "TriHeadedKoi":
+                        return "Я ненавижу Трясину. Там ничего не видно, а даже когда видно, я уже спллю. Но я знаю, что там есть рыба-убийца, у которой ТРИ ГОЛОВЫ. Можешь достать ее для меня?";
+                        case "TriHeadedKoiLocation":
+                        return "Поймано в Трясине";
+                        case "GlitchFish":
+                        return "Я однажды проснулся и увидел странную рыбу в водах пугающего острова, парящего в небе над моей головой, вроде на Западе. Иди и достань ее для меня. Ты спрашиваешь, как на этих островах вообще может быть вода? Подумай сам.";
+                        case "GlitchFishLocation":
+                        return "Поймано в Пустоте";
+                    }
+                }
+            else
+                {
+                    switch(questFishtext)
+                    {
+                        case "Fishmother":
+                        return "Okay so, I was walking through the Inferno looking for something hot for one of my epic pranks, when I saw this fat fish underwater, boiling the water around it. I thought 'PERFECT!' but I couldn't catch it because I didn't have my rod on me. Go get it, slave.";
+                        case "FishmotherLocation":
+                        return "Caught anywhere in the Inferno";
+                        case "TriHeadedKoi":
+                        return "I hate the Mire. I can't see a thing in there unless it's past my bedtime, but I know there's a killer fish in there that I want that has, get this, THREE HEADS. Can you go get it for me?";
+                        case "TriHeadedKoiLocation":
+                        return "Caught anywhere in the Mire";
+                        case "GlitchFish":
+                        return "I once woke up and saw a strange fish in the water of the scary island over my head in the sky, probably in the West. You go get it for me. You ask why there are waters in sky island? Find your own way.";
+                        case "GlitchFishLocation":
+                        return "Caught anywhere in the Void";
+                    }
+                }
+            return"";
+        }
+        public static string TilesInfo(string Tiles)
         {
             if(Language.ActiveCulture == GameCulture.Chinese)
                 {
@@ -2685,6 +4943,40 @@ namespace AAMod
                         return "你听到附近传来嘶嘶声";
                     }
                 }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+                {
+                    switch(Tiles)
+                    {
+                        case "Spawnpointremoved":
+                        return "Точка возрождения задан!!";
+                        case "Spawnpointset":
+                        return "Точка возраждения задана!";
+                        case "DracoAltar1":
+                        return "Боже, сопляк. Может дракон поспать немного? Возвращайся утром. ";
+                        case "DracoAltar2":
+                        return "Эй, сопляк, эта руна работает только единожды, знаешь ли. ";
+                        case "DracoAltar3":
+                        return "Хех, я надеюсь, что ты готов почувствовать ярость пылающего солнца, сопляк.";
+                        case "DracoAltar4":
+                        return "Вернулся за еще одной порцией, сопляк? Тебе заняться нечем? Ты уже победил меня однажды... Ладно, но учти, я не буду с тобой мягок ";
+                        case "DreadAltar1":
+                        return "НЕТ! Я НЕ ХОЧУ СЕЙЧАС ДРАТЬСЯ С ТОБОЙ! МНЕ НУЖЕН МОЙ ПРЕКРАСНЫЙ СОН! ВОЗВРАЩАЙСЯ НОЧЬЮ!";
+                        case "DreadAltar2":
+                        return "ЧТО ТЫ ТВОРИШЬ?! Я УЖЕ ЗДЕСЬ!!!";
+                        case "DreadAltar3":
+                        return "Ты ПОСМЕЛ зайти на мою территорию, террариан?! НЬЕХЕХЕХЕХЕ..! Большая ошибка..!";
+                        case "DreadAltar4":
+                        return "Вернулся за добавкой..?! В этот раз тебе не повезет, маленький засранец..!";
+                        case "DragonEgg1":
+                        return "Звук ломания яйца эхом проходит через вулкан...";
+                        case "DragonEgg2":
+                        return "Вы слышите рычание вдалеке...";
+                        case "HydraPod1":
+                        return "Все содержимое разливается из кокона. Мерзко.";
+                        case "HydraPod2":
+                        return "Вы слышите шипение вдалеке...";
+                    }
+                }
             else
                 {
                     switch(Tiles)
@@ -2698,9 +4990,9 @@ namespace AAMod
                         case "DracoAltar2":
                         return "Hey kid, that Sigil only works once, ya know.";
                         case "DracoAltar3":
-                        return "Heh, I hope you�re ready to feel the fury of the blazing sun kid.";
+                        return "Heh, I hope you're ready to feel the fury of the blazing sun kid.";
                         case "DracoAltar4":
-                        return "Back for more, kid? Don�t you have better things to do? You already beat me once.  Alright, but I won�t go easy on you.";
+                        return "Back for more, kid? Don't you have better things to do? You already beat me once.  Alright, but I won't go easy on you.";
                         case "DreadAltar1":
                         return "NO! I DON'T WANNA FIGHT NOW! I NEED MY BEAUTY SLEEP! COME BACK AT NIGHT!";
                         case "DreadAltar2":
@@ -2708,7 +5000,7 @@ namespace AAMod
                         case "DreadAltar3":
                         return "You DARE enter my territory, Terrarian?! NYEHEHEHEHEH..! Big mistake..!";
                         case "DreadAltar4":
-                        return "Back for more..?! This time you won�t be so lucky you little whelp..!";
+                        return "Back for more..?! This time you won't be so lucky you little whelp..!";
                         case "DragonEgg1":
                         return "The sound of the egg breaking echoes through the volcano...";
                         case "DragonEgg2":
@@ -2722,578 +5014,57 @@ namespace AAMod
                 }
             return"";
         }
-        public static string ArmorBonus(String Armorname)
+        public static string WorldBuild(string Info)
         {
-            if (Language.ActiveCulture == GameCulture.Chinese)
+            if(Language.ActiveCulture == GameCulture.Chinese)
+            {
+                switch(Info)
                 {
-                    switch (Armorname)
-                    {
-                        case "AbyssalBonus":
-                        return @"你的远程攻击具有九头蛇毒的毒性
-减少20%弹药消耗
-敌人减少瞄准你的可能性";
-                        case "AssassinBonus":
-                        return  @"悄声走近, 突然刺杀
-增加18%远程/近战伤害
-减少25%弹药消耗
-双击下键进入隐形状态
-隐形状态下移动不受阻碍
-隐形状态下近战和远程伤害增加";
-                        case "AtlanteanBonus":
-                        return @"完全处于液体中时, 你的魔法能力和防御力提升";
-                        case "BlazingBonus":
-                        return @"增加5%伤害抗性
-敌人更容易瞄准你
-你挥动的武器对敌人造成燃烧";
-                        case "ChaosFukumenBonus":
-                        return "你的远程攻击混合燎狱龙炎和九头蛇毒\n增加20%远程伤害\n敌人更容易瞄准你\n夜视和狩猎效果\n减少25%弹药消耗";
-                        case "ChaosHelmBonus":
-                        return "你免疫大多数负面效果\n站立不动时快速回复生命值\n你免疫击退";
-                        case "ChaosKabutoBonus":
-                        return "增加10%近战速度\n敌人更容易瞄准你\n攻击你的敌人受到灼伤\n你挥动武器造成燎狱龙炎和九头蛇毒";
-                        case "ChaosMaskBonus":
-                        return "完全浸入水中时， 你的魔法能力极大提升\n你可以畅通无阻的游泳";
-                        case "ChaosSkullBonus":
-                        return "你的远程攻击混合燎狱龙炎和九头蛇毒\n45%几率不消耗弹药\n增加20%远程暴击率\n按下能力键向光标进行一次混沌射击";
-                        case "ChaosVisorBonus":
-                        return "+4召唤上限\n一个虚空猎手为你而战";
-                        case "PerfectChaosHoodBonus":
-                        return "“混沌赐予你力量”\n随着你的生命减少， 你的魔法伤害增加， 魔力消耗降低\n你的魔法攻击对敌人造成冥昧业火";
-                        case "PerfectChaosKabutoBonus":
-                        return "“混沌赐予你力量”\n随着你的生命减少， 你的近战伤害和防御力增加\n你的近战攻击对敌人造成冥昧业火";
-                        case "PerfectChaosMaskBonus":
-                        return "“混沌赐予你力量”\n随着你的生命减少， 你的召唤物伤害增加\n你的召唤物攻击对敌人造成冥昧业火";
-                        case "PerfectChaosVisorBonus":
-                        return "“混沌赐予你力量”\n随着你的生命减少， 你的远程伤害和暴击率增加\n你的远程攻击对敌人造成冥昧业火";
-                        case "DarkmatterHeaddressBonus":
-                        return @"增加6召唤上限
-你的召唤物会电击敌人
-夜晚增加8%伤害抗性";
-                        case "DarkmatterHelmBonus":
-                        return "增加30%投掷速度和暴击率\r\n你的投掷武器会电击敌人\r\n夜晚增加8%伤害抗性";
-                        case "DarkmatterHelmetBonus":
-                        return "增加15%近战暴击率和近战速度\r\n你的近战武器会电击敌人\r\n夜晚增加8%伤害抗性";
-                        case "DarkmatterMaskBonus":
-                        return "增加200魔力上限\r\n减少20%魔力消耗\r\n你的魔法攻击会电击敌人\r\n夜晚增加8%伤害抗性";
-                        case "DarkmatterVisorBonus":
-                        return "减少25%弹药消耗\r\n增加20%远程暴击率\r\n你的远程武器会电击敌人\r\n夜晚增加8%伤害抗性";
-                        case "DeathlySkullBonus":
-                        return "如死般默然, 使得怪物更少瞄准你\r\n减少20%弹药消耗";
-                        case "DemonHoodBonus":
-                        return "你的召唤物会让敌人燃烧\r\n你周围总会有一个小恶魔\r\n小恶魔不占用你的召唤上限";
-                        case "DepthFukumenBonus":
-                        return "怪物减少攻击你的可能性\r\n减少20%弹药消耗\r\n夜视";
-                        case "FishDiverMaskABonus":
-                        return "“冲洗时间”\r\n你的所有攻击对除了boss以外的敌人造成潮湿\r\n在液体中可以畅快的运动\r\n无限手套可以发挥最大潜力了\r\n你获得了一个“鱼”伙伴";
-                        case "SFishDiverMaskABonus":
-                        return "“冲洗时间”\r\n你的所有攻击对除了boss以外的敌人造成潮湿\r\n在液体中可以畅快的运动\r\n无限手套可以发挥最大潜力了\r\n你获得了一个“鱼”伙伴";
-                        case "MoonHoodABonus":
-                        return "“真是讽刺, 不是吗? ”\r\n你如天上明月一般发光\r\n魔法攻击对目标造成蚀月\r\n你有了一个月亮伙伴";
-                        case "TiedsMaskABonus":
-                        return "“苏联人对我一无所知”\n你所有的近战攻击都会造成燎狱咒焰\n一个闹灵伙伴为你照明";
-                        case "DoomiteVisorBonus":
-                        return "+1召唤上限\r\n一个虚空搜索者为你而战";
-                        case "DoomiteUHelmBonus":
-                        return "增加召唤物击退";
-                        case "DoomsdayMaskBonus":
-                        return "生命终结系统启动\r\n你可以探测到周围所有的敌对生物\r\n在黑暗中更容易看到\r\n你的召唤物对敌人造成一段时间的防御力削弱\r\n+5召唤上限";
-                        case "DoomsdayHelmetBonus":
-                        return "生命终结系统启动\r\n你可以探测到周围所有的敌对生物\r\n在黑暗中更容易看到\r\n你的魔法攻击对敌人造成一段时间的防御力削弱\r\n减少30%魔力消耗";
-                        case "DracoHelmBonus":
-                        return "“狂焰之怒充满了你的身体”\r\n你免疫所有冰系debuff\r\n你的灵魂灼烧如同狂焰之怒\r\n你的近战攻击对目标造成破晓";
-                        case "DreadHelmBonus":
-                        return "“沉渊之怒让你大发雷霆”\r\n你免疫所有火系debuff\r\n你如天上恐惧之月般发光\r\n你的远程伤害对目标造成蚀月";
-                        case "DynaskullBonus":
-                        return "你的远程弹药相当强大, 震荡力使得目标混乱";
-                        case "FleshrendHelmBonus":
-                        return "受到敌人攻击会产生血泉喷裂对周围敌人造成伤害\r\n提高生命回复速度";
-                        case "FulguriteHelmBonus":
-                        return "受到攻击时从你的身体中爆发一阵闪电, 击退敌人\r\n减少20%魔法消耗";
-                        case "FulguriteHelmetBonus":
-                        return "受到攻击时从你的身体中爆发一阵闪电, 击退敌人\r\n增加20%近战速度和移动速度";
-                        case "FulguriteVisorBonus":
-                        return "受到攻击时从你的身体中爆发一阵闪电, 击退敌人\r\n25%几率不消耗弹药";
-                        case "ShroomHatBonus":
-                        return "你对法力病免疫";
-                        case "GoblinSlayerHelmBonus":
-                        return "对哥布林增加500%伤害和击退\r\n增加80%对哥布林的伤害抗性\r\n“我只想猎杀哥布林”";
-                        case "HoodlumHoodBonus":
-                        return "生命值低于一半时， 移动速度、近战伤害和召唤伤害将增加50%";
-                        case "HeartstoneHelmetBonus":
-                        return "生命值低于40时, 伤害加倍";
-                        case "ImpHoodBonus":
-                        return "你的召唤物对敌人造成燃烧";
-                        case "LeviathanHelmBonus":
-                        return "生命值低于一半时， 移动速度、远程战伤害和魔法伤害将增加50%";
-                        case "KindledKabutoBonus":
-                        return "增加5%伤害抗性\r\n你挥动的武器对敌人造成灼伤";
-                        case "MadnessVisorBonus":
-                        return "增加5%伤害";
-                        case "MadTitanChestplateBonus":
-                        return "无限手套现在正是最强之时\r\n“狂热泰坦的力量就在你的指尖”\r\n(译者注：你也是灭霸? )";
-                        case "MadTitanVestBonus":
-                        return "无限手套现在正是最强之时\r\n“狂热泰坦的力量就在你的指尖”\r\n(译者注：你也是灭霸? )";
-                        case "MechHelmBonus":
-                        return "增加10%伤害抗性";
-                        case "MushiumHatBonus":
-                        return "药水病的时间减少25%";
-                        case "NightmareHelmetBonus":
-                        return "增加10%移动速度";
-                        case "NightsHelmBonus":
-                        return "受到敌人攻击让你获得速度狂潮, 短时间内提高移动速度\r\n增加22%移动速度";
-                        case "OceanHelmBonus":
-                        return "完全处于水中时增加20%魔法伤害并且减少15%魔力消耗";
-                        case "OroborosHelmetBonus":
-                        return "+3防御";
-                        case "AdamantitePaintBonus":
-                        return "+4召唤上限";
-                        case "ChlorophytePaintBonus":
-                        return "+6召唤上限\r\n向周围的敌人发射水晶叶";
-                        case "CobaltPaintBonus":
-                        return "+2召唤上限";
-                        case "FulguritePaintBonus":
-                        return "受到攻击时从你的身体中爆发一阵闪电, 击退敌人\r\n+5召唤上限";
-                        case "HallowedPaintBonus":
-                        return "+6召唤上限";
-                        case "MythrilPaintBonus":
-                        return "+3召唤上限";
-                        case "OrichalcumPaintBonus":
-                        return "花瓣会落在你的目标身上, 造成额外伤害\r\n+2召唤上限";
-                        case "PalladiumPaintBonus":
-                        return "+1召唤上限\r\n击中敌人后, 极大增加生命回复";
-                        case "TechneciumPaintBonus":
-                        return "+4召唤伤害\r\n攻击你的敌人受到电击";
-                        case "TerraPaintBonus":
-                        return "+7召唤上限";
-                        case "TitaniumPaintBonus":
-                        return "+4召唤上限\r\n你的召唤物攻击敌人后会短暂无敌";
-                        case "UraniumPaintBonus":
-                        return "+3召唤上限\r\n靠近你的敌人受到你盔甲的辐射灼伤";
-                        case "YttriumPaintBonus":
-                        return "+2召唤上限\r\n你可以进行闪电般的冲刺";
-                        case "Paladin_HelmetBonus":
-                        return "+100生命上限\r\n获得圣骑士盾效果";
-                        case "RadiumHatBonus":
-                        return "+7召唤上限\r\n受到攻击会有星星从天堂坠落并增加你的移动速度\r\n白天增加30%移动速度";
-                        case "RadiumHeadgearBonus":
-                        return "减少25%弹药消耗\r\n增加20%远程暴击率\r\n受到攻击会有星星从天堂坠落并增加你的移动速度";
-                        case "RadiumHelmBonus":
-                        return "增加30%投掷暴击率和速度\r\n受到攻击会有星星从天堂坠落并增加你的移动速度\r\n白天增加30%移动速度";
-                        case "RadiumHelmetBonus":
-                        return "增加15%近战暴击率和速度\r\n受到攻击会有星星从天堂坠落并增加你的移动速度\r\n白天增加30%移动速度";
-                        case "RadiumMaskBonus":
-                        return "+200魔力上限\r\n减少20%魔力消耗\r\n受到攻击会有星星从天堂坠落并增加你的移动速度\r\n白天增加30%移动速度";
-                        case "RaiderChestBonus":
-                        return "你不会被击退\r\n随着你的生命值降低, 你的伤害抗性将提高";
-                        case "StarcloudHeadgearBonus":
-                        return "生命值低于60时, 增加100%召唤物和魔法伤害";
-                        case "StarcrystalHelmBonus":
-                        return "魔法低于20%最大值时, 伤害变成2倍";
-                        case "TechneciumHelmetBonus":
-                        return "攻击你的敌人受到电击";
-                        case "TechneciumMaskBonus":
-                        return "攻击你的敌人受到电击";
-                        case "TechneciumVisorBonus":
-                        return "攻击你的敌人受到电击";
-                        case "TribalHatBonus":
-                        return "你有幸获得大自然的馈赠, 让你自动使用魔力药剂\r\n减少30%魔法消耗";
-                        case "TrueAbyssalFukumenBonus":
-                        return "你的远程攻击具有九头蛇毒的毒性\r\n敌人减少瞄准你的可能性\r\n减少25%弹药消耗\r\n藏于阴影中, 你进入隐身状态";
-                        case "TrueAtlanteanHelmBonus":
-                        return "完全处于液体中时, 玩家魔法能力大幅度提升\n你可以在水中畅通无阻的游泳";
-                        case "TrueBlazingKabutoBonus":
-                        return "增加5%伤害抗性\r\n敌人更容易瞄准你\r\n攻击你的敌人获得燃烧\r\n你挥动的武器对敌人造成燃烧";
-                        case "TrueCopperHelmBonus":
-                        return "“你周围的大地魔力赐予你能量”\r\n受到攻击时释放出铜之魂攻击敌人";
-                        case "TrueDeathlySkullBonus":
-                        return "如死般默然, 使得怪物更少瞄准你\r\n减少25%弹药消耗\r\n死亡是你的灵魂物质化, 复活\r\n重生时, 你获得更多的无敌帧, 但是你的防御降低10\r\n(译者注：原句While Etheral, you have more invincibility frames, but your\r\n defense is reduced by 10, 这里Etheral意味不明)";
-                        case "TrueDemonHoodBonus":
-                        return "你的召唤物对敌人造成影炎\r\n你周围总会有一个小恶魔\r\n小恶魔不占用你的召唤上限";
-                        case "TrueDoomiteVisorBonus":
-                        return "+4召唤上限\r\n虚空搜索者为你而战";
-                        case "TrueDynaskullBonus":
-                        return "你的远程弹药相当强大, 震荡力使得目标混乱\r\n有45%几率不消耗弹药\r\n按下Ability能力键朝你的光标进行一次王骨射击";
-                        case "TrueFleshrendHelmBonus":
-                        return "受到敌人攻击会产生血泉喷裂对周围敌人造成伤害\r\n极大提高生命回复\r\n近战暴击会吸取敌人的生命治疗自己\r\n你的所有近战攻击产生脓血效果";
-                        case "TrueHallowedHelmBonus":
-                        return "20%不消耗弹药, 减少魔法消耗, 增加近战和移动速度";
-                        case "TrueNightsHelmBonus":
-                        return "受到敌人攻击让你获得速度狂潮, 短时间内提高移动速度\r\n增加44%移动速度\r\n杀死敌人有25％的几率使得它们产生诅咒爆发, 对周围的敌人造成伤害\r\n你的近战攻击造成咒焰";
-                        case "TrueRaiderPlateBonus":
-                        return "你免疫寒冷, 冻结和霜冻debuff\r\n静止时快速回复生命\r\n免疫击退";
-                        case "TrueTribalHatBonus":
-                        return "你有幸获得大自然的馈赠, 让你自动使用魔力药剂\r\n减少40%魔力消耗\r\n丛林保护着你, 不断在周围产生孢子";
-                        case "UraniumHeadgearBonus":
-                        return "靠近你的敌人受到你盔甲的辐射灼伤";
-                        case "UraniumHoodBonus":
-                        return "靠近你的敌人受到你盔甲的辐射灼伤";
-                        case "UraniumVisorBonus":
-                        return "靠近你的敌人受到你盔甲的辐射灼伤";
-                        case "VikingPlateBonus":
-                        return "增加4%伤害抗性";
-                        case "WitchHoodBonus":
-                        return "灼热并且燃烧\r\n增加20%魔法/召唤伤害\r\n+4召唤上限\r\n一个狱焰之灵保护着你\r\n越少的法力, 使得狱焰之灵更强大";
-                        case "YtriumHeadgearBonus":
-                        return "你可以进行闪电般的冲刺";
-                        case "YtriumHelmBonus":
-                        return "你可以进行闪电般的冲刺";
-                        case "YtriumMaskBonus":
-                        return "你可以进行闪电般的冲刺";
-                        case "ZeroDeath1":
-                        return "任 务 失 败. 向 基 地 发 送 遇 难 信 号. ";
-                        case "ZeroDeath2":
-                        return "任 务 失 败. 再 次 尝 试 发 送 遇 难 信 号. ";
-                        case "ZeroDeath3":
-                        return "信 号 发 送 中...";
-                        case "ZeroDeath4":
-                        return "收 到 遇 难 信 号. ";
-                    }
+                    case "Info1":
+                    return "安置混沌祭坛";
+                    case "Info2":
+                    return "混沌蔓延";
+                    case "Info3":
+                    return "把土壤焦化成燎狱";
+                    case "Info4":
+                    return "给潭渊蓄水";
+                    case "Info5":
+                    return "建筑泰拉心球";
                 }
+            }
+            else if(Language.ActiveCulture == GameCulture.Russian)
+            {
+                switch(Info)
+                {
+                    case "Info1":
+                    return "Расставляет алтари хаоса";
+                    case "Info2":
+                    return "Распространяет хаос";
+                    case "Info3":
+                    return "Зажигает Инферно";
+                    case "Info4":
+                    return "Затапливает Трясину.";
+                    case "Info5":
+                    return "Строит Террариум";
+                }
+            }
             else
+            {
+                switch(Info)
                 {
-                    switch (Armorname)
-                    {
-                        case "AbyssalBonus":
-                        return @"Your ranged attacks are imbued with the poisonous properties of hydra venom
-20% decreased ammo consumption
-Enemies are less likely to target you";
-                        case "AssassinBonus":
-                        return  @"Slash and Stalk.
-18% increased Melee and Ranged damage
-25% decreased ammo consumption
-Enemies are less likely to target you
-you can do a swift dash";
-                        case "AtlanteanBonus":
-                        return @"While submerged in liquids, your magic abilities and defense are enhanced";
-                        case "BlazingBonus":
-                        return @"5% increased damage resistance
-Enemies are more likely to target you
-Your Swung weapons set your enemies ablaze";
-                        case "ChaosFukumenBonus":
-                        return @"Your ranged attacks are imbued with the chaos of Dragonfire and Bogtoxin
-20% increased ranged damage
-Enemies are less likely to target you
-Night Vision and hunter effects
-25% reduced ammo consumption";
-                        case "ChaosHelmBonus":
-                        return @"You are immune to most debuffs
-You quickly regenerate your HP while standing still
-You are immune to knockback";
-                        case "ChaosKabutoBonus":
-                        return @"10% increased melee speed
-Enemies are more likely to target you
-Enemies that strike you are set ablaze
-Your Swung weapons inflicts them with Bogtoxin and Dragonflame";
-                        case "ChaosMaskBonus":
-                        return @"While submerged in liquids, your magic abilities are increased drastically
-You can swim and liquid does not affect your movement";
-                        case "ChaosSkullBonus":
-                        return @"Your ranged attacks are imbued with the chaos of Dragonfire and Bogtoxin
-45% chance to not consume ammo
-20% increased ranged critical chance
-Pressing the Ability hotkey fires off a chaos shot towards your cursor";
-                        case "ChaosVisorBonus":
-                        return @"+4 Minion slots
-A void scout hunts down your foes for you";
-                        case "PerfectChaosHoodBonus":
-                        return @"'Chaos empowers you'
-As your health decreases, your magic damage increases and your mana consumption decreases
-Your magic attacks raze your oponents with the flames of discordian hell";
-                        case "PerfectChaosKabutoBonus":
-                        return @"'Chaos empowers you'
-As your health decreases, your melee damage and defense increase
-Your attacks raze your oponents with the flames of Chaos";
-                        case "PerfectChaosMaskBonus":
-                        return @"'Chaos empowers you'
-As your health decreases, your minion damage increases
-Your minions raze your oponents with the flames of discordian hell";
-                        case "PerfectChaosVisorBonus":
-                        return @"'Chaos empowers you'
-As your health decreases, your ranged damage and critical chance increases
-Your ranged attacks raze your oponents with the flames of discordian hell";
-                        case "DarkmatterHeaddressBonus":
-                        return @"Increases max number of minions by 6
-Your minions electrocute enemies
-8% increased damage resistance at night";
-                        case "DarkmatterHelmBonus":
-                        return @"30% throwing crit chance and velocity
-Your thrown weapons electrocute enemies
-8% increased damage resistance at night";
-                        case "DarkmatterHelmetBonus":
-                        return @"15% increased melee critical chance and speed
-Your melee weapons electrocute enemies
-8% increased damage resistance at night";
-                        case "DarkmatterMaskBonus":
-                        return  @"200 increased maximum mana
-20% reduced mana usage
-Your Magic spells electrocute enemies
-8% increased damage resistance at night";
-                        case "DarkmatterVisorBonus":
-                        return @"25% decreased ammo consumption
-20% increased ranged critical chance
-Your ranged ammunition electrocute enemies
-8% increased damage resistance at night";
-                        case "DeathlySkullBonus":
-                        return @"You are as quiet as death itself, making enemies less likely to target you
-20% Reduced Ammo Consumption";
-                        case "DemonHoodBonus":
-                        return @"Your minions set enemies ablaze
-You Always have a small Imp servant by your side
-Imp isn't counted in your max minion count";
-                        case "DepthFukumenBonus":
-                        return @"Enemies are less likely to target you
-20% decreased ammo consumption
-Nightvision";
-                        case "FishDiverMaskABonus":
-                        return @"'Hosing time.'
-All of your attacks inflict wet to non-boss enemies
-Grants uninhibited liquid movement
-The Infinity Gauntlet is now at its max potential
-You gain a fishy companion";
-                        case "SFishDiverMaskABonus":
-                        return @"'Hosing time.'
-All of your attacks inflict wet to non-boss enemies
-Grants uninhibited liquid movement
-The Infinity Gauntlet is now at its max potential
-You gain a fishy companion";
-                        case "MoonHoodABonus":
-                        return @"'Stings, doesn't it?'
-You glow like the moon in the sky
-Magic attacks inflict Moonraze on your target
-You have a lunar friend to assist you";
-                        case "TiedsMaskABonus":
-                        return @"'The soviets have got nothing on me'
-All of your melee attacks inflict cursed inferno
-A spooky friend lights your way";
-                        case "DoomiteVisorBonus":
-                        return @"+1 Max Minion
-A void searcher fights by your side";
-                        case "DoomiteUHelmBonus":
-                        return  @"Increases max amount of minions by 2
-Increases your minions knockback";
-                        case "DoomsdayMaskBonus":
-                        return @"Life termination systems activated
-You detect all hostile life around you
-You can see in the dark much more easily
-Your minion's attacks are strong enough to weaken your enemies defense for a time
-+5 Minion slots";
-                        case "DoomsdayHelmetBonus":
-                        return @"Life termination systems activated
-You detect all hostile life around you
-You can see in the dark much more easily
-Your magic attacks are strong enough to weaken your enemies defense for a time
-Mana usage reduced by 30%";
-                        case "DracoHelmBonus":
-                        return @"'Blazing fury consumes you'
-You are immune to all ice-related debuffs
-You glow like the blazing fire in your soul
-Your Melee attacks inflict Daybreak on your target";
-                        case "DreadHelmBonus":
-                        return @"'Abyssal Wrath enrages you'
-You are immune to all fire-related debuffs
-You glow like the dread moon in the sky
-Your ranged attacks inflict Moonraze on your target";
-                        case "DynaskullBonus":
-                        return @"Your ranged projectiles have so much power behind them, they confuse the target due to concussive force";
-                        case "FleshrendHelmBonus":
-                        return @"Being hit by enemies triggers a bloodsplosion that damages all enemies around you
-Increased life regen";
-                        case "FulguriteHelmBonus":
-                        return @"Being struck causes a burst of lightning to erupt from your body, knocking back enemies
--20% Mana Usage";
-                        case "FulguriteHelmetBonus":
-                        return @"Being struck causes a burst of lightning to erupt from your body, knocking back enemies
-+20% increased melee and movement speed";
-                        case "FulguriteVisorBonus":
-                        return @"Being struck causes a burst of lightning to erupt from your body, knocking back enemies
-25% chance to not consume ammo weapons";
-                        case "ShroomHatBonus":
-                        return @"You are immune to Mana Sickness";
-                        case "GoblinSlayerHelmBonus":
-                        return @"500% increased damage and knockback to goblins
-80% damage resistance from goblins
-'I hunt goblins or nothing.'";
-                        case "HoodlumHoodBonus":
-                        return @"Reaching below half heath multiplies your movement speed, melee damage, and minion damage by 50%";
-                        case "HeartstoneHelmetBonus":
-                        return "Doubles damage when health is below 40";
-                        case "ImpHoodBonus":
-                        return "Your minions set enemies ablaze";
-                        case "LeviathanHelmBonus":
-                        return @"Reaching below half heath multiplies your movement speed, ranged damage, and magic damage by 50%";
-                        case "KindledKabutoBonus":
-                        return @"5% increased damage resistance
-Your Swung weapons set your enemies ablaze";
-                        case "MadnessVisorBonus":
-                        return "+5% damage";
-                        case "MadTitanChestplateBonus":
-                        return @"The infinity gauntlet is now at it's most powerful
-'The power of a mad titan is now at your fingertips'";
-                        case "MadTitanVestBonus":
-                        return @"The infinity gauntlet is now at it's most powerful
-'The power of a mad titan is now at your fingertips'";
-                        case "MechHelmBonus":
-                        return "+10% Damage Resistance";
-                        case "MushiumHatBonus":
-                        return @"Potion Sickness time is cut by 25%";
-                        case "NightmareHelmetBonus":
-                        return "+10% movement speed";
-                        case "NightsHelmBonus":
-                        return @"Being hit by enemies Sends you into a speed frenzy, increasing movement speed for a short time
-22% Increased Movement speed";
-                        case "OceanHelmBonus":
-                        return @"20% increased magic damage and 15% mana use reduction while submerged in water";
-                        case "OroborosHelmetBonus":
-                        return @"+3 Defence";
-                        case "AdamantitePaintBonus":
-                        return @"+4 Minion slots";
-                        case "ChlorophytePaintBonus":
-                        return @"+6 Minion slots
-Shoots crystal leaves at nearby enemies";
-                        case "CobaltPaintBonus":
-                        return @"+2 Minion slots";
-                        case "FulguritePaintBonus":
-                        return @"Being struck causes a burst of lightning to erupt from your body, knocking back enemies
-+5 Minion slots";
-                        case "HallowedPaintBonus":
-                        return @"+6 Minion slots";
-                        case "MythrilPaintBonus":
-                        return @"+3 Minion slots";
-                        case "OrichalcumPaintBonus":
-                        return @"Flower petals will fall on your target for extra damage
-+2 Minion slots";
-                        case "PalladiumPaintBonus":
-                        return @"+1 Minion Slot
-Greatly increases life regeneration after striking an enemy";
-                        case "TechneciumPaintBonus":
-                        return @"+4 Minion slots
-Enemies that hit you are electrified";
-                        case "TerraPaintBonus":
-                        return @"+7 Minion slots";
-                        case "TitaniumPaintBonus":
-                        return @"+4 Minion slots
-Briefly become invulnerable after your minions strike an enemy";
-                        case "UraniumPaintBonus":
-                        return @"+3 Minion slots
-Enemies near you are burned by radiation emitted by your armor";
-                        case "YttriumPaintBonus":
-                        return @"+2 Minion slots
-You can do a lightning-quick dash";
-                        case "Paladin_HelmetBonus":
-                        return @"+100 Health
-Effects of the Paladin's Shield";
-                        case "RadiumHatBonus":
-                        return @"Increases max number of minions by 7
-Being hit causes stars from the heavans to fall around you and increases your movement speed
-30% increased movement speed during the day";
-                        case "RadiumHeadgearBonus":
-                        return @"25% decreased ammo consumption
-20% increased ranged critical chance
-Being hit causes stars from the heavans to fall around you and increases your movement speed";
-                        case "RadiumHelmBonus":
-                        return @"30% throwing crit chance and velocity
-Being hit causes stars from the heavans to fall around you and increases your movement speed
-30% increased movement speed during the day";
-                        case "RadiumHelmetBonus":
-                        return @"15% increased melee critical chance and speed
-Being hit causes stars from the heavans to fall around you and increases your movement speed
-30% increased movement speed during the day";
-                        case "RadiumMaskBonus":
-                        return @"200 increased maximum mana
-20% reduced mana usage
-Being hit causes stars from the heavans to fall around you and increases your movement speed
-30% increased movement speed during the day";
-                        case "RaiderChestBonus":
-                        return @"You cannot be knocked back
-As your health goes down, your damage resistance goes up";
-                        case "StarcloudHeadgearBonus":
-                        return "+ 100% minion and magic damage if health is below 60.";
-                        case "StarcrystalHelmBonus":
-                        return "Doubles damage when mana is below 20% maximum capacity";
-                        case "TechneciumHelmetBonus":
-                        return @"Enemies that hit you are electrified";
-                        case "TechneciumMaskBonus":
-                        return @"Enemies that hit you are inflicted with electrified";
-                        case "TechneciumVisorBonus":
-                        return @"Enemies that hit you are inflicted with electrified";
-                        case "TribalHatBonus":
-                        return @"You are blessed with a gift of nature, allowing you to autodrink mana potions
-Mana usage lowered by 30%";
-                        case "TrueAbyssalFukumenBonus":
-                        return @"Your ranged attacks are imbued with the venomous properties of bogtoxin
-Enemies are less likely to target you
-Night Vision and hunter effects
-25% reduced ammo consumption";
-                        case "TrueAtlanteanHelmBonus":
-                        return @"While submerged in water, your magic abilities are increased drastically
-You can swim and water does not affect your movement";
-                        case "TrueBlazingKabutoBonus":
-                        return @"5% increased damage resistance
-Enemies are more likely to target you
-Enemies that strike you are set ablaze
-Your Swung weapons set your enemies ablaze";
-                        case "TrueCopperHelmBonus":
-                        return @"'You are empowered by the magic of the earth around you'
-Being struck releases a copper soul that strikes your enemies";
-                        case "TrueDeathlySkullBonus":
-                        return @"You are as quiet as death itself, making enemies less likely to target you
-25% Reduced Ammo Consumption
-Being killed causes your spirit to materialize, reviving you
-While Etheral, you have more invincibility frames, but your defense is reduced by 10";
-                        case "TrueDemonHoodBonus":
-                        return @"Your minions bathe your enemies in shadowflame
-You Always have an Imp army by your side
-Imp army doesn't affect minion count";
-                        case "TrueDoomiteVisorBonus":
-                        return @"+4 Minion slots
-A void scout hunts down your foes for you";
-                        case "TrueDynaskullBonus":
-                        return @"Your ranged projectiles have so much power behind them, they confuse the target due to concussive force
-45% chance to not consume ammo
-Pressing the Ability hotkey fires off a dynaskull shot towards your cursor";
-                        case "TrueFleshrendHelmBonus":
-                        return @"Being hit by enemies triggers a bloodsplosion that damages all enemies around you
-Massively increased life regen
-Strong Melee hits leech life from enemies to heal you
-You inflict Ichor with all of your melee attacks";
-                        case "TrueHallowedHelmBonus":
-                        return @"20% Chance not to Consume Ammo, reduced mana usage, increased melee, and movement speed";
-                        case "TrueNightsHelmBonus":
-                        return @"Being hit by enemies Sends you into a speed frenzy, increasing movement speed for a short time
-44% Increased Movement speed
-Killing enemies has a 25% chance to cause them to erupt into a cursed explosion that damages enemies around it
-Your melee attacks inflict cursed inferno";
-                        case "TrueRaiderPlateBonus":
-                        return @"You are immune to all cold-related debuffs
-You quickly regenerate your HP while standing still
-You are immune to knockback";
-                        case "TrueTribalHatBonus":
-                        return @"You are blessed with a gift of nature, allowing you to autodrink mana potions
-Mana usage lowered by 40%
-The jungle gives you protection, causing deadly spores to spawn around you";
-                        case "UraniumHeadgearBonus":
-                        return @"Enemies near you are burned by radiation emitted by your armor";
-                        case "UraniumHoodBonus":
-                        return @"Enemies near you are burned by radiation emitted by your armor";
-                        case "UraniumVisorBonus":
-                        return @"Enemies near you are burned by radiation emitted by your armor";
-                        case "VikingPlateBonus":
-                        return @"4% Increased damage resistance";
-                        case "WitchHoodBonus":
-                        return @"Scorch and Burn.
-20% Increased Magic and Minion damage
-+4 max minions
-A Fire spirit protects you
-The Fire spirit becomes more powerful the less mana you have";
-                        case "YtriumHeadgearBonus":
-                        return @"You can do a lightning-quick dash.";
-                        case "YtriumHelmBonus":
-                        return @"You can do a lightning-quick dash.";
-                        case "YtriumMaskBonus":
-                        return @"You can do a lightning-quick dash.";
-                    }
+                    case "Info1":
+                    return "Placing Chaos Altars";
+                    case "Info2":
+                    return "Spreading Chaos";
+                    case "Info3":
+                    return "Scorching the Inferno";
+                    case "Info4":
+                    return "Flooding the Mire";
+                    case "Info5":
+                    return "Constructing the Terrarium";
                 }
-            return "";
+            }
+            return"";
         }
     }
 }

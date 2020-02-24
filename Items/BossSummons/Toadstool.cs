@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using BaseMod;
@@ -13,8 +14,9 @@ namespace AAMod.Items.BossSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Toadstool");
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
             Tooltip.SetDefault(@"Summons the Truffle Toad
-Can only be used in a surface glowing mushroom biome");
+Can only be used in a glowing mushroom biome");
         }
 
         public override void SetDefaults()
@@ -32,21 +34,21 @@ Can only be used in a surface glowing mushroom biome");
 
         public override bool UseItem(Player player)
         {
-            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("TruffleToad"), true, 0, 0, "The Truffle Toad", false);
+            AAModGlobalNPC.SpawnBoss(player, mod.NPCType("TruffleToad"), true, 0, 0, Language.GetTextValue("Mods.AAMod.Common.TruffleToad"), false);
             Main.PlaySound(15, (int)player.position.X, (int)player.position.Y, 0);
             return true;
         }
 
         public override bool CanUseItem(Player player)
         {
-            if (!player.ZoneGlowshroom && player.Center.Y > Main.worldSurface)
+            if (!player.ZoneGlowshroom)
             {
-                if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("ToadstoolFalse"), Color.Blue, false);
+                if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.ToadstoolFalse1"), Color.Blue, false);
                 return false;
             }
-            if (NPC.AnyNPCs(mod.NPCType<TruffleToad>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<TruffleToad>()))
             {
-                if (player.whoAmI == Main.myPlayer) if (Main.netMode != 1) BaseUtility.Chat(Lang.BossSummonsInfo("ToadstoolTrue"), Color.Blue, false);
+                if (player.whoAmI == Main.myPlayer && player.itemTime == 0 && player.controlUseItem && player.releaseUseItem) if (Main.netMode != 1) BaseUtility.Chat(Language.GetTextValue("Mods.AAMod.Common.ToadstoolFalse2"), Color.Blue, false);
                 return false;
             }
             return true;

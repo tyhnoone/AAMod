@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -108,14 +107,9 @@ namespace AAMod.NPCs.Bosses.Toad
             }
         }
 
-        public override bool PreNPCLoot()
-        {
-            return false;
-        }
-
         public override void PostAI()
         {
-            if (NPC.AnyNPCs(mod.NPCType<TruffleToad>()))
+            if (NPC.AnyNPCs(ModContent.NPCType<TruffleToad>()))
             {
                 if (npc.alpha > 0)
                 {

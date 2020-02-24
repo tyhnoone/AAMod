@@ -16,8 +16,8 @@ namespace AAMod.Items.Ranged
             item.ranged = true;
             item.width = 50;
             item.height = 20;
-            item.useTime = 45;
-            item.useAnimation = 45;
+            item.useTime = 40;
+            item.useAnimation = 40;
             item.useStyle = 5;
             item.shoot = 10;
             item.useAmmo = AmmoID.Bullet;
@@ -43,7 +43,12 @@ namespace AAMod.Items.Ranged
                 Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
             }
             return false;
-		}
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-4, 0);
+        }
 
         public override void AddRecipes()
         {

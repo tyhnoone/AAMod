@@ -77,7 +77,6 @@ namespace AAMod.NPCs.Bosses.Akuma
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(mod.BuffType("DragonFire"), 300);
-            Kill(0);
         }
 
         public override void Kill(int timeLeft)
@@ -87,10 +86,6 @@ namespace AAMod.NPCs.Bosses.Akuma
             {
                 int proj = Projectile.NewProjectile(projectile.position.X, projectile.position.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("AkumaBoom"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
                 Main.projectile[proj].netUpdate = true;
-            }
-            for (int dust = 0; dust <= 4; dust++)
-            {
-                Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, mod.DustType<Dusts.AkumaDust>(), projectile.oldVelocity.X * 0.5f, projectile.oldVelocity.Y * 0.5f);
             }
         }
 

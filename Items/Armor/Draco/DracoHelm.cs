@@ -3,6 +3,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 
 namespace AAMod.Items.Armor.Draco
@@ -14,7 +15,8 @@ namespace AAMod.Items.Armor.Draco
 		{
 			DisplayName.SetDefault("Draconian Sun Kabuto");
 			Tooltip.SetDefault(@"20% increased melee critical chance
-10% increased damage resistance
+3% increased damage resistance
++25 Max Life
 The blazing fury of the Inferno rests in this armor");
 
 		}
@@ -64,8 +66,9 @@ The blazing fury of the Inferno rests in this armor");
         public override void UpdateEquip(Player player)
 		{
 			player.meleeCrit += 20;
-            player.endurance *= 1.1f;
-		}
+            player.endurance += .03f;
+            player.statLifeMax2 += 25;
+        }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -74,12 +77,12 @@ The blazing fury of the Inferno rests in this armor");
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Lang.ArmorBonus("DracoHelmBonus");
+			player.setBonus = Language.GetTextValue("Mods.AAMod.Common.DracoHelmBonus");
 
             player.buffImmune[46] = true;
             player.buffImmune[47] = true;
             player.AddBuff(BuffID.Shine, 2);
-            player.GetModPlayer<AAPlayer>(mod).dracoSet = true;
+            player.GetModPlayer<AAPlayer>().dracoSet = true;
 		}
 
 		public override void AddRecipes()

@@ -15,7 +15,7 @@ namespace AAMod.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>(mod);
+            AAPlayer modPlayer = player.GetModPlayer<AAPlayer>();
             if (modPlayer.perfectChaosRa)
             {
                 if (player.statLife <= player.statLifeMax2 * .2f)
@@ -60,25 +60,25 @@ namespace AAMod.Buffs
             }
             else if (modPlayer.perfectChaosMe)
             {
-                if (player.statLife <= player.statLifeMax2 * .8f)
+                if (player.statLife <= player.statLifeMax2 * .2f)
                 {
-                    player.endurance *= 1.05f;
-                    player.meleeDamage *= 1.1f;
-                }
-                else if (player.statLife <= player.statLifeMax2 * .6f)
-                {
-                    player.endurance *= 1.1f;
-                    player.meleeDamage *= 1.2f;
+                    player.endurance += .06f;
+                    player.meleeDamage += .4f;
                 }
                 else if (player.statLife <= player.statLifeMax2 * .4f)
                 {
-                    player.endurance *= 1.12f;
-                    player.meleeDamage *= 1.3f;
+                    player.endurance += .04f;
+                    player.meleeDamage += .3f;
                 }
-                else if (player.statLife <= player.statLifeMax2 * .2f)
+                else if (player.statLife <= player.statLifeMax2 * .6f)
                 {
-                    player.endurance *= 1.15f;
-                    player.meleeDamage *= 1.4f;
+                    player.endurance += .02f;
+                    player.meleeDamage += .2f;
+                }
+                if (player.statLife <= player.statLifeMax2 * .8f)
+                {
+                    player.endurance += .01f;
+                    player.meleeDamage += .1f;
                 }
             }
             else if (modPlayer.perfectChaosMa)

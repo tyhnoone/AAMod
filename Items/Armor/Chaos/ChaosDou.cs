@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AAMod.Items.Armor.Chaos
@@ -19,8 +20,8 @@ namespace AAMod.Items.Armor.Chaos
 			item.width = 26;
 			item.height = 20;
 			item.value = Item.sellPrice(3, 0, 0, 0);
-            item.rare = 9;
-            item.defense = 24;
+            item.rare = 7;
+            item.defense = 22;
 		}
 
 		public override void UpdateEquip(Player player)
@@ -30,10 +31,10 @@ namespace AAMod.Items.Armor.Chaos
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(AAMod.instance);
+            ModRecipe recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup("AAMod:ChaosPlates");
             recipe.AddIngredient(null, "ChaosCrystal");
-            recipe.AddTile(null, "TruePaladinsSmeltery");
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

@@ -37,7 +37,7 @@ namespace AAMod.NPCs.Enemies.Void
 			bool isDead = npc.life <= 0;
 			for (int m = 0; m < (isDead ? 25 : 5); m++)
 			{
-				int dustType = mod.DustType<VoidDust>();
+				int dustType = ModContent.DustType<VoidDust>();
 				Dust.NewDust(npc.position, npc.width, npc.height, dustType, npc.velocity.X * 0.2f, npc.velocity.Y * 0.2f, 100, Color.White, isDead ? 2f : 1.1f);
 			}
 		}
@@ -72,7 +72,7 @@ namespace AAMod.NPCs.Enemies.Void
 
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("VoidEnergy"), Main.rand.Next(4));
+            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("VoidEnergy"), Main.rand.Next(1, 4));
         }
 
         public override bool PreDraw(SpriteBatch spritebatch, Color dColor)

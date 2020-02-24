@@ -49,5 +49,27 @@ namespace AAMod.Projectiles
             projectile.extraUpdates = 1;
 			aiType = ProjectileID.Bullet;           
 		}
+
+        public override void PostAI()
+        {
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.VoidDust>(), 0, 0, 100, default, 1.5f);
+            }
+            if (projectile.frameCounter++ > 5)
+            {
+                projectile.frameCounter = 0;
+                projectile.frame++;
+                if (projectile.frame > 3)
+                {
+                    projectile.frame = 0;
+                }
+            }
+            if (projectile.velocity == Vector2.Zero)
+            {
+                projectile.active = false;
+            }
+        }
+
 	}
 }

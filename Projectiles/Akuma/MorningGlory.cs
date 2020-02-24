@@ -2,12 +2,13 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AAMod.Projectiles.Akuma
 {
     public class MorningGlory : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Morning Glory");
@@ -18,95 +19,85 @@ namespace AAMod.Projectiles.Akuma
             projectile.width = 24;
             projectile.height = 24;
             projectile.friendly = true;
-            projectile.aiStyle = -1;
-            projectile.ranged = true;
             projectile.penetrate = -1;
-            projectile.extraUpdates = 1;
-            
+            projectile.melee = true;
+			projectile.timeLeft = 180;
+			projectile.usesLocalNPCImmunity = true;
+			projectile.localNPCHitCooldown = 1;
         }
+		
+        private const int alphaReduction = 25;
+		
         public override void AI()
-        {
-            if (projectile.alpha > 0)
+        {	
+			if (projectile.ai[1] != -1f) projectile.rotation =
+				projectile.velocity.ToRotation() + (float)Math.PI / 2 + (float)Math.PI / 4;
+			if (projectile.ai[1] == -1f) projectile.rotation =
+				projectile.velocity.ToRotation() + (float)Math.PI / 2;
+			
+			if (projectile.ai[1] != -1f) projectile.ai[0]++;
+			
+			if (projectile.ai[0] == 1f || projectile.ai[0] == 3f)
+			{
+				int numberProjectiles = 2;
+				float rotation = MathHelper.ToRadians(1);
+				if (projectile.ai[0] == 3f) rotation = MathHelper.ToRadians(2);
+				for (int i = 0; i < numberProjectiles; i++)
+				{
+					Vector2 perturbedSpeed = new Vector2(projectile.velocity.X, projectile.velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
+					int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<MorningGlory>(),  projectile.damage, projectile.knockBack, projectile.owner, 0, -1f);
+					Main.projectile[proj].usesLocalNPCImmunity = true;
+					Main.projectile[proj].localNPCHitCooldown = 10;
+					Main.projectile[proj].penetrate = -1;
+					Main.projectile[proj].rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2 + (float)Math.PI / 4;
+				}
+			}
+
+			if (projectile.ai[1] != -1f)
+			{
+				if (projectile.alpha > 0)
+				{
+					projectile.alpha -= alphaReduction;
+				}
+				if (projectile.alpha < 0)
+				{
+					projectile.alpha = 0;
+				}
+			}
+			if (projectile.ai[1] == -1f)
+			{
+				projectile.alpha += 2;
+				if (projectile.alpha >= 255)
+				{
+					projectile.Kill();
+				}
+			}
+			
+			for (int num189 = 0; num189 < 1; num189++)
             {
-                projectile.alpha -= 25;
-            }
-            if (projectile.alpha < 0)
-            {
-                projectile.alpha = 0;
-            }
-            if (projectile.ai[0] == 0f)
-            {
-                projectile.ai[1] += 1f;
-                if (projectile.ai[1] >= 45f)
-                {
-                    float num975 = 0.98f;
-                    float num976 = 0.35f;
-                    projectile.ai[1] = 45f;
-                    projectile.velocity.X = projectile.velocity.X * num975;
-                    projectile.velocity.Y = projectile.velocity.Y + num976;
-                }
-                projectile.rotation = projectile.velocity.ToRotation() + 1.57079637f;
-            }
-            if (projectile.ai[0] == 1f)
-            {
-                projectile.ignoreWater = true;
-                projectile.tileCollide = false;
-                int num977 = 15;
-                bool flag53 = false;
-                projectile.localAI[0] += 1f;
-                int num978 = (int)projectile.ai[1];
-                if (projectile.localAI[0] >= 60 * num977)
-                {
-                    flag53 = true;
-                }
-                else if (num978 < 0 || num978 >= 200)
-                {
-                    flag53 = true;
-                }
-                else if (Main.npc[num978].active)
-                {
-                    projectile.Center = Main.npc[num978].Center - projectile.velocity * 2f;
-                    projectile.gfxOffY = Main.npc[num978].gfxOffY;
-                }
-                else
-                {
-                    flag53 = true;
-                }
-                if (flag53)
-                {
-                    projectile.Kill();
-                }
+                int num190 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, ModContent.DustType<Dusts.AkumaADust>(), 0f, 0f, 0);
+                
+                Main.dust[num190].scale *= 1.3f;
+                Main.dust[num190].fadeIn = 1f;
+                Main.dust[num190].noGravity = true;
             }
         }
-
-        public bool StuckInEnemy = false;
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            target.AddBuff(BuffID.Daybreak, 60);
-            Rectangle myRect = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
-            bool flag3 = projectile.Colliding(myRect, target.getRect());
-            if (!target.boss)
-            {
-                Main.npc[(int)projectile.ai[1]].AddBuff(mod.BuffType<Buffs.SpearStuck>(), 100000);
-                if (flag3 && !StuckInEnemy)
-                {
-                    int proj = Projectile.NewProjectile(projectile.position, projectile.velocity, mod.ProjectileType<AkumaExp>(), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
-                    Main.projectile[proj].melee = false;
-                    Main.projectile[proj].ranged = true;
-                    StuckInEnemy = true;
-                    projectile.ai[0] = 1f;
-                    projectile.ai[1] = target.whoAmI;
-                    projectile.velocity = (target.Center - projectile.Center) * 0.75f;
-                    projectile.netUpdate = true;
-                }
-            }
-            else
-            {
-                int p = Projectile.NewProjectile(projectile.position, projectile.velocity, mod.ProjectileType<AkumaExp>(), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
-                Main.projectile[p].melee = false;
-                Main.projectile[p].ranged = true;
-            }
+			Texture2D texture = Main.projectileTexture[projectile.type];
+			if (projectile.ai[1] == -1f) texture = mod.GetTexture("Projectiles/Akuma/MorningGloryPhantom");
+            spriteBatch.Draw(texture, new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y + 2),
+                        new Rectangle(0, 0, texture.Width, texture.Height), Color.White, projectile.rotation,
+                        new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
+            return false;
         }
-    }
+
+        public override void Kill(int i)
+        {
+			Main.PlaySound(SoundID.Item14, projectile.position);
+			Projectile.NewProjectile(projectile.position, projectile.velocity, ModContent.ProjectileType<AkumaExp>(), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
+        }
+	}
 }
+ 

@@ -8,8 +8,8 @@ namespace AAMod.Water
 	{
 		public override bool ChooseWaterStyle()
 		{
-            Player player = Main.player[Main.myPlayer];
-            return Main.bgStyle == mod.GetSurfaceBgStyleSlot("MireSurfaceBgStyle") && Main.dayTime && !AAWorld.downedYamata && player.position.Y < Main.worldSurface * 16.0 && !player.buffImmune[mod.BuffType<Buffs.Clueless>()];
+            Player player = Main.LocalPlayer;
+            return Main.bgStyle == mod.GetSurfaceBgStyleSlot("MireSurfaceBgStyle") && Main.dayTime && !AAWorld.downedYamata && player.position.Y < Main.worldSurface * 16.0 && !player.buffImmune[ModContent.BuffType<Buffs.Clueless>()];
         }
         
 		public override int ChooseWaterfallStyle()
